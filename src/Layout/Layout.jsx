@@ -1,10 +1,6 @@
-// import Navber from 'components/Navber/Navber';
-// import Sidebar from 'components/Sidebar/Sidebar';
-import Sidebar from '../components/Sidebar/Sidebar';
 import Navbar from '../components/Navbar/Navbar';
 import { Outlet } from 'react-router-dom';
 import { Box } from '@mui/material';
-import { Calculate } from '@mui/icons-material';
 
 export default function Layout() {
   return (

@@ -3,3 +3,8 @@
 * {
   font-family: 'Roboto', serif;
 }
+
+a {
+  text-decoration: none;
+  display: inline-block;
+}
