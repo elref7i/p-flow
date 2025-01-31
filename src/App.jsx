@@ -8,6 +8,7 @@ import Login from './pages/Login/Login';
 import Signup from './pages/Signup/Signup';
 import GuestRoute from '../src/components/GuestRoute/GuestRoute';
 import Home from './pages/Home/Home';
+import UserTypeProvider from './context/UserType.context';
 
 function App() {
   const router = createBrowserRouter([
@@ -35,7 +36,9 @@ function App() {
   ]);
   return (
     <>
-      <RouterProvider router={router} />
+      <UserTypeProvider>
+        <RouterProvider router={router} />
+      </UserTypeProvider>
     </>
   );
 }

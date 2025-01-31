@@ -5,12 +5,23 @@ import MenuItem from '@mui/material/MenuItem';
 import Fade from '@mui/material/Fade';
 import { Link } from 'react-router-dom';
 import { Box } from '@mui/material';
+import { UserTypeContext } from '../../context/UserType.context';
 
 export default function FadeMenu() {
+  const { userType, setUserType } = React.useContext(UserTypeContext);
+
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
+  };
+  const handleCloseInventory = () => {
+    setAnchorEl(null);
+    setUserType('Inventory'.toLowerCase());
+  };
+  const handleClosPharmacy = () => {
+    setAnchorEl(null);
+    setUserType('pharmacy'.toLowerCase());
   };
   const handleClose = () => {
     setAnchorEl(null);
@@ -57,7 +68,7 @@ export default function FadeMenu() {
                 color: 'black',
               }}
               to={'/signup'}
-              onClick={handleClose}
+              onClick={handleCloseInventory}
             >
               Inventory
             </Link>
@@ -74,7 +85,7 @@ export default function FadeMenu() {
                 color: 'black',
               }}
               to={'/signup'}
-              onClick={handleClose}
+              onClick={handleClosPharmacy}
             >
               Pharmacy
             </Link>

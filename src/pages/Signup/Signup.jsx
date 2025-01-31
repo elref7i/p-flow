@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import {
   Button,
   TextField,
@@ -12,14 +12,55 @@ import {
   styled,
 } from '@mui/material';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
-const steps = [
-  'Pharmacy information',
-  'Owner information',
-  'Location and details',
-];
+import { UserTypeContext } from '../../context/UserType.context';
 
 const SignupForm = () => {
+  const { userType } = useContext(UserTypeContext);
+  // const [formData, setFormData] = useState({
+  //   email: '',
+  //   password: '',
+  //   location: {
+  //     type: 'Point',
+  //     coordinates: [0, 0], // [longitude, latitude]
+  //   },
+  // });
+  // const handleGetLocation = () => {
+  //   if (navigator.geolocation) {
+  //     navigator.geolocation.getCurrentPosition(
+  //       (position) => {
+  //         const { latitude, longitude } = position.coords;
+  //         setFormData((prevData) => ({
+  //           ...prevData,
+  //           location: {
+  //             type: 'Point',
+  //             coordinates: [longitude, latitude], // [longitude, latitude]
+  //           },
+  //         }));
+  //       },
+  //       (error) => {
+  //         console.error('Error getting location:', error);
+  //       }
+  //     );
+  //   } else {
+  //     console.error('Geolocation is not supported by this browser.');
+  //   }
+  // };
   const [activeStep, setActiveStep] = useState(0);
+  const handleUser = () => {
+    console.log(userType);
+
+    if (userType === 'pharmacy'.toLowerCase()) {
+      return 'pharmacy';
+    } else {
+      return 'Inventory';
+    }
+  };
+
+  const steps = [
+    `${handleUser()} information`,
+    'Owner information',
+    'Location and details',
+  ];
 
   const VisuallyHiddenInput = styled('input')({
     clip: 'rect(0 0 0 0)',
@@ -48,8 +89,8 @@ const SignupForm = () => {
           <>
             <TextField
               fullWidth
-              label="pharmacy Name"
-              name="pharmacyName"
+              label={`${handleUser()} Name`}
+              name={`${handleUser()}Name`}
               margin="normal"
               type="text"
             />
@@ -121,7 +162,6 @@ const SignupForm = () => {
               type="text"
             />
 
-            {/* UPload File */}
             <Box
               sx={{
                 mt: 2,
@@ -133,17 +173,18 @@ const SignupForm = () => {
                 mx: 'auto',
               }}
             >
-              <Button
-                component="label"
-                role={undefined}
-                variant="contained"
-                tabIndex={-1}
-                startIcon={<CloudUploadIcon />}
-              >
-                Upload image Of Pharmchy
-                <VisuallyHiddenInput type="file" multiple />
-              </Button>
-              {/* Upload FIle */}
+              {userType === 'pharmacy'.toLowerCase() && (
+                <Button
+                  component="label"
+                  role={undefined}
+                  variant="contained"
+                  tabIndex={-1}
+                  startIcon={<CloudUploadIcon />}
+                >
+                  Upload image Of Pharmchy
+                  <VisuallyHiddenInput type="file" multiple />
+                </Button>
+              )}
               <Button
                 component="label"
                 role={undefined}
@@ -155,6 +196,7 @@ const SignupForm = () => {
                 <VisuallyHiddenInput type="file" multiple />
               </Button>
             </Box>
+            <Button>Get Location</Button>
           </>
         );
       default:
@@ -172,7 +214,7 @@ const SignupForm = () => {
             align="center"
             gutterBottom
           >
-            Sign UP
+            Signup {handleUser()}
           </Typography>
           <Stepper activeStep={activeStep} alternativeLabel>
             {steps.map((label) => (
