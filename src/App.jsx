@@ -9,6 +9,7 @@ import Signup from './pages/Signup/Signup';
 import GuestRoute from '../src/components/GuestRoute/GuestRoute';
 import Home from './pages/Home/Home';
 import UserTypeProvider from './context/UserType.context';
+import Forgetpassword from './pages/Forgetpassword/Forgetpassword';
 
 function App() {
   const router = createBrowserRouter([
@@ -31,6 +32,7 @@ function App() {
       children: [
         { path: '/login', element: <Login /> },
         { path: '/signup', element: <Signup /> },
+        { path: '/forgetpassword', element: <Forgetpassword /> },
       ],
     },
   ]);

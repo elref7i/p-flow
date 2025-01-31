@@ -15,11 +15,17 @@ import {
   InputAdornment,
   IconButton,
 } from '@mui/material';
+import { useFormik } from 'formik';
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
+import * as Yup from 'yup';
 
 export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
-
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  const passwordRegx =
+    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
   const handleMouseDownPassword = (event) => {
@@ -29,6 +35,28 @@ export default function Login() {
   const handleMouseUpPassword = (event) => {
     event.preventDefault();
   };
+
+  const validationSchema = Yup.object({
+    email: Yup.string()
+      .required('Required')
+      .matches(emailRegex, 'Invalid email'),
+    password: Yup.string()
+      .required('Required')
+      .matches(
+        passwordRegx,
+        'Password must contain at least 8 characters, one uppercase, one lowercase, one number and one special case character'
+      ),
+  });
+  const formik = useFormik({
+    initialValues: {
+      email: '',
+      password: '',
+    },
+    validationSchema,
+    onSubmit: (values) => {
+      console.log(values);
+    },
+  });
 
   return (
     <Container maxWidth="xs">
@@ -62,8 +90,11 @@ export default function Login() {
             label="Password"
           />
         </FormControl>
-
-        {/* اختيار نوع المستخدم */}
+        <Box sx={{ display: 'flex', justifyContent: 'end' }}>
+          <Link to="/forgetpassword" style={{ fontStyle: 'italic' }}>
+            Forget Password
+          </Link>
+        </Box>
         <FormControl component="fieldset">
           <FormLabel component="legend">User Type</FormLabel>
           <RadioGroup row>
