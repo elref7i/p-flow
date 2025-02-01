@@ -9,7 +9,11 @@ export default function Layout() {
       {/* <Sidebar /> */}
       <Box
         component={'main'}
-        sx={{ pt: '80px', minHeight: 'calc(100vh-64px)' }}
+        sx={{
+          m: 0,
+          pt: '80px',
+          minHeight: 'calc(100vh)',
+        }}
       >
         <Outlet></Outlet>
       </Box>

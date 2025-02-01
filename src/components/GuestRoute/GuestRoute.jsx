@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import { Navigate } from 'react-router-dom';
 
 export default function GuestRoute({ children }) {
@@ -8,3 +9,6 @@ export default function GuestRoute({ children }) {
     return <Navigate to="/" />;
   }
 }
+GuestRoute.propTypes = {
+  children: PropTypes.node.isRequired,
+};
