@@ -11,11 +11,13 @@ import FadeMenu from '../Common/FadeMenu';
 import InputSearch from '../Common/InputSearch';
 import { Link } from 'react-router-dom';
 import AvatarCircle from '../Common/Avatar';
+import imageLogo from '../../assets/pflow-high-resolution-logo-transparent.png';
+import LogoImage from '../Common/LogoImage';
 
 export default function Navbar() {
   const token = false;
   return (
-    <AppBar sx={{ bgcolor: '#000a', display: 'fixed' }}>
+    <AppBar sx={{ bgcolor: '#fff', display: 'fixed', py: 1 }}>
       <Container maxWidth="lg">
         <Toolbar>
           <Link to="/" style={{ color: 'white' }}>
@@ -23,9 +25,16 @@ export default function Navbar() {
               variant="h6"
               noWrap
               component="div"
-              sx={{ display: { xs: 'none', sm: 'block' } }}
+              sx={{
+                display: {
+                  xs: 'none',
+                  sm: 'block',
+                  fontWeight: 'bold',
+                  fontSize: '25px',
+                },
+              }}
             >
-              P-Flow
+              <LogoImage src={imageLogo} alt="logo" />
             </Typography>
           </Link>
           {token && <InputSearch />}

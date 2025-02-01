@@ -206,7 +206,7 @@ const SignupForm = () => {
 
   return (
     <Box>
-      <Container maxWidth="sm" sx={{ bgcolor: 'white' }}>
+      <Container maxWidth="sm">
         <Paper sx={{ p: 3 }}>
           <Typography
             variant="h3"
