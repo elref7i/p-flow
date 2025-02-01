@@ -16,6 +16,7 @@ import {
   IconButton,
   Paper,
 } from '@mui/material';
+import CustomButton from '../../components/Common/ButtonStyle';
 import { useFormik } from 'formik';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
@@ -69,7 +70,12 @@ export default function Login() {
     >
       <Container maxWidth="xs">
         <Paper sx={{ mt: 5, p: 3, borderRadius: 2 }} elevation={4}>
-          <Typography variant="h5" align="center" gutterBottom>
+          <Typography
+            variant="h5"
+            align="center"
+            gutterBottom
+            sx={{ fontSize: '40px', fontWeight: 'bold' }}
+          >
             Login
           </Typography>
           <TextField fullWidth label="Email" margin="normal" sx={{ mb: 3 }} />
@@ -105,7 +111,7 @@ export default function Login() {
               Forget Password
             </Link>
           </Box>
-          <FormControl component="fieldset">
+          <FormControl component="fieldset" sx={{ mb: 3 }}>
             <FormLabel component="legend">User Type</FormLabel>
             <RadioGroup row>
               <FormControlLabel
@@ -121,9 +127,7 @@ export default function Login() {
             </RadioGroup>
           </FormControl>
 
-          <Button fullWidth variant="contained" color="primary" sx={{ mt: 2 }}>
-            Login
-          </Button>
+          <CustomButton>Login</CustomButton>
         </Paper>
       </Container>
     </Box>

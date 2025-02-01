@@ -1,7 +1,16 @@
-import { Button, TextField, Container, Box, Typography } from '@mui/material';
+import {
+  Button,
+  TextField,
+  Container,
+  Box,
+  Typography,
+  Paper,
+} from '@mui/material';
+import CustomButton from '../../components/Common/ButtonStyle';
 import { useFormik } from 'formik';
 // import { Link } from 'react-router-dom';
 import * as Yup from 'yup';
+import { Link } from 'react-router-dom';
 
 export default function Forgetpassword() {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -22,17 +31,34 @@ export default function Forgetpassword() {
   });
 
   return (
-    <Container maxWidth="xs">
-      <Box sx={{ mt: 5, p: 3, boxShadow: 3, borderRadius: 2 }}>
-        <Typography variant="h5" align="center" gutterBottom>
-          Forgetpassword
-        </Typography>
-        <TextField fullWidth label="Email" margin="normal" sx={{ mb: 3 }} />
+    <Box
+      component={'section'}
+      sx={{
+        minHeight: '80vh',
+        display: 'flex',
+        alignItems: 'center',
+      }}
+    >
+      <Container maxWidth="xs">
+        <Paper sx={{ mt: 5, p: 3, borderRadius: 2 }} elevation={4}>
+          <Box sx={{ mb: 5 }}>
+            <Link to="login">
+              <Link to="/login">Hover Me</Link>
+            </Link>
+          </Box>
+          <Typography
+            variant="h5"
+            sx={{ fontSize: '40px', fontWeight: 'bold' }}
+            align="center"
+            gutterBottom
+          >
+            Forgetpassword
+          </Typography>
+          <TextField fullWidth label="Email" margin="normal" sx={{ mb: 3 }} />
 
-        <Button fullWidth variant="contained" color="primary" sx={{ mt: 2 }}>
-          Send
-        </Button>
-      </Box>
-    </Container>
+          <CustomButton>Send</CustomButton>
+        </Paper>
+      </Container>
+    </Box>
   );
 }
