@@ -94,8 +94,17 @@ export default function Login() {
         >
           Login
         </Typography>
-        <form>
-          <TextField fullWidth label="Email" margin="normal" sx={{ mb: 3 }} />
+        <form onSubmit={formik.handleSubmit}>
+          <TextField
+            fullWidth
+            label="Email"
+            margin="normal"
+            sx={{ mb: 3 }}
+            name="email"
+            value={formik.values.email}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+          />
           <FormControl fullWidth sx={{ mb: 3 }} variant="outlined">
             <InputLabel htmlFor="outlined-adornment-password">
               Password
@@ -103,6 +112,10 @@ export default function Login() {
             <OutlinedInput
               id="outlined-adornment-password"
               type={showPassword ? 'text' : 'password'}
+              name="password"
+              value={formik.values.password}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
               endAdornment={
                 <InputAdornment position="end">
                   <IconButton
@@ -151,7 +164,7 @@ export default function Login() {
               />
             </RadioGroup>
           </FormControl>
-          <CustomButton w="100%" sm="75%" md="50%">
+          <CustomButton type="submit" w="100%" sm="75%" md="50%">
             Login
           </CustomButton>
         </form>

@@ -2,7 +2,6 @@ import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
 import Badge from '@mui/material/Badge';
 import MailIcon from '@mui/icons-material/Mail';
 import NotificationsIcon from '@mui/icons-material/Notifications';
@@ -22,9 +21,7 @@ export default function Navbar() {
       <Container maxWidth="lg">
         <Toolbar>
           <Link to="/" style={{ color: 'white' }}>
-            <Typography
-              variant="h6"
-              noWrap
+            <Box
               component="div"
               sx={{
                 display: {
@@ -36,7 +33,7 @@ export default function Navbar() {
               }}
             >
               <LogoImage src={imageLogo} alt="logo" />
-            </Typography>
+            </Box>
           </Link>
           {token && <InputSearch />}
           <Box sx={{ flexGrow: 1 }} />
@@ -66,21 +63,9 @@ export default function Navbar() {
           {!token && (
             <Box sx={{ display: 'flex', gap: '4px' }}>
               <Link to="/login">
-                {/* <Button
-                  sx={{
-                    py: 1,
-                    px: 3,
-                    bgcolor: '#2B273A',
-                    color: '#F5F6F6',
-                    ':hover': {
-                      bgcolor: '#2B273A',
-                      transition: '.4s colors',
-                    },
-                  }}
-                >
+                <CustomButton type="submit" hoverColor={true}>
                   Login
-                </Button> */}
-                <CustomButton hoverColor={true}>Login</CustomButton>
+                </CustomButton>
               </Link>
               <FadeMenu />
             </Box>

@@ -67,6 +67,7 @@ export default function ForgetPassword() {
                 fontWeight: 'bold',
                 color: '#2B273A',
                 textAlign: 'left',
+                mb: 2,
               }}
             >
               Forget Password
@@ -80,10 +81,19 @@ export default function ForgetPassword() {
               our support team for assistance.
             </Typography>
           </Box>
-          <form>
-            <TextField fullWidth label="Email" margin="normal" sx={{ mb: 3 }} />
+          <form onSubmit={formik.handleSubmit}>
+            <TextField
+              fullWidth
+              label="Email"
+              margin="normal"
+              sx={{ mb: 3 }}
+              name="email"
+              value={formik.values.email}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+            />
 
-            <CustomButton w="100%" sm="75%" md="50%">
+            <CustomButton type="submit" w="100%" sm="75%" md="50%">
               Send
             </CustomButton>
           </form>
