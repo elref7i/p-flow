@@ -1,18 +1,10 @@
-import {
-  Button,
-  TextField,
-  Container,
-  Box,
-  Typography,
-  Paper,
-} from '@mui/material';
+import { TextField, Typography, Grid2, Box } from '@mui/material';
 import CustomButton from '../../components/Common/ButtonStyle';
 import { useFormik } from 'formik';
 // import { Link } from 'react-router-dom';
 import * as Yup from 'yup';
-import { Link } from 'react-router-dom';
 
-export default function Forgetpassword() {
+export default function ForgetPassword() {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
   const validationSchema = Yup.object({
@@ -31,34 +23,72 @@ export default function Forgetpassword() {
   });
 
   return (
-    <Box
-      component={'section'}
+    <Grid2
+      spacing={5}
+      container
       sx={{
         minHeight: '80vh',
-        display: 'flex',
-        alignItems: 'center',
+        mt: 5,
+        p: 3,
+        borderRadius: 2,
       }}
     >
-      <Container maxWidth="xs">
-        <Paper sx={{ mt: 5, p: 3, borderRadius: 2 }} elevation={4}>
-          <Box sx={{ mb: 5 }}>
-            <Link to="login">
-              <Link to="/login">Hover Me</Link>
-            </Link>
+      <Grid2
+        size={{ md: 6 }}
+        sx={{
+          display: { xs: 'none', md: 'block' },
+          bgcolor: '#DDDDDD',
+          borderRadius: '10px',
+          boxShadow: '0px 2px 3px',
+        }}
+      ></Grid2>
+      <Grid2
+        size={{ xs: 12, md: 6 }}
+        sx={{
+          pt: 5,
+        }}
+      >
+        <Box
+          sx={{
+            height: '100%', // يخليه ياخد الطول بالكامل
+            width: '100%',
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'start',
+            // gap: 9, // المسافة بين العناصر بدل marginBottom
+          }}
+        >
+          <Box component={'header'} marginBottom={3}>
+            <Typography
+              variant="h2"
+              align="center"
+              sx={{
+                fontSize: '40px',
+                fontWeight: 'bold',
+                color: '#2B273A',
+                textAlign: 'left',
+              }}
+            >
+              Forget Password
+            </Typography>
+            <Typography
+              variant="body1"
+              sx={{ fontSize: '15px', color: '#939494' }}
+            >
+              Please enter your registered email address to receive a password
+              reset link. If you don&apos;t remember your email address, contact
+              our support team for assistance.
+            </Typography>
           </Box>
-          <Typography
-            variant="h5"
-            sx={{ fontSize: '40px', fontWeight: 'bold' }}
-            align="center"
-            gutterBottom
-          >
-            Forgetpassword
-          </Typography>
-          <TextField fullWidth label="Email" margin="normal" sx={{ mb: 3 }} />
+          <form>
+            <TextField fullWidth label="Email" margin="normal" sx={{ mb: 3 }} />
 
-          <CustomButton>Send</CustomButton>
-        </Paper>
-      </Container>
-    </Box>
+            <CustomButton w="100%" sm="75%" md="50%">
+              Send
+            </CustomButton>
+          </form>
+        </Box>
+      </Grid2>
+    </Grid2>
   );
 }

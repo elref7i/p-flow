@@ -80,7 +80,7 @@ export default function Login() {
           boxShadow: '0px 2px 3px',
         }}
       ></Grid2>
-      <Grid2 size={{ xs: 12, md: 6 }} sx={{ bg: 'red' }}>
+      <Grid2 size={{ xs: 12, md: 6 }} sx={{ bg: 'red', pt: 5 }}>
         <Typography
           variant="h5"
           align="center"
