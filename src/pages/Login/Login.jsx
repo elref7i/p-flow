@@ -1,8 +1,6 @@
-import { Visibility, VisibilityOff } from '@mui/icons-material';
+import { Padding, Visibility, VisibilityOff } from '@mui/icons-material';
 import {
-  Button,
   TextField,
-  Container,
   Box,
   Typography,
   FormControl,
@@ -14,7 +12,9 @@ import {
   InputLabel,
   InputAdornment,
   IconButton,
+  Grid2,
   Paper,
+  styled,
 } from '@mui/material';
 import CustomButton from '../../components/Common/ButtonStyle';
 import { useFormik } from 'formik';
@@ -61,23 +61,40 @@ export default function Login() {
   });
 
   return (
-    <Box
+    <Grid2
+      spacing={5}
+      container
       sx={{
         minHeight: '80vh',
-        display: 'flex',
-        alignItems: 'center',
+        mt: 5,
+        p: 3,
+        borderRadius: 2,
       }}
     >
-      <Container maxWidth="xs">
-        <Paper sx={{ mt: 5, p: 3, borderRadius: 2 }} elevation={4}>
-          <Typography
-            variant="h5"
-            align="center"
-            gutterBottom
-            sx={{ fontSize: '40px', fontWeight: 'bold' }}
-          >
-            Login
-          </Typography>
+      <Grid2
+        size={{ md: 6 }}
+        sx={{
+          display: { xs: 'none', md: 'block' },
+          bgcolor: '#DDDDDD',
+          borderRadius: '10px',
+          boxShadow: '0px 2px 3px',
+        }}
+      ></Grid2>
+      <Grid2 size={{ xs: 12, md: 6 }} sx={{ bg: 'red' }}>
+        <Typography
+          variant="h5"
+          align="center"
+          gutterBottom
+          sx={{
+            fontSize: '40px',
+            fontWeight: 'bold',
+            color: '#2B273A',
+            textAlign: 'start',
+          }}
+        >
+          Login
+        </Typography>
+        <form>
           <TextField fullWidth label="Email" margin="normal" sx={{ mb: 3 }} />
           <FormControl fullWidth sx={{ mb: 3 }} variant="outlined">
             <InputLabel htmlFor="outlined-adornment-password">
@@ -107,12 +124,20 @@ export default function Login() {
             />
           </FormControl>
           <Box sx={{ display: 'flex', justifyContent: 'end' }}>
-            <Link to="/forgetpassword" style={{ fontStyle: 'italic' }}>
+            <Link
+              to="/forgetpassword"
+              style={{ fontStyle: 'italic', color: '#2B273A' }}
+            >
               Forget Password
             </Link>
           </Box>
           <FormControl component="fieldset" sx={{ mb: 3 }}>
-            <FormLabel component="legend">User Type</FormLabel>
+            <FormLabel
+              component="legend"
+              sx={{ color: '#2B273A', fontWeight: 'bold' }}
+            >
+              User Type
+            </FormLabel>
             <RadioGroup row>
               <FormControlLabel
                 value="pharmacy"
@@ -126,10 +151,11 @@ export default function Login() {
               />
             </RadioGroup>
           </FormControl>
-
-          <CustomButton>Login</CustomButton>
-        </Paper>
-      </Container>
-    </Box>
+          <CustomButton w="100%" sm="75%" md="50%">
+            Login
+          </CustomButton>
+        </form>
+      </Grid2>
+    </Grid2>
   );
 }

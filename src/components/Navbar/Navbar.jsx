@@ -13,11 +13,12 @@ import { Link } from 'react-router-dom';
 import AvatarCircle from '../Common/Avatar';
 import imageLogo from '../../assets/pflow-high-resolution-logo-transparent.png';
 import LogoImage from '../Common/LogoImage';
+import CustomButton from '../Common/ButtonStyle';
 
 export default function Navbar() {
   const token = false;
   return (
-    <AppBar sx={{ bgcolor: '#fff', display: 'fixed', py: 1 }}>
+    <AppBar sx={{ bgcolor: '#DDDDDD', display: 'fixed' }}>
       <Container maxWidth="lg">
         <Toolbar>
           <Link to="/" style={{ color: 'white' }}>
@@ -65,20 +66,21 @@ export default function Navbar() {
           {!token && (
             <Box sx={{ display: 'flex', gap: '4px' }}>
               <Link to="/login">
-                <Button
+                {/* <Button
                   sx={{
                     py: 1,
                     px: 3,
-                    bgcolor: '#00A9FF',
-                    color: 'white',
+                    bgcolor: '#2B273A',
+                    color: '#F5F6F6',
                     ':hover': {
-                      bgcolor: '#00A9FFee',
+                      bgcolor: '#2B273A',
                       transition: '.4s colors',
                     },
                   }}
                 >
                   Login
-                </Button>
+                </Button> */}
+                <CustomButton hoverColor={true}>Login</CustomButton>
               </Link>
               <FadeMenu />
             </Box>

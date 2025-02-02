@@ -6,6 +6,7 @@ import Fade from '@mui/material/Fade';
 import { Link } from 'react-router-dom';
 import { Box } from '@mui/material';
 import { UserTypeContext } from '../../context/UserType.context';
+import CustomButton from './ButtonStyle';
 
 export default function FadeMenu() {
   const { userType, setUserType } = React.useContext(UserTypeContext);
@@ -29,22 +30,16 @@ export default function FadeMenu() {
 
   return (
     <div>
-      <Button
-        sx={{
-          py: 1,
-          px: 3,
-          bgcolor: '#00A9FF',
-          color: 'white',
-          ':hover': { bgcolor: '#00A9FFee', transition: '.4s colors' },
-        }}
-        id="fade-button"
+      <CustomButton
+        hoverColor={true}
         aria-controls={open ? 'fade-menu' : undefined}
         aria-haspopup="true"
         aria-expanded={open ? 'true' : undefined}
         onClick={handleClick}
       >
+        {' '}
         Signup
-      </Button>
+      </CustomButton>
       <Menu
         id="fade-menu"
         MenuListProps={{

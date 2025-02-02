@@ -1,7 +1,6 @@
 import Navbar from '../components/Navbar/Navbar';
 import { Outlet } from 'react-router-dom';
-import { Box } from '@mui/material';
-import bgGround from '../assets/circle-scatter-haikei (1).png';
+import { Box, Container } from '@mui/material';
 export default function Layout() {
   return (
     <>
@@ -10,16 +9,15 @@ export default function Layout() {
       <Box
         component={'main'}
         sx={{
-          backgroundImage: `url(${bgGround})`,
-          backgroundSize: 'cover', // تغطية الخلفية بالكامل
-          backgroundPosition: 'center', // توسيط الخلفية
-          backgroundRepeat: 'no-repeat',
           m: 0,
-          pt: '80px',
+          pt: '100px',
+          bgcolor: '#F5F6F6',
           minHeight: 'calc(100vh)',
         }}
       >
-        <Outlet></Outlet>
+        <Container maxWidth="lg">
+          <Outlet></Outlet>
+        </Container>
       </Box>
     </>
   );

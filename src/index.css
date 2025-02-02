@@ -11,3 +11,51 @@ a {
   text-decoration: none;
   display: inline-block;
 }
+
+/* 
+[1] => #F5F6F6 
+
+//* الدرجات ===> #F5F6F6 , #DDDDDD , #939494 ,#626262 , #494a4a , #181919
+[2] => #A5B1B8
+[3] => #7E828B
+[4] => #9BA1AD
+[5] => #2B273A
+
+
+///*
+[1] => #F7F7F6
+[2] => #A1A09B
+[3] => #A58670
+[4] => #9C775B
+[5] => #463F3D
+
+
+//*
+[1] => #E5E3D8   // الكلام  Light shades
+[2] => #6C7881   // button Light accent
+[3] => #A4968D   // Main brand color
+[4] => #6C5B4F   //*button two Dark accent
+[5] => #3C393B  //* الخلفيه  Dark shades
+
+///* 99
+[1] => #F1F4F0   // الكلام  Light shades
+[2] => #8B7066   // button Light accent
+[3] => #939391   // Main brand color
+[4] => #735C5B   //*button two Dark accent
+[5] => #333035  //* الخلفيه  Dark shades
+
+//*98
+[1] => #F8F7F7   // الكلام  Light shades
+[2] => #847B7C   // button Light accent
+[3] => #9D9A97   // Main brand color
+[4] => #7F5F74   //*button two Dark accent
+[5] => #2F2937  //* الخلفيه  Dark shades
+//*98
+[1] => #E9EDE3   // الكلام  Light shades
+[2] => #A2AFB3   // button Light accent
+[3] => #897B7D   // Main brand color
+[4] => #979797   //*button two Dark accent
+[5] => #262C38  //* الخلفيه  Dark shades
+
+
+*/
