@@ -10,6 +10,7 @@ import {
   Box,
   Paper,
   styled,
+  Grid2,
 } from '@mui/material';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import { UserTypeContext } from '../../context/UserType.context';
@@ -164,7 +165,7 @@ const SignupForm = () => {
 
             <Box
               sx={{
-                mt: 2,
+                my: 2,
                 display: 'flex',
                 justifyContent: 'space-between',
                 flexDirection: 'column',
@@ -205,9 +206,31 @@ const SignupForm = () => {
   };
 
   return (
-    <Box>
-      <Container maxWidth="sm">
-        <Paper sx={{ p: 3 }}>
+    <>
+      <Grid2
+        spacing={10}
+        container
+        sx={{
+          // mt: 5,
+          // p: 3,
+          borderRadius: 2,
+        }}
+      >
+        <Grid2
+          size={{ md: 6 }}
+          sx={{
+            display: { xs: 'none', md: 'block' },
+            bgcolor: '#DDDDDD',
+            borderRadius: '10px',
+            boxShadow: '0px 2px 3px',
+            minHeight: '100%',
+            maxHeight: '100%',
+          }}
+        ></Grid2>
+        <Grid2
+          size={{ xs: 12, md: 6 }}
+          sx={{ bg: 'red', py: 2, minHeight: '100%', maxHeight: '100%' }}
+        >
           <Typography
             variant="h3"
             sx={{ fontWeight: 'bold', mb: 4 }}
@@ -244,9 +267,9 @@ const SignupForm = () => {
               )}
             </Box>
           </Box>
-        </Paper>
-      </Container>
-    </Box>
+        </Grid2>
+      </Grid2>
+    </>
   );
 };
 
