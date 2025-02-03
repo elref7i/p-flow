@@ -3,6 +3,7 @@ import { TextField, Button, Box, Container } from '@mui/material';
 import { CustomHead } from '../../components/Common/CustomTypography';
 import * as Yup from 'yup';
 import { useFormik } from 'formik';
+import CustomButton from '../../components/Common/ButtonStyle';
 
 function VerifySendCoding() {
   const codeRegx = /^\d{6}$/;
@@ -30,9 +31,11 @@ function VerifySendCoding() {
   };
 
   const validationSchema = Yup.object({
-    email: Yup.string().required('Required').matches(codeRegx, 'Invalid code'),
+    resetCode: Yup.string()
+      .required('Required')
+      .matches(codeRegx, 'Invalid code'),
   });
-  const formik = useFormik({
+  const { handleBlur, handleChange, handleSubmit, values } = useFormik({
     initialValues: {
       resetCode: '',
     },
@@ -54,27 +57,29 @@ function VerifySendCoding() {
     >
       <Container maxWidth="sm" sx={{ textAlign: 'center' }}>
         <CustomHead variant="h1">Verfiy Code</CustomHead>
-        <TextField
-          label="6-Digit Code"
-          variant="outlined"
-          sx={{ mb: 3, width: '100%' }}
-        />
-        <Button
-          variant="contained"
-          color="primary"
-          disabled={isCounting}
-          sx={{ width: '100%', mb: 2 }}
-        >
-          {isCounting ? `Resend in ${remainingTime}s` : 'Verify'}
-        </Button>
-        <Button
-          variant="text"
-          color="secondary"
-          onClick={handleResend}
-          disabled={isCounting}
-        >
-          Resend Code
-        </Button>
+        <form onSubmit={handleSubmit}>
+          <TextField
+            type="number"
+            label="6-Digit Code"
+            variant="outlined"
+            sx={{ mb: 3, width: '100%' }}
+            name="resetCode"
+            value={values.resetCode}
+            onChange={handleChange}
+            onBlur={handleBlur}
+          />
+          <CustomButton disabled={isCounting} w="100%" sm="75%" md="50%">
+            {isCounting ? `Resend in ${remainingTime}s` : 'Verify'}
+          </CustomButton>
+          <Button
+            variant="text"
+            color="secondary"
+            onClick={handleResend}
+            disabled={isCounting}
+          >
+            Resend Code
+          </Button>
+        </form>
       </Container>
     </Box>
   );

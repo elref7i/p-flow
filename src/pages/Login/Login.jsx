@@ -151,13 +151,7 @@ export default function Login() {
               />
             </RadioGroup>
           </FormControl>
-          <CustomButton
-            type="submit"
-            // @ts-ignore
-            w="100%"
-            sm="75%"
-            md="50%"
-          >
+          <CustomButton type="submit" w="100%" sm="75%" md="50%">
             Login
           </CustomButton>
         </form>
