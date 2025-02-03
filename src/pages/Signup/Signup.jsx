@@ -2,50 +2,19 @@ import { useContext, useState } from 'react';
 import {
   Button,
   TextField,
-  Typography,
-  Container,
   Stepper,
   Step,
   StepLabel,
   Box,
-  Paper,
   styled,
   Grid2,
 } from '@mui/material';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
-import { UserTypeContext } from '../../context/UserType.context';
+import { CustomHead } from '@/components/Common/CustomTypography';
+import { UserTypeContext } from '@/context/UserType.context';
 
 const SignupForm = () => {
   const { userType } = useContext(UserTypeContext);
-  // const [formData, setFormData] = useState({
-  //   email: '',
-  //   password: '',
-  //   location: {
-  //     type: 'Point',
-  //     coordinates: [0, 0], // [longitude, latitude]
-  //   },
-  // });
-  // const handleGetLocation = () => {
-  //   if (navigator.geolocation) {
-  //     navigator.geolocation.getCurrentPosition(
-  //       (position) => {
-  //         const { latitude, longitude } = position.coords;
-  //         setFormData((prevData) => ({
-  //           ...prevData,
-  //           location: {
-  //             type: 'Point',
-  //             coordinates: [longitude, latitude], // [longitude, latitude]
-  //           },
-  //         }));
-  //       },
-  //       (error) => {
-  //         console.error('Error getting location:', error);
-  //       }
-  //     );
-  //   } else {
-  //     console.error('Geolocation is not supported by this browser.');
-  //   }
-  // };
   const [activeStep, setActiveStep] = useState(0);
   const handleUser = () => {
     console.log(userType);
@@ -208,11 +177,9 @@ const SignupForm = () => {
   return (
     <>
       <Grid2
-        spacing={10}
+        spacing={5}
         container
         sx={{
-          // mt: 5,
-          // p: 3,
           borderRadius: 2,
         }}
       >
@@ -231,15 +198,10 @@ const SignupForm = () => {
           size={{ xs: 12, md: 6 }}
           sx={{ bg: 'red', py: 2, minHeight: '100%', maxHeight: '100%' }}
         >
-          <Typography
-            variant="h3"
-            sx={{ fontWeight: 'bold', mb: 4 }}
-            align="center"
-            gutterBottom
-          >
+          <CustomHead variant="h1" align="left">
             Signup {handleUser()}
-          </Typography>
-          <Stepper activeStep={activeStep} alternativeLabel>
+          </CustomHead>
+          <Stepper sx={{ mt: 5 }} activeStep={activeStep} alternativeLabel>
             {steps.map((label) => (
               <Step key={label}>
                 <StepLabel>{label}</StepLabel>

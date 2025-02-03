@@ -1,8 +1,7 @@
-import { Padding, Visibility, VisibilityOff } from '@mui/icons-material';
+import { Visibility, VisibilityOff } from '@mui/icons-material';
 import {
   TextField,
   Box,
-  Typography,
   FormControl,
   FormLabel,
   RadioGroup,
@@ -13,15 +12,13 @@ import {
   InputAdornment,
   IconButton,
   Grid2,
-  Paper,
-  styled,
 } from '@mui/material';
-import CustomButton from '../../components/Common/ButtonStyle';
+import CustomButton from '@/components/Common/ButtonStyle';
 import { useFormik } from 'formik';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-// import { Link } from 'react-router-dom';
 import * as Yup from 'yup';
+import { CustomHead } from '@/components/Common/CustomTypography';
 
 export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
@@ -81,19 +78,9 @@ export default function Login() {
         }}
       ></Grid2>
       <Grid2 size={{ xs: 12, md: 6 }} sx={{ bg: 'red', pt: 5 }}>
-        <Typography
-          variant="h5"
-          align="center"
-          gutterBottom
-          sx={{
-            fontSize: '40px',
-            fontWeight: 'bold',
-            color: '#2B273A',
-            textAlign: 'start',
-          }}
-        >
+        <CustomHead variant="h1" align={'left'}>
           Login
-        </Typography>
+        </CustomHead>
         <form onSubmit={formik.handleSubmit}>
           <TextField
             fullWidth
@@ -164,7 +151,13 @@ export default function Login() {
               />
             </RadioGroup>
           </FormControl>
-          <CustomButton type="submit" w="100%" sm="75%" md="50%">
+          <CustomButton
+            type="submit"
+            // @ts-ignore
+            w="100%"
+            sm="75%"
+            md="50%"
+          >
             Login
           </CustomButton>
         </form>

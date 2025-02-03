@@ -9,10 +9,11 @@ import {
   Grid2,
   Box,
 } from '@mui/material';
-import CustomButton from '../../components/Common/ButtonStyle';
+import CustomButton from '@/components/Common/ButtonStyle';
 import { useFormik } from 'formik';
 import { useState } from 'react';
 import * as Yup from 'yup';
+import { CustomHead } from '@/components/Common/CustomTypography';
 
 export default function UpdatedPassword() {
   const [showPassword, setShowPassword] = useState(false);
@@ -75,19 +76,9 @@ export default function UpdatedPassword() {
       ></Grid2>
       <Grid2 size={{ xs: 12, md: 6 }} sx={{ bg: 'red', pt: 5 }}>
         <Box component={'header'} marginBottom={3}>
-          <Typography
-            variant="h2"
-            align="center"
-            sx={{
-              fontSize: '40px',
-              fontWeight: 'bold',
-              color: '#2B273A',
-              textAlign: 'left',
-              mb: 2,
-            }}
-          >
+          <CustomHead variant="h1" align="left">
             Updated Password
-          </Typography>
+          </CustomHead>
           <Typography
             variant="body1"
             sx={{ fontSize: '15px', color: '#939494' }}
@@ -160,7 +151,13 @@ export default function UpdatedPassword() {
             />
           </FormControl>
 
-          <CustomButton type="submit" w="100%" sm="75%" md="50%">
+          <CustomButton
+            type="submit"
+            // @ts-ignore
+            w="100%"
+            sm="75%"
+            md="50%"
+          >
             Updated
           </CustomButton>
         </form>

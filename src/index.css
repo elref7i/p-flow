@@ -11,6 +11,12 @@ a {
   text-decoration: none;
   display: inline-block;
 }
+.head-style {
+  font-size: 40px;
+  font-weight: bold;
+  color: '#2B273A';
+  text-align: start;
+}
 
 /* 
 [1] => #F5F6F6 

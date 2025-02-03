@@ -1,8 +1,8 @@
 import { TextField, Typography, Grid2, Box } from '@mui/material';
-import CustomButton from '../../components/Common/ButtonStyle';
+import CustomButton from '@/components/Common/ButtonStyle';
 import { useFormik } from 'formik';
-// import { Link } from 'react-router-dom';
 import * as Yup from 'yup';
+import { CustomHead } from '@/components/Common/CustomTypography';
 
 export default function ForgetPassword() {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -50,28 +50,17 @@ export default function ForgetPassword() {
       >
         <Box
           sx={{
-            height: '100%', // يخليه ياخد الطول بالكامل
+            height: '100%',
             width: '100%',
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'start',
-            // gap: 9, // المسافة بين العناصر بدل marginBottom
           }}
         >
           <Box component={'header'} marginBottom={3}>
-            <Typography
-              variant="h2"
-              align="center"
-              sx={{
-                fontSize: '40px',
-                fontWeight: 'bold',
-                color: '#2B273A',
-                textAlign: 'left',
-                mb: 2,
-              }}
-            >
+            <CustomHead variant="h1" align="left">
               Forget Password
-            </Typography>
+            </CustomHead>
             <Typography
               variant="body1"
               sx={{ fontSize: '15px', color: '#939494' }}
@@ -93,7 +82,13 @@ export default function ForgetPassword() {
               onBlur={formik.handleBlur}
             />
 
-            <CustomButton type="submit" w="100%" sm="75%" md="50%">
+            <CustomButton
+              type="submit"
+              // @ts-ignore
+              w="100%"
+              sm="75%"
+              md="50%"
+            >
               Send
             </CustomButton>
           </form>

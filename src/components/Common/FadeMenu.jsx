@@ -1,5 +1,4 @@
 import * as React from 'react';
-import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import Fade from '@mui/material/Fade';
@@ -9,7 +8,7 @@ import { UserTypeContext } from '../../context/UserType.context';
 import CustomButton from './ButtonStyle';
 
 export default function FadeMenu() {
-  const { userType, setUserType } = React.useContext(UserTypeContext);
+  const { setUserType } = React.useContext(UserTypeContext);
 
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);

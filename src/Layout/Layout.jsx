@@ -1,4 +1,4 @@
-import Navbar from '../components/Navbar/Navbar';
+import Navbar from '@/components/Navbar/Navbar';
 import { Outlet } from 'react-router-dom';
 import { Box, Container } from '@mui/material';
 export default function Layout() {

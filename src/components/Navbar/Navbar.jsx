@@ -6,13 +6,13 @@ import Badge from '@mui/material/Badge';
 import MailIcon from '@mui/icons-material/Mail';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import { Container } from '@mui/material';
-import FadeMenu from '../Common/FadeMenu';
-import InputSearch from '../Common/InputSearch';
 import { Link } from 'react-router-dom';
-import AvatarCircle from '../Common/Avatar';
-import imageLogo from '../../assets/pflow-high-resolution-logo-transparent.png';
+import imageLogo from '@/assets/pflow-high-resolution-logo-transparent.png';
 import LogoImage from '../Common/LogoImage';
+import InputSearch from '../Common/InputSearch';
+import AvatarCircle from '../Common/Avatar';
 import CustomButton from '../Common/ButtonStyle';
+import FadeMenu from '../Common/FadeMenu';
 
 export default function Navbar() {
   const token = false;
