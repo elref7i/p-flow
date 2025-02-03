@@ -12,6 +12,7 @@ import {
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import { CustomHead } from '@/components/Common/CustomTypography';
 import { UserTypeContext } from '@/context/UserType.context';
+import CustomButton from '@/components/Common/ButtonStyle';
 
 const SignupForm = () => {
   const { userType } = useContext(UserTypeContext);
@@ -198,7 +199,7 @@ const SignupForm = () => {
           size={{ xs: 12, md: 6 }}
           sx={{ bg: 'red', py: 2, minHeight: '100%', maxHeight: '100%' }}
         >
-          <CustomHead variant="h1" align="left">
+          <CustomHead variant="h1" align="center">
             Signup {handleUser()}
           </CustomHead>
           <Stepper sx={{ mt: 5 }} activeStep={activeStep} alternativeLabel>
@@ -215,17 +216,17 @@ const SignupForm = () => {
                 Previous
               </Button>
               {activeStep === steps.length - 1 ? (
-                <Button variant="contained" color="primary">
+                <CustomButton hoverColor={true} marginInline={true}>
                   Sign UP
-                </Button>
+                </CustomButton>
               ) : (
-                <Button
-                  variant="contained"
-                  color="primary"
+                <CustomButton
+                  hoverColor={true}
+                  marginInline={true}
                   onClick={handleNext}
                 >
                   Next
-                </Button>
+                </CustomButton>
               )}
             </Box>
           </Box>

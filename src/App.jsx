@@ -11,6 +11,7 @@ import Home from '@/pages/Home/Home';
 import UserTypeProvider from '@/context/UserType.context';
 import UpdatedPassword from '@/pages/UpdatedPassword/UpdatedPassword';
 import ForgetPassword from '@/pages/Forgetpassword/Forgetpassword';
+import VerifySendCoding from '@/pages/VerifySendCoding/VerifySendCoding';
 
 function App() {
   const router = createBrowserRouter([
@@ -35,6 +36,7 @@ function App() {
         { path: '/signup', element: <Signup /> },
         { path: '/forgetpassword', element: <ForgetPassword /> },
         { path: '/updatedpassword', element: <UpdatedPassword /> },
+        { path: '/verifysendcoding', element: <VerifySendCoding /> },
       ],
     },
   ]);
