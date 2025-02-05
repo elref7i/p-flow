@@ -1,4 +1,4 @@
-import { useContext, useRef } from 'react';
+import { useContext, useRef, useState } from 'react';
 import { Box, Button, Grid2, styled, TextField } from '@mui/material';
 import { UserTypeContext } from '@/context/UserType.context';
 import CustomButton from '@/components/Common/ButtonStyle';
@@ -27,62 +27,22 @@ const SignupForm = () => {
     width: 1,
   });
 
-  const inputName = useRef(null);
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    ownerName: '',
+    phone: '',
+    registrationNumber: '',
+    identificationNumber: '',
+    city: '',
+    governorate: '',
+    password: '',
+    rePassword: '',
+  });
 
-  // const getStepContent = (step) => {
-  //   switch (step) {
-  //     case 0:
-  //       return (
-  //         <>
-  //
-  //
-  //
-  //         </>
-  //       );
-  //     case 1:
-  //       return (
-  //         <>
-  //
-  //
-  //         </>
-  //       );
-  //     case 2:
-  //       return (
-  //         <>
-  //
-
-  //           <Box
-  //             sx={{
-  //               my: 2,
-  //               display: 'flex',
-  //               justifyContent: 'space-between',
-  //               flexDirection: 'column',
-  //               gap: '10px',
-  //               width: '75%',
-  //               mx: 'auto',
-  //             }}
-  //           >
-  //             {userType === 'pharmacy'.toLowerCase() && (
-  //
-  //             )}
-  //             <Button
-  //               component="label"
-  //               role={undefined}
-  //               variant="contained"
-  //               tabIndex={-1}
-  //               startIcon={<CloudUploadIcon />}
-  //             >
-  //               Upload license Document
-  //               <VisuallyHiddenInput type="file" multiple />
-  //             </Button>
-  //           </Box>
-  //
-  //         </>
-  //       );
-  //     default:
-  //       return 'Unknown step';
-  //   }
-  // };
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
 
   return (
     <>
@@ -105,16 +65,17 @@ const SignupForm = () => {
           <form
             onSubmit={(e) => {
               e.preventDefault();
-              console.log(inputName.current?.value);
+              console.log(formData);
             }}
           >
             <Grid2 container spacing={1}>
-              <Grid2 item size={6}>
+              <Grid2 item size={{ xs: 12, md: 6 }}>
                 <TextField
                   fullWidth
-                  inputRef={inputName}
                   label={`${handleUser()} Name`}
-                  name={`${handleUser()}Name`}
+                  name="name"
+                  value={formData.name}
+                  onChange={handleChange}
                   margin="normal"
                   type="text"
                 />
@@ -122,6 +83,8 @@ const SignupForm = () => {
                   fullWidth
                   label="ownerName"
                   name="ownerName"
+                  value={formData.ownerName}
+                  onChange={handleChange}
                   margin="normal"
                   type="text"
                 />
@@ -129,6 +92,8 @@ const SignupForm = () => {
                   fullWidth
                   label="registration Number"
                   name="registrationNumber"
+                  value={formData.registrationNumber}
+                  onChange={handleChange}
                   margin="normal"
                   type="number"
                 />
@@ -136,6 +101,8 @@ const SignupForm = () => {
                   fullWidth
                   label="city"
                   name="city"
+                  value={formData.city}
+                  onChange={handleChange}
                   margin="normal"
                   type="text"
                 />
@@ -143,15 +110,19 @@ const SignupForm = () => {
                   fullWidth
                   label="Password"
                   name="password"
+                  value={formData.password}
+                  onChange={handleChange}
                   type="password"
                   margin="normal"
                 />
               </Grid2>
-              <Grid2 item size={6}>
+              <Grid2 item size={{ xs: 12, md: 6 }}>
                 <TextField
                   fullWidth
                   label="Email"
                   name="email"
+                  value={formData.email}
+                  onChange={handleChange}
                   margin="normal"
                   type="email"
                 />
@@ -160,6 +131,8 @@ const SignupForm = () => {
                   fullWidth
                   label="phone"
                   name="phone"
+                  value={formData.phone}
+                  onChange={handleChange}
                   margin="normal"
                   type="tel"
                 />
@@ -168,6 +141,8 @@ const SignupForm = () => {
                   fullWidth
                   label="identification Number"
                   name="identificationNumber"
+                  value={formData.identificationNumber}
+                  onChange={handleChange}
                   margin="normal"
                   type="number"
                 />
@@ -175,6 +150,8 @@ const SignupForm = () => {
                   fullWidth
                   label="governorate"
                   name="governorate"
+                  value={formData.governorate}
+                  onChange={handleChange}
                   margin="normal"
                   type="text"
                 />
@@ -182,6 +159,8 @@ const SignupForm = () => {
                   fullWidth
                   label="Confirm Password"
                   name="rePassword"
+                  value={formData.rePassword}
+                  onChange={handleChange}
                   type="password"
                   margin="normal"
                 />
@@ -193,7 +172,7 @@ const SignupForm = () => {
                 display: 'flex',
                 flexDirection: 'column',
                 gap: 2,
-                width: { xs: '100%', md: '50%' },
+                width: { xs: '100%', md: '75%' },
                 mx: 'auto',
               }}
             >
