@@ -13,9 +13,11 @@ import InputSearch from '../Common/InputSearch';
 import AvatarCircle from '../Common/Avatar';
 import CustomButton from '../Common/ButtonStyle';
 import FadeMenu from '../Common/FadeMenu';
+import { useContext } from 'react';
+import { UserTypeContext } from '@/context/UserType.context';
 
 export default function Navbar() {
-  const token = false;
+  const { token } = useContext(UserTypeContext);
   return (
     <AppBar sx={{ bgcolor: '#DDDDDD', display: 'fixed' }}>
       <Container maxWidth="lg">

@@ -1,38 +1,20 @@
-import { useContext, useState } from 'react';
-import {
-  Button,
-  TextField,
-  Stepper,
-  Step,
-  StepLabel,
-  Box,
-  styled,
-  Grid2,
-} from '@mui/material';
-import CloudUploadIcon from '@mui/icons-material/CloudUpload';
-import { CustomHead } from '@/components/Common/CustomTypography';
+import { useContext, useRef } from 'react';
+import { Box, Button, Grid2, styled, TextField } from '@mui/material';
 import { UserTypeContext } from '@/context/UserType.context';
 import CustomButton from '@/components/Common/ButtonStyle';
+import CloudUploadIcon from '@mui/icons-material/CloudUpload';
+import MyLocationIcon from '@mui/icons-material/MyLocation';
 
 const SignupForm = () => {
   const { userType } = useContext(UserTypeContext);
-  const [activeStep, setActiveStep] = useState(0);
-  const handleUser = () => {
-    console.log(userType);
 
+  const handleUser = () => {
     if (userType === 'pharmacy'.toLowerCase()) {
       return 'pharmacy';
     } else {
       return 'Inventory';
     }
   };
-
-  const steps = [
-    `${handleUser()} information`,
-    'Owner information',
-    'Location and details',
-  ];
-
   const VisuallyHiddenInput = styled('input')({
     clip: 'rect(0 0 0 0)',
     clipPath: 'inset(50%)',
@@ -45,145 +27,66 @@ const SignupForm = () => {
     width: 1,
   });
 
-  const handleNext = () => {
-    setActiveStep((prevStep) => prevStep + 1);
-  };
+  const inputName = useRef(null);
 
-  const handleBack = () => {
-    setActiveStep((prevStep) => prevStep - 1);
-  };
+  // const getStepContent = (step) => {
+  //   switch (step) {
+  //     case 0:
+  //       return (
+  //         <>
+  //
+  //
+  //
+  //         </>
+  //       );
+  //     case 1:
+  //       return (
+  //         <>
+  //
+  //
+  //         </>
+  //       );
+  //     case 2:
+  //       return (
+  //         <>
+  //
 
-  const getStepContent = (step) => {
-    switch (step) {
-      case 0:
-        return (
-          <>
-            <TextField
-              fullWidth
-              label={`${handleUser()} Name`}
-              name={`${handleUser()}Name`}
-              margin="normal"
-              type="text"
-            />
-            <TextField
-              fullWidth
-              label="Email"
-              name="email"
-              margin="normal"
-              type="email"
-            />
-            <TextField
-              fullWidth
-              label="Password"
-              name="password"
-              type="password"
-              margin="normal"
-            />
-            <TextField
-              fullWidth
-              label="Confirm Password"
-              name="rePassword"
-              type="password"
-              margin="normal"
-            />
-          </>
-        );
-      case 1:
-        return (
-          <>
-            <TextField
-              fullWidth
-              label="ownerName"
-              name="ownerName"
-              margin="normal"
-              type="text"
-            />
-            <TextField fullWidth label="phone" name="phone" margin="normal" />
-            <TextField
-              fullWidth
-              label="identification Number"
-              name="identificationNumber"
-              margin="normal"
-              type="number"
-            />
-            <TextField
-              fullWidth
-              label="registration Number"
-              name="registrationNumber"
-              margin="normal"
-              type="number"
-            />
-          </>
-        );
-      case 2:
-        return (
-          <>
-            <TextField
-              fullWidth
-              label="city"
-              name="city"
-              margin="normal"
-              type="text"
-            />
-            <TextField
-              fullWidth
-              label="governorate"
-              name="governorate"
-              margin="normal"
-              type="text"
-            />
-
-            <Box
-              sx={{
-                my: 2,
-                display: 'flex',
-                justifyContent: 'space-between',
-                flexDirection: 'column',
-                gap: '10px',
-                width: '75%',
-                mx: 'auto',
-              }}
-            >
-              {userType === 'pharmacy'.toLowerCase() && (
-                <Button
-                  component="label"
-                  role={undefined}
-                  variant="contained"
-                  tabIndex={-1}
-                  startIcon={<CloudUploadIcon />}
-                >
-                  Upload image Of Pharmchy
-                  <VisuallyHiddenInput type="file" multiple />
-                </Button>
-              )}
-              <Button
-                component="label"
-                role={undefined}
-                variant="contained"
-                tabIndex={-1}
-                startIcon={<CloudUploadIcon />}
-              >
-                Upload license Document
-                <VisuallyHiddenInput type="file" multiple />
-              </Button>
-            </Box>
-            <Button>Get Location</Button>
-          </>
-        );
-      default:
-        return 'Unknown step';
-    }
-  };
+  //           <Box
+  //             sx={{
+  //               my: 2,
+  //               display: 'flex',
+  //               justifyContent: 'space-between',
+  //               flexDirection: 'column',
+  //               gap: '10px',
+  //               width: '75%',
+  //               mx: 'auto',
+  //             }}
+  //           >
+  //             {userType === 'pharmacy'.toLowerCase() && (
+  //
+  //             )}
+  //             <Button
+  //               component="label"
+  //               role={undefined}
+  //               variant="contained"
+  //               tabIndex={-1}
+  //               startIcon={<CloudUploadIcon />}
+  //             >
+  //               Upload license Document
+  //               <VisuallyHiddenInput type="file" multiple />
+  //             </Button>
+  //           </Box>
+  //
+  //         </>
+  //       );
+  //     default:
+  //       return 'Unknown step';
+  //   }
+  // };
 
   return (
     <>
-      <Grid2
-        spacing={5}
-        container
-        sx={{
-          borderRadius: 2,
-        }}
-      >
+      <Grid2 spacing={5} container sx={{ borderRadius: 2 }}>
         <Grid2
           size={{ md: 6 }}
           sx={{
@@ -197,39 +100,136 @@ const SignupForm = () => {
         ></Grid2>
         <Grid2
           size={{ xs: 12, md: 6 }}
-          sx={{ bg: 'red', py: 2, minHeight: '100%', maxHeight: '100%' }}
+          sx={{ py: 2, minHeight: '100%', maxHeight: '100%' }}
         >
-          <CustomHead variant="h1" align="center">
-            Signup {handleUser()}
-          </CustomHead>
-          <Stepper sx={{ mt: 5 }} activeStep={activeStep} alternativeLabel>
-            {steps.map((label) => (
-              <Step key={label}>
-                <StepLabel>{label}</StepLabel>
-              </Step>
-            ))}
-          </Stepper>
-          <Box mt={4}>
-            {getStepContent(activeStep)}
-            <Box mt={4} display="flex" justifyContent="space-between">
-              <Button disabled={activeStep === 0} onClick={handleBack}>
-                Previous
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              console.log(inputName.current?.value);
+            }}
+          >
+            <Grid2 container spacing={1}>
+              <Grid2 item size={6}>
+                <TextField
+                  fullWidth
+                  inputRef={inputName}
+                  label={`${handleUser()} Name`}
+                  name={`${handleUser()}Name`}
+                  margin="normal"
+                  type="text"
+                />
+                <TextField
+                  fullWidth
+                  label="ownerName"
+                  name="ownerName"
+                  margin="normal"
+                  type="text"
+                />
+                <TextField
+                  fullWidth
+                  label="registration Number"
+                  name="registrationNumber"
+                  margin="normal"
+                  type="number"
+                />
+                <TextField
+                  fullWidth
+                  label="city"
+                  name="city"
+                  margin="normal"
+                  type="text"
+                />
+                <TextField
+                  fullWidth
+                  label="Password"
+                  name="password"
+                  type="password"
+                  margin="normal"
+                />
+              </Grid2>
+              <Grid2 item size={6}>
+                <TextField
+                  fullWidth
+                  label="Email"
+                  name="email"
+                  margin="normal"
+                  type="email"
+                />
+
+                <TextField
+                  fullWidth
+                  label="phone"
+                  name="phone"
+                  margin="normal"
+                  type="tel"
+                />
+
+                <TextField
+                  fullWidth
+                  label="identification Number"
+                  name="identificationNumber"
+                  margin="normal"
+                  type="number"
+                />
+                <TextField
+                  fullWidth
+                  label="governorate"
+                  name="governorate"
+                  margin="normal"
+                  type="text"
+                />
+                <TextField
+                  fullWidth
+                  label="Confirm Password"
+                  name="rePassword"
+                  type="password"
+                  margin="normal"
+                />
+              </Grid2>
+            </Grid2>
+            <Box
+              sx={{
+                my: 2,
+                display: 'flex',
+                flexDirection: 'column',
+                gap: 2,
+                width: { xs: '100%', md: '50%' },
+                mx: 'auto',
+              }}
+            >
+              <Button
+                component="label"
+                role={undefined}
+                variant="contained"
+                tabIndex={-1}
+                startIcon={<CloudUploadIcon />}
+                sx={{ textWrap: 'nowrap' }}
+              >
+                Upload image Of Pharmchy
+                <VisuallyHiddenInput type="file" multiple />
               </Button>
-              {activeStep === steps.length - 1 ? (
-                <CustomButton hoverColor={true} marginInline={true}>
-                  Sign UP
-                </CustomButton>
-              ) : (
-                <CustomButton
-                  hoverColor={true}
-                  marginInline={true}
-                  onClick={handleNext}
-                >
-                  Next
-                </CustomButton>
-              )}
+              <Button
+                sx={{
+                  fontWeight: 'bold',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 1,
+                  bgcolor: '#1976d2',
+                  color: '#fff',
+                  px: 2,
+                  py: 1,
+                  borderRadius: '3px',
+                  '&:hover': { bgcolor: '#1565c0' },
+                }}
+                startIcon={<MyLocationIcon />}
+              >
+                Get Location
+              </Button>
             </Box>
-          </Box>
+            <CustomButton type="submit" w="100%" sm="75%" md="50%">
+              Sign Up
+            </CustomButton>
+          </form>
         </Grid2>
       </Grid2>
     </>

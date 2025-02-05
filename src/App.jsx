@@ -12,6 +12,8 @@ import UserTypeProvider from '@/context/UserType.context';
 import UpdatedPassword from '@/pages/UpdatedPassword/UpdatedPassword';
 import ForgetPassword from '@/pages/Forgetpassword/Forgetpassword';
 import VerifySendCoding from '@/pages/VerifySendCoding/VerifySendCoding';
+import { Provider } from 'react-redux';
+import { store } from './store/sotre';
 
 function App() {
   const router = createBrowserRouter([
@@ -45,7 +47,9 @@ function App() {
   return (
     <>
       <UserTypeProvider>
-        <RouterProvider router={router} />
+        <Provider store={store}>
+          <RouterProvider router={router} />
+        </Provider>
       </UserTypeProvider>
     </>
   );
