@@ -4,12 +4,19 @@ export const UserTypeContext = createContext(0);
 
 // eslint-disable-next-line react/prop-types
 export default function UserTypeProvider({ children }) {
-  const [userType, setUserType] = useState('pharmacy'.toLowerCase());
-  const [token, setToken] = useState(null);
+  const [role, setRole] = useState(localStorage.getItem('role'));
+  const [token, setToken] = useState(localStorage.getItem('token'));
+
+  function logout() {
+    setToken(null);
+    setRole(null);
+    localStorage.removeItem('token');
+    localStorage.removeItem('role');
+  }
   return (
     <UserTypeContext.Provider
       // @ts-ignore
-      value={{ userType, setUserType, token, setToken }}
+      value={{ token, setToken, role, setRole, logout }}
     >
       {children}
     </UserTypeContext.Provider>

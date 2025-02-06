@@ -1,52 +1,298 @@
-import { useContext, useRef, useState } from 'react';
-import { Box, Button, Grid2, styled, TextField } from '@mui/material';
-import { UserTypeContext } from '@/context/UserType.context';
+import { useState } from 'react';
+import {
+  Box,
+  Button,
+  TextField,
+  Stepper,
+  Step,
+  StepLabel,
+  Grid2,
+} from '@mui/material';
 import CustomButton from '@/components/Common/ButtonStyle';
-import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import MyLocationIcon from '@mui/icons-material/MyLocation';
+import * as yup from 'yup';
+import axios from 'axios';
+import { useFormik } from 'formik';
+import { CustomHead } from '../../components/Common/CustomTypography';
 
 const SignupForm = () => {
-  const { userType } = useContext(UserTypeContext);
+  const [activeStep, setActiveStep] = useState(0);
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  const phoneRegx = /^(02)?01[0125][0-9]{8}/;
 
-  const handleUser = () => {
-    if (userType === 'pharmacy'.toLowerCase()) {
-      return 'pharmacy';
+  // تعريف الخطوات
+  const steps = [
+    'Personal Information',
+    'Contact Information',
+    'Location & Role',
+  ];
+
+  async function signup(values) {
+    try {
+      console.log('Submitting values:', values);
+      const options = {
+        url: 'https://pflow.koyeb.app/api/v1/auth/signup',
+        method: 'POST',
+        data: values,
+      };
+      const { data } = await axios.request(options);
+      console.log('Response:', data);
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  }
+
+  const validationSchema = yup.object().shape({
+    name: yup.string().required('User name is required'),
+    email: yup
+      .string()
+      .matches(emailRegex, 'Invalid email')
+      .required('Email is required'),
+    ownerName: yup.string().required('Owner name is required'),
+    phone: yup
+      .string()
+      .required('Phone is required')
+      .matches(phoneRegx, 'Invalid phone number'),
+    registrationNumber: yup
+      .string()
+      .required('Registration number is required'),
+    identificationNumber: yup
+      .string()
+      .required('Identification number is required'),
+    city: yup.string().required('City is required'),
+    governorate: yup.string().required('Governorate is required'),
+    password: yup
+      .string()
+      .min(8, 'Password must be at least 8 characters')
+      .required('Password is required'),
+    rePassword: yup
+      .string()
+      .oneOf([yup.ref('password'), null], 'Passwords must match')
+      .required('Confirm password is required'),
+    role: yup
+      .string()
+      .oneOf(['pharmacy', 'inventory'], 'Invalid role')
+      .required('Role is required'),
+    location: yup.object().shape({
+      type: yup.string().required('Type is required'),
+      coordinates: yup
+        .array()
+        .of(yup.number().required('Coordinate is required'))
+        .length(2, 'Coordinates must be an array of two numbers'),
+    }),
+  });
+
+  const {
+    handleSubmit,
+    handleBlur,
+    handleChange,
+    values,
+    setFieldValue,
+    errors,
+  } = useFormik({
+    initialValues: {
+      email: 'ahmed.khaled.refai.b@gmail.com',
+      name: 'refai',
+      ownerName: 'ahmed refai',
+      phone: '01149701081',
+      role: 'pharmacy',
+      city: 'Alexandria',
+      location: {
+        type: 'Point',
+        coordinates: [30.0444, 31.2357],
+      },
+      governorate: 'Alexandria Governorate',
+      registrationNumber: '395624891010',
+      identificationNumber: '395624891010',
+      password: '123456789',
+      rePassword: '123456789',
+    },
+    validationSchema,
+    onSubmit: signup,
+  });
+  console.log(errors);
+
+  const handleGetLocation = () => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const newLocation = {
+            type: 'Point',
+            coordinates: [position.coords.longitude, position.coords.latitude],
+          };
+          setFieldValue('location', newLocation);
+          console.log('Updated location:', newLocation);
+        },
+        (error) => {
+          console.error('Error fetching location:', error);
+          alert('Unable to fetch location. Please enable location services.');
+        }
+      );
     } else {
-      return 'Inventory';
+      alert('Geolocation is not supported by your browser.');
     }
   };
-  const VisuallyHiddenInput = styled('input')({
-    clip: 'rect(0 0 0 0)',
-    clipPath: 'inset(50%)',
-    height: 1,
-    overflow: 'hidden',
-    position: 'absolute',
-    bottom: 0,
-    left: 0,
-    whiteSpace: 'nowrap',
-    width: 1,
-  });
 
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    ownerName: '',
-    phone: '',
-    registrationNumber: '',
-    identificationNumber: '',
-    city: '',
-    governorate: '',
-    password: '',
-    rePassword: '',
-  });
+  const handleNext = () => {
+    setActiveStep((prevStep) => prevStep + 1);
+  };
 
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+  const handleBack = () => {
+    setActiveStep((prevStep) => prevStep - 1);
+  };
+
+  const renderStepContent = (step) => {
+    switch (step) {
+      case 0:
+        return (
+          <>
+            <TextField
+              fullWidth
+              label="Name"
+              margin="normal"
+              type="text"
+              name="name"
+              value={values.name}
+              onChange={handleChange}
+              onBlur={handleBlur}
+            />
+            <TextField
+              fullWidth
+              label="Owner Name"
+              name="ownerName"
+              margin="normal"
+              type="text"
+              value={values.ownerName}
+              onChange={handleChange}
+              onBlur={handleBlur}
+            />
+            <TextField
+              fullWidth
+              label="Registration Number"
+              name="registrationNumber"
+              margin="normal"
+              type="number"
+              value={values.registrationNumber}
+              onChange={handleChange}
+              onBlur={handleBlur}
+            />
+          </>
+        );
+      case 1:
+        return (
+          <>
+            <TextField
+              fullWidth
+              label="Email"
+              name="email"
+              margin="normal"
+              type="email"
+              value={values.email}
+              onChange={handleChange}
+              onBlur={handleBlur}
+            />
+            <TextField
+              fullWidth
+              label="Phone"
+              name="phone"
+              margin="normal"
+              type="tel"
+              value={values.phone}
+              onChange={handleChange}
+              onBlur={handleBlur}
+            />
+            <TextField
+              fullWidth
+              label="Identification Number"
+              name="identificationNumber"
+              margin="normal"
+              type="number"
+              value={values.identificationNumber}
+              onChange={handleChange}
+              onBlur={handleBlur}
+            />
+          </>
+        );
+      case 2:
+        return (
+          <>
+            <TextField
+              fullWidth
+              label="City"
+              name="city"
+              margin="normal"
+              type="text"
+              value={values.city}
+              onChange={handleChange}
+              onBlur={handleBlur}
+            />
+            <TextField
+              fullWidth
+              label="Governorate"
+              name="governorate"
+              margin="normal"
+              type="text"
+              value={values.governorate}
+              onChange={handleChange}
+              onBlur={handleBlur}
+            />
+            <Box sx={{ mb: 1 }}>
+              <label htmlFor="pharmacy">Pharmacy</label>
+              <input
+                id="pharmacy"
+                type="radio"
+                name="role"
+                value="pharmacy"
+                checked={values.role === 'pharmacy'}
+                onChange={() => setFieldValue('role', 'pharmacy')}
+              />
+              <label htmlFor="inventory">Inventory</label>
+              <input
+                id="inventory"
+                type="radio"
+                name="role"
+                value="inventory"
+                checked={values.role === 'inventory'}
+                onChange={() => setFieldValue('role', 'inventory')}
+              />
+            </Box>
+            <Button
+              sx={{
+                fontWeight: 'bold',
+                display: 'flex',
+                alignItems: 'center',
+                gap: 1,
+                bgcolor: '#1976d2',
+                color: '#fff',
+                px: 2,
+                py: 1,
+                borderRadius: '3px',
+                '&:hover': { bgcolor: '#1565c0' },
+              }}
+              startIcon={<MyLocationIcon />}
+              onClick={handleGetLocation}
+            >
+              Get Location
+            </Button>
+          </>
+        );
+      default:
+        return null;
+    }
   };
 
   return (
     <>
-      <Grid2 spacing={5} container sx={{ borderRadius: 2 }}>
+      <Grid2
+        spacing={5}
+        container
+        sx={{
+          minHeight: '80vh',
+          mt: 5,
+          p: 3,
+          borderRadius: 2,
+        }}
+      >
         <Grid2
           size={{ md: 6 }}
           sx={{
@@ -54,160 +300,41 @@ const SignupForm = () => {
             bgcolor: '#DDDDDD',
             borderRadius: '10px',
             boxShadow: '0px 2px 3px',
-            minHeight: '100%',
-            maxHeight: '100%',
           }}
         ></Grid2>
-        <Grid2
-          size={{ xs: 12, md: 6 }}
-          sx={{ py: 2, minHeight: '100%', maxHeight: '100%' }}
-        >
-          <form
-            onSubmit={(e) => {
-              e.preventDefault();
-              console.log(formData);
-            }}
-          >
-            <Grid2 container spacing={1}>
-              <Grid2 item size={{ xs: 12, md: 6 }}>
-                <TextField
-                  fullWidth
-                  label={`${handleUser()} Name`}
-                  name="name"
-                  value={formData.name}
-                  onChange={handleChange}
-                  margin="normal"
-                  type="text"
-                />
-                <TextField
-                  fullWidth
-                  label="ownerName"
-                  name="ownerName"
-                  value={formData.ownerName}
-                  onChange={handleChange}
-                  margin="normal"
-                  type="text"
-                />
-                <TextField
-                  fullWidth
-                  label="registration Number"
-                  name="registrationNumber"
-                  value={formData.registrationNumber}
-                  onChange={handleChange}
-                  margin="normal"
-                  type="number"
-                />
-                <TextField
-                  fullWidth
-                  label="city"
-                  name="city"
-                  value={formData.city}
-                  onChange={handleChange}
-                  margin="normal"
-                  type="text"
-                />
-                <TextField
-                  fullWidth
-                  label="Password"
-                  name="password"
-                  value={formData.password}
-                  onChange={handleChange}
-                  type="password"
-                  margin="normal"
-                />
-              </Grid2>
-              <Grid2 item size={{ xs: 12, md: 6 }}>
-                <TextField
-                  fullWidth
-                  label="Email"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  margin="normal"
-                  type="email"
-                />
-
-                <TextField
-                  fullWidth
-                  label="phone"
-                  name="phone"
-                  value={formData.phone}
-                  onChange={handleChange}
-                  margin="normal"
-                  type="tel"
-                />
-
-                <TextField
-                  fullWidth
-                  label="identification Number"
-                  name="identificationNumber"
-                  value={formData.identificationNumber}
-                  onChange={handleChange}
-                  margin="normal"
-                  type="number"
-                />
-                <TextField
-                  fullWidth
-                  label="governorate"
-                  name="governorate"
-                  value={formData.governorate}
-                  onChange={handleChange}
-                  margin="normal"
-                  type="text"
-                />
-                <TextField
-                  fullWidth
-                  label="Confirm Password"
-                  name="rePassword"
-                  value={formData.rePassword}
-                  onChange={handleChange}
-                  type="password"
-                  margin="normal"
-                />
-              </Grid2>
-            </Grid2>
+        <Grid2 size={{ xs: 12, md: 6 }} sx={{ bg: 'red', pt: 5 }}>
+          <CustomHead mb={2} variant="h1" align={'center'}>
+            Sign uP
+          </CustomHead>
+          <Stepper activeStep={activeStep} alternativeLabel>
+            {steps.map((label) => (
+              <Step key={label}>
+                <StepLabel>{label}</StepLabel>
+              </Step>
+            ))}
+          </Stepper>
+          <form onSubmit={handleSubmit}>
+            <Box sx={{ my: 2 }}>{renderStepContent(activeStep)}</Box>
             <Box
-              sx={{
-                my: 2,
-                display: 'flex',
-                flexDirection: 'column',
-                gap: 2,
-                width: { xs: '100%', md: '75%' },
-                mx: 'auto',
-              }}
+              sx={{ display: 'flex', justifyContent: 'space-between', mt: 2 }}
             >
               <Button
-                component="label"
-                role={undefined}
+                disabled={activeStep === 0}
+                onClick={handleBack}
                 variant="contained"
-                tabIndex={-1}
-                startIcon={<CloudUploadIcon />}
-                sx={{ textWrap: 'nowrap' }}
               >
-                Upload image Of Pharmchy
-                <VisuallyHiddenInput type="file" multiple />
+                Back
               </Button>
-              <Button
-                sx={{
-                  fontWeight: 'bold',
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: 1,
-                  bgcolor: '#1976d2',
-                  color: '#fff',
-                  px: 2,
-                  py: 1,
-                  borderRadius: '3px',
-                  '&:hover': { bgcolor: '#1565c0' },
-                }}
-                startIcon={<MyLocationIcon />}
-              >
-                Get Location
-              </Button>
+              {activeStep === steps.length - 1 ? (
+                <CustomButton type="submit" w="100%" sm="75%" md="50%">
+                  Sign Up
+                </CustomButton>
+              ) : (
+                <Button onClick={handleNext} variant="contained">
+                  Next
+                </Button>
+              )}
             </Box>
-            <CustomButton type="submit" w="100%" sm="75%" md="50%">
-              Sign Up
-            </CustomButton>
           </form>
         </Grid2>
       </Grid2>

@@ -3,10 +3,36 @@ import CustomButton from '@/components/Common/ButtonStyle';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { CustomHead } from '@/components/Common/CustomTypography';
+import axios from 'axios';
+import toast from 'react-hot-toast';
 
 export default function ForgetPassword() {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
+  async function forgetpassword(values) {
+    const loading = toast.loading('watting');
+
+    try {
+      const options = {
+        url: 'https://pflow.onrender.com/api/v1/auth/forgetpassword',
+        method: 'POST',
+        data: values,
+      };
+      const { data } = await axios.request(options);
+      console.log(data);
+      if (data.message === 'Login successful') {
+        toast.success(data.message);
+
+        navigator('/updatedpassword');
+      }
+    } catch (error) {
+      toast.error(error.response.data.message);
+
+      console.log(error);
+    } finally {
+      toast.dismiss(loading);
+    }
+  }
   const validationSchema = Yup.object({
     email: Yup.string()
       .required('Required')
@@ -17,9 +43,7 @@ export default function ForgetPassword() {
       email: '',
     },
     validationSchema,
-    onSubmit: (values) => {
-      console.log(values);
-    },
+    onSubmit: forgetpassword,
   });
 
   return (

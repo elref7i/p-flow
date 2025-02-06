@@ -14,6 +14,7 @@ import ForgetPassword from '@/pages/Forgetpassword/Forgetpassword';
 import VerifySendCoding from '@/pages/VerifySendCoding/VerifySendCoding';
 import { Provider } from 'react-redux';
 import { store } from './store/sotre';
+import { Toaster } from 'react-hot-toast';
 
 function App() {
   const router = createBrowserRouter([
@@ -49,6 +50,7 @@ function App() {
       <UserTypeProvider>
         <Provider store={store}>
           <RouterProvider router={router} />
+          <Toaster />
         </Provider>
       </UserTypeProvider>
     </>

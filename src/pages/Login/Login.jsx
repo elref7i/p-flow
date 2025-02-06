@@ -3,10 +3,6 @@ import {
   TextField,
   Box,
   FormControl,
-  FormLabel,
-  RadioGroup,
-  FormControlLabel,
-  Radio,
   OutlinedInput,
   InputLabel,
   InputAdornment,
@@ -15,16 +11,20 @@ import {
 } from '@mui/material';
 import CustomButton from '@/components/Common/ButtonStyle';
 import { useFormik } from 'formik';
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useContext, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
 import { CustomHead } from '@/components/Common/CustomTypography';
+import axios from 'axios';
+import toast from 'react-hot-toast';
+import { UserTypeContext } from '../../context/UserType.context';
 
 export default function Login() {
+  const { setToken, setRole } = useContext(UserTypeContext);
   const [showPassword, setShowPassword] = useState(false);
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  const passwordRegx =
-    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+  const passwordRegx = /^.{8,}$/;
+  const navigator = useNavigate();
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
   const handleMouseDownPassword = (event) => {
@@ -35,6 +35,31 @@ export default function Login() {
     event.preventDefault();
   };
 
+  async function login(values) {
+    const loading = toast.loading('watting');
+    try {
+      const options = {
+        url: 'https://pflow.koyeb.app/api/v1/auth/login',
+        method: 'POST',
+        data: values,
+      };
+      const { data } = await axios.request(options);
+      console.log(data);
+      if (data.message === 'success') {
+        toast.success(data.message);
+        setRole(data.user.role);
+        setToken(data.token);
+        localStorage.setItem('token', data.token);
+        localStorage.setItem('role', data.user.role);
+        navigator('/');
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error(error.response.data.message);
+    } finally {
+      toast.dismiss(loading);
+    }
+  }
   const validationSchema = Yup.object({
     email: Yup.string()
       .required('Required')
@@ -52,9 +77,7 @@ export default function Login() {
       password: '',
     },
     validationSchema,
-    onSubmit: (values) => {
-      console.log(values);
-    },
+    onSubmit: login,
   });
 
   return (
@@ -131,26 +154,7 @@ export default function Login() {
               Forget Password
             </Link>
           </Box>
-          <FormControl component="fieldset" sx={{ mb: 3 }}>
-            <FormLabel
-              component="legend"
-              sx={{ color: '#2B273A', fontWeight: 'bold' }}
-            >
-              User Type
-            </FormLabel>
-            <RadioGroup row>
-              <FormControlLabel
-                value="pharmacy"
-                control={<Radio />}
-                label="Pharmacy"
-              />
-              <FormControlLabel
-                value="store"
-                control={<Radio />}
-                label="Store"
-              />
-            </RadioGroup>
-          </FormControl>
+
           <CustomButton type="submit" w="100%" sm="75%" md="50%">
             Login
           </CustomButton>

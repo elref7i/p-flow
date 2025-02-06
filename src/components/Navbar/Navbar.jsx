@@ -8,16 +8,15 @@ import NotificationsIcon from '@mui/icons-material/Notifications';
 import { Container } from '@mui/material';
 import { Link } from 'react-router-dom';
 import imageLogo from '@/assets/pflow-high-resolution-logo-transparent.png';
+import { useContext } from 'react';
+import { UserTypeContext } from '@/context/UserType.context';
 import LogoImage from '../Common/LogoImage';
 import InputSearch from '../Common/InputSearch';
 import AvatarCircle from '../Common/Avatar';
 import CustomButton from '../Common/ButtonStyle';
-import FadeMenu from '../Common/FadeMenu';
-import { useContext } from 'react';
-import { UserTypeContext } from '@/context/UserType.context';
 
 export default function Navbar() {
-  const { token } = useContext(UserTypeContext);
+  const { token, logout } = useContext(UserTypeContext);
   return (
     <AppBar sx={{ bgcolor: '#DDDDDD', display: 'fixed' }}>
       <Container maxWidth="lg">
@@ -65,17 +64,24 @@ export default function Navbar() {
           {!token && (
             <Box sx={{ display: 'flex', gap: '4px' }}>
               <Link to="/login">
-                <CustomButton type="submit" hoverColor={true}>
-                  Login
+                <CustomButton hoverColor={true}>Login</CustomButton>
+              </Link>
+              <Link to="/signup">
+                <CustomButton hoverColor={true}>Signup</CustomButton>
+              </Link>
+            </Box>
+          )}
+          {token && (
+            <Box sx={{ display: 'flex', gap: '4px' }}>
+              <Link to="/login">
+                <CustomButton hoverColor={true} onClick={logout}>
+                  Sign out
                 </CustomButton>
               </Link>
-              <FadeMenu />
             </Box>
           )}
         </Toolbar>
       </Container>
-      {/* {renderMobileMenu} */}
-      {/* {renderMenu} */}
     </AppBar>
   );
 }
