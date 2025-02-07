@@ -9,17 +9,20 @@ const CustomButton = styled('button')(
     marginInline,
     fontWeight,
     hoverColor,
+    hoverbgColor,
     w,
     sm,
     md,
     mb,
     fs,
+    color,
+    border,
   }) => ({
     backgroundColor: bgcolor || '#2B273A', // اللون الافتراضي
-    color: '#F5F6F6',
+    color: color || '#F5F6F6',
     padding: pad || '10px 20px', // القيم الافتراضية
     borderRadius: '5px',
-    border: '1px solid #2B273A',
+    border: border || '1px solid #2B273A',
     cursor: 'pointer',
     transition: '0.3s',
     display: 'block',
@@ -35,7 +38,7 @@ const CustomButton = styled('button')(
     marginInline: marginInline || 'auto',
     marginBottom: mb || 'auto',
     '&:hover': {
-      backgroundColor: hoverColor || '#DDDDDD',
+      backgroundColor: hoverbgColor || '#DDDDDD',
       color: hoverColor || '#2B273A',
     },
   })

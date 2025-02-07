@@ -64,10 +64,18 @@ export default function Navbar() {
           {!token && (
             <Box sx={{ display: 'flex', gap: '4px' }}>
               <Link to="/login">
-                <CustomButton hoverColor={true}>Login</CustomButton>
+                <CustomButton
+                  bgcolor={'transparent'}
+                  border={'none'}
+                  color={'#2B273A'}
+                  hoverbgColor={'#2B273A'}
+                  hoverColor={'#DDDDDD'}
+                >
+                  Login
+                </CustomButton>
               </Link>
               <Link to="/signup">
-                <CustomButton hoverColor={true}>Signup</CustomButton>
+                <CustomButton>Signup</CustomButton>
               </Link>
             </Box>
           )}

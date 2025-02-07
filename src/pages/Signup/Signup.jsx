@@ -312,7 +312,6 @@ const SignupForm = () => {
             ))}
           </Stepper>
 
-          {/* هنا كل عناصر الفورم */}
           <Box sx={{ my: 2 }}>{renderStepContent(activeStep)}</Box>
           <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: 2 }}>
             <CustomButton
@@ -321,6 +320,7 @@ const SignupForm = () => {
               onClick={handleBack}
               fs="15px"
               hoverColor={true}
+              hoverbgColor={true}
               marginInline={true}
             >
               Back
@@ -335,6 +335,7 @@ const SignupForm = () => {
                 onClick={handleNext}
                 fs="15px"
                 hoverColor={true}
+                hoverbgColor={true}
                 marginInline={true}
               >
                 Next Up

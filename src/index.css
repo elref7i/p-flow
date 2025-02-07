@@ -15,6 +15,9 @@ body {
   color: '#2B273A';
   text-align: start;
 }
+a {
+  text-decoration: none;
+}
 a:active {
   color: transparent;
 }
