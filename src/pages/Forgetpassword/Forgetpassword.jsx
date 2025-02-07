@@ -5,29 +5,29 @@ import * as Yup from 'yup';
 import { CustomHead } from '@/components/Common/CustomTypography';
 import axios from 'axios';
 import toast from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
 
 export default function ForgetPassword() {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  const navigator = useNavigate();
 
   async function forgetpassword(values) {
     const loading = toast.loading('watting');
 
     try {
       const options = {
-        url: 'https://pflow.onrender.com/api/v1/auth/forgetpassword',
+        url: 'https://pflow.koyeb.app/api/v1/auth/forgetpassword',
         method: 'POST',
         data: values,
       };
       const { data } = await axios.request(options);
-      console.log(data);
-      if (data.message === 'Login successful') {
+      // console.log(data.message);
+      if (data.message === 'Reset code sent successfully') {
         toast.success(data.message);
-
-        navigator('/updatedpassword');
+        navigator('/verifysendcoding');
       }
     } catch (error) {
       toast.error(error.response.data.message);
-
       console.log(error);
     } finally {
       toast.dismiss(loading);
@@ -38,13 +38,14 @@ export default function ForgetPassword() {
       .required('Required')
       .matches(emailRegex, 'Invalid email'),
   });
-  const formik = useFormik({
-    initialValues: {
-      email: '',
-    },
-    validationSchema,
-    onSubmit: forgetpassword,
-  });
+  const { handleBlur, handleChange, handleSubmit, errors, touched, values } =
+    useFormik({
+      initialValues: {
+        email: '',
+      },
+      validationSchema,
+      onSubmit: forgetpassword,
+    });
 
   return (
     <Grid2
@@ -94,16 +95,18 @@ export default function ForgetPassword() {
               our support team for assistance.
             </Typography>
           </Box>
-          <form onSubmit={formik.handleSubmit}>
+          <form onSubmit={handleSubmit}>
             <TextField
               fullWidth
               label="Email"
               margin="normal"
               sx={{ mb: 3 }}
               name="email"
-              value={formik.values.email}
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
+              value={values.email}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              error={errors.email && touched.email}
+              helperText={touched.email && errors.email}
             />
 
             <CustomButton

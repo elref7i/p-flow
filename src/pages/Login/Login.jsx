@@ -72,14 +72,15 @@ export default function Login() {
         'Password must contain at least 8 characters, one uppercase, one lowercase, one number and one special case character'
       ),
   });
-  const formik = useFormik({
-    initialValues: {
-      email: '',
-      password: '',
-    },
-    validationSchema,
-    onSubmit: login,
-  });
+  const { handleBlur, handleChange, handleSubmit, errors, values, touched } =
+    useFormik({
+      initialValues: {
+        email: '',
+        password: '',
+      },
+      validationSchema,
+      onSubmit: login,
+    });
 
   return (
     <Grid2
@@ -105,16 +106,18 @@ export default function Login() {
         <CustomHead variant="h1" align={'center'}>
           Login
         </CustomHead>
-        <form onSubmit={formik.handleSubmit}>
+        <form onSubmit={handleSubmit}>
           <TextField
             fullWidth
             label="Email"
             margin="normal"
             sx={{ mb: 3 }}
             name="email"
-            value={formik.values.email}
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
+            value={values.email}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            error={errors.email && touched.email}
+            helperText={touched.email && errors.email}
           />
           <FormControl fullWidth sx={{ mb: 3 }} variant="outlined">
             <InputLabel htmlFor="outlined-adornment-password">
@@ -124,9 +127,11 @@ export default function Login() {
               id="outlined-adornment-password"
               type={showPassword ? 'text' : 'password'}
               name="password"
-              value={formik.values.password}
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
+              value={values.password}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              error={errors.password && touched.password}
+              helperText={touched.password && errors.password}
               endAdornment={
                 <InputAdornment position="end">
                   <IconButton

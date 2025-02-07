@@ -8,21 +8,25 @@ import {
   IconButton,
   Grid2,
   Box,
+  TextField,
 } from '@mui/material';
 import CustomButton from '@/components/Common/ButtonStyle';
 import { useFormik } from 'formik';
 import { useState } from 'react';
 import * as Yup from 'yup';
 import { CustomHead } from '@/components/Common/CustomTypography';
+import toast from 'react-hot-toast';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 export default function UpdatedPassword() {
   const [showPassword, setShowPassword] = useState(false);
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  const passwordRegx =
-    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+  const navigator = useNavigate();
+
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+  const passwordRegx = /^.{8,}$/;
   const handleClickShowPassword = () => setShowPassword((show) => !show);
-  const handleClickShowConfirmPassword = () =>
-    setShowConfirmPassword((show) => !show);
 
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
@@ -32,27 +36,48 @@ export default function UpdatedPassword() {
     event.preventDefault();
   };
 
+  async function updatedPassword(values) {
+    const loading = toast.loading('watting');
+    try {
+      const options = {
+        url: 'https://pflow.koyeb.app/api/v1/auth/resetPassword',
+        method: 'PUT',
+        data: values,
+      };
+      const { data } = await axios.request(options);
+      console.log(data);
+      if (data.message === 'success') {
+        toast.success(data.message);
+        navigator('/login');
+      }
+    } catch (error) {
+      toast.error(error.response.data.message);
+      console.log(error);
+    } finally {
+      toast.dismiss(loading);
+    }
+  }
+
   const validationSchema = Yup.object({
-    password: Yup.string()
+    email: Yup.string()
+      .required('Required')
+      .matches(emailRegex, 'Invalid email'),
+    newPassword: Yup.string()
       .required('Required')
       .matches(
         passwordRegx,
         'Password must contain at least 8 characters, one uppercase, one lowercase, one number and one special case character'
       ),
-    rePassword: Yup.string()
-      .required('* Please confirm your password.')
-      .oneOf([Yup.ref('password')], '* Passwords must match.'),
   });
-  const formik = useFormik({
-    initialValues: {
-      password: '',
-      rePassword: '',
-    },
-    validationSchema,
-    onSubmit: (values) => {
-      console.log(values);
-    },
-  });
+  const { handleBlur, handleChange, handleSubmit, errors, touched, values } =
+    useFormik({
+      initialValues: {
+        email: '',
+        newPassword: '',
+      },
+      validationSchema,
+      onSubmit: updatedPassword,
+    });
 
   return (
     <Grid2
@@ -87,18 +112,35 @@ export default function UpdatedPassword() {
             required criteria to keep your account secure.
           </Typography>
         </Box>
-        <form onSubmit={formik.handleSubmit}>
+        <form onSubmit={handleSubmit}>
+          <TextField
+            fullWidth
+            label="Email"
+            margin="normal"
+            sx={{ mb: 3 }}
+            name="email"
+            value={values.email}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            error={errors.email && touched.email}
+            helperText={touched.email && errors.email}
+          />
           <FormControl fullWidth sx={{ mb: 3 }} variant="outlined">
-            <InputLabel htmlFor="outlined-adornment-password">
-              Password
+            <InputLabel
+              sx={{ fontSize: '11px' }}
+              htmlFor="outlined-adornment-new-password"
+            >
+              New Password
             </InputLabel>
             <OutlinedInput
-              id="outlined-adornment-password"
+              id="outlined-adornment-new-password"
               type={showPassword ? 'text' : 'password'}
-              name="password"
-              value={formik.values.password}
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
+              name="newPassword"
+              value={values.newPassword}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              error={errors.newPassword && touched.newPassword}
+              helperText={touched.newPassword && errors.newPassword}
               endAdornment={
                 <InputAdornment position="end">
                   <IconButton
@@ -119,38 +161,6 @@ export default function UpdatedPassword() {
               label="Password"
             />
           </FormControl>
-          <FormControl fullWidth sx={{ mb: 3 }} variant="outlined">
-            <InputLabel htmlFor="outlined-adornment-confirm-password">
-              Confirm Password
-            </InputLabel>
-            <OutlinedInput
-              id="outlined-adornment-confirm-password"
-              type={showConfirmPassword ? 'text' : 'password'}
-              name="rePassword"
-              value={formik.values.rePassword}
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              endAdornment={
-                <InputAdornment position="end">
-                  <IconButton
-                    aria-label={
-                      showConfirmPassword
-                        ? 'hide the password'
-                        : 'display the password'
-                    }
-                    onClick={handleClickShowConfirmPassword}
-                    onMouseDown={handleMouseDownPassword}
-                    onMouseUp={handleMouseUpPassword}
-                    edge="end"
-                  >
-                    {showConfirmPassword ? <VisibilityOff /> : <Visibility />}
-                  </IconButton>
-                </InputAdornment>
-              }
-              label="Confirm Password"
-            />
-          </FormControl>
-
           <CustomButton
             type="submit"
             // @ts-ignore

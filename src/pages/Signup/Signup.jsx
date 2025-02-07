@@ -7,6 +7,7 @@ import {
   Step,
   StepLabel,
   Grid2,
+  Typography,
 } from '@mui/material';
 import CustomButton from '@/components/Common/ButtonStyle';
 import MyLocationIcon from '@mui/icons-material/MyLocation';
@@ -28,14 +29,15 @@ const SignupForm = () => {
 
   async function signup(values) {
     try {
-      console.log('Submitting values:', values);
+      // console.log('Submitting values:', values);
       const options = {
         url: 'https://pflow.koyeb.app/api/v1/auth/signup',
         method: 'POST',
         data: values,
       };
       const { data } = await axios.request(options);
-      // *console.log('Response:', data);
+
+      console.log('Response:', data);
     } catch (error) {
       console.error('Error:', error);
     }
@@ -88,27 +90,29 @@ const SignupForm = () => {
     values,
     setFieldValue,
     errors,
+    touched,
   } = useFormik({
     initialValues: {
-      email: 'ahmed.khaled.refai.b@gmail.com',
-      name: 'refai',
-      ownerName: 'ahmed refai',
-      phone: '01149701081',
-      role: 'pharmacy',
-      city: 'Alexandria',
+      email: '',
+      name: '',
+      ownerName: '',
+      phone: '',
+      role: '',
+      city: '',
       location: {
-        type: 'Point',
-        coordinates: [30.0444, 31.2357],
+        type: '',
+        coordinates: [],
       },
-      governorate: 'Alexandria Governorate',
-      registrationNumber: '395624891010',
-      identificationNumber: '395624891010',
-      password: '123456789',
-      rePassword: '123456789',
+      governorate: ' ',
+      registrationNumber: '',
+      identificationNumber: '',
+      password: '',
+      rePassword: '',
     },
     validationSchema,
     onSubmit: signup,
   });
+  // console.log(errors);
 
   const handleGetLocation = () => {
     if (navigator.geolocation) {
@@ -153,6 +157,8 @@ const SignupForm = () => {
               value={values.name}
               onChange={handleChange}
               onBlur={handleBlur}
+              error={errors.name && touched.name}
+              helperText={touched.name && errors.name}
             />
             <TextField
               fullWidth
@@ -163,6 +169,8 @@ const SignupForm = () => {
               value={values.ownerName}
               onChange={handleChange}
               onBlur={handleBlur}
+              error={errors.ownerName && touched.ownerName}
+              helperText={touched.ownerName && errors.ownerName}
             />
             <TextField
               fullWidth
@@ -173,6 +181,26 @@ const SignupForm = () => {
               value={values.registrationNumber}
               onChange={handleChange}
               onBlur={handleBlur}
+              error={errors.registrationNumber && touched.registrationNumber}
+              helperText={
+                touched.registrationNumber && errors.registrationNumber
+              }
+            />
+            <TextField
+              fullWidth
+              label="Identification Number"
+              name="identificationNumber"
+              margin="normal"
+              type="number"
+              value={values.identificationNumber}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              error={
+                errors.identificationNumber && touched.identificationNumber
+              }
+              helperText={
+                touched.identificationNumber && errors.identificationNumber
+              }
             />
           </>
         );
@@ -188,6 +216,8 @@ const SignupForm = () => {
               value={values.email}
               onChange={handleChange}
               onBlur={handleBlur}
+              error={errors.email && touched.email}
+              helperText={touched.email && errors.email}
             />
             <TextField
               fullWidth
@@ -198,16 +228,32 @@ const SignupForm = () => {
               value={values.phone}
               onChange={handleChange}
               onBlur={handleBlur}
+              error={errors.phone && touched.phone}
+              helperText={touched.phone && errors.phone}
             />
             <TextField
               fullWidth
-              label="Identification Number"
-              name="identificationNumber"
+              label="Password"
+              name="password"
               margin="normal"
-              type="number"
-              value={values.identificationNumber}
+              type="password"
+              value={values.password}
               onChange={handleChange}
               onBlur={handleBlur}
+              error={errors.password && touched.password}
+              helperText={touched.password && errors.password}
+            />
+            <TextField
+              fullWidth
+              label="ConsfirmPassword"
+              name="rePassword"
+              margin="normal"
+              type="password"
+              value={values.rePassword}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              error={errors.rePassword && touched.rePassword}
+              helperText={touched.rePassword && errors.rePassword}
             />
           </>
         );
@@ -233,6 +279,8 @@ const SignupForm = () => {
               value={values.governorate}
               onChange={handleChange}
               onBlur={handleBlur}
+              error={errors.governorate && touched.governorate}
+              helperText={touched.governorate && errors.governorate}
             />
             <Box sx={{ mb: 1 }}>
               <label htmlFor="pharmacy">Pharmacy</label>
@@ -253,6 +301,10 @@ const SignupForm = () => {
                 checked={values.role === 'inventory'}
                 onChange={() => setFieldValue('role', 'inventory')}
               />
+
+              {errors.role && touched.role && (
+                <Typography variant="p">{errors.role}</Typography>
+              )}
             </Box>
             <Button
               sx={{
@@ -272,6 +324,9 @@ const SignupForm = () => {
             >
               Get Location
             </Button>
+            {errors.location?.type && (
+              <Typography variant="p">{errors.location.type}</Typography>
+            )}
           </>
         );
       default:
