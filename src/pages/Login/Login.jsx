@@ -1,23 +1,24 @@
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import {
   TextField,
-  Box,
   FormControl,
   OutlinedInput,
   InputLabel,
   InputAdornment,
   IconButton,
   Grid2,
+  Box,
 } from '@mui/material';
 import CustomButton from '@/components/Common/ButtonStyle';
 import { useFormik } from 'formik';
 import { useContext, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
 import { CustomHead } from '@/components/Common/CustomTypography';
 import axios from 'axios';
 import toast from 'react-hot-toast';
-import { UserTypeContext } from '../../context/UserType.context';
+import { UserTypeContext } from '@/context/UserType.context';
+import { CustomLink } from '@/components/Common/ButtonStyle';
 
 export default function Login() {
   const { setToken, setRole } = useContext(UserTypeContext);
@@ -101,7 +102,7 @@ export default function Login() {
         }}
       ></Grid2>
       <Grid2 size={{ xs: 12, md: 6 }} sx={{ bg: 'red', pt: 5 }}>
-        <CustomHead variant="h1" align={'left'}>
+        <CustomHead variant="h1" align={'center'}>
           Login
         </CustomHead>
         <form onSubmit={formik.handleSubmit}>
@@ -146,18 +147,16 @@ export default function Login() {
               label="Password"
             />
           </FormControl>
-          <Box sx={{ display: 'flex', justifyContent: 'end' }}>
-            <Link
-              to="/forgetpassword"
-              style={{ fontStyle: 'italic', color: '#2B273A' }}
-            >
-              Forget Password
-            </Link>
+          <Box component={'div'} mb={3}>
+            <CustomButton type="submit" w="100%" sm="75%" md="50%">
+              Login
+            </CustomButton>
           </Box>
-
-          <CustomButton type="submit" w="100%" sm="75%" md="50%">
-            Login
-          </CustomButton>
+          <Box component={'div'} align={'center'}>
+            <CustomLink to="/forgetpassword" textDecoration={'underline'}>
+              Forget Password
+            </CustomLink>
+          </Box>
         </form>
       </Grid2>
     </Grid2>

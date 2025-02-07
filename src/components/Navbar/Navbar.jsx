@@ -21,7 +21,7 @@ export default function Navbar() {
     <AppBar sx={{ bgcolor: '#DDDDDD', display: 'fixed' }}>
       <Container maxWidth="lg">
         <Toolbar>
-          <Link to="/" style={{ color: 'white' }}>
+          <Link to="/">
             <Box
               component="div"
               sx={{

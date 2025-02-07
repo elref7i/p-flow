@@ -20,7 +20,6 @@ const SignupForm = () => {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   const phoneRegx = /^(02)?01[0125][0-9]{8}/;
 
-  // تعريف الخطوات
   const steps = [
     'Personal Information',
     'Contact Information',
@@ -36,7 +35,7 @@ const SignupForm = () => {
         data: values,
       };
       const { data } = await axios.request(options);
-      console.log('Response:', data);
+      // *console.log('Response:', data);
     } catch (error) {
       console.error('Error:', error);
     }
@@ -110,7 +109,6 @@ const SignupForm = () => {
     validationSchema,
     onSubmit: signup,
   });
-  console.log(errors);
 
   const handleGetLocation = () => {
     if (navigator.geolocation) {
@@ -304,7 +302,7 @@ const SignupForm = () => {
         ></Grid2>
         <Grid2 size={{ xs: 12, md: 6 }} sx={{ bg: 'red', pt: 5 }}>
           <CustomHead mb={2} variant="h1" align={'center'}>
-            Sign uP
+            Sign Up
           </CustomHead>
           <Stepper activeStep={activeStep} alternativeLabel>
             {steps.map((label) => (
@@ -313,29 +311,36 @@ const SignupForm = () => {
               </Step>
             ))}
           </Stepper>
-          <form onSubmit={handleSubmit}>
-            <Box sx={{ my: 2 }}>{renderStepContent(activeStep)}</Box>
-            <Box
-              sx={{ display: 'flex', justifyContent: 'space-between', mt: 2 }}
+
+          {/* هنا كل عناصر الفورم */}
+          <Box sx={{ my: 2 }}>{renderStepContent(activeStep)}</Box>
+          <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: 2 }}>
+            <CustomButton
+              disabled={activeStep === 0}
+              type="button"
+              onClick={handleBack}
+              fs="15px"
+              hoverColor={true}
+              marginInline={true}
             >
-              <Button
-                disabled={activeStep === 0}
-                onClick={handleBack}
-                variant="contained"
+              Back
+            </CustomButton>
+            {activeStep === steps.length - 1 ? (
+              <form onSubmit={handleSubmit}>
+                <CustomButton type="submit">Sign Up</CustomButton>
+              </form>
+            ) : (
+              <CustomButton
+                type="button"
+                onClick={handleNext}
+                fs="15px"
+                hoverColor={true}
+                marginInline={true}
               >
-                Back
-              </Button>
-              {activeStep === steps.length - 1 ? (
-                <CustomButton type="submit" w="100%" sm="75%" md="50%">
-                  Sign Up
-                </CustomButton>
-              ) : (
-                <Button onClick={handleNext} variant="contained">
-                  Next
-                </Button>
-              )}
-            </Box>
-          </form>
+                Next Up
+              </CustomButton>
+            )}
+          </Box>
         </Grid2>
       </Grid2>
     </>

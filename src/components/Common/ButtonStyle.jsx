@@ -1,4 +1,5 @@
 import { styled } from '@mui/material/styles';
+import { Link } from 'react-router-dom';
 
 const CustomButton = styled('button')(
   ({
@@ -11,6 +12,8 @@ const CustomButton = styled('button')(
     w,
     sm,
     md,
+    mb,
+    fs,
   }) => ({
     backgroundColor: bgcolor || '#2B273A', // اللون الافتراضي
     color: '#F5F6F6',
@@ -27,14 +30,27 @@ const CustomButton = styled('button')(
     [theme.breakpoints.up('sm')]: {
       width: sm || 'auto',
     },
-    fontSize: '20px',
+    fontSize: fs || '20px',
     fontWeight: fontWeight || 'bold',
     marginInline: marginInline || 'auto',
+    marginBottom: mb || 'auto',
     '&:hover': {
       backgroundColor: hoverColor || '#DDDDDD',
       color: hoverColor || '#2B273A',
     },
   })
 );
+
+export const CustomLink = styled(Link)`
+  font-style: ${(props) => props.fs || 'normal'};
+  color: ${(props) => props.fs || '#2b273a99'};
+  text-decoration: ${(props) => props.textDecoration || 'none'};
+  display: 'block';
+  cursor: 'pointer';
+  &:hover {
+    background-color: ${(props) => props.bg || 'transparent'};
+    color: ${(props) => props.hoverColor || '#2B273A'};
+  }
+`;
 
 export default CustomButton;

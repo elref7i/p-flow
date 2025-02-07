@@ -5,7 +5,7 @@ export const CustomHead = ({ mb, children, ...props }) => {
   return (
     <Typography
       sx={{
-        fontSize: '40px',
+        fontSize: '45px',
         fontWeight: 'bold',
         color: '#2B273A',
         mb: mb || 2,
