@@ -269,6 +269,8 @@ const SignupForm = () => {
               value={values.city}
               onChange={handleChange}
               onBlur={handleBlur}
+              error={errors.city && touched.city}
+              helperText={touched.city && errors.city}
             />
             <TextField
               fullWidth
@@ -282,6 +284,7 @@ const SignupForm = () => {
               error={errors.governorate && touched.governorate}
               helperText={touched.governorate && errors.governorate}
             />
+
             <Box sx={{ mb: 1 }}>
               <label htmlFor="pharmacy">Pharmacy</label>
               <input
@@ -324,9 +327,9 @@ const SignupForm = () => {
             >
               Get Location
             </Button>
-            {errors.location?.type && (
+            {/* {errors.location?.type && (
               <Typography variant="p">{errors.location.type}</Typography>
-            )}
+            )} */}
           </>
         );
       default:

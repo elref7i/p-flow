@@ -15,6 +15,7 @@ import VerifySendCoding from '@/pages/VerifySendCoding/VerifySendCoding';
 import { Provider } from 'react-redux';
 import { store } from './store/sotre';
 import { Toaster } from 'react-hot-toast';
+import Landing from './pages/Landing/Landing';
 
 function App() {
   const router = createBrowserRouter([
@@ -35,6 +36,7 @@ function App() {
         </GuestRoute>
       ),
       children: [
+        { path: '/landing', element: <Landing /> },
         { path: '/login', element: <Login /> },
         { path: '/signup', element: <Signup /> },
         { path: '/forgetpassword', element: <ForgetPassword /> },

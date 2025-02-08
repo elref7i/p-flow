@@ -7,6 +7,6 @@ export default function ProductRoute({ children }) {
   if (token) {
     return children;
   } else {
-    return <Navigate to="/login" />;
+    return <Navigate to="/landing" />;
   }
 }

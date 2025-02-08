@@ -37,6 +37,7 @@ const CustomButton = styled('button')(
     fontWeight: fontWeight || 'bold',
     marginInline: marginInline || 'auto',
     marginBottom: mb || 'auto',
+
     '&:hover': {
       backgroundColor: hoverbgColor || '#DDDDDD',
       color: hoverColor || '#2B273A',
@@ -46,12 +47,17 @@ const CustomButton = styled('button')(
 
 export const CustomLink = styled(Link)`
   font-style: ${(props) => props.fs || 'normal'};
-  color: ${(props) => props.fs || '#2b273a99'};
+  font-weight: ${(props) => props.fw || 'normal'};
+  border-radius: ${(props) => props.br || '0px'};
+  color: ${(props) => props.c || '#2b273a99'};
   text-decoration: ${(props) => props.textDecoration || 'none'};
   display: 'block';
   cursor: 'pointer';
+  transition: ${(props) => props.transition || 'all 0.4s ease-in-out'};
+  padding: ${(props) => props.p || '0px'};
+  background-color: ${(props) => props.bg || 'transparent'};
   &:hover {
-    background-color: ${(props) => props.bg || 'transparent'};
+    background-color: ${(props) => props.hoverbg || 'transparent'};
     color: ${(props) => props.hoverColor || '#2B273A'};
   }
 `;
