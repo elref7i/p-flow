@@ -16,6 +16,7 @@ import { Provider } from 'react-redux';
 import { store } from './store/sotre';
 import { Toaster } from 'react-hot-toast';
 import Landing from './pages/Landing/Landing';
+import ThemeModeProvider from './context/theme.context';
 
 function App() {
   const router = createBrowserRouter([
@@ -45,13 +46,14 @@ function App() {
       ],
     },
   ]);
-
   //* react query - redux
   return (
     <>
       <UserTypeProvider>
         <Provider store={store}>
-          <RouterProvider router={router} />
+          <ThemeModeProvider>
+            <RouterProvider router={router} />
+          </ThemeModeProvider>
           <Toaster />
         </Provider>
       </UserTypeProvider>

@@ -1,92 +1,126 @@
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import IconButton from '@mui/material/IconButton';
-import Badge from '@mui/material/Badge';
-import MailIcon from '@mui/icons-material/Mail';
+import {
+  Box,
+  Container,
+  IconButton,
+  Stack,
+  styled,
+  Toolbar,
+  Typography,
+  useTheme,
+} from '@mui/material';
+import MenuIcon from '@mui/icons-material/Menu';
+import MuiAppBar from '@mui/material/AppBar';
+import InputSearch from '../common/InputSearch';
+
+import LightModeSharpIcon from '@mui/icons-material/LightModeSharp';
 import NotificationsIcon from '@mui/icons-material/Notifications';
-import { Container } from '@mui/material';
-import { Link } from 'react-router-dom';
-import imageLogo from '@/assets/pflow-high-resolution-logo-transparent.png';
+import ModeNightIcon from '@mui/icons-material/ModeNight';
 import { useContext } from 'react';
-import { UserTypeContext } from '@/context/UserType.context';
-import LogoImage from '../Common/LogoImage';
-import InputSearch from '../Common/InputSearch';
-import AvatarCircle from '../Common/Avatar';
-import CustomButton from '../Common/ButtonStyle';
+import { ThemeContext } from '../../context/theme.context';
+import ProfilePerson from '../Common/ProfilePerson';
+import { UserTypeContext } from '../../context/UserType.context';
+
+const drawerWidth = 240;
+
+const AppBar = styled(MuiAppBar, {
+  shouldForwardProp: (prop) => prop !== 'open',
+})(({ theme }) => ({
+  zIndex: theme.zIndex.drawer + 1,
+  transition: theme.transitions.create(['width', 'margin'], {
+    easing: theme.transitions.easing.sharp,
+    duration: theme.transitions.duration.leavingScreen,
+  }),
+  variants: [
+    {
+      // @ts-ignore
+      props: ({ open }) => open,
+      style: {
+        marginLeft: drawerWidth,
+        width: `calc(100% - ${drawerWidth}px)`,
+        transition: theme.transitions.create(['width', 'margin'], {
+          easing: theme.transitions.easing.sharp,
+          duration: theme.transitions.duration.enteringScreen,
+        }),
+      },
+    },
+  ],
+}));
 
 export default function Navbar() {
-  const { token, logout } = useContext(UserTypeContext);
+  const theme = useTheme();
+  const { token } = useContext(UserTypeContext);
+  const { setMode, open, handleDrawerOpen } = useContext(ThemeContext);
   return (
-    <AppBar sx={{ bgcolor: '#DDDDDD', display: 'fixed' }}>
-      <Container maxWidth="lg">
-        <Toolbar>
-          <Link to="/">
-            <Box
-              component="div"
-              sx={{
-                display: {
-                  xs: 'none',
-                  sm: 'block',
-                  fontWeight: 'bold',
-                  fontSize: '25px',
+    <AppBar
+      position="fixed"
+      // @ts-ignore
+      open={open}
+    >
+      <Container maxWidth={'xl'}>
+        <Toolbar sx={{ px: 5 }}>
+          {token && (
+            <IconButton
+              color="inherit"
+              aria-label="open drawer"
+              onClick={handleDrawerOpen}
+              edge="start"
+              sx={[
+                {
+                  marginRight: 5,
                 },
-              }}
+                open && { display: 'none' },
+              ]}
             >
-              <LogoImage src={imageLogo} alt="logo" />
-            </Box>
-          </Link>
+              <MenuIcon />
+            </IconButton>
+          )}
+          <Typography variant="h6" noWrap component="div">
+            P-Flow
+          </Typography>
           {token && <InputSearch />}
-          <Box sx={{ flexGrow: 1 }} />
+          <Box component={'div'} flexGrow={1} />
           {token && (
-            <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-              <IconButton
-                size="large"
-                aria-label="show 4 new mails"
-                color="inherit"
-              >
-                <Badge badgeContent={4} color="error">
-                  <MailIcon />
-                </Badge>
-              </IconButton>
-              <IconButton
-                size="large"
-                aria-label="show 17 new notifications"
-                color="inherit"
-              >
-                <Badge badgeContent={17} color="error">
-                  <NotificationsIcon />
-                </Badge>
-              </IconButton>
-              <AvatarCircle />
-            </Box>
-          )}
-          {!token && (
-            <Box sx={{ display: 'flex', gap: '4px' }}>
-              <Link to="/login">
-                <CustomButton
-                  bgcolor={'transparent'}
-                  border={'none'}
-                  color={'#2B273A'}
-                  hoverbgColor={'#2B273A'}
-                  hoverColor={'#DDDDDD'}
+            <Stack direction="row" spacing={1} sx={{ alignItems: 'center' }}>
+              {theme.palette.mode === 'light'.toLowerCase() ? (
+                <IconButton
+                  onClick={() => {
+                    setMode((prevMode) =>
+                      prevMode === 'light' ? 'dark' : 'light'
+                    );
+                    localStorage.setItem(
+                      'mode',
+                      theme.palette.mode === 'dark' ? 'light' : 'dark'
+                    );
+                  }}
+                  color="inherit"
+                  aria-label="delete"
+                  size="medium"
                 >
-                  Login
-                </CustomButton>
-              </Link>
-              <Link to="/signup">
-                <CustomButton>Signup</CustomButton>
-              </Link>
-            </Box>
-          )}
-          {token && (
-            <Box sx={{ display: 'flex', gap: '4px' }}>
-              <Link to="/login">
-                <CustomButton hoverColor={true} onClick={logout}>
-                  Sign out
-                </CustomButton>
-              </Link>
-            </Box>
+                  <LightModeSharpIcon fontSize="inherit" />
+                </IconButton>
+              ) : (
+                <IconButton
+                  onClick={() => {
+                    setMode((prevMode) =>
+                      prevMode === 'light' ? 'dark' : 'light'
+                    );
+                    localStorage.setItem(
+                      'mode',
+                      theme.palette.mode === 'dark' ? 'light' : 'dark'
+                    );
+                  }}
+                  color="inherit"
+                  aria-label="delete"
+                  size="medium"
+                >
+                  <ModeNightIcon fontSize="inherit" />
+                </IconButton>
+              )}
+              <IconButton color="inherit" aria-label="delete" size="medium">
+                <NotificationsIcon fontSize="inherit" />
+              </IconButton>
+              <ProfilePerson />
+            </Stack>
           )}
         </Toolbar>
       </Container>
