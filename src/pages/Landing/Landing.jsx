@@ -76,7 +76,7 @@ const LandingPage = () => {
           alt="DrugStore Logo"
           style={{ width: '150px', marginBottom: '20px' }}
         />
-        <CustomHead variant="h2">Welcome to DrugStore</CustomHead>
+        <CustomHead variant="h2">Welcome to P-Flow</CustomHead>
         <Typography variant="h6" sx={{ mt: 2 }}>
           Your trusted online pharmacy
         </Typography>
@@ -129,7 +129,7 @@ const LandingPage = () => {
       </Container>
 
       {/* Contact Us */}
-      <Container id="contact" sx={{ my: 5 }}>
+      <Container id="contact" sx={{ py: 5 }}>
         <Typography variant="h4" gutterBottom>
           Contact Us
         </Typography>
@@ -146,12 +146,6 @@ const LandingPage = () => {
           Send Message
         </Button>
       </Container>
-
-      <Box id="footer" sx={{ textAlign: 'center', py: 3, bgcolor: 'grey.200' }}>
-        <Typography variant="body2">
-          &copy; 2025 DrugStore. All rights reserved.
-        </Typography>
-      </Box>
     </>
   );
 };
