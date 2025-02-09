@@ -10,7 +10,7 @@ import {
 } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import MuiAppBar from '@mui/material/AppBar';
-import InputSearch from '../common/InputSearch';
+import InputSearch from '../Common/InputSearch';
 
 import LightModeSharpIcon from '@mui/icons-material/LightModeSharp';
 import NotificationsIcon from '@mui/icons-material/Notifications';
@@ -20,7 +20,6 @@ import { ThemeContext } from '../../context/theme.context';
 import ProfilePerson from '../Common/ProfilePerson';
 import { UserTypeContext } from '../../context/UserType.context';
 import { CustomLink } from '../Common/ButtonStyle';
-import { Link } from 'react-router-dom';
 
 const drawerWidth = 240;
 
