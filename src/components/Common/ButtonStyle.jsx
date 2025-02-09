@@ -15,14 +15,13 @@ const CustomButton = styled('button')(
     md,
     mb,
     fs,
-    color,
     border,
   }) => ({
-    backgroundColor: bgcolor || '#2B273A', // اللون الافتراضي
-    color: color || '#F5F6F6',
-    padding: pad || '10px 20px', // القيم الافتراضية
+    backgroundColor: theme.palette.primary.main, // اللون الأساسي من الثيم
+    color: theme.palette.text.primary,
+    padding: pad || '10px 20px',
     borderRadius: '5px',
-    border: border || '1px solid #2B273A',
+    border: border || `1px solid ${theme.palette.primary.main}`,
     cursor: 'pointer',
     transition: '0.3s',
     display: 'block',
@@ -39,27 +38,42 @@ const CustomButton = styled('button')(
     marginBottom: mb || 'auto',
 
     '&:hover': {
-      backgroundColor: hoverbgColor || '#DDDDDD',
-      color: hoverColor || '#2B273A',
+      backgroundColor: hoverbgColor || theme.palette.background.main, // خلفية عند التحويل
+      color: hoverColor || theme.palette.text.secondary,
     },
   })
 );
 
-export const CustomLink = styled(Link)`
-  font-style: ${(props) => props.fs || 'normal'};
-  font-weight: ${(props) => props.fw || 'normal'};
-  border-radius: ${(props) => props.br || '0px'};
-  color: ${(props) => props.c || '#2b273a99'};
-  text-decoration: ${(props) => props.textDecoration || 'none'};
-  display: 'block';
-  cursor: 'pointer';
-  transition: ${(props) => props.transition || 'all 0.4s ease-in-out'};
-  padding: ${(props) => props.p || '0px'};
-  background-color: ${(props) => props.bg || 'transparent'};
-  &:hover {
-    background-color: ${(props) => props.hoverbg || 'transparent'};
-    color: ${(props) => props.hoverColor || '#2B273A'};
-  }
-`;
+export const CustomLink = styled(Link)(
+  ({
+    theme,
+    fs,
+    fw,
+    br,
+    c,
+    textDecoration,
+    transition,
+    p,
+    bg,
+    hoverbg,
+    hoverColor,
+  }) => ({
+    fontStyle: fs || 'normal',
+    fontWeight: fw || 'normal',
+    borderRadius: br || '0px',
+    color: c || theme.palette.text.secondary,
+    textDecoration: textDecoration || 'none',
+    display: 'block',
+    cursor: 'pointer',
+    transition: transition || 'all 0.4s ease-in-out',
+    padding: p || '0px',
+    backgroundColor: bg || 'transparent',
+
+    '&:hover': {
+      backgroundColor: hoverbg || 'transparent',
+      color: hoverColor || theme.palette.primary.main,
+    },
+  })
+);
 
 export default CustomButton;

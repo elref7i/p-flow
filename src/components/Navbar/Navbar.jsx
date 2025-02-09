@@ -19,6 +19,7 @@ import { useContext } from 'react';
 import { ThemeContext } from '../../context/theme.context';
 import ProfilePerson from '../Common/ProfilePerson';
 import { UserTypeContext } from '../../context/UserType.context';
+import CustomButton from '../Common/ButtonStyle';
 
 const drawerWidth = 240;
 
@@ -79,49 +80,53 @@ export default function Navbar() {
           </Typography>
           {token && <InputSearch />}
           <Box component={'div'} flexGrow={1} />
-          {token && (
-            <Stack direction="row" spacing={1} sx={{ alignItems: 'center' }}>
-              {theme.palette.mode === 'light'.toLowerCase() ? (
-                <IconButton
-                  onClick={() => {
-                    setMode((prevMode) =>
-                      prevMode === 'light' ? 'dark' : 'light'
-                    );
-                    localStorage.setItem(
-                      'mode',
-                      theme.palette.mode === 'dark' ? 'light' : 'dark'
-                    );
-                  }}
-                  color="inherit"
-                  aria-label="delete"
-                  size="medium"
-                >
-                  <LightModeSharpIcon fontSize="inherit" />
-                </IconButton>
-              ) : (
-                <IconButton
-                  onClick={() => {
-                    setMode((prevMode) =>
-                      prevMode === 'light' ? 'dark' : 'light'
-                    );
-                    localStorage.setItem(
-                      'mode',
-                      theme.palette.mode === 'dark' ? 'light' : 'dark'
-                    );
-                  }}
-                  color="inherit"
-                  aria-label="delete"
-                  size="medium"
-                >
-                  <ModeNightIcon fontSize="inherit" />
-                </IconButton>
-              )}
-              <IconButton color="inherit" aria-label="delete" size="medium">
-                <NotificationsIcon fontSize="inherit" />
+          <Stack direction="row" spacing={1} sx={{ alignItems: 'center' }}>
+            {theme.palette.mode === 'light'.toLowerCase() ? (
+              <IconButton
+                onClick={() => {
+                  setMode((prevMode) =>
+                    prevMode === 'light' ? 'dark' : 'light'
+                  );
+                  localStorage.setItem(
+                    'mode',
+                    theme.palette.mode === 'dark' ? 'light' : 'dark'
+                  );
+                }}
+                color="inherit"
+                aria-label="delete"
+                size="medium"
+              >
+                <LightModeSharpIcon fontSize="inherit" />
               </IconButton>
-              <ProfilePerson />
-            </Stack>
-          )}
+            ) : (
+              <IconButton
+                onClick={() => {
+                  setMode((prevMode) =>
+                    prevMode === 'light' ? 'dark' : 'light'
+                  );
+                  localStorage.setItem(
+                    'mode',
+                    theme.palette.mode === 'dark' ? 'light' : 'dark'
+                  );
+                }}
+                color="inherit"
+                aria-label="delete"
+                size="medium"
+              >
+                <ModeNightIcon fontSize="inherit" />
+              </IconButton>
+            )}
+            {token && (
+              <>
+                <IconButton color="inherit" aria-label="delete" size="medium">
+                  <NotificationsIcon fontSize="inherit" />
+                </IconButton>
+                <ProfilePerson />
+              </>
+            )}
+            <CustomButton>Login</CustomButton>
+            <CustomButton>Sign up</CustomButton>
+          </Stack>
         </Toolbar>
       </Container>
     </AppBar>
