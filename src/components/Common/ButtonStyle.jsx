@@ -46,19 +46,7 @@ const CustomButton = styled('button')(
 );
 
 export const CustomLink = styled(Link)(
-  ({
-    theme,
-    fs,
-    fw,
-    br,
-    c,
-    textDecoration,
-    transition,
-    p,
-    bg,
-    hoverbg,
-    hoverColor,
-  }) => ({
+  ({ theme, fs, fw, br, c, textDecoration, transition, p, bg }) => ({
     fontStyle: fs || 'normal',
     fontWeight: fw || 'normal',
     borderRadius: br || '0px',
@@ -70,11 +58,11 @@ export const CustomLink = styled(Link)(
     padding: p || '0px',
     backgroundColor: bg || theme.palette.background.default,
 
+    // إزالة تأثيرات hover
     '&:hover': {
-      backgroundColor: hoverbg || theme.palette.action.hover,
-      color: hoverColor || theme.palette.primary.dark,
+      backgroundColor: bg || theme.palette.background.default, // نفس لون الخلفية الأصلي
+      color: c || theme.palette.text.primary, // نفس لون النص الأصلي
     },
   })
 );
-
 export default CustomButton;

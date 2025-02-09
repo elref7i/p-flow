@@ -20,6 +20,7 @@ import { ThemeContext } from '../../context/theme.context';
 import ProfilePerson from '../Common/ProfilePerson';
 import { UserTypeContext } from '../../context/UserType.context';
 import { CustomLink } from '../Common/ButtonStyle';
+import { Link } from 'react-router-dom';
 
 const drawerWidth = 240;
 
@@ -56,6 +57,7 @@ export default function Navbar() {
       position="fixed"
       // @ts-ignore
       open={open}
+      sx={{ bgcolor: theme.palette.background.navbar }}
     >
       <Container maxWidth={'xl'}>
         <Toolbar sx={{ px: 5 }}>
@@ -75,8 +77,16 @@ export default function Navbar() {
               <MenuIcon />
             </IconButton>
           )}
-          <Typography variant="h6" noWrap component="div">
-            P-Flow
+          <Typography variant="h6" noWrap color="text.primary">
+            <CustomLink
+              to={'/landing'}
+              bg={true}
+              c={theme.palette.primary.main}
+              hoverbg={true}
+              hoverColor={true}
+            >
+              P-Flow
+            </CustomLink>
           </Typography>
           {token && <InputSearch />}
           <Box component={'div'} flexGrow={1} />
@@ -92,7 +102,6 @@ export default function Navbar() {
                     theme.palette.mode === 'dark' ? 'light' : 'dark'
                   );
                 }}
-                color="inherit"
                 aria-label="delete"
                 size="medium"
               >
@@ -109,7 +118,7 @@ export default function Navbar() {
                     theme.palette.mode === 'dark' ? 'light' : 'dark'
                   );
                 }}
-                color="inherit"
+                color="lightBackground"
                 aria-label="delete"
                 size="medium"
               >
@@ -124,10 +133,22 @@ export default function Navbar() {
                 <ProfilePerson />
               </>
             )}
-            <CustomLink p={'10px'} fs={'25px'} fw={'bold'} br={'5px'}>
+            <CustomLink
+              to={'/login'}
+              p={'10px'}
+              fs={'25px'}
+              fw={'bold'}
+              br={'5px'}
+            >
               Login
             </CustomLink>
-            <CustomLink p={'10px'} fs={'25px'} fw={'bold'} br={'5px'}>
+            <CustomLink
+              to={'/signup'}
+              p={'10px'}
+              fs={'25px'}
+              fw={'bold'}
+              br={'5px'}
+            >
               Sign up
             </CustomLink>
           </Stack>

@@ -16,8 +16,8 @@ export default function Layout() {
         sx={{
           m: 0,
           pt: '100px',
-          bgcolor: '#F5F6F6',
           minHeight: 'calc(100vh-86.01px)',
+          backgroundColor: 'background.default',
         }}
       >
         <Container maxWidth="lg">

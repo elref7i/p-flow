@@ -120,7 +120,10 @@ export default function Login() {
             helperText={touched.email && errors.email}
           />
           <FormControl fullWidth sx={{ mb: 3 }} variant="outlined">
-            <InputLabel htmlFor="outlined-adornment-password">
+            <InputLabel
+              color={errors.email && touched.email ? 'error' : 'primary'}
+              htmlFor="outlined-adornment-password"
+            >
               Password
             </InputLabel>
             <OutlinedInput
@@ -158,7 +161,13 @@ export default function Login() {
             </CustomButton>
           </Box>
           <Box component={'div'} align={'center'}>
-            <CustomLink to="/forgetpassword" textDecoration={'underline'}>
+            <CustomLink
+              hoverbg={true}
+              hoverColor={true}
+              bg={true}
+              to="/forgetpassword"
+              textDecoration={'underline'}
+            >
               Forget Password
             </CustomLink>
           </Box>
