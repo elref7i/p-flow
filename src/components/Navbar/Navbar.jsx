@@ -19,7 +19,7 @@ import { useContext } from 'react';
 import { ThemeContext } from '../../context/theme.context';
 import ProfilePerson from '../Common/ProfilePerson';
 import { UserTypeContext } from '../../context/UserType.context';
-import CustomButton from '../Common/ButtonStyle';
+import { CustomLink } from '../Common/ButtonStyle';
 
 const drawerWidth = 240;
 
@@ -124,8 +124,12 @@ export default function Navbar() {
                 <ProfilePerson />
               </>
             )}
-            <CustomButton>Login</CustomButton>
-            <CustomButton>Sign up</CustomButton>
+            <CustomLink p={'10px'} fs={'25px'} fw={'bold'} br={'5px'}>
+              Login
+            </CustomLink>
+            <CustomLink p={'10px'} fs={'25px'} fw={'bold'} br={'5px'}>
+              Sign up
+            </CustomLink>
           </Stack>
         </Toolbar>
       </Container>

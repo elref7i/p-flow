@@ -15,10 +15,11 @@ const CustomButton = styled('button')(
     md,
     mb,
     fs,
+    color,
     border,
   }) => ({
-    backgroundColor: theme.palette.primary.main, // اللون الأساسي من الثيم
-    color: theme.palette.text.primary,
+    backgroundColor: bgcolor || theme.palette.primary.main,
+    color: color || theme.palette.text.primary,
     padding: pad || '10px 20px',
     borderRadius: '5px',
     border: border || `1px solid ${theme.palette.primary.main}`,
@@ -38,8 +39,8 @@ const CustomButton = styled('button')(
     marginBottom: mb || 'auto',
 
     '&:hover': {
-      backgroundColor: hoverbgColor || theme.palette.background.main, // خلفية عند التحويل
-      color: hoverColor || theme.palette.text.secondary,
+      backgroundColor: hoverbgColor || theme.palette.action.hover, // لون مخصص للـ hover
+      color: hoverColor || theme.palette.primary.dark, // لون يكون واضح في الحالتين
     },
   })
 );
@@ -61,17 +62,17 @@ export const CustomLink = styled(Link)(
     fontStyle: fs || 'normal',
     fontWeight: fw || 'normal',
     borderRadius: br || '0px',
-    color: c || theme.palette.text.secondary,
+    color: c || theme.palette.text.primary,
     textDecoration: textDecoration || 'none',
     display: 'block',
     cursor: 'pointer',
     transition: transition || 'all 0.4s ease-in-out',
     padding: p || '0px',
-    backgroundColor: bg || 'transparent',
+    backgroundColor: bg || theme.palette.background.default,
 
     '&:hover': {
-      backgroundColor: hoverbg || 'transparent',
-      color: hoverColor || theme.palette.primary.main,
+      backgroundColor: hoverbg || theme.palette.action.hover,
+      color: hoverColor || theme.palette.primary.dark,
     },
   })
 );
