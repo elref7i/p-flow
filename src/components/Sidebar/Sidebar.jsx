@@ -29,6 +29,7 @@ import MapIcon from '@mui/icons-material/Map';
 import ImageAdmin from '../../assets/photo_2024-12-03_19-37-17.jpg';
 import { useContext } from 'react';
 import { ThemeContext } from '../../context/theme.context';
+import { UserTypeContext } from '../../context/UserType.context';
 
 const drawerWidth = 240;
 const openedMixin = (theme) => ({
@@ -107,6 +108,7 @@ const ArrayThree = [
 export default function Sidebar() {
   const theme = useTheme();
   const { open, handleDrawerClose } = useContext(ThemeContext);
+  const { token } = useContext(UserTypeContext);
 
   return (
     <Drawer variant="permanent" open={open}>

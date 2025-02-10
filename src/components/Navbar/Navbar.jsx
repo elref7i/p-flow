@@ -20,6 +20,7 @@ import { ThemeContext } from '../../context/theme.context';
 import ProfilePerson from '../Common/ProfilePerson';
 import { UserTypeContext } from '../../context/UserType.context';
 import { CustomLink } from '../Common/ButtonStyle';
+import { Message, MessageOutlined, MessageTwoTone } from '@mui/icons-material';
 
 const drawerWidth = 240;
 
@@ -129,27 +130,34 @@ export default function Navbar() {
                 <IconButton color="inherit" aria-label="delete" size="medium">
                   <NotificationsIcon fontSize="inherit" />
                 </IconButton>
+                <IconButton color="inherit" aria-label="delete" size="medium">
+                  <MessageTwoTone fontSize="inherit" />
+                </IconButton>
                 <ProfilePerson />
               </>
             )}
-            <CustomLink
-              to={'/login'}
-              p={'10px'}
-              fs={'25px'}
-              fw={'bold'}
-              br={'5px'}
-            >
-              Login
-            </CustomLink>
-            <CustomLink
-              to={'/signup'}
-              p={'10px'}
-              fs={'25px'}
-              fw={'bold'}
-              br={'5px'}
-            >
-              Sign up
-            </CustomLink>
+            {!token && (
+              <>
+                <CustomLink
+                  to={'/login'}
+                  p={'10px'}
+                  fs={'25px'}
+                  fw={'bold'}
+                  br={'5px'}
+                >
+                  Login
+                </CustomLink>
+                <CustomLink
+                  to={'/signup'}
+                  p={'10px'}
+                  fs={'25px'}
+                  fw={'bold'}
+                  br={'5px'}
+                >
+                  Sign up
+                </CustomLink>
+              </>
+            )}
           </Stack>
         </Toolbar>
       </Container>
