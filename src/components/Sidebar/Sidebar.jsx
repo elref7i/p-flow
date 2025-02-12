@@ -26,7 +26,7 @@ import BarChartIcon from '@mui/icons-material/BarChart';
 import PieChartIcon from '@mui/icons-material/PieChart';
 import TimelineIcon from '@mui/icons-material/Timeline';
 import MapIcon from '@mui/icons-material/Map';
-import ImageAdmin from '../../assets/photo_2024-12-03_19-37-17.jpg';
+import ImageAdmin from '@/assets/photo_2024-12-03_19-37-17.jpg';
 import { useContext } from 'react';
 import { ThemeContext } from '../../context/theme.context';
 import { UserTypeContext } from '../../context/UserType.context';

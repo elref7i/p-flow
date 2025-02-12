@@ -1,12 +1,10 @@
-// import Signup from 'pages/Signup/Signup';
-// import Login from 'pages/Login/Login';
+import { lazy, Suspense } from 'react';
 import { createBrowserRouter } from 'react-router-dom';
 import { RouterProvider } from 'react-router';
 import { Provider } from 'react-redux';
 import { store } from './store/sotre';
 import { Toaster } from 'react-hot-toast';
 import ThemeModeProvider from './context/theme.context';
-import { lazy, Suspense } from 'react';
 import SkeletonLoader from './components/SkeletonLoader/SkeletonLoader';
 
 const UserTypeProvider = lazy(() => import('@/context/UserType.context'));
