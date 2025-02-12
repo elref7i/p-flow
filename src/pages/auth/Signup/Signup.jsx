@@ -8,6 +8,7 @@ import {
   StepLabel,
   Grid2,
   Typography,
+  Stack,
 } from '@mui/material';
 import CustomButton from '@/components/Common/ButtonStyle';
 import MyLocationIcon from '@mui/icons-material/MyLocation';
@@ -103,7 +104,7 @@ const SignupForm = () => {
         type: '',
         coordinates: [],
       },
-      governorate: ' ',
+      governorate: '',
       registrationNumber: '',
       identificationNumber: '',
       password: '',
@@ -272,6 +273,7 @@ const SignupForm = () => {
               error={errors.city && touched.city}
               helperText={touched.city && errors.city}
             />
+
             <TextField
               fullWidth
               label="Governorate"
@@ -285,25 +287,31 @@ const SignupForm = () => {
               helperText={touched.governorate && errors.governorate}
             />
 
-            <Box sx={{ mb: 1 }}>
-              <label htmlFor="pharmacy">Pharmacy</label>
-              <input
-                id="pharmacy"
-                type="radio"
-                name="role"
-                value="pharmacy"
-                checked={values.role === 'pharmacy'}
-                onChange={() => setFieldValue('role', 'pharmacy')}
-              />
-              <label htmlFor="inventory">Inventory</label>
-              <input
-                id="inventory"
-                type="radio"
-                name="role"
-                value="inventory"
-                checked={values.role === 'inventory'}
-                onChange={() => setFieldValue('role', 'inventory')}
-              />
+            <Box sx={{ my: 2 }}>
+              <Stack direction={'row'} gap={2}>
+                <Box>
+                  <input
+                    id="pharmacy"
+                    type="radio"
+                    name="role"
+                    value="pharmacy"
+                    checked={values.role === 'pharmacy'}
+                    onChange={() => setFieldValue('role', 'pharmacy')}
+                  />
+                  <label htmlFor="pharmacy">Pharmacy</label>
+                </Box>
+                <Box>
+                  <input
+                    id="inventory"
+                    type="radio"
+                    name="role"
+                    value="inventory"
+                    checked={values.role === 'inventory'}
+                    onChange={() => setFieldValue('role', 'inventory')}
+                  />
+                  <label htmlFor="inventory">Inventory</label>
+                </Box>
+              </Stack>
 
               {errors.role && touched.role && (
                 <Typography variant="p">{errors.role}</Typography>
