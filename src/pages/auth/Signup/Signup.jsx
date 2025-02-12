@@ -14,7 +14,7 @@ import MyLocationIcon from '@mui/icons-material/MyLocation';
 import * as yup from 'yup';
 import axios from 'axios';
 import { useFormik } from 'formik';
-import { CustomHead } from '../../components/Common/CustomTypography';
+import { CustomHead } from '../../../components/Common/CustomTypography';
 
 const SignupForm = () => {
   const [activeStep, setActiveStep] = useState(0);

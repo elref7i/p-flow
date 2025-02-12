@@ -17,19 +17,19 @@ const ProductRoute = lazy(() =>
 );
 const GuestRoute = lazy(() => import('@/components/GuestRoute/GuestRoute'));
 
-const Login = lazy(() => import('@/pages/Login/Login'));
-const Signup = lazy(() => import('@/pages/Signup/Signup'));
+const Login = lazy(() => import('@/pages/auth/Login/Login'));
+const Signup = lazy(() => import('@/pages/auth/Signup/Signup'));
 const Home = lazy(() => import('@/pages/Home/Home'));
 const UpdatedPassword = lazy(() =>
-  import('@/pages/UpdatedPassword/UpdatedPassword')
+  import('@/pages/auth/UpdatedPassword/UpdatedPassword')
 );
 const ForgetPassword = lazy(() =>
-  import('@/pages/Forgetpassword/Forgetpassword')
+  import('@/pages/auth/Forgetpassword/Forgetpassword')
 );
 const VerifySendCoding = lazy(() =>
-  import('@/pages/VerifySendCoding/VerifySendCoding')
+  import('@/pages/auth/VerifySendCoding/VerifySendCoding')
 );
-const LandingPage = lazy(() => import('@/pages/Landing/Landing'));
+const LandingPage = lazy(() => import('@/pages/auth/Landing/Landing'));
 
 function App() {
   const router = createBrowserRouter([

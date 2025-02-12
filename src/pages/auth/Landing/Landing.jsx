@@ -10,8 +10,8 @@ import {
   Box,
 } from '@mui/material';
 import logo from '../../assets/pflow-high-resolution-logo-transparent.png';
-import { CustomHead } from '../../components/Common/CustomTypography';
-import { CustomLink } from '../../components/Common/ButtonStyle';
+import { CustomHead } from '../../../components/Common/CustomTypography';
+import { CustomLink } from '../../../components/Common/ButtonStyle';
 
 const sections = ['Home', 'About', 'Services', 'Contact', 'footer'];
 

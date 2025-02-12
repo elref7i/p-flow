@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import { TextField, Button, Box, Container } from '@mui/material';
-import { CustomHead } from '../../components/Common/CustomTypography';
+import { CustomHead } from '../../../components/Common/CustomTypography';
 import * as Yup from 'yup';
 import { useFormik } from 'formik';
-import CustomButton from '../../components/Common/ButtonStyle';
+import CustomButton from '../../../components/Common/ButtonStyle';
 import axios from 'axios';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';

@@ -20,7 +20,7 @@ import { ThemeContext } from '../../context/theme.context';
 import ProfilePerson from '../Common/ProfilePerson';
 import { UserTypeContext } from '../../context/UserType.context';
 import { CustomLink } from '../Common/ButtonStyle';
-import { Message, MessageOutlined, MessageTwoTone } from '@mui/icons-material';
+import { MessageTwoTone } from '@mui/icons-material';
 
 const drawerWidth = 240;
 
