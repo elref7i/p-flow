@@ -15,7 +15,6 @@ import * as yup from "yup";
 import axios from "axios";
 import { useFormik } from "formik";
 import { CustomHead } from "../../../components/Common/CustomTypography";
-import toast from "react-hot-toast";
 
 const SignupForm = () => {
   const [activeStep, setActiveStep] = useState(0);
@@ -279,6 +278,7 @@ const SignupForm = () => {
               error={errors.city && touched.city}
               helperText={touched.city && errors.city}
             />
+
             <TextField
               fullWidth
               label="Governorate"
