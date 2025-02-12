@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState } from 'react';
 import {
   Box,
   Button,
@@ -8,14 +8,14 @@ import {
   StepLabel,
   Grid2,
   Typography,
-} from "@mui/material";
-import CustomButton from "@/components/Common/ButtonStyle";
-import MyLocationIcon from "@mui/icons-material/MyLocation";
-import * as yup from "yup";
-import axios from "axios";
-import { useFormik } from "formik";
-import { CustomHead } from "../../../components/Common/CustomTypography";
-import toast from "react-hot-toast";
+} from '@mui/material';
+import CustomButton from '@/components/Common/ButtonStyle';
+import MyLocationIcon from '@mui/icons-material/MyLocation';
+import * as yup from 'yup';
+import axios from 'axios';
+import { useFormik } from 'formik';
+import { CustomHead } from '../../../components/Common/CustomTypography';
+import toast from 'react-hot-toast';
 
 const SignupForm = () => {
   const [activeStep, setActiveStep] = useState(0);
@@ -23,70 +23,70 @@ const SignupForm = () => {
   const phoneRegx = /^(02)?01[0125][0-9]{8}/;
 
   const steps = [
-    "Personal Information",
-    "Contact Information",
-    "Location & Role",
+    'Personal Information',
+    'Contact Information',
+    'Location & Role',
   ];
 
   async function signup(values) {
-    const toastloading = toast.loading("Waiting...");
+    const toastloading = toast.loading('Waiting...');
     try {
       // console.log('Submitting values:', values);
       const options = {
-        url: "https://pflow.koyeb.app/api/v1/auth/signup",
-        method: "POST",
+        url: 'https://pflow.koyeb.app/api/v1/auth/signup',
+        method: 'POST',
         data: values,
       };
       const { data } = await axios.request(options);
-      if (data.message === "success") {
+      if (data.message === 'success') {
         toast.success(data.message);
       }
-      console.log("Response:", data);
+      console.log('Response:', data);
     } catch (error) {
       toast.error(error.response.data.message);
-      console.error("Error:", error);
+      console.error('Error:', error);
     } finally {
       toast.dismiss(toastloading);
     }
   }
 
   const validationSchema = yup.object().shape({
-    name: yup.string().required("User name is required"),
+    name: yup.string().required('User name is required'),
     email: yup
       .string()
-      .matches(emailRegex, "Invalid email")
-      .required("Email is required"),
-    ownerName: yup.string().required("Owner name is required"),
+      .matches(emailRegex, 'Invalid email')
+      .required('Email is required'),
+    ownerName: yup.string().required('Owner name is required'),
     phone: yup
       .string()
-      .required("Phone is required")
-      .matches(phoneRegx, "Invalid phone number"),
+      .required('Phone is required')
+      .matches(phoneRegx, 'Invalid phone number'),
     registrationNumber: yup
       .string()
-      .required("Registration number is required"),
+      .required('Registration number is required'),
     identificationNumber: yup
       .string()
-      .required("Identification number is required"),
-    city: yup.string().required("City is required"),
-    governorate: yup.string().required("Governorate is required"),
+      .required('Identification number is required'),
+    city: yup.string().required('City is required'),
+    governorate: yup.string().required('Governorate is required'),
     password: yup
       .string()
-      .min(8, "Password must be at least 8 characters")
-      .required("Password is required"),
+      .min(8, 'Password must be at least 8 characters')
+      .required('Password is required'),
     rePassword: yup
       .string()
-      .oneOf([yup.ref("password"), null], "Passwords must match")
-      .required("Confirm password is required"),
+      .oneOf([yup.ref('password'), null], 'Passwords must match')
+      .required('Confirm password is required'),
     role: yup
       .string()
-      .oneOf(["pharmacy", "inventory"], "Invalid role")
-      .required("Role is required"),
+      .oneOf(['pharmacy', 'inventory'], 'Invalid role')
+      .required('Role is required'),
     location: yup.object().shape({
-      type: yup.string().required("Type is required"),
+      type: yup.string().required('Type is required'),
       coordinates: yup
         .array()
-        .of(yup.number().required("Coordinate is required"))
-        .length(2, "Coordinates must be an array of two numbers"),
+        .of(yup.number().required('Coordinate is required'))
+        .length(2, 'Coordinates must be an array of two numbers'),
     }),
   });
 
@@ -100,21 +100,21 @@ const SignupForm = () => {
     touched,
   } = useFormik({
     initialValues: {
-      email: "",
-      name: "",
-      ownerName: "",
-      phone: "",
-      role: "",
-      city: "",
+      email: '',
+      name: '',
+      ownerName: '',
+      phone: '',
+      role: '',
+      city: '',
       location: {
-        type: "",
+        type: '',
         coordinates: [],
       },
-      governorate: " ",
-      registrationNumber: "",
-      identificationNumber: "",
-      password: "",
-      rePassword: "",
+      governorate: ' ',
+      registrationNumber: '',
+      identificationNumber: '',
+      password: '',
+      rePassword: '',
     },
     validationSchema,
     onSubmit: signup,
@@ -126,19 +126,19 @@ const SignupForm = () => {
       navigator.geolocation.getCurrentPosition(
         (position) => {
           const newLocation = {
-            type: "Point",
+            type: 'Point',
             coordinates: [position.coords.longitude, position.coords.latitude],
           };
-          setFieldValue("location", newLocation);
-          console.log("Updated location:", newLocation);
+          setFieldValue('location', newLocation);
+          console.log('Updated location:', newLocation);
         },
         (error) => {
-          console.error("Error fetching location:", error);
-          alert("Unable to fetch location. Please enable location services.");
+          console.error('Error fetching location:', error);
+          alert('Unable to fetch location. Please enable location services.');
         }
       );
     } else {
-      alert("Geolocation is not supported by your browser.");
+      alert('Geolocation is not supported by your browser.');
     }
   };
 
@@ -300,8 +300,8 @@ const SignupForm = () => {
                 type="radio"
                 name="role"
                 value="pharmacy"
-                checked={values.role === "pharmacy"}
-                onChange={() => setFieldValue("role", "pharmacy")}
+                checked={values.role === 'pharmacy'}
+                onChange={() => setFieldValue('role', 'pharmacy')}
               />
               <label htmlFor="inventory">Inventory</label>
               <input
@@ -309,8 +309,8 @@ const SignupForm = () => {
                 type="radio"
                 name="role"
                 value="inventory"
-                checked={values.role === "inventory"}
-                onChange={() => setFieldValue("role", "inventory")}
+                checked={values.role === 'inventory'}
+                onChange={() => setFieldValue('role', 'inventory')}
               />
 
               {errors.role && touched.role && (
@@ -319,16 +319,16 @@ const SignupForm = () => {
             </Box>
             <Button
               sx={{
-                fontWeight: "bold",
-                display: "flex",
-                alignItems: "center",
+                fontWeight: 'bold',
+                display: 'flex',
+                alignItems: 'center',
                 gap: 1,
-                bgcolor: "#1976d2",
-                color: "#fff",
+                bgcolor: '#1976d2',
+                color: '#fff',
                 px: 2,
                 py: 1,
-                borderRadius: "3px",
-                "&:hover": { bgcolor: "#1565c0" },
+                borderRadius: '3px',
+                '&:hover': { bgcolor: '#1565c0' },
               }}
               startIcon={<MyLocationIcon />}
               onClick={handleGetLocation}
@@ -351,7 +351,7 @@ const SignupForm = () => {
         spacing={5}
         container
         sx={{
-          minHeight: "80vh",
+          minHeight: '80vh',
           mt: 5,
           p: 3,
           borderRadius: 2,
@@ -360,14 +360,14 @@ const SignupForm = () => {
         <Grid2
           size={{ md: 6 }}
           sx={{
-            display: { xs: "none", md: "block" },
-            bgcolor: "#DDDDDD",
-            borderRadius: "10px",
-            boxShadow: "0px 2px 3px",
+            display: { xs: 'none', md: 'block' },
+            bgcolor: '#DDDDDD',
+            borderRadius: '10px',
+            boxShadow: '0px 2px 3px',
           }}
         ></Grid2>
-        <Grid2 size={{ xs: 12, md: 6 }} sx={{ bg: "red", pt: 5 }}>
-          <CustomHead mb={2} variant="h1" align={"center"}>
+        <Grid2 size={{ xs: 12, md: 6 }} sx={{ bg: 'red', pt: 5 }}>
+          <CustomHead mb={2} variant="h1" align={'center'}>
             Sign Up
           </CustomHead>
           <Stepper activeStep={activeStep} alternativeLabel>
@@ -379,7 +379,7 @@ const SignupForm = () => {
           </Stepper>
 
           <Box sx={{ my: 2 }}>{renderStepContent(activeStep)}</Box>
-          <Box sx={{ display: "flex", justifyContent: "space-between", mt: 2 }}>
+          <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: 2 }}>
             <CustomButton
               disabled={activeStep === 0}
               type="button"
