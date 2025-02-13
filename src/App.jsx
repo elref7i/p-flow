@@ -6,6 +6,9 @@ import { store } from './store/sotre';
 import { Toaster } from 'react-hot-toast';
 import ThemeModeProvider from './context/theme.context';
 import SkeletonLoader from './components/SkeletonLoader/SkeletonLoader';
+import Users from './pages/Admin/Users/Users';
+import HomePharmacy from './pages/Pharmacy/HomePharmacy/HomePharmacy';
+import HomeInventory from './pages/Inventory/HomeInventory/HomeInventory';
 
 const UserTypeProvider = lazy(() => import('@/context/UserType.context'));
 const Layout = lazy(() => import('@/Layout/Layout'));
@@ -34,12 +37,40 @@ function App() {
     {
       path: '/',
       element: (
-        <ProductRoute>
+        <ProductRoute allowedRolls={['admin', 'pharmacy', 'inventory']}>
           <Layout />
         </ProductRoute>
       ),
-      children: [{ index: true, element: <Home /> }],
+      children: [{ path: 'home', element: <Home /> }],
     },
+    {
+      path: '/admin',
+      element: (
+        <ProductRoute allowedRolls={['admin']}>
+          <Layout />
+        </ProductRoute>
+      ),
+      children: [{ index: true, element: <Users /> }],
+    },
+    {
+      path: '/pharmacy',
+      element: (
+        <ProductRoute allowedRolls={['pharmacy']}>
+          <Layout />
+        </ProductRoute>
+      ),
+      children: [{ index: true, element: <HomePharmacy /> }],
+    },
+    {
+      path: '/inventory',
+      element: (
+        <ProductRoute allowedRolls={['inventory']}>
+          <Layout />
+        </ProductRoute>
+      ),
+      children: [{ index: true, element: <HomeInventory /> }],
+    },
+
     {
       path: '/',
       element: (

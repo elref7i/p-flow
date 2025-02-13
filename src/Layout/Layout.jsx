@@ -25,9 +25,6 @@ export default function Layout() {
     '/verifysendcoding',
   ];
 
-  const landingPage = '/landing';
-  console.log(pathname + landingPage);
-
   return (
     <>
       {!onlyAuth.includes(pathname) && <Navbar />}
