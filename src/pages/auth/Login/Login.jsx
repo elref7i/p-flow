@@ -8,6 +8,7 @@ import {
   IconButton,
   Grid2,
   Box,
+  useTheme,
 } from '@mui/material';
 import CustomButton from '@/components/Common/ButtonStyle';
 import { useFormik } from 'formik';
@@ -19,8 +20,11 @@ import axios from 'axios';
 import toast from 'react-hot-toast';
 import { UserTypeContext } from '@/context/UserType.context';
 import { CustomLink } from '@/components/Common/ButtonStyle';
+import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+import imageStore from '../../../assets/Alto ángulo del carrito de compras con espacio de copia y láminas de pastillas _ Foto Premium.jpg';
 
 export default function Login() {
+  const theme = useTheme();
   const { setToken, setRole } = useContext(UserTypeContext);
   const [showPassword, setShowPassword] = useState(false);
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -87,24 +91,61 @@ export default function Login() {
       spacing={5}
       container
       sx={{
-        minHeight: '80vh',
-        mt: 5,
-        p: 3,
-        borderRadius: 2,
+        minHeight: '100vh',
+        width: '100%',
       }}
     >
       <Grid2
-        size={{ md: 6 }}
+        size={{ md: 4 }}
         sx={{
-          display: { xs: 'none', md: 'block' },
-          bgcolor: '#DDDDDD',
-          borderRadius: '10px',
-          boxShadow: '0px 2px 3px',
+          display: {
+            xs: 'none',
+            md: 'block',
+          },
+          backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.8)), url(${imageStore})`,
+          backgroundRepeat: 'no-repeat',
+          backgroundPosition: 'center',
+          backgroundSize: 'cover',
         }}
-      ></Grid2>
-      <Grid2 size={{ xs: 12, md: 6 }} sx={{ bg: 'red', pt: 5 }}>
+      >
+        <Box
+          sx={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'end',
+            flexDirection: 'column',
+            minHeight: '80%',
+          }}
+        >
+          <CustomLink
+            to={'/signup'}
+            p={'10px 75px'}
+            fs={'30px'}
+            fw={'bold'}
+            br={'5px'}
+            bg={theme.palette.primary.main}
+            bghover={
+              theme.palette.mode === 'dark' && theme.palette.secondary.main
+            }
+            chover={theme.palette.mode === 'dark' && theme.palette.primary.main}
+            display={'inline-block'}
+          >
+            Sign up
+          </CustomLink>
+        </Box>
+      </Grid2>
+      <Grid2 size={{ xs: 12, md: 8 }} sx={{ bg: 'red', pt: 5 }}>
+        <CustomLink
+          to={'/landing'}
+          bghover={true}
+          display={'flex'}
+          alignItems={'center'}
+        >
+          <ArrowBackIosIcon />
+          Back To Home
+        </CustomLink>
         <CustomHead variant="h1" align={'center'}>
-          Login
+          Sign in TO P-Flow
         </CustomHead>
         <form onSubmit={handleSubmit}>
           <TextField
@@ -162,9 +203,7 @@ export default function Login() {
           </Box>
           <Box component={'div'} align={'center'}>
             <CustomLink
-              hoverbg={true}
-              hoverColor={true}
-              bg={true}
+              bghover={true}
               to="/forgetpassword"
               textDecoration={'underline'}
             >

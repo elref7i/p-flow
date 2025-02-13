@@ -85,8 +85,6 @@ export default function UpdatedPassword() {
       container
       sx={{
         minHeight: '80vh',
-        mt: 5,
-        p: 3,
         borderRadius: 2,
       }}
     >

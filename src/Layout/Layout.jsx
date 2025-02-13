@@ -1,33 +1,44 @@
-import Navbar from "@/components/Navbar/Navbar";
-import { Outlet, useLocation } from "react-router-dom";
-import { Box, Container } from "@mui/material";
-import Footer from "../components/Footer/Footer";
-import Sidebar from "../components/Sidebar/Sidebar";
-import { useContext } from "react";
-import { UserTypeContext } from "../context/UserType.context";
+import Navbar from '@/components/Navbar/Navbar';
+import { Outlet, useLocation } from 'react-router-dom';
+import { Box, Container } from '@mui/material';
+import Footer from '../components/Footer/Footer';
+import Sidebar from '../components/Sidebar/Sidebar';
+import { useContext } from 'react';
+import { UserTypeContext } from '../context/UserType.context';
 export default function Layout() {
   const { token } = useContext(UserTypeContext);
   const { pathname } = useLocation();
 
   const authPages = [
-    "/login",
-    "/signup",
-    "/forgetpassword",
-    "/updatedpassword",
-    "/verifysendcoding",
-    "/landing",
+    '/login',
+    '/signup',
+    '/forgetpassword',
+    '/updatedpassword',
+    '/verifysendcoding',
+    '/landing',
   ];
+  const onlyAuth = [
+    '/login',
+    '/signup',
+    '/forgetpassword',
+    '/updatedpassword',
+    '/verifysendcoding',
+  ];
+
+  const landingPage = '/landing';
+  console.log(pathname + landingPage);
+
   return (
     <>
-      <Navbar />
+      {!onlyAuth.includes(pathname) && <Navbar />}
       {token && <Sidebar />}
       <Box
-        component={"main"}
+        component={'main'}
         sx={{
           m: 0,
-          py: "30px",
-          minHeight: "calc(100vh - 64px)",
-          backgroundColor: "background.default",
+          pt: onlyAuth.includes(pathname) ? '0px' : '65px',
+          minHeight: 'calc(100vh - 68.01px)',
+          backgroundColor: 'background.default',
         }}
       >
         {authPages.includes(pathname) ? (
@@ -38,7 +49,8 @@ export default function Layout() {
           </Container>
         )}
       </Box>
-      <Footer />
+
+      {!onlyAuth.includes(pathname) && <Footer />}
     </>
   );
 }

@@ -8,6 +8,7 @@ import {
   CardContent,
   TextField,
   Box,
+  useTheme,
 } from '@mui/material';
 import logo from '@/assets/pflow-high-resolution-logo-transparent.png';
 import { CustomHead } from '@/components/Common/CustomTypography';
@@ -16,6 +17,7 @@ import { CustomLink } from '@/components/Common/ButtonStyle';
 const sections = ['Home', 'About', 'Services', 'Contact', 'footer'];
 
 const LandingPage = () => {
+  const theme = useTheme();
   const [selected, setSelected] = useState('Home');
 
   const handleScroll = (section) => {
@@ -32,24 +34,27 @@ const LandingPage = () => {
       <Box
         sx={{
           position: 'fixed',
-          right: '2px',
+          right: 0,
           top: '50%',
           transform: 'translateY(-50%)',
           display: 'flex',
           flexDirection: 'column',
           gap: '10px',
           padding: '10px',
-          borderRadius: '0 5px 5px 0',
-          backgroundColor: 'background.paper', // استخدام لون من الـ theme
+          bgcolor: theme.palette.primary.main,
+          borderRadius: '5px 0px 0px 5px',
         }}
       >
         {sections.map((section) => (
           <Box
             key={section}
             sx={{
-              width: '20px',
-              height: '5px',
-              background: selected === section ? 'primary.main' : 'grey.500', // استخدام ألوان من الـ theme
+              width: '30px',
+              height: '4px',
+              background:
+                selected === section
+                  ? theme.palette.background.default
+                  : theme.palette.action.hover, // استخدام ألوان من الـ theme
               cursor: 'pointer',
               transition: '0.3s',
             }}
@@ -124,7 +129,7 @@ const LandingPage = () => {
       </Container>
 
       {/* Contact Us */}
-      <Container id="contact" sx={{ py: 5 }}>
+      <Container id="contact" sx={{ pt: 5, pb: 20 }}>
         <Typography variant="h4" gutterBottom color="text.primary">
           Contact Us
         </Typography>

@@ -1,4 +1,4 @@
-import { TextField, Typography, Grid2, Box } from '@mui/material';
+import { TextField, Typography, Grid2, Box, useTheme } from '@mui/material';
 import CustomButton from '@/components/Common/ButtonStyle';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
@@ -6,8 +6,12 @@ import { CustomHead } from '@/components/Common/CustomTypography';
 import axios from 'axios';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
+import { CustomLink } from '../../../components/Common/ButtonStyle';
+import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+import imageStore from '../../../assets/Alto ángulo del carrito de compras con espacio de copia y láminas de pastillas _ Foto Premium.jpg';
 
 export default function ForgetPassword() {
+  const theme = useTheme();
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   const navigator = useNavigate();
 
@@ -52,37 +56,69 @@ export default function ForgetPassword() {
       spacing={5}
       container
       sx={{
-        minHeight: '80vh',
-        mt: 5,
-        p: 3,
-        borderRadius: 2,
+        minHeight: '100vh',
+        width: '100%',
       }}
     >
       <Grid2
-        size={{ md: 6 }}
+        size={{ md: 4 }}
         sx={{
-          display: { xs: 'none', md: 'block' },
-          bgcolor: '#DDDDDD',
-          borderRadius: '10px',
-          boxShadow: '0px 2px 3px',
-        }}
-      ></Grid2>
-      <Grid2
-        size={{ xs: 12, md: 6 }}
-        sx={{
-          pt: 5,
+          display: {
+            xs: 'none',
+            md: 'block',
+          },
+          backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.8)), url(${imageStore})`,
+          backgroundRepeat: 'no-repeat',
+          backgroundPosition: 'center',
+          backgroundSize: 'cover',
         }}
       >
         <Box
           sx={{
-            height: '100%',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'end',
+            flexDirection: 'column',
+            minHeight: '80%',
+          }}
+        >
+          <CustomLink
+            to={'/login'}
+            p={'10px 75px'}
+            fs={'30px'}
+            fw={'bold'}
+            br={'5px'}
+            bg={theme.palette.primary.main}
+            bghover={
+              theme.palette.mode === 'dark' && theme.palette.secondary.main
+            }
+            chover={theme.palette.mode === 'dark' && theme.palette.primary.main}
+            display={'inline-block'}
+          >
+            Sign In
+          </CustomLink>
+        </Box>
+      </Grid2>
+      <Grid2 size={{ xs: 12, md: 8 }} sx={{ bg: 'red', pt: 5 }}>
+        <CustomLink
+          to={'/landing'}
+          bghover={true}
+          display={'flex'}
+          alignItems={'center'}
+        >
+          <ArrowBackIosIcon />
+          Back To Home
+        </CustomLink>
+        <Box
+          sx={{
+            pt: 5,
             width: '100%',
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'start',
           }}
         >
-          <Box component={'header'} marginBottom={3}>
+          <Box component={'header'} paddingBottom={4}>
             <CustomHead variant="h1" align="left">
               Forget Password
             </CustomHead>
@@ -112,7 +148,7 @@ export default function ForgetPassword() {
             <CustomButton
               type="submit"
               // @ts-ignore
-              w="100%"
+              w="75%"
               sm="75%"
               md="50%"
             >

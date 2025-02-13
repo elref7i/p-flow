@@ -141,7 +141,7 @@ export default function Navbar() {
                 <CustomLink
                   to={'/login'}
                   p={'10px'}
-                  fs={'25px'}
+                  fs={'20px'}
                   fw={'bold'}
                   br={'5px'}
                 >
@@ -150,7 +150,7 @@ export default function Navbar() {
                 <CustomLink
                   to={'/signup'}
                   p={'10px'}
-                  fs={'25px'}
+                  fs={'20px'}
                   fw={'bold'}
                   br={'5px'}
                 >

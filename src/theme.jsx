@@ -2,6 +2,7 @@ const colors = {
   // الألوان الأساسية
   primary: '#FF7A00', // لون أساسي (برتقالي)
   secondary: '#958DA5', // لون ثانوي (رمادي بنفسجي)
+  auth: '#939494', // لون ثانوي (رمادي بنفسجي)
   error: '#B3261E', // لون الخطأ (أحمر داكن)
   warning: '#F9A825', // لون التحذير (أصفر داكن)
   success: '#4CAF50', // لون النجاح (أخضر)
@@ -42,6 +43,7 @@ export const getDesignTokens = (mode) => ({
     // الألوان الأساسية
     primary: { main: colors.primary }, // نفس اللون في كلا الوضعين
     secondary: { main: colors.secondary },
+    auth: { main: colors.auth },
     error: { main: colors.error },
     warning: { main: colors.warning },
     success: { main: colors.success },
@@ -69,7 +71,7 @@ export const getDesignTokens = (mode) => ({
     // ألوان إضافية
     action: {
       active: mode === 'light' ? colors.primary : colors.secondary,
-      hover: mode === 'light' ? colors.lightGrey[200] : colors.darkGrey[300],
+      hover: mode === 'light' ? colors.lightGrey[200] : colors.darkGrey[400],
       selected: mode === 'light' ? colors.lightGrey[300] : colors.darkGrey[400],
       disabled: mode === 'light' ? colors.lightGrey[400] : colors.darkGrey[500],
       disabledBackground:

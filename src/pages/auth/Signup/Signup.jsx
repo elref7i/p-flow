@@ -1,13 +1,18 @@
 import { useState } from 'react';
 import {
   Box,
-  Button,
   TextField,
   Stepper,
   Step,
   StepLabel,
   Grid2,
   Typography,
+  useTheme,
+  RadioGroup,
+  Radio,
+  FormControlLabel,
+  FormControl,
+  FormLabel,
 } from '@mui/material';
 import CustomButton from '@/components/Common/ButtonStyle';
 import MyLocationIcon from '@mui/icons-material/MyLocation';
@@ -16,8 +21,12 @@ import axios from 'axios';
 import { useFormik } from 'formik';
 import { CustomHead } from '../../../components/Common/CustomTypography';
 import toast from 'react-hot-toast';
+import { CustomLink } from '../../../components/Common/ButtonStyle';
+import imageStore from '../../../assets/Alto ángulo del carrito de compras con espacio de copia y láminas de pastillas _ Foto Premium.jpg';
+import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 
 const SignupForm = () => {
+  const theme = useTheme();
   const [activeStep, setActiveStep] = useState(0);
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   const phoneRegx = /^(02)?01[0125][0-9]{8}/;
@@ -81,13 +90,16 @@ const SignupForm = () => {
       .string()
       .oneOf(['pharmacy', 'inventory'], 'Invalid role')
       .required('Role is required'),
-    location: yup.object().shape({
-      type: yup.string().required('Type is required'),
-      coordinates: yup
-        .array()
-        .of(yup.number().required('Coordinate is required'))
-        .length(2, 'Coordinates must be an array of two numbers'),
-    }),
+    location: yup
+      .object()
+      .shape({
+        type: yup.string().required('Type is required'),
+        coordinates: yup
+          .array()
+          .of(yup.number().required('Coordinate is required'))
+          .length(2, 'Coordinates must be an array of two numbers'),
+      })
+      .required('Loaction is Required'),
   });
 
   const {
@@ -110,7 +122,7 @@ const SignupForm = () => {
         type: '',
         coordinates: [],
       },
-      governorate: ' ',
+      governorate: '',
       registrationNumber: '',
       identificationNumber: '',
       password: '',
@@ -119,7 +131,6 @@ const SignupForm = () => {
     validationSchema,
     onSubmit: signup,
   });
-  // console.log(errors);
 
   const handleGetLocation = () => {
     if (navigator.geolocation) {
@@ -293,8 +304,10 @@ const SignupForm = () => {
               helperText={touched.governorate && errors.governorate}
             />
 
-            <Box sx={{ mb: 1 }}>
-              <label htmlFor="pharmacy">Pharmacy</label>
+            {/* <Box sx={{ mb: 1 }}>
+              <label htmlFor="pharmacy" color="primary">
+                Pharmacy
+              </label>
               <input
                 id="pharmacy"
                 type="radio"
@@ -306,6 +319,7 @@ const SignupForm = () => {
               <label htmlFor="inventory">Inventory</label>
               <input
                 id="inventory"
+                color={'error'}
                 type="radio"
                 name="role"
                 value="inventory"
@@ -314,30 +328,63 @@ const SignupForm = () => {
               />
 
               {errors.role && touched.role && (
-                <Typography variant="p">{errors.role}</Typography>
+                <Typography variant="p" color={'error'}>
+                  {errors.role}
+                </Typography>
               )}
-            </Box>
-            <Button
-              sx={{
-                fontWeight: 'bold',
-                display: 'flex',
-                alignItems: 'center',
-                gap: 1,
-                bgcolor: '#1976d2',
-                color: '#fff',
-                px: 2,
-                py: 1,
-                borderRadius: '3px',
-                '&:hover': { bgcolor: '#1565c0' },
-              }}
+            </Box> */}
+            <FormControl sx={{ my: 1, ml: 1 }}>
+              <FormLabel
+                sx={{ fontSize: '20px', fontWeight: 'bold' }}
+                id="demo-row-radio-buttons-group-label"
+              >
+                Role
+              </FormLabel>
+              <RadioGroup
+                row
+                aria-labelledby="demo-row-radio-buttons-group-label"
+                name="row-radio-buttons-group"
+              >
+                <FormControlLabel
+                  value="pharmacy"
+                  control={<Radio />}
+                  label="pharmacy"
+                  checked={values.role === 'pharmacy'}
+                  onChange={() => setFieldValue('role', 'pharmacy')}
+                  sx={{ color: theme.palette.text.primary }}
+                />
+                <FormControlLabel
+                  value="inventory"
+                  control={<Radio />}
+                  label="Inventory"
+                  checked={values.role === 'inventory'}
+                  onChange={() => setFieldValue('role', 'inventory')}
+                  sx={{ color: theme.palette.text.primary }}
+                />
+              </RadioGroup>
+              {errors.role && touched.role && (
+                <Typography variant="p" marginLeft={2} color={'error'}>
+                  {errors.role}
+                </Typography>
+              )}
+            </FormControl>
+            <CustomButton
+              marginInline={'7px 0px'}
               startIcon={<MyLocationIcon />}
               onClick={handleGetLocation}
+              bgcolor={theme.palette.primary.main}
+              border={`1px solid ${theme.palette.secondary.main}`}
+              hoverbgColor={theme.palette.action.active}
             >
               Get Location
-            </Button>
-            {/* {errors.location?.type && (
-              <Typography variant="p">{errors.location.type}</Typography>
-            )} */}
+            </CustomButton>
+            {errors.location && (
+              <Box marginTop={1} marginLeft={2}>
+                <Typography variant="p" color={'error'}>
+                  {errors.location.type + ' ' + errors.location.coordinates}
+                </Typography>
+              </Box>
+            )}
           </>
         );
       default:
@@ -351,22 +398,61 @@ const SignupForm = () => {
         spacing={5}
         container
         sx={{
-          minHeight: '80vh',
-          mt: 5,
-          p: 3,
-          borderRadius: 2,
+          minHeight: '100vh',
+          width: '100%',
         }}
       >
         <Grid2
-          size={{ md: 6 }}
+          size={{ md: 4 }}
           sx={{
-            display: { xs: 'none', md: 'block' },
-            bgcolor: '#DDDDDD',
-            borderRadius: '10px',
-            boxShadow: '0px 2px 3px',
+            display: {
+              xs: 'none',
+              md: 'block',
+            },
+            backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.8)), url(${imageStore})`,
+            backgroundRepeat: 'no-repeat',
+            backgroundPosition: 'center',
+            backgroundSize: 'cover',
           }}
-        ></Grid2>
-        <Grid2 size={{ xs: 12, md: 6 }} sx={{ bg: 'red', pt: 5 }}>
+        >
+          <Box
+            sx={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'end',
+              flexDirection: 'column',
+              minHeight: '80%',
+            }}
+          >
+            <CustomLink
+              to={'/login'}
+              p={'10px 75px'}
+              fs={'30px'}
+              fw={'bold'}
+              br={'5px'}
+              bg={theme.palette.primary.main}
+              bghover={
+                theme.palette.mode === 'dark' && theme.palette.secondary.main
+              }
+              chover={
+                theme.palette.mode === 'dark' && theme.palette.primary.main
+              }
+              display={'inline-block'}
+            >
+              Sign In
+            </CustomLink>
+          </Box>
+        </Grid2>
+        <Grid2 size={{ xs: 12, md: 8 }} sx={{ bg: 'red', pt: 5 }}>
+          <CustomLink
+            to={'/landing'}
+            bghover={true}
+            display={'flex'}
+            alignItems={'center'}
+          >
+            <ArrowBackIosIcon />
+            Back To Home
+          </CustomLink>
           <CustomHead mb={2} variant="h1" align={'center'}>
             Sign Up
           </CustomHead>
