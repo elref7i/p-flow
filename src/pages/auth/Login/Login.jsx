@@ -130,7 +130,7 @@ export default function Login() {
             chover={theme.palette.mode === "dark" && theme.palette.primary.main}
             display={"inline-block"}
           >
-            Zyad Ayman
+            Sign Up
           </CustomLink>
         </Box>
       </Grid2>
