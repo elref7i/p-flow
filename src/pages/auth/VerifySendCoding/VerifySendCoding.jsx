@@ -38,7 +38,7 @@ function VerifySendCoding() {
     const loading = toast.loading('watting');
     try {
       const options = {
-        url: 'https://pflow.koyeb.app/api/v1/auth/verifyResetCode',
+        url: 'https://pflow-api-v3-1655e5b56c39.herokuapp.com/auth/verifyResetCode',
         method: 'POST',
         data: values,
       };
