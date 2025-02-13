@@ -18,6 +18,9 @@ import { CustomHead } from '@/components/Common/CustomTypography';
 import toast from 'react-hot-toast';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import LeftAuth from '../../../components/Common/LeftAuth';
+import { CustomLink } from '../../../components/Common/ButtonStyle';
+import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 
 export default function UpdatedPassword() {
   const [showPassword, setShowPassword] = useState(false);
@@ -40,7 +43,7 @@ export default function UpdatedPassword() {
     const loading = toast.loading('watting');
     try {
       const options = {
-        url: 'hhttps://pflow-api-v3-1655e5b56c39.herokuapp.com/auth/resetPassword',
+        url: 'https://pflow-api-v3-1655e5b56c39.herokuapp.com/api/v1/auth/resetPassword',
         method: 'PUT',
         data: values,
       };
@@ -84,20 +87,21 @@ export default function UpdatedPassword() {
       spacing={5}
       container
       sx={{
-        minHeight: '80vh',
-        borderRadius: 2,
+        minHeight: '100vh',
+        width: '100%',
       }}
     >
-      <Grid2
-        size={{ md: 6 }}
-        sx={{
-          display: { xs: 'none', md: 'block' },
-          bgcolor: '#DDDDDD',
-          borderRadius: '10px',
-          boxShadow: '0px 2px 3px',
-        }}
-      ></Grid2>
-      <Grid2 size={{ xs: 12, md: 6 }} sx={{ bg: 'red', pt: 5 }}>
+      <LeftAuth />
+      <Grid2 size={{ xs: 12, md: 8 }} sx={{ bg: 'red', pt: 5 }}>
+        <CustomLink
+          to={'/landing'}
+          bghover={true}
+          display={'flex'}
+          alignItems={'center'}
+        >
+          <ArrowBackIosIcon />
+          Back To Home
+        </CustomLink>
         <Box component={'header'} marginBottom={3}>
           <CustomHead variant="h1" align="left">
             Updated Password

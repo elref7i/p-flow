@@ -1,4 +1,4 @@
-import { TextField, Typography, Grid2, Box, useTheme } from '@mui/material';
+import { TextField, Typography, Grid2, Box } from '@mui/material';
 import CustomButton from '@/components/Common/ButtonStyle';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
@@ -8,19 +8,20 @@ import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 import { CustomLink } from '../../../components/Common/ButtonStyle';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
-import imageStore from '../../../assets/Alto ángulo del carrito de compras con espacio de copia y láminas de pastillas _ Foto Premium.jpg';
+import LeftAuth from '../../../components/Common/LeftAuth';
+import { useForgetPassword } from '../../../context/Forget.context';
 
 export default function ForgetPassword() {
-  const theme = useTheme();
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   const navigator = useNavigate();
 
+  const { setForgetCompleted } = useForgetPassword();
   async function forgetpassword(values) {
     const loading = toast.loading('watting');
 
     try {
       const options = {
-        url: 'https://pflow-api-v3-1655e5b56c39.herokuapp.com/auth/forgetpassword',
+        url: 'https://pflow-api-v3-1655e5b56c39.herokuapp.com/api/v1/auth/forgetpassword',
         method: 'POST',
         data: values,
       };
@@ -28,7 +29,10 @@ export default function ForgetPassword() {
       // console.log(data.message);
       if (data.message === 'Reset code sent successfully') {
         toast.success(data.message);
-        navigator('/verifysendcoding');
+        setForgetCompleted(true);
+        setTimeout(() => {
+          navigator('/verifysendcoding');
+        }, 2000);
       }
     } catch (error) {
       toast.error(error.response.data.message);
@@ -60,45 +64,7 @@ export default function ForgetPassword() {
         width: '100%',
       }}
     >
-      <Grid2
-        size={{ md: 4 }}
-        sx={{
-          display: {
-            xs: 'none',
-            md: 'block',
-          },
-          backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.8)), url(${imageStore})`,
-          backgroundRepeat: 'no-repeat',
-          backgroundPosition: 'center',
-          backgroundSize: 'cover',
-        }}
-      >
-        <Box
-          sx={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'end',
-            flexDirection: 'column',
-            minHeight: '80%',
-          }}
-        >
-          <CustomLink
-            to={'/login'}
-            p={'10px 75px'}
-            fs={'30px'}
-            fw={'bold'}
-            br={'5px'}
-            bg={theme.palette.primary.main}
-            bghover={
-              theme.palette.mode === 'dark' && theme.palette.secondary.main
-            }
-            chover={theme.palette.mode === 'dark' && theme.palette.primary.main}
-            display={'inline-block'}
-          >
-            Sign In
-          </CustomLink>
-        </Box>
-      </Grid2>
+      <LeftAuth />
       <Grid2 size={{ xs: 12, md: 8 }} sx={{ bg: 'red', pt: 5 }}>
         <CustomLink
           to={'/landing'}

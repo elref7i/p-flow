@@ -3,7 +3,7 @@ import { Navigate, useLocation } from 'react-router-dom';
 import { UserTypeContext } from '../../context/UserType.context';
 
 // eslint-disable-next-line react/prop-types
-export default function ProductRoute({ children, allowedRolls }) {
+export default function ProtectedRoute({ children, allowedRolls }) {
   const { token, role } = useContext(UserTypeContext);
   const location = useLocation();
 

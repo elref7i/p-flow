@@ -22,11 +22,13 @@ import { useFormik } from 'formik';
 import { CustomHead } from '../../../components/Common/CustomTypography';
 import toast from 'react-hot-toast';
 import { CustomLink } from '../../../components/Common/ButtonStyle';
-import imageStore from '../../../assets/Alto ángulo del carrito de compras con espacio de copia y láminas de pastillas _ Foto Premium.jpg';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+import LeftAuth from '../../../components/Common/LeftAuth';
 
 const SignupForm = () => {
   const theme = useTheme();
+  console.log(theme.palette.mode === 'light');
+
   const [activeStep, setActiveStep] = useState(0);
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   const phoneRegx = /^(02)?01[0125][0-9]{8}/;
@@ -42,7 +44,7 @@ const SignupForm = () => {
     try {
       // console.log('Submitting values:', values);
       const options = {
-        url: 'https://pflow-api-v3-1655e5b56c39.herokuapp.com/auth/signup',
+        url: 'https://pflow-api-v3-1655e5b56c39.herokuapp.com/api/v1/auth/login',
         method: 'POST',
         data: values,
       };
@@ -402,47 +404,7 @@ const SignupForm = () => {
           width: '100%',
         }}
       >
-        <Grid2
-          size={{ md: 4 }}
-          sx={{
-            display: {
-              xs: 'none',
-              md: 'block',
-            },
-            backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.8)), url(${imageStore})`,
-            backgroundRepeat: 'no-repeat',
-            backgroundPosition: 'center',
-            backgroundSize: 'cover',
-          }}
-        >
-          <Box
-            sx={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'end',
-              flexDirection: 'column',
-              minHeight: '80%',
-            }}
-          >
-            <CustomLink
-              to={'/login'}
-              p={'10px 75px'}
-              fs={'30px'}
-              fw={'bold'}
-              br={'5px'}
-              bg={theme.palette.primary.main}
-              bghover={
-                theme.palette.mode === 'dark' && theme.palette.secondary.main
-              }
-              chover={
-                theme.palette.mode === 'dark' && theme.palette.primary.main
-              }
-              display={'inline-block'}
-            >
-              Sign In
-            </CustomLink>
-          </Box>
-        </Grid2>
+        <LeftAuth />
         <Grid2 size={{ xs: 12, md: 8 }} sx={{ bg: 'red', pt: 5 }}>
           <CustomLink
             to={'/landing'}

@@ -9,12 +9,14 @@ import SkeletonLoader from './components/SkeletonLoader/SkeletonLoader';
 import Users from './pages/Admin/Users/Users';
 import HomePharmacy from './pages/Pharmacy/HomePharmacy/HomePharmacy';
 import HomeInventory from './pages/Inventory/HomeInventory/HomeInventory';
-
+import { ForgetPasswordProvider } from './context/Forget.context';
+import ForgetProtectedRoute from './components/ForgetProtectedRoute/ForgetProtectedRoute';
+// import ForgetProtectedRoute from '@/components/ForgetProtectedRoute/ForgetProtectedRoute';
 const UserTypeProvider = lazy(() => import('@/context/UserType.context'));
 const Layout = lazy(() => import('@/Layout/Layout'));
 
-const ProductRoute = lazy(() =>
-  import('@/components/ProductRoute/ProductRoute')
+const ProtectedRoute = lazy(() =>
+  import('@/components/ProtectedRoute/ProtectedRoute')
 );
 const GuestRoute = lazy(() => import('@/components/GuestRoute/GuestRoute'));
 
@@ -37,36 +39,36 @@ function App() {
     {
       path: '/',
       element: (
-        <ProductRoute allowedRolls={['admin', 'pharmacy', 'inventory']}>
+        <ProtectedRoute allowedRolls={['admin', 'pharmacy', 'inventory']}>
           <Layout />
-        </ProductRoute>
+        </ProtectedRoute>
       ),
       children: [{ path: 'home', element: <Home /> }],
     },
     {
       path: '/admin',
       element: (
-        <ProductRoute allowedRolls={['admin']}>
+        <ProtectedRoute allowedRolls={['admin']}>
           <Layout />
-        </ProductRoute>
+        </ProtectedRoute>
       ),
       children: [{ index: true, element: <Users /> }],
     },
     {
       path: '/pharmacy',
       element: (
-        <ProductRoute allowedRolls={['pharmacy']}>
+        <ProtectedRoute allowedRolls={['pharmacy']}>
           <Layout />
-        </ProductRoute>
+        </ProtectedRoute>
       ),
       children: [{ index: true, element: <HomePharmacy /> }],
     },
     {
       path: '/inventory',
       element: (
-        <ProductRoute allowedRolls={['inventory']}>
+        <ProtectedRoute allowedRolls={['inventory']}>
           <Layout />
-        </ProductRoute>
+        </ProtectedRoute>
       ),
       children: [{ index: true, element: <HomeInventory /> }],
     },
@@ -83,8 +85,22 @@ function App() {
         { path: '/login', element: <Login /> },
         { path: '/signup', element: <Signup /> },
         { path: '/forgetpassword', element: <ForgetPassword /> },
-        { path: '/updatedpassword', element: <UpdatedPassword /> },
-        { path: '/verifysendcoding', element: <VerifySendCoding /> },
+        {
+          path: '/updatedpassword',
+          element: (
+            <ForgetProtectedRoute>
+              <UpdatedPassword />
+            </ForgetProtectedRoute>
+          ),
+        },
+        {
+          path: '/verifysendcoding',
+          element: (
+            <ForgetProtectedRoute>
+              <VerifySendCoding />
+            </ForgetProtectedRoute>
+          ),
+        },
       ],
     },
   ]);
@@ -92,14 +108,16 @@ function App() {
   return (
     <>
       <UserTypeProvider>
-        <Provider store={store}>
-          <ThemeModeProvider>
-            <Suspense fallback={<SkeletonLoader />}>
-              <RouterProvider router={router} />
-            </Suspense>
-          </ThemeModeProvider>
-          <Toaster />
-        </Provider>
+        <ForgetPasswordProvider>
+          <Provider store={store}>
+            <ThemeModeProvider>
+              <Suspense fallback={<SkeletonLoader />}>
+                <RouterProvider router={router} />
+              </Suspense>
+            </ThemeModeProvider>
+            <Toaster />
+          </Provider>
+        </ForgetPasswordProvider>
       </UserTypeProvider>
     </>
   );
