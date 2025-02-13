@@ -1,8 +1,17 @@
-# React + Vite
+# Project Demo Links
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Live Demos
 
-Currently, two official plugins are available:
+1. [Demo 1 - Netlify](https://famous-liger-8845ff.netlify.app/)
+2. [Demo 2 - Cloudflare Pages](https://p-flow.pages.dev/)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
+
+### How to Use
+- Click on any of the links above to view the live version of the project.
+- Ensure your browser is updated for the best experience.
+
+### Notes
+- If you encounter any issues, try clearing your cache or checking the browser console for errors.
+- Reach out for support if needed!
+
