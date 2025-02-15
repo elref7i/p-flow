@@ -65,6 +65,7 @@ export const CustomLink = styled(Link)(
     justifySelf,
     mx,
     ml,
+    textWrap,
   }) => ({
     fontSize: fs || 'normal',
     fontWeight: fw || 'normal',
@@ -75,6 +76,7 @@ export const CustomLink = styled(Link)(
     alignItems: alignItems,
     justifyContent: justifyContent,
     marginInline: mx,
+    textWrap: textWrap,
     marginLeft: ml,
     justifySelf: justifySelf || 'flex-start',
     cursor: 'pointer',

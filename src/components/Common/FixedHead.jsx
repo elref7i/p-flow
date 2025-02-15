@@ -5,13 +5,15 @@ import { CustomHead } from './CustomTypography';
 export default function FixedHead({ children }) {
   const theme = useTheme();
   return (
-    <CustomHead variant="h1" mb={7} align="center">
+    <CustomHead variant="h1" mb={2} align="center">
       <Box
         sx={{
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
           gap: 2,
+          fontSize: { xs: '28px', sm: '45px' },
+          textWrap: 'nowrap',
         }}
       >
         {children}
@@ -35,7 +37,7 @@ export default function FixedHead({ children }) {
               alignItems: 'center',
               color: theme.palette.primary.main,
               fontWeight: 'bold',
-              fontSize: '30px', // زودت حجم الخط عشان يكون متناسق مع الحجم
+              fontSize: { xs: '28px', sm: '30px' }, // زودت حجم الخط عشان يكون متناسق مع الحجم
             }}
           >
             P

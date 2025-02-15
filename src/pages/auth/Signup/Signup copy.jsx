@@ -12,7 +12,10 @@ import {
   FormLabel,
   Container,
   Button,
+  CircularProgress,
 } from '@mui/material';
+import CustomButton from '@/components/Common/ButtonStyle';
+import MyLocationIcon from '@mui/icons-material/MyLocation';
 import axios from 'axios';
 import { useFormik } from 'formik';
 import toast from 'react-hot-toast';
@@ -20,11 +23,11 @@ import LeftAuth from '../../../components/Common/LeftAuth';
 import FixedHead from '../../../components/Common/FixedHead';
 import CustomizedSteppers from '../../../components/Common/Stepper';
 import { validationSchema } from './Schema';
-import Location from '../../../components/Loaction/Location';
 
 const SignupForm = () => {
   const theme = useTheme();
   const [activeStep, setActiveStep] = useState(0);
+  const [isLoading, setIsLoading] = useState(false);
 
   const steps = [
     'Personal Information',
@@ -82,6 +85,27 @@ const SignupForm = () => {
     validationSchema: validationSchema,
     onSubmit: signup,
   });
+
+  const handleGetLocation = () => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const newLocation = {
+            type: 'Point',
+            coordinates: [position.coords.longitude, position.coords.latitude],
+          };
+          setFieldValue('location', newLocation);
+          console.log('Updated location:', newLocation);
+        },
+        (error) => {
+          console.error('Error fetching location:', error);
+          alert('Unable to fetch location. Please enable location services.');
+        }
+      );
+    } else {
+      alert('Geolocation is not supported by your browser.');
+    }
+  };
 
   const handleNext = () => {
     setActiveStep((prevStep) => prevStep + 1);
@@ -269,17 +293,27 @@ const SignupForm = () => {
                 </Typography>
               )}
             </FormControl>
-            <Location setFieldValue={setFieldValue} errors={errors} />
-            {/* <Paper
-              elevation={9}
+            <CustomButton
+              marginInline={'7px 0px'}
+              startIcon={<MyLocationIcon />}
+              onClick={handleGetLocation}
+              bgcolor={theme.palette.primary.main}
+              border={`1px solid ${theme.palette.secondary.main}`}
+              hoverbgColor={theme.palette.action.active}
+            >
+              Get Location
+            </CustomButton>
+            <Box
               sx={{
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: 'center',
                 gap: 2,
-                p: '15px 10px',
+                p: 3,
                 border: `1px solid ${theme.palette.divider}`,
                 borderRadius: 2,
+                backgroundColor: theme.palette.background.paper,
+                boxShadow: theme.shadows[2],
                 maxWidth: 300,
                 margin: '0 auto',
               }}
@@ -317,7 +351,14 @@ const SignupForm = () => {
               >
                 {isLoading ? 'Fetching...' : 'Get Location'}
               </Button>
-            </Paper> */}
+            </Box>
+            {errors.location && (
+              <Box marginTop={1} marginLeft={2}>
+                <Typography variant="p" color={'error'}>
+                  {errors.location.type + ' ' + errors.location.coordinates}
+                </Typography>
+              </Box>
+            )}
           </>
         );
       default:
@@ -342,6 +383,7 @@ const SignupForm = () => {
           }}
           sx={{
             bg: 'red',
+            pt: 5,
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'center',

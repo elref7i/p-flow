@@ -93,8 +93,7 @@ export default function Login() {
         width: '100%',
       }}
     >
-      {/*  */}
-      <LeftAuth />
+      <LeftAuth namePage="Sign Up" path="/signup"></LeftAuth>
       <Grid2
         size={{ xs: 12, md: 8 }}
         sx={{
@@ -106,7 +105,7 @@ export default function Login() {
       >
         <Container maxWidth="sm">
           <FixedHead>Sign in to</FixedHead>
-          <Box component={'form'} onSubmit={handleSubmit}>
+          <Box component={'form'} sx={{ pt: 5 }} onSubmit={handleSubmit}>
             <TextField
               fullWidth
               label="Email"

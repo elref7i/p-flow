@@ -4,7 +4,8 @@ import { CustomLink } from './ButtonStyle';
 import imageStore from '../../assets/Alto ángulo del carrito de compras con espacio de copia y láminas de pastillas _ Foto Premium.jpg';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 
-export default function LeftAuth() {
+// eslint-disable-next-line react/prop-types
+export default function LeftAuth({ namePage, path }) {
   const theme = useTheme();
 
   return (
@@ -19,6 +20,7 @@ export default function LeftAuth() {
         backgroundRepeat: 'no-repeat',
         backgroundPosition: 'center',
         backgroundSize: 'cover',
+        boxShadow: '0px .5px 5px 0px #9E9E9E',
         p: 4,
       }}
     >
@@ -44,18 +46,19 @@ export default function LeftAuth() {
         }}
       >
         <CustomLink
-          to={'/signup'}
+          to={path}
           p={'10px 75px'}
           fs={'30px'}
           fw={'bold'}
           br={'5px'}
+          textWrap={'nowrap'}
           bg={theme.palette.primary.main}
           bghover={
             theme.palette.mode === 'dark' && theme.palette.secondary.main
           }
           chover={theme.palette.mode === 'dark' && theme.palette.primary.main}
         >
-          Sign Up
+          {namePage}
         </CustomLink>
       </Box>
     </Grid2>

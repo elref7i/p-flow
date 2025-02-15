@@ -1,4 +1,4 @@
-import { TextField, Typography, Grid2, Box } from '@mui/material';
+import { TextField, Typography, Grid2, Box, Container } from '@mui/material';
 import CustomButton from '@/components/Common/ButtonStyle';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
@@ -6,8 +6,6 @@ import { CustomHead } from '@/components/Common/CustomTypography';
 import axios from 'axios';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
-import { CustomLink } from '../../../components/Common/ButtonStyle';
-import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import LeftAuth from '../../../components/Common/LeftAuth';
 import { useForgetPassword } from '../../../context/Forget.context';
 
@@ -64,26 +62,18 @@ export default function ForgetPassword() {
         width: '100%',
       }}
     >
-      <LeftAuth />
-      <Grid2 size={{ xs: 12, md: 8 }} sx={{ bg: 'red', pt: 5 }}>
-        <CustomLink
-          to={'/landing'}
-          bghover={true}
-          display={'flex'}
-          alignItems={'center'}
-        >
-          <ArrowBackIosIcon />
-          Back To Home
-        </CustomLink>
-        <Box
-          sx={{
-            pt: 5,
-            width: '100%',
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'start',
-          }}
-        >
+      <LeftAuth namePage="Sign in" path="/login"></LeftAuth>
+      <Grid2
+        size={{ xs: 12, md: 8 }}
+        sx={{
+          bg: 'red',
+          pt: 5,
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+        }}
+      >
+        <Container maxWidth={'sm'}>
           <Box component={'header'} paddingBottom={4}>
             <CustomHead variant="h1" align="left">
               Forget Password
@@ -121,7 +111,7 @@ export default function ForgetPassword() {
               Send
             </CustomButton>
           </form>
-        </Box>
+        </Container>
       </Grid2>
     </Grid2>
   );
