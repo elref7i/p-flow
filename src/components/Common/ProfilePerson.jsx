@@ -1,4 +1,3 @@
-import * as React from 'react';
 import Box from '@mui/material/Box';
 import Avatar from '@mui/material/Avatar';
 import Menu from '@mui/material/Menu';
@@ -9,12 +8,13 @@ import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
 import Settings from '@mui/icons-material/Settings';
 import Logout from '@mui/icons-material/Logout';
-import { UserTypeContext } from '../../context/UserType.context';
+import { useTypeContext } from '../../context/UserType.context';
+import { useState } from 'react';
 
 export default function ProfilePerson() {
-  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
-  const { logout } = React.useContext(UserTypeContext);
+  const { logout } = useTypeContext();
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -22,7 +22,7 @@ export default function ProfilePerson() {
     setAnchorEl(null);
   };
   return (
-    <React.Fragment>
+    <>
       <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
         <Tooltip title="Account settings">
           <IconButton
@@ -94,6 +94,6 @@ export default function ProfilePerson() {
           Logout
         </MenuItem>
       </Menu>
-    </React.Fragment>
+    </>
   );
 }

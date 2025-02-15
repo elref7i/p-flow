@@ -4,11 +4,11 @@ import MenuItem from '@mui/material/MenuItem';
 import Fade from '@mui/material/Fade';
 import { Link } from 'react-router-dom';
 import { Box } from '@mui/material';
-import { UserTypeContext } from '../../context/UserType.context';
 import CustomButton from './ButtonStyle';
+import { useTypeContext } from '../../context/UserType.context';
 
 export default function FadeMenu() {
-  const { setUserType } = React.useContext(UserTypeContext);
+  const { setUserType } = useTypeContext();
 
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);

@@ -27,9 +27,8 @@ import PieChartIcon from '@mui/icons-material/PieChart';
 import TimelineIcon from '@mui/icons-material/Timeline';
 import MapIcon from '@mui/icons-material/Map';
 import ImageAdmin from '@/assets/photo_2024-12-03_19-37-17.jpg';
-import { useContext } from 'react';
-import { ThemeContext } from '../../context/theme.context';
-import { UserTypeContext } from '../../context/UserType.context';
+import { useThemeContext } from '../../context/theme.context';
+// import { useTypeContext } from '../../context/UserType.context';
 
 const drawerWidth = 240;
 const openedMixin = (theme) => ({
@@ -107,8 +106,8 @@ const ArrayThree = [
 ];
 export default function Sidebar() {
   const theme = useTheme();
-  const { open, handleDrawerClose } = useContext(ThemeContext);
-  const { token } = useContext(UserTypeContext);
+  const { open, handleDrawerClose } = useThemeContext();
+  // const { token } = useTypeContext();
 
   return (
     <Drawer variant="permanent" open={open}>

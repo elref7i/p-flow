@@ -15,12 +15,11 @@ import InputSearch from '../Common/InputSearch';
 import LightModeSharpIcon from '@mui/icons-material/LightModeSharp';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import ModeNightIcon from '@mui/icons-material/ModeNight';
-import { useContext } from 'react';
-import { ThemeContext } from '../../context/theme.context';
+import { useThemeContext } from '../../context/theme.context';
 import ProfilePerson from '../Common/ProfilePerson';
-import { UserTypeContext } from '../../context/UserType.context';
 import { CustomLink } from '../Common/ButtonStyle';
 import { MessageTwoTone } from '@mui/icons-material';
+import { useTypeContext } from '../../context/UserType.context';
 
 const drawerWidth = 240;
 
@@ -50,8 +49,8 @@ const AppBar = styled(MuiAppBar, {
 
 export default function Navbar() {
   const theme = useTheme();
-  const { token } = useContext(UserTypeContext);
-  const { setMode, open, handleDrawerOpen } = useContext(ThemeContext);
+  const { token } = useTypeContext();
+  const { setMode, open, handleDrawerOpen } = useThemeContext();
   return (
     <AppBar
       position="fixed"

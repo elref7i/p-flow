@@ -11,19 +11,19 @@ import {
 } from '@mui/material';
 import CustomButton from '@/components/Common/ButtonStyle';
 import { useFormik } from 'formik';
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
 import { CustomHead } from '@/components/Common/CustomTypography';
 import axios from 'axios';
 import toast from 'react-hot-toast';
-import { UserTypeContext } from '@/context/UserType.context';
 import { CustomLink } from '@/components/Common/ButtonStyle';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import LeftAuth from '../../../components/Common/LeftAuth';
+import { useTypeContext } from '../../../context/UserType.context';
 
 export default function Login() {
-  const { setToken, setRole } = useContext(UserTypeContext);
+  const { setToken, setRole } = useTypeContext();
   const [showPassword, setShowPassword] = useState(false);
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   const passwordRegx = /^.{8,}$/;

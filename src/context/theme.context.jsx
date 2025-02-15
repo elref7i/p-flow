@@ -1,8 +1,8 @@
 import { createTheme, ThemeProvider } from '@mui/material';
-import { createContext, useMemo, useState } from 'react';
+import { createContext, useContext, useMemo, useState } from 'react';
 import { getDesignTokens } from '../theme';
 
-export const ThemeContext = createContext(0);
+const ThemeContext = createContext(0);
 
 // eslint-disable-next-line react/prop-types
 export default function ThemeModeProvider({ children }) {
@@ -24,4 +24,8 @@ export default function ThemeModeProvider({ children }) {
       <ThemeProvider theme={theme}>{children}</ThemeProvider>
     </ThemeContext.Provider>
   );
+}
+
+export function useThemeContext() {
+  return useContext(ThemeContext);
 }
