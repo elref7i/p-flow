@@ -1,13 +1,13 @@
 import { Typography, useTheme } from '@mui/material';
 
 // eslint-disable-next-line react/prop-types
-export const CustomHead = ({ mb, children, ...props }) => {
+export const CustomHead = ({ mb, fs, fw, children, ...props }) => {
   const theme = useTheme();
   return (
     <Typography
       sx={{
-        fontSize: '45px',
-        fontWeight: 'bold',
+        fontSize: fs || '35px',
+        fontWeight: fw || 700,
         color: theme.palette.text.primary,
         mb: mb || 2,
       }}

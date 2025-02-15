@@ -2,6 +2,7 @@ import { Grid2, useTheme } from '@mui/material';
 import { Box } from '@mui/system';
 import { CustomLink } from './ButtonStyle';
 import imageStore from '../../assets/Alto ángulo del carrito de compras con espacio de copia y láminas de pastillas _ Foto Premium.jpg';
+import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 
 export default function LeftAuth() {
   const theme = useTheme();
@@ -18,8 +19,21 @@ export default function LeftAuth() {
         backgroundRepeat: 'no-repeat',
         backgroundPosition: 'center',
         backgroundSize: 'cover',
+        p: 4,
       }}
     >
+      <CustomLink
+        to={'/landing'}
+        // bghover={true}
+        display={'flex'}
+        alignItems={'center'}
+        bg={theme.palette.secondary.main}
+        p={'10px'}
+        br={6}
+      >
+        <ArrowBackIosIcon />
+        Back To Home
+      </CustomLink>
       <Box
         sx={{
           display: 'flex',

@@ -35,7 +35,7 @@ const CustomButton = styled('button')(
       width: sm || 'auto',
     },
     fontSize: fs || '20px',
-    fontWeight: fontWeight || 'bold',
+    fontWeight: fontWeight || '',
     marginInline: marginInline || 'auto',
     marginBottom: mb || 'auto',
 
@@ -62,6 +62,8 @@ export const CustomLink = styled(Link)(
     chover,
     alignItems,
     justifyContent,
+    justifySelf,
+    mx,
   }) => ({
     fontSize: fs || 'normal',
     fontWeight: fw || 'normal',
@@ -71,6 +73,8 @@ export const CustomLink = styled(Link)(
     display: display || 'block',
     alignItems: alignItems,
     justifyContent: justifyContent,
+    marginInline: mx,
+    justifySelf: justifySelf || 'flex-start',
     cursor: 'pointer',
     transition: transition || 'all 0.4s ease-in-out',
     padding: p || '0px',
