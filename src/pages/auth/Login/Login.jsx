@@ -9,25 +9,20 @@ import {
   Grid2,
   Box,
   Container,
-  useTheme,
-  Typography,
 } from '@mui/material';
 import CustomButton from '@/components/Common/ButtonStyle';
 import { useFormik } from 'formik';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
-import { CustomHead } from '@/components/Common/CustomTypography';
 import axios from 'axios';
 import toast from 'react-hot-toast';
 import { CustomLink } from '@/components/Common/ButtonStyle';
-// import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import LeftAuth from '../../../components/Common/LeftAuth';
 import { useTypeContext } from '../../../context/UserType.context';
 import FixedHead from '../../../components/Common/FixedHead';
 
 export default function Login() {
-  const theme = useTheme();
   const { setToken, setRole } = useTypeContext();
   const [showPassword, setShowPassword] = useState(false);
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -132,6 +127,7 @@ export default function Login() {
                 Password
               </InputLabel>
               <OutlinedInput
+                sx={{ mb: 2 }}
                 id="outlined-adornment-password"
                 type={showPassword ? 'text' : 'password'}
                 name="password"
@@ -159,21 +155,16 @@ export default function Login() {
                 }
                 label="Password"
               />
+              {/* <Box component={'div'} width={'fit-content'} align={'end'}> */}
+              <CustomLink bghover={true} to="/forgetpassword" ml={'auto'}>
+                Forgot Your Password ?
+              </CustomLink>
+              {/* </Box> */}
             </FormControl>
             <Box component={'div'} mb={3}>
               <CustomButton type="submit" w="100%" sm="45%">
                 Login
               </CustomButton>
-            </Box>
-            <Box component={'div'} align={'center'}>
-              <CustomLink
-                bghover={true}
-                to="/forgetpassword"
-                mx={'auto'}
-                // textDecoration={'underline'}
-              >
-                Forgot Your Password ?
-              </CustomLink>
             </Box>
           </Box>
         </Container>
