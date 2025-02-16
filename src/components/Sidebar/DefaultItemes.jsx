@@ -12,7 +12,7 @@ import BarChartIcon from '@mui/icons-material/BarChart';
 export const admin = {
   HeaderSection: [
     { text: 'Dashboard', icon: <HomeIcon />, path: '/' },
-    { text: 'Manage Team', icon: <GroupIcon />, path: '/team' },
+    { text: 'Users', icon: <GroupIcon />, path: '/users' },
     {
       text: 'Contacts Information',
       icon: <ContactsIcon />,

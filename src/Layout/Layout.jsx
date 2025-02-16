@@ -32,7 +32,7 @@ export default function Layout() {
         component={'main'}
         sx={{
           m: 0,
-          pt: onlyAuth.includes(pathname) ? '0px' : '65px',
+          pt: onlyAuth.includes(pathname) ? '0px' : '90px',
           minHeight: 'calc(100vh - 68.01px)',
           backgroundColor: 'background.default',
         }}
