@@ -1,4 +1,4 @@
-import { Visibility, VisibilityOff } from '@mui/icons-material';
+import { Visibility, VisibilityOff } from "@mui/icons-material";
 import {
   Typography,
   FormControl,
@@ -9,18 +9,17 @@ import {
   Grid2,
   Box,
   TextField,
-} from '@mui/material';
-import CustomButton from '@/components/Common/ButtonStyle';
-import { useFormik } from 'formik';
-import { useState } from 'react';
-import * as Yup from 'yup';
-import { CustomHead } from '@/components/Common/CustomTypography';
-import toast from 'react-hot-toast';
-import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
-import LeftAuth from '../../../components/Common/LeftAuth';
-import { CustomLink } from '../../../components/Common/ButtonStyle';
-import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+  Container,
+} from "@mui/material";
+import CustomButton from "@/components/Common/ButtonStyle";
+import { useFormik } from "formik";
+import { useState } from "react";
+import * as Yup from "yup";
+import { CustomHead } from "@/components/Common/CustomTypography";
+import toast from "react-hot-toast";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import LeftAuth from "../../../components/Common/LeftAuth";
 
 export default function UpdatedPassword() {
   const [showPassword, setShowPassword] = useState(false);
@@ -40,18 +39,18 @@ export default function UpdatedPassword() {
   };
 
   async function updatedPassword(values) {
-    const loading = toast.loading('watting');
+    const loading = toast.loading("waiting...");
     try {
       const options = {
-        url: 'https://pflow-api-v3-1655e5b56c39.herokuapp.com/api/v1/auth/resetPassword',
-        method: 'PUT',
+        url: "https://pflow-api-v3-1655e5b56c39.herokuapp.com/api/v1/auth/resetPassword",
+        method: "PUT",
         data: values,
       };
       const { data } = await axios.request(options);
       console.log(data);
-      if (data.message === 'success') {
+      if (data.message === "success") {
         toast.success(data.message);
-        navigator('/login');
+        navigator("/login");
       }
     } catch (error) {
       toast.error(error.response.data.message);
@@ -63,20 +62,20 @@ export default function UpdatedPassword() {
 
   const validationSchema = Yup.object({
     email: Yup.string()
-      .required('Required')
-      .matches(emailRegex, 'Invalid email'),
+      .required("Required")
+      .matches(emailRegex, "Invalid email"),
     newPassword: Yup.string()
-      .required('Required')
+      .required("Required")
       .matches(
         passwordRegx,
-        'Password must contain at least 8 characters, one uppercase, one lowercase, one number and one special case character'
+        "Password must contain at least 8 characters, one uppercase, one lowercase, one number and one special case character"
       ),
   });
   const { handleBlur, handleChange, handleSubmit, errors, touched, values } =
     useFormik({
       initialValues: {
-        email: '',
-        newPassword: '',
+        email: "",
+        newPassword: "",
       },
       validationSchema,
       onSubmit: updatedPassword,
@@ -87,92 +86,94 @@ export default function UpdatedPassword() {
       spacing={5}
       container
       sx={{
-        minHeight: '100vh',
-        width: '100%',
+        minHeight: "100vh",
+        width: "100%",
       }}
     >
       <LeftAuth />
-      <Grid2 size={{ xs: 12, md: 8 }} sx={{ bg: 'red', pt: 5 }}>
-        <CustomLink
-          to={'/landing'}
-          bghover={true}
-          display={'flex'}
-          alignItems={'center'}
-        >
-          <ArrowBackIosIcon />
-          Back To Home
-        </CustomLink>
-        <Box component={'header'} marginBottom={3}>
-          <CustomHead variant="h1" align="left">
-            Updated Password
-          </CustomHead>
-          <Typography
-            variant="body1"
-            sx={{ fontSize: '15px', color: '#939494' }}
-          >
-            Please create a new password for your account. Ensure it meets the
-            required criteria to keep your account secure.
-          </Typography>
-        </Box>
-        <form onSubmit={handleSubmit}>
-          <TextField
-            fullWidth
-            label="Email"
-            margin="normal"
-            sx={{ mb: 3 }}
-            name="email"
-            value={values.email}
-            onChange={handleChange}
-            onBlur={handleBlur}
-            error={errors.email && touched.email}
-            helperText={touched.email && errors.email}
-          />
-          <FormControl fullWidth sx={{ mb: 3 }} variant="outlined">
-            <InputLabel
-              sx={{ fontSize: '11px' }}
-              htmlFor="outlined-adornment-new-password"
+      <Grid2
+        size={{ xs: 12, md: 8 }}
+        sx={{
+          bg: "red",
+          pt: 5,
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+        }}
+      >
+        <Container maxWidth="sm">
+          <Box component={"header"} marginBottom={3}>
+            <CustomHead variant="h1" align="left">
+              Update Your Password
+            </CustomHead>
+            <Typography
+              variant="body1"
+              sx={{ fontSize: "15px", color: "#939494" }}
             >
-              New Password
-            </InputLabel>
-            <OutlinedInput
-              id="outlined-adornment-new-password"
-              type={showPassword ? 'text' : 'password'}
-              name="newPassword"
-              value={values.newPassword}
+              Please create a new password for your account. Ensure it meets the
+              required criteria to keep your account secure.
+            </Typography>
+          </Box>
+          <form onSubmit={handleSubmit}>
+            <TextField
+              fullWidth
+              label="Email"
+              margin="normal"
+              sx={{ mb: 3 }}
+              name="email"
+              value={values.email}
               onChange={handleChange}
               onBlur={handleBlur}
-              error={errors.newPassword && touched.newPassword}
-              helperText={touched.newPassword && errors.newPassword}
-              endAdornment={
-                <InputAdornment position="end">
-                  <IconButton
-                    aria-label={
-                      showPassword
-                        ? 'hide the password'
-                        : 'display the password'
-                    }
-                    onClick={handleClickShowPassword}
-                    onMouseDown={handleMouseDownPassword}
-                    onMouseUp={handleMouseUpPassword}
-                    edge="end"
-                  >
-                    {showPassword ? <VisibilityOff /> : <Visibility />}
-                  </IconButton>
-                </InputAdornment>
-              }
-              label="Password"
+              error={errors.email && touched.email}
+              helperText={touched.email && errors.email}
             />
-          </FormControl>
-          <CustomButton
-            type="submit"
-            // @ts-ignore
-            w="100%"
-            sm="75%"
-            md="50%"
-          >
-            Updated
-          </CustomButton>
-        </form>
+            <FormControl fullWidth sx={{ mb: 3 }} variant="outlined">
+              <InputLabel
+                sx={{ fontSize: "11px" }}
+                htmlFor="outlined-adornment-new-password"
+              >
+                New Password
+              </InputLabel>
+              <OutlinedInput
+                id="outlined-adornment-new-password"
+                type={showPassword ? "text" : "password"}
+                name="newPassword"
+                value={values.newPassword}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                error={errors.newPassword && touched.newPassword}
+                helperText={touched.newPassword && errors.newPassword}
+                endAdornment={
+                  <InputAdornment position="end">
+                    <IconButton
+                      aria-label={
+                        showPassword
+                          ? "hide the password"
+                          : "display the password"
+                      }
+                      onClick={handleClickShowPassword}
+                      onMouseDown={handleMouseDownPassword}
+                      onMouseUp={handleMouseUpPassword}
+                      edge="end"
+                    >
+                      {showPassword ? <VisibilityOff /> : <Visibility />}
+                    </IconButton>
+                  </InputAdornment>
+                }
+                label="Password"
+              />
+            </FormControl>
+            <CustomButton
+              type="submit"
+              // @ts-ignore
+              w="100%"
+              sm="50%"
+              md="40%"
+            >
+              Update
+            </CustomButton>
+          </form>
+        </Container>
       </Grid2>
     </Grid2>
   );

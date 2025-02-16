@@ -1,13 +1,13 @@
-import { TextField, Typography, Grid2, Box, Container } from '@mui/material';
-import CustomButton from '@/components/Common/ButtonStyle';
-import { useFormik } from 'formik';
-import * as Yup from 'yup';
-import { CustomHead } from '@/components/Common/CustomTypography';
-import axios from 'axios';
-import toast from 'react-hot-toast';
-import { useNavigate } from 'react-router-dom';
-import LeftAuth from '../../../components/Common/LeftAuth';
-import { useForgetPassword } from '../../../context/Forget.context';
+import { TextField, Typography, Grid2, Box, Container } from "@mui/material";
+import CustomButton from "@/components/Common/ButtonStyle";
+import { useFormik } from "formik";
+import * as Yup from "yup";
+import { CustomHead } from "@/components/Common/CustomTypography";
+import axios from "axios";
+import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
+import LeftAuth from "../../../components/Common/LeftAuth";
+import { useForgetPassword } from "../../../context/Forget.context";
 
 export default function ForgetPassword() {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -15,21 +15,21 @@ export default function ForgetPassword() {
 
   const { setForgetCompleted } = useForgetPassword();
   async function forgetpassword(values) {
-    const loading = toast.loading('watting');
+    const loading = toast.loading("waiting...");
 
     try {
       const options = {
-        url: 'https://pflow-api-v3-1655e5b56c39.herokuapp.com/api/v1/auth/forgetpassword',
-        method: 'POST',
+        url: "https://pflow-api-v3-1655e5b56c39.herokuapp.com/api/v1/auth/forgetpassword",
+        method: "POST",
         data: values,
       };
       const { data } = await axios.request(options);
       // console.log(data.message);
-      if (data.message === 'Reset code sent successfully') {
+      if (data.message === "Reset code sent successfully") {
         toast.success(data.message);
         setForgetCompleted(true);
         setTimeout(() => {
-          navigator('/verifysendcoding');
+          navigator("/verifysendcoding");
         }, 2000);
       }
     } catch (error) {
@@ -41,13 +41,13 @@ export default function ForgetPassword() {
   }
   const validationSchema = Yup.object({
     email: Yup.string()
-      .required('Required')
-      .matches(emailRegex, 'Invalid email'),
+      .required("Required")
+      .matches(emailRegex, "Invalid email"),
   });
   const { handleBlur, handleChange, handleSubmit, errors, touched, values } =
     useFormik({
       initialValues: {
-        email: '',
+        email: "",
       },
       validationSchema,
       onSubmit: forgetpassword,
@@ -58,29 +58,29 @@ export default function ForgetPassword() {
       spacing={5}
       container
       sx={{
-        minHeight: '100vh',
-        width: '100%',
+        minHeight: "100vh",
+        width: "100%",
       }}
     >
       <LeftAuth namePage="Sign in" path="/login"></LeftAuth>
       <Grid2
         size={{ xs: 12, md: 8 }}
         sx={{
-          bg: 'red',
+          bg: "red",
           pt: 5,
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'center',
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
         }}
       >
-        <Container maxWidth={'sm'}>
-          <Box component={'header'} paddingBottom={4}>
+        <Container maxWidth={"sm"}>
+          <Box component={"header"} paddingBottom={4}>
             <CustomHead variant="h1" align="left">
               Forget Password
             </CustomHead>
             <Typography
               variant="body1"
-              sx={{ fontSize: '15px', color: '#939494' }}
+              sx={{ fontSize: "15px", color: "#939494" }}
             >
               Please enter your registered email address to receive a password
               reset link. If you don&apos;t remember your email address, contact
