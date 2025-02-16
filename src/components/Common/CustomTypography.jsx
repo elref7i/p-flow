@@ -6,10 +6,11 @@ export const CustomHead = ({ mb, fs, fw, children, ...props }) => {
   return (
     <Typography
       sx={{
-        fontSize: fs || { sm: '30px', md: '38px' },
+        fontSize: fs || { xs: '25px', md: '38px' },
         fontWeight: fw || 700,
         color: theme.palette.text.primary,
         mb: mb || 2,
+        textWrap: 'nowrap',
       }}
       {...props}
     >
