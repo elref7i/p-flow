@@ -1,0 +1,71 @@
+import GroupIcon from '@mui/icons-material/Group';
+import ContactsIcon from '@mui/icons-material/Contacts';
+import PersonIcon from '@mui/icons-material/Person';
+import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
+import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
+import PieChartIcon from '@mui/icons-material/PieChart';
+import TimelineIcon from '@mui/icons-material/Timeline';
+import MapIcon from '@mui/icons-material/Map';
+import HomeIcon from '@mui/icons-material/Home';
+import ArticleIcon from '@mui/icons-material/Article';
+import BarChartIcon from '@mui/icons-material/BarChart';
+export const admin = {
+  HeaderSection: [
+    { text: 'Dashboard', icon: <HomeIcon />, path: '/' },
+    { text: 'Manage Team', icon: <GroupIcon />, path: '/team' },
+    {
+      text: 'Contacts Information',
+      icon: <ContactsIcon />,
+      path: '/information',
+    },
+  ],
+  MiddleSection: [
+    { text: 'Invoices', icon: <ArticleIcon />, path: '/invoices' },
+    { text: 'Profile Form', icon: <PersonIcon />, path: '/profile' },
+    { text: 'Calendar', icon: <CalendarTodayIcon />, path: '/calendar' },
+    { text: 'FAQ Page', icon: <HelpOutlineIcon />, path: '/faq' },
+  ],
+  FooterSection: [
+    { text: 'Bar Chart', icon: <BarChartIcon />, path: '/bar' },
+    { text: 'Pie Chart', icon: <PieChartIcon />, path: '/pie' },
+    { text: 'Line Chart', icon: <TimelineIcon />, path: '/line' },
+    { text: 'Geography Chart', icon: <MapIcon />, path: '/geography' },
+  ],
+};
+
+export const pharmacy = {
+  HeaderSection: [
+    { text: 'Dashboard', icon: <HomeIcon />, path: '/' },
+    { text: 'Orders', icon: <ArticleIcon />, path: '/orders' },
+  ],
+  MiddleSection: [
+    { text: 'Invoices', icon: <ArticleIcon />, path: '/invoices' },
+    { text: 'Profile Form', icon: <PersonIcon />, path: '/profile' },
+    { text: 'Calendar', icon: <CalendarTodayIcon />, path: '/calendar' },
+    { text: 'FAQ Page', icon: <HelpOutlineIcon />, path: '/faq' },
+  ],
+  FooterSection: [
+    { text: 'Bar Chart', icon: <BarChartIcon />, path: '/bar' },
+    { text: 'Pie Chart', icon: <PieChartIcon />, path: '/pie' },
+    { text: 'Line Chart', icon: <TimelineIcon />, path: '/line' },
+    { text: 'Geography Chart', icon: <MapIcon />, path: '/geography' },
+  ],
+};
+export const inventory = {
+  HeaderSection: [
+    { text: 'Dashboard', icon: <HomeIcon />, path: '/' },
+    { text: 'Stock', icon: <BarChartIcon />, path: '/stock' },
+  ],
+  MiddleSection: [
+    { text: 'Invoices', icon: <ArticleIcon />, path: '/invoices' },
+    { text: 'Profile Form', icon: <PersonIcon />, path: '/profile' },
+    { text: 'Calendar', icon: <CalendarTodayIcon />, path: '/calendar' },
+    { text: 'FAQ Page', icon: <HelpOutlineIcon />, path: '/faq' },
+  ],
+  FooterSection: [
+    { text: 'Bar Chart', icon: <BarChartIcon />, path: '/bar' },
+    { text: 'Pie Chart', icon: <PieChartIcon />, path: '/pie' },
+    { text: 'Line Chart', icon: <TimelineIcon />, path: '/line' },
+    { text: 'Geography Chart', icon: <MapIcon />, path: '/geography' },
+  ],
+};

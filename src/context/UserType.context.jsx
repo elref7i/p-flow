@@ -1,8 +1,8 @@
+/* eslint-disable react/prop-types */
 import { createContext, useContext, useState } from 'react';
 
 const UserTypeContext = createContext(0);
 
-// eslint-disable-next-line react/prop-types
 export default function UserTypeProvider({ children }) {
   const [role, setRole] = useState(localStorage.getItem('role'));
   const [token, setToken] = useState(localStorage.getItem('token'));
@@ -22,6 +22,7 @@ export default function UserTypeProvider({ children }) {
     </UserTypeContext.Provider>
   );
 }
+// eslint-disable-next-line react-refresh/only-export-components
 export function useTypeContext() {
   return useContext(UserTypeContext);
 }

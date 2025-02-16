@@ -1,0 +1,59 @@
+/* eslint-disable react/prop-types */
+import {
+  ListItem,
+  ListItemButton,
+  ListItemIcon,
+  ListItemText,
+} from '@mui/material';
+
+export default function Sidebaritem({ item, open }) {
+  return (
+    <ListItem key={item.text} disablePadding sx={{ display: 'block' }}>
+      <ListItemButton
+        sx={[
+          {
+            minHeight: 48,
+            px: 2.5,
+          },
+          open
+            ? {
+                justifyContent: 'initial',
+              }
+            : {
+                justifyContent: 'center',
+              },
+        ]}
+      >
+        <ListItemIcon
+          sx={[
+            {
+              minWidth: 0,
+              justifyContent: 'center',
+            },
+            open
+              ? {
+                  mr: 3,
+                }
+              : {
+                  mr: 'auto',
+                },
+          ]}
+        >
+          {item.icon}
+        </ListItemIcon>
+        <ListItemText
+          primary={item.text}
+          sx={[
+            open
+              ? {
+                  opacity: 1,
+                }
+              : {
+                  opacity: 0,
+                },
+          ]}
+        />
+      </ListItemButton>
+    </ListItem>
+  );
+}
