@@ -1,6 +1,6 @@
 import { DataGrid, GridToolbar } from '@mui/x-data-grid';
 import { columns, rows } from './data';
-import { Paper } from '@mui/material';
+import { Box, Paper } from '@mui/material';
 
 export default function Users() {
   return (
