@@ -6,7 +6,6 @@ export default function ProtectedRoute({ children, allowedRolls }) {
   const { token, role } = useTypeContext();
   const location = useLocation();
 
-  // !allowedRolls.includes(role)
   if (location.pathname === '/' && role && token) {
     return <Navigate to={`/${role}`} replace />;
   }

@@ -1,4 +1,4 @@
-import { Visibility, VisibilityOff } from "@mui/icons-material";
+import { Visibility, VisibilityOff } from '@mui/icons-material';
 import {
   TextField,
   FormControl,
@@ -9,16 +9,16 @@ import {
   Grid2,
   Box,
   Container,
-} from "@mui/material";
-import CustomButton from "@/components/Common/ButtonStyle";
-import { useFormik } from "formik";
-import { useState } from "react";
-import * as Yup from "yup";
-import { CustomLink } from "@/components/Common/ButtonStyle";
-import LeftAuth from "../../../components/Common/LeftAuth";
+} from '@mui/material';
+import CustomButton from '@/components/Common/ButtonStyle';
+import { useFormik } from 'formik';
+import { useState } from 'react';
+import * as Yup from 'yup';
+import { CustomLink } from '@/components/Common/ButtonStyle';
+import LeftAuth from '../../../components/Common/LeftAuth';
 
-import FixedHead from "../../../components/Common/FixedHead";
-import { useTypeContext } from "../../../context/UserType.context";
+import FixedHead from '../../../components/Common/FixedHead';
+import { useTypeContext } from '../../../context/UserType.context';
 
 export default function Login() {
   const { login } = useTypeContext();
@@ -39,20 +39,20 @@ export default function Login() {
 
   const validationSchema = Yup.object({
     email: Yup.string()
-      .required("Required")
-      .matches(emailRegex, "Invalid email"),
+      .required('Required')
+      .matches(emailRegex, 'Invalid email'),
     password: Yup.string()
-      .required("Required")
+      .required('Required')
       .matches(
         passwordRegx,
-        "Password must contain at least 8 characters, one uppercase, one lowercase, one number and one special case character"
+        'Password must contain at least 8 characters, one uppercase, one lowercase, one number and one special case character'
       ),
   });
   const { handleBlur, handleChange, handleSubmit, errors, values, touched } =
     useFormik({
       initialValues: {
-        email: "",
-        password: "",
+        email: '',
+        password: '',
       },
       validationSchema,
       onSubmit: login,
@@ -63,8 +63,8 @@ export default function Login() {
       spacing={5}
       container
       sx={{
-        minHeight: "100vh",
-        width: "100%",
+        minHeight: '100vh',
+        width: '100%',
       }}
     >
       <LeftAuth namePage="Sign Up" path="/signup"></LeftAuth>
@@ -72,14 +72,14 @@ export default function Login() {
         size={{ xs: 12, md: 8 }}
         sx={{
           pt: 5,
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
         }}
       >
         <Container maxWidth="sm">
           <FixedHead>Sign in to</FixedHead>
-          <Box component={"form"} sx={{ pt: 5 }} onSubmit={handleSubmit}>
+          <Box component={'form'} sx={{ pt: 5 }} onSubmit={handleSubmit}>
             <TextField
               fullWidth
               label="Email"
@@ -94,7 +94,7 @@ export default function Login() {
             />
             <FormControl fullWidth sx={{ mb: 8 }} variant="outlined">
               <InputLabel
-                color={errors.email && touched.email ? "error" : "primary"}
+                color={errors.email && touched.email ? 'error' : 'primary'}
                 htmlFor="outlined-adornment-password"
               >
                 Password
@@ -102,7 +102,7 @@ export default function Login() {
               <OutlinedInput
                 sx={{ mb: 2 }}
                 id="outlined-adornment-password"
-                type={showPassword ? "text" : "password"}
+                type={showPassword ? 'text' : 'password'}
                 name="password"
                 value={values.password}
                 onChange={handleChange}
@@ -114,8 +114,8 @@ export default function Login() {
                     <IconButton
                       aria-label={
                         showPassword
-                          ? "hide the password"
-                          : "display the password"
+                          ? 'hide the password'
+                          : 'display the password'
                       }
                       onClick={handleClickShowPassword}
                       onMouseDown={handleMouseDownPassword}
@@ -129,12 +129,12 @@ export default function Login() {
                 label="Password"
               />
               {/* <Box component={'div'} width={'fit-content'} align={'end'}> */}
-              <CustomLink bghover={true} to="/forgetpassword" ml={"auto"}>
+              <CustomLink bghover={true} to="/forgetpassword" ml={'auto'}>
                 Forgot Your Password ?
               </CustomLink>
               {/* </Box> */}
             </FormControl>
-            <Box component={"div"} mb={3}>
+            <Box component={'div'} mb={3}>
               <CustomButton type="submit" w="100%" sm="45%">
                 Login
               </CustomButton>
