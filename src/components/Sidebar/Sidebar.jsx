@@ -52,7 +52,7 @@ export default function Sidebar() {
           color="primary"
           margin={1}
         >
-          {userData.name}
+          {userData && userData.name}
         </Typography>
         <Typography variant="h3" fontSize={open ? 15 : 0} color="secondary">
           {role}
