@@ -1,8 +1,8 @@
 import { lazy, Suspense } from 'react';
 import { createBrowserRouter } from 'react-router-dom';
 import { RouterProvider } from 'react-router';
-import { Provider } from 'react-redux';
-import { store } from './store/sotre';
+// import { Provider } from 'react-redux';
+// import { store } from './store/sotre';
 import { Toaster } from 'react-hot-toast';
 import ThemeModeProvider from './context/theme.context';
 import SkeletonLoader from './components/SkeletonLoader/SkeletonLoader';
@@ -11,6 +11,8 @@ import HomePharmacy from './pages/Pharmacy/HomePharmacy/HomePharmacy';
 import HomeInventory from './pages/Inventory/HomeInventory/HomeInventory';
 import { ForgetPasswordProvider } from './context/Forget.context';
 import ForgetProtectedRoute from './components/ForgetProtectedRoute/ForgetProtectedRoute';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import DashboardAdmin from './pages/Admin/DashboardAdmin/DashboardAdmin';
 // import ForgetProtectedRoute from '@/components/ForgetProtectedRoute/ForgetProtectedRoute';
 const UserTypeProvider = lazy(() => import('@/context/UserType.context'));
 const Layout = lazy(() => import('@/Layout/Layout'));
@@ -43,7 +45,7 @@ function App() {
           <Layout />
         </ProtectedRoute>
       ),
-      children: [{ path: 'home', element: <Home /> }],
+      children: [{ path: '/home', element: <Home /> }],
     },
     {
       path: '/admin',
@@ -52,7 +54,10 @@ function App() {
           <Layout />
         </ProtectedRoute>
       ),
-      children: [{ index: true, element: <Users /> }],
+      children: [
+        { index: true, element: <DashboardAdmin /> },
+        { path: 'users', element: <Users /> },
+      ],
     },
     {
       path: '/pharmacy',
@@ -104,21 +109,24 @@ function App() {
       ],
     },
   ]);
-  //* react query - redux
+  //* react query
+
+  // const
+  const queryClient = new QueryClient();
   return (
     <>
-      <UserTypeProvider>
-        <ForgetPasswordProvider>
-          <Provider store={store}>
+      <QueryClientProvider client={queryClient}>
+        <UserTypeProvider>
+          <ForgetPasswordProvider>
             <ThemeModeProvider>
               <Suspense fallback={<SkeletonLoader />}>
                 <RouterProvider router={router} />
               </Suspense>
             </ThemeModeProvider>
             <Toaster />
-          </Provider>
-        </ForgetPasswordProvider>
-      </UserTypeProvider>
+          </ForgetPasswordProvider>
+        </UserTypeProvider>
+      </QueryClientProvider>
     </>
   );
 }

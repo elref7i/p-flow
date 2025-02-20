@@ -5,11 +5,16 @@ import {
   ListItemIcon,
   ListItemText,
 } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 
 export default function Sidebaritem({ item, open }) {
+  const navigate = useNavigate();
   return (
     <ListItem key={item.text} disablePadding sx={{ display: 'block' }}>
       <ListItemButton
+        onClick={() => {
+          navigate(item.path);
+        }}
         sx={[
           {
             minHeight: 48,

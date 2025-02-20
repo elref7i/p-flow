@@ -1,108 +1,10 @@
-export const rows = [
-  {
-    id: 1,
-    registerId: 2224,
-    name: 'Refai',
-    Email: 'refai@gmail.com',
-    Age: '22',
-    Phone: '01149803891',
-    Address: 777777,
-    Access: 'Manager',
-    ZipCode: 11111,
-  },
-  {
-    id: 2,
-    registerId: 2224,
-    name: 'Refai',
-    Email: 'refai@gmail.com',
-    Age: '22',
-    Phone: '01149803891',
-    Address: 777777,
-    Access: 'Manager',
-    ZipCode: 11111,
-  },
-  {
-    id: 3,
-    registerId: 2224,
-    name: 'Refai',
-    Email: 'refai@gmail.com',
-    Age: '22',
-    Phone: '01149803891',
-    Address: 777777,
-    Access: 'Manager',
-    ZipCode: 11111,
-  },
-  {
-    id: 4,
-    registerId: 2224,
-    name: 'Refai',
-    Email: 'refai@gmail.com',
-    Age: '22',
-    Phone: '01149803891',
-    Address: 777777,
-    Access: 'Manager',
-    ZipCode: 11111,
-  },
-  {
-    id: 5,
-    registerId: 2224,
-    name: 'Refai',
-    Email: 'refai@gmail.com',
-    Age: '22',
-    Phone: '01149803891',
-    Address: 777777,
-    Access: 'Manager',
-    ZipCode: 11111,
-  },
-  {
-    id: 6,
-    registerId: 2224,
-    name: 'Refai',
-    Email: 'refai@gmail.com',
-    Age: '22',
-    Phone: '01149803891',
-    Address: 777777,
-    Access: 'Manager',
-    ZipCode: 11111,
-  },
-  {
-    id: 7,
-    registerId: 2224,
-    name: 'Refai',
-    Email: 'refai@gmail.com',
-    Age: '22',
-    Phone: '01149803891',
-    Address: 777777,
-    Access: 'Manager',
-    ZipCode: 11111,
-  },
-  {
-    id: 8,
-    registerId: 2224,
-    name: 'Refai',
-    Email: 'refai@gmail.com',
-    Age: '22',
-    Phone: '01149803891',
-    Address: 777777,
-    Access: 'Manager',
-    ZipCode: 11111,
-  },
-];
-
 export const columns = [
   {
-    field: 'id',
+    field: '_id',
     headerName: 'ID',
     align: 'center',
     headerAlign: 'center',
     minWidth: 10, // تحديد عرض أدنى للعمود
-  },
-  {
-    field: 'registerId',
-    headerName: 'Register ID',
-    align: 'center',
-    headerAlign: 'center',
-    minWidth: 100, // تحديد عرض أدنى للعمود
   },
   {
     field: 'name',
@@ -112,22 +14,23 @@ export const columns = [
     minWidth: 150, // تحديد عرض أدنى للعمود
   },
   {
-    field: 'Email',
+    field: 'ownerName',
+    headerName: 'Owner Name',
+    align: 'center',
+    headerAlign: 'center',
+    minWidth: 150, // تحديد عرض أدنى للعمود
+  },
+  {
+    field: 'email',
     headerName: 'Email',
     flex: 1,
     align: 'center',
     headerAlign: 'center',
     minWidth: 200, // تحديد عرض أدنى للعمود
   },
+
   {
-    field: 'Age',
-    headerName: 'Age',
-    align: 'center',
-    headerAlign: 'center',
-    minWidth: 70, // تحديد عرض أدنى للعمود
-  },
-  {
-    field: 'Phone',
+    field: 'phone',
     headerName: 'Phone',
     flex: 1,
     align: 'center',
@@ -135,8 +38,8 @@ export const columns = [
     minWidth: 150, // تحديد عرض أدنى للعمود
   },
   {
-    field: 'Address',
-    headerName: 'Address',
+    field: 'identificationNumber',
+    headerName: 'Identification Number',
     flex: 1,
     align: 'center',
     headerAlign: 'center',
@@ -144,12 +47,19 @@ export const columns = [
     minWidth: 100, // تحديد عرض أدنى للعمود
   },
   {
-    field: 'ZipCode',
-    headerName: 'Zip Code',
+    field: 'registrationNumber',
+    headerName: 'Registration Number',
     flex: 1,
     align: 'center',
     headerAlign: 'center',
     type: 'number',
     minWidth: 150, // تحديد عرض أدنى للعمود
+  },
+  {
+    field: 'role',
+    headerName: 'Role',
+    align: 'center',
+    headerAlign: 'center',
+    minWidth: 100, // تحديد عرض أدنى للعمود
   },
 ];

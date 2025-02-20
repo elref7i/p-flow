@@ -11,8 +11,8 @@ import ArticleIcon from '@mui/icons-material/Article';
 import BarChartIcon from '@mui/icons-material/BarChart';
 export const admin = {
   HeaderSection: [
-    { text: 'Dashboard', icon: <HomeIcon />, path: '/' },
-    { text: 'Users', icon: <GroupIcon />, path: '/users' },
+    { text: 'Dashboard', icon: <HomeIcon />, path: '/admin' },
+    { text: 'Users', icon: <GroupIcon />, path: '/admin/users' },
     {
       text: 'Contacts Information',
       icon: <ContactsIcon />,
