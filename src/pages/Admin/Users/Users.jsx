@@ -11,7 +11,7 @@ const fetchUsers = async () => {
 };
 
 export default function Users() {
-  const { data, isLoading, isError, error } = useQuery({
+  const { data, isLoading, isError } = useQuery({
     queryKey: ['users'],
     queryFn: fetchUsers,
     // refetchInterval: 5000,

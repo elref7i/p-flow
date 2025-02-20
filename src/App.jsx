@@ -8,12 +8,12 @@ import ThemeModeProvider from './context/theme.context';
 import SkeletonLoader from './components/SkeletonLoader/SkeletonLoader';
 import Users from './pages/Admin/Users/Users';
 import HomePharmacy from './pages/Pharmacy/HomePharmacy/HomePharmacy';
-import HomeInventory from './pages/Inventory/HomeInventory/HomeInventory';
 import { ForgetPasswordProvider } from './context/Forget.context';
 import ForgetProtectedRoute from './components/ForgetProtectedRoute/ForgetProtectedRoute';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import DashboardAdmin from './pages/Admin/DashboardAdmin/DashboardAdmin';
-// import ForgetProtectedRoute from '@/components/ForgetProtectedRoute/ForgetProtectedRoute';
+import DashboardInventory from './pages/Inventory/DashboardInventory/DashboardInventory';
+import AddDrugs from './pages/Inventory/AddDrugs/AddDrugs';
 const UserTypeProvider = lazy(() => import('@/context/UserType.context'));
 const Layout = lazy(() => import('@/Layout/Layout'));
 
@@ -56,7 +56,7 @@ function App() {
       ),
       children: [
         { index: true, element: <DashboardAdmin /> },
-        { path: 'users', element: <Users /> },
+        { path: ' users', element: <Users /> },
       ],
     },
     {
@@ -75,7 +75,10 @@ function App() {
           <Layout />
         </ProtectedRoute>
       ),
-      children: [{ index: true, element: <HomeInventory /> }],
+      children: [
+        { index: true, element: <DashboardInventory /> },
+        { path: 'adddrugs', element: <AddDrugs /> },
+      ],
     },
 
     {
