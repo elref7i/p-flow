@@ -14,6 +14,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import DashboardAdmin from './pages/Admin/DashboardAdmin/DashboardAdmin';
 import DashboardInventory from './pages/Inventory/DashboardInventory/DashboardInventory';
 import AddDrugs from './pages/Inventory/AddDrugs/AddDrugs';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 const UserTypeProvider = lazy(() => import('@/context/UserType.context'));
 const Layout = lazy(() => import('@/Layout/Layout'));
 
@@ -124,6 +125,7 @@ function App() {
             <ThemeModeProvider>
               <Suspense fallback={<SkeletonLoader />}>
                 <RouterProvider router={router} />
+                <ReactQueryDevtools initialIsOpen={false} />
               </Suspense>
             </ThemeModeProvider>
             <Toaster />

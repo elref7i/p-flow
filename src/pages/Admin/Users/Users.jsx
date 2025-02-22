@@ -1,11 +1,11 @@
 import { DataGrid, GridToolbar } from '@mui/x-data-grid';
-import { Paper, IconButton } from '@mui/material';
-import DeleteIcon from '@mui/icons-material/Delete';
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { Paper, Box } from '@mui/material';
+import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { columns } from './data';
-import toast from 'react-hot-toast';
 import { useTypeContext } from '../../../context/UserType.context';
+import AlertModal from '../../../components/AlertDelete/AlertDelete';
+import { useDeleteUser } from '../../../hooks/useAdminAction';
 
 const fetchUsers = async () => {
   const { data } = await axios.get(
@@ -13,35 +13,22 @@ const fetchUsers = async () => {
   );
   return data.users;
 };
-const deleteUser = async ({ userId, token }) => {
-  const options = {
-    url: `https://pflow-api-v3-1655e5b56c39.herokuapp.com/api/v1/users/${userId}`,
-    method: 'DELETE',
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  };
-  return axios.request(options);
-};
-export default function Users() {
-  const queryClient = useQueryClient();
-  const { token } = useTypeContext();
-  console.log(token);
 
-  const { data, isLoading, isError } = useQuery({
+export default function Users() {
+  const { token } = useTypeContext();
+
+  const { data, isLoading } = useQuery({
     queryKey: ['users'],
     queryFn: fetchUsers,
+    refetchOnMount: false,
   });
 
-  const mutation = useMutation(deleteUser, {
-    onSuccess: () => {
-      toast.success('User deleted successfully');
-      queryClient.invalidateQueries(['users']); // إعادة جلب البيانات بعد الحذف
-    },
-    onError: (error) => {
-      toast.error(error.response?.data?.message || 'Failed to delete user');
-    },
-  });
+  const {
+    isLoading: isDeleting,
+    isSuccess: isDeleted,
+    error: deleteError,
+    mutate: handleDelete,
+  } = useDeleteUser();
 
   const filteredData = data ? data.filter((row) => row.role !== 'admin') : [];
 
@@ -50,22 +37,35 @@ export default function Users() {
     {
       field: 'actions',
       headerName: 'Actions',
-      width: 100,
+      align: 'center',
+      headerAlign: 'center',
+      minWidth: 150,
       renderCell: (params) => {
         return (
-          <IconButton
-            onClick={() => mutation.mutate(params.row._id)}
-            color="error"
+          <Box
+            sx={{
+              px: 5,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
           >
-            <DeleteIcon />
-          </IconButton>
+            <AlertModal
+              isDeleting={isDeleting}
+              isDeleted={isDeleted}
+              deleteError={deleteError}
+              handleDelete={() =>
+                handleDelete({ userId: params.row._id, token })
+              }
+            />
+          </Box>
         );
       },
     },
   ];
 
   return (
-    <Paper elevation={8} sx={{ height: 550, width: '100%', overflowX: 'auto' }}>
+    <Paper elevation={8} sx={{ height: 550, overflowX: 'auto' }}>
       <DataGrid
         rows={filteredData}
         columns={columnsWithDelete}
