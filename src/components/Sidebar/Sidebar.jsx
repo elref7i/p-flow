@@ -34,7 +34,7 @@ export default function Sidebar() {
           )}
         </IconButton>
       </DrawerHeader>
-      <Box textAlign={'center'} marginInline={open ? 2 : 0} marginBlock={2}>
+      <Box textAlign={'center'} marginInline={open ? 2 : 0} marginBlock={0}>
         <Avatar
           alt="Ahmed Refai"
           src={ImageAdmin}

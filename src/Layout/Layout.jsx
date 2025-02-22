@@ -31,7 +31,7 @@ export default function Layout() {
       <Box
         component={'main'}
         sx={{
-          m: 0,
+          pl: '48px',
           pt: onlyAuth.includes(pathname) ? '0px' : '90px',
           minHeight: 'calc(100vh - 68.01px)',
           backgroundColor: 'background.default',
@@ -40,7 +40,7 @@ export default function Layout() {
         {authPages.includes(pathname) ? (
           <Outlet />
         ) : (
-          <Container maxWidth="lg">
+          <Container maxWidth="xl">
             <Outlet />
           </Container>
         )}
