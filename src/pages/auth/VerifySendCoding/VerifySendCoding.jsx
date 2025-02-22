@@ -1,15 +1,14 @@
 import { useState } from 'react';
 import { TextField, Button, Box, Container } from '@mui/material';
 import { CustomHead } from '../../../components/Common/CustomTypography';
-import * as Yup from 'yup';
 import { useFormik } from 'formik';
 import CustomButton from '../../../components/Common/ButtonStyle';
 import axios from 'axios';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
+import { verifySchema } from '../../../schemas/AuthSchema';
 
 function VerifySendCoding() {
-  const codeRegx = /^\d{6}$/;
   const [remainingTime, setRemainingTime] = useState(0);
   const [isCounting, setIsCounting] = useState(false);
   const navigator = useNavigate();
@@ -56,20 +55,14 @@ function VerifySendCoding() {
     }
   }
 
-  const validationSchema = Yup.object({
-    resetCode: Yup.string()
-      .required('Required')
-      .matches(codeRegx, 'Invalid code'),
-  });
   const { handleBlur, handleChange, handleSubmit, values, errors, touched } =
     useFormik({
       initialValues: {
         resetCode: '',
       },
-      validationSchema,
+      validationSchema: verifySchema,
       onSubmit: verifySendCoding,
     });
-  // console.log(errors);
 
   return (
     <Box

@@ -19,7 +19,7 @@ import toast from 'react-hot-toast';
 import LeftAuth from '../../../components/Common/LeftAuth';
 import FixedHead from '../../../components/Common/FixedHead';
 import CustomizedSteppers from '../../../components/Common/Stepper';
-import { validationSchema } from './Schema';
+import { SignupSchema } from '../../../schemas/AuthSchema';
 import Location from '../../../components/Loaction/Location';
 
 const SignupForm = () => {
@@ -79,7 +79,7 @@ const SignupForm = () => {
       password: '',
       rePassword: '',
     },
-    validationSchema: validationSchema,
+    validationSchema: SignupSchema,
     onSubmit: signup,
   });
 

@@ -13,19 +13,17 @@ import {
 import CustomButton from '@/components/Common/ButtonStyle';
 import { useFormik } from 'formik';
 import { useState } from 'react';
-import * as Yup from 'yup';
 import { CustomLink } from '@/components/Common/ButtonStyle';
 import LeftAuth from '../../../components/Common/LeftAuth';
 
 import FixedHead from '../../../components/Common/FixedHead';
 import { useTypeContext } from '../../../context/UserType.context';
+import { loginSchema } from '../../../schemas/AuthSchema';
 
 export default function Login() {
   const { login } = useTypeContext();
 
   const [showPassword, setShowPassword] = useState(false);
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  const passwordRegx = /^.{8,}$/;
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
@@ -37,24 +35,13 @@ export default function Login() {
     event.preventDefault();
   };
 
-  const validationSchema = Yup.object({
-    email: Yup.string()
-      .required('Required')
-      .matches(emailRegex, 'Invalid email'),
-    password: Yup.string()
-      .required('Required')
-      .matches(
-        passwordRegx,
-        'Password must contain at least 8 characters, one uppercase, one lowercase, one number and one special case character'
-      ),
-  });
   const { handleBlur, handleChange, handleSubmit, errors, values, touched } =
     useFormik({
       initialValues: {
         email: '',
         password: '',
       },
-      validationSchema,
+      validationSchema: loginSchema,
       onSubmit: login,
     });
 

@@ -1,4 +1,4 @@
-import { Visibility, VisibilityOff } from "@mui/icons-material";
+import { Visibility, VisibilityOff } from '@mui/icons-material';
 import {
   Typography,
   FormControl,
@@ -10,24 +10,21 @@ import {
   Box,
   TextField,
   Container,
-} from "@mui/material";
-import CustomButton from "@/components/Common/ButtonStyle";
-import { useFormik } from "formik";
-import { useState } from "react";
-import * as Yup from "yup";
-import { CustomHead } from "@/components/Common/CustomTypography";
-import toast from "react-hot-toast";
-import axios from "axios";
-import { useNavigate } from "react-router-dom";
-import LeftAuth from "../../../components/Common/LeftAuth";
+} from '@mui/material';
+import CustomButton from '@/components/Common/ButtonStyle';
+import { useFormik } from 'formik';
+import { useState } from 'react';
+import { CustomHead } from '@/components/Common/CustomTypography';
+import toast from 'react-hot-toast';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+import LeftAuth from '../../../components/Common/LeftAuth';
+import { updateAuthSchema } from '../../../schemas/AuthSchema';
 
 export default function UpdatedPassword() {
   const [showPassword, setShowPassword] = useState(false);
   const navigator = useNavigate();
 
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-  const passwordRegx = /^.{8,}$/;
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
   const handleMouseDownPassword = (event) => {
@@ -39,18 +36,18 @@ export default function UpdatedPassword() {
   };
 
   async function updatedPassword(values) {
-    const loading = toast.loading("waiting...");
+    const loading = toast.loading('waiting...');
     try {
       const options = {
-        url: "https://pflow-api-v3-1655e5b56c39.herokuapp.com/api/v1/auth/resetPassword",
-        method: "PUT",
+        url: 'https://pflow-api-v3-1655e5b56c39.herokuapp.com/api/v1/auth/resetPassword',
+        method: 'PUT',
         data: values,
       };
       const { data } = await axios.request(options);
       console.log(data);
-      if (data.message === "success") {
+      if (data.message === 'success') {
         toast.success(data.message);
-        navigator("/login");
+        navigator('/login');
       }
     } catch (error) {
       toast.error(error.response.data.message);
@@ -60,24 +57,13 @@ export default function UpdatedPassword() {
     }
   }
 
-  const validationSchema = Yup.object({
-    email: Yup.string()
-      .required("Required")
-      .matches(emailRegex, "Invalid email"),
-    newPassword: Yup.string()
-      .required("Required")
-      .matches(
-        passwordRegx,
-        "Password must contain at least 8 characters, one uppercase, one lowercase, one number and one special case character"
-      ),
-  });
   const { handleBlur, handleChange, handleSubmit, errors, touched, values } =
     useFormik({
       initialValues: {
-        email: "",
-        newPassword: "",
+        email: '',
+        newPassword: '',
       },
-      validationSchema,
+      validationSchema: updateAuthSchema,
       onSubmit: updatedPassword,
     });
 
@@ -86,29 +72,29 @@ export default function UpdatedPassword() {
       spacing={5}
       container
       sx={{
-        minHeight: "100vh",
-        width: "100%",
+        minHeight: '100vh',
+        width: '100%',
       }}
     >
       <LeftAuth />
       <Grid2
         size={{ xs: 12, md: 8 }}
         sx={{
-          bg: "red",
+          bg: 'red',
           pt: 5,
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
         }}
       >
         <Container maxWidth="sm">
-          <Box component={"header"} marginBottom={3}>
+          <Box component={'header'} marginBottom={3}>
             <CustomHead variant="h1" align="left">
               Update Your Password
             </CustomHead>
             <Typography
               variant="body1"
-              sx={{ fontSize: "15px", color: "#939494" }}
+              sx={{ fontSize: '15px', color: '#939494' }}
             >
               Please create a new password for your account. Ensure it meets the
               required criteria to keep your account secure.
@@ -129,14 +115,14 @@ export default function UpdatedPassword() {
             />
             <FormControl fullWidth sx={{ mb: 3 }} variant="outlined">
               <InputLabel
-                sx={{ fontSize: "11px" }}
+                sx={{ fontSize: '11px' }}
                 htmlFor="outlined-adornment-new-password"
               >
                 New Password
               </InputLabel>
               <OutlinedInput
                 id="outlined-adornment-new-password"
-                type={showPassword ? "text" : "password"}
+                type={showPassword ? 'text' : 'password'}
                 name="newPassword"
                 value={values.newPassword}
                 onChange={handleChange}
@@ -148,8 +134,8 @@ export default function UpdatedPassword() {
                     <IconButton
                       aria-label={
                         showPassword
-                          ? "hide the password"
-                          : "display the password"
+                          ? 'hide the password'
+                          : 'display the password'
                       }
                       onClick={handleClickShowPassword}
                       onMouseDown={handleMouseDownPassword}
