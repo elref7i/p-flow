@@ -56,7 +56,7 @@ function App() {
       ),
       children: [
         { index: true, element: <DashboardAdmin /> },
-        { path: ' users', element: <Users /> },
+        { path: 'users', element: <Users /> },
       ],
     },
     {
