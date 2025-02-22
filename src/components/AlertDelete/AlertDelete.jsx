@@ -40,7 +40,7 @@ export default function AlertModal({ handleDelete, isDeleting }) {
         sx={{ fontSize: { xs: '10px', md: '15px' } }}
         startIcon={<DeleteIcon />}
       >
-        Delete User
+        Delete
       </Button>
       <Modal
         aria-labelledby="transition-modal-title"

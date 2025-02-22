@@ -270,54 +270,6 @@ const SignupForm = () => {
               )}
             </FormControl>
             <Location setFieldValue={setFieldValue} errors={errors} />
-            {/* <Paper
-              elevation={9}
-              sx={{
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-                gap: 2,
-                p: '15px 10px',
-                border: `1px solid ${theme.palette.divider}`,
-                borderRadius: 2,
-                maxWidth: 300,
-                margin: '0 auto',
-              }}
-            >
-              <Typography
-                variant="h6"
-                sx={{ fontWeight: 'bold', textAlign: 'center' }}
-              >
-                Select Your Location
-              </Typography>
-              <Button
-                variant="contained"
-                startIcon={
-                  isLoading ? (
-                    <CircularProgress size={24} sx={{ color: 'white' }} />
-                  ) : (
-                    <MyLocationIcon />
-                  )
-                }
-                onClick={handleGetLocation}
-                disabled={isLoading} // تعطيل الزر أثناء التحميل
-                sx={{
-                  backgroundColor: theme.palette.primary.main,
-                  color: theme.palette.primary.contrastText,
-                  '&:hover': {
-                    backgroundColor: theme.palette.primary.dark,
-                  },
-                  boxShadow: theme.shadows[3],
-                  borderRadius: 2,
-                  padding: '10px 20px',
-                  fontSize: '16px',
-                  fontWeight: 'bold',
-                  minWidth: 150, // لتجنب تغيير حجم الزر أثناء التحميل
-                }}
-              >
-                {isLoading ? 'Fetching...' : 'Get Location'}
-              </Button>
-            </Paper> */}
           </>
         );
       default:
