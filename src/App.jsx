@@ -15,6 +15,7 @@ import DashboardAdmin from './pages/Admin/DashboardAdmin/DashboardAdmin';
 import DashboardInventory from './pages/Inventory/DashboardInventory/DashboardInventory';
 import AddDrugs from './pages/Inventory/AddDrugs/AddDrugs';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+import AddUser from './pages/Admin/AddUser/AddUser';
 const UserTypeProvider = lazy(() => import('@/context/UserType.context'));
 const Layout = lazy(() => import('@/Layout/Layout'));
 
@@ -58,6 +59,7 @@ function App() {
       children: [
         { index: true, element: <DashboardAdmin /> },
         { path: 'users', element: <Users /> },
+        { path: 'adduser', element: <AddUser /> },
       ],
     },
     {

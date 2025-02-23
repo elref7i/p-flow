@@ -1,5 +1,4 @@
 import GroupIcon from '@mui/icons-material/Group';
-import ContactsIcon from '@mui/icons-material/Contacts';
 import PersonIcon from '@mui/icons-material/Person';
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
@@ -9,14 +8,15 @@ import MapIcon from '@mui/icons-material/Map';
 import HomeIcon from '@mui/icons-material/Home';
 import ArticleIcon from '@mui/icons-material/Article';
 import BarChartIcon from '@mui/icons-material/BarChart';
+import PersonAddIcon from '@mui/icons-material/PersonAdd';
 export const admin = {
   HeaderSection: [
     { text: 'Dashboard', icon: <HomeIcon />, path: '/admin' },
     { text: 'Users', icon: <GroupIcon />, path: '/admin/users' },
     {
-      text: 'Contacts Information',
-      icon: <ContactsIcon />,
-      path: '/information',
+      text: 'Add User',
+      icon: <PersonAddIcon />,
+      path: '/admin/adduser',
     },
   ],
   MiddleSection: [

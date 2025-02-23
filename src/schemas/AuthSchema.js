@@ -1,9 +1,8 @@
 import * as Yup from 'yup';
 
-// تعريف الـ Regex في مكان واحد
-const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 const phoneRegx = /^(02)?01[0125][0-9]{8}/;
-const passwordRegx = /^.{8,}$/;
+const passwordRegx = /^\d{8,}$/;
 const codeRegx = /^\d{6}$/;
 
 const emailField = Yup.string()
@@ -11,16 +10,18 @@ const emailField = Yup.string()
   .required('Email is required');
 
 const passwordField = Yup.string()
-  .min(passwordRegx, 'Password must be at least 8 characters')
+  .matches(passwordRegx, 'Password must be exactly 8 digits') // ✅ تصحيح التحقق من الباسورد
   .required('Password is required');
 
 const confirmPasswordField = Yup.string()
   .oneOf([Yup.ref('password'), null], 'Passwords must match')
   .required('Confirm password is required');
 
-export const SignupSchema = Yup.object().shape({
+export const signupSchema = Yup.object().shape({
   name: Yup.string().required('User name is required'),
-  email: emailField,
+  email: Yup.string()
+    .matches(emailRegex, 'Invalid email')
+    .required('Email is required'),
   ownerName: Yup.string().required('Owner name is required'),
   phone: Yup.string()
     .required('Phone is required')
@@ -43,9 +44,8 @@ export const SignupSchema = Yup.object().shape({
         .of(Yup.number().required('Coordinate is required'))
         .length(2, 'Coordinates must be an array of two numbers'),
     })
-    .required('Location is Required'),
+    .required('Loaction is Required'),
 });
-
 export const loginSchema = Yup.object({
   email: emailField,
   password: passwordField,
