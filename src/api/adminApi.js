@@ -14,7 +14,17 @@ export const deleteUser = async ({ userId, token }) => {
   };
   return axios.request(options);
 };
-
+export const updateUserData = async ({ userId, token, values }) => {
+  const options = {
+    url: `${API_URL}/${userId}`,
+    method: 'PUT',
+    data: values,
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+  return axios.request(options);
+};
 export const getSpecificUser = async ({ token, userId }) => {
   try {
     const options = {

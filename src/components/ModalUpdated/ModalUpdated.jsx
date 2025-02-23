@@ -1,15 +1,16 @@
-/* eslint-disable react/prop-types */
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Modal from '@mui/material/Modal';
-import DeleteIcon from '@mui/icons-material/Delete';
-import { TextField } from '@mui/material';
+import { CircularProgress, TextField } from '@mui/material';
 import Location from '../Loaction/Location';
 import { useEffect, useState } from 'react';
 import { useFormik } from 'formik';
 import { UpdateDataUser } from '../../schemas/AdminSchema';
 import { useTypeContext } from '../../context/UserType.context';
 import { getSpecificUser } from '../../api/adminApi';
+import { useUpdateUser } from '../../hooks/useAdminAction';
+import EditIcon from '@mui/icons-material/Edit';
+import WarningAmberIcon from '@mui/icons-material/WarningAmber';
 
 const style = {
   position: 'fixed',
@@ -30,7 +31,10 @@ export default function ModalUpdated({ userId }) {
   const { token } = useTypeContext();
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  const handleClose = () => {
+    setOpen(false);
+    reset();
+  };
   const [dataSpecificUser, setDataSpecificUser] = useState(null);
 
   const fetchUserSpecific = async () => {
@@ -42,23 +46,7 @@ export default function ModalUpdated({ userId }) {
     }
   };
 
-  // async function updateDataUser(values) {
-  //   const options = {
-  //     url: `https://pflow-api-v3-1655e5b56c39.herokuapp.com/api/v1/users/${{
-  //       userId,
-  //       values,
-  //     }}`,
-  //     method: 'PUT',
-  //     data: values,
-  //     headers: {
-  //       Authorization: {
-  //         token: `Bearer ${token}`,
-  //       },
-  //     },
-  //   };
-  //   const { data } = await axios.request(options);
-  //   console.log(data);
-  // }
+  const { isLoading, isError, mutate, reset } = useUpdateUser();
 
   const {
     handleSubmit,
@@ -75,7 +63,6 @@ export default function ModalUpdated({ userId }) {
       name: '',
       ownerName: '',
       phone: '',
-      role: '',
       city: '',
       location: {
         type: '',
@@ -85,27 +72,26 @@ export default function ModalUpdated({ userId }) {
     },
     validationSchema: UpdateDataUser,
     onSubmit: (values) => {
-      console.log(values);
+      mutate(
+        { userId, token, values },
+        {
+          onSuccess: () => {
+            handleClose();
+          },
+        }
+      );
     },
   });
+
   useEffect(() => {
     if (dataSpecificUser) {
-      const {
-        email,
-        name,
-        ownerName,
-        phone,
-        role,
-        city,
-        location,
-        governorate,
-      } = dataSpecificUser;
+      const { email, name, ownerName, phone, city, location, governorate } =
+        dataSpecificUser;
       setValues({
         email: email || '',
         name: name || '',
         ownerName: ownerName || '',
         phone: phone || '',
-        role: role || '',
         city: city || '',
         location: {
           type: location?.type || '',
@@ -115,6 +101,7 @@ export default function ModalUpdated({ userId }) {
       });
     }
   }, [dataSpecificUser]);
+
   return (
     <Box>
       <Button
@@ -125,7 +112,7 @@ export default function ModalUpdated({ userId }) {
         variant="contained"
         color="warning"
         sx={{ fontSize: { xs: '10px', md: '15px' } }}
-        startIcon={<DeleteIcon />}
+        startIcon={<EditIcon />}
       >
         Updated
       </Button>
@@ -213,6 +200,30 @@ export default function ModalUpdated({ userId }) {
               helperText={touched.governorate && errors.governorate}
             />
             <Location setFieldValue={setFieldValue} errors={errors} />
+
+            <Box sx={{ mx: 'auto', mt: 3, width: 'fit-content' }}>
+              <Button
+                type="submit"
+                variant="contained"
+                color={isError ? 'error' : 'warning'}
+                sx={{
+                  fontSize: { xs: '10px', md: '18px', mx: 'auto' },
+                  px: 5,
+                  fontWeight: 'bold',
+                }}
+                startIcon={
+                  isLoading ? (
+                    <CircularProgress color="inherit" size={16} />
+                  ) : isError ? (
+                    <WarningAmberIcon color="warning" size={16} />
+                  ) : (
+                    ''
+                  )
+                }
+              >
+                Updated
+              </Button>
+            </Box>
           </Box>
         </Box>
       </Modal>
