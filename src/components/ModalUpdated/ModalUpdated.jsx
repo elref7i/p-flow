@@ -1,10 +1,15 @@
+/* eslint-disable react/prop-types */
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Modal from '@mui/material/Modal';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { TextField } from '@mui/material';
 import Location from '../Loaction/Location';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useFormik } from 'formik';
+import { UpdateDataUser } from '../../schemas/AdminSchema';
+import { useTypeContext } from '../../context/UserType.context';
+import axios from 'axios';
 
 const style = {
   position: 'fixed',
@@ -21,21 +26,109 @@ const style = {
   overflow: 'auto',
 };
 
-export default function ModalUpdated() {
+export default function ModalUpdated({ userId }) {
+  const { token } = useTypeContext();
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+  const [dataUser, setDataUser] = useState(null);
 
+  const getSpecificUser = async () => {
+    try {
+      const options = {
+        url: `https://pflow-api-v3-1655e5b56c39.herokuapp.com/api/v1/users/${userId}`,
+        method: 'GET',
+        headers: {
+          Authorization: {
+            token: `Bearer ${token}`,
+          },
+        },
+      };
+      const { data } = await axios.request(options);
+      console.log(data.user);
+      setDataUser(data.user);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  // async function updateDataUser(values) {
+  //   const options = {
+  //     url: `https://pflow-api-v3-1655e5b56c39.herokuapp.com/api/v1/users/${{
+  //       userId,
+  //       values,
+  //     }}`,
+  //     method: 'PUT',
+  //     data: values,
+  //     headers: {
+  //       Authorization: {
+  //         token: `Bearer ${token}`,
+  //       },
+  //     },
+  //   };
+  //   const { data } = await axios.request(options);
+  //   console.log(data);
+  // }
+
+  const {
+    handleSubmit,
+    handleBlur,
+    handleChange,
+    values,
+    setFieldValue,
+    errors,
+    touched,
+    setValues,
+  } = useFormik({
+    initialValues: {
+      email: '',
+      name: '',
+      ownerName: '',
+      phone: '',
+      role: '',
+      city: '',
+      location: {
+        type: '',
+        coordinates: [],
+      },
+      governorate: '',
+    },
+    validationSchema: UpdateDataUser,
+    onSubmit: (values) => {
+      console.log(values);
+    },
+  });
+  useEffect(() => {
+    if (dataUser) {
+      setValues({
+        email: dataUser.email || '',
+        name: dataUser.name || '',
+        ownerName: dataUser.ownerName || '',
+        phone: dataUser.phone || '',
+        role: dataUser.role || '',
+        city: dataUser.city || '',
+        location: {
+          type: dataUser.location?.type || '',
+          coordinates: dataUser.location?.coordinates || [],
+        },
+        governorate: dataUser.governorate || '',
+      });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [dataUser]);
   return (
-    <div>
+    <Box>
       <Button
-        onClick={handleOpen}
+        onClick={async () => {
+          await getSpecificUser(userId);
+          handleOpen();
+        }}
         variant="contained"
         color="warning"
         sx={{ fontSize: { xs: '10px', md: '15px' } }}
         startIcon={<DeleteIcon />}
       >
-        Delete
+        Updated
       </Button>
       <Modal
         open={open}
@@ -44,13 +137,22 @@ export default function ModalUpdated() {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          <Box component={'form'} sx={{ overflow: 'auto' }}>
+          <Box
+            component={'form'}
+            onSubmit={handleSubmit}
+            sx={{ overflow: 'auto' }}
+          >
             <TextField
               fullWidth
               label="Email"
               name="email"
               margin="normal"
               type="email"
+              value={values.email}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              error={errors.email && touched.email}
+              helperText={touched.email && errors.email}
             />
             <TextField
               fullWidth
@@ -58,6 +160,11 @@ export default function ModalUpdated() {
               margin="normal"
               type="text"
               name="name"
+              value={values.name}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              error={errors.name && touched.name}
+              helperText={touched.name && errors.name}
             />
             <TextField
               fullWidth
@@ -65,6 +172,11 @@ export default function ModalUpdated() {
               name="ownerName"
               margin="normal"
               type="text"
+              value={values.ownerName}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              error={errors.ownerName && touched.ownerName}
+              helperText={touched.ownerName && errors.ownerName}
             />
             <TextField
               fullWidth
@@ -72,19 +184,39 @@ export default function ModalUpdated() {
               name="phone"
               margin="normal"
               type="tel"
+              value={values.phone}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              error={errors.phone && touched.phone}
+              helperText={touched.phone && errors.phone}
             />
-            <TextField fullWidth label="City" name="city" margin="normal" />
+            <TextField
+              fullWidth
+              label="City"
+              name="city"
+              margin="normal"
+              value={values.city}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              error={errors.city && touched.city}
+              helperText={touched.city && errors.city}
+            />
             <TextField
               fullWidth
               label="Governorate"
               name="governorate"
               margin="normal"
               type="text"
+              value={values.governorate}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              error={errors.governorate && touched.governorate}
+              helperText={touched.governorate && errors.governorate}
             />
-            <Location />
+            <Location setFieldValue={setFieldValue} errors={errors} />
           </Box>
         </Box>
       </Modal>
-    </div>
+    </Box>
   );
 }

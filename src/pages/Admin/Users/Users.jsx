@@ -1,6 +1,6 @@
 import { DataGrid, GridToolbar } from '@mui/x-data-grid';
 import { Paper, Box } from '@mui/material';
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { columns } from './data';
 import { useTypeContext } from '../../../context/UserType.context';
@@ -104,7 +104,7 @@ export default function Users() {
             justifyContent: 'center',
           }}
         >
-          <ModalUpdated />
+          <ModalUpdated userId={params.row._id} />
         </Box>
       );
     },
