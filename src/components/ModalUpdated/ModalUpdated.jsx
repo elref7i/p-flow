@@ -9,7 +9,7 @@ import { useEffect, useState } from 'react';
 import { useFormik } from 'formik';
 import { UpdateDataUser } from '../../schemas/AdminSchema';
 import { useTypeContext } from '../../context/UserType.context';
-import axios from 'axios';
+import { getSpecificUser } from '../../api/adminApi';
 
 const style = {
   position: 'fixed',
@@ -31,22 +31,12 @@ export default function ModalUpdated({ userId }) {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-  const [dataUser, setDataUser] = useState(null);
+  const [dataSpecificUser, setDataSpecificUser] = useState(null);
 
-  const getSpecificUser = async () => {
+  const fetchUserSpecific = async () => {
     try {
-      const options = {
-        url: `https://pflow-api-v3-1655e5b56c39.herokuapp.com/api/v1/users/${userId}`,
-        method: 'GET',
-        headers: {
-          Authorization: {
-            token: `Bearer ${token}`,
-          },
-        },
-      };
-      const { data } = await axios.request(options);
-      console.log(data.user);
-      setDataUser(data.user);
+      const userData = await getSpecificUser({ token, userId });
+      setDataSpecificUser(userData);
     } catch (error) {
       console.log(error);
     }
@@ -99,28 +89,37 @@ export default function ModalUpdated({ userId }) {
     },
   });
   useEffect(() => {
-    if (dataUser) {
+    if (dataSpecificUser) {
+      const {
+        email,
+        name,
+        ownerName,
+        phone,
+        role,
+        city,
+        location,
+        governorate,
+      } = dataSpecificUser;
       setValues({
-        email: dataUser.email || '',
-        name: dataUser.name || '',
-        ownerName: dataUser.ownerName || '',
-        phone: dataUser.phone || '',
-        role: dataUser.role || '',
-        city: dataUser.city || '',
+        email: email || '',
+        name: name || '',
+        ownerName: ownerName || '',
+        phone: phone || '',
+        role: role || '',
+        city: city || '',
         location: {
-          type: dataUser.location?.type || '',
-          coordinates: dataUser.location?.coordinates || [],
+          type: location?.type || '',
+          coordinates: location?.coordinates || [],
         },
-        governorate: dataUser.governorate || '',
+        governorate: governorate || '',
       });
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [dataUser]);
+  }, [dataSpecificUser]);
   return (
     <Box>
       <Button
         onClick={async () => {
-          await getSpecificUser(userId);
+          await fetchUserSpecific();
           handleOpen();
         }}
         variant="contained"
