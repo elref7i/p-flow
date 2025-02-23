@@ -33,7 +33,7 @@ export default function Layout() {
         sx={{
           pl: authPages.includes(pathname) ? '0px' : '48px',
           pt: onlyAuth.includes(pathname) ? '0px' : '90px',
-          paddingBottom: '68.5px',
+          paddingBottom: onlyAuth.includes(pathname) ? '0px' : '68.5px',
           minHeight: 'calc(100vh - 68.01px)',
           backgroundColor: 'background.default',
         }}
