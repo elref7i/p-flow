@@ -1,18 +1,5 @@
 import { useState } from 'react';
-import {
-  Box,
-  TextField,
-  Grid2,
-  Typography,
-  useTheme,
-  RadioGroup,
-  Radio,
-  FormControlLabel,
-  FormControl,
-  FormLabel,
-  Container,
-  Button,
-} from '@mui/material';
+import { Box, TextField, Grid2, Container, Button } from '@mui/material';
 import axios from 'axios';
 import { useFormik } from 'formik';
 import toast from 'react-hot-toast';
@@ -21,9 +8,9 @@ import FixedHead from '../../../components/Common/FixedHead';
 import CustomizedSteppers from '../../../components/Common/Stepper';
 import { signupSchema } from '../../../schemas/AuthSchema';
 import Location from '../../../components/Loaction/Location';
+import Role from '../../../components/Role/Role';
 
 const SignupForm = () => {
-  const theme = useTheme();
   const [activeStep, setActiveStep] = useState(0);
 
   const steps = [
@@ -234,41 +221,12 @@ const SignupForm = () => {
               helperText={touched.governorate && errors.governorate}
             />
 
-            <FormControl sx={{ my: 1, ml: 1 }}>
-              <FormLabel
-                sx={{ fontSize: '20px', fontWeight: 'bold' }}
-                id="demo-row-radio-buttons-group-label"
-              >
-                Role
-              </FormLabel>
-              <RadioGroup
-                row
-                aria-labelledby="demo-row-radio-buttons-group-label"
-                name="row-radio-buttons-group"
-              >
-                <FormControlLabel
-                  value="pharmacy"
-                  control={<Radio />}
-                  label="pharmacy"
-                  checked={values.role === 'pharmacy'}
-                  onChange={() => setFieldValue('role', 'pharmacy')}
-                  sx={{ color: theme.palette.text.primary }}
-                />
-                <FormControlLabel
-                  value="inventory"
-                  control={<Radio />}
-                  label="Inventory"
-                  checked={values.role === 'inventory'}
-                  onChange={() => setFieldValue('role', 'inventory')}
-                  sx={{ color: theme.palette.text.primary }}
-                />
-              </RadioGroup>
-              {errors.role && touched.role && (
-                <Typography variant="p" marginLeft={2} color={'error'}>
-                  {errors.role}
-                </Typography>
-              )}
-            </FormControl>
+            <Role
+              errors={errors}
+              touched={touched}
+              setFieldValue={setFieldValue}
+              values={values}
+            />
             <Location setFieldValue={setFieldValue} errors={errors} />
           </>
         );
