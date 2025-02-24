@@ -35,7 +35,7 @@ const CustomButton = styled(Button)(
     [theme.breakpoints.up('sm')]: {
       width: sm || 'auto',
     },
-    fontSize: fs || '20px',
+    fontSize: fs || '18px',
     fontWeight: fontWeight || 'bold',
     marginInline: marginInline || 'auto',
     marginBottom: mb || 'auto',

@@ -13,8 +13,8 @@ export default function Users() {
 
   const {
     isLoading: isDeleting,
-    isSuccess: isDeleted,
-    error: deleteError,
+    // isSuccess: isDeleted,
+    // error: deleteError,
     mutate: handleDelete,
   } = useDeleteUser();
 

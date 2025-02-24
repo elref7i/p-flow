@@ -13,14 +13,13 @@ const passwordField = Yup.string()
 const confirmPasswordField = Yup.string()
   .oneOf([Yup.ref('password'), null], 'Passwords must match')
   .required('Confirm password is required');
+
 export const UpdateDataUser = Yup.object().shape({
   name: Yup.string().required('User name is required'),
-  email: emailField,
   ownerName: Yup.string().required('Owner name is required'),
   phone: Yup.string()
     .required('Phone is required')
     .matches(phoneRegx, 'Invalid phone number'),
-  password: passwordField,
   city: Yup.string().required('City is required'),
   governorate: Yup.string().required('Governorate is required'),
 });

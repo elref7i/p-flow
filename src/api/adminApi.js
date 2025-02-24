@@ -61,11 +61,11 @@ export const getSpecificUser = async ({ token, userId }) => {
   }
 };
 
-export const UpdateAdminPassUser = async ({ userId, values }) => {
-  const options = {
-    url: `${API_URL}/${userId}`,
-    method: 'PATCH',
-    data: values,
-  };
-  return axios.request(options);
-};
+// export const UpdateAdminPassUser = async ({ userId, values }) => {
+//   const options = {
+//     url: `${API_URL}/${userId}`,
+//     method: 'PATCH',
+//     data: values,
+//   };
+//   return axios.request(options);
+// };

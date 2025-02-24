@@ -5,10 +5,10 @@ import Modal from '@mui/material/Modal';
 import { CircularProgress, TextField } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { useFormik } from 'formik';
-import { UpdateDataUser } from '../../schemas/AdminSchema';
-import { useTypeContext } from '../../context/UserType.context';
-import { getSpecificUser } from '../../api/adminApi';
-import { useUpdateUser } from '../../hooks/useAdminAction';
+import { UpdateDataUser } from '../../../schemas/AdminSchema';
+import { useTypeContext } from '../../../context/UserType.context';
+import { getSpecificUser } from '../../../api/adminApi';
+import { useUpdateUser } from '../../../hooks/useAdminAction';
 import EditIcon from '@mui/icons-material/Edit';
 import WarningAmberIcon from '@mui/icons-material/WarningAmber';
 
@@ -59,12 +59,10 @@ export default function ModalUpdated({ userId }) {
     setValues,
   } = useFormik({
     initialValues: {
-      email: '',
       name: '',
       ownerName: '',
       phone: '',
       city: '',
-      password: '',
       governorate: '',
     },
     validationSchema: UpdateDataUser,
@@ -82,15 +80,12 @@ export default function ModalUpdated({ userId }) {
 
   useEffect(() => {
     if (dataSpecificUser) {
-      const { email, name, ownerName, phone, password, city, governorate } =
-        dataSpecificUser;
+      const { name, ownerName, phone, city, governorate } = dataSpecificUser;
       setValues({
-        email: email || '',
         name: name || '',
         ownerName: ownerName || '',
         phone: phone || '',
         city: city || '',
-        password: password || '',
         governorate: governorate || '',
       });
     }
@@ -122,18 +117,6 @@ export default function ModalUpdated({ userId }) {
             onSubmit={handleSubmit}
             sx={{ overflow: 'auto' }}
           >
-            <TextField
-              fullWidth
-              label="Email"
-              name="email"
-              margin="normal"
-              type="email"
-              value={values.email}
-              onChange={handleChange}
-              onBlur={handleBlur}
-              error={errors.email && touched.email}
-              helperText={touched.email && errors.email}
-            />
             <TextField
               fullWidth
               label="Name"
@@ -169,18 +152,6 @@ export default function ModalUpdated({ userId }) {
               onBlur={handleBlur}
               error={errors.phone && touched.phone}
               helperText={touched.phone && errors.phone}
-            />
-            <TextField
-              fullWidth
-              label="Password"
-              name="password"
-              margin="normal"
-              type="password"
-              value={values.password}
-              onChange={handleChange}
-              onBlur={handleBlur}
-              error={errors.password && touched.password}
-              helperText={touched.password && errors.password}
             />
             <TextField
               fullWidth

@@ -10,8 +10,6 @@ import ArticleIcon from '@mui/icons-material/Article';
 import BarChartIcon from '@mui/icons-material/BarChart';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import SettingsIcon from '@mui/icons-material/Settings';
-// import AlertLogout from '../AlertLogout/AlertLogout';
-import LogoutIcon from '@mui/icons-material/Logout';
 
 export const admin = {
   HeaderSection: [
@@ -74,5 +72,4 @@ export const inventory = {
 };
 export const Shared = [
   { text: 'Setting', icon: <SettingsIcon />, path: '/setting' },
-  { text: 'Logout', icon: <LogoutIcon /> },
 ];

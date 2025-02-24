@@ -42,7 +42,6 @@ export default function Sidebar() {
             width: open ? 70 : 40,
             height: open ? 70 : 40,
             mx: 'auto',
-            my: 2,
           }}
         />
         <Typography
@@ -61,7 +60,9 @@ export default function Sidebar() {
       <Divider />
       <SidebarSection items={HeaderSection} open={open} />
       <SidebarSection items={MiddleSection} open={open} />
-      <SidebarSection items={FooterSection} open={open} />
+      {FooterSection.length !== 0 && (
+        <SidebarSection items={FooterSection} open={open} />
+      )}
       <SidebarSection items={Shared} open={open} />
     </Drawer>
   );

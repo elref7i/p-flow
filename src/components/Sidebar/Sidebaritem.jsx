@@ -9,16 +9,16 @@ import { useNavigate } from 'react-router-dom';
 
 export default function Sidebaritem({ item, open }) {
   const navigate = useNavigate();
+  const handleClick = () => {
+    if (item.text === 'Sign out') {
+      return;
+    }
+    navigate(item.path);
+  };
   return (
     <ListItem key={item.text} disablePadding sx={{ display: 'block' }}>
       <ListItemButton
-        onClick={() => {
-          if (item.text === 'Logout') {
-            console.log('Logout');
-          } else {
-            navigate(item.path);
-          }
-        }}
+        onClick={handleClick}
         sx={[
           {
             minHeight: 48,
