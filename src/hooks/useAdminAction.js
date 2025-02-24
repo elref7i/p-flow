@@ -3,6 +3,7 @@ import {
   addAdminUser,
   deleteUser,
   fetchUsers,
+  UpdateAdminPassUser,
   updateUserData,
 } from '../api/adminApi';
 import toast from 'react-hot-toast';
@@ -18,6 +19,7 @@ export const useAdminAddUser = () => {
       queryClient.invalidateQueries(['users']);
     },
     onError: (error) => {
+      toast.error(error.response.data.message || 'error');
       console.log(error);
     },
   });
@@ -51,6 +53,20 @@ export const useDeleteUser = () => {
 export const useUpdateUser = () => {
   const queryClient = useQueryClient();
   return useMutation(updateUserData, {
+    onSuccess: () => {
+      toast.success('success');
+      queryClient.invalidateQueries(['users']);
+    },
+    onError: (error) => {
+      toast.error(error.response.data.message || 'error');
+      console.log(error);
+    },
+  });
+};
+
+export const useUpdatePassUser = () => {
+  const queryClient = useQueryClient();
+  return useMutation(UpdateAdminPassUser, {
     onSuccess: () => {
       toast.success('success');
       queryClient.invalidateQueries(['users']);

@@ -3,7 +3,6 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Modal from '@mui/material/Modal';
 import { CircularProgress, TextField } from '@mui/material';
-import Location from '../Loaction/Location';
 import { useEffect, useState } from 'react';
 import { useFormik } from 'formik';
 import { UpdateDataUser } from '../../schemas/AdminSchema';
@@ -55,7 +54,6 @@ export default function ModalUpdated({ userId }) {
     handleBlur,
     handleChange,
     values,
-    setFieldValue,
     errors,
     touched,
     setValues,
@@ -66,10 +64,7 @@ export default function ModalUpdated({ userId }) {
       ownerName: '',
       phone: '',
       city: '',
-      location: {
-        type: '',
-        coordinates: [],
-      },
+      password: '',
       governorate: '',
     },
     validationSchema: UpdateDataUser,
@@ -87,7 +82,7 @@ export default function ModalUpdated({ userId }) {
 
   useEffect(() => {
     if (dataSpecificUser) {
-      const { email, name, ownerName, phone, city, location, governorate } =
+      const { email, name, ownerName, phone, password, city, governorate } =
         dataSpecificUser;
       setValues({
         email: email || '',
@@ -95,10 +90,7 @@ export default function ModalUpdated({ userId }) {
         ownerName: ownerName || '',
         phone: phone || '',
         city: city || '',
-        location: {
-          type: location?.type || '',
-          coordinates: location?.coordinates || [],
-        },
+        password: password || '',
         governorate: governorate || '',
       });
     }
@@ -180,6 +172,18 @@ export default function ModalUpdated({ userId }) {
             />
             <TextField
               fullWidth
+              label="Password"
+              name="password"
+              margin="normal"
+              type="password"
+              value={values.password}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              error={errors.password && touched.password}
+              helperText={touched.password && errors.password}
+            />
+            <TextField
+              fullWidth
               label="City"
               name="city"
               margin="normal"
@@ -201,7 +205,6 @@ export default function ModalUpdated({ userId }) {
               error={errors.governorate && touched.governorate}
               helperText={touched.governorate && errors.governorate}
             />
-            <Location setFieldValue={setFieldValue} errors={errors} />
 
             <Box sx={{ mx: 'auto', mt: 3, width: 'fit-content' }}>
               <Button

@@ -1,8 +1,23 @@
 import axios from 'axios';
+import toast from 'react-hot-toast';
 const API_URL = 'https://pflow-api-v3-1655e5b56c39.herokuapp.com/api/v1/users';
+
+//* GET ALL Users
+
 export const fetchUsers = async () => {
   const { data } = await axios.get(API_URL);
   return data.users;
+};
+export const addAdminUser = async ({ token, values }) => {
+  const options = {
+    url: `${API_URL}`,
+    method: 'POST',
+    data: values,
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+  return axios.request(options);
 };
 
 export const deleteUser = async ({ userId, token }) => {
@@ -47,14 +62,11 @@ export const getSpecificUser = async ({ token, userId }) => {
   }
 };
 
-export const addAdminUser = async ({ token, values }) => {
+export const UpdateAdminPassUser = async ({ userId, values }) => {
   const options = {
-    url: `${API_URL}`,
-    method: 'POST',
+    url: `${API_URL}/${userId}`,
+    method: 'PATCH',
     data: values,
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
   };
   return axios.request(options);
 };
