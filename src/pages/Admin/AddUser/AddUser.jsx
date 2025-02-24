@@ -1,8 +1,14 @@
 import { Stack, TextField } from '@mui/material';
 import { useFormik } from 'formik';
 import Role from '../../../components/Role/Role';
+import CustomButton from '../../../components/Common/ButtonStyle';
+import { useAdminAddUser } from '../../../hooks/useAdminAction';
+import { AdminAddUser } from '../../../schemas/AdminSchema';
+import { useTypeContext } from '../../../context/UserType.context';
 
 export default function AddUser() {
+  const { token } = useTypeContext();
+  const { mutate } = useAdminAddUser();
   const {
     handleSubmit,
     handleBlur,
@@ -26,13 +32,20 @@ export default function AddUser() {
       password: '',
       rePassword: '',
     },
-    // validationSchema: signupSchema,
+    validationSchema: AdminAddUser,
     onSubmit: (values) => {
-      console.log(values);
+      console.log('Submitting values:', values);
+      mutate({ token, values });
     },
   });
   return (
-    <Stack component={'form'} maxWidth={'lg'} marginInline={'auto'} gap={0}>
+    <Stack
+      component={'form'}
+      onSubmit={handleSubmit}
+      maxWidth={'lg'}
+      marginInline={'auto'}
+      gap={0}
+    >
       <Stack direction={'row'} gap={1}>
         <TextField
           fullWidth
@@ -112,6 +125,33 @@ export default function AddUser() {
           helperText={touched.phone && errors.phone}
         />
       </Stack>
+      <Stack direction={'row'} gap={1}>
+        <TextField
+          fullWidth
+          label="City"
+          name="city"
+          margin="normal"
+          type="text"
+          value={values.city}
+          onChange={handleChange}
+          onBlur={handleBlur}
+          error={errors.city && touched.city}
+          helperText={touched.city && errors.city}
+        />
+
+        <TextField
+          fullWidth
+          label="Governorate"
+          name="governorate"
+          margin="normal"
+          type="text"
+          value={values.governorate}
+          onChange={handleChange}
+          onBlur={handleBlur}
+          error={errors.governorate && touched.governorate}
+          helperText={touched.governorate && errors.governorate}
+        />
+      </Stack>
       <TextField
         fullWidth
         label="Password"
@@ -142,6 +182,9 @@ export default function AddUser() {
         setFieldValue={setFieldValue}
         values={values}
       />
+      <CustomButton type="submit" marginInline={'auto 0'}>
+        Add User
+      </CustomButton>
     </Stack>
   );
 }

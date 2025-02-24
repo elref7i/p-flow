@@ -1,43 +1,15 @@
 import { DataGrid, GridToolbar } from '@mui/x-data-grid';
 import { Paper, Box } from '@mui/material';
-import { useQuery } from '@tanstack/react-query';
-import axios from 'axios';
 import { columns } from './data';
 import { useTypeContext } from '../../../context/UserType.context';
 import AlertModal from '../../../components/AlertDelete/AlertDelete';
-import { useDeleteUser } from '../../../hooks/useAdminAction';
+import { useAllUsers, useDeleteUser } from '../../../hooks/useAdminAction';
 import ModalUpdated from '../../../components/ModalUpdated/ModalUpdated';
-
-const fetchUsers = async () => {
-  const { data } = await axios.get(
-    'https://pflow-api-v3-1655e5b56c39.herokuapp.com/api/v1/users'
-  );
-  return data.users;
-};
-
-// const updatedUser = async ({ userId, token, data }) => {
-//   const options = {
-//     url: `https://pflow-api-v3-1655e5b56c39.herokuapp.com/api/v1/users/${userId}`,
-//     method: 'PUT',
-//     data,
-//     headers: {
-//       Authorization: {
-//         token: `Bearer ${token}`,
-//       },
-//     },
-//   };
-//   return axios.request(options);
-// };
 
 export default function Users() {
   const { token } = useTypeContext();
 
-  const { data, isLoading } = useQuery({
-    queryKey: ['users'],
-    queryFn: fetchUsers,
-    refetchOnMount: false,
-    refetchOnWindowFocus: false,
-  });
+  const { data, isLoading } = useAllUsers();
 
   const {
     isLoading: isDeleting,

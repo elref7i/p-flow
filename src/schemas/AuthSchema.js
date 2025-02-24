@@ -19,9 +19,7 @@ const confirmPasswordField = Yup.string()
 
 export const signupSchema = Yup.object().shape({
   name: Yup.string().required('User name is required'),
-  email: Yup.string()
-    .matches(emailRegex, 'Invalid email')
-    .required('Email is required'),
+  email: emailField,
   ownerName: Yup.string().required('Owner name is required'),
   phone: Yup.string()
     .required('Phone is required')

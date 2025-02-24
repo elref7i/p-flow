@@ -35,7 +35,7 @@ const CustomButton = styled('button')(
       width: sm || 'auto',
     },
     fontSize: fs || '20px',
-    fontWeight: fontWeight || '',
+    fontWeight: fontWeight || 'bold',
     marginInline: marginInline || 'auto',
     marginBottom: mb || 'auto',
 

@@ -4,6 +4,7 @@ export const fetchUsers = async () => {
   const { data } = await axios.get(API_URL);
   return data.users;
 };
+
 export const deleteUser = async ({ userId, token }) => {
   const options = {
     url: `${API_URL}/${userId}`,
@@ -25,10 +26,12 @@ export const updateUserData = async ({ userId, token, values }) => {
   };
   return axios.request(options);
 };
+
+//* Hints delete Try And Catch
 export const getSpecificUser = async ({ token, userId }) => {
   try {
     const options = {
-      url: `https://pflow-api-v3-1655e5b56c39.herokuapp.com/api/v1/users/${userId}`,
+      url: `${API_URL}/${userId}`,
       method: 'GET',
       headers: {
         Authorization: {
@@ -42,4 +45,16 @@ export const getSpecificUser = async ({ token, userId }) => {
     console.log(error);
     throw error;
   }
+};
+
+export const addAdminUser = async ({ token, values }) => {
+  const options = {
+    url: `${API_URL}`,
+    method: 'POST',
+    data: values,
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+  return axios.request(options);
 };

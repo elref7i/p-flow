@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Modal from '@mui/material/Modal';
@@ -37,6 +38,7 @@ export default function ModalUpdated({ userId }) {
   };
   const [dataSpecificUser, setDataSpecificUser] = useState(null);
 
+  //* Function GET SPECIFIC USER
   const fetchUserSpecific = async () => {
     try {
       const userData = await getSpecificUser({ token, userId });
