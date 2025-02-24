@@ -2,7 +2,7 @@ import { DataGrid, GridToolbar } from '@mui/x-data-grid';
 import { Paper, Box } from '@mui/material';
 import { columns } from './data';
 import { useTypeContext } from '../../../context/UserType.context';
-import AlertModal from '../../../components/AlertDelete/AlertDelete';
+import AlertModal from '../../../components/MessagAlert/MessageAlert';
 import { useAllUsers, useDeleteUser } from '../../../hooks/useAdminAction';
 import ModalUpdated from '../../../components/ModalUpdated/ModalUpdated';
 
@@ -51,9 +51,7 @@ export default function Users() {
         >
           <AlertModal
             isDeleting={isDeleting}
-            isDeleted={isDeleted}
-            deleteError={deleteError}
-            handleDelete={() => handleDelete({ userId: params.row._id, token })}
+            handleAction={() => handleDelete({ userId: params.row._id, token })}
           />
         </Box>
       );

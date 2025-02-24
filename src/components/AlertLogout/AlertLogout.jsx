@@ -6,9 +6,9 @@ import Modal from '@mui/material/Modal';
 import Fade from '@mui/material/Fade';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import DeleteIcon from '@mui/icons-material/Delete';
 import CancelIcon from '@mui/icons-material/Cancel';
-import { CircularProgress, useTheme } from '@mui/material';
+import { useTheme } from '@mui/material';
+import LogoutIcon from '@mui/icons-material/Logout';
 
 const style = {
   position: 'absolute',
@@ -24,7 +24,7 @@ const style = {
   textAlign: 'center',
 };
 
-export default function AlertModal({ handleDelete, isDeleting }) {
+export default function AlertLogout({ handleAction }) {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
 
@@ -33,15 +33,7 @@ export default function AlertModal({ handleDelete, isDeleting }) {
 
   return (
     <div>
-      <Button
-        onClick={handleOpen}
-        variant="contained"
-        color="error"
-        sx={{ fontSize: { xs: '10px', md: '15px' } }}
-        startIcon={<DeleteIcon />}
-      >
-        Delete
-      </Button>
+      <LogoutIcon onClick={handleOpen} />
       <Modal
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"
@@ -63,7 +55,7 @@ export default function AlertModal({ handleDelete, isDeleting }) {
               component="h2"
               color="error"
             >
-              Delete User
+              Logout
             </Typography>
             <Typography
               id="transition-modal-description"
@@ -74,16 +66,16 @@ export default function AlertModal({ handleDelete, isDeleting }) {
             </Typography>
             <Box sx={{ display: 'flex', justifyContent: 'center', gap: 2 }}>
               <Button
-                onClick={handleDelete}
+                onClick={handleAction}
                 variant="contained"
                 color="error"
-                startIcon={
-                  isDeleting ? (
-                    <CircularProgress color="inherit" size={16} />
-                  ) : (
-                    <DeleteIcon />
-                  )
-                }
+                // startIcon={
+                //   isDeleting ? (
+                //     <CircularProgress color="inherit" size={16} />
+                //   ) : (
+                //     <DeleteIcon />
+                //   )
+                // }
               >
                 Delete
               </Button>

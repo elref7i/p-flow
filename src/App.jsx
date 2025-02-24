@@ -16,6 +16,7 @@ import DashboardInventory from './pages/Inventory/DashboardInventory/DashboardIn
 import AddDrugs from './pages/Inventory/AddDrugs/AddDrugs';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import AddUser from './pages/Admin/AddUser/AddUser';
+import Setting from './pages/Setting/Setting';
 const UserTypeProvider = lazy(() => import('@/context/UserType.context'));
 const Layout = lazy(() => import('@/Layout/Layout'));
 
@@ -47,7 +48,10 @@ function App() {
           <Layout />
         </ProtectedRoute>
       ),
-      children: [{ path: '/home', element: <Home /> }],
+      children: [
+        { path: '/home', element: <Home /> },
+        { path: '/setting', element: <Setting /> },
+      ],
     },
     {
       path: '/admin',

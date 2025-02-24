@@ -13,7 +13,7 @@ import ImageAdmin from '@/assets/photo_2024-12-03_19-37-17.jpg';
 import { useThemeContext } from '../../context/theme.context';
 import { Drawer, DrawerHeader } from '../Common/Drawer';
 import SidebarSection from './SidebarSection';
-import { admin, inventory, pharmacy } from './DefaultItemes';
+import { admin, inventory, pharmacy, Shared } from './DefaultItemes';
 import { useTypeContext } from '../../context/UserType.context';
 
 export default function Sidebar() {
@@ -62,6 +62,7 @@ export default function Sidebar() {
       <SidebarSection items={HeaderSection} open={open} />
       <SidebarSection items={MiddleSection} open={open} />
       <SidebarSection items={FooterSection} open={open} />
+      <SidebarSection items={Shared} open={open} />
     </Drawer>
   );
 }

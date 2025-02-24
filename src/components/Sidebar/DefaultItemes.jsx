@@ -9,6 +9,10 @@ import HomeIcon from '@mui/icons-material/Home';
 import ArticleIcon from '@mui/icons-material/Article';
 import BarChartIcon from '@mui/icons-material/BarChart';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
+import SettingsIcon from '@mui/icons-material/Settings';
+// import AlertLogout from '../AlertLogout/AlertLogout';
+import LogoutIcon from '@mui/icons-material/Logout';
+
 export const admin = {
   HeaderSection: [
     { text: 'Dashboard', icon: <HomeIcon />, path: '/admin' },
@@ -26,10 +30,9 @@ export const admin = {
     { text: 'FAQ Page', icon: <HelpOutlineIcon />, path: '/faq' },
   ],
   FooterSection: [
-    { text: 'Bar Chart', icon: <BarChartIcon />, path: '/bar' },
-    { text: 'Pie Chart', icon: <PieChartIcon />, path: '/pie' },
-    { text: 'Line Chart', icon: <TimelineIcon />, path: '/line' },
-    { text: 'Geography Chart', icon: <MapIcon />, path: '/geography' },
+    // { text: 'Pie Chart', icon: <PieChartIcon />, path: '/pie' },
+    // { text: 'Line Chart', icon: <TimelineIcon />, path: '/line' },
+    // { text: 'Geography Chart', icon: <MapIcon />, path: '/geography' },
   ],
 };
 
@@ -45,10 +48,10 @@ export const pharmacy = {
     { text: 'FAQ Page', icon: <HelpOutlineIcon />, path: '/faq' },
   ],
   FooterSection: [
-    { text: 'Bar Chart', icon: <BarChartIcon />, path: '/bar' },
-    { text: 'Pie Chart', icon: <PieChartIcon />, path: '/pie' },
-    { text: 'Line Chart', icon: <TimelineIcon />, path: '/line' },
-    { text: 'Geography Chart', icon: <MapIcon />, path: '/geography' },
+    // { text: 'Bar Chart', icon: <BarChartIcon />, path: '/bar' },
+    // { text: 'Pie Chart', icon: <PieChartIcon />, path: '/pie' },
+    // { text: 'Line Chart', icon: <TimelineIcon />, path: '/line' },
+    // { text: 'Geography Chart', icon: <MapIcon />, path: '/geography' },
   ],
 };
 export const inventory = {
@@ -69,3 +72,7 @@ export const inventory = {
     { text: 'Geography Chart', icon: <MapIcon />, path: '/geography' },
   ],
 };
+export const Shared = [
+  { text: 'Setting', icon: <SettingsIcon />, path: '/setting' },
+  { text: 'Logout', icon: <LogoutIcon /> },
+];

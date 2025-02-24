@@ -13,7 +13,11 @@ export default function Sidebaritem({ item, open }) {
     <ListItem key={item.text} disablePadding sx={{ display: 'block' }}>
       <ListItemButton
         onClick={() => {
-          navigate(item.path);
+          if (item.text === 'Logout') {
+            console.log('Logout');
+          } else {
+            navigate(item.path);
+          }
         }}
         sx={[
           {
