@@ -1,14 +1,15 @@
-import { Stack, TextField } from '@mui/material';
+import { CircularProgress, Stack, TextField } from '@mui/material';
 import { useFormik } from 'formik';
 import Role from '../../../components/Role/Role';
 import CustomButton from '../../../components/Common/ButtonStyle';
 import { useAdminAddUser } from '../../../hooks/useAdminAction';
 import { AdminAddUser } from '../../../schemas/AdminSchema';
 import { useTypeContext } from '../../../context/UserType.context';
+import WarningAmberIcon from '@mui/icons-material/WarningAmber';
 
 export default function AddUser() {
   const { token } = useTypeContext();
-  const { mutate } = useAdminAddUser();
+  const { mutate, isLoading, isError } = useAdminAddUser();
   const {
     handleSubmit,
     handleBlur,
@@ -182,7 +183,20 @@ export default function AddUser() {
         setFieldValue={setFieldValue}
         values={values}
       />
-      <CustomButton type="submit" marginInline={'auto 0'}>
+      <CustomButton
+        type="submit"
+        marginInline={'auto 0'}
+        sx={{ display: 'flex' }}
+        startIcon={
+          isLoading ? (
+            <CircularProgress color="inherit" size={20} />
+          ) : isError ? (
+            <WarningAmberIcon color="error" size={20} />
+          ) : (
+            ''
+          )
+        }
+      >
         Add User
       </CustomButton>
     </Stack>

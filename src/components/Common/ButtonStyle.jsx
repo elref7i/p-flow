@@ -1,8 +1,9 @@
+import { Button } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { Link } from 'react-router-dom';
 
 // ^ Signup
-const CustomButton = styled('button')(
+const CustomButton = styled(Button)(
   ({
     theme,
     pad,
