@@ -3,7 +3,7 @@ import { createContext, useContext, useState } from 'react';
 const ForgetPasswordContext = createContext();
 
 // eslint-disable-next-line react/prop-types
-export function ForgetPasswordProvider({ children }) {
+export default function ForgetPasswordProvider({ children }) {
   const [isForgetCompleted, setForgetCompleted] = useState(false);
 
   return (

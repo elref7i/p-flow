@@ -5,7 +5,6 @@ import Sidebaritem from './Sidebaritem';
 export default function SidebarSection({ items, open }) {
   return (
     <>
-      {' '}
       <List>
         {items.map((item) => (
           <Sidebaritem key={item.text} item={item} open={open} />

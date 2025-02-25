@@ -1,30 +1,19 @@
 import { lazy, Suspense } from 'react';
-import { createBrowserRouter } from 'react-router-dom';
-import { RouterProvider } from 'react-router';
-// import { Provider } from 'react-redux';
-// import { store } from './store/sotre';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
-import ThemeModeProvider from './context/theme.context';
-import SkeletonLoader from './components/SkeletonLoader/SkeletonLoader';
-import Users from './pages/Admin/Users/Users';
-import HomePharmacy from './pages/Pharmacy/HomePharmacy/HomePharmacy';
-import { ForgetPasswordProvider } from './context/Forget.context';
-import ForgetProtectedRoute from './components/ForgetProtectedRoute/ForgetProtectedRoute';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import DashboardAdmin from './pages/Admin/DashboardAdmin/DashboardAdmin';
-import DashboardInventory from './pages/Inventory/DashboardInventory/DashboardInventory';
-import AddDrugs from './pages/Inventory/AddDrugs/AddDrugs';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
-import AddUser from './pages/Admin/AddUser/AddUser';
-import Setting from './pages/Setting/Setting';
-const UserTypeProvider = lazy(() => import('@/context/UserType.context'));
+
+import ThemeModeProvider from './context/theme.context';
+import ForgetPasswordProvider from './context/Forget.context';
+import UserTypeProvider from './context/UserType.context';
+
+import SkeletonLoader from './components/SkeletonLoader/SkeletonLoader';
+import ForgetProtectedRoute from './components/ForgetProtectedRoute/ForgetProtectedRoute';
+import ProtectedRoute from '@/components/ProtectedRoute/ProtectedRoute';
+import GuestRoute from '@/components/GuestRoute/GuestRoute';
+
 const Layout = lazy(() => import('@/Layout/Layout'));
-
-const ProtectedRoute = lazy(() =>
-  import('@/components/ProtectedRoute/ProtectedRoute')
-);
-const GuestRoute = lazy(() => import('@/components/GuestRoute/GuestRoute'));
-
 const Login = lazy(() => import('@/pages/auth/Login/Login'));
 const Signup = lazy(() => import('@/pages/auth/Signup/Signup'));
 const Home = lazy(() => import('@/pages/Home/Home'));
@@ -38,6 +27,19 @@ const VerifySendCoding = lazy(() =>
   import('@/pages/auth/VerifySendCoding/VerifySendCoding')
 );
 const LandingPage = lazy(() => import('@/pages/auth/Landing/Landing'));
+const Users = lazy(() => import('./pages/Admin/Users/Users'));
+const HomePharmacy = lazy(() =>
+  import('./pages/Pharmacy/HomePharmacy/HomePharmacy')
+);
+const DashboardAdmin = lazy(() =>
+  import('./pages/Admin/DashboardAdmin/DashboardAdmin')
+);
+const DashboardInventory = lazy(() =>
+  import('./pages/Inventory/DashboardInventory/DashboardInventory')
+);
+const AddDrugs = lazy(() => import('./pages/Inventory/AddDrugs/AddDrugs'));
+const AddUser = lazy(() => import('./pages/Admin/AddUser/AddUser'));
+const Setting = lazy(() => import('./pages/Setting/Setting'));
 
 function App() {
   const router = createBrowserRouter([
