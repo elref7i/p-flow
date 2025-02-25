@@ -4,8 +4,9 @@ import axios from 'axios';
 import { createContext, useContext, useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import Cookies from 'js-cookie';
+import { getSpecificUser } from '../api/adminApi';
 export const UserTypeContext = createContext(0);
-
+import { jwtDecode } from 'jwt-decode';
 export default function UserTypeProvider({ children }) {
   const [role, setRole] = useState(localStorage.getItem('role'));
   const [token, setToken] = useState(localStorage.getItem('token'));
@@ -18,6 +19,16 @@ export default function UserTypeProvider({ children }) {
     setUserData(JSON.parse(localStorage.getItem('userData')));
   }, []);
 
+  const fetchUserData = async (userId, token) => {
+    try {
+      const data = await getSpecificUser({ userId, token });
+      console.log(data);
+
+      // setUserData(data);
+    } catch (error) {
+      console.error('Failed to fetch user data:', error);
+    }
+  };
   async function login(values) {
     const loading = toast.loading('Waiting...');
     try {
@@ -32,6 +43,11 @@ export default function UserTypeProvider({ children }) {
         setRole(data.user.role);
         setToken(data.token);
         setUserData(data.user);
+        const decodeToken = jwtDecode(data.token);
+        console.log(decodeToken);
+
+        console.log(decodeToken.userId);
+        fetchUserData(decodeToken.userId, data.token);
 
         localStorage.setItem('token', data.token);
         localStorage.setItem('role', data.user.role);

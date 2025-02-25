@@ -43,22 +43,15 @@ export const updateUserData = async ({ userId, token, values }) => {
 
 //* Hints delete Try And Catch
 export const getSpecificUser = async ({ token, userId }) => {
-  try {
-    const options = {
-      url: `${API_URL}/${userId}`,
-      method: 'GET',
-      headers: {
-        Authorization: {
-          token: `Bearer ${token}`,
-        },
-      },
-    };
-    const { data } = await axios.request(options);
-    return data.user;
-  } catch (error) {
-    console.log(error);
-    throw error;
-  }
+  const options = {
+    url: `${API_URL}/${userId}`,
+    method: 'GET',
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+  const { data } = await axios.request(options);
+  return data.user;
 };
 
 // export const UpdateAdminPassUser = async ({ userId, values }) => {
