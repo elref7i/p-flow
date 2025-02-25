@@ -89,7 +89,7 @@ const LandingPage = () => {
           fw={'bold'}
           p={'15px'}
           br={'10px'}
-          sx={{ mt: 3, backgroundColor: 'primary.main' }} // استخدام لون من الـ theme
+          sx={{ mt: 3 }} // استخدام لون من الـ theme
         >
           Shop Now
         </CustomLink>

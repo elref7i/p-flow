@@ -1,47 +1,50 @@
 const colors = {
   // الألوان الأساسية
-  primary: '#FF7A00', // لون أساسي (برتقالي)
-  secondary: '#958DA5', // لون ثانوي (رمادي بنفسجي)
+  primary: '#24292E', // لون أساسي (أسود داكن)
+  secondary: '#0366D6', // لون ثانوي (أزرق)
   auth: '#939494', // لون ثانوي (رمادي بنفسجي)
-  error: '#B3261E', // لون الخطأ (أحمر داكن)
+  error: '#CB2431', // لون الخطأ (أحمر)
   warning: '#F9A825', // لون التحذير (أصفر داكن)
-  success: '#4CAF50', // لون النجاح (أخضر)
-  info: '#2196F3', // لون المعلومات (أزرق)
+  success: '#28A745', // لون النجاح (أخضر)
+  info: '#0366D6', // لون المعلومات (أزرق)
 
   // درجات الألوان للوضع الفاتح (Light Mode)
   lightBackground: '#FFFFFF', // لون الخلفية العام (أبيض)
-  lightPaper: '#F5F5F5', // لون المكونات الورقية (رمادي فاتح)
-  lightNavbar: '#E8E8E8', // لون شريط التنقل (رمادي فاتح)
-  lightTextPrimary: '#1C1B1F', // اللون الأساسي للنصوص (أسود داكن)
-  lightTextSecondary: '#49454F', // اللون الثانوي للنصوص (رمادي داكن)
+  lightPaper: '#F6F8FA', // لون المكونات الورقية (رمادي فاتح)
+  lightNavbar: '#F6F8FA', // لون شريط التنقل (رمادي فاتح)
+  lightTextPrimary: '#24292E', // اللون الأساسي للنصوص (أسود داكن)
+  lightTextSecondary: '#586069', // اللون الثانوي للنصوص (رمادي داكن)
   lightGrey: {
-    100: '#F5F5F5', // درجة فاتحة جدًا
-    200: '#EEEEEE', // درجة فاتحة
-    300: '#E0E0E0', // درجة متوسطة
-    400: '#BDBDBD', // درجة داكنة
-    500: '#9E9E9E', // درجة داكنة جدًا
+    100: '#F6F8FA',
+    200: '#EAEEF2',
+    300: '#D1D5DA',
+    400: '#959DA5',
+    500: '#6A737D',
   },
+  lightBgButton: 'linear-gradient(45deg, #24292E, #0366D6)', // لون زر الوضع الفاتح
+  lightButtonText: '#FFFFFF', // لون نص الأزرار في الوضع الفاتح
 
   // درجات الألوان للوضع الداكن (Dark Mode)
-  darkBackground: '#383838', // لون الخلفية العام (أسود داكن)
-  darkPaper: '#1E1E1E', // لون المكونات الورقية (رمادي داكن جدًا)
-  darkNavbar: '#2B2B2B', // لون شريط التنقل (رمادي داكن)
-  darkTextPrimary: '#E0E0E0', // اللون الأساسي للنصوص (رمادي فاتح)
-  darkTextSecondary: '#A5A5A5', // اللون الثانوي للنصوص (رمادي متوسط)
+  darkBackground: '#0D1117', // لون الخلفية العام (أسود داكن جدًا)
+  darkPaper: '#161B22', // لون المكونات الورقية (رمادي داكن جدًا)
+  darkNavbar: '#0D1117', // لون شريط التنقل (أسود داكن جدًا)
+  darkTextPrimary: '#C9D1D9', // اللون الأساسي للنصوص (رمادي فاتح)
+  darkTextSecondary: '#8B949E', // اللون الثانوي للنصوص (رمادي متوسط)
   darkGrey: {
-    100: '#1E1E1E', // درجة فاتحة جدًا
-    200: '#2B2B2B', // درجة فاتحة
-    300: '#3D3D3D', // درجة متوسطة
-    400: '#5C5C5C', // درجة داكنة
-    500: '#7E7E7E', // درجة داكنة جدًا
+    100: '#161B22',
+    200: '#21262D',
+    300: '#30363D',
+    400: '#484F58',
+    500: '#6E7681',
   },
+  darkBgButton: 'linear-gradient(45deg, #24292E, #0366D6)', // لون زر الوضع الداكن
+  darkButtonText: '#FFFFFF', // لون نص الأزرار في الوضع الداكن
 };
 
 export const getDesignTokens = (mode) => ({
   palette: {
     mode,
-    // الألوان الأساسية
-    primary: { main: colors.primary }, // نفس اللون في كلا الوضعين
+    primary: { main: colors.primary },
     secondary: { main: colors.secondary },
     auth: { main: colors.auth },
     error: { main: colors.error },
@@ -55,6 +58,7 @@ export const getDesignTokens = (mode) => ({
         mode === 'light' ? colors.lightBackground : colors.darkBackground,
       paper: mode === 'light' ? colors.lightPaper : colors.darkPaper,
       navbar: mode === 'light' ? colors.lightNavbar : colors.darkNavbar,
+      button: mode === 'light' ? colors.lightBgButton : colors.darkBgButton, // لون زر الخلفية
     },
 
     // النصوص
@@ -63,6 +67,7 @@ export const getDesignTokens = (mode) => ({
         mode === 'light' ? colors.lightTextPrimary : colors.darkTextPrimary,
       secondary:
         mode === 'light' ? colors.lightTextSecondary : colors.darkTextSecondary,
+      button: mode === 'light' ? colors.lightButtonText : colors.darkButtonText, // لون نص الأزرار
     },
 
     // درجات الرمادي

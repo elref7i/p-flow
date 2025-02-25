@@ -2,7 +2,7 @@ import { Button } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { Link } from 'react-router-dom';
 
-// ^ Signup
+// CustomButton
 const CustomButton = styled(Button)(
   ({
     theme,
@@ -20,8 +20,8 @@ const CustomButton = styled(Button)(
     color,
     border,
   }) => ({
-    backgroundColor: bgcolor || theme.palette.primary.main,
-    color: color || theme.palette.text.primary,
+    backgroundColor: bgcolor || theme.palette.primary.main, // لون الخلفية الأساسي
+    color: color || theme.palette.text.primary, // لون النص الأساسي
     padding: pad || '10px 20px',
     borderRadius: '5px',
     border: border || `1px solid ${theme.palette.action.hover}`,
@@ -41,12 +41,13 @@ const CustomButton = styled(Button)(
     marginBottom: mb || 'auto',
 
     '&:hover': {
-      backgroundColor: hoverbgColor || theme.palette.action.hover, // لون مخصص للـ hover
-      color: hoverColor || theme.palette.primary.light, // لون يكون واضح في الحالتين
+      backgroundColor: hoverbgColor || theme.palette.action.hover, // لون الخلفية عند الـ hover
+      color: hoverColor || theme.palette.text.primary, // لون النص عند الـ hover
     },
   })
 );
 
+// CustomLink
 export const CustomLink = styled(Link)(
   ({
     theme,
@@ -71,7 +72,7 @@ export const CustomLink = styled(Link)(
     fontSize: fs || 'normal',
     fontWeight: fw || 'normal',
     borderRadius: br || '0px',
-    color: c || theme.palette.text.primary,
+    color: c || theme.palette.text.primary, // لون النص الأساسي
     textDecoration: textDecoration || 'none',
     display: display || 'block',
     alignItems: alignItems,
@@ -83,13 +84,14 @@ export const CustomLink = styled(Link)(
     cursor: 'pointer',
     transition: transition || 'all 0.4s ease-in-out',
     padding: p || '0px',
-    backgroundColor: bg || theme.palette.background.default,
+    backgroundColor: bg || theme.palette.background.default, // لون الخلفية الأساسي
 
-    // إزالة تأثيرات hover
+    // تأثيرات hover
     '&:hover': {
-      backgroundColor: bghover || theme.palette.action.hover, // نفس لون الخلفية الأصلي
-      color: chover || theme.palette.primary.light, // نفس لون النص الأصلي
+      backgroundColor: bghover || theme.palette.action.hover, // لون الخلفية عند الـ hover
+      color: chover || theme.palette.text.primary, // لون النص عند الـ hover
     },
   })
 );
+
 export default CustomButton;

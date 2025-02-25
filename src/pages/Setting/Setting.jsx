@@ -237,6 +237,8 @@ import {
   Paper,
   Tabs,
   Tab,
+  useMediaQuery,
+  useTheme,
 } from '@mui/material';
 import { useFormik } from 'formik';
 import Location from '../../components/Loaction/Location';
@@ -244,7 +246,8 @@ import ImageAdmin from '@/assets/photo_2024-12-03_19-37-17.jpg';
 
 export default function Setting() {
   const [tabIndex, setTabIndex] = useState(0);
-
+  const theme = useTheme();
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down('md'));
   const handleTabChange = (event, newIndex) => {
     setTabIndex(newIndex);
   };
@@ -277,11 +280,17 @@ export default function Setting() {
   });
 
   return (
-    <Box maxWidth={'lg'} mx={'auto'} py={4} display={'flex'} gap={4}>
+    <Stack
+      maxWidth={'lg'}
+      mx={'auto'}
+      py={4}
+      direction={{ sm: 'column', md: 'row' }}
+      gap={4}
+    >
       {/* Sidebar */}
-      <Paper sx={{ width: 250, p: 2, borderRadius: 2 }}>
+      <Paper sx={{ p: 2, borderRadius: 2 }}>
         <Tabs
-          orientation="vertical"
+          orientation={isSmallScreen ? 'horizontal' : 'vertical'}
           value={tabIndex}
           onChange={handleTabChange}
           sx={{ borderRight: 1, borderColor: 'divider' }}
@@ -303,7 +312,7 @@ export default function Setting() {
             {/* Profile Picture */}
             <Stack direction={'row'} alignItems={'center'} gap={3}>
               <Avatar src={ImageAdmin} sx={{ width: 90, height: 90 }} />
-              <Stack direction={'row'} gap={1}>
+              <Stack direction={'row'} flexWrap={'wrap'} gap={1}>
                 <Button variant="contained">Change</Button>
                 <Button variant="outlined" color="error">
                   Delete
@@ -371,7 +380,7 @@ export default function Setting() {
             <Button
               type="submit"
               variant="contained"
-              disabled
+              // disabled
               sx={{ mt: 3, ml: 'auto', display: 'block' }}
             >
               Save Changes
@@ -385,6 +394,6 @@ export default function Setting() {
           <Typography>Preferences Settings (Under Development)</Typography>
         )}
       </Paper>
-    </Box>
+    </Stack>
   );
 }
