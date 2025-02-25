@@ -1,10 +1,10 @@
 import { DataGrid, GridToolbar } from '@mui/x-data-grid';
 import { Paper, Box } from '@mui/material';
 import { columns } from './data';
-import { useTypeContext } from '../../../context/UserType.context';
-import AlertModal from '../../../components/MessagAlert/MessageAlert';
-import { useAllUsers, useDeleteUser } from '../../../hooks/useAdminAction';
-import ModalUpdated from '../../../components/ModalUpdated/ModalUpdated';
+import { useTypeContext } from '@/context/UserType.context';
+import { useAllUsers, useDeleteUser } from '@/hooks/useAdminAction';
+import AlertModal from '@/components/AdminComonents/MessagAlert/MessageAlert';
+import ModalUpdated from '@/components/AdminComonents/ModalUpdated/ModalUpdated';
 
 export default function Users() {
   const { token } = useTypeContext();

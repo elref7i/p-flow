@@ -51,7 +51,6 @@ export default function Location({ setFieldValue, errors }) {
         border: `1px solid ${theme.palette.divider}`,
         borderRadius: 2,
         maxWidth: 300,
-        margin: '0 auto',
       }}
     >
       <Typography variant="h6" sx={{ fontWeight: 'bold', textAlign: 'center' }}>

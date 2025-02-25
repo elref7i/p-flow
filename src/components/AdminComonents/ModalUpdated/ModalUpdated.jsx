@@ -5,10 +5,10 @@ import Modal from '@mui/material/Modal';
 import { CircularProgress, TextField } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { useFormik } from 'formik';
-import { UpdateDataUser } from '../../../schemas/AdminSchema';
-import { useTypeContext } from '../../../context/UserType.context';
-import { getSpecificUser } from '../../../api/adminApi';
-import { useUpdateUser } from '../../../hooks/useAdminAction';
+import { UpdateDataUser } from '@/schemas/AdminSchema';
+import { useTypeContext } from '@/context/UserType.context';
+import { getSpecificUser } from '@/api/adminApi';
+import { useUpdateUser } from '@/hooks/useAdminAction';
 import EditIcon from '@mui/icons-material/Edit';
 import WarningAmberIcon from '@mui/icons-material/WarningAmber';
 
