@@ -88,7 +88,7 @@ export default function Sidebar() {
             height: open ? 50 : 40,
           }}
         />
-        <Stack flex={1} alignItems={'start'}>
+        <Stack flex={open ? 1 : 0} alignItems={'start'}>
           <Typography
             textTransform={'capitalize'}
             variant="h2"
