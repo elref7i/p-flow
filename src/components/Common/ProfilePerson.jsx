@@ -1,99 +1,111 @@
-import Box from '@mui/material/Box';
-import Avatar from '@mui/material/Avatar';
+/* eslint-disable react/prop-types */
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import Divider from '@mui/material/Divider';
-import IconButton from '@mui/material/IconButton';
-import Tooltip from '@mui/material/Tooltip';
-import Settings from '@mui/icons-material/Settings';
-import Logout from '@mui/icons-material/Logout';
-import { useTypeContext } from '../../context/UserType.context';
+import Fade from '@mui/material/Fade';
+import {
+  Avatar,
+  ListItemIcon,
+  Stack,
+  Typography,
+  useTheme,
+} from '@mui/material';
+import ImageAdmin from '@/assets/photo_2024-12-03_19-37-17.jpg';
+import { useTypeContext } from '@/context/UserType.context';
 import { useState } from 'react';
+import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
+import { Logout } from '@mui/icons-material';
 
-export default function ProfilePerson() {
+export default function ProfilePerson({ open }) {
+  const { role, userData } = useTypeContext();
+
   const [anchorEl, setAnchorEl] = useState(null);
-  const open = Boolean(anchorEl);
+  const theme = useTheme();
+
   const { logout } = useTypeContext();
+  const openMenue = Boolean(anchorEl);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
   const handleClose = () => {
     setAnchorEl(null);
   };
+
   return (
-    <>
-      <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
-        <Tooltip title="Account settings">
-          <IconButton
-            onClick={handleClick}
-            size="small"
-            sx={{ ml: 2 }}
-            aria-controls={open ? 'account-menu' : undefined}
-            aria-haspopup="true"
-            aria-expanded={open ? 'true' : undefined}
-          >
-            <Avatar sx={{ width: 32, height: 32 }}>M</Avatar>
-          </IconButton>
-        </Tooltip>
-      </Box>
-      <Menu
-        anchorEl={anchorEl}
-        id="account-menu"
-        open={open}
-        onClose={handleClose}
-        onClick={handleClose}
-        slotProps={{
-          paper: {
-            elevation: 0,
-            sx: {
-              overflow: 'visible',
-              filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
-              mt: 1.5,
-              '& .MuiAvatar-root': {
-                width: 32,
-                height: 32,
-                ml: -0.5,
-                mr: 1,
-              },
-              '&::before': {
-                content: '""',
-                display: 'block',
-                position: 'absolute',
-                top: 0,
-                right: 14,
-                width: 10,
-                height: 10,
-                bgcolor: 'background.paper',
-                transform: 'translateY(-50%) rotate(45deg)',
-                zIndex: 0,
-              },
-            },
-          },
+    <div>
+      <Stack
+        aria-controls={openMenue ? 'fade-menu' : undefined}
+        aria-haspopup="true"
+        aria-expanded={openMenue ? 'true' : undefined}
+        onClick={handleClick}
+        sx={{
+          cursor: 'pointer',
+          p: open ? 1 : 0,
+          borderRadius: 2,
+          ':hover': { bgcolor: theme.palette.grey[400] },
         }}
-        transformOrigin={{ horizontal: 'right', vertical: 'top' }}
-        anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
+        py={2}
+        direction={'row'}
+        gap={open ? 2 : 0}
+        alignItems={'center'}
+        justifyContent={open ? 'start' : 'center'}
+        textAlign={'center'}
+        marginInline={open ? 2 : 0}
       >
-        <MenuItem onClick={handleClose}>
-          <Avatar /> Profile
-        </MenuItem>
-        <MenuItem onClick={handleClose}>
-          <Avatar /> My account
-        </MenuItem>
-        <Divider />
-        <MenuItem onClick={handleClose}>
-          <ListItemIcon>
-            <Settings fontSize="small" />
-          </ListItemIcon>
-          Settings
-        </MenuItem>
+        <Avatar
+          alt={userData.name}
+          src={ImageAdmin}
+          sx={{
+            width: open ? 50 : 40,
+            height: open ? 50 : 40,
+          }}
+        />
+        <Stack flex={open ? 1 : 0} alignItems={'start'}>
+          <Typography
+            textTransform={'capitalize'}
+            variant="h2"
+            fontWeight={'bold'}
+            fontSize={open ? 17 : 0}
+            mb={0.5}
+          >
+            {userData.name}
+          </Typography>
+          <Typography
+            textTransform={'capitalize'}
+            variant="h3"
+            fontSize={open ? 14 : 0}
+            color="error"
+            fontWeight={'bold'}
+          >
+            {role}
+          </Typography>
+        </Stack>
+        {open ? <MoreHorizIcon /> : null}
+      </Stack>
+      <Menu
+        id="fade-menu"
+        MenuListProps={{
+          'aria-labelledby': 'fade-button',
+        }}
+        anchorEl={anchorEl}
+        open={openMenue}
+        onClose={handleClose}
+        TransitionComponent={Fade}
+        anchorOrigin={{
+          vertical: 'top', // القائمة تظهر في الأعلى
+          horizontal: 'right',
+        }}
+        transformOrigin={{
+          vertical: 'bottom', // القائمة تظهر من الأسفل إلى الأعلى
+          horizontal: 'center',
+        }}
+      >
         <MenuItem onClick={logout}>
-          <ListItemIcon>
-            <Logout fontSize="small" />
-          </ListItemIcon>
           Logout
+          <ListItemIcon>
+            <Logout fontSize="small" sx={{ ml: 2 }} color="error" />
+          </ListItemIcon>
         </MenuItem>
       </Menu>
-    </>
+    </div>
   );
 }

@@ -16,7 +16,6 @@ import LightModeSharpIcon from '@mui/icons-material/LightModeSharp';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import ModeNightIcon from '@mui/icons-material/ModeNight';
 import { useThemeContext } from '../../context/theme.context';
-import ProfilePerson from '../Common/ProfilePerson';
 import { CustomLink, LogoLink } from '../Common/ButtonStyle';
 import { MessageTwoTone } from '@mui/icons-material';
 import { useTypeContext } from '../../context/UserType.context';
@@ -123,7 +122,6 @@ export default function Navbar() {
                 <IconButton aria-label="delete" size="medium">
                   <MessageTwoTone fontSize="inherit" />
                 </IconButton>
-                <ProfilePerson />
               </>
             )}
             {!token && (
