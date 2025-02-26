@@ -12,9 +12,9 @@ import {
   Tab,
   useMediaQuery,
   useTheme,
+  InputLabel,
 } from '@mui/material';
 import { useFormik } from 'formik';
-// import Location from '../../components/Loaction/Location';
 import ImageAdmin from '@/assets/photo_2024-12-03_19-37-17.jpg';
 import { useTypeContext } from '../../context/UserType.context';
 
@@ -140,56 +140,81 @@ export default function Setting() {
             <Divider sx={{ my: 3 }} />
             {/* Inputs */}
             <Stack spacing={3}>
-              <TextField
-                label="Profile Name"
-                name="name"
-                value={values.name}
-                onChange={handleChange}
-                onBlur={handleBlur}
-                error={errors.name && touched.name}
-                helperText={touched.name && errors.name}
-                fullWidth
-              />
-              <TextField
-                label="Owner Name"
-                name="ownerName"
-                value={values.ownerName}
-                onChange={handleChange}
-                onBlur={handleBlur}
-                error={errors.ownerName && touched.ownerName}
-                helperText={touched.ownerName && errors.ownerName}
-                fullWidth
-              />
-              <TextField
-                label="Phone"
-                name="phone"
-                value={values.phone}
-                onChange={handleChange}
-                onBlur={handleBlur}
-                error={errors.phone && touched.phone}
-                helperText={touched.phone && errors.phone}
-                fullWidth
-              />
-              <TextField
-                label="City"
-                name="city"
-                value={values.city}
-                onChange={handleChange}
-                onBlur={handleBlur}
-                error={errors.city && touched.city}
-                helperText={touched.city && errors.city}
-                fullWidth
-              />
-              <TextField
-                label="Governorate"
-                name="governorate"
-                value={values.governorate}
-                onChange={handleChange}
-                onBlur={handleBlur}
-                error={errors.governorate && touched.governorate}
-                helperText={touched.governorate && errors.governorate}
-                fullWidth
-              />
+              <Box component={'div'}>
+                <InputLabel htmlFor="profile-name" sx={{ mb: 1 }}>
+                  Profile Name
+                </InputLabel>
+                <TextField
+                  id="profile-name"
+                  name="name"
+                  value={values.name}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  error={errors.name && touched.name}
+                  helperText={touched.name && errors.name}
+                  fullWidth
+                />
+              </Box>
+              <Box>
+                <InputLabel htmlFor="owner-name" sx={{ mb: 1 }}>
+                  Owner Name
+                </InputLabel>
+                <TextField
+                  id="owner-name"
+                  name="ownerName"
+                  value={values.ownerName}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  error={errors.ownerName && touched.ownerName}
+                  helperText={touched.ownerName && errors.ownerName}
+                  fullWidth
+                />
+              </Box>
+              <Box>
+                <InputLabel htmlFor="owner-phone" sx={{ mb: 1 }}>
+                  Phone
+                </InputLabel>
+                <TextField
+                  id="owner-phone"
+                  name="phone"
+                  value={values.phone}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  error={errors.phone && touched.phone}
+                  helperText={touched.phone && errors.phone}
+                  fullWidth
+                />
+              </Box>
+              <Box>
+                <InputLabel htmlFor="owner-city" sx={{ mb: 1 }}>
+                  City
+                </InputLabel>
+                <TextField
+                  id="owner-city"
+                  name="city"
+                  value={values.city}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  error={errors.city && touched.city}
+                  helperText={touched.city && errors.city}
+                  fullWidth
+                />
+              </Box>
+              <Box>
+                <InputLabel htmlFor="owner-governorate" sx={{ mb: 1 }}>
+                  Governorate
+                </InputLabel>
+                <TextField
+                  id="owner-governorate"
+                  name="governorate"
+                  value={values.governorate}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  error={errors.governorate && touched.governorate}
+                  helperText={touched.governorate && errors.governorate}
+                  fullWidth
+                />
+              </Box>
               {/* <Box>
                 <Location setFieldValue={setFieldValue} errors={errors} />
               </Box> */}
