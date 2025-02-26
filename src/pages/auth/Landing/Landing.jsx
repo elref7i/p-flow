@@ -30,31 +30,29 @@ const LandingPage = () => {
 
   return (
     <>
-      {/* Sidebar */}
       <Box
         sx={{
           position: 'fixed',
-          right: 0,
-          top: '50%',
+          right: 10,
+          top: '40%',
           transform: 'translateY(-50%)',
           display: 'flex',
           flexDirection: 'column',
           gap: '10px',
-          padding: '10px',
-          bgcolor: theme.palette.primary.main,
-          borderRadius: '5px 0px 0px 5px',
+          padding: '5px',
+          alignItems: 'end',
         }}
       >
         {sections.map((section) => (
           <Box
             key={section}
             sx={{
-              width: '30px',
-              height: '4px',
+              width: selected === section ? '30px' : '20px',
+              height: '2px',
               background:
                 selected === section
-                  ? theme.palette.background.default
-                  : theme.palette.action.hover, // استخدام ألوان من الـ theme
+                  ? theme.palette.action.active
+                  : theme.palette.action.disabled, // استخدام ألوان من الـ theme
               cursor: 'pointer',
               transition: '0.3s',
             }}
@@ -63,7 +61,6 @@ const LandingPage = () => {
         ))}
       </Box>
 
-      {/* Hero Section */}
       <Box
         id="home"
         sx={{

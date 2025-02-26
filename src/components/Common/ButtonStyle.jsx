@@ -72,7 +72,7 @@ export const CustomLink = styled(Link)(
     fontSize: fs || 'normal',
     fontWeight: fw || 'normal',
     borderRadius: br || '0px',
-    color: c || theme.palette.text.primary, // لون النص الأساسي
+    color: c || theme.palette.text.button, // لون النص الأساسي
     textDecoration: textDecoration || 'none',
     display: display || 'block',
     alignItems: alignItems,
@@ -84,7 +84,7 @@ export const CustomLink = styled(Link)(
     cursor: 'pointer',
     transition: transition || 'all 0.4s ease-in-out',
     padding: p || '0px',
-    backgroundColor: bg || theme.palette.background.default, // لون الخلفية الأساسي
+    backgroundColor: bg || theme.palette.background.button, // لون الخلفية الأساسي
 
     // تأثيرات hover
     '&:hover': {
@@ -94,4 +94,12 @@ export const CustomLink = styled(Link)(
   })
 );
 
+export const LogoLink = styled(Link)(({ theme }) => ({
+  fontSize: '20px',
+  fontWeight: 'bold',
+  color: theme.palette.text.primary, // لون النص الأساسي
+  textDecoration: 'none',
+  display: 'block',
+  cursor: 'pointer',
+}));
 export default CustomButton;

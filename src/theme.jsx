@@ -15,15 +15,15 @@ const colors = {
   lightTextPrimary: '#24292E', // اللون الأساسي للنصوص (أسود داكن)
   lightTextSecondary: '#586069', // اللون الثانوي للنصوص (رمادي داكن)
   lightGrey: {
-    100: '#F6F8FA',
-    200: '#EAEEF2',
-    300: '#D1D5DA',
-    400: '#959DA5',
-    500: '#6A737D',
+    100: '#FAFAFA', // نفس لون الخلفية
+    200: '#F5F5F5', // نفس لون الورق
+    300: '#EAEEF2', // لون خلفية الزر
+    400: '#D1D5DA', // لون الحدود
+    500: '#6A737D', // لون رمادي داكن للنصوص الثانوية
   },
-  lightBgButton: '#FFFFFF', // لون زر الوضع الفاتح
-  lightButtonText: '#24292E', // لون نص الأزرار في الوضع الفاتح
-  lightBorder: '#D1D5DA', // لون الحدود في الوضع الفاتح
+  lightBgButton: '#0D1117', // لون زر الوضع الفاتح (أغمق قليلاً من الخلفية)
+  lightButtonText: '#D1D5DA', // لون نص الأزرار في الوضع الفاتح
+  lightBorder: '#6A737D', // لون الحدود في الوضع الفاتح
 
   // درجات الألوان للوضع الداكن (Dark Mode)
   darkBackground: '#0D1117', // لون الخلفية العام (أسود داكن جدًا)
@@ -38,8 +38,8 @@ const colors = {
     400: '#484F58',
     500: '#6E7681',
   },
-  darkBgButton: '#24292E', // لون زر الوضع الداكن
-  darkButtonText: '#FFFFFF', // لون نص الأزرار في الوضع الداكن
+  darkBgButton: '#161B22', // لون زر الوضع الداكن (رمادي داكن جدًا)
+  darkButtonText: '#FFFFFF', // لون نص الأزرار في الوضع الداكن (أبيض)
   darkBorder: '#30363D', // لون الحدود في الوضع الداكن
 };
 
@@ -83,8 +83,8 @@ export const getDesignTokens = (mode) => ({
     // ألوان إضافية
     action: {
       active: mode === 'light' ? colors.primary : colors.secondary,
-      hover: mode === 'light' ? colors.lightGrey[200] : colors.darkGrey[300],
-      selected: mode === 'light' ? colors.lightGrey[300] : colors.darkGrey[500],
+      hover: mode === 'light' ? colors.lightGrey[300] : colors.darkGrey[300], // استخدام لون رمادي متوسط للـ hover
+      selected: mode === 'light' ? colors.lightGrey[400] : colors.darkGrey[500],
       disabled: mode === 'light' ? colors.lightGrey[400] : colors.darkGrey[500],
       disabledBackground:
         mode === 'light' ? colors.lightGrey[200] : colors.darkGrey[300],

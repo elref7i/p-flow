@@ -17,7 +17,7 @@ import NotificationsIcon from '@mui/icons-material/Notifications';
 import ModeNightIcon from '@mui/icons-material/ModeNight';
 import { useThemeContext } from '../../context/theme.context';
 import ProfilePerson from '../Common/ProfilePerson';
-import { CustomLink } from '../Common/ButtonStyle';
+import { CustomLink, LogoLink } from '../Common/ButtonStyle';
 import { MessageTwoTone } from '@mui/icons-material';
 import { useTypeContext } from '../../context/UserType.context';
 
@@ -76,14 +76,7 @@ export default function Navbar() {
             </IconButton>
           )}
           <Typography variant="h6" noWrap color="text.primary">
-            <CustomLink
-              to={'/landing'}
-              bg={true}
-              hoverbg={true}
-              hoverColor={true}
-            >
-              P-Flow
-            </CustomLink>
+            <LogoLink>P-Flow</LogoLink>
           </Typography>
           {token && <InputSearch />}
           <Box component={'div'} flexGrow={1} />
