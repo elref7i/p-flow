@@ -20,11 +20,11 @@ const CustomButton = styled(Button)(
     color,
     border,
   }) => ({
-    backgroundColor: bgcolor || theme.palette.primary.main, // لون الخلفية الأساسي
-    color: color || theme.palette.text.primary, // لون النص الأساسي
+    backgroundColor: bgcolor || theme.palette.background.button, // لون الخلفية الأساسي
+    color: color || theme.palette.text.button, // لون النص الأساسي
     padding: pad || '10px 20px',
     borderRadius: '5px',
-    border: border || `1px solid ${theme.palette.action.hover}`,
+    border: border || `1px solid ${theme.palette.border.default}`,
     cursor: 'pointer',
     transition: '0.3s',
     display: 'block',

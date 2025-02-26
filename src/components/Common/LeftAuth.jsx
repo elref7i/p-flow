@@ -1,4 +1,4 @@
-import { Grid2, useTheme } from '@mui/material';
+import { Grid2 } from '@mui/material';
 import { Box } from '@mui/system';
 import { CustomLink } from './ButtonStyle';
 import imageStore from '../../assets/Alto ángulo del carrito de compras con espacio de copia y láminas de pastillas _ Foto Premium.jpg';
@@ -6,8 +6,6 @@ import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 
 // eslint-disable-next-line react/prop-types
 export default function LeftAuth({ namePage, path }) {
-  const theme = useTheme();
-
   return (
     <Grid2
       size={{ md: 4 }}
@@ -26,10 +24,8 @@ export default function LeftAuth({ namePage, path }) {
     >
       <CustomLink
         to={'/landing'}
-        // bghover={true}
         display={'flex'}
         alignItems={'center'}
-        bg={theme.palette.secondary.main}
         p={'10px'}
         br={6}
       >
@@ -52,11 +48,6 @@ export default function LeftAuth({ namePage, path }) {
           fw={'bold'}
           br={'5px'}
           textWrap={'nowrap'}
-          bg={theme.palette.primary.main}
-          bghover={
-            theme.palette.mode === 'dark' && theme.palette.secondary.main
-          }
-          chover={theme.palette.mode === 'dark' && theme.palette.primary.main}
         >
           {namePage}
         </CustomLink>

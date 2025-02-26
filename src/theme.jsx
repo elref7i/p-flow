@@ -9,9 +9,9 @@ const colors = {
   info: '#0366D6', // لون المعلومات (أزرق)
 
   // درجات الألوان للوضع الفاتح (Light Mode)
-  lightBackground: '#FFFFFF', // لون الخلفية العام (أبيض)
-  lightPaper: '#F6F8FA', // لون المكونات الورقية (رمادي فاتح)
-  lightNavbar: '#F6F8FA', // لون شريط التنقل (رمادي فاتح)
+  lightBackground: '#FAFAFA', // لون الخلفية العام (أبيض فاتح جدًا)
+  lightPaper: '#F5F5F5', // لون المكونات الورقية (أبيض رمادي فاتح)
+  lightNavbar: '#F0F0F0', // لون شريط التنقل (رمادي فاتح جدًا)
   lightTextPrimary: '#24292E', // اللون الأساسي للنصوص (أسود داكن)
   lightTextSecondary: '#586069', // اللون الثانوي للنصوص (رمادي داكن)
   lightGrey: {
@@ -21,8 +21,9 @@ const colors = {
     400: '#959DA5',
     500: '#6A737D',
   },
-  lightBgButton: 'linear-gradient(45deg, #24292E, #0366D6)', // لون زر الوضع الفاتح
-  lightButtonText: '#FFFFFF', // لون نص الأزرار في الوضع الفاتح
+  lightBgButton: '#FFFFFF', // لون زر الوضع الفاتح
+  lightButtonText: '#24292E', // لون نص الأزرار في الوضع الفاتح
+  lightBorder: '#D1D5DA', // لون الحدود في الوضع الفاتح
 
   // درجات الألوان للوضع الداكن (Dark Mode)
   darkBackground: '#0D1117', // لون الخلفية العام (أسود داكن جدًا)
@@ -37,8 +38,9 @@ const colors = {
     400: '#484F58',
     500: '#6E7681',
   },
-  darkBgButton: 'linear-gradient(45deg, #24292E, #0366D6)', // لون زر الوضع الداكن
+  darkBgButton: '#24292E', // لون زر الوضع الداكن
   darkButtonText: '#FFFFFF', // لون نص الأزرار في الوضع الداكن
+  darkBorder: '#30363D', // لون الحدود في الوضع الداكن
 };
 
 export const getDesignTokens = (mode) => ({
@@ -73,11 +75,16 @@ export const getDesignTokens = (mode) => ({
     // درجات الرمادي
     grey: mode === 'light' ? colors.lightGrey : colors.darkGrey,
 
+    // الحدود
+    border: {
+      default: mode === 'light' ? colors.lightBorder : colors.darkBorder, // لون الحدود
+    },
+
     // ألوان إضافية
     action: {
       active: mode === 'light' ? colors.primary : colors.secondary,
-      hover: mode === 'light' ? colors.lightGrey[200] : colors.darkGrey[400],
-      selected: mode === 'light' ? colors.lightGrey[300] : colors.darkGrey[400],
+      hover: mode === 'light' ? colors.lightGrey[200] : colors.darkGrey[300],
+      selected: mode === 'light' ? colors.lightGrey[300] : colors.darkGrey[500],
       disabled: mode === 'light' ? colors.lightGrey[400] : colors.darkGrey[500],
       disabledBackground:
         mode === 'light' ? colors.lightGrey[200] : colors.darkGrey[300],

@@ -5,9 +5,15 @@ import SearchIcon from '@mui/icons-material/Search';
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
   borderRadius: theme.shape.borderRadius,
-  backgroundColor: alpha(theme.palette.common.white, 0.15),
+  backgroundColor:
+    theme.palette.mode === 'light'
+      ? alpha(theme.palette.common.black, 0.05) // خلفية فاتحة في الوضع الفاتح
+      : alpha(theme.palette.common.white, 0.15), // خلفية داكنة في الوضع الداكن
   '&:hover': {
-    backgroundColor: alpha(theme.palette.common.white, 0.25),
+    backgroundColor:
+      theme.palette.mode === 'light'
+        ? alpha(theme.palette.common.black, 0.1) // خلفية فاتحة عند الـ hover في الوضع الفاتح
+        : alpha(theme.palette.common.white, 0.25), // خلفية داكنة عند الـ hover في الوضع الداكن
   },
   marginRight: theme.spacing(2),
   marginLeft: 0,
@@ -26,6 +32,10 @@ const SearchIconWrapper = styled('div')(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
+  color:
+    theme.palette.mode === 'light'
+      ? theme.palette.text.secondary // لون أيقونة البحث في الوضع الفاتح
+      : theme.palette.text.primary, // لون أيقونة البحث في الوضع الداكن
 }));
 
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
@@ -38,6 +48,16 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     width: '100%',
     [theme.breakpoints.up('md')]: {
       width: '20ch',
+    },
+    color:
+      theme.palette.mode === 'light'
+        ? theme.palette.text.primary // لون النص في الوضع الفاتح
+        : theme.palette.text.primary, // لون النص في الوضع الداكن
+    '&::placeholder': {
+      color:
+        theme.palette.mode === 'light'
+          ? theme.palette.text.secondary // لون النص المؤقت في الوضع الفاتح
+          : theme.palette.text.secondary, // لون النص المؤقت في الوضع الداكن
     },
   },
 }));

@@ -62,7 +62,6 @@ export default function Navbar() {
         <Toolbar sx={{ px: 5 }}>
           {token && (
             <IconButton
-              color="inherit"
               aria-label="open drawer"
               onClick={handleDrawerOpen}
               edge="start"
@@ -80,7 +79,6 @@ export default function Navbar() {
             <CustomLink
               to={'/landing'}
               bg={true}
-              c={theme.palette.primary.main}
               hoverbg={true}
               hoverColor={true}
             >
@@ -126,10 +124,10 @@ export default function Navbar() {
             )}
             {token && (
               <>
-                <IconButton color="inherit" aria-label="delete" size="medium">
+                <IconButton aria-label="delete" size="medium">
                   <NotificationsIcon fontSize="inherit" />
                 </IconButton>
-                <IconButton color="inherit" aria-label="delete" size="medium">
+                <IconButton aria-label="delete" size="medium">
                   <MessageTwoTone fontSize="inherit" />
                 </IconButton>
                 <ProfilePerson />
