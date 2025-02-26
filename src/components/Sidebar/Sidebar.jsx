@@ -12,8 +12,7 @@ import ProfilePerson from '../Common/ProfilePerson';
 export default function Sidebar() {
   const theme = useTheme();
   const { open, handleDrawerClose } = useThemeContext();
-  const { role, userData } = useTypeContext();
-
+  const { role } = useTypeContext();
   const { HeaderSection, MiddleSection, FooterSection } =
     role === 'admin' ? admin : role === 'pharmacy' ? pharmacy : inventory;
   return (
@@ -57,7 +56,7 @@ export default function Sidebar() {
         <SidebarSection items={FooterSection} open={open} />
       )}
       <SidebarSection items={Shared} open={open} />
-      <ProfilePerson userData={userData} role={role} open={open} />
+      <ProfilePerson open={open} />
     </Drawer>
   );
 }

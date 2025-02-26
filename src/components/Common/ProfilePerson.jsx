@@ -16,12 +16,10 @@ import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import { Logout } from '@mui/icons-material';
 
 export default function ProfilePerson({ open }) {
-  const { role, userData } = useTypeContext();
-
   const [anchorEl, setAnchorEl] = useState(null);
   const theme = useTheme();
+  const { logout, userData } = useTypeContext();
 
-  const { logout } = useTypeContext();
   const openMenue = Boolean(anchorEl);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -51,37 +49,43 @@ export default function ProfilePerson({ open }) {
         textAlign={'center'}
         marginInline={open ? 2 : 0}
       >
-        <Avatar
-          alt={userData.name}
-          src={ImageAdmin}
-          sx={{
-            width: open ? 50 : 40,
-            height: open ? 50 : 40,
-          }}
-        />
-        <Stack flex={open ? 1 : 0} alignItems={'start'}>
-          <Typography
-            textTransform={'capitalize'}
-            variant="h2"
-            fontWeight={'bold'}
-            fontSize={open ? 17 : 0}
-            mb={0.5}
-          >
-            {userData.name}
-          </Typography>
-          <Typography
-            textTransform={'capitalize'}
-            variant="h3"
-            fontSize={open ? 14 : 0}
-            color="error"
-            fontWeight={'bold'}
-          >
-            {role}
-          </Typography>
-        </Stack>
+        {userData && (
+          <>
+            <Avatar
+              alt={userData.name}
+              src={ImageAdmin}
+              sx={{
+                width: open ? 50 : 40,
+                height: open ? 50 : 40,
+              }}
+            />
+            <Stack flex={open ? 1 : 0} alignItems={'start'}>
+              <Typography
+                textTransform={'capitalize'}
+                variant="h2"
+                fontWeight={'bold'}
+                fontSize={open ? 17 : 0}
+                mb={0.5}
+              >
+                {userData.name}
+              </Typography>
+              <Typography
+                textTransform={'capitalize'}
+                variant="h3"
+                fontSize={open ? 14 : 0}
+                color="error"
+                fontWeight={'bold'}
+              >
+                {userData?.role}
+              </Typography>
+            </Stack>
+          </>
+        )}
+
         {open ? <MoreHorizIcon /> : null}
       </Stack>
       <Menu
+        // sx={{ bgcolor: 'red' }}
         id="fade-menu"
         MenuListProps={{
           'aria-labelledby': 'fade-button',
@@ -99,7 +103,13 @@ export default function ProfilePerson({ open }) {
           horizontal: 'center',
         }}
       >
-        <MenuItem onClick={logout}>
+        <MenuItem
+          onClick={logout}
+          sx={{
+            ':hover': { bgcolor: theme.palette.action.selected },
+            borderRadius: 1,
+          }}
+        >
           Logout
           <ListItemIcon>
             <Logout fontSize="small" sx={{ ml: 2 }} color="error" />

@@ -3,7 +3,6 @@
 import axios from 'axios';
 import { createContext, useContext, useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
-import Cookies from 'js-cookie';
 import { getSpecificUser } from '../api/adminApi';
 export const UserTypeContext = createContext(0);
 import { jwtDecode } from 'jwt-decode';
@@ -16,15 +15,15 @@ export default function UserTypeProvider({ children }) {
   useEffect(() => {
     setRole(localStorage.getItem('role'));
     setToken(localStorage.getItem('token'));
-    setUserData(JSON.parse(localStorage.getItem('userData')));
   }, []);
 
   const fetchUserData = async (userId, token) => {
     try {
       const data = await getSpecificUser({ userId, token });
+      setUserData(data);
       console.log(data);
 
-      // setUserData(data);
+      localStorage.setItem('userData', JSON.stringify(data));
     } catch (error) {
       console.error('Failed to fetch user data:', error);
     }
@@ -37,21 +36,15 @@ export default function UserTypeProvider({ children }) {
         values,
         { withCredentials: true }
       );
-
       if (data.message === 'success') {
         toast.success('Login successful!');
         setRole(data.user.role);
         setToken(data.token);
-        setUserData(data.user);
         const decodeToken = jwtDecode(data.token);
         console.log(decodeToken);
-
-        console.log(decodeToken.userId);
-        fetchUserData(decodeToken.userId, data.token);
-
         localStorage.setItem('token', data.token);
         localStorage.setItem('role', data.user.role);
-        localStorage.setItem('userData', JSON.stringify(data.user));
+        fetchUserData(decodeToken.userId, data.token);
       }
     } catch (error) {
       console.error(error);
@@ -65,7 +58,6 @@ export default function UserTypeProvider({ children }) {
     setRole(null);
     setToken(null);
     setUserData(null);
-    Cookies.remove('token');
     localStorage.removeItem('token');
     localStorage.removeItem('role');
     localStorage.removeItem('userData');

@@ -14,12 +14,26 @@ import {
   useTheme,
 } from '@mui/material';
 import { useFormik } from 'formik';
-import Location from '../../components/Loaction/Location';
+// import Location from '../../components/Loaction/Location';
 import ImageAdmin from '@/assets/photo_2024-12-03_19-37-17.jpg';
+import { useTypeContext } from '../../context/UserType.context';
 
 export default function Setting() {
   const [tabIndex, setTabIndex] = useState(0);
   const theme = useTheme();
+  const { userData } = useTypeContext();
+  const {
+    name,
+    ownerName,
+    phone,
+    city,
+    governorate,
+    // role,
+    // _id,
+    // identificationNumber,
+    // registrationNumber,
+    // email,
+  } = userData;
   const isSmallScreen = useMediaQuery(theme.breakpoints.down('md'));
 
   const handleTabChange = (event, newIndex) => {
@@ -31,22 +45,22 @@ export default function Setting() {
     handleBlur,
     handleChange,
     values,
-    setFieldValue,
+    // setFieldValue,
     errors,
     touched,
   } = useFormik({
     initialValues: {
-      name: '',
-      ownerName: '',
-      phone: '',
-      city: '',
-      location: {
-        type: '',
-        coordinates: [],
-      },
-      governorate: '',
-      password: '',
-      rePassword: '',
+      name,
+      ownerName,
+      phone,
+      city,
+      // location: {
+      //   type: '',
+      //   coordinates: [],
+      // },
+      governorate,
+      // password: '',
+      // rePassword: '',
     },
     onSubmit: (values) => {
       console.log(values);
@@ -176,9 +190,9 @@ export default function Setting() {
                 helperText={touched.governorate && errors.governorate}
                 fullWidth
               />
-              <Box>
+              {/* <Box>
                 <Location setFieldValue={setFieldValue} errors={errors} />
-              </Box>
+              </Box> */}
             </Stack>
 
             <Button
