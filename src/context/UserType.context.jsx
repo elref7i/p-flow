@@ -21,7 +21,7 @@ export default function UserTypeProvider({ children }) {
     try {
       const data = await getSpecificUser({ userId, token });
       setUserData(data);
-      console.log(data);
+      // console.log(data);
 
       localStorage.setItem('userData', JSON.stringify(data));
     } catch (error) {
@@ -41,7 +41,7 @@ export default function UserTypeProvider({ children }) {
         setRole(data.user.role);
         setToken(data.token);
         const decodeToken = jwtDecode(data.token);
-        console.log(decodeToken);
+        // console.log(decodeToken);
         localStorage.setItem('token', data.token);
         localStorage.setItem('role', data.user.role);
         fetchUserData(decodeToken.userId, data.token);

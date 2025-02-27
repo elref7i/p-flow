@@ -17,11 +17,12 @@ import {
 import { useFormik } from 'formik';
 import ImageAdmin from '@/assets/photo_2024-12-03_19-37-17.jpg';
 import { useTypeContext } from '../../context/UserType.context';
+import { useUpdateUser } from '../../hooks/useAdminAction';
 
 export default function Setting() {
   const [tabIndex, setTabIndex] = useState(0);
   const theme = useTheme();
-  const { userData } = useTypeContext();
+  const { userData, token } = useTypeContext();
   const {
     name,
     ownerName,
@@ -29,7 +30,7 @@ export default function Setting() {
     city,
     governorate,
     // role,
-    // _id,
+    _id,
     // identificationNumber,
     // registrationNumber,
     // email,
@@ -39,7 +40,7 @@ export default function Setting() {
   const handleTabChange = (event, newIndex) => {
     setTabIndex(newIndex);
   };
-
+  const { mutate, isLoading, isError } = useUpdateUser();
   const {
     handleSubmit,
     handleBlur,
@@ -48,6 +49,7 @@ export default function Setting() {
     // setFieldValue,
     errors,
     touched,
+    dirty,
   } = useFormik({
     initialValues: {
       name,
@@ -63,9 +65,10 @@ export default function Setting() {
       // rePassword: '',
     },
     onSubmit: (values) => {
-      console.log(values);
+      mutate({ token, values, userId: _id });
     },
   });
+  console.log(handleChange);
 
   return (
     <Stack
@@ -96,6 +99,17 @@ export default function Setting() {
               '&.Mui-selected': {
                 color: theme.palette.action.active, // لون النص عند التحديد
               },
+              textTransform: 'capitalize',
+            }}
+          />
+          <Tab
+            label="Change Password"
+            sx={{
+              color: theme.palette.text.primary, // لون النص
+              '&.Mui-selected': {
+                color: theme.palette.action.active, // لون النص عند التحديد
+              },
+              textTransform: 'capitalize',
             }}
           />
           <Tab
@@ -105,6 +119,7 @@ export default function Setting() {
               '&.Mui-selected': {
                 color: theme.palette.action.active, // لون النص عند التحديد
               },
+              textTransform: 'capitalize',
             }}
           />
           <Tab
@@ -114,6 +129,7 @@ export default function Setting() {
               '&.Mui-selected': {
                 color: theme.palette.action.active, // لون النص عند التحديد
               },
+              textTransform: 'capitalize',
             }}
           />
         </Tabs>
@@ -222,6 +238,7 @@ export default function Setting() {
 
             <Button
               type="submit"
+              disabled={!dirty}
               variant="contained"
               sx={{ mt: 3, ml: 'auto', display: 'block' }}
             >
@@ -229,10 +246,11 @@ export default function Setting() {
             </Button>
           </Box>
         )}
-        {tabIndex === 1 && (
-          <Typography>Security Settings (Under Development)</Typography>
-        )}
+        {tabIndex === 1 && <Typography>Change Password</Typography>}
         {tabIndex === 2 && (
+          <Typography>Preferences Settings (Under Development)</Typography>
+        )}
+        {tabIndex === 3 && (
           <Typography>Preferences Settings (Under Development)</Typography>
         )}
       </Paper>
