@@ -29,7 +29,7 @@ const style = {
 };
 
 export default function ModalUpdated({ userId }) {
-  const { token, fetchUserData } = useTypeContext();
+  const { token } = useTypeContext();
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => {
@@ -72,8 +72,9 @@ export default function ModalUpdated({ userId }) {
         { userId, token, values },
         {
           onSuccess: () => {
+            //* لما يتم تفعيل socket in backend
+            // await fetchUserData(userId, token);
             handleClose();
-            fetchUserData(userId, token);
           },
         }
       );
