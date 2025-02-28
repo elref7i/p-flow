@@ -9,9 +9,12 @@ import { jwtDecode } from 'jwt-decode';
 export default function UserTypeProvider({ children }) {
   const [role, setRole] = useState(localStorage.getItem('role'));
   const [token, setToken] = useState(localStorage.getItem('token'));
+
   const [userData, setUserData] = useState(
     JSON.parse(localStorage.getItem('userData'))
   );
+  console.log(userData);
+
   useEffect(() => {
     setRole(localStorage.getItem('role'));
     setToken(localStorage.getItem('token'));
@@ -67,7 +70,7 @@ export default function UserTypeProvider({ children }) {
   return (
     <UserTypeContext.Provider
       // @ts-ignore
-      value={{ token, role, logout, login, userData }}
+      value={{ token, role, logout, login, userData, setUserData }}
     >
       {children}
     </UserTypeContext.Provider>

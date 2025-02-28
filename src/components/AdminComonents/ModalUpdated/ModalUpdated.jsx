@@ -11,6 +11,7 @@ import { getSpecificUser } from '@/api/adminApi';
 import { useUpdateUser } from '@/hooks/useAdminAction';
 import EditIcon from '@mui/icons-material/Edit';
 import WarningAmberIcon from '@mui/icons-material/WarningAmber';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 
 const style = {
   position: 'fixed',
@@ -47,7 +48,7 @@ export default function ModalUpdated({ userId }) {
     }
   };
 
-  const { isLoading, isError, mutate, reset } = useUpdateUser();
+  const { isLoading, isError, mutate, reset, isSuccess } = useUpdateUser();
 
   const {
     handleSubmit,
@@ -192,6 +193,8 @@ export default function ModalUpdated({ userId }) {
                     <CircularProgress color="inherit" size={16} />
                   ) : isError ? (
                     <WarningAmberIcon color="warning" size={16} />
+                  ) : isSuccess ? (
+                    <CheckCircleIcon color="success" size={16} />
                   ) : (
                     ''
                   )

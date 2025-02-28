@@ -13,62 +13,77 @@ import {
   useMediaQuery,
   useTheme,
   InputLabel,
+  CircularProgress,
 } from '@mui/material';
 import { useFormik } from 'formik';
 import ImageAdmin from '@/assets/photo_2024-12-03_19-37-17.jpg';
 import { useTypeContext } from '../../context/UserType.context';
 import { useUpdateUser } from '../../hooks/useAdminAction';
-
+import WarningAmberIcon from '@mui/icons-material/WarningAmber';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 export default function Setting() {
-  const [tabIndex, setTabIndex] = useState(0);
   const theme = useTheme();
-  const { userData, token } = useTypeContext();
-  const {
-    name,
-    ownerName,
-    phone,
-    city,
-    governorate,
-    // role,
-    _id,
-    // identificationNumber,
-    // registrationNumber,
-    // email,
-  } = userData;
+  const [tabIndex, setTabIndex] = useState(0);
+  const { userData, token, setUserData } = useTypeContext();
+  const { mutateAsync, isLoading, isError, isSuccess } = useUpdateUser();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down('md'));
 
   const handleTabChange = (event, newIndex) => {
     setTabIndex(newIndex);
   };
-  const { mutate, isLoading, isError } = useUpdateUser();
+
   const {
     handleSubmit,
     handleBlur,
     handleChange,
     values,
-    // setFieldValue,
     errors,
     touched,
     dirty,
+    // resetForm,
   } = useFormik({
     initialValues: {
-      name,
-      ownerName,
-      phone,
-      city,
-      // location: {
-      //   type: '',
-      //   coordinates: [],
-      // },
-      governorate,
-      // password: '',
-      // rePassword: '',
+      name: userData?.name || '',
+      ownerName: userData?.ownerName || '',
+      phone: userData?.phone || '',
+      city: userData?.city || '',
+      governorate: userData?.governorate || '',
     },
-    onSubmit: (values) => {
-      mutate({ token, values, userId: _id });
+    onSubmit: async (values, { resetForm }) => {
+      try {
+        const { data } = await mutateAsync({
+          token,
+          values,
+          userId: userData?._id,
+        });
+        console.log(data.user);
+        setUserData(data.user);
+        localStorage.setItem('userData', JSON.stringify(data.user));
+        resetForm({
+          values: {
+            name: data.user.name,
+            ownerName: data.user.ownerName,
+            phone: data.user.phone,
+            city: data.user.city,
+            governorate: data.user.governorate,
+          },
+        });
+      } catch (error) {
+        console.error(error);
+      }
     },
   });
-  console.log(handleChange);
+  // useEffect(() => {
+  //   resetForm({
+  //     values: {
+  //       name: userData.name || '',
+  //       ownerName: userData.ownerName || '',
+  //       phone: userData.phone || '',
+  //       city: userData.city || '',
+  //       governorate: userData.governorate || '',
+  //     },
+  //   });
+  // }, [userData, resetForm]);
 
   return (
     <Stack
@@ -240,7 +255,18 @@ export default function Setting() {
               type="submit"
               disabled={!dirty}
               variant="contained"
-              sx={{ mt: 3, ml: 'auto', display: 'block' }}
+              sx={{ mt: 3, ml: 'auto', display: 'flex' }}
+              startIcon={
+                isLoading ? (
+                  <CircularProgress color="inherit" size={16} />
+                ) : isError ? (
+                  <WarningAmberIcon color="warning" size={16} />
+                ) : isSuccess ? (
+                  <CheckCircleIcon color="success" size={16} />
+                ) : (
+                  ''
+                )
+              }
             >
               Save Changes
             </Button>
