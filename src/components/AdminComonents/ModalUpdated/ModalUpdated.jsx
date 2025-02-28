@@ -29,7 +29,7 @@ const style = {
 };
 
 export default function ModalUpdated({ userId }) {
-  const { token } = useTypeContext();
+  const { token, fetchUserData } = useTypeContext();
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => {
@@ -67,12 +67,13 @@ export default function ModalUpdated({ userId }) {
       governorate: '',
     },
     validationSchema: UpdateDataUser,
-    onSubmit: (values) => {
+    onSubmit: async (values) => {
       mutate(
         { userId, token, values },
         {
           onSuccess: () => {
             handleClose();
+            fetchUserData(userId, token);
           },
         }
       );
