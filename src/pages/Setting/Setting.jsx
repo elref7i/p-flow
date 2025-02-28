@@ -40,7 +40,7 @@ export default function Setting() {
     errors,
     touched,
     dirty,
-    // resetForm,
+    resetForm,
   } = useFormik({
     initialValues: {
       name: userData?.name || '',
@@ -73,17 +73,19 @@ export default function Setting() {
       }
     },
   });
-  // useEffect(() => {
-  //   resetForm({
-  //     values: {
-  //       name: userData.name || '',
-  //       ownerName: userData.ownerName || '',
-  //       phone: userData.phone || '',
-  //       city: userData.city || '',
-  //       governorate: userData.governorate || '',
-  //     },
-  //   });
-  // }, [userData, resetForm]);
+  useFormik(() => {
+    if (userData) {
+      resetForm({
+        values: {
+          name: userData.name || '',
+          ownerName: userData.ownerName || '',
+          phone: userData.phone || '',
+          city: userData.city || '',
+          governorate: userData.governorate || '',
+        },
+      });
+    }
+  }, [userData, resetForm]);
 
   return (
     <Stack
