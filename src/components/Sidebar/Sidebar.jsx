@@ -5,7 +5,7 @@ import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import { useThemeContext } from '@/context/theme.context';
 import { Drawer, DrawerHeader } from '../Common/Drawer';
 import SidebarSection from './SidebarSection';
-import { admin, inventory, pharmacy, Shared } from './DefaultItemes';
+import { admin, inventory, pharmacy } from './DefaultItemes';
 import { useTypeContext } from '@/context/UserType.context';
 import ProfilePerson from '../Common/ProfilePerson';
 
@@ -55,7 +55,7 @@ export default function Sidebar() {
       {FooterSection.length !== 0 && (
         <SidebarSection items={FooterSection} open={open} />
       )}
-      <SidebarSection items={Shared} open={open} />
+      {/* <SidebarSection items={Shared} open={open} /> */}
       <ProfilePerson open={open} />
     </Drawer>
   );

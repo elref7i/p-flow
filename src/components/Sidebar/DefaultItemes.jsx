@@ -10,7 +10,7 @@ import ArticleIcon from '@mui/icons-material/Article';
 import BarChartIcon from '@mui/icons-material/BarChart';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import SettingsIcon from '@mui/icons-material/Settings';
-
+const Shared = { text: 'Setting', icon: <SettingsIcon />, path: '/setting' };
 export const admin = {
   HeaderSection: [
     { text: 'Dashboard', icon: <HomeIcon />, path: '/admin' },
@@ -50,6 +50,7 @@ export const pharmacy = {
     // { text: 'Pie Chart', icon: <PieChartIcon />, path: '/pie' },
     // { text: 'Line Chart', icon: <TimelineIcon />, path: '/line' },
     // { text: 'Geography Chart', icon: <MapIcon />, path: '/geography' },
+    Shared,
   ],
 };
 export const inventory = {
@@ -65,11 +66,9 @@ export const inventory = {
   ],
   FooterSection: [
     { text: 'Bar Chart', icon: <BarChartIcon />, path: '/bar' },
-    { text: 'Pie Chart', icon: <PieChartIcon />, path: '/pie' },
-    { text: 'Line Chart', icon: <TimelineIcon />, path: '/line' },
-    { text: 'Geography Chart', icon: <MapIcon />, path: '/geography' },
+    // { text: 'Pie Chart', icon: <PieChartIcon />, path: '/pie' },
+    // { text: 'Line Chart', icon: <TimelineIcon />, path: '/line' },
+    // { text: 'Geography Chart', icon: <MapIcon />, path: '/geography' },
+    Shared,
   ],
 };
-export const Shared = [
-  { text: 'Setting', icon: <SettingsIcon />, path: '/setting' },
-];

@@ -50,10 +50,16 @@ function App() {
           <Layout />
         </ProtectedRoute>
       ),
-      children: [
-        { path: '/home', element: <Home /> },
-        { path: '/setting', element: <Setting /> },
-      ],
+      children: [{ path: '/home', element: <Home /> }],
+    },
+    {
+      path: '/',
+      element: (
+        <ProtectedRoute allowedRolls={['pharmacy', 'inventory']}>
+          <Layout />
+        </ProtectedRoute>
+      ),
+      children: [{ path: '/setting', element: <Setting /> }],
     },
     {
       path: '/admin',
