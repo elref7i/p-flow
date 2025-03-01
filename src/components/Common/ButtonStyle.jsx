@@ -26,7 +26,8 @@ const CustomButton = styled(Button)(
     borderRadius: '5px',
     border: border || `1px solid ${theme.palette.border.default}`,
     cursor: 'pointer',
-    transition: '0.3s',
+    textTransform: 'capitalize',
+    transition: '0.5s',
     display: 'block',
     width: w || 'auto',
     [theme.breakpoints.up('md')]: {
@@ -71,6 +72,7 @@ export const CustomLink = styled(Link)(
   }) => ({
     fontSize: fs || 'normal',
     fontWeight: fw || 'normal',
+    textTransform: 'capitalize',
     borderRadius: br || '0px',
     color: c || theme.palette.text.button, // لون النص الأساسي
     textDecoration: textDecoration || 'none',

@@ -21,6 +21,7 @@ import { useTypeContext } from '../../context/UserType.context';
 import { useUpdateUser } from '../../hooks/useAdminAction';
 import WarningAmberIcon from '@mui/icons-material/WarningAmber';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import CustomButton from '../../components/Common/ButtonStyle';
 export default function Setting() {
   const theme = useTheme();
   const [tabIndex, setTabIndex] = useState(0);
@@ -253,7 +254,7 @@ export default function Setting() {
               </Box> */}
             </Stack>
 
-            <Button
+            <CustomButton
               type="submit"
               disabled={!dirty}
               variant="contained"
@@ -271,7 +272,7 @@ export default function Setting() {
               }
             >
               Save Changes
-            </Button>
+            </CustomButton>
           </Box>
         )}
         {tabIndex === 1 && <Typography>Change Password</Typography>}

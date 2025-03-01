@@ -9,6 +9,7 @@ import {
   Grid2,
   Box,
   Container,
+  useTheme,
 } from '@mui/material';
 import CustomButton from '@/components/Common/ButtonStyle';
 import { useFormik } from 'formik';
@@ -22,6 +23,7 @@ import { loginSchema } from '../../../schemas/AuthSchema';
 
 export default function Login() {
   const { login } = useTypeContext();
+  const theme = useTheme();
 
   const [showPassword, setShowPassword] = useState(false);
 
@@ -115,11 +117,16 @@ export default function Login() {
                 }
                 label="Password"
               />
-              {/* <Box component={'div'} width={'fit-content'} align={'end'}> */}
-              <CustomLink bghover={true} to="/forgetpassword" ml={'auto'}>
+              <CustomLink
+                bg={true}
+                bghover={true}
+                c={theme.palette.text.primary}
+                chover={theme.palette.text.secondary}
+                to="/forgetpassword"
+                ml={'auto'}
+              >
                 Forgot Your Password ?
               </CustomLink>
-              {/* </Box> */}
             </FormControl>
             <Box component={'div'} mb={3}>
               <CustomButton type="submit" w="100%" sm="45%">
