@@ -24,7 +24,7 @@ export default function BasicModal() {
   const handleOpen = () => {
     setOpen(true);
     setTimeout(() => {
-      navigate('adddrugs'); 
+      navigate('adddrugsfromexcel'); 
     }, 2000);
   };
 

@@ -56,7 +56,7 @@ export const pharmacy = {
 export const inventory = {
   HeaderSection: [
     { text: 'Dashboard', icon: <HomeIcon />, path: '/inventory' },
-    { text: 'Add Drugs', icon: <BarChartIcon />, path: '/inventory/adddrugs' },
+    { text: 'Add Drugs From Excel', icon: <BarChartIcon />, path: '/inventory/adddrugsfromexcel' },
   ],
   MiddleSection: [
     { text: 'Invoices', icon: <ArticleIcon />, path: '/invoices' },
