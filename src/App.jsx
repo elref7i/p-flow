@@ -13,6 +13,8 @@ import ForgetProtectedRoute from './components/ForgetProtectedRoute/ForgetProtec
 import ProtectedRoute from '@/components/ProtectedRoute/ProtectedRoute';
 import GuestRoute from '@/components/GuestRoute/GuestRoute';
 import AddDrugsFromExcel from './pages/Inventory/AddDrugsFromExcel/AddDrugsFromExcel';
+import AddDrugs from './pages/Inventory/AddDrugs/AddDrugs';
+// import AddDrugs from './pages/Inventory/AddDrugs/AddDrugs';
 
 const Layout = lazy(() => import('@/Layout/Layout'));
 const Login = lazy(() => import('@/pages/auth/Login/Login'));
@@ -94,6 +96,7 @@ function App() {
       children: [
         { index: true, element: <DashboardInventory /> },
         { path: 'adddrugsfromexcel', element: <AddDrugsFromExcel /> },
+        { path: 'adddrugs', element: <AddDrugs/> },
       ],
     },
 

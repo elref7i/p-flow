@@ -59,7 +59,7 @@ export const inventory = {
     { text: 'Add Drugs From Excel', icon: <BarChartIcon />, path: '/inventory/adddrugsfromexcel' },
   ],
   MiddleSection: [
-    { text: 'Invoices', icon: <ArticleIcon />, path: '/invoices' },
+    { text: 'Add Drugs', icon: <ArticleIcon />, path: '/inventory/adddrugs' },
     { text: 'Profile Form', icon: <PersonIcon />, path: '/profile' },
     { text: 'Calendar', icon: <CalendarTodayIcon />, path: '/calendar' },
     { text: 'FAQ Page', icon: <HelpOutlineIcon />, path: '/faq' },
