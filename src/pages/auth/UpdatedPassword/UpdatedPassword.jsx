@@ -18,8 +18,8 @@ import { CustomHead } from '@/components/Common/CustomTypography';
 import toast from 'react-hot-toast';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import LeftAuth from '../../../components/Common/LeftAuth';
-import { updateAuthSchema } from '../../../schemas/AuthSchema';
+import LeftAuth from '@/components/Common/LeftAuth';
+import { updateAuthSchema } from '@/lib/schemas/AuthSchema';
 
 export default function UpdatedPassword() {
   const [showPassword, setShowPassword] = useState(false);

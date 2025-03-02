@@ -5,9 +5,9 @@ import { CustomHead } from '@/components/Common/CustomTypography';
 import axios from 'axios';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
-import LeftAuth from '../../../components/Common/LeftAuth';
-import { useForgetPassword } from '../../../context/Forget.context';
-import { forgetSchema } from '../../../schemas/AuthSchema';
+import LeftAuth from '@/components/Common/LeftAuth';
+import { useForgetPassword } from '@/context/Forget.context';
+import { forgetSchema } from '@/lib/schemas/AuthSchema';
 
 export default function ForgetPassword() {
   const navigator = useNavigate();

@@ -2,7 +2,7 @@ import { DataGrid, GridToolbar } from '@mui/x-data-grid';
 import { Paper, Box, useTheme } from '@mui/material';
 import { columns } from './data';
 import { useTypeContext } from '@/context/UserType.context';
-import { useAllUsers, useDeleteUser } from '@/hooks/useAdminAction';
+import { useAllUsers, useDeleteUser } from '@/lib/hooks/useAdminAction';
 import AlertModal from '@/components/AdminComonents/MessagAlert/MessageAlert';
 import ModalUpdated from '@/components/AdminComonents/ModalUpdated/ModalUpdated';
 

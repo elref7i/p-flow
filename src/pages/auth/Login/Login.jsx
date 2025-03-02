@@ -15,11 +15,12 @@ import CustomButton from '@/components/Common/ButtonStyle';
 import { useFormik } from 'formik';
 import { useState } from 'react';
 import { CustomLink } from '@/components/Common/ButtonStyle';
-import LeftAuth from '../../../components/Common/LeftAuth';
+import LeftAuth from '@/components/Common/LeftAuth';
 
-import FixedHead from '../../../components/Common/FixedHead';
-import { useTypeContext } from '../../../context/UserType.context';
-import { loginSchema } from '../../../schemas/AuthSchema';
+import FixedHead from '@/components/Common/FixedHead';
+import { useTypeContext } from '@/context/UserType.context';
+import { loginSchema } from '@/lib/schemas/AuthSchema';
+// import { loginSchema } from '@/schemas/AuthSchema';
 
 export default function Login() {
   const { login } = useTypeContext();

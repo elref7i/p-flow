@@ -3,12 +3,12 @@ import { Box, TextField, Grid2, Container, Button } from '@mui/material';
 import axios from 'axios';
 import { useFormik } from 'formik';
 import toast from 'react-hot-toast';
-import LeftAuth from '../../../components/Common/LeftAuth';
-import FixedHead from '../../../components/Common/FixedHead';
-import CustomizedSteppers from '../../../components/Common/Stepper';
-import { signupSchema } from '../../../schemas/AuthSchema';
-import Location from '../../../components/Loaction/Location';
-import Role from '../../../components/Role/Role';
+import LeftAuth from '@/components/Common/LeftAuth';
+import FixedHead from '@/components/Common/FixedHead';
+import CustomizedSteppers from '@/components/Common/Stepper';
+import { signupSchema } from '@/lib/schemas/AuthSchema';
+import Location from '@/components/Loaction/Location';
+import Role from '@/components/Role/Role';
 
 const SignupForm = () => {
   const [activeStep, setActiveStep] = useState(0);

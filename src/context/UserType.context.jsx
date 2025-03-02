@@ -3,9 +3,9 @@
 import axios from 'axios';
 import { createContext, useContext, useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
-import { getSpecificUser } from '../api/adminApi';
 export const UserTypeContext = createContext(0);
 import { jwtDecode } from 'jwt-decode';
+import { getSpecificUser } from '@/lib/api/adminApi';
 export default function UserTypeProvider({ children }) {
   const [role, setRole] = useState(localStorage.getItem('role'));
   const [token, setToken] = useState(localStorage.getItem('token'));
