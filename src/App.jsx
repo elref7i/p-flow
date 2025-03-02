@@ -12,6 +12,9 @@ import SkeletonLoader from './components/SkeletonLoader/SkeletonLoader';
 import ForgetProtectedRoute from './components/ForgetProtectedRoute/ForgetProtectedRoute';
 import ProtectedRoute from '@/components/ProtectedRoute/ProtectedRoute';
 import GuestRoute from '@/components/GuestRoute/GuestRoute';
+import AddDrugsFromExcel from './pages/Inventory/AddDrugsFromExcel/AddDrugsFromExcel';
+import AddDrugs from './pages/Inventory/AddDrugs/AddDrugs';
+// import AddDrugs from './pages/Inventory/AddDrugs/AddDrugs';
 
 const Layout = lazy(() => import('@/Layout/Layout'));
 const Login = lazy(() => import('@/pages/auth/Login/Login'));
@@ -37,7 +40,7 @@ const DashboardAdmin = lazy(() =>
 const DashboardInventory = lazy(() =>
   import('./pages/Inventory/DashboardInventory/DashboardInventory')
 );
-const AddDrugs = lazy(() => import('./pages/Inventory/AddDrugs/AddDrugs'));
+
 const AddUser = lazy(() => import('./pages/Admin/AddUser/AddUser'));
 const Setting = lazy(() => import('./pages/Setting/Setting'));
 
@@ -92,7 +95,8 @@ function App() {
       ),
       children: [
         { index: true, element: <DashboardInventory /> },
-        { path: 'adddrugs', element: <AddDrugs /> },
+        { path: 'adddrugsfromexcel', element: <AddDrugsFromExcel /> },
+        { path: 'adddrugs', element: <AddDrugs/> },
       ],
     },
 
