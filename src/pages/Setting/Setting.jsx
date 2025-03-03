@@ -17,11 +17,11 @@ import {
 } from '@mui/material';
 import { useFormik } from 'formik';
 import ImageAdmin from '@/assets/photo_2024-12-03_19-37-17.jpg';
-import { useTypeContext } from '../../context/UserType.context';
-import { useUpdateUser } from '../../hooks/useAdminAction';
+import { useTypeContext } from '@/context/UserType.context';
 import WarningAmberIcon from '@mui/icons-material/WarningAmber';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
-import CustomButton from '../../components/Common/ButtonStyle';
+import CustomButton from '@/components/Common/ButtonStyle';
+import { useUpdateUser } from '@/lib/hooks/useAdminAction';
 export default function Setting() {
   const theme = useTheme();
   const [tabIndex, setTabIndex] = useState(0);

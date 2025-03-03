@@ -1,11 +1,11 @@
 import { CircularProgress, Stack, TextField } from '@mui/material';
 import { useFormik } from 'formik';
-import Role from '../../../components/Role/Role';
-import CustomButton from '../../../components/Common/ButtonStyle';
-import { useAdminAddUser } from '../../../hooks/useAdminAction';
-import { AdminAddUser } from '../../../schemas/AdminSchema';
-import { useTypeContext } from '../../../context/UserType.context';
+import Role from '@/components/Role/Role';
+import CustomButton from '@/components/Common/ButtonStyle';
+import { useTypeContext } from '@/context/UserType.context';
 import WarningAmberIcon from '@mui/icons-material/WarningAmber';
+import { useAdminAddUser } from '@/lib/hooks/useAdminAction';
+import { AdminAddUser } from '@/lib/schemas/AdminSchema';
 
 export default function AddUser() {
   const { token } = useTypeContext();
