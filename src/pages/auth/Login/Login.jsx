@@ -65,17 +65,18 @@ export default function Login() {
               handleChange={handleChange}
               text="Password"
             />
-            <CustomLink
-              bg={true}
-              bghover={true}
-              c={theme.palette.text.primary}
-              chover={theme.palette.text.secondary}
-              to="/forgetpassword"
-              ml={'auto'}
-            >
-              Forgot Your Password ?
-            </CustomLink>
-            <Box component={'div'} mb={3}>
+            <Box component={'div'} mt={1} ml={'auto '} width="fit-content">
+              <CustomLink
+                bg={true}
+                bghover={true}
+                c={theme.palette.text.primary}
+                chover={theme.palette.text.secondary}
+                to="/forgetpassword"
+              >
+                Forgot Your Password ?
+              </CustomLink>
+            </Box>
+            <Box component={'div'} my={5}>
               <CustomButton type="submit" w="100%" sm="45%">
                 Login
               </CustomButton>
