@@ -24,7 +24,7 @@ const style = {
   textAlign: 'center',
 };
 
-export default function AlertModal({ handleAction, isDeleting = 'fasle' }) {
+export default function AlertModal({ handleAction, isDeleting }) {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
 
@@ -37,6 +37,7 @@ export default function AlertModal({ handleAction, isDeleting = 'fasle' }) {
         onClick={handleOpen}
         variant="contained"
         color="error"
+        fullWidth
         sx={{ fontSize: { xs: '10px', md: '15px' } }}
         startIcon={<DeleteIcon />}
       >

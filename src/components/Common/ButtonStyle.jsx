@@ -19,6 +19,7 @@ const CustomButton = styled(Button)(
     fs,
     color,
     border,
+    d,
   }) => ({
     backgroundColor: bgcolor || theme.palette.background.button, // لون الخلفية الأساسي
     color: color || theme.palette.text.button, // لون النص الأساسي
@@ -28,7 +29,7 @@ const CustomButton = styled(Button)(
     cursor: 'pointer',
     textTransform: 'capitalize',
     transition: '0.5s',
-    display: 'block',
+    display: d || 'block',
     width: w || 'auto',
     [theme.breakpoints.up('md')]: {
       width: md || 'auto',
