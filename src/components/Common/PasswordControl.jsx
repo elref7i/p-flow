@@ -6,10 +6,8 @@ import {
   InputAdornment,
   InputLabel,
   OutlinedInput,
-  useTheme,
 } from '@mui/material';
 import { useState } from 'react';
-import { CustomLink } from '@/components/Common/ButtonStyle';
 
 export default function PasswordControl({
   error,
@@ -17,9 +15,9 @@ export default function PasswordControl({
   handleChange,
   handleBlur,
   value,
+  text,
+  name,
 }) {
-  const theme = useTheme();
-
   const [showPassword, setShowPassword] = useState(false);
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
@@ -37,13 +35,13 @@ export default function PasswordControl({
         color={error && touched ? 'error' : 'primary'}
         htmlFor="outlined-adornment-password"
       >
-        Password
+        {text}
       </InputLabel>
       <OutlinedInput
         sx={{ mb: 2 }}
         id="outlined-adornment-password"
         type={showPassword ? 'text' : 'password'}
-        name="password"
+        name={name}
         value={value}
         onChange={handleChange}
         onBlur={handleBlur}
@@ -66,16 +64,6 @@ export default function PasswordControl({
         }
         label="Password"
       />
-      <CustomLink
-        bg={true}
-        bghover={true}
-        c={theme.palette.text.primary}
-        chover={theme.palette.text.secondary}
-        to="/forgetpassword"
-        ml={'auto'}
-      >
-        Forgot Your Password ?
-      </CustomLink>
     </FormControl>
   );
 }

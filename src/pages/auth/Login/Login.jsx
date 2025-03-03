@@ -1,13 +1,15 @@
-import { TextField, Grid2, Box, Container } from '@mui/material';
+import { TextField, Grid2, Box, Container, useTheme } from '@mui/material';
 import CustomButton from '@/components/Common/ButtonStyle';
 import { useFormik } from 'formik';
 import LeftAuth from '@/components/Common/LeftAuth';
 import FixedHead from '@/components/Common/FixedHead';
 import { useTypeContext } from '@/context/UserType.context';
 import { loginSchema } from '@/lib/schemas/AuthSchema';
-import PasswordControl from '../../../components/Common/FormControl';
+import PasswordControl from '../../../components/Common/PasswordControl';
+import { CustomLink } from '../../../components/Common/ButtonStyle';
 
 export default function Login() {
+  const theme = useTheme();
   const { login } = useTypeContext();
 
   const { handleBlur, handleChange, handleSubmit, errors, values, touched } =
@@ -55,12 +57,24 @@ export default function Login() {
               helperText={touched.email && errors.email}
             />
             <PasswordControl
+              name="password"
               error={errors.password}
               value={values.password}
               touched={touched.password}
               handleBlur={handleBlur}
               handleChange={handleChange}
+              text="Password"
             />
+            <CustomLink
+              bg={true}
+              bghover={true}
+              c={theme.palette.text.primary}
+              chover={theme.palette.text.secondary}
+              to="/forgetpassword"
+              ml={'auto'}
+            >
+              Forgot Your Password ?
+            </CustomLink>
             <Box component={'div'} mb={3}>
               <CustomButton type="submit" w="100%" sm="45%">
                 Login

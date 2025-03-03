@@ -92,11 +92,13 @@ export default function UpdatedPassword() {
             />
 
             <PasswordControl
+              name="newPassword"
               error={errors.newPassword}
               value={values.newPassword}
               touched={touched.newPassword}
               handleBlur={handleBlur}
               handleChange={handleChange}
+              text="New Password"
             />
             <CustomButton
               type="submit"
