@@ -77,6 +77,10 @@ export default function Profile() {
       <Typography variant="h5" fontWeight={'bold'} mb={2}>
         Profile Settings
       </Typography>
+      <Typography variant="body2" color="text.secondary" mb={3}>
+        Update your profile details, including your name, contact information,
+        and location.
+      </Typography>
       <Divider sx={{ mb: 3 }} />
       <Stack
         component={'form'}

@@ -30,7 +30,7 @@ export default function ChangePassword() {
       <Typography color={theme.palette.text.primary} variant="h5" mb={1}>
         Update Your Password
       </Typography>
-      <Typography variant="body2" color={theme.palette.text.secondary} mb={3}>
+      <Typography variant="body2" color="text.secondary" mb={3}>
         Please enter your old password and set a new password to update your
         account security.
       </Typography>
