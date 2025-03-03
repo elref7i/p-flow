@@ -3,29 +3,25 @@
 import axios from 'axios';
 import { createContext, useContext, useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
+import { getloggedUserData } from '../lib/api/userAPI';
 export const UserTypeContext = createContext(0);
-import { jwtDecode } from 'jwt-decode';
-import { getSpecificUser } from '@/lib/api/adminApi';
 export default function UserTypeProvider({ children }) {
   const [role, setRole] = useState(localStorage.getItem('role'));
   const [token, setToken] = useState(localStorage.getItem('token'));
-
   const [userData, setUserData] = useState(
     JSON.parse(localStorage.getItem('userData'))
   );
-  console.log(userData);
-
   useEffect(() => {
     setRole(localStorage.getItem('role'));
     setToken(localStorage.getItem('token'));
   }, []);
 
-  const fetchUserData = async (userId, token) => {
+  const fetchUserData = async (token) => {
     try {
-      const data = await getSpecificUser({ userId, token });
-      setUserData(data);
-      // console.log(data);
+      const data = await getloggedUserData({ token });
+      console.log(data);
 
+      setUserData(data);
       localStorage.setItem('userData', JSON.stringify(data));
     } catch (error) {
       console.error('Failed to fetch user data:', error);
@@ -43,11 +39,9 @@ export default function UserTypeProvider({ children }) {
         toast.success('Login successful!');
         setRole(data.user.role);
         setToken(data.token);
-        const decodeToken = jwtDecode(data.token);
-        // console.log(decodeToken);
         localStorage.setItem('token', data.token);
         localStorage.setItem('role', data.user.role);
-        fetchUserData(decodeToken.userId, data.token);
+        fetchUserData(data.token);
       }
     } catch (error) {
       console.error(error);
@@ -70,7 +64,7 @@ export default function UserTypeProvider({ children }) {
   return (
     <UserTypeContext.Provider
       // @ts-ignore
-      value={{ token, role, logout, login, userData, setUserData }}
+      value={{ token, role, logout, login, userData, fetchUserData }}
     >
       {children}
     </UserTypeContext.Provider>

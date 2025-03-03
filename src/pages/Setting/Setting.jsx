@@ -21,12 +21,12 @@ import { useTypeContext } from '@/context/UserType.context';
 import WarningAmberIcon from '@mui/icons-material/WarningAmber';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import CustomButton from '@/components/Common/ButtonStyle';
-import { useUpdateUser } from '@/lib/hooks/useAdminAction';
+import { useUpdateLoggedUser } from '../../lib/hooks/useUserAction';
 export default function Setting() {
   const theme = useTheme();
   const [tabIndex, setTabIndex] = useState(0);
-  const { userData, token, setUserData } = useTypeContext();
-  const { mutateAsync, isLoading, isError, isSuccess } = useUpdateUser();
+  const { userData, token, fetchUserData } = useTypeContext();
+  const { mutateAsync, isLoading, isError, isSuccess } = useUpdateLoggedUser();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down('md'));
 
   const handleTabChange = (event, newIndex) => {
@@ -50,25 +50,26 @@ export default function Setting() {
       city: userData?.city || '',
       governorate: userData?.governorate || '',
     },
-    onSubmit: async (values, { resetForm }) => {
+    onSubmit: async (values) => {
       try {
         const { data } = await mutateAsync({
           token,
           values,
-          userId: userData?._id,
         });
-        console.log(data.user);
-        setUserData(data.user);
-        localStorage.setItem('userData', JSON.stringify(data.user));
-        resetForm({
-          values: {
-            name: data.user.name,
-            ownerName: data.user.ownerName,
-            phone: data.user.phone,
-            city: data.user.city,
-            governorate: data.user.governorate,
-          },
-        });
+
+        if (data.message === 'success') {
+          console.log(data);
+          fetchUserData(token);
+        }
+        // resetForm({
+        //   values: {
+        //     name: data.user.name,
+        //     ownerName: data.user.ownerName,
+        //     phone: data.user.phone,
+        //     city: data.user.city,
+        //     governorate: data.user.governorate,
+        //   },
+        // });
       } catch (error) {
         console.error(error);
       }
