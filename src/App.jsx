@@ -7,15 +7,13 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import ThemeModeProvider from './context/theme.context';
 import ForgetPasswordProvider from './context/Forget.context';
 import UserTypeProvider from './context/UserType.context';
-
 import SkeletonLoader from './components/SkeletonLoader/SkeletonLoader';
 import ForgetProtectedRoute from './components/ForgetProtectedRoute/ForgetProtectedRoute';
 import ProtectedRoute from '@/components/ProtectedRoute/ProtectedRoute';
 import GuestRoute from '@/components/GuestRoute/GuestRoute';
-import AddDrugsFromExcel from './pages/Inventory/AddDrugsFromExcel/AddDrugsFromExcel';
-import AddDrugs from './pages/Inventory/AddDrugs/AddDrugs';
+import AddDrug from './pages/Inventory/AddDrug/AddDrug';
 import LandingPage from './pages/auth/Landing/Landing';
-// import AddDrugs from './pages/Inventory/AddDrugs/AddDrugs';
+
 const Layout = lazy(() => import('@/Layout/Layout'));
 const Login = lazy(() => import('@/pages/auth/Login/Login'));
 const Signup = lazy(() => import('@/pages/auth/Signup/Signup'));
@@ -95,8 +93,7 @@ function App() {
       ),
       children: [
         { index: true, element: <DashboardInventory /> },
-        { path: 'adddrugsfromexcel', element: <AddDrugsFromExcel /> },
-        { path: 'adddrugs', element: <AddDrugs /> },
+        { path: 'adddrugs', element: <AddDrug/> },
       ],
     },
 
