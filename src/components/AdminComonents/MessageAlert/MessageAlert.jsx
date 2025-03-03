@@ -32,13 +32,13 @@ export default function AlertModal({ handleAction, isDeleting }) {
   const handleClose = () => setOpen(false);
 
   return (
-    <div>
+    <Box component={'div'}>
       <Button
         onClick={handleOpen}
         variant="contained"
         color="error"
         fullWidth
-        sx={{ fontSize: { xs: '10px', md: '15px' } }}
+        sx={{ fontSize: { xs: '13px', md: '15px' } }}
         startIcon={<DeleteIcon />}
       >
         Delete
@@ -100,6 +100,6 @@ export default function AlertModal({ handleAction, isDeleting }) {
           </Box>
         </Fade>
       </Modal>
-    </div>
+    </Box>
   );
 }

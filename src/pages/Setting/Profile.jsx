@@ -12,7 +12,6 @@ import WarningAmberIcon from '@mui/icons-material/WarningAmber';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import CustomButton from '@/components/Common/ButtonStyle';
 import Location from '@/components/Loaction/Location';
-// import MapModal from '@/components/MapComponent/MapComponent';
 import { loggedUserSchema } from '../../lib/schemas/UserSchema';
 import { useTypeContext } from '@/context/UserType.context';
 import { useUpdateLoggedUser } from '@/lib/hooks/useUserAction';
@@ -85,9 +84,6 @@ export default function Profile() {
         gap={5}
         onSubmit={handleSubmit}
       >
-        {/* Profile Picture */}
-
-        {/* Inputs */}
         <Box flex={1}>
           <Stack spacing={3}>
             <Box component={'div'}>
