@@ -129,7 +129,7 @@ export default function AddDrugsFromExcel() {
         helperText={formik.touched.endRow && formik.errors.endRow}
       />
 
-      {/* <TextField
+      <TextField
         fullWidth
         label="File ID"
         variant="outlined"
@@ -137,7 +137,7 @@ export default function AddDrugsFromExcel() {
         {...formik.getFieldProps("fileId")}
         error={formik.touched.fileId && Boolean(formik.errors.fileId)}
         helperText={formik.touched.fileId && formik.errors.fileId}
-      /> */}
+      />
 
       <Button
         variant="contained"
