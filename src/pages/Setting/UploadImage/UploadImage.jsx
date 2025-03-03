@@ -27,14 +27,14 @@ export default function UploadProfileImage() {
         className="hover-box"
         sx={{
           width: '100%',
-          height: '30%',
+          height: '25%',
           bottom: '-100%',
           left: '50%',
           transition: 'bottom 0.3s',
           transform: 'translateX(-50%)',
           bgcolor: theme.palette.background.button,
-          borderTopLeftRadius: '15px',
-          borderTopRightRadius: '15px',
+          borderTopLeftRadius: '50px',
+          borderTopRightRadius: '50px',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',

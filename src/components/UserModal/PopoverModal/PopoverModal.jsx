@@ -49,10 +49,9 @@ export default function PopoverModal() {
         anchorEl={anchorEl}
         onClose={handleClose}
         anchorOrigin={{
-          vertical: 'bottom',
-          horizontal: 'left',
+          vertical: 'center',
+          horizontal: 'center',
         }}
-        sx={{ p: 2 }}
         // disableScrollLock
       >
         <CustomButton
@@ -63,7 +62,7 @@ export default function PopoverModal() {
           tabIndex={-1}
           d={'flex'}
           hoverbgColor={theme.palette.action.active}
-          fs={15}
+          fs={{ xs: '10px', md: '15px' }}
           startIcon={<CloudUploadIcon />}
         >
           Upload Image
