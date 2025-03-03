@@ -49,7 +49,7 @@ export default function AddDrugsFromExcel() {
         );
 
         console.log(data);
-        if (data.response === "ok") {
+        if (data.status === "success") {
           toast.success(data.message);
         }
       } catch (error) {
