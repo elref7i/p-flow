@@ -22,6 +22,8 @@ import WarningAmberIcon from '@mui/icons-material/WarningAmber';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import CustomButton from '@/components/Common/ButtonStyle';
 import { useUpdateLoggedUser } from '../../lib/hooks/useUserAction';
+import Location from '../../components/Loaction/Location';
+import MapComponent from '../../components/MapComponent/MapComponent';
 export default function Setting() {
   const theme = useTheme();
   const [tabIndex, setTabIndex] = useState(0);
@@ -42,6 +44,7 @@ export default function Setting() {
     touched,
     dirty,
     resetForm,
+    setFieldValue,
   } = useFormik({
     initialValues: {
       name: userData?.name || '',
@@ -61,15 +64,6 @@ export default function Setting() {
           console.log(data);
           fetchUserData(token);
         }
-        // resetForm({
-        //   values: {
-        //     name: data.user.name,
-        //     ownerName: data.user.ownerName,
-        //     phone: data.user.phone,
-        //     city: data.user.city,
-        //     governorate: data.user.governorate,
-        //   },
-        // });
       } catch (error) {
         console.error(error);
       }
@@ -250,9 +244,12 @@ export default function Setting() {
                   fullWidth
                 />
               </Box>
-              {/* <Box>
+              <Box>
                 <Location setFieldValue={setFieldValue} errors={errors} />
-              </Box> */}
+              </Box>
+              <Box>
+                <MapComponent />
+              </Box>
             </Stack>
 
             <CustomButton

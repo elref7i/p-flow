@@ -14,8 +14,8 @@ import ProtectedRoute from '@/components/ProtectedRoute/ProtectedRoute';
 import GuestRoute from '@/components/GuestRoute/GuestRoute';
 import AddDrugsFromExcel from './pages/Inventory/AddDrugsFromExcel/AddDrugsFromExcel';
 import AddDrugs from './pages/Inventory/AddDrugs/AddDrugs';
+import LandingPage from './pages/auth/Landing/Landing';
 // import AddDrugs from './pages/Inventory/AddDrugs/AddDrugs';
-
 const Layout = lazy(() => import('@/Layout/Layout'));
 const Login = lazy(() => import('@/pages/auth/Login/Login'));
 const Signup = lazy(() => import('@/pages/auth/Signup/Signup'));
@@ -29,7 +29,7 @@ const ForgetPassword = lazy(() =>
 const VerifySendCoding = lazy(() =>
   import('@/pages/auth/VerifySendCoding/VerifySendCoding')
 );
-const LandingPage = lazy(() => import('@/pages/auth/Landing/Landing'));
+// const LandingPage = lazy(() => import('@/pages/auth/Landing/Landing'));
 const Users = lazy(() => import('./pages/Admin/Users/Users'));
 const HomePharmacy = lazy(() =>
   import('./pages/Pharmacy/HomePharmacy/HomePharmacy')
@@ -96,7 +96,7 @@ function App() {
       children: [
         { index: true, element: <DashboardInventory /> },
         { path: 'adddrugsfromexcel', element: <AddDrugsFromExcel /> },
-        { path: 'adddrugs', element: <AddDrugs/> },
+        { path: 'adddrugs', element: <AddDrugs /> },
       ],
     },
 

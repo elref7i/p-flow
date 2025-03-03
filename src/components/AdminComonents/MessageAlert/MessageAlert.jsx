@@ -90,7 +90,7 @@ export default function AlertModal({ handleAction, isDeleting = 'fasle' }) {
               <Button
                 onClick={handleClose}
                 variant="outlined"
-                color="primary"
+                color="warning"
                 startIcon={<CancelIcon />}
               >
                 Cancel
