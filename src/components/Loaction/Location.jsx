@@ -27,6 +27,11 @@ export default function Location({ setFieldValue, errors }) {
           console.error('Error fetching location:', error);
           setIsLoading(false);
           toast.error(`${errors.location}`);
+        },
+        {
+          enableHighAccuracy: true, // 🔥 تحسين الدقة
+          timeout: 10000, // ⏳ وقت انتظار 10 ثواني
+          maximumAge: 0, // 🚀 عدم استخدام بيانات قديمة
         }
       );
     } else {

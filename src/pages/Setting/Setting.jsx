@@ -21,9 +21,11 @@ import { useTypeContext } from '@/context/UserType.context';
 import WarningAmberIcon from '@mui/icons-material/WarningAmber';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import CustomButton from '@/components/Common/ButtonStyle';
-import { useUpdateLoggedUser } from '../../lib/hooks/useUserAction';
-import Location from '../../components/Loaction/Location';
-import MapComponent from '../../components/MapComponent/MapComponent';
+import { useUpdateLoggedUser } from '@/lib/hooks/useUserAction';
+import Location from '@/components/Loaction/Location';
+import MapModal from '@/components/MapComponent/MapComponent';
+import { loggedUserSchema } from '../../lib/schemas/UserSchema';
+import toast from 'react-hot-toast';
 export default function Setting() {
   const theme = useTheme();
   const [tabIndex, setTabIndex] = useState(0);
@@ -52,20 +54,29 @@ export default function Setting() {
       phone: userData?.phone || '',
       city: userData?.city || '',
       governorate: userData?.governorate || '',
+      location: {
+        type: userData.location?.type || 'Point',
+        coordinates: [
+          userData.location?.coordinates[0] || 0,
+          userData.location?.coordinates[1] || 0,
+        ],
+      },
     },
+    validationSchema: loggedUserSchema,
     onSubmit: async (values) => {
       try {
         const { data } = await mutateAsync({
           token,
           values,
         });
+        console.log(values);
 
         if (data.message === 'success') {
-          console.log(data);
+          toast.success('Success');
           fetchUserData(token);
         }
       } catch (error) {
-        console.error(error);
+        toast.error('Error', error.response.data.message);
       }
     },
   });
@@ -158,12 +169,30 @@ export default function Setting() {
             <Divider sx={{ mb: 3 }} />
             {/* Profile Picture */}
             <Stack direction={'row'} alignItems={'center'} gap={3}>
-              <Avatar src={ImageAdmin} sx={{ width: 90, height: 90 }} />
-              <Stack direction={'row'} flexWrap={'wrap'} gap={1}>
-                <Button variant="contained">Change</Button>
-                <Button variant="outlined" color="error">
-                  Delete
-                </Button>
+              <Avatar src={ImageAdmin} sx={{ width: 120, height: 120 }} />
+              <Stack
+                direction={'column'}
+                alignItems={'start'}
+                flexWrap={'wrap'}
+                gap={1}
+              >
+                <Stack direction={'row'} alignItems={'center'} gap={1}>
+                  <Button
+                    variant="contained"
+                    color="secondary"
+                    sx={{ textTransform: 'capitalize' }}
+                  >
+                    Change
+                  </Button>
+                  <Button
+                    variant="outlined"
+                    sx={{ textTransform: 'capitalize' }}
+                    color="error"
+                  >
+                    Delete
+                  </Button>
+                </Stack>
+                <MapModal location={userData?.location} />
               </Stack>
             </Stack>
             <Divider sx={{ my: 3 }} />
@@ -247,9 +276,7 @@ export default function Setting() {
               <Box>
                 <Location setFieldValue={setFieldValue} errors={errors} />
               </Box>
-              <Box>
-                <MapComponent />
-              </Box>
+              <Box></Box>
             </Stack>
 
             <CustomButton
