@@ -34,3 +34,23 @@ export const updateLoggedUserPass = async ({ token, values }) => {
   };
   return await axios.request(options);
 };
+// export const DeactivateUser = async ({ token }) => {
+//   const options = {
+//     url: `${API_URL}/deactivate`,
+//     method: 'PATCH',
+//     headers: {
+//       Authorization: `Bearer ${token}`,
+//     },
+//   };
+//   return await axios.request(options);
+// };
+// export const ActiveUser = async ({ token }) => {
+//   const options = {
+//     url: `${API_URL}/deactivate`,
+//     method: 'PATCH',
+//     headers: {
+//       Authorization: `Bearer ${token}`,
+//     },
+//   };
+//   return await axios.request(options);
+// };

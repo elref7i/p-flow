@@ -10,11 +10,15 @@ import {
 } from '@mui/material';
 import Profile from './Profile';
 import ChangePassword from './ChangePassword';
+import EmailUser from './EmailUser';
+import { useTypeContext } from '../../context/UserType.context';
+import DeactivateAcount from './DeactivateAcount';
 
 export default function Setting() {
   const theme = useTheme();
   const [tabIndex, setTabIndex] = useState(0);
   const isSmallScreen = useMediaQuery(theme.breakpoints.down('md'));
+  const { userData } = useTypeContext();
 
   const handleTabChange = (event, newIndex) => {
     setTabIndex(newIndex);
@@ -38,16 +42,16 @@ export default function Setting() {
             borderRight: 1,
             borderColor: 'divider',
             '& .MuiTabs-indicator': {
-              backgroundColor: theme.palette.action.active, // لون المؤشر
+              backgroundColor: theme.palette.action.active,
             },
           }}
         >
           <Tab
             label="Profile"
             sx={{
-              color: theme.palette.text.primary, // لون النص
+              color: theme.palette.text.primary,
               '&.Mui-selected': {
-                color: theme.palette.action.active, // لون النص عند التحديد
+                color: theme.palette.action.active,
               },
               textTransform: 'capitalize',
             }}
@@ -55,29 +59,29 @@ export default function Setting() {
           <Tab
             label="Change Password"
             sx={{
-              color: theme.palette.text.primary, // لون النص
+              color: theme.palette.text.primary,
               '&.Mui-selected': {
-                color: theme.palette.action.active, // لون النص عند التحديد
+                color: theme.palette.action.active,
               },
               textTransform: 'capitalize',
             }}
           />
           <Tab
-            label="Security"
+            label="Email"
             sx={{
-              color: theme.palette.text.primary, // لون النص
+              color: theme.palette.text.primary,
               '&.Mui-selected': {
-                color: theme.palette.action.active, // لون النص عند التحديد
+                color: theme.palette.action.active,
               },
               textTransform: 'capitalize',
             }}
           />
           <Tab
-            label="Preferences"
+            label="deactivate your account"
             sx={{
-              color: theme.palette.text.primary, // لون النص
+              color: theme.palette.text.primary,
               '&.Mui-selected': {
-                color: theme.palette.action.active, // لون النص عند التحديد
+                color: theme.palette.action.active,
               },
               textTransform: 'capitalize',
             }}
@@ -87,14 +91,10 @@ export default function Setting() {
 
       {/* Content */}
       <Paper sx={{ flex: 1, p: 4, borderRadius: 2 }}>
-        {tabIndex === 0 && <Profile />}
+        {tabIndex === 0 && <Profile userData={userData} />}
         {tabIndex === 1 && <ChangePassword />}
-        {tabIndex === 2 && (
-          <Typography>Preferences Settings (Under Development)</Typography>
-        )}
-        {tabIndex === 3 && (
-          <Typography>Preferences Settings (Under Development)</Typography>
-        )}
+        {tabIndex === 2 && <EmailUser userData={userData} />}
+        {tabIndex === 3 && <DeactivateAcount />}
       </Paper>
     </Stack>
   );
