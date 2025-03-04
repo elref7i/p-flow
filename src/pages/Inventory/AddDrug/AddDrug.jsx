@@ -64,18 +64,6 @@ export default function AddDrug() {
           error={errors.manufacturer && touched.manufacturer}
           helperText={touched.manufacturer && errors.manufacturer}
         />
-        <TextField
-          fullWidth
-          label="Description"
-          name="description"
-          margin="normal"
-          type="text"
-          value={values.description}
-          onChange={handleChange}
-          onBlur={handleBlur}
-          error={errors.description && touched.description}
-          helperText={touched.description && errors.description}
-        />
       </Stack>
 
       <Stack direction={"row"} gap={1}>
@@ -144,53 +132,69 @@ export default function AddDrug() {
         />
       </Stack>
 
+      <Stack direction={{ xs: "column", sm: "row" }} gap={2}>
+        <TextField
+          fullWidth
+          label="Price"
+          name="price"
+          margin="normal"
+          type="number"
+          value={values.price}
+          onChange={handleChange}
+          onBlur={handleBlur}
+          error={errors.price && touched.price}
+          helperText={touched.price && errors.price}
+        />
+        <TextField
+          fullWidth
+          label="Discount"
+          name="discount"
+          margin="normal"
+          type="number"
+          value={values.discount}
+          onChange={handleChange}
+          onBlur={handleBlur}
+          error={errors.discount && touched.discount}
+          helperText={touched.discount && errors.discount}
+        />
+      </Stack>
+      <Stack direction={{ xs: "column", sm: "row" }} gap={2}>
+        <TextField
+          fullWidth
+          label="Stock"
+          name="stock"
+          margin="normal"
+          type="number"
+          value={values.stock}
+          onChange={handleChange}
+          onBlur={handleBlur}
+          error={errors.stock && touched.stock}
+          helperText={touched.stock && errors.stock}
+        />
+        <TextField
+          fullWidth
+          label="Sold"
+          name="sold"
+          margin="normal"
+          type="number"
+          value={values.sold}
+          onChange={handleChange}
+          onBlur={handleBlur}
+          error={errors.sold && touched.sold}
+          helperText={touched.sold && errors.sold}
+        />
+      </Stack>
       <TextField
         fullWidth
-        label="Price"
-        name="price"
+        label="Description"
+        name="description"
         margin="normal"
-        type="number"
-        value={values.price}
+        type="text"
+        value={values.description}
         onChange={handleChange}
         onBlur={handleBlur}
-        error={errors.price && touched.price}
-        helperText={touched.price && errors.price}
-      />
-      <TextField
-        fullWidth
-        label="Discount"
-        name="discount"
-        margin="normal"
-        type="number"
-        value={values.discount}
-        onChange={handleChange}
-        onBlur={handleBlur}
-        error={errors.discount && touched.discount}
-        helperText={touched.discount && errors.discount}
-      />
-      <TextField
-        fullWidth
-        label="Stock"
-        name="stock"
-        margin="normal"
-        type="number"
-        value={values.stock}
-        onChange={handleChange}
-        onBlur={handleBlur}
-        error={errors.stock && touched.stock}
-        helperText={touched.stock && errors.stock}
-      />
-      <TextField
-        fullWidth
-        label="Sold"
-        name="sold"
-        margin="normal"
-        type="number"
-        value={values.sold}
-        onChange={handleChange}
-        onBlur={handleBlur}
-        error={errors.sold && touched.sold}
-        helperText={touched.sold && errors.sold}
+        error={errors.description && touched.description}
+        helperText={touched.description && errors.description}
       />
 
       <CustomButton
