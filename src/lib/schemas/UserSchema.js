@@ -33,3 +33,28 @@ export const updatesLoggedUserPass = Yup.object({
       'New password must be different from the old password.'
     ),
 });
+
+// مخطط التحقق باستخدام Yup
+
+export const UploadImageSchema = Yup.object().shape({
+  imageProfile: Yup.mixed()
+    .required('Please select an image file.')
+    .test(
+      'fileType',
+      'Invalid file type. Please upload a JPEG, PNG, or GIF image.',
+      (value) => {
+        if (!value) return false;
+        const allowedTypes = ['image/jpeg', 'image/png', 'image/gif'];
+        return allowedTypes.includes(value.type);
+      }
+    )
+    .test(
+      'fileSize',
+      'File size is too large. Please upload an image less than 5MB.',
+      (value) => {
+        if (!value) return false;
+        const maxSize = 5 * 1024 * 1024; // 5MB
+        return value.size <= maxSize;
+      }
+    ),
+});

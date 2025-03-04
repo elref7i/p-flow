@@ -1,15 +1,16 @@
-import { Avatar, Box, useTheme } from '@mui/material';
-import ImageAdmin from '@/assets/photo_2024-12-03_19-37-17.jpg';
+import { Avatar, Box, Paper, useTheme } from '@mui/material';
 import PopoverModal from '../../../components/UserModal/PopoverModal/PopoverModal';
+import { useTypeContext } from '../../../context/UserType.context';
 
 export default function UploadProfileImage() {
   const theme = useTheme();
+  const { userData } = useTypeContext();
 
   return (
-    <Box
+    <Paper
+      elevation={7}
       sx={{
         position: 'relative',
-        bgcolor: 'red',
         overflow: 'hidden',
         width: 170,
         height: 170,
@@ -20,7 +21,7 @@ export default function UploadProfileImage() {
       }}
     >
       <Avatar
-        src={ImageAdmin}
+        src={userData.profileImage}
         sx={{ width: '100%', height: '100%', objectFit: 'cover' }}
       />
       <Box
@@ -44,6 +45,6 @@ export default function UploadProfileImage() {
       >
         <PopoverModal />
       </Box>
-    </Box>
+    </Paper>
   );
 }
