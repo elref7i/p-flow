@@ -7,7 +7,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import LeftAuth from '@/components/Common/LeftAuth';
 import { updateAuthSchema } from '@/lib/schemas/AuthSchema';
-import PasswordControl from '../../../components/Common/FormControl';
+import PasswordControl from '@/components/Common/PasswordControl';
 
 export default function UpdatedPassword() {
   const navigator = useNavigate();
