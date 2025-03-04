@@ -8,6 +8,7 @@ export const passwordRegx = /^\d{8,}$/;
 export const emailField = Yup.string()
   .matches(emailRegex, 'Invalid email')
   .required('Email is required');
+
 export const passwordField = Yup.string()
   .matches(passwordRegx, 'Password must be exactly 8 digits')
   .required('Password is required');

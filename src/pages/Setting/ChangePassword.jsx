@@ -1,11 +1,4 @@
-import {
-  Box,
-  CircularProgress,
-  Divider,
-  Stack,
-  Typography,
-  useTheme,
-} from '@mui/material';
+import { Box, CircularProgress, Divider, Stack, useTheme } from '@mui/material';
 import { useFormik } from 'formik';
 import { updatesLoggedUserPass } from '@/lib/schemas/UserSchema';
 import PasswordControl from '@/components/Common/PasswordControl';
@@ -14,6 +7,8 @@ import { useUpdatePassUSer } from '@/lib/hooks/useUserAction';
 import WarningAmberIcon from '@mui/icons-material/WarningAmber';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import { useTypeContext } from '@/context/UserType.context';
+import { CustomHead } from '@/components/Common/CustomTypography';
+import { CustomParagraph } from '../../components/Common/CustomTypography';
 
 export default function ChangePassword() {
   const { token } = useTypeContext();
@@ -41,13 +36,13 @@ export default function ChangePassword() {
 
   return (
     <Box maxWidth={'lg'} margin="auto">
-      <Typography color={theme.palette.text.primary} variant="h5" mb={1}>
+      <CustomHead color={theme.palette.text.primary} variant="h5" mb={1}>
         Update Your Password
-      </Typography>
-      <Typography variant="body2" color="text.secondary" mb={3}>
+      </CustomHead>
+      <CustomParagraph mb={3}>
         Please enter your old password and set a new password to update your
         account security.
-      </Typography>
+      </CustomParagraph>
       <Divider />
 
       <Stack spacing={2} mt={5} component="form" onSubmit={handleSubmit}>

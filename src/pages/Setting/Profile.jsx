@@ -1,9 +1,9 @@
+/* eslint-disable react/prop-types */
 import {
   Box,
   Divider,
   Stack,
   TextField,
-  Typography,
   InputLabel,
   CircularProgress,
 } from '@mui/material';
@@ -17,9 +17,13 @@ import { useTypeContext } from '@/context/UserType.context';
 import { useUpdateLoggedUser } from '@/lib/hooks/useUserAction';
 import MapModal from '@/components/UserModal/MapComponent/MapComponent';
 import UploadProfileImage from './UploadImage/UploadImage';
+import {
+  CustomHead,
+  CustomParagraph,
+} from '../../components/Common/CustomTypography';
 
-export default function Profile() {
-  const { userData, token, fetchUserData } = useTypeContext();
+export default function Profile({ userData }) {
+  const { token, fetchUserData } = useTypeContext();
   const { mutateAsync, isLoading, isError, isSuccess } = useUpdateLoggedUser();
   const {
     handleSubmit,
@@ -74,13 +78,13 @@ export default function Profile() {
   }, [userData, resetForm]);
   return (
     <>
-      <Typography variant="h5" fontWeight={'bold'} mb={2}>
+      <CustomHead variant="h5" fontWeight={'bold'} mb={1}>
         Profile Settings
-      </Typography>
-      <Typography variant="body2" color="text.secondary" mb={3}>
+      </CustomHead>
+      <CustomParagraph mb={3}>
         Update your profile details, including your name, contact information,
         and location.
-      </Typography>
+      </CustomParagraph>
       <Divider sx={{ mb: 3 }} />
       <Stack
         component={'form'}
