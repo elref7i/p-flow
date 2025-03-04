@@ -1,11 +1,11 @@
-import axios from "axios";
-import { API_URL } from "./api_url";
+import axios from 'axios';
+import { API_URL_DRUG } from './api_url';
 
 // ^ Add Drug
 export const addDrug = async ({ token, values }) => {
   const options = {
-    url: `${API_URL}/api/v1/drugs`,
-    method: "POST",
+    url: `${API_URL_DRUG}`,
+    method: 'POST',
     data: values,
     headers: {
       Authorization: `Bearer ${token}`,
@@ -17,8 +17,8 @@ export const addDrug = async ({ token, values }) => {
 // * Delete Drug
 export const deleteDrug = async ({ token, drugId }) => {
   const options = {
-    url: `${API_URL}/api/v1/drugs/${drugId}`,
-    method: "DELETE",
+    url: `${API_URL_DRUG}${drugId}`,
+    method: 'DELETE',
     headers: {
       Authorization: `Bearer ${token}`,
     },
@@ -29,8 +29,8 @@ export const deleteDrug = async ({ token, drugId }) => {
 // & Update Drug
 export const updateDrug = async ({ token, values, drugId }) => {
   const options = {
-    url: `${API_URL}/api/v1/drugs/${drugId}`,
-    method: "PUT",
+    url: `${API_URL_DRUG}${drugId}`,
+    method: 'PUT',
     data: values,
     headers: {
       Authorization: `Bearer ${token}`,
@@ -42,8 +42,8 @@ export const updateDrug = async ({ token, values, drugId }) => {
 // ~ get specific Drug
 export const getSpecificDrug = async ({ token, drugId }) => {
   const options = {
-    url: `${API_URL}/api/v1/drugs/${drugId}`,
-    method: "GET",
+    url: `${API_URL_DRUG}${drugId}`,
+    method: 'GET',
     headers: {
       Authorization: `Bearer ${token}`,
     },

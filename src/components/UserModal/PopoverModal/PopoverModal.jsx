@@ -5,11 +5,35 @@ import { Box, styled, useTheme } from '@mui/material';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import CustomButton from '../../Common/ButtonStyle';
 import AlertModal from '../../AdminComonents/MessageAlert/MessageAlert';
+import toast from 'react-hot-toast';
+import { API_URL } from '@/lib/api/api_url';
+import { useTypeContext } from '@/context/UserType.context';
+import axios from 'axios';
 export default function PopoverModal() {
+  const { token } = useTypeContext();
   const theme = useTheme();
 
   const [anchorEl, setAnchorEl] = React.useState(null);
 
+  async function handleUploadImage() {
+    const loading = toast.loading('Deactivating your account...');
+    try {
+      const options = {
+        url: `${API_URL}profileimage`,
+        method: 'PATCH',
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      };
+      const { data } = await axios.request(options);
+      console.log(data);
+    } catch (error) {
+      console.error(error);
+      toast.error('An error occurred while deactivating your account');
+    } finally {
+      toast.dismiss(loading);
+    }
+  }
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
