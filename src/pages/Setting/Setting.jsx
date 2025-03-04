@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import {
   Stack,
-  Typography,
   Paper,
   Tabs,
   Tab,

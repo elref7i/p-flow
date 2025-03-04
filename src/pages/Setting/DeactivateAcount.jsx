@@ -6,7 +6,6 @@ import {
 import axios from 'axios';
 import { API_URL } from '@/lib/api/api_url';
 import { useTypeContext } from '@/context/UserType.context';
-import CustomButton from '../../components/Common/ButtonStyle';
 import toast from 'react-hot-toast';
 export default function DeactivateAcount() {
   const { token } = useTypeContext();
@@ -21,8 +20,8 @@ export default function DeactivateAcount() {
           Authorization: `Bearer ${token}`,
         },
       };
-      await axios.request(options);
-      toast.success('Your account has been deactivated');
+      const { data } = await axios.request(options);
+      console.log(data);
     } catch (error) {
       console.error(error);
       toast.error('An error occurred while deactivating your account');
@@ -40,7 +39,9 @@ export default function DeactivateAcount() {
           Authorization: `Bearer ${token}`,
         },
       };
-      await axios.request(options);
+      const { data } = await axios.request(options);
+      console.log(data);
+
       toast.success('Your account has been activated');
     } catch (error) {
       console.error(error);
@@ -65,10 +66,12 @@ export default function DeactivateAcount() {
         spacing={2}
         justifyContent={'center'}
       >
-        <Button color="error" onClick={deactiveUser}>
+        <Button type="submit" color="error" onClick={deactiveUser}>
           Deactive
         </Button>
-        <Button color="success">Active</Button>
+        <Button type="submit" color="success" onClick={activeUser}>
+          Active
+        </Button>
       </Stack>
     </>
   );
