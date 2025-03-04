@@ -1,10 +1,5 @@
 import * as Yup from 'yup';
-const phoneRegx = /^(02)?01[0125][0-9]{8}/;
-const passwordRegx = /^\d{8,}$/;
-
-const passwordField = Yup.string()
-  .matches(passwordRegx, 'Password must be exactly 8 digits') // ✅ تصحيح التحقق من الباسورد
-  .required('Password is required');
+import { phoneRegx, passwordRegx } from './Regx';
 
 export const loggedUserSchema = Yup.object().shape({
   name: Yup.string().required('User name is required'),

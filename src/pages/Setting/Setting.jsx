@@ -10,6 +10,7 @@ import {
 } from '@mui/material';
 import Profile from './Profile';
 import ChangePassword from './ChangePassword';
+
 export default function Setting() {
   const theme = useTheme();
   const [tabIndex, setTabIndex] = useState(0);

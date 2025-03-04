@@ -12,10 +12,10 @@ import WarningAmberIcon from '@mui/icons-material/WarningAmber';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import CustomButton from '@/components/Common/ButtonStyle';
 import Location from '@/components/Loaction/Location';
-import { loggedUserSchema } from '../../lib/schemas/UserSchema';
+import { loggedUserSchema } from '@/lib/schemas/UserSchema';
 import { useTypeContext } from '@/context/UserType.context';
 import { useUpdateLoggedUser } from '@/lib/hooks/useUserAction';
-import MapModal from '../../components/UserModal/MapComponent/MapComponent';
+import MapModal from '@/components/UserModal/MapComponent/MapComponent';
 import UploadProfileImage from './UploadImage/UploadImage';
 
 export default function Profile() {

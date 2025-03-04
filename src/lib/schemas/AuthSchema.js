@@ -1,21 +1,11 @@
 import * as Yup from 'yup';
-
-const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-const phoneRegx = /^(02)?01[0125][0-9]{8}/;
-const passwordRegx = /^\d{8,}$/;
-const codeRegx = /^\d{6}$/;
-
-const emailField = Yup.string()
-  .matches(emailRegex, 'Invalid email')
-  .required('Email is required');
-
-const passwordField = Yup.string()
-  .matches(passwordRegx, 'Password must be exactly 8 digits') // ✅ تصحيح التحقق من الباسورد
-  .required('Password is required');
-
-const confirmPasswordField = Yup.string()
-  .oneOf([Yup.ref('password'), null], 'Passwords must match')
-  .required('Confirm password is required');
+import {
+  codeRegx,
+  confirmPasswordField,
+  emailField,
+  passwordField,
+  phoneRegx,
+} from './Regx';
 
 export const signupSchema = Yup.object().shape({
   name: Yup.string().required('User name is required'),

@@ -1,14 +1,5 @@
 import * as Yup from 'yup';
-const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-const phoneRegx = /^(02)?01[0125][0-9]{8}/;
-const passwordRegx = /^\d{8,}$/;
-
-const emailField = Yup.string()
-  .matches(emailRegex, 'Invalid email')
-  .required('Email is required');
-const passwordField = Yup.string()
-  .matches(passwordRegx, 'Password must be exactly 8 digits')
-  .required('Password is required');
+import { emailField, passwordField, phoneRegx } from './Regx';
 
 const confirmPasswordField = Yup.string()
   .oneOf([Yup.ref('password'), null], 'Passwords must match')
