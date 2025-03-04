@@ -10,10 +10,9 @@ import ModeEditOutlineRoundedIcon from '@mui/icons-material/ModeEditOutlineRound
 
 const ImageUploader = () => {
   const theme = useTheme();
-  const { userData, fetchUserData, token } = useTypeContext();
+  const { fetchUserData, token } = useTypeContext();
   const [image, setImage] = useState(null); // الصورة المختارة
   const [openModal, setOpenModal] = useState(false); // حالة فتح/إغلاق الـ Modal
-  const [croppedImage, setCroppedImage] = useState(null); // الصورة المقتطعة
   const [isLoading, setIsLoading] = useState(false); // حالة التحميل
   const editorRef = useRef(null);
 
@@ -91,14 +90,6 @@ const ImageUploader = () => {
           }}
         />
       </label>
-
-      {croppedImage && (
-        <img
-          src={croppedImage}
-          alt="Cropped"
-          style={{ width: '200px', height: '200px', marginTop: '20px' }}
-        />
-      )}
 
       <Modal open={openModal} onClose={() => setOpenModal(false)}>
         <Box

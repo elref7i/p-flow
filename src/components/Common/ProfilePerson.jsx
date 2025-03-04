@@ -9,7 +9,6 @@ import {
   Typography,
   useTheme,
 } from '@mui/material';
-import ImageAdmin from '@/assets/photo_2024-12-03_19-37-17.jpg';
 import { useTypeContext } from '@/context/UserType.context';
 import { useState } from 'react';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
@@ -53,7 +52,7 @@ export default function ProfilePerson({ open }) {
           <>
             <Avatar
               alt={userData.name}
-              src={ImageAdmin}
+              src={userData.profileImage}
               sx={{
                 width: open ? 50 : 40,
                 height: open ? 50 : 40,
