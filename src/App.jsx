@@ -7,13 +7,12 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import ThemeModeProvider from './context/theme.context';
 import ForgetPasswordProvider from './context/Forget.context';
 import UserTypeProvider from './context/UserType.context';
-
 import SkeletonLoader from './components/SkeletonLoader/SkeletonLoader';
 import ForgetProtectedRoute from './components/ForgetProtectedRoute/ForgetProtectedRoute';
 import ProtectedRoute from '@/components/ProtectedRoute/ProtectedRoute';
 import GuestRoute from '@/components/GuestRoute/GuestRoute';
 import AddDrug from './pages/Inventory/AddDrug/AddDrug';
-
+import LandingPage from './pages/auth/Landing/Landing';
 
 const Layout = lazy(() => import('@/Layout/Layout'));
 const Login = lazy(() => import('@/pages/auth/Login/Login'));
@@ -28,7 +27,7 @@ const ForgetPassword = lazy(() =>
 const VerifySendCoding = lazy(() =>
   import('@/pages/auth/VerifySendCoding/VerifySendCoding')
 );
-const LandingPage = lazy(() => import('@/pages/auth/Landing/Landing'));
+// const LandingPage = lazy(() => import('@/pages/auth/Landing/Landing'));
 const Users = lazy(() => import('./pages/Admin/Users/Users'));
 const HomePharmacy = lazy(() =>
   import('./pages/Pharmacy/HomePharmacy/HomePharmacy')

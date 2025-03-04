@@ -1,16 +1,10 @@
 /* eslint-disable react/prop-types */
-import {
-  Button,
-  CircularProgress,
-  Paper,
-  Typography,
-  useTheme,
-} from '@mui/material';
+import { CircularProgress, Paper, Typography, useTheme } from '@mui/material';
 import MyLocationIcon from '@mui/icons-material/MyLocation';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
+import CustomButton from '../Common/ButtonStyle';
 
-// eslint-disable-next-line react/prop-types
 export default function Location({ setFieldValue, errors }) {
   const [isLoading, setIsLoading] = useState(false);
   const theme = useTheme();
@@ -56,7 +50,7 @@ export default function Location({ setFieldValue, errors }) {
       <Typography variant="h6" sx={{ fontWeight: 'bold', textAlign: 'center' }}>
         Select Your Location
       </Typography>
-      <Button
+      <CustomButton
         variant="contained"
         startIcon={
           isLoading ? (
@@ -68,21 +62,17 @@ export default function Location({ setFieldValue, errors }) {
         onClick={handleGetLocation}
         disabled={isLoading}
         sx={{
-          backgroundColor: theme.palette.primary.main,
-          color: theme.palette.primary.contrastText,
-          '&:hover': {
-            backgroundColor: theme.palette.primary.dark,
-          },
-          boxShadow: theme.shadows[3],
+          boxShadow: theme.shadows[4],
           borderRadius: 2,
           padding: '10px 20px',
           fontSize: '16px',
           fontWeight: 'bold',
           minWidth: 150,
+          display: 'flex',
         }}
       >
         {isLoading ? 'Fetching...' : 'Get Location'}
-      </Button>
+      </CustomButton>
     </Paper>
   );
 }

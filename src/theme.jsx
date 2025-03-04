@@ -1,3 +1,7 @@
+//*hover button
+//*Action
+//*Profile Imgae
+
 const colors = {
   // الألوان الأساسية
   primary: '#24292E', // لون أساسي (أسود داكن)
@@ -30,7 +34,7 @@ const colors = {
   darkPaper: '#161B22', // لون المكونات الورقية (رمادي داكن جدًا)
   darkNavbar: '#0D1117', // لون شريط التنقل (أسود داكن جدًا)
   darkTextPrimary: '#C9D1D9', // اللون الأساسي للنصوص (رمادي فاتح)
-  darkTextSecondary: '#8B949E', // اللون الثانوي للنصوص (رمادي متوسط)
+  darkTextSecondary: '#F5F5F5', // اللون الثانوي للنصوص (رمادي متوسط)
   darkGrey: {
     100: '#161B22',
     200: '#21262D',

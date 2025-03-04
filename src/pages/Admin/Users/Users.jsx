@@ -3,7 +3,7 @@ import { Paper, Box, useTheme } from '@mui/material';
 import { columns } from './data';
 import { useTypeContext } from '@/context/UserType.context';
 import { useAllUsers, useDeleteUser } from '@/lib/hooks/useAdminAction';
-import AlertModal from '@/components/AdminComonents/MessagAlert/MessageAlert';
+import AlertModal from '@/components/AdminComonents/MessageAlert/MessageAlert';
 import ModalUpdated from '@/components/AdminComonents/ModalUpdated/ModalUpdated';
 
 export default function Users() {
