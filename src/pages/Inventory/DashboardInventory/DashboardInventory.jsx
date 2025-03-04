@@ -1,53 +1,7 @@
-import * as React from 'react';
-import { useNavigate } from 'react-router-dom';
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
-import Modal from '@mui/material/Modal';
+import AddDrugComponent from "../../../components/AddDrugComponent/AddDrugComponent";
 
-const style = {
-  position: 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  width: 400,
-  bgcolor: 'background.paper',
-  border: '2px solid #000',
-  boxShadow: 24,
-  p: 4,
-};
-
-export default function BasicModal() {
-  const [open, setOpen] = React.useState(false);
-  const navigate = useNavigate();
-
-  const handleOpen = () => {
-    setOpen(true);
-    setTimeout(() => {
-      navigate('adddrugsfromexcel'); 
-    }, 2000);
-  };
-
-  const handleClose = () => setOpen(false);
-
+export default function DashboardInventory() {
   return (
-    <div>
-      <Button onClick={handleOpen}>Add Drugs From Excel Sheet</Button>
-      <Modal
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
-        <Box sx={style}>
-          <Typography id="modal-modal-title" variant="h6" component="h2">
-            Processing...
-          </Typography>
-          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-            You will be redirected to Add Drugs page 
-          </Typography>
-        </Box>
-      </Modal>
-    </div>
-  );
+    <AddDrugComponent/>
+  )
 }
