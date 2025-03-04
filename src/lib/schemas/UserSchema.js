@@ -27,12 +27,12 @@ export const loggedUserSchema = Yup.object().shape({
 export const updatesLoggedUserPass = Yup.object({
   oldPassword: Yup.string()
     .required('Old password is required.')
-    .matches(passwordField, 'Old password must be at least 8 characters long.'),
+    .matches(passwordRegx, 'Old password must be at least 8 characters long.'),
 
   newPassword: Yup.string()
     .required('New password is required.')
     .min(8, 'New password must be at least 8 characters long.')
-    .matches(passwordField, 'New password must be at least 8 characters long.')
+    .matches(passwordRegx, 'New password must be at least 8 characters long.')
     .notOneOf(
       [Yup.ref('oldPassword')],
       'New password must be different from the old password.'

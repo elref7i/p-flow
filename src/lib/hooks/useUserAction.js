@@ -1,5 +1,5 @@
 import toast from 'react-hot-toast';
-import { updateLoggedUserData } from '../api/userAPI';
+import { updateLoggedUserData, updateLoggedUserPass } from '../api/userAPI';
 import { useMutation } from '@tanstack/react-query';
 
 export const useUpdateLoggedUser = () => {
@@ -9,7 +9,18 @@ export const useUpdateLoggedUser = () => {
     },
     onError: (error) => {
       toast.error(error.response.data.message || 'error');
-      console.log(error);
+      console.error(error);
+    },
+  });
+};
+export const useUpdatePassUSer = () => {
+  return useMutation(updateLoggedUserPass, {
+    onSuccess: () => {
+      toast.success('success update password');
+    },
+    onError: (error) => {
+      toast.error(error.response.data.message || 'error');
+      console.error(error);
     },
   });
 };

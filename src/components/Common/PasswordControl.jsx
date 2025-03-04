@@ -6,7 +6,7 @@ import {
   InputAdornment,
   InputLabel,
   OutlinedInput,
-  FormHelperText, // أضف FormHelperText
+  FormHelperText,
 } from '@mui/material';
 import { useState } from 'react';
 
@@ -36,16 +36,16 @@ export default function PasswordControl({
       fullWidth
       sx={{
         '&:focus-within label': {
-          color: 'text.secondary', // تغيير لون الـ label عند التركيز
+          color: 'text.secondary',
         },
         '&:focus-within .MuiOutlinedInput-root': {
           '& fieldset': {
-            borderColor: 'text.secondary', // تغيير لون الـ border عند التركيز
+            borderColor: 'text.secondary',
           },
         },
       }}
       variant="outlined"
-      error={error && touched} // تحديد حالة الخطأ
+      error={error && touched}
     >
       <InputLabel
         color={error && touched ? 'error' : 'primary'}
@@ -60,7 +60,7 @@ export default function PasswordControl({
         value={value}
         onChange={handleChange}
         onBlur={handleBlur}
-        error={error && touched} // تحديد حالة الخطأ
+        error={error && touched}
         endAdornment={
           <InputAdornment position="end">
             <IconButton
@@ -76,9 +76,8 @@ export default function PasswordControl({
             </IconButton>
           </InputAdornment>
         }
-        label="Password"
+        label={text}
       />
-      {/* إضافة FormHelperText لعرض رسالة الخطأ */}
       {error && touched && (
         <FormHelperText error={error && touched}>{error}</FormHelperText>
       )}

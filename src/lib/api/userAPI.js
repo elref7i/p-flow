@@ -23,3 +23,14 @@ export const updateLoggedUserData = async ({ token, values }) => {
   };
   return await axios.request(options);
 };
+export const updateLoggedUserPass = async ({ token, values }) => {
+  const options = {
+    url: `${API_URL}/updateMyPassword`,
+    method: 'PATCH',
+    data: values,
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+  return await axios.request(options);
+};

@@ -1,10 +1,23 @@
-import { Box, Divider, Stack, Typography, useTheme } from '@mui/material';
+import {
+  Box,
+  CircularProgress,
+  Divider,
+  Stack,
+  Typography,
+  useTheme,
+} from '@mui/material';
 import { useFormik } from 'formik';
-import { updatesLoggedUserPass } from '../../lib/schemas/UserSchema';
-import PasswordControl from '../../components/Common/PasswordControl';
-import CustomButton from '../../components/Common/ButtonStyle';
+import { updatesLoggedUserPass } from '@/lib/schemas/UserSchema';
+import PasswordControl from '@/components/Common/PasswordControl';
+import CustomButton from '@/components/Common/ButtonStyle';
+import { useUpdatePassUSer } from '@/lib/hooks/useUserAction';
+import WarningAmberIcon from '@mui/icons-material/WarningAmber';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import { useTypeContext } from '@/context/UserType.context';
 
 export default function ChangePassword() {
+  const { token } = useTypeContext();
+  const { mutate, isError, isSuccess, isLoading } = useUpdatePassUSer();
   const theme = useTheme();
   const {
     handleBlur,
@@ -21,6 +34,7 @@ export default function ChangePassword() {
     },
     validationSchema: updatesLoggedUserPass,
     onSubmit: (values) => {
+      mutate({ token, values });
       console.log(values);
     },
   });
@@ -37,7 +51,15 @@ export default function ChangePassword() {
       <Divider />
 
       <Stack spacing={2} mt={5} component="form" onSubmit={handleSubmit}>
-        {/* New Password */}
+        <PasswordControl
+          name="oldPassword"
+          value={values.oldPassword}
+          touched={touched.oldPassword}
+          error={errors.oldPassword}
+          handleBlur={handleBlur}
+          handleChange={handleChange}
+          text="Old Password"
+        />
         <PasswordControl
           name="newPassword"
           value={values.newPassword}
@@ -48,17 +70,6 @@ export default function ChangePassword() {
           text="New Password"
         />
 
-        {/* Old Password */}
-        <PasswordControl
-          name="oldPassword"
-          value={values.oldPassword}
-          touched={touched.oldPassword}
-          error={errors.oldPassword}
-          handleBlur={handleBlur}
-          handleChange={handleChange}
-          text="Old Password"
-        />
-
         <Box>
           <CustomButton
             type="submit"
@@ -66,6 +77,17 @@ export default function ChangePassword() {
             variant="contained"
             sx={{ mt: 3, ml: 'auto', display: 'flex' }}
             marginInline={'auto 0'}
+            startIcon={
+              isLoading ? (
+                <CircularProgress color="inherit" size={16} />
+              ) : isError ? (
+                <WarningAmberIcon color="warning" size={16} />
+              ) : isSuccess ? (
+                <CheckCircleIcon color="success" size={16} />
+              ) : (
+                ''
+              )
+            }
           >
             Change Password
           </CustomButton>
