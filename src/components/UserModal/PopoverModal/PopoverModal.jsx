@@ -11,12 +11,11 @@ import ModeEditOutlineRoundedIcon from '@mui/icons-material/ModeEditOutlineRound
 const ImageUploader = () => {
   const theme = useTheme();
   const { fetchUserData, token } = useTypeContext();
-  const [image, setImage] = useState(null); // الصورة المختارة
-  const [openModal, setOpenModal] = useState(false); // حالة فتح/إغلاق الـ Modal
-  const [isLoading, setIsLoading] = useState(false); // حالة التحميل
+  const [image, setImage] = useState(null);
+  const [openModal, setOpenModal] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const editorRef = useRef(null);
 
-  // فتح الـ Modal عند اختيار صورة
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     if (file) {
@@ -112,7 +111,7 @@ const ImageUploader = () => {
             height={250}
             border={50}
             borderRadius={125}
-            color={[255, 255, 255, 0.6]} // لون الخلفية
+            color={[255, 255, 255, 0.6]}
             scale={1.2}
             rotate={0}
           />
@@ -120,7 +119,7 @@ const ImageUploader = () => {
             onClick={handleSave}
             variant="contained"
             sx={{ mt: 2 }}
-            disabled={isLoading} // تعطيل الزر أثناء التحميل
+            disabled={isLoading}
           >
             {isLoading ? <CircularProgress size={24} /> : 'Save'}
           </Button>

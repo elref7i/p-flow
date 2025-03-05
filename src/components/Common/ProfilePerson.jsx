@@ -1,7 +1,6 @@
 /* eslint-disable react/prop-types */
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
-import Fade from '@mui/material/Fade';
 import {
   Avatar,
   ListItemIcon,
@@ -48,7 +47,7 @@ export default function ProfilePerson({ open }) {
         textAlign={'center'}
         marginInline={open ? 2 : 0}
       >
-        {userData && (
+        {userData ? (
           <>
             <Avatar
               alt={userData.name}
@@ -79,26 +78,23 @@ export default function ProfilePerson({ open }) {
               </Typography>
             </Stack>
           </>
+        ) : (
+          'Loading'
         )}
 
         {open ? <MoreHorizIcon /> : null}
       </Stack>
       <Menu
-        // sx={{ bgcolor: 'red' }}
         id="fade-menu"
-        MenuListProps={{
-          'aria-labelledby': 'fade-button',
-        }}
         anchorEl={anchorEl}
         open={openMenue}
         onClose={handleClose}
-        TransitionComponent={Fade}
         anchorOrigin={{
-          vertical: 'top', // القائمة تظهر في الأعلى
+          vertical: 'top',
           horizontal: 'right',
         }}
         transformOrigin={{
-          vertical: 'bottom', // القائمة تظهر من الأسفل إلى الأعلى
+          vertical: 'bottom',
           horizontal: 'center',
         }}
       >
