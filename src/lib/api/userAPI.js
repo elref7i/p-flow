@@ -3,7 +3,7 @@ import { API_URL } from './api_url';
 
 export const getloggedUserData = async ({ token }) => {
   const options = {
-    url: `${API_URL}getMe`,
+    url: `${API_URL}/getMe`,
     method: 'GET',
     headers: {
       Authorization: `Bearer ${token}`,
@@ -14,7 +14,7 @@ export const getloggedUserData = async ({ token }) => {
 };
 export const updateLoggedUserData = async ({ token, values }) => {
   const options = {
-    url: `${API_URL}updateMe`,
+    url: `${API_URL}/updateMe`,
     method: 'PATCH',
     data: values,
     headers: {
@@ -25,7 +25,7 @@ export const updateLoggedUserData = async ({ token, values }) => {
 };
 export const updateLoggedUserPass = async ({ token, values }) => {
   const options = {
-    url: `${API_URL}updateMyPassword`,
+    url: `${API_URL}/updateMyPassword`,
     method: 'PATCH',
     data: values,
     headers: {

@@ -14,7 +14,7 @@ export default function DeactivateAcount() {
     const loading = toast.loading('Deactivating your account...');
     try {
       const options = {
-        url: `${API_URL}deactivate`,
+        url: `${API_URL}/deactivate`,
         method: 'PATCH',
         headers: {
           Authorization: `Bearer ${token}`,
@@ -33,7 +33,7 @@ export default function DeactivateAcount() {
     const loading = toast.loading('Activating your account...');
     try {
       const options = {
-        url: `${API_URL}activate`,
+        url: `${API_URL}/activate`,
         method: 'PATCH',
         headers: {
           Authorization: `Bearer ${token}`,

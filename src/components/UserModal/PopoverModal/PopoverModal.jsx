@@ -41,7 +41,7 @@ const ImageUploader = () => {
           await UploadImageSchema.validate({ imageProfile: blob });
 
           const options = {
-            url: `${API_URL}profileimage`,
+            url: `${API_URL}/profileimage`,
             method: 'PATCH',
             data: formdata,
             headers: {

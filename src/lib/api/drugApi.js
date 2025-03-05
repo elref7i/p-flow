@@ -17,7 +17,7 @@ export const addDrug = async ({ token, values }) => {
 // * Delete Drug
 export const deleteDrug = async ({ token, drugId }) => {
   const options = {
-    url: `${API_URL_DRUG}${drugId}`,
+    url: `${API_URL_DRUG}/${drugId}`,
     method: 'DELETE',
     headers: {
       Authorization: `Bearer ${token}`,
@@ -29,7 +29,7 @@ export const deleteDrug = async ({ token, drugId }) => {
 // & Update Drug
 export const updateDrug = async ({ token, values, drugId }) => {
   const options = {
-    url: `${API_URL_DRUG}${drugId}`,
+    url: `${API_URL_DRUG}/${drugId}`,
     method: 'PUT',
     data: values,
     headers: {
@@ -42,7 +42,7 @@ export const updateDrug = async ({ token, values, drugId }) => {
 // ~ get specific Drug
 export const getSpecificDrug = async ({ token, drugId }) => {
   const options = {
-    url: `${API_URL_DRUG}${drugId}`,
+    url: `${API_URL_DRUG}/${drugId}`,
     method: 'GET',
     headers: {
       Authorization: `Bearer ${token}`,
