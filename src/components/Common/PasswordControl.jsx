@@ -35,6 +35,7 @@ export default function PasswordControl({
     <FormControl
       fullWidth
       sx={{
+        mb: 1,
         '&:focus-within label': {
           color: 'text.secondary',
         },

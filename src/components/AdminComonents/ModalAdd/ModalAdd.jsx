@@ -12,6 +12,7 @@ import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import Role from '../../Role/Role';
 import { AdminAddUser } from '../../../lib/schemas/AdminSchema';
 import { useAdminAddUser } from '../../../lib/hooks/useAdminAction';
+import PasswordControl from '../../Common/PasswordControl';
 
 const style = {
   position: 'fixed',
@@ -46,6 +47,7 @@ export default function ModalAdd() {
     setFieldValue,
     errors,
     touched,
+    resetForm,
   } = useFormik({
     initialValues: {
       email: '',
@@ -68,6 +70,7 @@ export default function ModalAdd() {
         {
           onSuccess: () => {
             handleClose();
+            resetForm();
           },
         }
       );
@@ -202,29 +205,23 @@ export default function ModalAdd() {
               error={errors.governorate && touched.governorate}
               helperText={touched.governorate && errors.governorate}
             />
-            <TextField
-              fullWidth
-              label="Password"
+            <PasswordControl
               name="password"
-              margin="normal"
-              type="password"
+              error={errors.password}
               value={values.password}
-              onChange={handleChange}
-              onBlur={handleBlur}
-              error={errors.password && touched.password}
-              helperText={touched.password && errors.password}
+              touched={touched.password}
+              handleBlur={handleBlur}
+              handleChange={handleChange}
+              text="Password"
             />
-            <TextField
-              fullWidth
-              label="Confirm Password"
+            <PasswordControl
               name="rePassword"
-              margin="normal"
-              type="password"
+              error={errors.rePassword}
               value={values.rePassword}
-              onChange={handleChange}
-              onBlur={handleBlur}
-              error={errors.rePassword && touched.rePassword}
-              helperText={touched.rePassword && errors.rePassword}
+              touched={touched.rePassword}
+              handleBlur={handleBlur}
+              handleChange={handleChange}
+              text="Confirm Password"
             />
             <Role
               errors={errors}
