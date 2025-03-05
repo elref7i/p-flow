@@ -13,6 +13,7 @@ import ProtectedRoute from '@/components/ProtectedRoute/ProtectedRoute';
 import GuestRoute from '@/components/GuestRoute/GuestRoute';
 import AddDrug from './pages/Inventory/AddDrug/AddDrug';
 import LandingPage from './pages/auth/Landing/Landing';
+import Users from './pages/Admin/Users/Users';
 
 const Layout = lazy(() => import('@/Layout/Layout'));
 const Login = lazy(() => import('@/pages/auth/Login/Login'));
@@ -28,7 +29,7 @@ const VerifySendCoding = lazy(() =>
   import('@/pages/auth/VerifySendCoding/VerifySendCoding')
 );
 // const LandingPage = lazy(() => import('@/pages/auth/Landing/Landing'));
-const Users = lazy(() => import('./pages/Admin/Users/Users'));
+const UsersAction = lazy(() => import('./pages/Admin/UsersAction/UsersAction'));
 const HomePharmacy = lazy(() =>
   import('./pages/Pharmacy/HomePharmacy/HomePharmacy')
 );
@@ -72,6 +73,7 @@ function App() {
       children: [
         { index: true, element: <DashboardAdmin /> },
         { path: 'users', element: <Users /> },
+        { path: 'usersaction', element: <UsersAction /> },
         { path: 'adduser', element: <AddUser /> },
       ],
     },
@@ -93,7 +95,7 @@ function App() {
       ),
       children: [
         { index: true, element: <DashboardInventory /> },
-        { path: 'adddrugs', element: <AddDrug/> },
+        { path: 'adddrugs', element: <AddDrug /> },
       ],
     },
 

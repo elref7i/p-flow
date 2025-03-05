@@ -4,21 +4,42 @@ export const columns = [
     headerName: 'ID',
     align: 'center',
     headerAlign: 'center',
-    minWidth: 10, // تحديد عرض أدنى للعمود
+    minWidth: 50,
+  },
+  {
+    field: 'active',
+    headerName: 'Active',
+    align: 'center',
+    headerAlign: 'center',
+    minWidth: 100,
+  },
+  {
+    field: 'role',
+    headerName: 'Role',
+    align: 'center',
+    headerAlign: 'center',
+    minWidth: 100,
+  },
+  {
+    field: 'isVerified',
+    headerName: 'Verify',
+    align: 'center',
+    headerAlign: 'center',
+    minWidth: 100,
   },
   {
     field: 'name',
     headerName: 'Name',
     align: 'center',
     headerAlign: 'center',
-    minWidth: 150, // تحديد عرض أدنى للعمود
+    minWidth: 150,
   },
   {
     field: 'ownerName',
     headerName: 'Owner Name',
     align: 'center',
     headerAlign: 'center',
-    minWidth: 150, // تحديد عرض أدنى للعمود
+    minWidth: 150,
   },
   {
     field: 'email',
@@ -26,7 +47,7 @@ export const columns = [
     flex: 1,
     align: 'center',
     headerAlign: 'center',
-    minWidth: 200, // تحديد عرض أدنى للعمود
+    minWidth: 200,
   },
 
   {
@@ -35,7 +56,7 @@ export const columns = [
     flex: 1,
     align: 'center',
     headerAlign: 'center',
-    minWidth: 150, // تحديد عرض أدنى للعمود
+    minWidth: 150,
   },
   {
     field: 'identificationNumber',
@@ -44,7 +65,7 @@ export const columns = [
     align: 'center',
     headerAlign: 'center',
     type: 'number',
-    minWidth: 100, // تحديد عرض أدنى للعمود
+    minWidth: 100,
   },
   {
     field: 'registrationNumber',
@@ -53,27 +74,21 @@ export const columns = [
     align: 'center',
     headerAlign: 'center',
     type: 'number',
-    minWidth: 150, // تحديد عرض أدنى للعمود
+    minWidth: 150,
   },
+
   {
-    field: 'role',
-    headerName: 'Role',
+    field: 'city',
+    headerName: 'City',
     align: 'center',
     headerAlign: 'center',
-    minWidth: 100, // تحديد عرض أدنى للعمود
+    minWidth: 100,
   },
   {
-    field: 'isVerified',
-    headerName: 'Verify',
+    field: 'governorate',
+    headerName: 'Governorate',
     align: 'center',
     headerAlign: 'center',
-    minWidth: 100, // تحديد عرض أدنى للعمود
-  },
-  {
-    field: 'active',
-    headerName: 'Active',
-    align: 'center',
-    headerAlign: 'center',
-    minWidth: 100, // تحديد عرض أدنى للعمود
+    minWidth: 100,
   },
 ];

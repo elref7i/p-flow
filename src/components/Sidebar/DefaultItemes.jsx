@@ -5,6 +5,7 @@ import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 // import PieChartIcon from '@mui/icons-material/PieChart';
 // import TimelineIcon from '@mui/icons-material/Timeline';
 // import MapIcon from '@mui/icons-material/Map';
+import GroupAddIcon from '@mui/icons-material/GroupAdd';
 import HomeIcon from '@mui/icons-material/Home';
 import ArticleIcon from '@mui/icons-material/Article';
 import BarChartIcon from '@mui/icons-material/BarChart';
@@ -15,6 +16,12 @@ export const admin = {
   HeaderSection: [
     { text: 'Dashboard', icon: <HomeIcon />, path: '/admin' },
     { text: 'Users', icon: <GroupIcon />, path: '/admin/users' },
+
+    {
+      text: 'Users Actions',
+      icon: <GroupAddIcon />,
+      path: '/admin/usersaction',
+    },
     {
       text: 'Add User',
       icon: <PersonAddIcon />,
