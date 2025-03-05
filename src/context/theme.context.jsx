@@ -1,3 +1,4 @@
+/* eslint-disable react-refresh/only-export-components */
 import { createTheme, ThemeProvider } from '@mui/material';
 import { createContext, useContext, useMemo, useState } from 'react';
 import { getDesignTokens } from '../theme';
@@ -19,7 +20,14 @@ export default function ThemeModeProvider({ children }) {
   };
   return (
     <ThemeContext.Provider
-      value={{ mode, setMode, handleDrawerClose, handleDrawerOpen, open }}
+      value={{
+        mode,
+        setMode,
+        handleDrawerClose,
+        handleDrawerOpen,
+        open,
+        setOpen,
+      }}
     >
       <ThemeProvider theme={theme}>{children}</ThemeProvider>
     </ThemeContext.Provider>

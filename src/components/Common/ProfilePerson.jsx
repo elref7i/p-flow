@@ -12,11 +12,13 @@ import { useTypeContext } from '@/context/UserType.context';
 import { useState } from 'react';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import { Logout } from '@mui/icons-material';
+import { useThemeContext } from '../../context/theme.context';
 
 export default function ProfilePerson({ open }) {
   const [anchorEl, setAnchorEl] = useState(null);
   const theme = useTheme();
   const { logout, userData } = useTypeContext();
+  const { setOpen } = useThemeContext();
 
   const openMenue = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -99,7 +101,10 @@ export default function ProfilePerson({ open }) {
         }}
       >
         <MenuItem
-          onClick={logout}
+          onClick={() => {
+            logout();
+            setOpen(false);
+          }}
           sx={{
             ':hover': { bgcolor: theme.palette.action.selected },
             borderRadius: 1,

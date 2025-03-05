@@ -26,36 +26,12 @@ export default function Sidebar() {
           )}
         </IconButton>
       </DrawerHeader>
-      {/* <Box textAlign={'center'} marginInline={open ? 2 : 0} marginBlock={0}>
-        <Avatar
-          alt="Ahmed Refai"
-          src={ImageAdmin}
-          sx={{
-            width: open ? 70 : 40,
-            height: open ? 70 : 40,
-            mx: 'auto',
-          }}
-        />
-        <Typography
-          variant="h2"
-          fontWeight={'bold'}
-          fontSize={open ? 20 : 0}
-          color="primary"
-          margin={1}
-        >
-          {userData.name}
-        </Typography>
-        <Typography variant="h3" fontSize={open ? 15 : 0} color="secondary">
-          {role}
-        </Typography>
-      </Box> */}
       <Divider />
       <SidebarSection items={HeaderSection} open={open} />
       <SidebarSection items={MiddleSection} open={open} />
       {FooterSection.length !== 0 && (
         <SidebarSection items={FooterSection} open={open} />
       )}
-      {/* <SidebarSection items={Shared} open={open} /> */}
       <ProfilePerson open={open} />
     </Drawer>
   );
