@@ -44,4 +44,11 @@ export const columns = [
     headerAlign: 'center',
     minWidth: 100, // تحديد عرض أدنى للعمود
   },
+  {
+    field: 'isVerified',
+    headerName: 'Verify',
+    align: 'center',
+    headerAlign: 'center',
+    minWidth: 100, // تحديد عرض أدنى للعمود
+  },
 ];
