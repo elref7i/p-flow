@@ -1,5 +1,5 @@
 import { Avatar, Box } from '@mui/material';
-import { columns } from './data';
+import { columns } from './Allusers';
 import { useAllUsers } from '@/lib/hooks/useAdminAction';
 import Table from '../../../components/AdminComonents/Table/Table';
 

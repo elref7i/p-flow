@@ -38,7 +38,9 @@ export default function AlertModal({ handleAction, isDeleting }) {
         variant="contained"
         color="error"
         fullWidth
-        sx={{ fontSize: { xs: '13px', md: '15px' } }}
+        sx={{
+          fontSize: { xs: '13px', md: '15px', textTransform: 'capitalize' },
+        }}
         startIcon={<DeleteIcon />}
       >
         Delete

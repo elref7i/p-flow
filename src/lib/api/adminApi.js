@@ -18,6 +18,17 @@ export const addAdminUser = async ({ token, values }) => {
   };
   return axios.request(options);
 };
+export const ActiveAdminUser = async ({ token, values, userId }) => {
+  const options = {
+    url: `${API_URL}activate/${userId}`,
+    method: 'POST',
+    data: values,
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+  return axios.request(options);
+};
 
 export const deleteUser = async ({ userId, token }) => {
   const options = {

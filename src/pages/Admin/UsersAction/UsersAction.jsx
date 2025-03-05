@@ -1,4 +1,4 @@
-import { Box } from '@mui/material';
+import { Box, Button } from '@mui/material';
 import { columns } from './data';
 import { useTypeContext } from '@/context/UserType.context';
 import { useAllUsers, useDeleteUser } from '@/lib/hooks/useAdminAction';
@@ -35,6 +35,27 @@ export default function UsersAction() {
             isDeleting={isDeleting}
             handleAction={() => handleDelete({ userId: params.row._id, token })}
           />
+        </Box>
+      );
+    },
+  };
+  const ActiveUser = {
+    field: 'Acitve',
+    headerName: 'Active',
+    align: 'center',
+    headerAlign: 'center',
+    renderCell: (params) => {
+      return (
+        <Box
+          sx={{
+            pt: 1,
+            display: 'flex',
+            alignItems: 'center',
+          }}
+        >
+          <Button variant="contained" fullWidth color="success">
+            Active
+          </Button>
         </Box>
       );
     },
@@ -83,7 +104,12 @@ export default function UsersAction() {
     },
   };
 
-  const columnsWithActions = [...columns, DeletedColumn, updatedColumn];
+  const columnsWithActions = [
+    ...columns,
+    ActiveUser,
+    DeletedColumn,
+    updatedColumn,
+  ];
 
   return (
     <Table

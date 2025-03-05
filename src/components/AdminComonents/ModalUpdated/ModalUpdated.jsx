@@ -103,7 +103,9 @@ export default function ModalUpdated({ userId }) {
         }}
         variant="contained"
         color="warning"
-        sx={{ fontSize: { xs: '10px', md: '15px' } }}
+        sx={{
+          fontSize: { xs: '10px', md: '15px', textTransform: 'capitalize' },
+        }}
         startIcon={<EditIcon />}
       >
         Updated
