@@ -4,7 +4,7 @@ import { useTypeContext } from '@/context/UserType.context';
 import { useAllUsers, useDeleteUser } from '@/lib/hooks/useAdminAction';
 import AlertModal from '@/components/AdminComonents/MessageAlert/MessageAlert';
 import ModalUpdated from '@/components/AdminComonents/ModalUpdated/ModalUpdated';
-import Table from '../../../components/AdminComonents/Table/Table';
+import Table from '../../../components/Table/Table';
 import { useActiveAdminUser } from '../../../lib/hooks/useAdminAction';
 
 export default function UsersAction() {
@@ -102,11 +102,13 @@ export default function UsersAction() {
   ];
 
   return (
-    <Table
-      isLoading={isLoading}
-      data={filteredData}
-      columnsWithActions={columnsWithActions}
-      check={true}
-    />
+    <>
+      <Table
+        isLoading={isLoading}
+        data={filteredData}
+        columnsWithActions={columnsWithActions}
+        check={true}
+      />
+    </>
   );
 }

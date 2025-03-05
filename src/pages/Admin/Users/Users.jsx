@@ -1,7 +1,7 @@
 import { Avatar, Box } from '@mui/material';
 import { columns } from './Allusers';
 import { useAllUsers } from '@/lib/hooks/useAdminAction';
-import Table from '../../../components/AdminComonents/Table/Table';
+import Table from '../../../components/Table/Table';
 
 export default function Users() {
   const { data, isLoading } = useAllUsers();
