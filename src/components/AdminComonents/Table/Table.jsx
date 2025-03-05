@@ -2,12 +2,7 @@
 import { Paper, useTheme } from '@mui/material';
 import { DataGrid, GridToolbar } from '@mui/x-data-grid';
 
-export default function Table({
-  isLoading,
-  filteredData,
-  columnsWithActions,
-  check,
-}) {
+export default function Table({ isLoading, data, columnsWithActions, check }) {
   const theme = useTheme();
 
   return (
@@ -22,7 +17,7 @@ export default function Table({
       }}
     >
       <DataGrid
-        rows={filteredData}
+        rows={data}
         columns={columnsWithActions}
         getRowId={(row) => row._id}
         loading={isLoading}

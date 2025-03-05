@@ -48,7 +48,7 @@ const AppBar = styled(MuiAppBar, {
 
 export default function Navbar() {
   const theme = useTheme();
-  const { token } = useTypeContext();
+  const { token, role } = useTypeContext();
   const { setMode, open, handleDrawerOpen } = useThemeContext();
   return (
     <AppBar
@@ -77,7 +77,7 @@ export default function Navbar() {
           <Typography variant="h6" noWrap color="text.primary">
             <LogoLink>P-Flow</LogoLink>
           </Typography>
-          {token && <InputSearch />}
+          {token && role !== 'admin' && <InputSearch />}
           <Box component={'div'} flexGrow={1} />
           <Stack direction="row" spacing={1} sx={{ alignItems: 'center' }}>
             {theme.palette.mode === 'light'.toLowerCase() ? (

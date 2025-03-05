@@ -18,7 +18,7 @@ export default function Users() {
       return (
         <Box
           sx={{
-            px: 5,
+            pt: 1,
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
@@ -35,7 +35,7 @@ export default function Users() {
   return (
     <Table
       isLoading={isLoading}
-      filteredData={filteredData}
+      data={filteredData}
       columnsWithActions={columnsWithActions}
       check={false}
     />

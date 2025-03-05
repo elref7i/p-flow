@@ -5,6 +5,7 @@ import { useAllUsers, useDeleteUser } from '@/lib/hooks/useAdminAction';
 import AlertModal from '@/components/AdminComonents/MessageAlert/MessageAlert';
 import ModalUpdated from '@/components/AdminComonents/ModalUpdated/ModalUpdated';
 import Table from '../../../components/AdminComonents/Table/Table';
+import { useActiveAdminUser } from '../../../lib/hooks/useAdminAction';
 
 export default function UsersAction() {
   const { token } = useTypeContext();
@@ -12,6 +13,7 @@ export default function UsersAction() {
   const { data, isLoading } = useAllUsers();
 
   const { isLoading: isDeleting, mutate: handleDelete } = useDeleteUser();
+  const { mutate: handleActive } = useActiveAdminUser();
 
   const filteredData = data ? data.filter((row) => row.role !== 'admin') : [];
 
@@ -47,40 +49,28 @@ export default function UsersAction() {
     renderCell: (params) => {
       return (
         <Box
+          component={'form'}
           sx={{
             pt: 1,
             display: 'flex',
             alignItems: 'center',
           }}
         >
-          <Button variant="contained" fullWidth color="success">
+          <Button
+            type="submit"
+            onClick={() => {
+              handleActive({ userId: params.row._id, token });
+            }}
+            variant="contained"
+            fullWidth
+            color="success"
+          >
             Active
           </Button>
         </Box>
       );
     },
   };
-  // const PrfileImage = {
-  //   field: 'profileImage',
-  //   headerName: 'PrfileImage',
-  //   align: 'center',
-  //   headerAlign: 'center',
-  //   minWidth: 150,
-  //   renderCell: (params) => {
-  //     return (
-  //       <Box
-  //         sx={{
-  //           px: 5,
-  //           display: 'flex',
-  //           alignItems: 'center',
-  //           justifyContent: 'center',
-  //         }}
-  //       >
-  //         <Avatar alt="Remy Sharp" src={params.row.profileImage} />
-  //       </Box>
-  //     );
-  //   },
-  // };
 
   const updatedColumn = {
     field: 'updated',
@@ -114,7 +104,7 @@ export default function UsersAction() {
   return (
     <Table
       isLoading={isLoading}
-      filteredData={filteredData}
+      data={filteredData}
       columnsWithActions={columnsWithActions}
       check={true}
     />

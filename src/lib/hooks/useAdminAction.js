@@ -1,5 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import {
+  ActiveAdminUser,
   addAdminUser,
   deleteUser,
   fetchUsers,
@@ -19,7 +20,22 @@ export const useAdminAddUser = () => {
     },
     onError: (error) => {
       toast.error(error.response.data.message || 'error');
-      console.log(error);
+      console.error(error);
+    },
+  });
+};
+
+//* Active User
+export const useActiveAdminUser = () => {
+  const queryClient = useQueryClient();
+  return useMutation(ActiveAdminUser, {
+    onSuccess: () => {
+      toast.success('The account has been activated');
+      queryClient.invalidateQueries(['users']);
+    },
+    onError: (error) => {
+      toast.error(error.response.data.message || 'error');
+      console.error(error);
     },
   });
 };
