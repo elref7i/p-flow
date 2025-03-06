@@ -9,17 +9,17 @@ import MenuItem from "@mui/material/MenuItem";
 import CircularProgress from "@mui/material/CircularProgress";
 import WarningAmberIcon from "@mui/icons-material/WarningAmber";
 import { useFormik } from "formik";
-import { useTypeContext } from "../../context/UserType.context";
-import { useAddDrug } from "../../lib/hooks/useDrugAction";
-import { DrugSchema } from "../../lib/schemas/DrugSchema";
-import CustomButton from "../Common/ButtonStyle";
+import { useTypeContext } from "../../../context/UserType.context";
+import { useAddDrug } from "../../../lib/hooks/useDrugAction";
+import { DrugSchema } from "../../../lib/schemas/DrugSchema";
+import CustomButton from "../../Common/ButtonStyle";
 
 const style = {
   position: "absolute",
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  width: 600,
+  width: { xs: "85%", sm: "60%", md: "50%" },
   bgcolor: "background.paper",
   boxShadow: 24,
   p: 4,
