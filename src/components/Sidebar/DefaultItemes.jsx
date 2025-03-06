@@ -41,7 +41,7 @@ export const admin = {
 
 export const pharmacy = {
   HeaderSection: [
-    { text: 'Dashboard', icon: <HomeIcon />, path: '/' },
+    { text: 'Dashboard', icon: <HomeIcon />, path: '/pharmacy' },
     { text: 'Drugs', icon: <MedicationIcon />, path: '/pharmacy/drugs' },
     { text: 'Orders', icon: <ArticleIcon />, path: '/orders' },
   ],
