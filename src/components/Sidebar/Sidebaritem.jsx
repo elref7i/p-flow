@@ -27,11 +27,11 @@ export default function Sidebaritem({ item, open }) {
         onClick={handleClick}
         sx={{
           minHeight: 48,
-          px: 2.5,
+          px: 2.4,
           bgcolor:
             pathname === item.path
               ? theme.palette.mode === 'dark'
-                ? '#FAFAFA'
+                ? '#363C44'
                 : '#D1D5DA'
               : 'transparent',
           justifyContent: open ? 'initial' : 'center',

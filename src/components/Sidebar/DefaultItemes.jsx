@@ -20,11 +20,6 @@ export const admin = {
       icon: <GroupAddIcon />,
       path: '/admin/usersaction',
     },
-    {
-      text: 'Add User',
-      icon: <PersonAddIcon />,
-      path: '/admin/adduser',
-    },
   ],
   MiddleSection: [
     { text: 'Invoices', icon: <ArticleIcon />, path: '/invoices' },
