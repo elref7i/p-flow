@@ -13,6 +13,7 @@ import { useState } from 'react';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import { Logout } from '@mui/icons-material';
 import { useThemeContext } from '../../context/theme.context';
+import LoadingSpinner from './Loading/LoadingSpinner';
 
 export default function ProfilePerson({ open }) {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -81,7 +82,7 @@ export default function ProfilePerson({ open }) {
             </Stack>
           </>
         ) : (
-          'Loading'
+          <LoadingSpinner />
         )}
 
         {open ? <MoreHorizIcon /> : null}

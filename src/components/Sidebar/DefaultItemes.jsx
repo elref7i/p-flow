@@ -2,9 +2,7 @@ import GroupIcon from '@mui/icons-material/Group';
 import PersonIcon from '@mui/icons-material/Person';
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
-// import PieChartIcon from '@mui/icons-material/PieChart';
-// import TimelineIcon from '@mui/icons-material/Timeline';
-// import MapIcon from '@mui/icons-material/Map';
+import MedicationIcon from '@mui/icons-material/Medication';
 import GroupAddIcon from '@mui/icons-material/GroupAdd';
 import HomeIcon from '@mui/icons-material/Home';
 import ArticleIcon from '@mui/icons-material/Article';
@@ -44,6 +42,7 @@ export const admin = {
 export const pharmacy = {
   HeaderSection: [
     { text: 'Dashboard', icon: <HomeIcon />, path: '/' },
+    { text: 'Drugs', icon: <MedicationIcon />, path: '/pharmacy/drugs' },
     { text: 'Orders', icon: <ArticleIcon />, path: '/orders' },
   ],
   MiddleSection: [

@@ -40,6 +40,8 @@ const DashboardInventory = lazy(() =>
   import('./pages/Inventory/DashboardInventory/DashboardInventory')
 );
 
+const Drugs = lazy(() => import('./pages/Pharmacy/Drugs/Drugs'));
+
 const AddUser = lazy(() => import('./pages/Admin/AddUser/AddUser'));
 const Setting = lazy(() => import('./pages/Setting/Setting'));
 
@@ -84,7 +86,10 @@ function App() {
           <Layout />
         </ProtectedRoute>
       ),
-      children: [{ index: true, element: <HomePharmacy /> }],
+      children: [
+        { index: true, element: <HomePharmacy /> },
+        { path: 'drugs', element: <Drugs /> },
+      ],
     },
     {
       path: '/inventory',
