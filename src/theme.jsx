@@ -95,4 +95,20 @@ export const getDesignTokens = (mode) => ({
         mode === 'light' ? colors.lightGrey[200] : colors.darkGrey[300],
     },
   },
+  shadows:
+    mode === 'light'
+      ? [
+          'none', // elevation 0 (بدون ظل)
+          '0px 2px 4px rgba(0, 0, 0, 0.2)', // elevation 1 (ظل فاتح للوضع الفاتح)
+          '0px 3px 6px rgba(0, 0, 0, 0.2)', // elevation 2 (ظل فاتح للوضع الفاتح)
+          '0px 4px 8px rgba(0, 0, 0, 0.2)', // elevation 3 (ظل فاتح للوضع الفاتح)
+          // يمكنك إضافة المزيد من الظلال هنا
+        ]
+      : [
+          'none', // elevation 0 (بدون ظل)
+          '0px 2px 4px rgba(255, 255, 255, .1)', // elevation 1 (ظل فاتح للوضع الداكن)
+          '0px 2px 6px rgba(255, 255, 255, .1)', // elevation 2 (ظل فاتح للوضع الداكن)
+          '0px 2px 8px rgba(255, 255, 255, .1)', // elevation 3 (ظل فاتح للوضع الداكن)
+          // يمكنك إضافة المزيد من الظلال هنا
+        ],
 });

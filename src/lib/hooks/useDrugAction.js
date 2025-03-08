@@ -1,6 +1,17 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { addDrug, deleteDrug, updateDrug } from "../api/drugApi";
-import toast from "react-hot-toast";
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { addDrug, deleteDrug, getAllDrugs, updateDrug } from '../api/drugApi';
+import toast from 'react-hot-toast';
+
+//* get all Drugs
+
+export const useAllDrugs = () => {
+  return useQuery({
+    queryKey: ['drugs'],
+    queryFn: getAllDrugs,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
+  });
+};
 
 //* Add Drug
 
@@ -9,11 +20,11 @@ export const useAddDrug = () => {
 
   return useMutation(addDrug, {
     onSuccess: () => {
-      toast.success("Drug added successfully");
-      queryClient.invalidateQueries(["drugs"]);
+      toast.success('Drug added successfully');
+      queryClient.invalidateQueries(['drugs']);
     },
     onError: (error) => {
-      toast.error(error.response.data.message || "error");
+      toast.error(error.response.data.message || 'error');
       console.log(error);
     },
   });
@@ -25,11 +36,11 @@ export const useDeleteDrug = () => {
 
   return useMutation(deleteDrug, {
     onSuccess: () => {
-      toast.success("Drug deleted successfully");
-      queryClient.invalidateQueries(["drugs"]);
+      toast.success('Drug deleted successfully');
+      queryClient.invalidateQueries(['drugs']);
     },
     onError: (error) => {
-      toast.error(error.response.data.message || "error");
+      toast.error(error.response.data.message || 'error');
       console.log(error);
     },
   });
@@ -40,11 +51,11 @@ export const useUpdateDrug = () => {
   const queryClient = useQueryClient();
   return useMutation(updateDrug, {
     onSuccess: () => {
-      toast.success("success");
-      queryClient.invalidateQueries(["drugs"]);
+      toast.success('success');
+      queryClient.invalidateQueries(['drugs']);
     },
     onError: (error) => {
-      toast.error(error.response.data.message || "error");
+      toast.error(error.response.data.message || 'error');
       console.log(error);
     },
   });

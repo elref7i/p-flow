@@ -5,41 +5,79 @@ import {
   CardActions,
   CardMedia,
   Paper,
+  Box,
+  useTheme,
 } from '@mui/material';
 
-const DrugCardWithImage = ({
+export default function DrugCardWithImage({
   drugName,
   description,
   company,
   price,
   imageUrl,
-}) => {
+})
+
+const theme = useTheme();
+{
   return (
     <Paper
       elevation={3}
-      sx={{ maxWidth: 250, borderRadius: 2, overflow: 'hidden' }}
+      sx={{
+        maxWidth: 250,
+        borderRadius: 2,
+        cursor: 'pointer',
+        ':hover': {
+          boxShadow: 'inset 7px -3px 0px 0px #28A745',
+          transition: 'box-shadow 1s, background-color 1s, color 1s',
+        },
+        transition: 'box-shadow 1s, background-color 1s, color 1s',
+
+        p: 1,
+        position: 'relative',
+      }}
     >
-      {/* <CardActionArea> */}
       <Paper
-        elevation={2}
+        // elevation={5}
         sx={{
-          borderBottomRightRadius: 6,
-          borderBottomLeftRadius: 6,
-          overflow: 'hidden',
+          bgcolor: '#fff',
+          borderRadius: 1,
+          position: 'relative',
         }}
       >
         <CardMedia
           component="img"
           height="140"
-          sx={{ objectFit: 'cover' }}
+          sx={{ objectFit: 'contain', overflow: 'hidden' }}
           width={'100%'}
-          image={imageUrl}
+          image={
+            'https://www.netmeds.com/images/product-v1/600x600/397251/nasomist_saline_nasal_spray_20ml_149351_0_2.jpg'
+          }
           alt="green iguana"
         />
+        <Box
+          component={'discount'}
+          sx={{
+            bgcolor: 'red',
+            p: 1,
+            rotate: '-30deg',
+            zIndex: 99,
+            borderRadius: '20px',
+            position: 'absolute',
+            top: -10,
+            right: -30,
+            color: '#fff',
+          }}
+        >
+          25% OFF
+        </Box>
       </Paper>
-      {/* <CardMedia component="img" height="140" image={imageUrl} alt={drugName} /> */}
       <CardContent>
-        <Typography gutterBottom variant="h5" component="div">
+        <Typography
+          gutterBottom
+          variant="h2"
+          sx={{ fontSize: '18px', fontWeight: 'bold' }}
+          component="div"
+        >
           {drugName}
         </Typography>
         <Typography variant="body2" color="text.secondary">
@@ -68,6 +106,6 @@ const DrugCardWithImage = ({
       </CardActions>
     </Paper>
   );
-};
+}
 
-export default DrugCardWithImage;
+// export default DrugCardWithImage;
