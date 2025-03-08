@@ -4,7 +4,14 @@ import { API_URL_DRUG } from './api_url';
 //*get ALL Drugs
 
 export const getAllDrugs = async () => {
-  const { data } = await axios.get(API_URL_DRUG);
+  const options = {
+    url: API_URL_DRUG,
+    method: 'GET',
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+  const data = await axios.get(API_URL_DRUG);
   return data;
 };
 

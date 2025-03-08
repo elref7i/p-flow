@@ -1,8 +1,15 @@
 import { Stack } from '@mui/material';
 import DrugCard from '../../../components/PharmacyComonents/DrugCard/DrugCard';
 import test from '../../../assets/Alto ángulo del carrito de compras con espacio de copia y láminas de pastillas _ Foto Premium.jpg';
+import { useAllDrugs } from '../../../lib/hooks/useDrugAction';
+import LoadingSpinner from '../../../components/Common/Loading/LoadingSpinner';
 
 export default function Drugs() {
+  const { data, isLoading } = useAllDrugs();
+
+  if (isLoading) return <LoadingSpinner />;
+  console.log(data);
+
   return (
     <Stack
       direction={'row'}
