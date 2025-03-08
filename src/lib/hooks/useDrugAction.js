@@ -1,19 +1,6 @@
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { addDrug, deleteDrug, getAllDrugs, updateDrug } from '../api/drugApi';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { addDrug, deleteDrug, updateDrug } from '../api/drugApi';
 import toast from 'react-hot-toast';
-
-//* get all Drugs
-
-export const useAllDrugs = () => {
-  return useQuery({
-    queryKey: ['drugs'],
-    queryFn: getAllDrugs,
-    refetchOnMount: false,
-    refetchOnWindowFocus: false,
-  });
-};
-
-//* Add Drug
 
 export const useAddDrug = () => {
   const queryClient = useQueryClient();

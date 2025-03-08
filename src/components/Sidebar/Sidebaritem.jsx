@@ -12,8 +12,6 @@ export default function Sidebaritem({ item, open }) {
   const navigate = useNavigate();
   const theme = useTheme();
   const { pathname } = useLocation();
-  console.log(pathname);
-  console.log(item.path);
 
   const handleClick = () => {
     if (item.text === 'Sign out') {
