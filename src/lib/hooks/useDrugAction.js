@@ -62,14 +62,3 @@ export const useUpdateDrug = () => {
     },
   });
 };
-
-//* GET ALL Drugs
-
-export const useAllDrugs = () => {
-  return useQuery({
-    queryKey: ['drugs'],
-    queryFn: fetchDrugs,
-    refetchOnMount: false,
-    refetchOnWindowFocus: false,
-  });
-};
