@@ -62,7 +62,7 @@ export const pharmacy = {
 export const inventory = {
   HeaderSection: [
     { text: 'Dashboard', icon: <HomeIcon />, path: '/inventory' },
-    { text: 'Add Drug', icon: <BarChartIcon />, path: '/inventory/adddrugs' },
+    { text: 'AllDrugs', icon: <BarChartIcon />, path: '/inventory/AllDrugs' },
   ],
   MiddleSection: [
     { text: 'Invoices', icon: <ArticleIcon />, path: '/invoices' },

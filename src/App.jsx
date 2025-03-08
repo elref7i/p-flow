@@ -11,9 +11,9 @@ import SkeletonLoader from './components/SkeletonLoader/SkeletonLoader';
 import ForgetProtectedRoute from './components/ForgetProtectedRoute/ForgetProtectedRoute';
 import ProtectedRoute from '@/components/ProtectedRoute/ProtectedRoute';
 import GuestRoute from '@/components/GuestRoute/GuestRoute';
-import AddDrug from './pages/Inventory/AddDrug/AddDrug';
 import LandingPage from './pages/auth/Landing/Landing';
 import Users from './pages/Admin/Users/Users';
+import AllDrugs from './pages/Inventory/AllDrugs/AllDrugs';
 
 const Layout = lazy(() => import('@/Layout/Layout'));
 const Login = lazy(() => import('@/pages/auth/Login/Login'));
@@ -100,7 +100,7 @@ function App() {
       ),
       children: [
         { index: true, element: <DashboardInventory /> },
-        { path: 'adddrugs', element: <AddDrug /> },
+        { path: 'AllDrugs', element: <AllDrugs /> },
       ],
     },
 
