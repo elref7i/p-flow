@@ -7,6 +7,7 @@ export const getAllDrugs = async () => {
   const { data } = await axios.get(API_URL_DRUG);
   return data;
 };
+
 // ^ Add Drug
 export const addDrug = async ({ token, values }) => {
   const options = {
