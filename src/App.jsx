@@ -42,7 +42,6 @@ const DashboardInventory = lazy(() =>
 
 const Drugs = lazy(() => import('./pages/Pharmacy/Drugs/Drugs'));
 
-const AddUser = lazy(() => import('./pages/Admin/AddUser/AddUser'));
 const Setting = lazy(() => import('./pages/Setting/Setting'));
 
 function App() {
@@ -76,7 +75,6 @@ function App() {
         { index: true, element: <DashboardAdmin /> },
         { path: 'users', element: <Users /> },
         { path: 'usersaction', element: <UsersAction /> },
-        { path: 'adduser', element: <AddUser /> },
       ],
     },
     {

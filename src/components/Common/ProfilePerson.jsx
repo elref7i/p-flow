@@ -41,6 +41,7 @@ export default function ProfilePerson({ open }) {
           p: open ? 1 : 0,
           borderRadius: 2,
           ':hover': { bgcolor: theme.palette.grey[400] },
+          transition: 'all ',
         }}
         py={2}
         direction={'row'}
@@ -65,7 +66,7 @@ export default function ProfilePerson({ open }) {
                 textTransform={'capitalize'}
                 variant="h2"
                 fontWeight={'bold'}
-                fontSize={open ? 17 : 0}
+                fontSize={open ? 15 : 0}
                 mb={0.5}
               >
                 {userData.name}
@@ -73,7 +74,7 @@ export default function ProfilePerson({ open }) {
               <Typography
                 textTransform={'capitalize'}
                 variant="h3"
-                fontSize={open ? 14 : 0}
+                fontSize={open ? 12 : 0}
                 color="error"
                 fontWeight={'bold'}
               >

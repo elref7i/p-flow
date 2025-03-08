@@ -20,11 +20,6 @@ export const admin = {
       icon: <GroupAddIcon />,
       path: '/admin/usersaction',
     },
-    {
-      text: 'Add User',
-      icon: <PersonAddIcon />,
-      path: '/admin/adduser',
-    },
   ],
   MiddleSection: [
     { text: 'Invoices', icon: <ArticleIcon />, path: '/invoices' },
@@ -41,7 +36,7 @@ export const admin = {
 
 export const pharmacy = {
   HeaderSection: [
-    { text: 'Dashboard', icon: <HomeIcon />, path: '/' },
+    { text: 'Dashboard', icon: <HomeIcon />, path: '/pharmacy' },
     { text: 'Drugs', icon: <MedicationIcon />, path: '/pharmacy/drugs' },
     { text: 'Orders', icon: <ArticleIcon />, path: '/orders' },
   ],
