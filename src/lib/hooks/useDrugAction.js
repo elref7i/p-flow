@@ -1,5 +1,5 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { addDrug, deleteDrug, updateDrug } from "../api/drugApi";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { addDrug, deleteDrug, fetchDrugs, updateDrug } from "../api/drugApi";
 import toast from "react-hot-toast";
 
 //* Add Drug
@@ -20,6 +20,7 @@ export const useAddDrug = () => {
 };
 
 // * Delete Drug
+
 export const useDeleteDrug = () => {
   const queryClient = useQueryClient();
 
@@ -36,6 +37,7 @@ export const useDeleteDrug = () => {
 };
 
 // * Update Drug
+
 export const useUpdateDrug = () => {
   const queryClient = useQueryClient();
   return useMutation(updateDrug, {
@@ -47,5 +49,16 @@ export const useUpdateDrug = () => {
       toast.error(error.response.data.message || "error");
       console.log(error);
     },
+  });
+};
+
+//* GET ALL Drugs
+
+export const useAllDrugs = () => {
+  return useQuery({
+    queryKey: ["drugs"],
+    queryFn: fetchDrugs,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
   });
 };

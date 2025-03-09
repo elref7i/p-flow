@@ -1,6 +1,15 @@
 import axios from 'axios';
 import { API_URL_DRUG } from './api_url';
 
+
+
+//* GET ALL Users
+
+export const fetchDrugs = async () => {
+  const { data } = await axios.get(API_URL_DRUG);
+  return data.drugs;
+};
+
 // ^ Add Drug
 export const addDrug = async ({ token, values }) => {
   const options = {

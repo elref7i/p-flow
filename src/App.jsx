@@ -14,6 +14,7 @@ import GuestRoute from '@/components/GuestRoute/GuestRoute';
 import LandingPage from './pages/auth/Landing/Landing';
 import Users from './pages/Admin/Users/Users';
 import AllDrugs from './pages/Inventory/AllDrugs/AllDrugs';
+import DrugsAction from './pages/Inventory/DrugsAction/DrugsAction';
 
 const Layout = lazy(() => import('@/Layout/Layout'));
 const Login = lazy(() => import('@/pages/auth/Login/Login'));
@@ -99,6 +100,7 @@ function App() {
       children: [
         { index: true, element: <DashboardInventory /> },
         { path: 'AllDrugs', element: <AllDrugs /> },
+        { path: 'DrugsAction', element: <DrugsAction /> },
       ],
     },
 
