@@ -1,6 +1,5 @@
 import { Stack } from '@mui/material';
 import DrugCard from '../../../components/PharmacyComonents/DrugCard/DrugCard';
-import test from '../../../assets/Alto ángulo del carrito de compras con espacio de copia y láminas de pastillas _ Foto Premium.jpg';
 import LoadingSpinner from '../../../components/Common/Loading/LoadingSpinner';
 import { useTypeContext } from '../../../context/UserType.context';
 import axios from 'axios';
@@ -29,7 +28,7 @@ export default function Drugs() {
   });
 
   if (isLoading) return <LoadingSpinner />;
-  console.log(data);
+  console.log(data.data.data);
 
   return (
     <Stack
@@ -39,48 +38,9 @@ export default function Drugs() {
       alignItems={'center'}
       flexWrap={'wrap'}
     >
-      <DrugCard
-        drugName="Abilify 10 Mg 10 Tabs."
-        description="Used to reduce infladddddddddddddddddddddddddmmation and pain."
-        company="Aya_Abdelsamed"
-        price={220.5}
-        imageUrl={test}
-      />
-      <DrugCard
-        drugName="Ibuprofen"
-        description="Used to reduce inflammation and pain."
-        company="XYZ Pharmaceuticals"
-        price={7.99}
-        imageUrl={test}
-      />
-      <DrugCard
-        drugName="Ibuprofen"
-        description="Used to reduce inflammation and pain."
-        company="XYZ Pharmaceuticals"
-        price={7.99}
-        imageUrl={test}
-      />
-      <DrugCard
-        drugName="Ibuprofen"
-        description="Used to reduce inflammation and pain."
-        company="XYZ Pharmaceuticals"
-        price={7.99}
-        imageUrl={test}
-      />
-      <DrugCard
-        drugName="Ibuprofen"
-        description="Used to reduce inflammation and pain."
-        company="XYZ Pharmaceuticals"
-        price={7.99}
-        imageUrl={test}
-      />
-      <DrugCard
-        drugName="Ibuprofen"
-        description="Used to reduce inflammation and pain."
-        company="XYZ Pharmaceuticals"
-        price={7.99}
-        imageUrl={test}
-      />
+      {data.data.data.map((drug) => (
+        <DrugCard key={drug._id} dataInfo={drug} />
+      ))}
     </Stack>
   );
 }

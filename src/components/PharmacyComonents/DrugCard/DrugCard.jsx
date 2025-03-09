@@ -15,14 +15,36 @@ import Typography from '@mui/material/Typography';
 import { CustomParagraph } from '../../Common/CustomTypography';
 import ArrowRightRoundedIcon from '@mui/icons-material/ArrowRightRounded';
 import PlaceIcon from '@mui/icons-material/Place';
-export default function DrugCard({ drugName, description, company, price }) {
+export default function DrugCard({ dataInfo }) {
   const theme = useTheme();
+  const formatDate = (isoDate) => {
+    const date = new Date(isoDate);
+    const day = String(date.getUTCDate()).padStart(2, '0');
+    const month = String(date.getUTCMonth() + 1).padStart(2, '0');
+    const year = date.getUTCFullYear();
+    return `${day}/${month}/${year}`;
+  };
+  const {
+    name,
+    manufacturer,
+    inventory,
+    description,
+    price,
+    discount,
+    discountedPrice,
+    stock,
+    productionDate,
+    expirationDate,
+    imageCover,
+    distanceInKm,
+  } = dataInfo;
 
   return (
     <Paper
       elevation={3}
       sx={{
-        maxWidth: 260,
+        maxWidth: 280,
+        maxHeight: 500,
         borderRadius: 2,
         ':hover': {
           boxShadow: `inset 7px -3px 0px 0px ${theme.palette.action.active} `,
@@ -49,9 +71,10 @@ export default function DrugCard({ drugName, description, company, price }) {
           sx={{ objectFit: 'contain', overflow: 'hidden' }}
           width={'100%'}
           image={
+            // imageCover ||
             'https://www.netmeds.com/images/product-v1/600x600/397251/nasomist_saline_nasal_spray_20ml_149351_0_2.jpg'
           }
-          alt="green iguana"
+          alt={name}
         />
         <Box
           component={'discount'}
@@ -68,7 +91,7 @@ export default function DrugCard({ drugName, description, company, price }) {
             fontSize: '12px',
           }}
         >
-          25% OFF
+          {discount}% OFF
         </Box>
         <Stack
           className="box-icon"
@@ -120,19 +143,24 @@ export default function DrugCard({ drugName, description, company, price }) {
           gutterBottom
           variant="h2"
           sx={{
-            fontSize: { xs: '15px', md: '17px' },
+            fontSize: { xs: '15px', md: '15px' },
+            display: '-webkit-box',
+            WebkitBoxOrient: 'vertical',
+            WebkitLineClamp: 1,
+            overflow: 'hidden',
+            textOverflow: 'ellipsis',
             fontWeight: 'bold',
             cursor: 'pointer',
           }}
           component="div"
         >
-          {drugName}
+          {name}
         </Typography>
         <CustomParagraph
           sx={{
             display: '-webkit-box',
             WebkitBoxOrient: 'vertical',
-            WebkitLineClamp: 2,
+            WebkitLineClamp: 1,
             overflow: 'hidden',
             textOverflow: 'ellipsis',
           }}
@@ -145,12 +173,38 @@ export default function DrugCard({ drugName, description, company, price }) {
 
         <Stack spacing={0.5} component={'div'} pt={1}>
           <Typography variant="body2">
-            <strong>Company:</strong> {company}
+            <strong>Inventory:</strong> {inventory?.name || 'N/A'}
+          </Typography>
+          <Typography
+            variant="body2"
+            sx={{
+              display: '-webkit-box',
+              WebkitBoxOrient: 'vertical',
+              WebkitLineClamp: 1,
+              overflow: 'hidden',
+              textOverflow: 'ellipsis',
+            }}
+          >
+            <strong>Company:</strong> {manufacturer || 'N/A'}
           </Typography>
           <Typography variant="body2">
             <strong>Price:</strong>{' '}
-            <Box component={'span'} color="#28A745">
-              ${price}
+            <Box sx={{ fontWeight: 'bold' }} component={'span'} color="#28A745">
+              {discountedPrice.toFixed(2)}
+              <Box component={'span'} sx={{ fontStyle: 'italic' }} pl={0.2}>
+                EGP
+              </Box>
+              <Box
+                component={'span'}
+                sx={{
+                  fontStyle: 'italic',
+                  color: theme.palette.action.selected,
+                  textDecoration: 'line-through',
+                  ml: 1, // إضافة مسافة بين السعر المخفض والسعر الأصلي
+                }}
+              >
+                {price.toFixed(2)} EGP {/* تنسيق السعر الأصلي أيضًا */}
+              </Box>
             </Box>
           </Typography>
           <Typography component={'Date'} variant="body2">
@@ -166,7 +220,7 @@ export default function DrugCard({ drugName, description, company, price }) {
                 sx={{ color: '#F9A825' }}
                 fontWeight={'bold'}
               >
-                1/8/2003
+                {formatDate(productionDate)}
               </Box>
               <ArrowRightRoundedIcon color="secondary" />
               <Box
@@ -174,7 +228,7 @@ export default function DrugCard({ drugName, description, company, price }) {
                 sx={{ color: '#ff0000' }}
                 fontWeight={'bold'}
               >
-                1/8/2025
+                {formatDate(expirationDate)}
               </Box>
             </Stack>
           </Typography>
@@ -191,7 +245,9 @@ export default function DrugCard({ drugName, description, company, price }) {
               sx={{ pr: 1, borderRight: '2px solid #424952' }}
             >
               <PlaceIcon color={'success'} />
-              <Typography variant="body2">12.5km</Typography>
+              <Typography variant="body2">
+                {distanceInKm ? `${distanceInKm.toFixed(2)} km` : 'N/A'}{' '}
+              </Typography>
             </Stack>
             <Typography variant="body2">Elementary Street </Typography>
           </Stack>

@@ -20,7 +20,7 @@ export const CustomHead = ({ mb, fs, fw, children, ...props }) => {
 };
 export const CustomParagraph = ({ children, ...props }) => {
   return (
-    <Typography variant="body2" fontSize={'12px'} color="GrayText" {...props}>
+    <Typography variant="body2" fontSize={'14px'} color="GrayText" {...props}>
       {children}
     </Typography>
   );
