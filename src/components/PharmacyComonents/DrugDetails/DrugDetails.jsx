@@ -50,14 +50,14 @@ export default function DrugDetails() {
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
-        p: 3,
+        p: 2,
         bgcolor: theme.palette.background.default,
       }}
     >
       {drug ? (
         <Paper
           elevation={3}
-          sx={{ maxWidth: 900, width: '100%', borderRadius: 2, p: 3 }}
+          sx={{ maxWidth: 960, width: '100%', borderRadius: 2, p: 3 }}
         >
           <Grid2
             container
@@ -70,63 +70,96 @@ export default function DrugDetails() {
               <CardMedia
                 component="img"
                 sx={{ width: '100%', height: 'auto', borderRadius: 2 }}
-                image={'drug.image'}
-                alt={'drug.name'}
+                image={
+                  'https://www.netmeds.com/images/product-v1/600x600/397251/nasomist_saline_nasal_spray_20ml_149351_0_2.jpg'
+                }
+                alt={drug.name}
               />
             </Grid2>
 
             {/* Details Section */}
             <Grid2 item size={{ xs: 12, sm: 6 }}>
               <Typography variant="h4" sx={{ fontWeight: 'bold', mb: 2 }}>
-                {'drug.name'}
+                {drug.name}
               </Typography>
               <Typography variant="body1" color="textSecondary" sx={{ mb: 2 }}>
-                {'drug.description'}
+                {drug.description}
               </Typography>
 
               <Stack spacing={1} sx={{ mb: 2 }}>
                 <Typography variant="body1">
-                  <strong>Manufacturer:</strong> {'drug.manufacturer'}
+                  <strong>Manufacturer: </strong>
+                  {drug.manufacturer}
                 </Typography>
                 <Typography variant="body1">
-                  <strong>Inventory:</strong>
-                  {/* {drug.inventory?.name || 'N/A'} */}
+                  <strong>Inventory: </strong>
+                  {drug.createdBy?.name || 'N/A'}
                 </Typography>
                 <Typography variant="body1">
                   <strong>Price:</strong>
                   <Box
                     component="span"
-                    sx={{ color: '#28A745', fontWeight: 'bold', ml: 1 }}
+                    sx={{ color: '#28A745', fontWeight: 'bold', ml: 0.5 }}
                   >
-                    {/* {drug.discountedPrice.toFixed(2)} EGP */}
+                    {`${drug.discountedPrice.toFixed(2)} EGP`}
                   </Box>
                   <Box
                     component="span"
                     sx={{
                       textDecoration: 'line-through',
                       color: 'gray',
-                      ml: 1,
+                      ml: 0.5,
+                      fontWeight: 'bold',
+                      fontSize: '13px',
                     }}
                   >
-                    {/* {drug.price.toFixed(2)} EGP */}
+                    {drug.price.toFixed(2)} EGP
                   </Box>
                 </Typography>
                 <Typography variant="body1">
                   <strong>Discount:</strong>
-                  {/* {drug.discount}% */}
+
+                  <Box
+                    component="span"
+                    sx={{
+                      color: '#CB2431',
+                      ml: 0.5,
+                      fontWeight: 'bold',
+                    }}
+                  >
+                    {drug.discount}%
+                  </Box>
                 </Typography>
                 <Typography variant="body1">
                   <strong>Production Date:</strong>{' '}
-                  {/* {formatDate(drug.productionDate)} */}
+                  <Box
+                    component="span"
+                    sx={{
+                      color: '#28A745',
+                      ml: 0.5,
+                      fontWeight: 500,
+                    }}
+                  >
+                    {formatDate(drug.productionDate)}
+                  </Box>
                 </Typography>
                 <Typography variant="body1">
                   <strong>Expiration Date:</strong>{' '}
-                  {/* {formatDate(drug.expirationDate)} */}
+                  <Box
+                    component="span"
+                    sx={{
+                      color: '#CB2431',
+                      ml: 0.5,
+                      fontWeight: 500,
+                    }}
+                  >
+                    {formatDate(drug.expirationDate)}
+                  </Box>
                 </Typography>
-                <Typography variant="body1">
+                {/* <Typography variant="body1">
                   <strong>Distance:</strong>
-                  {/* {drug.distanceInKm.toFixed(2)} km */}
-                </Typography>
+                  {drug.distanceInKm.toFixed(2)} km
+                </Typography> */}
               </Stack>
 
               <Box sx={{ display: 'flex', gap: 2, mt: 3 }}>
@@ -141,6 +174,7 @@ export default function DrugDetails() {
                 <Button
                   variant="outlined"
                   color="warning"
+                  sx={{ textTransform: 'capitalize' }}
                   onClick={() => navigate(-1)}
                 >
                   Back
