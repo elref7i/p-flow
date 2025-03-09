@@ -1,12 +1,5 @@
 /* eslint-disable react/prop-types */
-import {
-  Box,
-  Button,
-  CardActions,
-  Paper,
-  Stack,
-  useTheme,
-} from '@mui/material';
+import { Box, CardActions, Paper, Stack, useTheme } from '@mui/material';
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import CardContent from '@mui/material/CardContent';
@@ -17,14 +10,12 @@ import ArrowRightRoundedIcon from '@mui/icons-material/ArrowRightRounded';
 import PlaceIcon from '@mui/icons-material/Place';
 import { useNavigate } from 'react-router-dom';
 import CustomButton from '../../Common/ButtonStyle';
+import { formatDate } from '@/lib/utils/dateUtils';
 export default function DrugCard({ dataInfo }) {
   const theme = useTheme();
 
   const navigate = useNavigate();
-  const formatDate = (isoDate) => {
-    const date = new Date(isoDate);
-    return date.toLocaleDateString();
-  };
+
   const {
     _id,
     name,
