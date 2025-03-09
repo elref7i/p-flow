@@ -14,6 +14,7 @@ import GuestRoute from '@/components/GuestRoute/GuestRoute';
 import LandingPage from './pages/auth/Landing/Landing';
 import AllDrugs from './pages/Inventory/AllDrugs/AllDrugs';
 import DrugsAction from './pages/Inventory/DrugsAction/DrugsAction';
+import InventoryProfile from './pages/Inventory/InventoryProfile/InventoryProfile';
 
 const Layout = lazy(() => import('@/Layout/Layout'));
 
@@ -72,7 +73,10 @@ function App() {
           <Layout />
         </ProtectedRoute>
       ),
-      children: [{ path: '/setting', element: <Setting /> }],
+      children: [
+        { path: 'setting', element: <Setting /> },
+        { path: 'inventoryprofile', element: <InventoryProfile /> },
+      ],
     },
     {
       path: '/admin',

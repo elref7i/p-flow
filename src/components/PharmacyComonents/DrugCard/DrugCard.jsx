@@ -171,7 +171,13 @@ export default function DrugCard({ dataInfo }) {
         </CustomParagraph>
 
         <Stack spacing={0.5} component={'div'} pt={1}>
-          <Typography variant="body2">
+          <Typography
+            sx={{ cursor: 'pointer' }}
+            onClick={() => {
+              navigate(`/inventoryprofile`);
+            }}
+            variant="body2"
+          >
             <strong>Inventory:</strong> {inventory?.name || 'N/A'}
           </Typography>
           <Typography
@@ -213,9 +219,8 @@ export default function DrugCard({ dataInfo }) {
               direction={'row'}
               justifyItems={'center'}
               alignItems={'center'}
-              gap={1}
             >
-              <strong>Date:</strong>
+              <strong>Date: </strong>
               <Box
                 component={'span'}
                 sx={{ color: '#F9A825' }}
