@@ -88,7 +88,7 @@ export const getDesignTokens = (mode) => ({
     // ألوان إضافية
     action: {
       active: mode === 'light' ? colors.primary : colors.secondary,
-      hover: mode === 'light' ? colors.lightGrey[300] : colors.darkGrey[500], // استخدام لون رمادي متوسط للـ hover
+      hover: mode === 'light' ? colors.lightGrey[400] : colors.darkGrey[500], // استخدام لون رمادي متوسط للـ hover
       selected: mode === 'light' ? colors.lightGrey[400] : colors.darkGrey[500],
       disabled: mode === 'light' ? colors.lightGrey[400] : colors.darkGrey[500],
       disabledBackground:

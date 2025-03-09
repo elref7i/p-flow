@@ -4,8 +4,6 @@ import Table from '../../../components/InventoryComponents/Table/Table';
 // import { useAllDrugs } from '../../../lib/hooks/useDrugAction';
 
 export default function AllDrugs() {
-  //* بظمتك الداء ليه ادمن بذمتك بذمتك  بصيت على postman تشوف function فيها اى وعايزه اى
-
   // const { data, isLoading } = useAllDrugs();
 
   const filteredData = data ? data.filter((row) => row.role !== 'admin') : [];

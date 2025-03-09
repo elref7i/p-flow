@@ -41,17 +41,15 @@ export const updateDrug = async ({ token, values, drugId }) => {
 
 // ~ get specific Drug
 export const getSpecificDrug = async ({ token, drugId }) => {
-  try {
-    const options = {
-      url: `${API_URL_DRUG}/${drugId}`,
-      method: 'GET',
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    };
-    const { data } = await axios.request(options);
-    return data;
-  } catch (error) {
-    console.error(error);
-  }
+  const options = {
+    url: `${API_URL_DRUG}/${drugId}`,
+    method: 'GET',
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+  const { data } = await axios.request(options);
+  return data;
 };
+
+//*Filtter Drug
