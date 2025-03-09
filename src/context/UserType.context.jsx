@@ -4,13 +4,16 @@ import axios from 'axios';
 import { createContext, useContext, useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import { getloggedUserData } from '../lib/api/userAPI';
+
 export const UserTypeContext = createContext(0);
+
 export default function UserTypeProvider({ children }) {
   const [role, setRole] = useState(localStorage.getItem('role'));
   const [token, setToken] = useState(localStorage.getItem('token'));
   const [userData, setUserData] = useState(
     JSON.parse(localStorage.getItem('userData'))
   );
+
   useEffect(() => {
     setRole(localStorage.getItem('role'));
     setToken(localStorage.getItem('token'));

@@ -31,18 +31,9 @@ export default function DrugDetails() {
     console.log(data);
     setDrug(data);
   };
-  // Mock data
   useEffect(() => {
     fetchSpecificDrug({ token, id });
   }, [id]);
-
-  // if (!drug) {
-  //   return (
-  //     <Typography variant="h5" textAlign="center">
-  //       Loading...
-  //     </Typography>
-  //   );
-  // }
 
   return (
     <Box
@@ -65,7 +56,6 @@ export default function DrugDetails() {
             justifyContent={'center'}
             alignItems="center"
           >
-            {/* Image Section */}
             <Grid2 item size={{ xs: 12, sm: 6 }}>
               <CardMedia
                 component="img"
@@ -77,7 +67,6 @@ export default function DrugDetails() {
               />
             </Grid2>
 
-            {/* Details Section */}
             <Grid2 item size={{ xs: 12, sm: 6 }}>
               <Typography variant="h4" sx={{ fontWeight: 'bold', mb: 2 }}>
                 {drug.name}
