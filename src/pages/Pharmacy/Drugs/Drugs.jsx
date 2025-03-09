@@ -29,7 +29,6 @@ export default function Drugs() {
   });
 
   if (isLoading) return <LoadingSpinner />;
-  console.log(data.data.data);
 
   return (
     <>

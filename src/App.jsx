@@ -12,11 +12,12 @@ import ForgetProtectedRoute from './components/ForgetProtectedRoute/ForgetProtec
 import ProtectedRoute from '@/components/ProtectedRoute/ProtectedRoute';
 import GuestRoute from '@/components/GuestRoute/GuestRoute';
 import LandingPage from './pages/auth/Landing/Landing';
-import Users from './pages/Admin/Users/Users';
 import AllDrugs from './pages/Inventory/AllDrugs/AllDrugs';
 import DrugsAction from './pages/Inventory/DrugsAction/DrugsAction';
 
 const Layout = lazy(() => import('@/Layout/Layout'));
+
+//*Auth
 const Login = lazy(() => import('@/pages/auth/Login/Login'));
 const Signup = lazy(() => import('@/pages/auth/Signup/Signup'));
 const Home = lazy(() => import('@/pages/Home/Home'));
@@ -29,20 +30,28 @@ const ForgetPassword = lazy(() =>
 const VerifySendCoding = lazy(() =>
   import('@/pages/auth/VerifySendCoding/VerifySendCoding')
 );
-// const LandingPage = lazy(() => import('@/pages/auth/Landing/Landing'));
-const UsersAction = lazy(() => import('./pages/Admin/UsersAction/UsersAction'));
-const HomePharmacy = lazy(() =>
-  import('./pages/Pharmacy/HomePharmacy/HomePharmacy')
-);
-const DashboardAdmin = lazy(() =>
-  import('./pages/Admin/DashboardAdmin/DashboardAdmin')
-);
 const DashboardInventory = lazy(() =>
   import('./pages/Inventory/DashboardInventory/DashboardInventory')
 );
 
-const Drugs = lazy(() => import('./pages/Pharmacy/Drugs/Drugs'));
+//* import Admin
+const UsersAction = lazy(() => import('./pages/Admin/UsersAction/UsersAction'));
+const DashboardAdmin = lazy(() =>
+  import('./pages/Admin/DashboardAdmin/DashboardAdmin')
+);
+const Users = lazy(() => import('./pages/Admin/Users/Users'));
 
+//* import Pharmacy
+
+const Drugs = lazy(() => import('./pages/Pharmacy/Drugs/Drugs'));
+const DrugDetails = lazy(() =>
+  import('./components/PharmacyComonents/DrugDetails/DrugDetails')
+);
+const HomePharmacy = lazy(() =>
+  import('./pages/Pharmacy/HomePharmacy/HomePharmacy')
+);
+
+//* Shared Pages
 const Setting = lazy(() => import('./pages/Setting/Setting'));
 
 function App() {
@@ -88,6 +97,7 @@ function App() {
       children: [
         { index: true, element: <HomePharmacy /> },
         { path: 'drugs', element: <Drugs /> },
+        { path: 'drugdetails/:id', element: <DrugDetails /> },
       ],
     },
     {

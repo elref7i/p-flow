@@ -15,16 +15,18 @@ import Typography from '@mui/material/Typography';
 import { CustomParagraph } from '../../Common/CustomTypography';
 import ArrowRightRoundedIcon from '@mui/icons-material/ArrowRightRounded';
 import PlaceIcon from '@mui/icons-material/Place';
+import { useNavigate } from 'react-router-dom';
+import CustomButton from '../../Common/ButtonStyle';
 export default function DrugCard({ dataInfo }) {
   const theme = useTheme();
+
+  const navigate = useNavigate();
   const formatDate = (isoDate) => {
     const date = new Date(isoDate);
-    const day = String(date.getUTCDate()).padStart(2, '0');
-    const month = String(date.getUTCMonth() + 1).padStart(2, '0');
-    const year = date.getUTCFullYear();
-    return `${day}/${month}/${year}`;
+    return date.toLocaleDateString();
   };
   const {
+    _id,
     name,
     manufacturer,
     inventory,
@@ -74,23 +76,25 @@ export default function DrugCard({ dataInfo }) {
           }
           alt={name}
         />
-        <Box
-          component={'discount'}
-          sx={{
-            bgcolor: 'red',
-            p: 1,
-            zIndex: 99,
-            borderRadius: '20px',
-            position: 'absolute',
-            top: 5,
-            right: 5,
-            color: '#FAFAFA',
-            fontWeight: 'bold',
-            fontSize: '12px',
-          }}
-        >
-          {discount}% OFF
-        </Box>
+        {discountedPrice && (
+          <Box
+            component={'discount'}
+            sx={{
+              bgcolor: 'red',
+              p: 1,
+              zIndex: 99,
+              borderRadius: '20px',
+              position: 'absolute',
+              top: 5,
+              right: 5,
+              color: '#FAFAFA',
+              fontWeight: 'bold',
+              fontSize: '12px',
+            }}
+          >
+            {discount}% OFF
+          </Box>
+        )}
         <Stack
           className="box-icon"
           direction={'column'}
@@ -127,6 +131,9 @@ export default function DrugCard({ dataInfo }) {
           />
           <RemoveRedEyeIcon
             color="#FAFAFA"
+            onClick={() => {
+              navigate(`/pharmacy/drugdetails/${_id}`);
+            }}
             sx={{
               fontSize: '30px',
               fontWeight: 'bold',
@@ -140,6 +147,9 @@ export default function DrugCard({ dataInfo }) {
         <Typography
           gutterBottom
           variant="h2"
+          onClick={() => {
+            navigate(`/pharmacy/drugdetails/${_id}`);
+          }}
           sx={{
             fontSize: { xs: '15px', md: '15px' },
             display: '-webkit-box',
@@ -188,21 +198,23 @@ export default function DrugCard({ dataInfo }) {
           <Typography variant="body2">
             <strong>Price:</strong>{' '}
             <Box sx={{ fontWeight: 'bold' }} component={'span'} color="#28A745">
-              {discountedPrice.toFixed(2)}
+              {discountedPrice ? discountedPrice.toFixed(2) : price.toFixed(2)}
               <Box component={'span'} sx={{ fontStyle: 'italic' }} pl={0.2}>
                 EGP
               </Box>
-              <Box
-                component={'span'}
-                sx={{
-                  fontStyle: 'italic',
-                  color: theme.palette.action.selected,
-                  textDecoration: 'line-through',
-                  ml: 1, // إضافة مسافة بين السعر المخفض والسعر الأصلي
-                }}
-              >
-                {price.toFixed(2)} EGP {/* تنسيق السعر الأصلي أيضًا */}
-              </Box>
+              {discountedPrice && (
+                <Box
+                  component={'span'}
+                  sx={{
+                    fontStyle: 'italic',
+                    color: theme.palette.action.selected,
+                    textDecoration: 'line-through',
+                    ml: 1,
+                  }}
+                >
+                  {price.toFixed(2)} EGP
+                </Box>
+              )}
             </Box>
           </Typography>
           <Typography component={'Date'} variant="body2">
@@ -252,17 +264,14 @@ export default function DrugCard({ dataInfo }) {
         </Stack>
       </CardContent>
       <CardActions>
-        <Button
+        <CustomButton
           variant="contained"
-          fullWidth
-          size="small"
-          sx={{
-            bgcolor: theme.palette.background.button,
-            color: theme.palette.text.button,
-          }}
+          pad={'4px 40px'}
+          fs={'15px'}
+          width={'100%'}
         >
           Add to Cart
-        </Button>
+        </CustomButton>
       </CardActions>
     </Paper>
   );

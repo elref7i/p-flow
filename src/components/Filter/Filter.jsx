@@ -13,6 +13,7 @@ const style = {
   bgcolor: 'background.paper',
   border: '2px solid #000',
   boxShadow: 24,
+  transition: 'all 8s',
   p: 4,
 };
 
@@ -36,6 +37,7 @@ export default function Filter() {
         onClose={handleClose}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
+        disableScrollLock
       >
         <Box sx={style}>
           <Typography id="modal-modal-title" variant="h6" component="h2">
