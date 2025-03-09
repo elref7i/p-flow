@@ -32,10 +32,8 @@ export default function DrugCard({ dataInfo }) {
     price,
     discount,
     discountedPrice,
-    stock,
     productionDate,
     expirationDate,
-    imageCover,
     distanceInKm,
   } = dataInfo;
 
@@ -43,7 +41,7 @@ export default function DrugCard({ dataInfo }) {
     <Paper
       elevation={3}
       sx={{
-        maxWidth: 280,
+        maxWidth: 270,
         maxHeight: 500,
         borderRadius: 2,
         ':hover': {
