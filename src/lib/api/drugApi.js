@@ -1,6 +1,21 @@
 import axios from 'axios';
 import { API_URL_DRUG } from './api_url';
 
+//* Get All Drugs
+
+export const getAllDrugs = async (token, params = {}) => {
+  const options = {
+    url: API_URL_DRUG,
+    method: 'GET',
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+    params,
+  };
+  const data = await axios.request(options);
+  return data.data;
+};
+
 // ^ Add Drug
 export const addDrug = async ({ token, values }) => {
   const options = {

@@ -2,38 +2,24 @@ import { Box, Stack } from '@mui/material';
 import DrugCard from '../../../components/PharmacyComonents/DrugCard/DrugCard';
 import LoadingSpinner from '../../../components/Common/Loading/LoadingSpinner';
 import { useTypeContext } from '../../../context/UserType.context';
-import axios from 'axios';
-import { API_URL_DRUG } from '../../../lib/api/api_url';
-import { useQuery } from '@tanstack/react-query';
 import Filter from '../../../components/Filter/Filter';
+import { useState } from 'react';
+import { useDrugs } from '../../../lib/hooks/useDrugAction';
 
 export default function Drugs() {
   const { token } = useTypeContext();
-  async function getAllDrugs() {
-    const options = {
-      url: API_URL_DRUG,
-      method: 'GET',
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    };
-    const data = await axios.request(options);
-    return data;
-  }
+  const [params, setParams] = useState({});
 
-  const { data, isLoading } = useQuery({
-    queryKey: ['drugs'],
-    queryFn: getAllDrugs,
-    refetchOnMount: false,
-    refetchOnWindowFocus: false,
-  });
+  const { data, isError, isFetching } = useDrugs(token, params);
 
-  if (isLoading) return <LoadingSpinner />;
+  if (isFetching) return <LoadingSpinner />;
+
+  console.log(data?.data);
 
   return (
     <>
       <Box mb={2}>
-        <Filter />
+        <Filter setParams={setParams} />
       </Box>
       <Stack
         direction={'row'}
@@ -44,7 +30,7 @@ export default function Drugs() {
         alignItems={'center'}
         flexWrap={'wrap'}
       >
-        {data.data.data.map((drug) => (
+        {data.data.map((drug) => (
           <DrugCard key={drug._id} dataInfo={drug} />
         ))}
       </Stack>

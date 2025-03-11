@@ -4,7 +4,6 @@ import {
   Box,
   Typography,
   Paper,
-  Stack,
   Button,
   CardMedia,
   Divider,
@@ -20,7 +19,6 @@ const InventoryProfile = () => {
   const [inventory, setInventory] = useState(null);
   const [drugs, setDrugs] = useState([]);
 
-  // بيانات وهمية للمخزن
   const mockInventory = {
     id: 1,
     name: 'Main Pharmacy',
@@ -30,7 +28,6 @@ const InventoryProfile = () => {
     image: 'https://via.placeholder.com/400x200',
   };
 
-  // بيانات وهمية للأدوية
   const mockDrugs = [
     {
       _id: '67cc0b65c8e06059b6061472',
@@ -129,7 +126,6 @@ const InventoryProfile = () => {
           </Grid2>
         </Grid2>
 
-        {/* الجانب الأيمن: بيانات البروفيل */}
         <Grid2 order={{ xs: -1, md: 0 }} pt={5} size={{ xs: 12, md: 3 }}>
           <Paper
             elevation={4}
@@ -138,11 +134,14 @@ const InventoryProfile = () => {
               borderRadius: 2,
               textAlign: 'center',
               position: 'sticky',
-              top: 20, // تثبيت البروفيل عند التمرير
+              top: 20,
             }}
           >
-            <Box
+            <Paper
+              elevation={5}
               sx={{
+                mx: 'auto',
+                width: 'fit-content',
                 display: 'flex',
                 justifyContent: 'center',
                 mb: 2,
@@ -153,20 +152,20 @@ const InventoryProfile = () => {
                 sx={{
                   width: 150,
                   height: 150,
-                  borderRadius: '16px', // حواف مدورة
-                  objectFit: 'cover', // التأكد من أن الصورة تملأ المساحة دون تشويه
+                  borderRadius: '16px',
+                  objectFit: 'cover',
                 }}
                 image={
                   'https://scontent.fcai20-5.fna.fbcdn.net/v/t39.30808-1/480147019_4012323662428731_6947705778976585090_n.jpg?stp=c0.374.1536.1536a_dst-jpg_s160x160_tt6&_nc_cat=106&ccb=1-7&_nc_sid=1d2534&_nc_ohc=cth9geKyc-0Q7kNvgELlq_o&_nc_oc=Adj-0nDpAZ9qMgYvqX8MkysBue1HSDASGIeElSeeY-xdVQ3gULD3M2mQUlsQ96z32E4&_nc_zt=24&_nc_ht=scontent.fcai20-5.fna&_nc_gid=AKLM3iZ3zLRFTv1Sc87ikNG&oh=00_AYHR5h7G6YEwb_eXiS_YawSV9dJ73Na9NM9egF-XW3Ly5g&oe=67D3F6F4'
                 }
                 alt={inventory.name}
               />
-            </Box>
+            </Paper>
             <Typography
               variant="h6"
               fontWeight="bold"
               gutterBottom
-              sx={{ wordBreak: 'break-word' }} // منع النص من الخروج عن الحجم
+              sx={{ wordBreak: 'break-word' }}
             >
               <StorefrontIcon
                 fontSize="large"
@@ -178,7 +177,7 @@ const InventoryProfile = () => {
               variant="body1"
               color="text.secondary"
               gutterBottom
-              sx={{ wordBreak: 'break-word' }} // منع النص من الخروج عن الحجم
+              sx={{ wordBreak: 'break-word' }}
             >
               📍 <strong>Address:</strong> {inventory.address}
             </Typography>
@@ -186,14 +185,14 @@ const InventoryProfile = () => {
               variant="body1"
               color="text.secondary"
               gutterBottom
-              sx={{ wordBreak: 'break-word' }} // منع النص من الخروج عن الحجم
+              sx={{ wordBreak: 'break-word' }}
             >
               📞 <strong>Phone:</strong> {inventory.phone}
             </Typography>
             <Typography
               variant="body1"
               color="text.secondary"
-              sx={{ wordBreak: 'break-word' }} // منع النص من الخروج عن الحجم
+              sx={{ wordBreak: 'break-word' }}
             >
               ✉️ <strong>Email:</strong> {inventory.email}
             </Typography>
@@ -201,7 +200,6 @@ const InventoryProfile = () => {
         </Grid2>
       </Grid2>
 
-      {/* زر العودة */}
       <Button
         variant="contained"
         color="primary"

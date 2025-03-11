@@ -1,7 +1,22 @@
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { addDrug, deleteDrug, updateDrug } from '../api/drugApi';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { addDrug, deleteDrug, getAllDrugs, updateDrug } from '../api/drugApi';
 import toast from 'react-hot-toast';
 
+//*Get all Drugs
+
+export const useDrugs = (token, params = {}) => {
+  // const { search, ...restParams } = params;
+  return useQuery({
+    queryKey: ['drugs', params],
+    queryFn: () => getAllDrugs(token, params),
+    refetchOnMount: false,
+    keepPreviousData: true,
+    refetchOnWindowFocus: false,
+    cacheTime: 1 * 60 * 1000,
+  });
+};
+
+//*Add Drug
 export const useAddDrug = () => {
   const queryClient = useQueryClient();
 
