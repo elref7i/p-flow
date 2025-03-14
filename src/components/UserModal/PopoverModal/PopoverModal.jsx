@@ -35,7 +35,7 @@ const ImageUploader = () => {
 
       canvas.toBlob(async (blob) => {
         const formdata = new FormData();
-        formdata.append('startRow', blob, 'cropped-image.png');
+        formdata.append('profileImage', blob, 'cropped-image.png');
 
         try {
           await UploadImageSchema.validate({ imageProfile: blob });

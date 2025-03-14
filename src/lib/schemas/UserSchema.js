@@ -44,7 +44,12 @@ export const UploadImageSchema = Yup.object().shape({
       'Invalid file type. Please upload a JPEG, PNG, or GIF image.',
       (value) => {
         if (!value) return false;
-        const allowedTypes = ['image/jpeg', 'image/png', 'image/gif'];
+        const allowedTypes = [
+          'image/jpeg',
+          'image/png',
+          'image/gif',
+          'image/png',
+        ];
         return allowedTypes.includes(value.type);
       }
     )

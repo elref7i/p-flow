@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
@@ -29,7 +30,7 @@ const style = {
 };
 
 export default function Filter({ setParams }) {
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = React.useState(true);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
@@ -38,7 +39,7 @@ export default function Filter({ setParams }) {
     'productionDate[gte]': null,
     'expirationDate[lte]': null,
     'price[gte]': 0,
-    'price[lte]': 0,
+    'price[lte]': 1000,
     page: 1,
     limit: 0,
     sort: 'distanceInKm',
