@@ -11,7 +11,7 @@ export const columns = [
     headerName: "manufacturer",
     align: "center",
     headerAlign: "center",
-    minWidth: 100,
+    minWidth: 120,
   },
 
   {
@@ -19,7 +19,7 @@ export const columns = [
     headerName: "price",
     align: "center",
     headerAlign: "center",
-    minWidth: 150,
+    minWidth: 100,
   },
   {
     field: "discount",
@@ -27,7 +27,7 @@ export const columns = [
     flex: 1,
     align: "center",
     headerAlign: "center",
-    minWidth: 200,
+    minWidth: 100,
   },
 
   {
@@ -36,7 +36,7 @@ export const columns = [
     flex: 1,
     align: "center",
     headerAlign: "center",
-    minWidth: 150,
+    minWidth: 100,
   },
   {
     field: "sold",

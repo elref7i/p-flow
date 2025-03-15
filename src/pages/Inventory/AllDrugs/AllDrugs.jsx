@@ -12,7 +12,7 @@ export default function AllDrugs() {
 
   return (
     <>
-      <Stack direction="row" spacing={2} justifyContent="flex-end">
+      <Stack direction="row" spacing={2} justifyContent="flex-end" marginBottom={2}>
         <AddDrugComponent />
         <AddDrugFromExcel />
       </Stack>
