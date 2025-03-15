@@ -8,7 +8,6 @@ import DeleteModal from "../../../components/InventoryComponents/DeleteModal/Del
 
 export default function DrugsAction() {
   const { token } = useTypeContext();
-
   const { data, isLoading } = useOwnDrugs();
   const { isLoading: isDeleting, mutate: handleDelete } = useDeleteDrug();
 

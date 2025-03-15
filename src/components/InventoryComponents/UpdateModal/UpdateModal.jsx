@@ -28,6 +28,7 @@ const style = {
   p: 4,
   overflow: "auto",
 };
+
 export default function UpdateModal({ DrugId }) {
   const { token } = useTypeContext();
   const [open, setOpen] = useState(false);
@@ -61,10 +62,11 @@ export default function UpdateModal({ DrugId }) {
   } = useFormik({
     initialValues: {
       name: "",
-      ownerName: "",
-      phone: "",
-      city: "",
-      governorate: "",
+      manufacturer: "",
+      price: "",
+      discount: "",
+      stock: "",
+      sold: "",
     },
     validationSchema: updateDrugSchema,
     onSubmit: async (values) => {
@@ -133,7 +135,7 @@ export default function UpdateModal({ DrugId }) {
               onBlur={handleBlur}
               error={errors.name && touched.name}
               helperText={touched.name && errors.name}
-              sx={{ my: 1.5 }}
+              margin="normal"
             />
             <TextField
               fullWidth
@@ -145,7 +147,7 @@ export default function UpdateModal({ DrugId }) {
               onBlur={handleBlur}
               error={errors.manufacturer && touched.manufacturer}
               helperText={touched.manufacturer && errors.manufacturer}
-              sx={{ my: 1.5 }}
+              margin="normal"
             />
             <TextField
               fullWidth
@@ -157,7 +159,7 @@ export default function UpdateModal({ DrugId }) {
               onBlur={handleBlur}
               error={errors.price && touched.price}
               helperText={touched.price && errors.price}
-              sx={{ my: 1.5 }}
+              margin="normal"
             />
             <TextField
               fullWidth
@@ -169,7 +171,7 @@ export default function UpdateModal({ DrugId }) {
               onBlur={handleBlur}
               error={errors.discount && touched.discount}
               helperText={touched.discount && errors.discount}
-              sx={{ my: 1.5 }}
+              margin="normal"
             />
             <TextField
               fullWidth
@@ -181,7 +183,7 @@ export default function UpdateModal({ DrugId }) {
               onBlur={handleBlur}
               error={errors.stock && touched.stock}
               helperText={touched.stock && errors.stock}
-              sx={{ my: 1.5 }}
+              margin="normal"
             />
             <TextField
               fullWidth
@@ -193,7 +195,7 @@ export default function UpdateModal({ DrugId }) {
               onBlur={handleBlur}
               error={errors.sold && touched.sold}
               helperText={touched.sold && errors.sold}
-              sx={{ my: 1 }}
+              margin="normal"
             />
 
             <Box sx={{ mx: "auto", mt: 3, width: "fit-content" }}>
