@@ -28,7 +28,7 @@ export default function Table({ isLoading, data, columnsWithActions, check }) {
           </Stack>
         )}
         <DataGrid
-          rows={data}
+          rows={data.data}
           columns={columnsWithActions}
           getRowId={(row) => row._id}
           loading={isLoading}

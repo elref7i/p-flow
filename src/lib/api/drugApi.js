@@ -67,4 +67,20 @@ export const getSpecificDrug = async ({ token, drugId }) => {
   return data;
 };
 
+
+// * get All Own Drugs
+
+export const getAllOwnDrugs = async (token) => {
+  const options = {
+    url: `${API_URL_DRUG}/owndrugs`,
+    method: 'GET',
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+  const data = await axios.request(options);
+      return data.data;
+  }
+
+
 //*Filtter Drug

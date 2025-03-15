@@ -13,3 +13,14 @@ export const DrugSchema = Yup.object().shape({
     sold: Yup.number().integer().min(0).required("Required"),
     isVisible: Yup.boolean().required("Required"),
 });
+
+
+export const updateDrugSchema = Yup.object().shape({
+    name: Yup.string().required("Name is required"),
+    manufacturer: Yup.string().required("Manufacturer is required"),
+    price: Yup.number().positive().min(0).required("Price is required"),
+    discount: Yup.number().min(0).required("Discount is required"),
+    stock: Yup.number().integer().min(0).required("Stock is Required"),
+    sold: Yup.number().integer().min(0).required("Required"),
+});
+

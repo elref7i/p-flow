@@ -1,12 +1,36 @@
-// import { Avatar, Box } from "@mui/material";
 import { columns } from './Drugs';
 import Table from '../../../components/InventoryComponents/Table/Table';
-// import { useAllDrugs } from '../../../lib/hooks/useDrugAction';
+import { useOwnDrugs } from '../../../lib/hooks/useDrugAction';
 
 export default function AllDrugs() {
-  // const { data, isLoading } = useAllDrugs();
+  const { data, isLoading } = useOwnDrugs();
+  
+  // console.log("Fetched data:", data);
+  const columnsWithActions = [...columns];
 
-  const filteredData = data ? data.filter((row) => row.role !== 'admin') : [];
+  return (
+    <Table
+      isLoading={isLoading}
+      data={data || []}
+      columnsWithActions={columnsWithActions}
+      check={false}
+    />
+  );
+}
+
+
+
+
+
+
+
+
+
+
+
+  // const columnsWithActions = [PrfileImage, ...columns];
+
+
 
   // const PrfileImage = {
   //   field: "profileImage",
@@ -29,16 +53,3 @@ export default function AllDrugs() {
   //     );
   //   },
   // };
-
-  const columnsWithActions = [...columns];
-  // const columnsWithActions = [PrfileImage, ...columns];
-
-  return (
-    <Table
-      isLoading={isLoading}
-      data={filteredData}
-      columnsWithActions={columnsWithActions}
-      check={false}
-    />
-  );
-}

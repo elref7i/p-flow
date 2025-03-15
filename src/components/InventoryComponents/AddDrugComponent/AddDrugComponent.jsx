@@ -13,6 +13,7 @@ import { useTypeContext } from "../../../context/UserType.context";
 import { useAddDrug } from "../../../lib/hooks/useDrugAction";
 import { DrugSchema } from "../../../lib/schemas/DrugSchema";
 import CustomButton from "../../Common/ButtonStyle";
+// import { QueryClient } from "@tanstack/react-query";
 
 const style = {
   position: "absolute",
@@ -50,7 +51,15 @@ export default function AddDrugComponent() {
       validationSchema: DrugSchema,
       onSubmit: (values) => {
         console.log("Submitting values:", values);
-        mutate({ token, values });
+        
+        mutate(
+          { token, values },
+          // {
+          //   onSuccess: () => {
+          //     QueryClient.invalidateQueries({ queryKey: ["ownDrugs"] });
+          //   },
+          // }
+        );
       },
     });
 
