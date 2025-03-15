@@ -82,7 +82,6 @@ export const columns = [
     flex: 1,
     align: "center",
     headerAlign: "center",
-    type: "number",
     minWidth: 150,
   },
 ];
