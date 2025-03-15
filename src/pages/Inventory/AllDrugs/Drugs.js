@@ -76,4 +76,13 @@ export const columns = [
     type: "number",
     minWidth: 150,
   },
+  {
+    field: "description",
+    headerName: "description",
+    flex: 1,
+    align: "center",
+    headerAlign: "center",
+    type: "number",
+    minWidth: 150,
+  },
 ];
