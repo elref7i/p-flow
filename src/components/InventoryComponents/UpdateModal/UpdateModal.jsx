@@ -29,7 +29,7 @@ const style = {
   overflow: "auto",
 };
 
-export default function UpdateModal({ DrugId }) {
+export default function UpdateModal({ drugId }) {
   const { token } = useTypeContext();
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
@@ -42,7 +42,7 @@ export default function UpdateModal({ DrugId }) {
   //* Function GET SPECIFIC Drug
   const fetchSpecificDrug = async () => {
     try {
-      const drugs = await getSpecificDrug({ token, DrugId });
+      const drugs = await getSpecificDrug({ token, drugId });
       setspecificDrug(drugs);
     } catch (error) {
       console.log(error);
@@ -71,7 +71,7 @@ export default function UpdateModal({ DrugId }) {
     validationSchema: updateDrugSchema,
     onSubmit: async (values) => {
       mutate(
-        { DrugId, token, values },
+        { drugId, token, values },
         {
           onSuccess: () => {
             //* لما يتم تفعيل socket in backend

@@ -64,7 +64,7 @@ export const getSpecificDrug = async ({ token, drugId }) => {
     },
   };
   const { data } = await axios.request(options);
-  return data;
+  return data.data;
 };
 
 
