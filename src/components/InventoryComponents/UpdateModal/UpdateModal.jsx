@@ -3,7 +3,7 @@
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Modal from "@mui/material/Modal";
-import { CircularProgress, TextField } from "@mui/material";
+import { CircularProgress, MenuItem, TextField } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useFormik } from "formik";
 import { useTypeContext } from "@/context/UserType.context";
@@ -67,6 +67,7 @@ export default function UpdateModal({ drugId }) {
       discount: "",
       stock: "",
       sold: "",
+      isVisible: "",
     },
     validationSchema: updateDrugSchema,
     onSubmit: async (values) => {
@@ -85,7 +86,8 @@ export default function UpdateModal({ drugId }) {
 
   useEffect(() => {
     if (specificDrug) {
-      const { name, manufacturer, price, discount, stock, sold } = specificDrug;
+      const { name, manufacturer, price, discount, stock, sold, isVisible } =
+        specificDrug;
       setValues({
         name: name || "",
         manufacturer: manufacturer || "",
@@ -93,6 +95,7 @@ export default function UpdateModal({ drugId }) {
         discount: discount || "",
         stock: stock || "",
         sold: sold || "",
+        isVisible: isVisible || "",
       });
     }
   }, [specificDrug]);
@@ -197,6 +200,21 @@ export default function UpdateModal({ drugId }) {
               helperText={touched.sold && errors.sold}
               margin="normal"
             />
+            <TextField
+              fullWidth
+              label="Visibility"
+              name="isVisible"
+              value={values.isVisible}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              error={errors.isVisible && touched.isVisible}
+              helperText={touched.isVisible && errors.isVisible}
+              margin="normal"
+              select
+            >
+              <MenuItem value={true}>True</MenuItem>
+              <MenuItem value={false}>False</MenuItem>
+            </TextField>
 
             <Box sx={{ mx: "auto", mt: 3, width: "fit-content" }}>
               <Button

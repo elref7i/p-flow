@@ -4,14 +4,14 @@ export const columns = [
     headerName: "Name",
     align: "center",
     headerAlign: "center",
-    minWidth: 50,
+    minWidth: 250,
   },
   {
     field: "manufacturer",
     headerName: "manufacturer",
     align: "center",
     headerAlign: "center",
-    minWidth: 120,
+    minWidth: 200,
   },
 
   {
@@ -45,6 +45,15 @@ export const columns = [
     align: "center",
     headerAlign: "center",
     type: "number",
+    minWidth: 100,
+  },
+  {
+    field: "isVisible",
+    headerName: "Visibility",
+    flex: 1,
+    align: "center",
+    headerAlign: "center",
+    type: "boolean",
     minWidth: 100,
   },
 ];
