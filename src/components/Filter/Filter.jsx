@@ -1,9 +1,5 @@
 /* eslint-disable react/prop-types */
 import * as React from 'react';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import Modal from '@mui/material/Modal';
-import CustomButton from '../Common/ButtonStyle';
 import {
   TextField,
   Slider,
@@ -13,28 +9,25 @@ import {
   InputLabel,
   Button,
   Stack,
+  Paper,
+  Accordion,
+  AccordionSummary,
+  AccordionDetails,
+  Typography,
 } from '@mui/material';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 const style = {
-  position: 'fixed',
-  top: '50%',
-  right: 0,
-  transform: 'translateY(-50%)',
-  width: 300,
+  position: 'sticky',
   bgcolor: 'background.paper',
+  top: '80px',
   boxShadow: 24,
   transition: 'all 0.3s',
-  p: 3,
-  borderTopLeftRadius: 20,
-  borderBottomLeftRadius: 20,
+  borderRadius: 2,
+  p: 2,
 };
 
 export default function Filter({ setParams }) {
-  const [open, setOpen] = React.useState(true);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
-
-  // State للفلتر
   const [filters, setFilters] = React.useState({
     'productionDate[gte]': null,
     'expirationDate[lte]': null,
@@ -56,36 +49,20 @@ export default function Filter({ setParams }) {
   // دالة لتطبيق الفلتر
   const applyFilters = () => {
     setParams(filters);
-    handleClose();
   };
 
   return (
-    <div>
-      <CustomButton
-        marginInline={'auto 0'}
-        pad={'2px 35px'}
-        onClick={handleOpen}
-        mx={'0 auto'}
-      >
-        Filter
-      </CustomButton>
-      <Modal
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-        disableScrollLock
-      >
-        <Box sx={style}>
-          <Typography
-            id="modal-modal-title"
-            variant="h6"
-            component="h2"
-            sx={{ mb: 2 }}
-          >
-            Filter Options
-          </Typography>
+    <Paper sx={style}>
+      <Typography variant="h6" component="h2" sx={{ mb: 2 }}>
+        Filter Options
+      </Typography>
 
+      {/* قسم التاريخ */}
+      <Accordion>
+        <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+          <Typography>Date</Typography>
+        </AccordionSummary>
+        <AccordionDetails>
           <TextField
             label="Production Date"
             type="date"
@@ -97,7 +74,6 @@ export default function Filter({ setParams }) {
             }
             sx={{ mb: 2 }}
           />
-
           <TextField
             label="Expiration Date"
             type="date"
@@ -109,7 +85,15 @@ export default function Filter({ setParams }) {
             }
             sx={{ mb: 2 }}
           />
+        </AccordionDetails>
+      </Accordion>
 
+      {/* قسم السعر */}
+      <Accordion>
+        <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+          <Typography>Price</Typography>
+        </AccordionSummary>
+        <AccordionDetails>
           <Typography gutterBottom>Price Range</Typography>
           <Slider
             value={[filters['price[gte]'], filters['price[lte]']]}
@@ -122,7 +106,15 @@ export default function Filter({ setParams }) {
             max={1000}
             sx={{ mb: 2 }}
           />
+        </AccordionDetails>
+      </Accordion>
 
+      {/* قسم الصفحة والحد */}
+      <Accordion>
+        <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+          <Typography>Pagination</Typography>
+        </AccordionSummary>
+        <AccordionDetails>
           <TextField
             label="Page"
             type="number"
@@ -133,7 +125,6 @@ export default function Filter({ setParams }) {
             }
             sx={{ mb: 2 }}
           />
-
           <TextField
             label="Limit"
             type="number"
@@ -144,7 +135,15 @@ export default function Filter({ setParams }) {
             }
             sx={{ mb: 2 }}
           />
+        </AccordionDetails>
+      </Accordion>
 
+      {/* قسم الترتيب */}
+      <Accordion>
+        <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+          <Typography>Sort</Typography>
+        </AccordionSummary>
+        <AccordionDetails>
           <FormControl fullWidth sx={{ mb: 2 }}>
             <InputLabel>Sort By</InputLabel>
             <Select
@@ -157,25 +156,26 @@ export default function Filter({ setParams }) {
               <MenuItem value="priceDesc">Price: High to Low</MenuItem>
             </Select>
           </FormControl>
+        </AccordionDetails>
+      </Accordion>
 
-          <Stack direction="row" spacing={2} sx={{ mt: 2 }}>
-            <Button
-              variant="contained"
-              onClick={applyFilters}
-              sx={{ flex: 1, bgcolor: 'primary.main' }}
-            >
-              Apply
-            </Button>
-            <Button
-              variant="outlined"
-              onClick={() => setFilters({})}
-              sx={{ flex: 1 }}
-            >
-              Reset
-            </Button>
-          </Stack>
-        </Box>
-      </Modal>
-    </div>
+      {/* أزرار التطبيق والإعادة */}
+      <Stack direction="row" spacing={2} sx={{ mt: 2 }}>
+        <Button
+          variant="contained"
+          onClick={applyFilters}
+          sx={{ flex: 1, bgcolor: 'primary.main' }}
+        >
+          Apply
+        </Button>
+        <Button
+          variant="outlined"
+          onClick={() => setFilters({})}
+          sx={{ flex: 1 }}
+        >
+          Reset
+        </Button>
+      </Stack>
+    </Paper>
   );
 }

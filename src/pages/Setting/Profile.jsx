@@ -179,7 +179,7 @@ export default function Profile({ userData }) {
             type="submit"
             disabled={!dirty}
             variant="contained"
-            marginInline={'auto 0'}
+            mx={'auto 0'}
             sx={{ mt: 3, ml: 'auto', display: 'flex' }}
             startIcon={
               isLoading ? (

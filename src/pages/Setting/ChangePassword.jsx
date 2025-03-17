@@ -71,7 +71,7 @@ export default function ChangePassword() {
             disabled={!dirty}
             variant="contained"
             sx={{ mt: 3, ml: 'auto', display: 'flex' }}
-            marginInline={'auto 0'}
+            mx={'auto 0'}
             startIcon={
               isLoading ? (
                 <CircularProgress color="inherit" size={16} />

@@ -46,7 +46,7 @@ const Users = lazy(() => import('./pages/Admin/Users/Users'));
 
 const Drugs = lazy(() => import('./pages/Pharmacy/Drugs/Drugs'));
 const DrugDetails = lazy(() =>
-  import('./components/PharmacyComonents/DrugDetails/DrugDetails')
+  import('./pages/Pharmacy/DrugDetails/DrugDetails')
 );
 const HomePharmacy = lazy(() =>
   import('./pages/Pharmacy/HomePharmacy/HomePharmacy')

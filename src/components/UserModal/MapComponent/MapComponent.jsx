@@ -33,8 +33,8 @@ export default function MapModal({ location }) {
       <CustomButton
         variant="contained"
         fs={'14px'}
-        pad={6}
-        marginInline={'0 auto '}
+        p={6}
+        mx={'0 auto '}
         fontWeight={'none'}
         onClick={handleOpen}
       >

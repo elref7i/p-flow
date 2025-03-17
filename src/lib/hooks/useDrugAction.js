@@ -2,7 +2,7 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { addDrug, deleteDrug, getAllDrugs, updateDrug } from '../api/drugApi';
 import toast from 'react-hot-toast';
 
-//*Get all Drugs
+//* Get all Drugs
 
 export const useDrugs = (token, params = {}) => {
   // const { search, ...restParams } = params;

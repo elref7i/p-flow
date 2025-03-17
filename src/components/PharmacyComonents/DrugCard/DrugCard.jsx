@@ -13,13 +13,17 @@ import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
-import { CustomParagraph } from '../../Common/CustomTypography';
 import ArrowRightRoundedIcon from '@mui/icons-material/ArrowRightRounded';
 import PlaceIcon from '@mui/icons-material/Place';
 import { useNavigate } from 'react-router-dom';
 import CustomButton from '../../Common/ButtonStyle';
 import { formatDate } from '@/lib/utils/dateUtils';
-
+const truncateText = (text, maxLength) => {
+  if (text.length > maxLength) {
+    return text.slice(0, maxLength).trim() + '...'; // إزالة المسافات الزائدة وإضافة نقاط
+  }
+  return text;
+};
 export default function DrugCard({ dataInfo }) {
   const theme = useTheme();
   const navigate = useNavigate();
@@ -41,7 +45,7 @@ export default function DrugCard({ dataInfo }) {
     <Paper
       elevation={3}
       sx={{
-        maxWidth: 270,
+        width: 250,
         maxHeight: 500,
         borderRadius: 2,
         ':hover': {
@@ -176,7 +180,7 @@ export default function DrugCard({ dataInfo }) {
         </Stack>
         <Divider sx={{ my: 1 }} /> {/* زيادة المسافة حول الـ Divider */}
         {/* Drug Name and Description */}
-        <Stack alignItems={'start'} spacing={0.5} pt={1}>
+        <Stack alignItems={'start'} spacing={1} pt={1}>
           <Typography
             gutterBottom
             variant="h2"
@@ -184,7 +188,7 @@ export default function DrugCard({ dataInfo }) {
               navigate(`/pharmacy/drugdetails/${_id}`);
             }}
             sx={{
-              fontSize: { xs: '15px', md: '15px' },
+              fontSize: { xs: '15px', md: '20px' },
               display: '-webkit-box',
               WebkitBoxOrient: 'vertical',
               WebkitLineClamp: 1,
@@ -197,10 +201,10 @@ export default function DrugCard({ dataInfo }) {
             component="div"
             aria-label={`Drug name: ${name}`}
           >
-            {name}
+            {truncateText(name, 30)}
           </Typography>
 
-          <CustomParagraph
+          {/* <CustomParagraph
             sx={{
               display: '-webkit-box',
               WebkitBoxOrient: 'vertical',
@@ -214,34 +218,27 @@ export default function DrugCard({ dataInfo }) {
             aria-label={`Drug description: ${description}`}
           >
             {description}
-          </CustomParagraph>
+          </CustomParagraph> */}
 
           {/* Price */}
           <Typography
             variant="body2"
-            aria-label={`Price: ${
-              discountedPrice ? discountedPrice.toFixed(2) : price.toFixed(2)
-            } EGP`}
-            sx={{ fontWeight: 'bold', color: '#28A745' }} // تحسين تنسيق السعر
+            sx={{
+              mt: 1,
+              fontWeight: 'bold',
+              color: theme.palette.success.main, // لون سعر المستهلك
+            }}
           >
-            <strong>Price:</strong>{' '}
-            {discountedPrice ? discountedPrice.toFixed(2) : price.toFixed(2)}
-            <Box component={'span'} sx={{ fontStyle: 'italic' }} pl={0.2}>
-              EGP
-            </Box>
-            {discountedPrice && (
-              <Box
-                component={'span'}
-                sx={{
-                  fontStyle: 'italic',
-                  color: theme.palette.action.selected,
-                  textDecoration: 'line-through',
-                  ml: 1,
-                }}
-              >
-                {price.toFixed(2)} EGP
-              </Box>
-            )}
+            Consumer: {discountedPrice.toFixed(2)} EGP
+          </Typography>
+          <Typography
+            variant="body2"
+            sx={{
+              fontWeight: 'bold',
+              color: theme.palette.error.main, // لون سعر الصيدلية
+            }}
+          >
+            Pharmacy: {price.toFixed(2)} EGP
           </Typography>
 
           {/* Production and Expiration Dates */}
@@ -282,11 +279,7 @@ export default function DrugCard({ dataInfo }) {
             alignItems={'center'}
             justifyContent={'start'}
           >
-            <Stack
-              direction={'row'}
-              alignItems={'center'}
-              sx={{ pr: 1, borderRight: '2px solid #424952' }}
-            >
+            <Stack direction={'row'} alignItems={'center'} sx={{ pr: 1 }}>
               <PlaceIcon color={'success'} />
               <Typography
                 variant="body2"
@@ -298,24 +291,24 @@ export default function DrugCard({ dataInfo }) {
                 {distanceInKm ? `${distanceInKm.toFixed(2)} km` : 'N/A'}{' '}
               </Typography>
             </Stack>
-            <Typography
+            {/* <Typography
               variant="body2"
               aria-label="Location: Elementary Street"
               sx={{ fontWeight: 'bold' }} // تحسين تنسيق الموقع
             >
               Elementary Street
-            </Typography>
+            </Typography> */}
           </Stack>
         </Stack>
       </CardContent>
       <CardActions>
         <CustomButton
-          variant="contained"
-          pad={'4px 40px'}
+          // variant="outlined"
+          p={'4px 40px'}
           fs={'15px'}
           width={'100%'}
           aria-label="Add to cart"
-          sx={{ fontWeight: 'bold' }} // تحسين تنسيق الزر
+          sx={{ fontWeight: 'bold' }}
         >
           Add to Cart
         </CustomButton>

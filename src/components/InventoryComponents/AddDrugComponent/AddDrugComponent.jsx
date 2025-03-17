@@ -1,29 +1,29 @@
-import * as React from "react";
-import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
-import Modal from "@mui/material/Modal";
-import Stack from "@mui/material/Stack";
-import TextField from "@mui/material/TextField";
-import MenuItem from "@mui/material/MenuItem";
-import CircularProgress from "@mui/material/CircularProgress";
-import WarningAmberIcon from "@mui/icons-material/WarningAmber";
-import { useFormik } from "formik";
-import { useTypeContext } from "../../../context/UserType.context";
-import { useAddDrug } from "../../../lib/hooks/useDrugAction";
-import { DrugSchema } from "../../../lib/schemas/DrugSchema";
-import CustomButton from "../../Common/ButtonStyle";
+import * as React from 'react';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
+import Modal from '@mui/material/Modal';
+import Stack from '@mui/material/Stack';
+import TextField from '@mui/material/TextField';
+import MenuItem from '@mui/material/MenuItem';
+import CircularProgress from '@mui/material/CircularProgress';
+import WarningAmberIcon from '@mui/icons-material/WarningAmber';
+import { useFormik } from 'formik';
+import { useTypeContext } from '../../../context/UserType.context';
+import { useAddDrug } from '../../../lib/hooks/useDrugAction';
+import { DrugSchema } from '../../../lib/schemas/DrugSchema';
+import CustomButton from '../../Common/ButtonStyle';
 
 const style = {
-  position: "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: { xs: "85%", sm: "60%", md: "50%" },
-  bgcolor: "background.paper",
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: { xs: '85%', sm: '60%', md: '50%' },
+  bgcolor: 'background.paper',
   boxShadow: 24,
   p: 4,
-  borderRadius: "10px",
+  borderRadius: '10px',
 };
 
 export default function AddDrugComponent() {
@@ -35,21 +35,21 @@ export default function AddDrugComponent() {
   const { handleSubmit, handleBlur, handleChange, values, errors, touched } =
     useFormik({
       initialValues: {
-        name: "",
-        manufacturer: "",
-        description: "",
-        originType: "",
-        productionDate: "",
-        expirationDate: "",
-        price: "",
-        discount: "",
-        stock: "",
-        sold: "",
-        isVisible: "",
+        name: '',
+        manufacturer: '',
+        description: '',
+        originType: '',
+        productionDate: '',
+        expirationDate: '',
+        price: '',
+        discount: '',
+        stock: '',
+        sold: '',
+        isVisible: '',
       },
       validationSchema: DrugSchema,
       onSubmit: (values) => {
-        console.log("Submitting values:", values);
+        console.log('Submitting values:', values);
         mutate({ token, values });
       },
     });
@@ -59,7 +59,7 @@ export default function AddDrugComponent() {
       <Button
         onClick={handleOpen}
         variant="contained"
-        sx={{ ml: "auto", display: "block", mb: 2 }}
+        sx={{ ml: 'auto', display: 'block', mb: 2 }}
       >
         Add Drug
       </Button>
@@ -219,15 +219,15 @@ export default function AddDrugComponent() {
 
             <CustomButton
               type="submit"
-              marginInline={"auto 0"}
-              sx={{ display: "flex" }}
+              mx={'auto 0'}
+              sx={{ display: 'flex' }}
               startIcon={
                 isLoading ? (
                   <CircularProgress color="inherit" size={20} />
                 ) : isError ? (
                   <WarningAmberIcon color="error" size={20} />
                 ) : (
-                  ""
+                  ''
                 )
               }
             >

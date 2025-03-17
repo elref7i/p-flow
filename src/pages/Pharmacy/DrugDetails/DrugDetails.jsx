@@ -9,14 +9,13 @@ import {
   IconButton,
   Grid2,
 } from '@mui/material';
-// import Grid2 from '@mui/material/Unstable_Grid2';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import ArrowForwardIosOutlinedIcon from '@mui/icons-material/ArrowForwardIosOutlined';
-import CustomButton from '../../Common/ButtonStyle';
+import CustomButton from '../../../components/Common/ButtonStyle';
 import { formatDate } from '@/lib/utils/dateUtils';
 import { useTypeContext } from '../../../context/UserType.context';
 import { getSpecificDrug } from '../../../lib/api/drugApi';
-import LoadingSpinner from '../../Common/Loading/LoadingSpinner';
+import LoadingSpinner from '../../../components/Common/Loading/LoadingSpinner';
 import { useQuery } from '@tanstack/react-query';
 
 export default function DrugDetails() {
@@ -24,15 +23,6 @@ export default function DrugDetails() {
   const { token } = useTypeContext();
   const navigate = useNavigate();
   const theme = useTheme();
-
-  // const fetchSpecificDrug = async ({ token, id }) => {
-  //   const { data } = await getSpecificDrug({ token, drugId: id });
-  //   setDrug(data);
-  // };
-
-  // useEffect(() => {
-  //   fetchSpecificDrug({ token, id });
-  // }, [id]);
 
   const { data, isFetched } = useQuery({
     queryKey: ['drug', id],
@@ -64,7 +54,6 @@ export default function DrugDetails() {
             position: 'relative',
           }}
         >
-          {/* زر العودة في أعلى اليسار */}
           <IconButton
             onClick={() => navigate(-1)}
             sx={{
@@ -95,6 +84,26 @@ export default function DrugDetails() {
                 }
                 alt={data.data.name}
               />
+              {data.data.discountedPrice && (
+                <Box
+                  component={'discount'}
+                  sx={{
+                    bgcolor: 'red',
+                    p: 1,
+                    zIndex: 99,
+                    borderRadius: '20px',
+                    position: 'absolute',
+                    top: 5,
+                    right: 5,
+                    color: '#FAFAFA',
+                    fontWeight: 'bold',
+                    fontSize: '12px',
+                  }}
+                  aria-label={`Discount of ${data.data.discount}%`}
+                >
+                  {data.data.discount}% OFF
+                </Box>
+              )}
             </Grid2>
 
             <Grid2 item size={{ xs: 12, sm: 6 }}>
@@ -107,42 +116,31 @@ export default function DrugDetails() {
 
               <Stack spacing={1} sx={{ mb: 2 }}>
                 <Typography variant="body1">
-                  <strong>Manufacturer: </strong>
-                  {data.data.manufacturer}
-                </Typography>
-                <Typography variant="body1">
                   <strong>Inventory: </strong>
                   {data.data.createdBy?.name || 'N/A'}
                 </Typography>
                 <Typography variant="body1">
-                  <strong>Price:</strong>
-                  <Box
-                    component="span"
-                    sx={{ color: '#28A745', fontWeight: 'bold', ml: 0.5 }}
-                  >
-                    {`${data.data.discountedPrice.toFixed(2)} EGP`}
-                  </Box>
-                  <Box
-                    component="span"
-                    sx={{
-                      textDecoration: 'line-through',
-                      color: 'gray',
-                      ml: 0.5,
-                      fontWeight: 'bold',
-                      fontSize: '13px',
-                    }}
-                  >
-                    {data.data.price.toFixed(2)} EGP
-                  </Box>
+                  <strong>Manufacturer: </strong>
+                  {data.data.manufacturer}
                 </Typography>
-                <Typography variant="body1">
-                  <strong>Discount:</strong>
-                  <Box
-                    component="span"
-                    sx={{ color: '#CB2431', ml: 0.5, fontWeight: 'bold' }}
-                  >
-                    {data.data.discount}%
-                  </Box>
+                <Typography
+                  variant="body2"
+                  sx={{
+                    mt: 1,
+                    fontWeight: 'bold',
+                    color: theme.palette.success.main, // لون سعر المستهلك
+                  }}
+                >
+                  Consumer: {data.data.discountedPrice.toFixed(2)} EGP
+                </Typography>
+                <Typography
+                  variant="body2"
+                  sx={{
+                    fontWeight: 'bold',
+                    color: theme.palette.error.main, // لون سعر الصيدلية
+                  }}
+                >
+                  Pharmacy: {data.data.price.toFixed(2)} EGP
                 </Typography>
                 <Typography variant="body1">
                   <strong>Production Date:</strong>{' '}
@@ -169,7 +167,7 @@ export default function DrugDetails() {
                   variant="contained"
                   // fullWidth
                   sx={{ flex: 1 }}
-                  pad={'10px'}
+                  p={'10px'}
                   fs={'16px'}
                 >
                   Add to Cart

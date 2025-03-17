@@ -1,63 +1,59 @@
-//*hover button
-//*Action
-//*Profile Imgae
-
 const colors = {
   // الألوان الأساسية
-  primary: '#424952', // لون أساسي (أسود داكن)
-  secondary: '#0366D6', // لون ثانوي (أزرق)
-  auth: '#939494', // لون ثانوي (رمادي بنفسجي)
-  error: '#CB2431', // لون الخطأ (أحمر)
-  warning: '#F9A825', // لون التحذير (أصفر داكن)
-  success: '#28A745', // لون النجاح (أخضر)
-  info: '#0366D6', // لون المعلومات (أزرق)
+  primary: '#1976D2', // لون أساسي (أزرق)
+  secondary: '#2196F3', // لون ثانوي (أزرق فاتح)
+  auth: '#64B5F6', // لون ثانوي (أزرق فاتح جدًا)
+  error: '#FF5252', // لون الخطأ (أحمر فاتح)
+  warning: '#FFC107', // لون التحذير (أصفر)
+  success: '#4CAF50', // لون النجاح (أخضر)
+  info: '#2196F3', // لون المعلومات (أزرق فاتح)
 
   // درجات الألوان للوضع الفاتح (Light Mode)
-  lightBackground: '#FAFAFA', // لون الخلفية العام (أبيض فاتح جدًا)
-  lightPaper: '#F5F5F5', // لون المكونات الورقية (أبيض رمادي فاتح)
-  lightNavbar: '#F0F0F0', // لون شريط التنقل (رمادي فاتح جدًا)
-  lightTextPrimary: '#24292E', // اللون الأساسي للنصوص (أسود داكن)
-  lightTextSecondary: '#586069', // اللون الثانوي للنصوص (رمادي داكن)
+  lightBackground: '#FFFFFF', // لون الخلفية العام (أبيض)
+  lightPaper: '#F5F5F5', // لون المكونات الورقية (رمادي فاتح)
+  lightNavbar: '#E0E0E0', // لون شريط التنقل (رمادي فاتح)
+  lightTextPrimary: '#212121', // اللون الأساسي للنصوص (أسود داكن)
+  lightTextSecondary: '#757575', // اللون الثانوي للنصوص (رمادي داكن)
   lightGrey: {
-    100: '#FAFAFA', // نفس لون الخلفية
-    200: '#F5F5F5', // نفس لون الورق
-    300: '#EAEEF2', // لون خلفية الزر
-    400: '#D1D5DA', // لون الحدود
-    500: '#6A737D', // لون رمادي داكن للنصوص الثانوية
+    100: '#F5F5F5', // نفس لون الخلفية
+    200: '#EEEEEE', // نفس لون الورق
+    300: '#E0E0E0', // لون خلفية الزر
+    400: '#BDBDBD', // لون الحدود
+    500: '#9E9E9E', // لون رمادي داكن للنصوص الثانوية
   },
-  lightBgButton: '#0D1117', // لون زر الوضع الفاتح (أغمق قليلاً من الخلفية)
-  lightButtonText: '#D1D5DA', // لون نص الأزرار في الوضع الفاتح
-  lightBorder: '#6A737D', // لون الحدود في الوضع الفاتح
+  lightBgButton: '#1976D2', // لون زر الوضع الفاتح (أزرق)
+  lightButtonText: '#FFFFFF', // لون نص الأزرار في الوضع الفاتح (أبيض)
+  lightBorder: '#BDBDBD', // لون الحدود في الوضع الفاتح
 
   // درجات الألوان للوضع الداكن (Dark Mode)
-  darkBackground: '#1E2226', // لون الخلفية العام (أسود داكن جدًا)
-  darkPaper: '#161B22', // لون المكونات الورقية (رمادي داكن جدًا)
-  darkNavbar: '#1E222A', // لون شريط التنقل (أسود داكن جدًا)
-  darkTextPrimary: '#F5F5F5', // اللون الأساسي للنصوص (رمادي فاتح)
-  darkTextSecondary: '#C9D1D9', // اللون الثانوي للنصوص (رمادي متوسط)
+  darkBackground: '#121212', // لون الخلفية العام (أسود داكن)
+  darkPaper: '#1E1E1E', // لون المكونات الورقية (رمادي داكن)
+  darkNavbar: '#2E2E2E', // لون شريط التنقل (رمادي داكن)
+  darkTextPrimary: '#FFFFFF', // اللون الأساسي للنصوص (أبيض)
+  darkTextSecondary: '#BDBDBD', // اللون الثانوي للنصوص (رمادي فاتح)
   darkGrey: {
-    100: '#161B22',
-    200: '#21262D',
-    300: '#30363D',
-    400: '#484F58',
-    500: '#6E7681',
-    600: '#F5F5F5',
+    100: '#1E1E1E',
+    200: '#2E2E2E',
+    300: '#424242',
+    400: '#616161',
+    500: '#757575',
+    600: '#9E9E9E',
   },
-  darkBgButton: '#D1D5DA', // لون زر الوضع الداكن (رمادي داكن جدًا)
-  darkButtonText: '#0D1117', // لون نص الأزرار في الوضع الداكن (أبيض)
-  darkBorder: '#30363D', // لون الحدود في الوضع الداكن
+  darkBgButton: '#1976D2', // لون زر الوضع الداكن (أزرق)
+  darkButtonText: '#FFFFFF', // لون نص الأزرار في الوضع الداكن (أبيض)
+  darkBorder: '#424242', // لون الحدود في الوضع الداكن
 };
 
 export const getDesignTokens = (mode) => ({
   palette: {
     mode,
-    primary: { main: colors.primary },
-    secondary: { main: colors.secondary },
-    auth: { main: colors.auth },
-    error: { main: colors.error },
-    warning: { main: colors.warning },
-    success: { main: colors.success },
-    info: { main: colors.info },
+    primary: { main: colors.primary }, // أزرق للعناصر الأساسية
+    secondary: { main: colors.secondary }, // أزرق فاتح للعناصر الثانوية
+    auth: { main: colors.auth }, // أزرق فاتح جدًا للتأكيد
+    error: { main: colors.error }, // أحمر للخطأ
+    warning: { main: colors.warning }, // أصفر للتحذير
+    success: { main: colors.success }, // أخضر للنجاح
+    info: { main: colors.info }, // أزرق فاتح للمعلومات
 
     // الخلفيات والأسطح
     background: {
@@ -87,7 +83,7 @@ export const getDesignTokens = (mode) => ({
 
     // ألوان إضافية
     action: {
-      active: mode === 'light' ? colors.primary : colors.secondary,
+      active: mode === 'light' ? colors.primary : colors.secondary, // أزرق للعناصر النشطة
       hover: mode === 'light' ? colors.lightGrey[400] : colors.darkGrey[500], // استخدام لون رمادي متوسط للـ hover
       selected: mode === 'light' ? colors.lightGrey[400] : colors.darkGrey[500],
       disabled: mode === 'light' ? colors.lightGrey[400] : colors.darkGrey[500],
@@ -99,16 +95,16 @@ export const getDesignTokens = (mode) => ({
     mode === 'light'
       ? [
           'none', // elevation 0 (بدون ظل)
-          '0px 2px 4px rgba(0, 0, 0, 0.2)', // elevation 1 (ظل فاتح للوضع الفاتح)
-          '0px 3px 6px rgba(0, 0, 0, 0.2)', // elevation 2 (ظل فاتح للوضع الفاتح)
-          '0px 4px 8px rgba(0, 0, 0, 0.2)', // elevation 3 (ظل فاتح للوضع الفاتح)
+          '0px 2px 4px rgba(0, 0, 0, 0.1)', // elevation 1 (ظل فاتح للوضع الفاتح)
+          '0px 3px 6px rgba(0, 0, 0, 0.1)', // elevation 2 (ظل فاتح للوضع الفاتح)
+          '0px 4px 8px rgba(0, 0, 0, 0.1)', // elevation 3 (ظل فاتح للوضع الفاتح)
           // يمكنك إضافة المزيد من الظلال هنا
         ]
       : [
           'none', // elevation 0 (بدون ظل)
-          '0px 2px 4px rgba(255, 255, 255, .1)', // elevation 1 (ظل فاتح للوضع الداكن)
-          '0px 2px 6px rgba(255, 255, 255, .1)', // elevation 2 (ظل فاتح للوضع الداكن)
-          '0px 2px 8px rgba(255, 255, 255, .1)', // elevation 3 (ظل فاتح للوضع الداكن)
+          '0px 2px 4px rgba(255, 255, 255, 0.1)', // elevation 1 (ظل فاتح للوضع الداكن)
+          '0px 3px 6px rgba(255, 255, 255, 0.1)', // elevation 2 (ظل فاتح للوضع الداكن)
+          '0px 4px 8px rgba(255, 255, 255, 0.1)', // elevation 3 (ظل فاتح للوضع الداكن)
           // يمكنك إضافة المزيد من الظلال هنا
         ],
 });
