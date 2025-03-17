@@ -1,6 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { addDrug, deleteDrug, getAllDrugs, updateDrug } from '../api/drugApi';
+import { addDrug, deleteDrug, getAllDrugs, getAllOwnDrugs, updateDrug } from '../api/drugApi';
 import toast from 'react-hot-toast';
+import { useTypeContext } from '../../context/UserType.context';
 
 //* Get all Drugs
 
@@ -23,7 +24,7 @@ export const useAddDrug = () => {
   return useMutation(addDrug, {
     onSuccess: () => {
       toast.success('Drug added successfully');
-      queryClient.invalidateQueries(['drugs']);
+      queryClient.invalidateQueries(['Owndrugs']);
     },
     onError: (error) => {
       toast.error(error.response.data.message || 'error');
@@ -40,7 +41,7 @@ export const useDeleteDrug = () => {
   return useMutation(deleteDrug, {
     onSuccess: () => {
       toast.success('Drug deleted successfully');
-      queryClient.invalidateQueries(['drugs']);
+      queryClient.invalidateQueries(['Owndrugs']);
     },
     onError: (error) => {
       toast.error(error.response.data.message || 'error');
@@ -55,12 +56,28 @@ export const useUpdateDrug = () => {
   const queryClient = useQueryClient();
   return useMutation(updateDrug, {
     onSuccess: () => {
-      toast.success('success');
-      queryClient.invalidateQueries(['drugs']);
+      toast.success('Drug Updated successfully');
+      queryClient.invalidateQueries(['Owndrugs']);
     },
     onError: (error) => {
       toast.error(error.response.data.message || 'error');
       console.log(error);
     },
+  });
+};
+
+
+// * get All Own Drugs
+
+export const useOwnDrugs = () => {
+  const { token } = useTypeContext();
+  return useQuery({
+    queryKey: ['Owndrugs'],
+    queryFn: () => getAllOwnDrugs(token),
+    enabled: !!token,
+    refetchOnMount: false,
+    keepPreviousData: true,
+    refetchOnWindowFocus: false,
+    cacheTime: 1 * 60 * 1000,
   });
 };

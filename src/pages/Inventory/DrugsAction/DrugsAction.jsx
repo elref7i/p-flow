@@ -1,37 +1,34 @@
-import { Box } from '@mui/material';
-import { useTypeContext } from '@/context/UserType.context';
-import AlertModal from '@/components/AdminComonents/MessageAlert/MessageAlert';
-import ModalUpdated from '@/components/AdminComonents/ModalUpdated/ModalUpdated';
-import Table from '../../../components/InventoryComponents/Table/Table';
-import { columns } from './data';
-import { useDeleteDrug } from '../../../lib/hooks/useDrugAction';
+import { Box } from "@mui/material";
+import { useTypeContext } from "@/context/UserType.context";
+import Table from "../../../components/InventoryComponents/Table/Table";
+import { columns } from "./data";
+import { useDeleteDrug, useOwnDrugs } from "../../../lib/hooks/useDrugAction";
+import UpdateModal from "../../../components/InventoryComponents/UpdateModal/UpdateModal";
+import DeleteModal from "../../../components/InventoryComponents/DeleteModal/DeleteModal";
 
 export default function DrugsAction() {
   const { token } = useTypeContext();
-
-  // const {data, isLoading} = useAllDrugs();
-
+  const { data, isLoading } = useOwnDrugs();
   const { isLoading: isDeleting, mutate: handleDelete } = useDeleteDrug();
 
-  const filteredData = data ? data.filter((row) => row.role !== 'admin') : [];
 
   const DeletedColumn = {
-    field: 'deleted',
-    headerName: 'Deleted',
-    align: 'center',
-    headerAlign: 'center',
+    field: "deleted",
+    headerName: "Delete",
+    align: "center",
+    headerAlign: "center",
     minWidth: 150,
     renderCell: (params) => {
       return (
         <Box
           sx={{
             px: 5,
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
           }}
         >
-          <AlertModal
+          <DeleteModal
             isDeleting={isDeleting}
             handleAction={() => handleDelete({ drugId: params.row._id, token })}
           />
@@ -41,34 +38,34 @@ export default function DrugsAction() {
   };
 
   const updatedColumn = {
-    field: 'updated',
-    headerName: 'Updated',
-    align: 'center',
-    headerAlign: 'center',
+    field: "updated",
+    headerName: "Update",
+    align: "center",
+    headerAlign: "center",
     minWidth: 150,
     renderCell: (params) => {
       return (
         <Box
           sx={{
             px: 5,
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
           }}
         >
-          <ModalUpdated drugId={params.row._id} />
+          <UpdateModal drugId={params.row._id} />
         </Box>
       );
     },
   };
 
-  const columnsWithActions = [...columns, DeletedColumn, updatedColumn];
+  const columnsWithActions = [...columns, DeletedColumn ,updatedColumn];
 
   return (
     <>
       <Table
         isLoading={isLoading}
-        data={filteredData}
+        data={data || []}
         columnsWithActions={columnsWithActions}
         check={true}
       />

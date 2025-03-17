@@ -11,7 +11,7 @@ export const columns = [
     headerName: "manufacturer",
     align: "center",
     headerAlign: "center",
-    minWidth: 100,
+    minWidth: 120,
   },
   {
     field: "originType",
@@ -25,21 +25,21 @@ export const columns = [
     headerName: "productionDate",
     align: "center",
     headerAlign: "center",
-    minWidth: 100,
+    minWidth: 200,
   },
   {
     field: "expirationDate",
     headerName: "expirationDate",
     align: "center",
     headerAlign: "center",
-    minWidth: 150,
+    minWidth: 200,
   },
   {
     field: "price",
     headerName: "price",
     align: "center",
     headerAlign: "center",
-    minWidth: 150,
+    minWidth: 100,
   },
   {
     field: "discount",
@@ -47,16 +47,23 @@ export const columns = [
     flex: 1,
     align: "center",
     headerAlign: "center",
-    minWidth: 200,
+    minWidth: 100,
   },
-
+  {
+    field: "description",
+    headerName: "description",
+    flex: 1,
+    align: "center",
+    headerAlign: "center",
+    minWidth: 100,
+  },
   {
     field: "stock",
     headerName: "stock",
     flex: 1,
     align: "center",
     headerAlign: "center",
-    minWidth: 150,
+    minWidth: 50,
   },
   {
     field: "sold",
@@ -65,7 +72,7 @@ export const columns = [
     align: "center",
     headerAlign: "center",
     type: "number",
-    minWidth: 100,
+    minWidth: 50,
   },
   {
     field: "isVisible",
@@ -74,6 +81,6 @@ export const columns = [
     align: "center",
     headerAlign: "center",
     type: "number",
-    minWidth: 150,
+    minWidth: 100,
   },
 ];
