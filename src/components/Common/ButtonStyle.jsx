@@ -63,7 +63,7 @@ const CustomButton = styled(Button)(
     d,
     variant = 'contained',
     buttonStyle = 'default',
-    component,
+    // component,
   }) => {
     // الألوان حسب النوع
     const colors = {

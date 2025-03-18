@@ -32,7 +32,7 @@ export default function DrugCard({ dataInfo }) {
     _id,
     name,
     inventory,
-    description,
+    // description,
     price,
     discount,
     discountedPrice,
@@ -286,24 +286,16 @@ export default function DrugCard({ dataInfo }) {
                 aria-label={`Distance: ${
                   distanceInKm ? `${distanceInKm.toFixed(2)} km` : 'N/A'
                 }`}
-                sx={{ fontWeight: 'bold' }} // تحسين تنسيق المسافة
+                sx={{ fontWeight: 'bold' }}
               >
                 {distanceInKm ? `${distanceInKm.toFixed(2)} km` : 'N/A'}{' '}
               </Typography>
             </Stack>
-            {/* <Typography
-              variant="body2"
-              aria-label="Location: Elementary Street"
-              sx={{ fontWeight: 'bold' }} // تحسين تنسيق الموقع
-            >
-              Elementary Street
-            </Typography> */}
           </Stack>
         </Stack>
       </CardContent>
       <CardActions>
         <CustomButton
-          // variant="outlined"
           p={'4px 40px'}
           fs={'15px'}
           width={'100%'}
