@@ -92,7 +92,7 @@ const CustomButton = styled(Button)(
         bgcolor: theme.palette.primary.main,
         color: '#fff',
         border: `1px solid ${theme.palette.primary.dark}`,
-        hoverbgColor: theme.palette.primary.dark,
+        hoverbgColor: theme.palette.action.hover,
         hoverColor: '#fff',
       },
       warning: {
@@ -104,7 +104,6 @@ const CustomButton = styled(Button)(
       },
     };
 
-    // تحديد القيم بناءً على النوع
     const selected = colors[buttonStyle] || colors.default;
 
     return {
@@ -168,7 +167,7 @@ export const CustomLink = styled(Link)(
     fontWeight: fw || 'normal',
     textTransform: 'capitalize',
     borderRadius: br || '0px',
-    color: c || theme.palette.text.button, // لون النص الأساسي
+    color: c || theme.palette.primary, // لون النص الأساسي
     textDecoration: textDecoration || 'none',
     display: display || 'block',
     alignItems: alignItems,

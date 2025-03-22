@@ -18,6 +18,7 @@ import PlaceIcon from '@mui/icons-material/Place';
 import { useNavigate } from 'react-router-dom';
 import CustomButton from '../../Common/ButtonStyle';
 import { formatDate } from '@/lib/utils/dateUtils';
+import LocationComponent from '../../Flow-Loaction/Flow-Loaction';
 const truncateText = (text, maxLength) => {
   if (text.length > maxLength) {
     return text.slice(0, maxLength).trim() + '...'; // إزالة المسافات الزائدة وإضافة نقاط
@@ -54,7 +55,7 @@ export default function DrugCard({ dataInfo }) {
           '& .box-icon': { opacity: 1, transition: 'opacity 0.3s' },
         },
         transition: 'all 0.3s',
-        pb: 1,
+        // pb: 1,
         position: 'relative',
         overflow: 'hidden',
       }}
@@ -63,14 +64,14 @@ export default function DrugCard({ dataInfo }) {
         className="box-image"
         sx={{
           bgcolor: '#fff',
-          borderRadius: 1,
+          borderRadius: 0,
           position: 'relative',
         }}
       >
         <CardMedia
           component="img"
           height="140"
-          sx={{ objectFit: 'contain', overflow: 'hidden' }}
+          sx={{ objectFit: 'contain' }}
           width={'100%'}
           image={
             'https://www.netmeds.com/images/product-v1/600x600/397251/nasomist_saline_nasal_spray_20ml_149351_0_2.jpg'
@@ -146,9 +147,9 @@ export default function DrugCard({ dataInfo }) {
             }}
             aria-label="View drug details"
           />
-        </Stack>
+        </Stack> 
       </Paper>
-      <CardContent>
+      <CardContent elevation={2}>
         {/* Inventory Avatar */}
         <Stack
           direction="row"
@@ -204,45 +205,43 @@ export default function DrugCard({ dataInfo }) {
             {truncateText(name, 30)}
           </Typography>
 
-          {/* <CustomParagraph
-            sx={{
-              display: '-webkit-box',
-              WebkitBoxOrient: 'vertical',
-              WebkitLineClamp: 1,
-              overflow: 'hidden',
-              textOverflow: 'ellipsis',
-              color: theme.palette.text.secondary,
-            }}
-            variant="body2"
-            title={description}
-            aria-label={`Drug description: ${description}`}
-          >
-            {description}
-          </CustomParagraph> */}
-
-          {/* Price */}
           <Typography
             variant="body2"
             sx={{
-              mt: 1,
+              fontSize: { xs: '15px', md: '17px' },
               fontWeight: 'bold',
-              color: theme.palette.success.main, // لون سعر المستهلك
             }}
           >
-            Consumer: {discountedPrice.toFixed(2)} EGP
+            Consumer:
+            <Box
+              component={'span'}
+              sx={{
+                ml: 1,
+                fontWeight: 'bold',
+                color: theme.palette.success.main,
+              }}
+            >
+              {discountedPrice.toFixed(2)} EGP
+            </Box>{' '}
           </Typography>
           <Typography
             variant="body2"
             sx={{
+              fontSize: { xs: '15px', md: '17px' },
               fontWeight: 'bold',
-              color: theme.palette.error.main, // لون سعر الصيدلية
             }}
           >
-            Pharmacy: {price.toFixed(2)} EGP
+            Pharmacy:{' '}
+            <Box
+              component={'span'}
+              sx={{ ml: 1, color: theme.palette.error.main }}
+            >
+              {price.toFixed(2)} EGP
+            </Box>
           </Typography>
 
           {/* Production and Expiration Dates */}
-          <Typography
+          {/* <Typography
             component={'Date'}
             variant="body2"
             aria-label={`Production Date: ${formatDate(
@@ -269,10 +268,10 @@ export default function DrugCard({ dataInfo }) {
                 {formatDate(expirationDate)}
               </Box>
             </Stack>
-          </Typography>
+          </Typography> */}
 
           {/* Distance and Location */}
-          <Stack
+          {/* <Stack
             component={'loaction'}
             direction={'row'}
             gap={1}
@@ -291,20 +290,22 @@ export default function DrugCard({ dataInfo }) {
                 {distanceInKm ? `${distanceInKm.toFixed(2)} km` : 'N/A'}{' '}
               </Typography>
             </Stack>
-          </Stack>
+          </Stack> */}
+          <LocationComponent distanceInKm={distanceInKm} />
         </Stack>
+        <CardActions>
+          <CustomButton
+            variant={'contained'}
+            p={'4px 40px'}
+            fs={'15px'}
+            width={'100%'}
+            aria-label="Add to cart"
+            sx={{ fontWeight: 'bold' }}
+          >
+            Add to Cart
+          </CustomButton>
+        </CardActions>
       </CardContent>
-      <CardActions>
-        <CustomButton
-          p={'4px 40px'}
-          fs={'15px'}
-          width={'100%'}
-          aria-label="Add to cart"
-          sx={{ fontWeight: 'bold' }}
-        >
-          Add to Cart
-        </CustomButton>
-      </CardActions>
     </Paper>
   );
 }

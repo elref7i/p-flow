@@ -8,7 +8,7 @@ export const CustomHead = ({ mb, fs, fw, children, ...props }) => {
       sx={{
         fontSize: fs || { xs: '25px', md: '35px' },
         fontWeight: fw || 700,
-        color: theme.palette.text.primary,
+        color: theme.palette.primary,
         mb: mb || 2,
         textWrap: 'nowrap',
       }}

@@ -10,7 +10,7 @@ export default function Drugs() {
   const { token } = useTypeContext();
   const [params, setParams] = useState({});
   const [openFilter, setOpenFilter] = useState(false);
-  const { data, isError, isFetching } = useDrugs(token, params);
+  const { data, isFetching } = useDrugs(token, params);
 
   if (isFetching) return <LoadingSpinner />;
 
@@ -33,7 +33,7 @@ export default function Drugs() {
           Open Filter
         </Button>
       </Box>
-      <Grid2 py={2} justifyContent={'center'} container>
+      <Grid2 py={2} spacing={4} justifyContent={'center'} container>
         <Grid2
           size={{ xs: 12, lg: 3 }}
           sx={{ display: { xs: 'none', lg: 'block' } }}
@@ -45,7 +45,7 @@ export default function Drugs() {
             direction={'row'}
             rowGap={2}
             columnGap={2}
-            justifyContent={{ xs: 'center' }}
+            justifyContent={{ xs: 'center', md: 'start' }}
             alignItems={'center'}
             flexWrap={'wrap'}
           >

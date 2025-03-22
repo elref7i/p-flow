@@ -33,8 +33,8 @@ export default function Filter({ setParams }) {
     'expirationDate[lte]': null,
     'price[gte]': 0,
     'price[lte]': 1000,
-    page: 1,
-    limit: 0,
+    // page: 1,
+    // limit: 0,
     sort: 'distanceInKm',
   });
 
@@ -110,7 +110,7 @@ export default function Filter({ setParams }) {
       </Accordion>
 
       {/* قسم الصفحة والحد */}
-      <Accordion>
+      {/* <Accordion>
         <AccordionSummary expandIcon={<ExpandMoreIcon />}>
           <Typography>Pagination</Typography>
         </AccordionSummary>
@@ -136,7 +136,7 @@ export default function Filter({ setParams }) {
             sx={{ mb: 2 }}
           />
         </AccordionDetails>
-      </Accordion>
+      </Accordion> */}
 
       {/* قسم الترتيب */}
       <Accordion>
