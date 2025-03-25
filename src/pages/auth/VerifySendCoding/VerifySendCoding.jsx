@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { TextField, Button, Box, Container } from '@mui/material';
+import { TextField, Button, Box, Container, useTheme } from '@mui/material';
 import { CustomHead } from '@/components/Common/CustomTypography';
 import { useFormik } from 'formik';
 import CustomButton from '@/components/Common/ButtonStyle';
@@ -9,6 +9,8 @@ import { useNavigate } from 'react-router-dom';
 import { verifySchema } from '@/lib/schemas/AuthSchema';
 
 function VerifySendCoding() {
+  const theme = useTheme();
+  const backgroundAuth = theme.palette.background.auth;
   const [remainingTime, setRemainingTime] = useState(0);
   const [isCounting, setIsCounting] = useState(false);
   const navigator = useNavigate();
@@ -66,6 +68,19 @@ function VerifySendCoding() {
 
   return (
     <Box
+    component={'main'}
+    sx={{
+      background: backgroundAuth, // لون ثابت
+      // backgroundImage: (theme) => theme.palette.background.authImage, // التدرج
+      minHeight: '100vh',
+      width: '100%',
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+      position: 'relative',
+    }}
+  >
+    <Box
       sx={{
         display: 'flex',
         flexDirection: 'column',
@@ -109,6 +124,7 @@ function VerifySendCoding() {
           </Button>
         </form>
       </Container>
+    </Box>
     </Box>
   );
 }
