@@ -4,41 +4,60 @@ import { Box, Container } from '@mui/material';
 import Footer from '../components/Footer/Footer';
 import Sidebar from '../components/Sidebar/Sidebar';
 import { useTypeContext } from '../context/UserType.context';
+import NavbarPharmacy from '../components/PharmacyComonents/DrugCard/NavbarPharmacy/NavbarPharmacy';
+import { useMemo } from 'react';
+
+// تعريف الصفحات كمجموعات ثابتة
+const CONTROL_PAGES = new Set(['admin', 'inventory']);
+const PUBLIC_PAGES = new Set([
+  '/login',
+  '/signup',
+  '/forgetpassword',
+  '/updatedpassword',
+  '/verifysendcoding',
+  '/landing',
+]);
+const AUTH_PAGES = new Set([
+  '/login',
+  '/signup',
+  '/forgetpassword',
+  '/updatedpassword',
+  '/verifysendcoding',
+]);
+
 export default function Layout() {
-  const { token } = useTypeContext();
+  const { token, role } = useTypeContext();
   const { pathname } = useLocation();
 
-  const authPages = [
-    '/login',
-    '/signup',
-    '/forgetpassword',
-    '/updatedpassword',
-    '/verifysendcoding',
-    '/landing',
-  ];
-  const onlyAuth = [
-    '/login',
-    '/signup',
-    '/forgetpassword',
-    '/updatedpassword',
-    '/verifysendcoding',
-  ];
+  // حساب القيم المطلوبة لمرة واحدة
+  const isControlPage = useMemo(() => CONTROL_PAGES.has(role), [role]);
+  const isPublicPage = useMemo(() => PUBLIC_PAGES.has(pathname), [pathname]);
+  const isAuthPage = useMemo(() => AUTH_PAGES.has(pathname), [pathname]);
 
   return (
     <>
-      {!onlyAuth.includes(pathname) && <Navbar />}
-      {token && <Sidebar />}
+      {/* Navbar Handling */}
+      {(!isAuthPage && isControlPage) || pathname === '/landing' ? (
+        <Navbar />
+      ) : token && !isControlPage ? (
+        <NavbarPharmacy />
+      ) : null}
+
+      {/* Sidebar for Control Pages */}
+      {token && isControlPage && <Sidebar />}
+
+      {/* Main Content */}
       <Box
-        component={'main'}
+        component="main"
         sx={{
-          pl: authPages.includes(pathname) ? '0px' : '48px',
-          pt: onlyAuth.includes(pathname) ? '0px' : '90px',
-          paddingBottom: onlyAuth.includes(pathname) ? '0px' : '68.5px',
+          pl: isPublicPage ? '0px' : '48px',
+          pt: isAuthPage ? '0px' : '90px',
+          pb: isAuthPage ? '0px' : '68.5px',
           minHeight: 'calc(100vh - 68.01px)',
           backgroundColor: 'background.default',
         }}
       >
-        {authPages.includes(pathname) ? (
+        {isPublicPage ? (
           <Outlet />
         ) : (
           <Container maxWidth="xl">
@@ -47,7 +66,8 @@ export default function Layout() {
         )}
       </Box>
 
-      {!onlyAuth.includes(pathname) && <Footer />}
+      {/* Footer */}
+      {!isAuthPage && <Footer />}
     </>
   );
 }
