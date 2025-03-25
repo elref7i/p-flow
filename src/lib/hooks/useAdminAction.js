@@ -8,8 +8,17 @@ import {
 } from '../api/adminApi';
 import toast from 'react-hot-toast';
 
-//*ADD USER
+//* GET ALL USERS
+export const useAllUsers = () => {
+  return useQuery({
+    queryKey: ['users'],
+    queryFn: fetchUsers,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
+  });
+};
 
+//*ADD USER
 export const useAdminAddUser = () => {
   const queryClient = useQueryClient();
 
@@ -43,16 +52,6 @@ export const useActiveAdminUser = () => {
       );
       console.error(error);
     },
-  });
-};
-
-//* GET ALL USERS
-export const useAllUsers = () => {
-  return useQuery({
-    queryKey: ['users'],
-    queryFn: fetchUsers,
-    refetchOnMount: false,
-    refetchOnWindowFocus: false,
   });
 };
 

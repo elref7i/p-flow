@@ -1,13 +1,14 @@
 import { Avatar, Box } from '@mui/material';
 import { columns } from './Allusers';
-import { useAllUsers } from '@/lib/hooks/useAdminAction';
 import Table from '../../../components/Table/Table';
+import { useAllUsers } from '../../../lib/hooks/useAdminAction';
 
 export default function Users() {
   const { data, isLoading } = useAllUsers();
 
   const filteredData = data ? data.filter((row) => row.role !== 'admin') : [];
 
+  console.log(filteredData);
   const PrfileImage = {
     field: 'profileImage',
     headerName: 'PrfileImage',

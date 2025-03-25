@@ -5,7 +5,9 @@ import { API_URL } from './api_url';
 
 export const fetchUsers = async () => {
   const { data } = await axios.get(API_URL);
-  return data.users;
+  console.log(data.data);
+
+  return data.data;
 };
 export const addAdminUser = async ({ token, values }) => {
   const options = {
