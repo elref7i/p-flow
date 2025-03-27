@@ -162,7 +162,6 @@ const NavbarLanding = () => {
     <>
       <Slide appear={false} direction="down" in={!scrolled}>
         <div>
-          {' '}
           {/* Wrapper div for Slide component */}
           <AppBar
             position="fixed"
