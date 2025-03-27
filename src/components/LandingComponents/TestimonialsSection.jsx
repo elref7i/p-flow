@@ -88,7 +88,7 @@ const TestimonialsSection = () => {
       id="testimonials"
       sx={{
         py: { xs: 10, md: 16 },
-        background: 'linear-gradient(180deg, #ffffff 0%, #f5f9ff 100%)',
+        // background: 'linear-gradient(180deg, #ffffff 0%, #f5f9ff 100%)',
         position: 'relative',
         overflow: 'hidden',
       }}
@@ -195,8 +195,8 @@ const TestimonialsSection = () => {
                 sx={{
                   p: { xs: 4, md: 6 },
                   borderRadius: 4,
-                  background:
-                    'linear-gradient(135deg, #ffffff 0%, #f8fbff 100%)',
+                  // background:
+                  //   'linear-gradient(135deg, #ffffff 0%, #f8fbff 100%)',
                   position: 'relative',
                   overflow: 'visible',
                 }}
@@ -272,8 +272,8 @@ const TestimonialsSection = () => {
                         fontStyle: 'italic',
                         lineHeight: 1.6,
                         position: 'relative',
-                        '&::before': {
-                          content: '"""',
+                        '::before': {
+                          content: '""""',
                           fontSize: '4rem',
                           color: 'rgba(25, 118, 210, 0.1)',
                           position: 'absolute',
@@ -281,8 +281,8 @@ const TestimonialsSection = () => {
                           left: -20,
                           fontFamily: 'serif',
                         },
-                        '&::after': {
-                          content: '"""',
+                        '::after': {
+                          content: '""""',
                           fontSize: '4rem',
                           color: 'rgba(25, 118, 210, 0.1)',
                           position: 'absolute',

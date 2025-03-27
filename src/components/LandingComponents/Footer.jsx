@@ -9,6 +9,7 @@ import {
   TextField,
   Button,
   Divider,
+  useTheme,
 } from '@mui/material';
 import FacebookIcon from '@mui/icons-material/Facebook';
 import TwitterIcon from '@mui/icons-material/Twitter';
@@ -16,16 +17,18 @@ import InstagramIcon from '@mui/icons-material/Instagram';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 
 const Footer = () => {
+  const theme = useTheme();
   const currentYear = new Date().getFullYear();
-
+  const backgroundAuth = theme.palette.background.auth;
   return (
     <Box
       component="footer"
       sx={{
-        bgcolor: 'primary.dark',
+        background: backgroundAuth,
         color: 'white',
         pt: 8,
         pb: 6,
+        mb: 0,
       }}
     >
       <Container maxWidth="lg">

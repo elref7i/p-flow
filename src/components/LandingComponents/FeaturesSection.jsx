@@ -183,7 +183,7 @@ const FeaturesSection = () => {
       id="features"
       sx={{
         py: { xs: 10, md: 16 },
-        background: 'linear-gradient(180deg, #ffffff 0%, #f5f9ff 100%)',
+        // background: 'linear-gradient(180deg, #ffffff 0%, #f5f9ff 100%)',
         position: 'relative',
         overflow: 'hidden',
       }}

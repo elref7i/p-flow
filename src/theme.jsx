@@ -11,7 +11,7 @@ const colors = {
   // درجات الألوان للوضع الفاتح (Light Mode)
   lightBackground: '#FFFFFF',
   lightbgAuth:
-    ' linear-gradient(63.25deg, rgba(0, 0, 0, 0) 46.5%, rgba(64, 0, 255, 0.48) 107.58%), linear-gradient(297.17deg, rgba(255, 250, 244, 0) 60.92%, #9BCEFF 107.8%)',
+    'linear-gradient(63.25deg, rgba(0, 0, 0, 0) 46.5%, rgba(64, 0, 255, 0.48) 107.58%), linear-gradient(297.17deg, rgba(255, 250, 244, 0) 60.92%, #9BCEFF 107.8%)',
   lightPaper: '#F5F5F5', // لون المكونات الورقية (رمادي فاتح)
   lightNavbar: '#E0E0E0', // لون شريط التنقل (رمادي فاتح)
   lightTextPrimary: '#212121', // اللون الأساسي للنصوص (أسود داكن)

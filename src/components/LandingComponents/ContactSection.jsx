@@ -94,7 +94,7 @@ const ContactSection = () => {
       id="contact"
       sx={{
         py: { xs: 10, md: 16 },
-        background: 'linear-gradient(180deg, #f5f9ff 0%, #ffffff 100%)',
+        // background: 'linear-gradient(180deg, #f5f9ff 0%, #ffffff 100%)',
         position: 'relative',
         overflow: 'hidden',
       }}

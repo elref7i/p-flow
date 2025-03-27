@@ -1,14 +1,27 @@
-'use client';
-
 import { useState } from 'react';
-import { Box, Container, Typography, Button, Grid, Paper } from '@mui/material';
+import {
+  Box,
+  Container,
+  Typography,
+  Button,
+  Grid,
+  Paper,
+  useTheme,
+} from '@mui/material';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 
 // Animated background component
 const AnimatedBackground = () => {
+  const theme = useTheme();
+  const DarkAuth =
+    'linear-gradient(291.59deg, #1A1A1A 44.64%, #001B34 100.68%), linear-gradient(244.91deg, rgba(16, 0, 64, 10%) -5.58%, rgba(0, 0, 0, 0) 72.1%)';
+  const LightAuth =
+    'linear-gradient(63.25deg, rgba(0, 0, 0, 0) 46.5%, rgba(64, 0, 255, 2%) 107.58%), linear-gradient(297.17deg, rgba(255, 250, 244, 0) 60.92%, #9BCEFF77 107.8%)';
+
   return (
     <Box
       sx={{
@@ -26,9 +39,7 @@ const AnimatedBackground = () => {
           key={index}
           style={{
             position: 'absolute',
-            background: `radial-gradient(circle, rgba(25, 118, 210, 0.${
-              index + 1
-            }) 0%, rgba(25, 118, 210, 0) 70%)`,
+            background: theme.mode === 'dark' ? DarkAuth : LightAuth,
             borderRadius: '50%',
             zIndex: 0,
           }}
@@ -45,8 +56,8 @@ const AnimatedBackground = () => {
           initial={{
             x: Math.random() * 200 - 100,
             y: Math.random() * 200 - 100,
-            width: `${150 + index * 50}px`,
-            height: `${150 + index * 50}px`,
+            width: `${100 + index * 20}px`,
+            height: `${100 + index * 20}px`,
             top: `${Math.random() * 80}%`,
             left: `${Math.random() * 80}%`,
           }}
@@ -57,6 +68,8 @@ const AnimatedBackground = () => {
 };
 
 const HeroSection = () => {
+  const theme = useTheme();
+
   // const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const [showVideo, setShowVideo] = useState(false);
 
@@ -67,7 +80,7 @@ const HeroSection = () => {
       sx={{
         position: 'relative',
         py: { xs: 10, md: 16 },
-        background: 'linear-gradient(135deg, #f5f9ff 0%, #ecf5ff 100%)',
+        background: theme.palette.background.auth,
         overflow: 'hidden',
         minHeight: '100vh',
         display: 'flex',
@@ -153,6 +166,8 @@ const HeroSection = () => {
                   }}
                 >
                   <Button
+                    component={Link}
+                    to={'/signup'}
                     variant="contained"
                     size="large"
                     endIcon={<ArrowForwardIcon />}

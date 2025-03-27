@@ -6,16 +6,21 @@ import ContactSection from '../../../components/LandingComponents/ContactSection
 import Footer from '../../../components/LandingComponents/Footer';
 import StatisticsSection from '../../../components/LandingComponents/StatisticsSection';
 import ScrollToTop from '../../../components/LandingComponents/ScrollToTop';
+import NavbarLanding from '../../../components/LandingComponents/NavbarLanding';
+import { Box } from '@mui/material';
 
 const LandingPage = () => {
   return (
     <>
-      <HeroSection />
-      <FeaturesSection />
-      <HowItWorksSection />
-      <StatisticsSection />
-      <TestimonialsSection />
-      <ContactSection />
+      <NavbarLanding />
+      <Box component={'main'}>
+        <HeroSection />
+        <FeaturesSection />
+        <HowItWorksSection />
+        <StatisticsSection />
+        <TestimonialsSection />
+        <ContactSection />
+      </Box>
       <Footer />
       <ScrollToTop />
     </>

@@ -37,7 +37,7 @@ export default function Layout() {
   return (
     <>
       {/* Navbar Handling */}
-      {(!isAuthPage && isControlPage) || pathname === '/landing' ? (
+      {!isAuthPage && isControlPage ? (
         <Navbar />
       ) : token && !isControlPage ? (
         <NavbarPharmacy />
@@ -52,7 +52,7 @@ export default function Layout() {
         sx={{
           pl: isPublicPage ? '0px' : '48px',
           pt: isPublicPage ? '0px' : '90px',
-          pb: isAuthPage ? '0px' : '68.5px',
+          pb: isPublicPage ? '0px' : '68.5px',
           minHeight: 'calc(100vh - 68.01px)',
           backgroundColor: 'background.default',
         }}
