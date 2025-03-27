@@ -170,7 +170,7 @@ const NavbarLanding = () => {
             sx={{
               backgroundColor: scrolled
                 ? 'rgba(255, 255, 255, 0.95)'
-                : backgroundAuth,
+                : 'transparent',
               backdropFilter: scrolled ? 'blur(10px)' : 'none',
               transition: 'all 0.3s ease',
               py: scrolled ? 0.5 : 1,
