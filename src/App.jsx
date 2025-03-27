@@ -9,12 +9,14 @@ import ForgetPasswordProvider from './context/Forget.context';
 import UserTypeProvider from './context/UserType.context';
 import SkeletonLoader from './components/SkeletonLoader/SkeletonLoader';
 import ForgetProtectedRoute from './components/ForgetProtectedRoute/ForgetProtectedRoute';
-import ProtectedRoute from '@/components/ProtectedRoute/ProtectedRoute';
-import GuestRoute from '@/components/GuestRoute/GuestRoute';
+// import ProtectedRoute from '@/components/ProtectedRoute/ProtectedRoute';
+// import GuestRoute from '@/components/GuestRoute/GuestRoute';
 import LandingPage from './pages/auth/Landing/Landing';
 import AllDrugs from './pages/Inventory/AllDrugs/AllDrugs';
 import DrugsAction from './pages/Inventory/DrugsAction/DrugsAction';
 import InventoryProfile from './pages/Inventory/InventoryProfile/InventoryProfile';
+import ProtectedRoute from './components/Layout/ProtectedRoute/ProtectedRoute';
+import GuestRoute from './components/Layout/GuestRoute/GuestRoute';
 
 const Layout = lazy(() => import('@/Layout/Layout'));
 

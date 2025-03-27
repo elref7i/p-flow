@@ -51,7 +51,7 @@ export default function Layout() {
         component="main"
         sx={{
           pl: isPublicPage ? '0px' : '48px',
-          pt: isAuthPage ? '0px' : '90px',
+          pt: isPublicPage ? '0px' : '90px',
           pb: isAuthPage ? '0px' : '68.5px',
           minHeight: 'calc(100vh - 68.01px)',
           backgroundColor: 'background.default',
@@ -67,7 +67,7 @@ export default function Layout() {
       </Box>
 
       {/* Footer */}
-      {!isAuthPage && <Footer />}
+      {/* {!isAuthPage && <Footer />} */}
     </>
   );
 }

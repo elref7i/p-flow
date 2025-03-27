@@ -1,5 +1,5 @@
 import { Navigate, useLocation } from 'react-router-dom';
-import { useTypeContext } from '../../context/UserType.context';
+import { useTypeContext } from '../../../context/UserType.context';
 
 // eslint-disable-next-line react/prop-types
 export default function ProtectedRoute({ children, allowedRolls }) {
