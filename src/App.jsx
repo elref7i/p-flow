@@ -4,23 +4,7 @@ import { Toaster } from 'react-hot-toast';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
-import ThemeModeProvider from './context/theme.context';
-import ForgetPasswordProvider from './context/Forget.context';
-import UserTypeProvider from './context/UserType.context';
-import SkeletonLoader from './components/SkeletonLoader/SkeletonLoader';
-import ForgetProtectedRoute from './components/ForgetProtectedRoute/ForgetProtectedRoute';
-// import ProtectedRoute from '@/components/ProtectedRoute/ProtectedRoute';
-// import GuestRoute from '@/components/GuestRoute/GuestRoute';
-import LandingPage from './pages/auth/Landing/Landing';
-import AllDrugs from './pages/Inventory/AllDrugs/AllDrugs';
-import DrugsAction from './pages/Inventory/DrugsAction/DrugsAction';
-import InventoryProfile from './pages/Inventory/InventoryProfile/InventoryProfile';
-import ProtectedRoute from './components/Layout/ProtectedRoute/ProtectedRoute';
-import GuestRoute from './components/Layout/GuestRoute/GuestRoute';
-
-const Layout = lazy(() => import('@/Layout/Layout'));
-
-//*Auth
+// Auth
 const Login = lazy(() => import('@/pages/auth/Login/Login'));
 const Signup = lazy(() => import('@/pages/auth/Signup/Signup'));
 const Home = lazy(() => import('@/pages/Home/Home'));
@@ -36,26 +20,43 @@ const VerifySendCoding = lazy(() =>
 const DashboardInventory = lazy(() =>
   import('./pages/Inventory/DashboardInventory/DashboardInventory')
 );
+import LandingPage from '@/pages/auth/Landing/Landing';
 
-//* import Admin
-const UsersAction = lazy(() => import('./pages/Admin/UsersAction/UsersAction'));
+// Layout
+const Layout = lazy(() => import('@/components/Layout/Layout'));
+import ProtectedRoute from '@/components/Layout/ProtectedRoute/ProtectedRoute';
+import GuestRoute from '@/components/Layout/GuestRoute/GuestRoute';
+import ForgetProtectedRoute from '@/components/Layout/ForgetProtectedRoute/ForgetProtectedRoute';
+
+// Import Admin
+const UsersAction = lazy(() => import('@/pages/Admin/UsersAction/UsersAction'));
 const DashboardAdmin = lazy(() =>
-  import('./pages/Admin/DashboardAdmin/DashboardAdmin')
+  import('@/pages/Admin/DashboardAdmin/DashboardAdmin')
 );
-const Users = lazy(() => import('./pages/Admin/Users/Users'));
+const Users = lazy(() => import('@/pages/Admin/Users/Users'));
 
-//* import Pharmacy
-
-const Drugs = lazy(() => import('./pages/Pharmacy/Drugs/Drugs'));
+// Import Pharmacy
+const Drugs = lazy(() => import('@/pages/Pharmacy/Drugs/Drugs'));
 const DrugDetails = lazy(() =>
-  import('./pages/Pharmacy/DrugDetails/DrugDetails')
+  import('@/pages/Pharmacy/DrugDetails/DrugDetails')
 );
 const HomePharmacy = lazy(() =>
-  import('./pages/Pharmacy/HomePharmacy/HomePharmacy')
+  import('@/pages/Pharmacy/HomePharmacy/HomePharmacy')
 );
 
-//* Shared Pages
-const Setting = lazy(() => import('./pages/Setting/Setting'));
+// Inventory
+import InventoryProfile from '@/pages/Inventory/InventoryProfile/InventoryProfile';
+import AllDrugs from '@/pages/Inventory/AllDrugs/AllDrugs';
+import DrugsAction from '@/pages/Inventory/DrugsAction/DrugsAction';
+
+// Shared Pages
+const Setting = lazy(() => import('@/pages/Setting/Setting'));
+import SkeletonLoader from '@/components/SkeletonLoader/SkeletonLoader';
+
+//Provider
+import ThemeModeProvider from '@/context/theme.context';
+import ForgetPasswordProvider from '@/context/Forget.context';
+import UserTypeProvider from '@/context/UserType.context';
 
 function App() {
   const router = createBrowserRouter([

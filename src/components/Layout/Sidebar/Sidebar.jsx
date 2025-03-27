@@ -3,11 +3,11 @@ import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 
 import { useThemeContext } from '@/context/theme.context';
-import { Drawer, DrawerHeader } from '../Common/Drawer';
-import SidebarSection from './SidebarSection';
+import { Drawer, DrawerHeader } from '../../Common/Drawer';
 import { admin, inventory, pharmacy } from './DefaultItemes';
 import { useTypeContext } from '@/context/UserType.context';
-import ProfilePerson from '../Common/ProfilePerson';
+import SidebarSection from './SidebarSection';
+import ProfilePerson from '../../Common/ProfilePerson';
 
 export default function Sidebar() {
   const theme = useTheme();

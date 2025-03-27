@@ -1,11 +1,11 @@
-import Navbar from '@/components/Navbar/Navbar';
+// import Navbar from '@/components/Navbar/Navbar';
 import { Outlet, useLocation } from 'react-router-dom';
 import { Box, Container } from '@mui/material';
-import Footer from '../components/Footer/Footer';
-import Sidebar from '../components/Sidebar/Sidebar';
-import { useTypeContext } from '../context/UserType.context';
-import NavbarPharmacy from '../components/PharmacyComonents/DrugCard/NavbarPharmacy/NavbarPharmacy';
+import Sidebar from '../Layout/Sidebar/Sidebar';
+import { useTypeContext } from '../../context/UserType.context';
+import NavbarPharmacy from '../PharmacyComonents/DrugCard/NavbarPharmacy/NavbarPharmacy';
 import { useMemo } from 'react';
+import Navbar from './Navbar/Navbar';
 
 // تعريف الصفحات كمجموعات ثابتة
 const CONTROL_PAGES = new Set(['admin', 'inventory']);
