@@ -1,11 +1,13 @@
 // import Navbar from '@/components/Navbar/Navbar';
 import { Outlet, useLocation } from 'react-router-dom';
-import { Box, Container } from '@mui/material';
+import { Box, Container, useTheme } from '@mui/material';
 import Sidebar from '../Layout/Sidebar/Sidebar';
 import { useTypeContext } from '../../context/UserType.context';
 import NavbarPharmacy from '../PharmacyComonents/DrugCard/NavbarPharmacy/NavbarPharmacy';
 import { useMemo } from 'react';
 import Navbar from './Navbar/Navbar';
+import { useThemeContext } from '../../context/theme.context';
+import ThemeToggle from './ThemeToggle';
 
 // تعريف الصفحات كمجموعات ثابتة
 const CONTROL_PAGES = new Set(['admin', 'inventory']);
@@ -27,7 +29,17 @@ const AUTH_PAGES = new Set([
 
 export default function Layout() {
   const { token, role } = useTypeContext();
+  const { setMode } = useThemeContext();
+  const theme = useTheme();
   const { pathname } = useLocation();
+
+  const toggleTheme = () => {
+    setMode((prevMode) => (prevMode === 'light' ? 'dark' : 'light'));
+    localStorage.setItem(
+      'mode',
+      theme.palette.mode === 'dark' ? 'light' : 'dark'
+    );
+  };
 
   // حساب القيم المطلوبة لمرة واحدة
   const isControlPage = useMemo(() => CONTROL_PAGES.has(role), [role]);
@@ -54,7 +66,6 @@ export default function Layout() {
           pt: isPublicPage ? '0px' : '90px',
           pb: isPublicPage ? '0px' : '68.5px',
           minHeight: 'calc(100vh - 68.01px)',
-          backgroundColor: 'background.default',
         }}
       >
         {isPublicPage ? (
@@ -65,7 +76,7 @@ export default function Layout() {
           </Container>
         )}
       </Box>
-
+      <ThemeToggle toggleTheme={toggleTheme} />
       {/* Footer */}
       {/* {!isAuthPage && <Footer />} */}
     </>

@@ -7,7 +7,7 @@ const ThemeContext = createContext(0);
 
 // eslint-disable-next-line react/prop-types
 export default function ThemeModeProvider({ children }) {
-  const [mode, setMode] = useState(localStorage.getItem('mode') || 'dark');
+  const [mode, setMode] = useState(localStorage.getItem('mode') || 'light');
   const theme = useMemo(() => createTheme(getDesignTokens(mode)), [mode]);
   const [open, setOpen] = useState(false);
 

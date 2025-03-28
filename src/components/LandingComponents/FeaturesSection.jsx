@@ -11,6 +11,7 @@ import {
   CardContent,
   Button,
   IconButton,
+  useTheme,
 } from '@mui/material';
 import InventoryIcon from '@mui/icons-material/Inventory';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
@@ -177,13 +178,14 @@ const FeatureCard = ({ feature, index, isActive, onClick }) => {
 
 const FeaturesSection = () => {
   const [activeFeature, setActiveFeature] = useState(0);
+  const theme = useTheme();
 
   return (
     <Box
       id="features"
       sx={{
         py: { xs: 10, md: 16 },
-        // background: 'linear-gradient(180deg, #ffffff 0%, #f5f9ff 100%)',
+        backgroundColor: theme.palette.background.default,
         position: 'relative',
         overflow: 'hidden',
       }}
@@ -289,8 +291,14 @@ const FeaturesSection = () => {
           ))}
         </Grid>
 
-        <Box sx={{ mt: 8 }}>
-          <Grid container spacing={6} alignItems="center">
+        <Box sx={{ mt: 12 }}>
+          <Grid
+            container
+            p={2}
+            sx={{ backgroundColor: theme.palette.background.paper }}
+            spacing={6}
+            alignItems="center"
+          >
             <Grid item xs={12} md={6}>
               <motion.div
                 initial={{ opacity: 0, x: -50 }}

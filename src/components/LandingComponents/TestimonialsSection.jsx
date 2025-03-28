@@ -12,6 +12,7 @@ import {
   Rating,
   IconButton,
   Paper,
+  useTheme,
 } from '@mui/material';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
@@ -60,6 +61,7 @@ const testimonials = [
 const TestimonialsSection = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [autoplay, setAutoplay] = useState(true);
+  const theme = useTheme();
 
   useEffect(() => {
     let interval;
@@ -88,7 +90,7 @@ const TestimonialsSection = () => {
       id="testimonials"
       sx={{
         py: { xs: 10, md: 16 },
-        // background: 'linear-gradient(180deg, #ffffff 0%, #f5f9ff 100%)',
+        bgcolor: theme.palette.background.default,
         position: 'relative',
         overflow: 'hidden',
       }}
@@ -195,8 +197,7 @@ const TestimonialsSection = () => {
                 sx={{
                   p: { xs: 4, md: 6 },
                   borderRadius: 4,
-                  // background:
-                  //   'linear-gradient(135deg, #ffffff 0%, #f8fbff 100%)',
+                  bgcolor: theme.palette.background.default,
                   position: 'relative',
                   overflow: 'visible',
                 }}

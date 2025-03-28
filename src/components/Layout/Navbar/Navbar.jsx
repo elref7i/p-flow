@@ -10,9 +10,7 @@ import {
   useTheme,
 } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
-import LightModeSharpIcon from '@mui/icons-material/LightModeSharp';
 import NotificationsIcon from '@mui/icons-material/Notifications';
-import ModeNightIcon from '@mui/icons-material/ModeNight';
 import { MessageTwoTone } from '@mui/icons-material';
 import InputSearch from '../../Common/InputSearch';
 import { useThemeContext } from '../../../context/theme.context';
@@ -43,16 +41,9 @@ const AppBar = styled(MuiAppBar, {
 export default function Navbar() {
   const theme = useTheme();
   const { token, role } = useTypeContext();
-  const { setMode, open, handleDrawerOpen } = useThemeContext();
+  const { open, handleDrawerOpen } = useThemeContext();
 
   // Toggle theme mode and store in localStorage
-  const toggleTheme = () => {
-    setMode((prevMode) => (prevMode === 'light' ? 'dark' : 'light'));
-    localStorage.setItem(
-      'mode',
-      theme.palette.mode === 'dark' ? 'light' : 'dark'
-    );
-  };
 
   return (
     <AppBar
@@ -88,19 +79,6 @@ export default function Navbar() {
 
           {/* Right-side Icons & Links */}
           <Stack direction="row" spacing={1} sx={{ alignItems: 'center' }}>
-            {/* Theme Toggle Button */}
-            <IconButton
-              onClick={toggleTheme}
-              aria-label="toggle theme"
-              size="medium"
-            >
-              {theme.palette.mode === 'light' ? (
-                <LightModeSharpIcon fontSize="inherit" />
-              ) : (
-                <ModeNightIcon fontSize="inherit" />
-              )}
-            </IconButton>
-
             {/* Notifications & Messages (only if authenticated) */}
             {token && (
               <>

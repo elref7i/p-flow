@@ -15,17 +15,18 @@ import FacebookIcon from '@mui/icons-material/Facebook';
 import TwitterIcon from '@mui/icons-material/Twitter';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
+import { GradientLogo } from '../Common/LogoImage';
 
 const Footer = () => {
   const theme = useTheme();
   const currentYear = new Date().getFullYear();
-  const backgroundAuth = theme.palette.background.auth;
+
   return (
     <Box
       component="footer"
       sx={{
-        background: backgroundAuth,
-        color: 'white',
+        background: theme.palette.background.default,
+        color: theme.palette.text.primary,
         pt: 8,
         pb: 6,
         mb: 0,
@@ -34,50 +35,38 @@ const Footer = () => {
       <Container maxWidth="lg">
         <Grid container spacing={4}>
           <Grid item xs={12} md={4}>
-            <Typography
+            <Box sx={{ mb: 2 }}>
+              <GradientLogo />
+            </Box>
+            {/* <Typography
               variant="h6"
-              component="div"
+              // component="div"
               sx={{
                 fontWeight: 'bold',
                 mb: 2,
-                background: 'linear-gradient(45deg, #ffffff 30%, #b3e5fc 90%)',
+                background: 'linear-gradient(45deg, #5188FF 30%, #5188FF 90%)',
                 WebkitBackgroundClip: 'text',
                 WebkitTextFillColor: 'transparent',
               }}
             >
               P-FLOW
-            </Typography>
-            <Typography
-              variant="body2"
-              sx={{ mb: 3, color: 'rgba(255, 255, 255, 0.7)' }}
-            >
+            </Typography> */}
+            <Typography variant="body2" sx={{ mb: 3 }}>
               P-FLOW is the complete inventory management system designed
               specifically for pharmacies. Track medications, manage orders, and
               optimize your supply chain.
             </Typography>
             <Box sx={{ display: 'flex', gap: 1 }}>
-              <IconButton
-                size="small"
-                sx={{ color: 'rgba(255, 255, 255, 0.7)' }}
-              >
+              <IconButton size="small">
                 <FacebookIcon />
               </IconButton>
-              <IconButton
-                size="small"
-                sx={{ color: 'rgba(255, 255, 255, 0.7)' }}
-              >
+              <IconButton size="small">
                 <TwitterIcon />
               </IconButton>
-              <IconButton
-                size="small"
-                sx={{ color: 'rgba(255, 255, 255, 0.7)' }}
-              >
+              <IconButton size="small">
                 <InstagramIcon />
               </IconButton>
-              <IconButton
-                size="small"
-                sx={{ color: 'rgba(255, 255, 255, 0.7)' }}
-              >
+              <IconButton size="small">
                 <LinkedInIcon />
               </IconButton>
             </Box>
@@ -94,32 +83,17 @@ const Footer = () => {
                 </Typography>
                 <Box component="ul" sx={{ p: 0, m: 0, listStyle: 'none' }}>
                   <Box component="li" sx={{ mb: 1 }}>
-                    <Link
-                      href="#features"
-                      color="inherit"
-                      underline="hover"
-                      sx={{ color: 'rgba(255, 255, 255, 0.7)' }}
-                    >
+                    <Link href="#features" color="inherit" underline="hover">
                       Features
                     </Link>
                   </Box>
                   <Box component="li" sx={{ mb: 1 }}>
-                    <Link
-                      href="#"
-                      color="inherit"
-                      underline="hover"
-                      sx={{ color: 'rgba(255, 255, 255, 0.7)' }}
-                    >
+                    <Link href="#" color="inherit" underline="hover">
                       Pricing
                     </Link>
                   </Box>
                   <Box component="li" sx={{ mb: 1 }}>
-                    <Link
-                      href="#"
-                      color="inherit"
-                      underline="hover"
-                      sx={{ color: 'rgba(255, 255, 255, 0.7)' }}
-                    >
+                    <Link href="#" color="inherit" underline="hover">
                       Case Studies
                     </Link>
                   </Box>
@@ -135,42 +109,22 @@ const Footer = () => {
                 </Typography>
                 <Box component="ul" sx={{ p: 0, m: 0, listStyle: 'none' }}>
                   <Box component="li" sx={{ mb: 1 }}>
-                    <Link
-                      href="#"
-                      color="inherit"
-                      underline="hover"
-                      sx={{ color: 'rgba(255, 255, 255, 0.7)' }}
-                    >
+                    <Link href="#" color="inherit" underline="hover">
                       About
                     </Link>
                   </Box>
                   <Box component="li" sx={{ mb: 1 }}>
-                    <Link
-                      href="#"
-                      color="inherit"
-                      underline="hover"
-                      sx={{ color: 'rgba(255, 255, 255, 0.7)' }}
-                    >
+                    <Link href="#" color="inherit" underline="hover">
                       Blog
                     </Link>
                   </Box>
                   <Box component="li" sx={{ mb: 1 }}>
-                    <Link
-                      href="#"
-                      color="inherit"
-                      underline="hover"
-                      sx={{ color: 'rgba(255, 255, 255, 0.7)' }}
-                    >
+                    <Link href="#" color="inherit" underline="hover">
                       Careers
                     </Link>
                   </Box>
                   <Box component="li" sx={{ mb: 1 }}>
-                    <Link
-                      href="#contact"
-                      color="inherit"
-                      underline="hover"
-                      sx={{ color: 'rgba(255, 255, 255, 0.7)' }}
-                    >
+                    <Link href="#contact" color="inherit" underline="hover">
                       Contact
                     </Link>
                   </Box>
@@ -186,42 +140,22 @@ const Footer = () => {
                 </Typography>
                 <Box component="ul" sx={{ p: 0, m: 0, listStyle: 'none' }}>
                   <Box component="li" sx={{ mb: 1 }}>
-                    <Link
-                      href="#"
-                      color="inherit"
-                      underline="hover"
-                      sx={{ color: 'rgba(255, 255, 255, 0.7)' }}
-                    >
+                    <Link href="#" color="inherit" underline="hover">
                       Documentation
                     </Link>
                   </Box>
                   <Box component="li" sx={{ mb: 1 }}>
-                    <Link
-                      href="#"
-                      color="inherit"
-                      underline="hover"
-                      sx={{ color: 'rgba(255, 255, 255, 0.7)' }}
-                    >
+                    <Link href="#" color="inherit" underline="hover">
                       Support
                     </Link>
                   </Box>
                   <Box component="li" sx={{ mb: 1 }}>
-                    <Link
-                      href="#"
-                      color="inherit"
-                      underline="hover"
-                      sx={{ color: 'rgba(255, 255, 255, 0.7)' }}
-                    >
+                    <Link href="#" color="inherit" underline="hover">
                       Privacy Policy
                     </Link>
                   </Box>
                   <Box component="li" sx={{ mb: 1 }}>
-                    <Link
-                      href="#"
-                      color="inherit"
-                      underline="hover"
-                      sx={{ color: 'rgba(255, 255, 255, 0.7)' }}
-                    >
+                    <Link href="#" color="inherit" underline="hover">
                       Terms of Service
                     </Link>
                   </Box>
@@ -235,10 +169,7 @@ const Footer = () => {
 
         <Grid container spacing={2} alignItems="center">
           <Grid item xs={12} md={6}>
-            <Typography
-              variant="body2"
-              sx={{ color: 'rgba(255, 255, 255, 0.7)' }}
-            >
+            <Typography variant="body2">
               © {currentYear} P-FLOW. All rights reserved.
             </Typography>
           </Grid>
@@ -252,7 +183,7 @@ const Footer = () => {
                 gap: 2,
               }}
             >
-              <Typography variant="body2" sx={{ color: 'white' }}>
+              <Typography variant="body2">
                 Subscribe to our newsletter
               </Typography>
               <Box sx={{ display: 'flex', gap: 1 }}>
@@ -271,11 +202,11 @@ const Footer = () => {
                         borderColor: 'rgba(255, 255, 255, 0.5)',
                       },
                       '&.Mui-focused fieldset': {
-                        borderColor: 'white',
+                        borderColor: 'primary',
                       },
                     },
                     '& .MuiInputBase-input': {
-                      color: 'white',
+                      color: 'primary',
                     },
                   }}
                 />

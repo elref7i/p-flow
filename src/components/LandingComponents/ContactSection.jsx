@@ -12,6 +12,7 @@ import {
   InputAdornment,
   Snackbar,
   Alert,
+  useTheme,
 } from '@mui/material';
 import EmailIcon from '@mui/icons-material/Email';
 import PhoneIcon from '@mui/icons-material/Phone';
@@ -34,6 +35,7 @@ const ContactSection = () => {
     message: '',
     severity: 'success',
   });
+  const theme = useTheme();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -94,7 +96,7 @@ const ContactSection = () => {
       id="contact"
       sx={{
         py: { xs: 10, md: 16 },
-        // background: 'linear-gradient(180deg, #f5f9ff 0%, #ffffff 100%)',
+        bgcolor: theme.palette.background.paper,
         position: 'relative',
         overflow: 'hidden',
       }}

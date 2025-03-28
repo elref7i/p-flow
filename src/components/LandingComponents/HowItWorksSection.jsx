@@ -16,6 +16,7 @@ import {
   CardContent,
   Avatar,
   Divider,
+  useTheme,
 } from '@mui/material';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
@@ -91,6 +92,7 @@ const steps = [
 ];
 
 const HowItWorksSection = () => {
+  const theme = useTheme();
   const [activeStep, setActiveStep] = useState(0);
 
   const handleNext = () => {
@@ -110,7 +112,7 @@ const HowItWorksSection = () => {
       id="how-it-works"
       sx={{
         py: { xs: 10, md: 16 },
-        // background: 'linear-gradient(180deg, #f5f9ff 0%, #ffffff 100%)',
+        bgcolor: theme.palette.background.default,
         position: 'relative',
         overflow: 'hidden',
       }}
