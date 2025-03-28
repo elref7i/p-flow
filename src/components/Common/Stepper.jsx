@@ -43,6 +43,7 @@ const QontoStepIconRoot = styled('div')(({ theme }) => ({
 
 function QontoStepIcon(props) {
   const { active, completed, className } = props;
+  // const
 
   return (
     <QontoStepIconRoot ownerState={{ active }} className={className}>
@@ -68,13 +69,13 @@ const ColorlibConnector = styled(StepConnector)(({ theme }) => ({
   [`&.${stepConnectorClasses.active}`]: {
     [`& .${stepConnectorClasses.line}`]: {
       backgroundImage:
-        'linear-gradient( 95deg,rgb(242,113,33) 0%,rgb(233,64,87) 50%,rgb(138,35,135) 100%)',
+        'linear-gradient(291.59deg, #3A3A3A 44.64%, #003A68 100.68%),linear-gradient(244.91deg, rgba(32, 0, 128, 0.73) -5.58%, rgba(0, 0, 0, 0) 72.1%)',
     },
   },
   [`&.${stepConnectorClasses.completed}`]: {
     [`& .${stepConnectorClasses.line}`]: {
       backgroundImage:
-        'linear-gradient( 95deg,rgb(242,113,33) 0%,rgb(233,64,87) 50%,rgb(138,35,135) 100%)',
+        'linear-gradient(291.59deg, #3A3A3A 44.64%, #003A68 100.68%),linear-gradient(244.91deg, rgba(32, 0, 128, 0.73) -5.58%, rgba(0, 0, 0, 0) 72.1%)',
     },
   },
   [`& .${stepConnectorClasses.line}`]: {
@@ -106,7 +107,7 @@ const ColorlibStepIconRoot = styled('div')(({ theme }) => ({
       props: ({ ownerState }) => ownerState.active,
       style: {
         backgroundImage:
-          'linear-gradient( 136deg, rgb(242,113,33) 0%, rgb(233,64,87) 50%, rgb(138,35,135) 100%)',
+          'linear-gradient(291.59deg, #3A3A3A 44.64%, #003A68 100.68%),linear-gradient(244.91deg, rgba(32, 0, 128, 0.73) -5.58%, rgba(0, 0, 0, 0) 72.1%)',
         boxShadow: '0 4px 10px 0 rgba(0,0,0,.25)',
       },
     },
@@ -114,7 +115,7 @@ const ColorlibStepIconRoot = styled('div')(({ theme }) => ({
       props: ({ ownerState }) => ownerState.completed,
       style: {
         backgroundImage:
-          'linear-gradient( 136deg, rgb(242,113,33) 0%, rgb(233,64,87) 50%, rgb(138,35,135) 100%)',
+          'linear-gradient(291.59deg, #3A3A3A 44.64%, #003A68 100.68%),linear-gradient(244.91deg, rgba(32, 0, 128, 0.73) -5.58%, rgba(0, 0, 0, 0) 72.1%)',
       },
     },
   ],

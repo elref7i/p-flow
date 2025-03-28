@@ -1,17 +1,25 @@
-import { TextField, Box, useTheme, Stack, Typography } from '@mui/material';
+import {
+  TextField,
+  Box,
+  useTheme,
+  Stack,
+  Typography,
+  useMediaQuery,
+} from '@mui/material';
 import CustomButton from '@/components/Common/ButtonStyle';
 import { useFormik } from 'formik';
 import { useTypeContext } from '@/context/UserType.context';
 import { loginSchema } from '@/lib/schemas/AuthSchema';
 import PasswordControl from '@/components/Common/PasswordControl';
 import { CustomLink } from '@/components/Common/ButtonStyle';
-import {
-  CustomHead,
-  CustomParagraph,
-} from '../../../components/Common/CustomTypography';
-import HomeIcon from '@mui/icons-material/Home';
+import { CustomParagraph } from '@/components/Common/CustomTypography';
+import { GradientLogo } from '@/components/Common/LogoImage';
+import Logo from '../../../components/Common/LogoImage';
+import IconHomeAuth from '../../../components/Common/IconHomeAuth';
 export default function Login() {
   const theme = useTheme();
+
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const { login } = useTypeContext();
   const backgroundAuth = theme.palette.background.auth;
   const { handleBlur, handleChange, handleSubmit, errors, values, touched } =
@@ -28,8 +36,7 @@ export default function Login() {
     <Box
       component={'main'}
       sx={{
-        background: backgroundAuth, // لون ثابت
-        // backgroundImage: (theme) => theme.palette.background.authImage, // التدرج
+        background: backgroundAuth,
         minHeight: '100vh',
         width: '100%',
         display: 'flex',
@@ -38,17 +45,10 @@ export default function Login() {
         position: 'relative',
       }}
     >
-      <Box sx={{ position: 'absolute', top: 15, left: 50 }}>
-        <CustomLink
-          to={'/landing'}
-          bghover={true}
-          bg={true}
-          fs={'30px'}
-          fw="bold"
-        >
-          <HomeIcon color="primary"></HomeIcon>
-        </CustomLink>
-      </Box>
+      {/* Icon Home */}
+      <IconHomeAuth />
+
+      {/* Left Auth */}
       <Stack
         maxWidth={'lg'}
         p={2}
@@ -61,7 +61,9 @@ export default function Login() {
           width={'55%'}
           sx={{ display: { xs: 'none', md: 'block' }, textAlign: 'center' }}
         >
-          <CustomHead color="primary">FLOW</CustomHead>
+          <Logo justifyContent={'center'} mb={3}>
+            <GradientLogo />
+          </Logo>
           <Typography
             color={theme.palette.text.primary}
             variant="h1"
@@ -87,6 +89,11 @@ export default function Login() {
           sx={{ pt: 5 }}
           onSubmit={handleSubmit}
         >
+          {isMobile && (
+            <Logo justifyContent={'center'} mb={2}>
+              <GradientLogo />
+            </Logo>
+          )}
           <Typography
             color={theme.palette.text.primary}
             variant="h5"

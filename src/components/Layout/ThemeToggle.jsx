@@ -13,7 +13,7 @@ const ThemeToggle = ({ toggleTheme }) => {
     <Box
       sx={{
         position: 'fixed',
-        right: 20,
+        right: 10,
         top: { xs: 80, sm: 100 },
         zIndex: 1000,
       }}
@@ -32,8 +32,8 @@ const ThemeToggle = ({ toggleTheme }) => {
               backgroundColor: theme.palette.background.paper,
               color: isDarkMode ? 'primary.light' : 'primary.main',
               boxShadow: '0 4px 20px rgba(0,0,0,0.1)',
-              width: 56,
-              height: 56,
+              width: 40,
+              height: 40,
               '&:hover': {
                 backgroundColor: isDarkMode
                   ? 'rgba(66, 165, 245, 0.1)'

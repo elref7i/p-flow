@@ -15,7 +15,7 @@ import FacebookIcon from '@mui/icons-material/Facebook';
 import TwitterIcon from '@mui/icons-material/Twitter';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
-import { GradientLogo } from '../Common/LogoImage';
+import Logo, { GradientLogo } from '../Common/LogoImage';
 
 const Footer = () => {
   const theme = useTheme();
@@ -35,22 +35,9 @@ const Footer = () => {
       <Container maxWidth="lg">
         <Grid container spacing={4}>
           <Grid item xs={12} md={4}>
-            <Box sx={{ mb: 2 }}>
+            <Logo justifyContent={'center'} mb={3}>
               <GradientLogo />
-            </Box>
-            {/* <Typography
-              variant="h6"
-              // component="div"
-              sx={{
-                fontWeight: 'bold',
-                mb: 2,
-                background: 'linear-gradient(45deg, #5188FF 30%, #5188FF 90%)',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-              }}
-            >
-              P-FLOW
-            </Typography> */}
+            </Logo>
             <Typography variant="body2" sx={{ mb: 3 }}>
               P-FLOW is the complete inventory management system designed
               specifically for pharmacies. Track medications, manage orders, and

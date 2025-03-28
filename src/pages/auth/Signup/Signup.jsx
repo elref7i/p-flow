@@ -1,23 +1,14 @@
-import { useState } from "react";
-import {
-  Box,
-  TextField,
-  Grid2,
-  Container,
-  Button,
-  useTheme,
-} from "@mui/material";
-import axios from "axios";
-import { useFormik } from "formik";
-import toast from "react-hot-toast";
-import FixedHead from "@/components/Common/FixedHead";
-import CustomizedSteppers from "@/components/Common/Stepper";
-import { CustomLink } from "@/components/Common/ButtonStyle";
-// import HomeIcon from "@mui/icons-material/Home";
-import LoginIcon from '@mui/icons-material/Login';
-import { signupSchema } from "@/lib/schemas/AuthSchema";
-import Location from "@/components/Loaction/Location";
-import Role from "@/components/Role/Role";
+import { useState } from 'react';
+import { Box, TextField, Container, Button, useTheme } from '@mui/material';
+import axios from 'axios';
+import { useFormik } from 'formik';
+import toast from 'react-hot-toast';
+import CustomizedSteppers from '@/components/Common/Stepper';
+import { signupSchema } from '@/lib/schemas/AuthSchema';
+import Location from '@/components/Loaction/Location';
+import Role from '@/components/Role/Role';
+import IconHomeAuth from '../../../components/Common/IconHomeAuth';
+import Logo, { GradientLogo } from '../../../components/Common/LogoImage';
 
 const SignupForm = () => {
   const theme = useTheme();
@@ -25,27 +16,27 @@ const SignupForm = () => {
   const [activeStep, setActiveStep] = useState(0);
 
   const steps = [
-    "Personal Information",
-    "Contact Information",
-    "Location & Role",
+    'Personal Information',
+    'Contact Information',
+    'Location & Role',
   ];
 
   async function signup(values) {
-    const toastloading = toast.loading("Waiting...");
+    const toastloading = toast.loading('Waiting...');
     try {
       const options = {
-        url: "https://pflow-api-v3-1655e5b56c39.herokuapp.com/api/v1/auth/signup",
-        method: "POST",
+        url: 'https://pflow-api-v3-1655e5b56c39.herokuapp.com/api/v1/auth/signup',
+        method: 'POST',
         data: values,
       };
       const { data } = await axios.request(options);
-      if (data.message === "success") {
+      if (data.message === 'success') {
         toast.success(data.message);
       }
-      console.log("Response:", data);
+      console.log('Response:', data);
     } catch (error) {
       toast.error(error.response.data.message);
-      console.error("Error:", error);
+      console.error('Error:', error);
     } finally {
       toast.dismiss(toastloading);
     }
@@ -61,21 +52,21 @@ const SignupForm = () => {
     touched,
   } = useFormik({
     initialValues: {
-      email: "",
-      name: "",
-      ownerName: "",
-      phone: "",
-      role: "",
-      city: "",
+      email: '',
+      name: '',
+      ownerName: '',
+      phone: '',
+      role: '',
+      city: '',
       location: {
-        type: "",
+        type: '',
         coordinates: [],
       },
-      governorate: "",
-      registrationNumber: "",
-      identificationNumber: "",
-      password: "",
-      rePassword: "",
+      governorate: '',
+      registrationNumber: '',
+      identificationNumber: '',
+      password: '',
+      rePassword: '',
     },
     validationSchema: signupSchema,
     onSubmit: signup,
@@ -248,82 +239,48 @@ const SignupForm = () => {
   return (
     <>
       <Box
-        component={"main"}
+        component={'main'}
         sx={{
-          background: backgroundAuth, // لون ثابت
-          // backgroundImage: (theme) => theme.palette.background.authImage, // التدرج
-          minHeight: "100vh",
-          width: "100%",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          position: "relative",
+          background: backgroundAuth,
+          minHeight: '100vh',
+          width: '100%',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          position: 'relative',
         }}
       >
-        <Box sx={{ position: "absolute", top: 15, left: 50 }}>
-          <CustomLink
-            to={"/login"}
-            bghover={true}
-            bg={true}
-            fs={"30px"}
-            fw="bold"
-          >
-            <LoginIcon color="primary"></LoginIcon>
-          </CustomLink>
-        </Box>
-        <Grid2
-          spacing={5}
-          container
-          sx={{
-            minHeight: "100vh",
-            width: "100%",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
-          <Grid2
-            size={{
-              xs: 12,
-              md: 8,
-            }}
-            sx={{
-              bg: "red",
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "center",
-            }}
-          >
-            <Container maxWidth="sm">
-              <FixedHead>Sign Up to</FixedHead>
-              <CustomizedSteppers activeStep={activeStep} />
+        {/* Icon Home */}
+        <IconHomeAuth />
 
-              <Box sx={{ my: 2, pt: 3 }}>{renderStepContent(activeStep)}</Box>
-              <Box
-                sx={{ display: "flex", justifyContent: "space-between", mt: 2 }}
-              >
-                <Button
-                  disabled={activeStep === 0}
-                  onClick={handleBack}
-                  sx={{ mr: 1 }}
-                >
-                  Back
+        <Container maxWidth="sm">
+          <Logo justifyContent={'center'} mb={3}>
+            <GradientLogo />
+          </Logo>
+          <CustomizedSteppers activeStep={activeStep} />
+
+          <Box sx={{ my: 2, pt: 3 }}>{renderStepContent(activeStep)}</Box>
+          <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: 2 }}>
+            <Button
+              disabled={activeStep === 0}
+              onClick={handleBack}
+              sx={{ mr: 1 }}
+            >
+              Back
+            </Button>
+            {activeStep === steps.length - 1 ? (
+              <Box component={'form'} onSubmit={handleSubmit}>
+                <Button type="submit" variant="contained">
+                  Signup
                 </Button>
-                {activeStep === steps.length - 1 ? (
-                  <Box component={"form"} onSubmit={handleSubmit}>
-                    <Button type="submit" variant="contained">
-                      Signup
-                    </Button>
-                  </Box>
-                ) : (
-                  <Button variant="contained" onClick={handleNext}>
-                    Next
-                  </Button>
-                )}
               </Box>
-            </Container>
-          </Grid2>
-        </Grid2>
+            ) : (
+              <Button variant="contained" onClick={handleNext}>
+                Next
+              </Button>
+            )}
+          </Box>
+        </Container>
       </Box>
     </>
   );

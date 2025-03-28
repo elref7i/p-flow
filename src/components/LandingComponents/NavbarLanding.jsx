@@ -20,9 +20,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import CloseIcon from '@mui/icons-material/Close';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-// import darkLogo from '../../assets/Frame 1.svg';
-// import lighLogo from '../../assets/Light 1.svg';
-import { GradientLogo } from '../Common/LogoImage';
+import Logo, { GradientLogo } from '../Common/LogoImage';
 const navItems = [
   { name: 'Features', id: 'features' },
   { name: 'How It Works', id: 'how-it-works' },
@@ -181,7 +179,9 @@ const NavbarLanding = () => {
           <Container maxWidth="lg">
             <Toolbar disableGutters>
               <Fade in={false} timeout={1000}>
-                <GradientLogo />
+                <Logo>
+                  <GradientLogo />
+                </Logo>
               </Fade>
 
               {/* Desktop Navigation */}
