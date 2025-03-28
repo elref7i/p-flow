@@ -1,11 +1,13 @@
-import { Box, Button, Drawer, Grid2, Stack, Typography } from '@mui/material';
-import DrugCard from '../../../components/PharmacyComonents/DrugCard/DrugCard';
-import LoadingSpinner from '../../../components/Common/Loading/LoadingSpinner';
-import { useTypeContext } from '../../../context/UserType.context';
-import Filter from '../../../components/Filter/Filter';
-import { useState } from 'react';
-import { useDrugs } from '../../../lib/hooks/useDrugAction';
-import FilterListIcon from '@mui/icons-material/FilterList';
+import { Box, Button, Drawer, Grid2, Stack, Typography } from "@mui/material";
+import DrugCard from "../../../components/PharmacyComonents/DrugCard/DrugCard";
+import LoadingSpinner from "../../../components/Common/Loading/LoadingSpinner";
+import { useTypeContext } from "../../../context/UserType.context";
+import Filter from "../../../components/Filter/Filter";
+import { useState } from "react";
+import { useDrugs } from "../../../lib/hooks/useDrugAction";
+import FilterListIcon from "@mui/icons-material/FilterList";
+import { Helmet } from "react-helmet";
+
 export default function Drugs() {
   const { token } = useTypeContext();
   const [params, setParams] = useState({});
@@ -18,10 +20,21 @@ export default function Drugs() {
 
   return (
     <>
+      <Helmet>
+        <title>Pharmacy Drugs </title>
+        <meta
+          name="description"
+          content="Browse a wide range of pharmacy drugs, including prescriptions and over-the-counter medicines."
+        />
+        <meta
+          name="keywords"
+          content="pharmacy, drugs, medicine, healthcare, prescription, OTC"
+        />
+      </Helmet>
       <Box
         sx={{
-          display: { xs: 'flex', md: 'flex', lg: 'none' },
-          justifyContent: 'center',
+          display: { xs: "flex", md: "flex", lg: "none" },
+          justifyContent: "center",
           mb: 2,
         }}
       >
@@ -33,21 +46,21 @@ export default function Drugs() {
           Open Filter
         </Button>
       </Box>
-      <Grid2 py={2} spacing={4} justifyContent={'center'} container>
+      <Grid2 py={2} spacing={4} justifyContent={"center"} container>
         <Grid2
           size={{ xs: 12, lg: 3 }}
-          sx={{ display: { xs: 'none', lg: 'block' } }}
+          sx={{ display: { xs: "none", lg: "block" } }}
         >
           <Filter setParams={setParams} />
         </Grid2>
         <Grid2 size={{ xs: 12, md: 12, lg: 9 }}>
           <Stack
-            direction={'row'}
+            direction={"row"}
             rowGap={2}
             columnGap={2}
-            justifyContent={{ xs: 'center', md: 'start' }}
-            alignItems={'center'}
-            flexWrap={'wrap'}
+            justifyContent={{ xs: "center", md: "start" }}
+            alignItems={"center"}
+            flexWrap={"wrap"}
           >
             {data.data.map((drug) => (
               <DrugCard key={drug._id} dataInfo={drug} />

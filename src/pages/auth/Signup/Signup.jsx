@@ -1,14 +1,15 @@
-import { useState } from 'react';
-import { Box, TextField, Container, Button, useTheme } from '@mui/material';
-import axios from 'axios';
-import { useFormik } from 'formik';
-import toast from 'react-hot-toast';
-import CustomizedSteppers from '@/components/Common/Stepper';
-import { signupSchema } from '@/lib/schemas/AuthSchema';
-import Location from '@/components/Loaction/Location';
-import Role from '@/components/Role/Role';
-import IconHomeAuth from '../../../components/Common/IconHomeAuth';
-import Logo, { GradientLogo } from '../../../components/Common/LogoImage';
+import { useState } from "react";
+import { Box, TextField, Container, Button, useTheme } from "@mui/material";
+import axios from "axios";
+import { useFormik } from "formik";
+import toast from "react-hot-toast";
+import CustomizedSteppers from "@/components/Common/Stepper";
+import { signupSchema } from "@/lib/schemas/AuthSchema";
+import Location from "@/components/Loaction/Location";
+import Role from "@/components/Role/Role";
+import IconHomeAuth from "../../../components/Common/IconHomeAuth";
+import Logo, { GradientLogo } from "../../../components/Common/LogoImage";
+import { Helmet } from "react-helmet";
 
 const SignupForm = () => {
   const theme = useTheme();
@@ -16,27 +17,27 @@ const SignupForm = () => {
   const [activeStep, setActiveStep] = useState(0);
 
   const steps = [
-    'Personal Information',
-    'Contact Information',
-    'Location & Role',
+    "Personal Information",
+    "Contact Information",
+    "Location & Role",
   ];
 
   async function signup(values) {
-    const toastloading = toast.loading('Waiting...');
+    const toastloading = toast.loading("Waiting...");
     try {
       const options = {
-        url: 'https://pflow-api-v3-1655e5b56c39.herokuapp.com/api/v1/auth/signup',
-        method: 'POST',
+        url: "https://pflow-api-v3-1655e5b56c39.herokuapp.com/api/v1/auth/signup",
+        method: "POST",
         data: values,
       };
       const { data } = await axios.request(options);
-      if (data.message === 'success') {
+      if (data.message === "success") {
         toast.success(data.message);
       }
-      console.log('Response:', data);
+      console.log("Response:", data);
     } catch (error) {
       toast.error(error.response.data.message);
-      console.error('Error:', error);
+      console.error("Error:", error);
     } finally {
       toast.dismiss(toastloading);
     }
@@ -52,21 +53,21 @@ const SignupForm = () => {
     touched,
   } = useFormik({
     initialValues: {
-      email: '',
-      name: '',
-      ownerName: '',
-      phone: '',
-      role: '',
-      city: '',
+      email: "",
+      name: "",
+      ownerName: "",
+      phone: "",
+      role: "",
+      city: "",
       location: {
-        type: '',
+        type: "",
         coordinates: [],
       },
-      governorate: '',
-      registrationNumber: '',
-      identificationNumber: '',
-      password: '',
-      rePassword: '',
+      governorate: "",
+      registrationNumber: "",
+      identificationNumber: "",
+      password: "",
+      rePassword: "",
     },
     validationSchema: signupSchema,
     onSubmit: signup,
@@ -238,50 +239,70 @@ const SignupForm = () => {
   };
   return (
     <>
-      <Box
-        component={'main'}
-        sx={{
-          background: backgroundAuth,
-          minHeight: '100vh',
-          width: '100%',
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          position: 'relative',
-        }}
-      >
-        {/* Icon Home */}
-        <IconHomeAuth />
+      <>
+        <Helmet>
+          <title>Sign Up</title>
+          <meta
+            name="description"
+            content="Create a new account to access exclusive features and manage your profile."
+          />
+          <meta
+            name="keywords"
+            content="sign up, register, create account, user registration, new account"
+          />
+          <meta property="og:title" content="Sign Up - Create Your Account" />
+          <meta
+            property="og:description"
+            content="Join us today! Sign up to access exclusive features and manage your profile."
+          />
+        </Helmet>
+        <Box
+          component={"main"}
+          sx={{
+            background: backgroundAuth,
+            minHeight: "100vh",
+            width: "100%",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            position: "relative",
+          }}
+        >
+          {/* Icon Home */}
+          <IconHomeAuth />
 
-        <Container maxWidth="sm">
-          <Logo justifyContent={'center'} mb={3}>
-            <GradientLogo />
-          </Logo>
-          <CustomizedSteppers activeStep={activeStep} />
+          <Container maxWidth="sm">
+            <Logo justifyContent={"center"} mb={3}>
+              <GradientLogo />
+            </Logo>
+            <CustomizedSteppers activeStep={activeStep} />
 
-          <Box sx={{ my: 2, pt: 3 }}>{renderStepContent(activeStep)}</Box>
-          <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: 2 }}>
-            <Button
-              disabled={activeStep === 0}
-              onClick={handleBack}
-              sx={{ mr: 1 }}
+            <Box sx={{ my: 2, pt: 3 }}>{renderStepContent(activeStep)}</Box>
+            <Box
+              sx={{ display: "flex", justifyContent: "space-between", mt: 2 }}
             >
-              Back
-            </Button>
-            {activeStep === steps.length - 1 ? (
-              <Box component={'form'} onSubmit={handleSubmit}>
-                <Button type="submit" variant="contained">
-                  Signup
-                </Button>
-              </Box>
-            ) : (
-              <Button variant="contained" onClick={handleNext}>
-                Next
+              <Button
+                disabled={activeStep === 0}
+                onClick={handleBack}
+                sx={{ mr: 1 }}
+              >
+                Back
               </Button>
-            )}
-          </Box>
-        </Container>
-      </Box>
+              {activeStep === steps.length - 1 ? (
+                <Box component={"form"} onSubmit={handleSubmit}>
+                  <Button type="submit" variant="contained">
+                    Signup
+                  </Button>
+                </Box>
+              ) : (
+                <Button variant="contained" onClick={handleNext}>
+                  Next
+                </Button>
+              )}
+            </Box>
+          </Container>
+        </Box>
+      </>
     </>
   );
 };

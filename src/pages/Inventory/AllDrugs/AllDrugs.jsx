@@ -4,6 +4,7 @@ import { useOwnDrugs } from "../../../lib/hooks/useDrugAction";
 import { Stack } from "@mui/material";
 import AddDrugComponent from "../../../components/InventoryComponents/AddDrugComponent/AddDrugComponent";
 import AddDrugFromExcel from "../../../components/InventoryComponents/AddDrugFromExcel/AddDrugFromExcel";
+import { Helmet } from "react-helmet";
 export default function AllDrugs() {
   const { data, isLoading } = useOwnDrugs();
 
@@ -12,7 +13,28 @@ export default function AllDrugs() {
 
   return (
     <>
-      <Stack direction="row" spacing={2} justifyContent="flex-end" marginBottom={2}>
+      <Helmet>
+        <title>Inventory Drugs</title>
+        <meta
+          name="description"
+          content="Manage and track your pharmacy's drug inventory efficiently with real-time updates."
+        />
+        <meta
+          name="keywords"
+          content="inventory, drugs, pharmacy, stock management, medicine, warehouse"
+        />
+        <meta property="og:title" content="Inventory Drugs Management" />
+        <meta
+          property="og:description"
+          content="Easily track and manage pharmaceutical stock with our inventory system."
+        />
+      </Helmet>
+      <Stack
+        direction="row"
+        spacing={2}
+        justifyContent="flex-end"
+        marginBottom={2}
+      >
         <AddDrugComponent />
         <AddDrugFromExcel />
       </Stack>

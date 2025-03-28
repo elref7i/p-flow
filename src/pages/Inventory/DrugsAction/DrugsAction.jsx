@@ -5,12 +5,12 @@ import { columns } from "./data";
 import { useDeleteDrug, useOwnDrugs } from "../../../lib/hooks/useDrugAction";
 import UpdateModal from "../../../components/InventoryComponents/UpdateModal/UpdateModal";
 import DeleteModal from "../../../components/InventoryComponents/DeleteModal/DeleteModal";
+import { Helmet } from "react-helmet";
 
 export default function DrugsAction() {
   const { token } = useTypeContext();
   const { data, isLoading } = useOwnDrugs();
   const { isLoading: isDeleting, mutate: handleDelete } = useDeleteDrug();
-
 
   const DeletedColumn = {
     field: "deleted",
@@ -59,10 +59,27 @@ export default function DrugsAction() {
     },
   };
 
-  const columnsWithActions = [...columns, DeletedColumn ,updatedColumn];
+  const columnsWithActions = [...columns, DeletedColumn, updatedColumn];
 
   return (
     <>
+      <Helmet>
+        <title>Drugs Action</title>
+        <meta
+          name="description"
+          content="Manage your drug inventory with actions like updating and deleting drugs."
+        />
+        <meta
+          name="keywords"
+          content="drugs, inventory management, pharmacy, medicine, update drugs, delete drugs"
+        />
+        <meta property="og:title" content="Manage Drugs - Pharmacy Inventory" />
+        <meta
+          property="og:description"
+          content="Easily update or delete drugs from your inventory with a user-friendly interface."
+        />
+        <meta property="og:type" content="website" />
+      </Helmet>
       <Table
         isLoading={isLoading}
         data={data || []}

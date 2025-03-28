@@ -1,32 +1,47 @@
-import { Avatar, Box } from '@mui/material';
-import { columns } from './Allusers';
-import Table from '../../../components/Table/Table';
-import { useAllUsers } from '../../../lib/hooks/useAdminAction';
+import { Avatar, Box } from "@mui/material";
+import { columns } from "./Allusers";
+import Table from "../../../components/Table/Table";
+import { useAllUsers } from "../../../lib/hooks/useAdminAction";
+import { Helmet } from "react-helmet";
 
 export default function Users() {
   const { data, isLoading } = useAllUsers();
 
-  const filteredData = data ? data.filter((row) => row.role !== 'admin') : [];
+  const filteredData = data ? data.filter((row) => row.role !== "admin") : [];
 
   console.log(filteredData);
   const PrfileImage = {
-    field: 'profileImage',
-    headerName: 'PrfileImage',
-    align: 'center',
-    headerAlign: 'center',
+    field: "profileImage",
+    headerName: "PrfileImage",
+    align: "center",
+    headerAlign: "center",
     minWidth: 150,
     renderCell: (params) => {
       return (
-        <Box
-          sx={{
-            pt: 1,
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}
-        >
-          <Avatar alt="Remy Sharp" src={params.row.profileImage} />
-        </Box>
+        <>
+          <Helmet>
+            <title>Users</title>
+            <meta
+              name="description"
+              content="A Page that displays all usesrs in our website"
+            />
+            <meta name="keywords" content="users, profiles, website users" />
+            <meta
+              property="og:description"
+              content="Explore all registered users in our community."
+            />
+          </Helmet>
+          <Box
+            sx={{
+              pt: 1,
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            <Avatar alt="Remy Sharp" src={params.row.profileImage} />
+          </Box>
+        </>
       );
     },
   };

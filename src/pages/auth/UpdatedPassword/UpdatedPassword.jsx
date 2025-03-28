@@ -16,6 +16,7 @@ import { CustomLink } from "@/components/Common/ButtonStyle";
 import HomeIcon from "@mui/icons-material/Home";
 import { updateAuthSchema } from "@/lib/schemas/AuthSchema";
 import PasswordControl from "@/components/Common/PasswordControl";
+import { Helmet } from "react-helmet";
 
 export default function UpdatedPassword() {
   const theme = useTheme();
@@ -55,100 +56,118 @@ export default function UpdatedPassword() {
     });
 
   return (
-    <Box
-      component={"main"}
-      sx={{
-        background: backgroundAuth, // لون ثابت
-        // backgroundImage: (theme) => theme.palette.background.authImage, // التدرج
-        minHeight: "100vh",
-        width: "100%",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        position: "relative",
-      }}
-    >
-      <Grid2
-        spacing={5}
-        container
+    <>
+      <Helmet>
+        <title>Updated Password</title>
+        <meta
+          name="description"
+          content="Your password has been successfully updated. You can now log in with your new credentials."
+        />
+        <meta
+          name="keywords"
+          content="password updated, reset password, change password, security update"
+        />
+        <meta property="og:title" content="Password Successfully Updated" />
+        <meta
+          property="og:description"
+          content="Your password has been updated. Log in now with your new credentials."
+        />
+      </Helmet>
+      <Box
+        component={"main"}
         sx={{
+          background: backgroundAuth, // لون ثابت
+          // backgroundImage: (theme) => theme.palette.background.authImage, // التدرج
           minHeight: "100vh",
           width: "100%",
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
+          position: "relative",
         }}
       >
-        <Box sx={{ position: "absolute", top: 15, left: 50 }}>
-          <CustomLink
-            to={"/landing"}
-            bghover={true}
-            bg={true}
-            fs={"30px"}
-            fw="bold"
-          >
-            <HomeIcon color="primary"></HomeIcon>
-          </CustomLink>
-        </Box>
         <Grid2
-          size={{ xs: 12, md: 8 }}
+          spacing={5}
+          container
           sx={{
-            bg: "red",
-            pt: 5,
+            minHeight: "100vh",
+            width: "100%",
             display: "flex",
-            flexDirection: "column",
             justifyContent: "center",
+            alignItems: "center",
           }}
         >
-          <Container maxWidth="sm">
-            <Box component={"header"} marginBottom={3}>
-              <CustomHead variant="h1" align="left">
-                Update Your Password
-              </CustomHead>
-              <Typography
-                variant="body1"
-                sx={{ fontSize: "15px", color: "#939494" }}
-              >
-                Please create a new password for your account. Ensure it meets
-                the required criteria to keep your account secure.
-              </Typography>
-            </Box>
-            <form onSubmit={handleSubmit}>
-              <TextField
-                fullWidth
-                label="Email"
-                margin="normal"
-                sx={{ mb: 3 }}
-                name="email"
-                value={values.email}
-                onChange={handleChange}
-                onBlur={handleBlur}
-                error={errors.email && touched.email}
-                helperText={touched.email && errors.email}
-              />
+          <Box sx={{ position: "absolute", top: 15, left: 50 }}>
+            <CustomLink
+              to={"/landing"}
+              bghover={true}
+              bg={true}
+              fs={"30px"}
+              fw="bold"
+            >
+              <HomeIcon color="primary"></HomeIcon>
+            </CustomLink>
+          </Box>
+          <Grid2
+            size={{ xs: 12, md: 8 }}
+            sx={{
+              bg: "red",
+              pt: 5,
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+            }}
+          >
+            <Container maxWidth="sm">
+              <Box component={"header"} marginBottom={3}>
+                <CustomHead variant="h1" align="left">
+                  Update Your Password
+                </CustomHead>
+                <Typography
+                  variant="body1"
+                  sx={{ fontSize: "15px", color: "#939494" }}
+                >
+                  Please create a new password for your account. Ensure it meets
+                  the required criteria to keep your account secure.
+                </Typography>
+              </Box>
+              <form onSubmit={handleSubmit}>
+                <TextField
+                  fullWidth
+                  label="Email"
+                  margin="normal"
+                  sx={{ mb: 3 }}
+                  name="email"
+                  value={values.email}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  error={errors.email && touched.email}
+                  helperText={touched.email && errors.email}
+                />
 
-              <PasswordControl
-                name="newPassword"
-                error={errors.newPassword}
-                value={values.newPassword}
-                touched={touched.newPassword}
-                handleBlur={handleBlur}
-                handleChange={handleChange}
-                text="New Password"
-              />
-              <CustomButton
-                type="submit"
-                // @ts-ignore
-                w="100%"
-                sm="50%"
-                md="40%"
-              >
-                Update
-              </CustomButton>
-            </form>
-          </Container>
+                <PasswordControl
+                  name="newPassword"
+                  error={errors.newPassword}
+                  value={values.newPassword}
+                  touched={touched.newPassword}
+                  handleBlur={handleBlur}
+                  handleChange={handleChange}
+                  text="New Password"
+                />
+                <CustomButton
+                  type="submit"
+                  // @ts-ignore
+                  w="100%"
+                  sm="50%"
+                  md="40%"
+                >
+                  Update
+                </CustomButton>
+              </form>
+            </Container>
+          </Grid2>
         </Grid2>
-      </Grid2>
-    </Box>
+      </Box>
+    </>
   );
 }
