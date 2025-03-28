@@ -35,7 +35,7 @@ const Footer = () => {
       <Container maxWidth="lg">
         <Grid container spacing={4}>
           <Grid item xs={12} md={4}>
-            <Logo justifyContent={'center'} mb={3}>
+            <Logo mb={3}>
               <GradientLogo />
             </Logo>
             <Typography variant="body2" sx={{ mb: 3 }}>
