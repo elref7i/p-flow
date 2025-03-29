@@ -44,7 +44,7 @@ export default function NavbarPhamracy() {
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
 
-  // Mock user data
+  const inentory = theme.palette.background.navbarPharmacy;
 
   //Handlers
 
@@ -94,7 +94,12 @@ export default function NavbarPhamracy() {
 
   return (
     <>
-      <AppBar position="sticky" color="default" elevation={1}>
+      <AppBar
+        sx={{ background: inentory }}
+        position="sticky"
+        color="default"
+        elevation={1}
+      >
         <Toolbar>
           {/* Mobile menu icon */}
           {isMobile && (
@@ -103,7 +108,7 @@ export default function NavbarPhamracy() {
               aria-label="open drawer"
               edge="start"
               onClick={handleDrawerToggle}
-              sx={{ mr: 2 }}
+              sx={{ mr: 2, background: inentory }}
             >
               <MenuIcon />
             </IconButton>

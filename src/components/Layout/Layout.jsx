@@ -28,10 +28,14 @@ const AUTH_PAGES = new Set([
 ]);
 
 export default function Layout() {
+  // States
   const { token, role } = useTypeContext();
   const { setMode } = useThemeContext();
   const theme = useTheme();
   const { pathname } = useLocation();
+
+  // Theme
+  const inentory = theme.palette.background.pharmacy;
 
   const toggleTheme = () => {
     setMode((prevMode) => (prevMode === 'light' ? 'dark' : 'light'));
@@ -63,9 +67,10 @@ export default function Layout() {
         component="main"
         sx={{
           pl: isPublicPage ? '0px' : '48px',
-          pt: isPublicPage ? '0px' : '90px',
-          pb: isPublicPage ? '0px' : '68.5px',
+          pt: isPublicPage ? '0px' : '15px',
+          // pb: isPublicPage ? '0px' : '5px',
           minHeight: 'calc(100vh - 68.01px)',
+          background: inentory,
         }}
       >
         {isPublicPage ? (

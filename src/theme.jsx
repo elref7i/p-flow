@@ -10,10 +10,43 @@ const colors = {
 
   // درجات الألوان للوضع الفاتح (Light Mode)
   lightBackground: '#FFFFFF',
+
+  // ألوان auth الأصلية
   lightbgAuth:
     'linear-gradient(63.25deg, rgba(0, 0, 0, 0) 46.5%, rgba(64, 0, 255, 0.48) 107.58%), linear-gradient(297.17deg, rgba(255, 250, 244, 0) 60.92%, #9BCEFF 107.8%)',
+
+  // ألوان جديدة للأقسام المختلفة - وضع فاتح - متناسقة ولكن مختلفة عن auth
+  // Inventory - تدرج أزرق-بنفسجي خفيف
+  lightbgInventory:
+    'linear-gradient(135deg, #F8F9FF 0%, #F0F4FF 50%, #E6EEFF 100%)',
+
+  // Pharmacy - تدرج أزرق-رمادي خفيف
+  lightbgPharmacy:
+    'linear-gradient(135deg, #F5F7FA 0%, #E4E8F0 50%, #D8E0F0 100%)',
+
+  // Admin - تدرج رمادي-أزرق خفيف
+  lightbgAdmin:
+    'linear-gradient(135deg, #F9FAFC 0%, #EEF1F6 50%, #E5EAF2 100%)',
+
+  // خلفيات جديدة للمكونات - وضع فاتح
+  // Card - تدرج أبيض-أزرق فاتح جدًا
+  lightbgCard: 'linear-gradient(135deg, #FFFFFF 0%, #FAFBFF 50%, #F5F7FC 100%)',
+
+  // CardDetails - تدرج أبيض-أزرق فاتح
+  lightbgCardDetails:
+    'linear-gradient(135deg, #FFFFFF 0%, #F8FAFF 50%, #F0F5FF 100%)',
+
+  // Cart - تدرج أبيض-أزرق فاتح مع لمسة من البنفسجي
+  lightbgCart: 'linear-gradient(135deg, #FFFFFF 0%, #F9FAFF 50%, #F2F4FF 100%)',
+
   lightPaper: '#F5F5F5', // لون المكونات الورقية (رمادي فاتح)
   lightNavbar: '#E0E0E0', // لون شريط التنقل (رمادي فاتح)
+
+  // ألوان navbar متناسقة مع الخلفيات - وضع فاتح
+  lightNavbarInventory: '#E1E7FF', // أزرق-بنفسجي فاتح جدًا
+  lightNavbarPharmacy: '#DCE3F0', // أزرق-رمادي فاتح
+  lightNavbarAdmin: '#E0E6F0', // رمادي-أزرق فاتح
+
   lightTextPrimary: '#212121', // اللون الأساسي للنصوص (أسود داكن)
   lightTextSecondary: '#757575', // اللون الثانوي للنصوص (رمادي داكن)
   lightGrey: {
@@ -29,10 +62,42 @@ const colors = {
 
   // درجات الألوان للوضع الداكن (Dark Mode)
   darkBackground: '#121212',
+
+  // ألوان auth الأصلية
   darkbgAuth:
     'linear-gradient(291.59deg, #1A1A1A 44.64%, #001B34 100.68%), linear-gradient(244.91deg, rgba(16, 0, 64, 0.73) -5.58%, rgba(0, 0, 0, 0) 72.1%)',
+
+  // ألوان جديدة للأقسام المختلفة - وضع داكن - متناسقة ولكن مختلفة عن auth
+  // Inventory - تدرج أزرق-بنفسجي داكن
+  darkbgInventory:
+    'linear-gradient(135deg, #1A1F35 0%, #232A45 50%, #2C3356 100%)',
+
+  // Pharmacy - تدرج أزرق-رمادي داكن
+  darkbgPharmacy:
+    'linear-gradient(135deg, #1A2130 0%, #212A3B 50%, #283346 100%)',
+
+  // Admin - تدرج رمادي-أزرق داكن
+  darkbgAdmin: 'linear-gradient(135deg, #1A1D25 0%, #22252F 50%, #2A2E3A 100%)',
+
+  // خلفيات جديدة للمكونات - وضع داكن
+  // Card - تدرج أزرق داكن
+  darkbgCard: 'linear-gradient(135deg, #1E2132 0%, #252A40 50%, #2C334D 100%)',
+
+  // CardDetails - تدرج أزرق داكن مع لمسة من البنفسجي
+  darkbgCardDetails:
+    'linear-gradient(135deg, #1E2035 0%, #252A45 50%, #2C3356 100%)',
+
+  // Cart - تدرج أزرق-بنفسجي داكن
+  darkbgCart: 'linear-gradient(135deg, #1E1E30 0%, #252540 50%, #2C2C50 100%)',
+
   darkPaper: '#1E1E1E', // لون المكونات الورقية (رمادي داكن)
   darkNavbar: '#2E2E2E', // لون شريط التنقل (رمادي داكن)
+
+  // ألوان navbar متناسقة مع الخلفيات - وضع داكن
+  darkNavbarInventory: '#232A45', // أزرق-بنفسجي داكن
+  darkNavbarPharmacy: '#212A3B', // أزرق-رمادي داكن
+  darkNavbarAdmin: '#22252F', // رمادي-أزرق داكن
+
   darkTextPrimary: '#FFFFFF', // اللون الأساسي للنصوص (أبيض)
   darkTextSecondary: '#BDBDBD', // اللون الثانوي للنصوص (رمادي فاتح)
   darkGrey: {
@@ -65,8 +130,30 @@ export const getDesignTokens = (mode) => ({
       default:
         mode === 'light' ? colors.lightBackground : colors.darkBackground,
       auth: mode === 'light' ? colors.lightbgAuth : colors.darkbgAuth,
+      inventory:
+        mode === 'light' ? colors.lightbgInventory : colors.darkbgInventory,
+      pharmacy:
+        mode === 'light' ? colors.lightbgPharmacy : colors.darkbgPharmacy,
+      admin: mode === 'light' ? colors.lightbgAdmin : colors.darkbgAdmin,
+
+      // إضافة خلفيات المكونات الجديدة
+      card: mode === 'light' ? colors.lightbgCard : colors.darkbgCard,
+      cardDetails:
+        mode === 'light' ? colors.lightbgCardDetails : colors.darkbgCardDetails,
+      cart: mode === 'light' ? colors.lightbgCart : colors.darkbgCart,
+
       paper: mode === 'light' ? colors.lightPaper : colors.darkPaper,
       navbar: mode === 'light' ? colors.lightNavbar : colors.darkNavbar,
+      navbarInventory:
+        mode === 'light'
+          ? colors.lightNavbarInventory
+          : colors.darkNavbarInventory,
+      navbarPharmacy:
+        mode === 'light'
+          ? colors.lightNavbarPharmacy
+          : colors.darkNavbarPharmacy,
+      navbarAdmin:
+        mode === 'light' ? colors.lightNavbarAdmin : colors.darkNavbarAdmin,
       button: mode === 'light' ? colors.lightBgButton : colors.darkBgButton, // لون زر الخلفية
     },
 

@@ -1,212 +1,274 @@
-import { useParams, useNavigate } from "react-router-dom";
+'use client';
+
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import {
   Box,
   Paper,
-  Stack,
   Typography,
-  useTheme,
+  Card,
   CardMedia,
+  CardContent,
   IconButton,
+  Button,
+  Divider,
+  Stack,
+  useTheme,
+  styled,
   Grid2,
-} from "@mui/material";
-import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-import ArrowForwardIosOutlinedIcon from "@mui/icons-material/ArrowForwardIosOutlined";
-import CustomButton from "../../../components/Common/ButtonStyle";
-import { formatDate } from "@/lib/utils/dateUtils";
-import { useTypeContext } from "../../../context/UserType.context";
-import { getSpecificDrug } from "../../../lib/api/drugApi";
-import LoadingSpinner from "../../../components/Common/Loading/LoadingSpinner";
-import { useQuery } from "@tanstack/react-query";
-import { Helmet } from "react-helmet";
+} from '@mui/material';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
+
+// Helper function to format dates
+const formatDate = (dateString) => {
+  const date = new Date(dateString);
+  return date.toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  });
+};
+
+// Styled components
+const DiscountBadge = styled(Box)(({ theme }) => ({
+  position: 'absolute',
+  top: 16,
+  right: 16,
+  backgroundColor: theme.palette.error.main,
+  color: theme.palette.error.contrastText,
+  padding: '4px 8px',
+  borderRadius: 16,
+  fontWeight: 'bold',
+  zIndex: 1,
+}));
+
+const ThumbnailImage = styled(Box)(({ theme, selected }) => ({
+  width: 64,
+  height: 64,
+  border: `1px solid ${
+    selected ? theme.palette.primary.main : theme.palette.divider
+  }`,
+  borderRadius: theme.shape.borderRadius,
+  overflow: 'hidden',
+  cursor: 'pointer',
+  transition: 'all 0.2s',
+  boxShadow: selected ? `0 0 0 2px ${theme.palette.primary.main}` : 'none',
+}));
 
 export default function DrugDetails() {
-  const { id } = useParams();
-  const { token } = useTypeContext();
   const navigate = useNavigate();
   const theme = useTheme();
+  const [selectedImage, setSelectedImage] = useState(0);
+  const [isFavorite, setIsFavorite] = useState(false);
 
-  const { data, isFetched } = useQuery({
-    queryKey: ["drug", id],
-    queryFn: () => getSpecificDrug({ token, drugId: id }),
-    refetchOnMount: false,
-    refetchOnWindowFocus: false,
-    notifyOnChangeProps: ["data"],
-  });
-  console.log(data);
+  const backgroundAuth = theme.palette.background.cart;
+
+  // Mock data - replace with your actual data fetching
+  const data = {
+    id: '1',
+    name: 'Nasomist Saline Nasal Spray',
+    description:
+      'A saline nasal spray that helps moisturize and clear nasal passages for better breathing.',
+    manufacturer: 'Pharma Solutions Inc.',
+    createdBy: { name: 'Central Pharmacy' },
+    price: 85.0,
+    discountedPrice: 68.0,
+    discount: 20,
+    productionDate: '2023-05-15',
+    expirationDate: '2025-05-15',
+    images: [
+      'https://www.netmeds.com/images/product-v1/600x600/397251/nasomist_saline_nasal_spray_20ml_149351_0_2.jpg',
+      'https://www.netmeds.com/images/product-v1/600x600/397251/nasomist_saline_nasal_spray_20ml_149351_0_1.jpg',
+      'https://www.netmeds.com/images/product-v1/600x600/397251/nasomist_saline_nasal_spray_20ml_149351_0_3.jpg',
+    ],
+  };
+
+  const toggleFavorite = () => setIsFavorite(!isFavorite);
 
   return (
-    <>
-      <Helmet>
-        <title>Drug Details </title>
-        <meta
-          name="description"
-          content="Detailed information about the selected drug, including usage and alternatives."
-        />
-        <meta
-          name="keywords"
-          content="drug, medicine, pharmacy, healthcare, prescription"
-        />
-      </Helmet>
+    <Box sx={{ p: 2, maxWidth: 1100, mx: 'auto' }}>
+      <Box sx={{ display: 'flex', alignItems: 'center', mb: 3 }}>
+        <IconButton onClick={() => navigate(-1)} sx={{ mr: 1 }}>
+          <ArrowBackIcon />
+        </IconButton>
+        <Typography
+          color="primary"
+          variant="h5"
+          component="h1"
+          fontWeight="bold"
+        >
+          Drug Details
+        </Typography>
+      </Box>
 
-      <Box
-        sx={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          p: 1,
-          bgcolor: theme.palette.background.default,
-        }}
-      >
-        {isFetched ? (
-          <>
-            <Helmet>
-              <title>ziad</title>
-            </Helmet>
-
-            <Paper
-              elevation={3}
+      <Grid2 container spacing={{ xs: 0, md: 5 }} rowGap={{ xs: 2, md: 0 }}>
+        {/* Left column - Images */}
+        <Grid2 item size={{ xs: 12, md: 5 }}>
+          <Paper
+            elevation={3}
+            sx={{ position: 'relative', borderRadius: 2, overflow: 'hidden' }}
+          >
+            {data.discount > 0 && (
+              <DiscountBadge>{data.discount}% OFF</DiscountBadge>
+            )}
+            <CardMedia
+              component="img"
+              image={data.images[selectedImage]}
+              alt={data.name}
               sx={{
-                maxWidth: 1100,
-                width: "100%",
-                borderRadius: 2,
-                p: 3,
-                position: "relative",
+                width: '100%',
+                height: 'auto',
+                aspectRatio: '1/1',
+                objectFit: 'contain',
+                p: 2,
+                background: backgroundAuth,
               }}
-            >
-              <IconButton
-                onClick={() => navigate(-1)}
+            />
+          </Paper>
+
+          <Stack
+            direction="row"
+            spacing={1}
+            sx={{ mt: 2, overflowX: 'auto', pb: 1 }}
+          >
+            {data.images.map((image, index) => (
+              <ThumbnailImage
+                key={index}
+                selected={selectedImage === index}
+                onClick={() => setSelectedImage(index)}
+              >
+                <CardMedia
+                  component="img"
+                  image={image}
+                  alt={`${data.name} view ${index + 1}`}
+                  sx={{
+                    width: '100%',
+                    height: '100%',
+                    objectFit: 'cover',
+                  }}
+                />
+              </ThumbnailImage>
+            ))}
+          </Stack>
+        </Grid2>
+
+        {/* Right column - Details */}
+        <Grid2 item size={{ xs: 12, md: 7 }}>
+          <Card
+            elevation={3}
+            sx={{ borderRadius: 2, background: backgroundAuth }}
+          >
+            <CardContent sx={{ p: 3 }}>
+              <Box
                 sx={{
-                  position: "absolute",
-                  top: 10,
-                  transition: "color .4s background-color .5s",
-                  right: 10,
-                  color: theme.palette.warning.main,
-                  bgcolor: theme.palette.background.button,
-                  ":hover": { bgcolor: theme.palette.action.hover },
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'flex-start',
                 }}
               >
-                <ArrowForwardIosOutlinedIcon />
-              </IconButton>
+                <Box>
+                  <Typography
+                    variant="h4"
+                    component="h2"
+                    fontWeight="bold"
+                    gutterBottom
+                  >
+                    {data.name}
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary">
+                    {data.manufacturer}
+                  </Typography>
+                </Box>
+                <IconButton
+                  onClick={toggleFavorite}
+                  color={isFavorite ? 'error' : 'default'}
+                  sx={{ border: 1, borderColor: 'divider' }}
+                >
+                  {isFavorite ? <FavoriteIcon /> : <FavoriteBorderIcon />}
+                </IconButton>
+              </Box>
 
-              <Grid2
-                container
-                spacing={3}
-                justifyContent={"center"}
-                alignItems="center"
-              >
-                <Grid2 item size={{ xs: 12, sm: 6 }} position={"relative"}>
-                  <CardMedia
-                    component="img"
-                    sx={{ width: "100%", height: "auto", borderRadius: 2 }}
-                    image={
-                      "https://www.netmeds.com/images/product-v1/600x600/397251/nasomist_saline_nasal_spray_20ml_149351_0_2.jpg"
-                    }
-                    alt={data.data.name}
-                  />
-                  {data.data.discountedPrice && (
-                    <Box
-                      component={"discount"}
-                      sx={{
-                        bgcolor: "red",
-                        p: 1,
-                        zIndex: 99,
-                        borderRadius: "20px",
-                        position: "absolute",
-                        top: 5,
-                        right: 5,
-                        color: "#FAFAFA",
-                        fontWeight: "bold",
-                        fontSize: "12px",
-                      }}
-                      aria-label={`Discount of ${data.data.discount}%`}
+              <Typography variant="body1" sx={{ my: 2 }}>
+                {data.description}
+              </Typography>
+
+              <Divider sx={{ my: 2 }} />
+
+              <Stack spacing={2}>
+                <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+                  <Typography variant="body1" fontWeight="medium">
+                    Inventory
+                  </Typography>
+                  <Typography variant="body1">
+                    {data.createdBy?.name || 'N/A'}
+                  </Typography>
+                </Box>
+
+                <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+                  <Typography variant="body1" fontWeight="medium">
+                    Production Date
+                  </Typography>
+                  <Typography variant="body1" color="success.main">
+                    {formatDate(data.productionDate)}
+                  </Typography>
+                </Box>
+
+                <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+                  <Typography variant="body1" fontWeight="medium">
+                    Expiration Date
+                  </Typography>
+                  <Typography variant="body1" color="error.main">
+                    {formatDate(data.expirationDate)}
+                  </Typography>
+                </Box>
+              </Stack>
+
+              <Divider sx={{ my: 2 }} />
+
+              <Grid2 container spacing={2} alignItems={'center'} sx={{ mb: 3 }}>
+                <Grid2 item size={{ xs: 12, md: 6 }}>
+                  <Typography variant="caption" color="text.secondary">
+                    Consumer Price
+                  </Typography>
+                  <Typography variant="h4" color="primary" fontWeight="bold">
+                    {data.discountedPrice.toFixed(2)} EGP
+                  </Typography>
+                  {data.discount > 0 && (
+                    <Typography
+                      variant="body2"
+                      color="text.secondary"
+                      sx={{ textDecoration: 'line-through' }}
                     >
-                      {data.data.discount}% OFF
-                    </Box>
+                      {data.price.toFixed(2)} EGP
+                    </Typography>
                   )}
                 </Grid2>
-
-                <Grid2 item size={{ xs: 12, sm: 6 }}>
-                  <Typography variant="h4" sx={{ fontWeight: "bold", mb: 2 }}>
-                    {data.data.name}
+                <Grid2 textAlign={'end'} item size={{ xs: 12, md: 6 }}>
+                  <Typography variant="caption" color="text.secondary">
+                    Pharmacy Price
                   </Typography>
-                  <Typography
-                    variant="body1"
-                    color="textSecondary"
-                    sx={{ mb: 2 }}
-                  >
-                    {data.data.description}
+                  <Typography variant="h6" color="error" fontWeight="medium">
+                    {data.price.toFixed(2)} EGP
                   </Typography>
-
-                  <Stack spacing={1} sx={{ mb: 2 }}>
-                    <Typography variant="body1">
-                      <strong>Inventory: </strong>
-                      {data.data.createdBy?.name || "N/A"}
-                    </Typography>
-                    <Typography variant="body1">
-                      <strong>Manufacturer: </strong>
-                      {data.data.manufacturer}
-                    </Typography>
-                    <Typography
-                      variant="body2"
-                      sx={{
-                        mt: 1,
-                        fontWeight: "bold",
-                        color: theme.palette.success.main, // لون سعر المستهلك
-                      }}
-                    >
-                      Consumer: {data.data.discountedPrice.toFixed(2)} EGP
-                    </Typography>
-                    <Typography
-                      variant="body2"
-                      sx={{
-                        fontWeight: "bold",
-                        color: theme.palette.error.main, // لون سعر الصيدلية
-                      }}
-                    >
-                      Pharmacy: {data.data.price.toFixed(2)} EGP
-                    </Typography>
-                    <Typography variant="body1">
-                      <strong>Production Date:</strong>{" "}
-                      <Box
-                        component="span"
-                        sx={{ color: "#28A745", ml: 0.5, fontWeight: 500 }}
-                      >
-                        {formatDate(data.data.productionDate)}
-                      </Box>
-                    </Typography>
-                    <Typography variant="body1">
-                      <strong>Expiration Date:</strong>{" "}
-                      <Box
-                        component="span"
-                        sx={{ color: "#CB2431", ml: 0.5, fontWeight: 500 }}
-                      >
-                        {formatDate(data.data.expirationDate)}
-                      </Box>
-                    </Typography>
-                  </Stack>
-
-                  <Stack direction="row" spacing={1} alignItems="center">
-                    <CustomButton
-                      variant="contained"
-                      // fullWidth
-                      sx={{ flex: 1 }}
-                      p={"10px"}
-                      fs={"16px"}
-                    >
-                      Add to Cart
-                    </CustomButton>
-                    <IconButton color="error">
-                      <FavoriteBorderIcon sx={{ fontSize: "35px" }} />
-                    </IconButton>
-                  </Stack>
                 </Grid2>
               </Grid2>
-            </Paper>
-          </>
-        ) : (
-          <LoadingSpinner />
-        )}
-      </Box>
-    </>
+
+              <Button
+                variant="contained"
+                size="large"
+                startIcon={<AddShoppingCartIcon />}
+                sx={{ py: 1.5, fontSize: '1.1rem' }}
+                fullWidth
+              >
+                Add to Cart
+              </Button>
+            </CardContent>
+          </Card>
+        </Grid2>
+      </Grid2>
+    </Box>
   );
 }
