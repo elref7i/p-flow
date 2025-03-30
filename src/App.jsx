@@ -95,7 +95,7 @@ function App() {
       ],
     },
     {
-      path: '/pharmacy',
+      path: 'pharmacy',
       element: (
         <ProtectedRoute allowedRolls={['pharmacy']}>
           <Layout />

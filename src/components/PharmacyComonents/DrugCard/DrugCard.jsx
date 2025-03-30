@@ -13,11 +13,8 @@ import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
-import ArrowRightRoundedIcon from '@mui/icons-material/ArrowRightRounded';
-import PlaceIcon from '@mui/icons-material/Place';
 import { useNavigate } from 'react-router-dom';
 import CustomButton from '../../Common/ButtonStyle';
-import { formatDate } from '@/lib/utils/dateUtils';
 import LocationComponent from '../../Flow-Loaction/Flow-Loaction';
 const truncateText = (text, maxLength) => {
   if (text.length > maxLength) {
@@ -147,7 +144,7 @@ export default function DrugCard({ dataInfo }) {
             }}
             aria-label="View drug details"
           />
-        </Stack> 
+        </Stack>
       </Paper>
       <CardContent elevation={2}>
         {/* Inventory Avatar */}
