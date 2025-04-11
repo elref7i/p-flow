@@ -7,25 +7,27 @@ import {
   useTheme,
   Avatar,
   Divider,
-} from '@mui/material';
-import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
-import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
-import Typography from '@mui/material/Typography';
-import { useNavigate } from 'react-router-dom';
-import CustomButton from '../../Common/ButtonStyle';
-import LocationComponent from '../../Flow-Loaction/Flow-Loaction';
+} from "@mui/material";
+import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import CardContent from "@mui/material/CardContent";
+import CardMedia from "@mui/material/CardMedia";
+import Typography from "@mui/material/Typography";
+import { useNavigate } from "react-router-dom";
+import CustomButton from "../../Common/ButtonStyle";
+import LocationComponent from "../../Flow-Loaction/Flow-Loaction";
+import { useContext } from "react";
+import { cartContext } from "../../../context/Cart.context";
 const truncateText = (text, maxLength) => {
   if (text.length > maxLength) {
-    return text.slice(0, maxLength).trim() + '...'; // إزالة المسافات الزائدة وإضافة نقاط
+    return text.slice(0, maxLength).trim() + "..."; // إزالة المسافات الزائدة وإضافة نقاط
   }
   return text;
 };
 export default function DrugCard({ dataInfo }) {
   const theme = useTheme();
   const navigate = useNavigate();
-
+  let { addDrugToCart } = useContext(cartContext);
   const {
     _id,
     name,
@@ -34,8 +36,8 @@ export default function DrugCard({ dataInfo }) {
     price,
     discount,
     discountedPrice,
-    productionDate,
-    expirationDate,
+    // productionDate,
+    // expirationDate,
     distanceInKm,
   } = dataInfo;
 
@@ -46,50 +48,50 @@ export default function DrugCard({ dataInfo }) {
         width: 250,
         maxHeight: 500,
         borderRadius: 2,
-        ':hover': {
+        ":hover": {
           boxShadow: `inset 7px -3px 0px 0px ${theme.palette.action.active}`,
-          transition: 'all 0.3s',
-          '& .box-icon': { opacity: 1, transition: 'opacity 0.3s' },
+          transition: "all 0.3s",
+          "& .box-icon": { opacity: 1, transition: "opacity 0.3s" },
         },
-        transition: 'all 0.3s',
+        transition: "all 0.3s",
         // pb: 1,
-        position: 'relative',
-        overflow: 'hidden',
+        position: "relative",
+        overflow: "hidden",
       }}
     >
       <Paper
         className="box-image"
         sx={{
-          bgcolor: '#fff',
+          bgcolor: "#fff",
           borderRadius: 0,
-          position: 'relative',
+          position: "relative",
         }}
       >
         <CardMedia
           component="img"
           height="140"
-          sx={{ objectFit: 'contain' }}
-          width={'100%'}
+          sx={{ objectFit: "contain" }}
+          width={"100%"}
           image={
-            'https://www.netmeds.com/images/product-v1/600x600/397251/nasomist_saline_nasal_spray_20ml_149351_0_2.jpg'
+            "https://www.netmeds.com/images/product-v1/600x600/397251/nasomist_saline_nasal_spray_20ml_149351_0_2.jpg"
           }
           alt={name}
           aria-label={`Image of ${name}`}
         />
         {discountedPrice && (
           <Box
-            component={'discount'}
+            component={"discount"}
             sx={{
-              bgcolor: 'red',
+              bgcolor: "red",
               p: 1,
               zIndex: 99,
-              borderRadius: '20px',
-              position: 'absolute',
+              borderRadius: "20px",
+              position: "absolute",
               top: 5,
               right: 5,
-              color: '#FAFAFA',
-              fontWeight: 'bold',
-              fontSize: '12px',
+              color: "#FAFAFA",
+              fontWeight: "bold",
+              fontSize: "12px",
             }}
             aria-label={`Discount of ${discount}%`}
           >
@@ -98,36 +100,36 @@ export default function DrugCard({ dataInfo }) {
         )}
         <Stack
           className="box-icon"
-          direction={'column'}
-          justifyContent={'center'}
-          alignItems={'start'}
+          direction={"column"}
+          justifyContent={"center"}
+          alignItems={"start"}
           gap={1}
-          component={'IconsAction'}
+          component={"IconsAction"}
           sx={{
-            bgcolor: '#000000aa',
-            position: 'absolute',
+            bgcolor: "#000000aa",
+            position: "absolute",
             borderTopRightRadius: 5,
             borderBottomRightRadius: 5,
             top: 0,
             left: 0,
             pl: 1,
-            color: '#FAFAFA',
-            height: '100%',
-            width: '100%',
-            fontWeight: 'bold',
-            transition: 'opacity 0.3s',
+            color: "#FAFAFA",
+            height: "100%",
+            width: "100%",
+            fontWeight: "bold",
+            transition: "opacity 0.3s",
             opacity: 0,
-            cursor: 'pointer',
+            cursor: "pointer",
           }}
         >
           <FavoriteBorderIcon
             zIndex={99}
             color="#FAFAFA"
             sx={{
-              fontSize: '30px',
-              fontWeight: 'bold',
-              transition: 'color 0.3s',
-              ':hover': { color: 'red' },
+              fontSize: "30px",
+              fontWeight: "bold",
+              transition: "color 0.3s",
+              ":hover": { color: "red" },
             }}
             aria-label="Add to favorites"
           />
@@ -137,10 +139,10 @@ export default function DrugCard({ dataInfo }) {
               navigate(`/pharmacy/drugdetails/${_id}`);
             }}
             sx={{
-              fontSize: '30px',
-              fontWeight: 'bold',
-              transition: 'color 0.3s',
-              ':hover': { color: 'red' },
+              fontSize: "30px",
+              fontWeight: "bold",
+              transition: "color 0.3s",
+              ":hover": { color: "red" },
             }}
             aria-label="View drug details"
           />
@@ -152,7 +154,7 @@ export default function DrugCard({ dataInfo }) {
           direction="row"
           alignItems="center"
           gap={1}
-          sx={{ cursor: 'pointer' }}
+          sx={{ cursor: "pointer" }}
           onClick={() => {
             navigate(`/inventoryprofile`);
           }}
@@ -162,23 +164,23 @@ export default function DrugCard({ dataInfo }) {
             alt={inventory?.name}
             sx={{ width: 30, height: 30 }}
           >
-            {inventory?.name?.charAt(0)}{' '}
+            {inventory?.name?.charAt(0)}{" "}
           </Avatar>
           <Typography
             variant="body2"
             sx={{
               color: theme.palette.text.primary,
-              fontWeight: 'bold',
-              fontSize: '14px', // زيادة حجم الخط
+              fontWeight: "bold",
+              fontSize: "14px", // زيادة حجم الخط
             }}
-            aria-label={`Inventory: ${inventory?.name || 'N/A'}`}
+            aria-label={`Inventory: ${inventory?.name || "N/A"}`}
           >
-            {inventory?.name || 'N/A'}
+            {inventory?.name || "N/A"}
           </Typography>
         </Stack>
         <Divider sx={{ my: 1 }} /> {/* زيادة المسافة حول الـ Divider */}
         {/* Drug Name and Description */}
-        <Stack alignItems={'start'} spacing={1} pt={1}>
+        <Stack alignItems={"start"} spacing={1} pt={1}>
           <Typography
             gutterBottom
             variant="h2"
@@ -186,14 +188,14 @@ export default function DrugCard({ dataInfo }) {
               navigate(`/pharmacy/drugdetails/${_id}`);
             }}
             sx={{
-              fontSize: { xs: '15px', md: '20px' },
-              display: '-webkit-box',
-              WebkitBoxOrient: 'vertical',
+              fontSize: { xs: "15px", md: "20px" },
+              display: "-webkit-box",
+              WebkitBoxOrient: "vertical",
               WebkitLineClamp: 1,
-              overflow: 'hidden',
-              textOverflow: 'ellipsis',
-              fontWeight: 'bold',
-              cursor: 'pointer',
+              overflow: "hidden",
+              textOverflow: "ellipsis",
+              fontWeight: "bold",
+              cursor: "pointer",
               color: theme.palette.text.primary,
             }}
             component="div"
@@ -205,32 +207,32 @@ export default function DrugCard({ dataInfo }) {
           <Typography
             variant="body2"
             sx={{
-              fontSize: { xs: '15px', md: '17px' },
-              fontWeight: 'bold',
+              fontSize: { xs: "15px", md: "17px" },
+              fontWeight: "bold",
             }}
           >
             Consumer:
             <Box
-              component={'span'}
+              component={"span"}
               sx={{
                 ml: 1,
-                fontWeight: 'bold',
+                fontWeight: "bold",
                 color: theme.palette.success.main,
               }}
             >
               {discountedPrice.toFixed(2)} EGP
-            </Box>{' '}
+            </Box>{" "}
           </Typography>
           <Typography
             variant="body2"
             sx={{
-              fontSize: { xs: '15px', md: '17px' },
-              fontWeight: 'bold',
+              fontSize: { xs: "15px", md: "17px" },
+              fontWeight: "bold",
             }}
           >
-            Pharmacy:{' '}
+            Pharmacy:{" "}
             <Box
-              component={'span'}
+              component={"span"}
               sx={{ ml: 1, color: theme.palette.error.main }}
             >
               {price.toFixed(2)} EGP
@@ -292,12 +294,18 @@ export default function DrugCard({ dataInfo }) {
         </Stack>
         <CardActions>
           <CustomButton
-            variant={'contained'}
-            p={'4px 40px'}
-            fs={'15px'}
-            width={'100%'}
+            variant={"contained"}
+            p={"4px 40px"}
+            fs={"15px"}
+            width={"100%"}
             aria-label="Add to cart"
-            sx={{ fontWeight: 'bold' }}
+            sx={{ fontWeight: "bold" }}
+            onClick={() => {
+              addDrugToCart({
+                drugId: _id,
+                quantity: 1,
+              });
+            }}
           >
             Add to Cart
           </CustomButton>

@@ -1,0 +1,104 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+import { useContext, useEffect } from "react";
+import { cartContext } from "../../../context/Cart.context";
+import LoadingSpinner from "../../../components/Common/Loading/LoadingSpinner";
+import CartItem from "../../../components/PharmacyComonents/CartItem/CartItem";
+import { Box, Button, Divider, Paper, Typography } from "@mui/material";
+import { Delete } from "@mui/icons-material";
+import { Helmet } from "react-helmet";
+import { useTheme } from "@mui/material/styles";
+
+export default function Cart() {
+  let { getLoggedUserCart, cartInfo, clearCart } = useContext(cartContext);
+  const theme = useTheme();
+  const isDark = theme.palette.mode === "dark";
+
+  useEffect(() => {
+    getLoggedUserCart();
+  }, []);
+
+  return (
+    <>
+      <Helmet>
+        <title> Pharmacy Cart </title>
+        <meta
+          name="description"
+          content="Review and manage the drugs you've added to your pharmacy cart. Adjust quantities, remove items, and proceed to checkout."
+        />
+        <meta
+          name="keywords"
+          content="pharmacy cart, medicine cart, pharmacy checkout, drug order, cart page, pharmacy shopping"
+        />
+        <meta name="author" content="Your Pharmacy Website" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+        <meta property="og:title" content="Your Pharmacy Cart" />
+        <meta
+          property="og:description"
+          content="You've selected your pharmacy items. View and manage your cart before purchasing."
+        />
+      </Helmet>
+
+      {cartInfo === null ? (
+        <LoadingSpinner />
+      ) : (
+        <>
+          {cartInfo.numOfCartItems === 0 ? (
+            <Paper
+              elevation={3}
+              sx={{
+                p: 6,
+                textAlign: "center",
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                gap: 3,
+                bgcolor: isDark ? theme.palette.background.paper : "#f9f9f9",
+                borderRadius: 4,
+                boxShadow: isDark
+                  ? "0 4px 20px rgba(255, 255, 255, 0.05)"
+                  : "0 4px 20px rgba(0, 0, 0, 0.05)",
+              }}
+            >
+              <Typography variant="h4" color="text.primary" fontWeight="bold">
+                Your Cart is Empty 🛒
+              </Typography>
+
+              <Typography variant="body1" color="text.secondary">
+                Looks like you haven’t added anything yet.
+              </Typography>
+
+              <Button
+                variant="contained"
+                color="primary"
+                sx={{ mt: 2, px: 4, py: 1 }}
+                onClick={() => (window.location.href = "/pharmacy/drugs")}
+              >
+                Back to Drugs
+              </Button>
+            </Paper>
+          ) : (
+            <Box display="flex" flexDirection="column" gap={3}>
+              {cartInfo.data.inventories.map((inventory) => (
+                <CartItem key={inventory._id} inventoryInfo={inventory} />
+              ))}
+
+              <Divider sx={{ my: 2 }} />
+
+              <Box textAlign="center">
+                <Button
+                  variant="outlined"
+                  color="error"
+                  startIcon={<Delete />}
+                  onClick={clearCart}
+                >
+                  Clear Cart
+                </Button>
+              </Box>
+            </Box>
+          )}
+        </>
+      )}
+    </>
+  );
+}
