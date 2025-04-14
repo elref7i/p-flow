@@ -1,7 +1,7 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   Box,
   Paper,
@@ -16,32 +16,32 @@ import {
   useTheme,
   styled,
   Grid2,
-} from '@mui/material';
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
+} from "@mui/material";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 
 // Helper function to format dates
 const formatDate = (dateString) => {
   const date = new Date(dateString);
-  return date.toLocaleDateString('en-US', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
+  return date.toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
   });
 };
 
 // Styled components
 const DiscountBadge = styled(Box)(({ theme }) => ({
-  position: 'absolute',
+  position: "absolute",
   top: 16,
   right: 16,
   backgroundColor: theme.palette.error.main,
   color: theme.palette.error.contrastText,
-  padding: '4px 8px',
+  padding: "4px 8px",
   borderRadius: 16,
-  fontWeight: 'bold',
+  fontWeight: "bold",
   zIndex: 1,
 }));
 
@@ -52,10 +52,10 @@ const ThumbnailImage = styled(Box)(({ theme, selected }) => ({
     selected ? theme.palette.primary.main : theme.palette.divider
   }`,
   borderRadius: theme.shape.borderRadius,
-  overflow: 'hidden',
-  cursor: 'pointer',
-  transition: 'all 0.2s',
-  boxShadow: selected ? `0 0 0 2px ${theme.palette.primary.main}` : 'none',
+  overflow: "hidden",
+  cursor: "pointer",
+  transition: "all 0.2s",
+  boxShadow: selected ? `0 0 0 2px ${theme.palette.primary.main}` : "none",
 }));
 
 export default function DrugDetails() {
@@ -68,30 +68,33 @@ export default function DrugDetails() {
 
   // Mock data - replace with your actual data fetching
   const data = {
-    id: '1',
-    name: 'Nasomist Saline Nasal Spray',
+    id: "1",
+    name: "Nasomist Saline Nasal Spray",
     description:
-      'A saline nasal spray that helps moisturize and clear nasal passages for better breathing.',
-    manufacturer: 'Pharma Solutions Inc.',
-    createdBy: { name: 'Central Pharmacy' },
+      "A saline nasal spray that helps moisturize and clear nasal passages for better breathing.",
+    manufacturer: "Pharma Solutions Inc.",
+    createdBy: { name: "Central Pharmacy" },
     price: 85.0,
     discountedPrice: 68.0,
     discount: 20,
-    productionDate: '2023-05-15',
-    expirationDate: '2025-05-15',
+    productionDate: "2023-05-15",
+    expirationDate: "2025-05-15",
     images: [
-      'https://www.netmeds.com/images/product-v1/600x600/397251/nasomist_saline_nasal_spray_20ml_149351_0_2.jpg',
-      'https://www.netmeds.com/images/product-v1/600x600/397251/nasomist_saline_nasal_spray_20ml_149351_0_1.jpg',
-      'https://www.netmeds.com/images/product-v1/600x600/397251/nasomist_saline_nasal_spray_20ml_149351_0_3.jpg',
+      "https://www.netmeds.com/images/product-v1/600x600/397251/nasomist_saline_nasal_spray_20ml_149351_0_2.jpg",
+      "https://www.netmeds.com/images/product-v1/600x600/397251/nasomist_saline_nasal_spray_20ml_149351_0_1.jpg",
+      "https://www.netmeds.com/images/product-v1/600x600/397251/nasomist_saline_nasal_spray_20ml_149351_0_3.jpg",
     ],
   };
 
   const toggleFavorite = () => setIsFavorite(!isFavorite);
 
   return (
-    <Box sx={{ p: 2, maxWidth: 1100, mx: 'auto' }}>
-      <Box sx={{ display: 'flex', alignItems: 'center', mb: 3 }}>
-        <IconButton onClick={() => navigate(-1)} sx={{ mr: 1 }}>
+    <Box sx={{ p: 2, maxWidth: 1100, mx: "auto" }}>
+      <Box sx={{ display: "flex", alignItems: "center", mb: 3 }}>
+        <IconButton
+          onClick={() => navigate(-1)}
+          sx={{ mr: 1 }}
+        >
           <ArrowBackIcon />
         </IconButton>
         <Typography
@@ -104,12 +107,19 @@ export default function DrugDetails() {
         </Typography>
       </Box>
 
-      <Grid2 container spacing={{ xs: 0, md: 5 }} rowGap={{ xs: 2, md: 0 }}>
+      <Grid2
+        container
+        spacing={{ xs: 0, md: 5 }}
+        rowGap={{ xs: 2, md: 0 }}
+      >
         {/* Left column - Images */}
-        <Grid2 item size={{ xs: 12, md: 5 }}>
+        <Grid2
+          item
+          size={{ xs: 12, md: 5 }}
+        >
           <Paper
             elevation={3}
-            sx={{ position: 'relative', borderRadius: 2, overflow: 'hidden' }}
+            sx={{ position: "relative", borderRadius: 2, overflow: "hidden" }}
           >
             {data.discount > 0 && (
               <DiscountBadge>{data.discount}% OFF</DiscountBadge>
@@ -119,10 +129,10 @@ export default function DrugDetails() {
               image={data.images[selectedImage]}
               alt={data.name}
               sx={{
-                width: '100%',
-                height: 'auto',
-                aspectRatio: '1/1',
-                objectFit: 'contain',
+                width: "100%",
+                height: "auto",
+                aspectRatio: "1/1",
+                objectFit: "contain",
                 p: 2,
                 background: backgroundAuth,
               }}
@@ -132,7 +142,7 @@ export default function DrugDetails() {
           <Stack
             direction="row"
             spacing={1}
-            sx={{ mt: 2, overflowX: 'auto', pb: 1 }}
+            sx={{ mt: 2, overflowX: "auto", pb: 1 }}
           >
             {data.images.map((image, index) => (
               <ThumbnailImage
@@ -145,9 +155,9 @@ export default function DrugDetails() {
                   image={image}
                   alt={`${data.name} view ${index + 1}`}
                   sx={{
-                    width: '100%',
-                    height: '100%',
-                    objectFit: 'cover',
+                    width: "100%",
+                    height: "100%",
+                    objectFit: "cover",
                   }}
                 />
               </ThumbnailImage>
@@ -156,7 +166,10 @@ export default function DrugDetails() {
         </Grid2>
 
         {/* Right column - Details */}
-        <Grid2 item size={{ xs: 12, md: 7 }}>
+        <Grid2
+          item
+          size={{ xs: 12, md: 7 }}
+        >
           <Card
             elevation={3}
             sx={{ borderRadius: 2, background: backgroundAuth }}
@@ -164,9 +177,9 @@ export default function DrugDetails() {
             <CardContent sx={{ p: 3 }}>
               <Box
                 sx={{
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  alignItems: 'flex-start',
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "flex-start",
                 }}
               >
                 <Box>
@@ -178,49 +191,70 @@ export default function DrugDetails() {
                   >
                     {data.name}
                   </Typography>
-                  <Typography variant="body2" color="text.secondary">
+                  <Typography
+                    variant="body2"
+                    color="text.secondary"
+                  >
                     {data.manufacturer}
                   </Typography>
                 </Box>
                 <IconButton
                   onClick={toggleFavorite}
-                  color={isFavorite ? 'error' : 'default'}
-                  sx={{ border: 1, borderColor: 'divider' }}
+                  color={isFavorite ? "error" : "default"}
+                  sx={{ border: 1, borderColor: "divider" }}
                 >
                   {isFavorite ? <FavoriteIcon /> : <FavoriteBorderIcon />}
                 </IconButton>
               </Box>
 
-              <Typography variant="body1" sx={{ my: 2 }}>
+              <Typography
+                variant="body1"
+                sx={{ my: 2 }}
+              >
                 {data.description}
               </Typography>
 
               <Divider sx={{ my: 2 }} />
 
               <Stack spacing={2}>
-                <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
-                  <Typography variant="body1" fontWeight="medium">
+                <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+                  <Typography
+                    variant="body1"
+                    fontWeight="medium"
+                  >
                     Inventory
                   </Typography>
                   <Typography variant="body1">
-                    {data.createdBy?.name || 'N/A'}
+                    {data.createdBy?.name || "N/A"}
                   </Typography>
                 </Box>
 
-                <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
-                  <Typography variant="body1" fontWeight="medium">
+                <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+                  <Typography
+                    variant="body1"
+                    fontWeight="medium"
+                  >
                     Production Date
                   </Typography>
-                  <Typography variant="body1" color="success.main">
+                  <Typography
+                    variant="body1"
+                    color="success.main"
+                  >
                     {formatDate(data.productionDate)}
                   </Typography>
                 </Box>
 
-                <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
-                  <Typography variant="body1" fontWeight="medium">
+                <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+                  <Typography
+                    variant="body1"
+                    fontWeight="medium"
+                  >
                     Expiration Date
                   </Typography>
-                  <Typography variant="body1" color="error.main">
+                  <Typography
+                    variant="body1"
+                    color="error.main"
+                  >
                     {formatDate(data.expirationDate)}
                   </Typography>
                 </Box>
@@ -228,29 +262,55 @@ export default function DrugDetails() {
 
               <Divider sx={{ my: 2 }} />
 
-              <Grid2 container spacing={2} alignItems={'center'} sx={{ mb: 3 }}>
-                <Grid2 item size={{ xs: 12, md: 6 }}>
-                  <Typography variant="caption" color="text.secondary">
+              <Grid2
+                container
+                spacing={2}
+                alignItems={"center"}
+                sx={{ mb: 3 }}
+              >
+                <Grid2
+                  item
+                  size={{ xs: 12, md: 6 }}
+                >
+                  <Typography
+                    variant="caption"
+                    color="text.secondary"
+                  >
                     Consumer Price
                   </Typography>
-                  <Typography variant="h4" color="primary" fontWeight="bold">
+                  <Typography
+                    variant="h4"
+                    color="primary"
+                    fontWeight="bold"
+                  >
                     {data.discountedPrice.toFixed(2)} EGP
                   </Typography>
                   {data.discount > 0 && (
                     <Typography
                       variant="body2"
                       color="text.secondary"
-                      sx={{ textDecoration: 'line-through' }}
+                      sx={{ textDecoration: "line-through" }}
                     >
                       {data.price.toFixed(2)} EGP
                     </Typography>
                   )}
                 </Grid2>
-                <Grid2 textAlign={'end'} item size={{ xs: 12, md: 6 }}>
-                  <Typography variant="caption" color="text.secondary">
+                <Grid2
+                  textAlign={"end"}
+                  item
+                  size={{ xs: 12, md: 6 }}
+                >
+                  <Typography
+                    variant="caption"
+                    color="text.secondary"
+                  >
                     Pharmacy Price
                   </Typography>
-                  <Typography variant="h6" color="error" fontWeight="medium">
+                  <Typography
+                    variant="h6"
+                    color="error"
+                    fontWeight="medium"
+                  >
                     {data.price.toFixed(2)} EGP
                   </Typography>
                 </Grid2>
@@ -260,7 +320,7 @@ export default function DrugDetails() {
                 variant="contained"
                 size="large"
                 startIcon={<AddShoppingCartIcon />}
-                sx={{ py: 1.5, fontSize: '1.1rem' }}
+                sx={{ py: 1.5, fontSize: "1.1rem" }}
                 fullWidth
               >
                 Add to Cart

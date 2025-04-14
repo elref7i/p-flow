@@ -9,8 +9,8 @@ import {
   ListItemText,
   Divider,
   Box,
-} from '@mui/material';
-import { styled, alpha } from '@mui/material/styles';
+} from "@mui/material";
+import { styled, alpha } from "@mui/material/styles";
 import {
   Search as SearchIcon,
   Close as CloseIcon,
@@ -18,33 +18,35 @@ import {
   Medication as MedicationIcon,
   ShoppingCart as ShoppingCartIcon,
   Assignment as AssignmentIcon,
-} from '@mui/icons-material';
-import { Link, useLocation } from 'react-router-dom';
-import { SearchIconWrapper, StyledInputBase } from '../utils/style-nav';
+} from "@mui/icons-material";
+import { Link, useLocation } from "react-router-dom";
+import { SearchIconWrapper, StyledInputBase } from "../utils/style-nav";
+// import { navLinks } from "../utils/links";
+
+const navLinks = [
+  { name: "Home", path: "/pharmacy", icon: <HomeIcon /> },
+  { name: "Drugs", path: "/pharmacy/drugs", icon: <MedicationIcon /> },
+  { name: "Cart", path: "/pharmacy/cart", icon: <ShoppingCartIcon /> },
+  { name: "Orders", path: "/orders", icon: <AssignmentIcon /> },
+];
 
 // Styled components
-const SearchWrapper = styled('div')(({ theme }) => ({
-  position: 'relative',
+const SearchWrapper = styled("div")(({ theme }) => ({
+  position: "relative",
   borderRadius: theme.shape.borderRadius,
   backgroundColor: alpha(theme.palette.common.white, 0.15),
-  '&:hover': {
+  "&:hover": {
     backgroundColor: alpha(theme.palette.common.white, 0.25),
   },
   marginRight: theme.spacing(2),
   marginLeft: 0,
-  width: '100%',
-  [theme.breakpoints.up('sm')]: {
+  width: "100%",
+  [theme.breakpoints.up("sm")]: {
     marginLeft: theme.spacing(3),
-    width: 'auto',
+    width: "auto",
   },
 }));
 
-const navLinks = [
-  { name: 'Home', path: '/', icon: <HomeIcon /> },
-  { name: 'Drugs', path: '/drugs', icon: <MedicationIcon /> },
-  { name: 'Cart', path: '/cart', icon: <ShoppingCartIcon /> },
-  { name: 'Orders', path: '/orders', icon: <AssignmentIcon /> },
-];
 export default function MoblieDrawer({ handleDrawerToggle, drawerOpen }) {
   // States
   const location = useLocation();
@@ -52,16 +54,22 @@ export default function MoblieDrawer({ handleDrawerToggle, drawerOpen }) {
   // Handlers
 
   const drawer = (
-    <Box sx={{ width: 250 }} role="presentation">
+    <Box
+      sx={{ width: 250 }}
+      role="presentation"
+    >
       <Box
         sx={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
           p: 2,
         }}
       >
-        <Typography variant="h6" component="div">
+        <Typography
+          variant="h6"
+          component="div"
+        >
           Pharmacy
         </Typography>
         <IconButton onClick={handleDrawerToggle}>
@@ -76,7 +84,7 @@ export default function MoblieDrawer({ handleDrawerToggle, drawerOpen }) {
           </SearchIconWrapper>
           <StyledInputBase
             placeholder="Search…"
-            inputProps={{ 'aria-label': 'search' }}
+            inputProps={{ "aria-label": "search" }}
             fullWidth
           />
         </SearchWrapper>
@@ -95,8 +103,8 @@ export default function MoblieDrawer({ handleDrawerToggle, drawerOpen }) {
               sx={{
                 color:
                   location.pathname === link.path
-                    ? 'primary.main'
-                    : 'text.secondary',
+                    ? "primary.main"
+                    : "text.secondary",
               }}
             >
               {link.icon}
@@ -105,7 +113,7 @@ export default function MoblieDrawer({ handleDrawerToggle, drawerOpen }) {
               primary={link.name}
               primaryTypographyProps={{
                 color:
-                  location.pathname === link.path ? 'primary' : 'textSecondary',
+                  location.pathname === link.path ? "primary" : "textSecondary",
               }}
             />
           </ListItem>

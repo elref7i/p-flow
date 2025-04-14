@@ -25,7 +25,10 @@ export default function Users() {
               name="description"
               content="A Page that displays all usesrs in our website"
             />
-            <meta name="keywords" content="users, profiles, website users" />
+            <meta
+              name="keywords"
+              content="users, profiles, website users"
+            />
             <meta
               property="og:description"
               content="Explore all registered users in our community."
@@ -39,7 +42,10 @@ export default function Users() {
               justifyContent: "center",
             }}
           >
-            <Avatar alt="Remy Sharp" src={params.row.profileImage} />
+            <Avatar
+              alt="Remy Sharp"
+              src={params.row.profileImage}
+            />
           </Box>
         </>
       );

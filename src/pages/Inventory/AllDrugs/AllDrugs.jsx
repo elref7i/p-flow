@@ -1,10 +1,7 @@
 import { columns } from "./Drugs";
-import Table from "../../../components/InventoryComponents/Table/Table";
 import { useOwnDrugs } from "../../../lib/hooks/useDrugAction";
-import { Stack } from "@mui/material";
-import AddDrugComponent from "../../../components/InventoryComponents/AddDrugComponent/AddDrugComponent";
-import AddDrugFromExcel from "../../../components/InventoryComponents/AddDrugFromExcel/AddDrugFromExcel";
 import { Helmet } from "react-helmet";
+import Table from "../../../components/Table/Table";
 export default function AllDrugs() {
   const { data, isLoading } = useOwnDrugs();
 
@@ -23,26 +20,23 @@ export default function AllDrugs() {
           name="keywords"
           content="inventory, drugs, pharmacy, stock management, medicine, warehouse"
         />
-        <meta property="og:title" content="Inventory Drugs Management" />
+        <meta
+          property="og:title"
+          content="Inventory Drugs Management"
+        />
         <meta
           property="og:description"
           content="Easily track and manage pharmaceutical stock with our inventory system."
         />
       </Helmet>
-      <Stack
-        direction="row"
-        spacing={2}
-        justifyContent="flex-end"
-        marginBottom={2}
-      >
-        <AddDrugComponent />
-        <AddDrugFromExcel />
-      </Stack>
+
+      {/* Table */}
       <Table
         isLoading={isLoading}
         data={data || []}
         columnsWithActions={columnsWithActions}
-        check={false}
+        check={true}
+        checkTable={false}
       />
     </>
   );

@@ -1,19 +1,19 @@
 /* eslint-disable react/prop-types */
-import Menu from '@mui/material/Menu';
-import MenuItem from '@mui/material/MenuItem';
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
 import {
   Avatar,
   ListItemIcon,
   Stack,
   Typography,
   useTheme,
-} from '@mui/material';
-import { useTypeContext } from '@/context/UserType.context';
-import { useState } from 'react';
-import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
-import { Logout } from '@mui/icons-material';
-import { useThemeContext } from '../../context/theme.context';
-import LoadingSpinner from './Loading/LoadingSpinner';
+} from "@mui/material";
+import { useTypeContext } from "@/context/UserType.context";
+import { useState } from "react";
+import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
+import { Logout } from "@mui/icons-material";
+import { useThemeContext } from "../../context/theme.context";
+import LoadingSpinner from "./Loading/LoadingSpinner";
 
 export default function ProfilePerson({ open }) {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -32,23 +32,23 @@ export default function ProfilePerson({ open }) {
   return (
     <div>
       <Stack
-        aria-controls={openMenue ? 'fade-menu' : undefined}
+        aria-controls={openMenue ? "fade-menu" : undefined}
         aria-haspopup="true"
-        aria-expanded={openMenue ? 'true' : undefined}
+        aria-expanded={openMenue ? "true" : undefined}
         onClick={handleClick}
         sx={{
-          cursor: 'pointer',
+          cursor: "pointer",
           p: open ? 1 : 0,
           borderRadius: 2,
-          ':hover': { bgcolor: theme.palette.grey[400] },
-          transition: 'all ',
+          ":hover": { bgcolor: theme.palette.grey[400] },
+          transition: "all ",
         }}
         py={2}
-        direction={'row'}
+        direction={"row"}
         gap={open ? 2 : 0}
-        alignItems={'center'}
-        justifyContent={open ? 'start' : 'center'}
-        textAlign={'center'}
+        alignItems={"center"}
+        justifyContent={open ? "start" : "center"}
+        textAlign={"center"}
         marginInline={open ? 2 : 0}
       >
         {userData ? (
@@ -61,22 +61,25 @@ export default function ProfilePerson({ open }) {
                 height: open ? 50 : 40,
               }}
             />
-            <Stack flex={open ? 1 : 0} alignItems={'start'}>
+            <Stack
+              flex={open ? 1 : 0}
+              alignItems={"start"}
+            >
               <Typography
-                textTransform={'capitalize'}
+                textTransform={"capitalize"}
                 variant="h2"
-                fontWeight={'bold'}
+                fontWeight={"bold"}
                 fontSize={open ? 15 : 0}
                 mb={0.5}
               >
                 {userData.name}
               </Typography>
               <Typography
-                textTransform={'capitalize'}
+                textTransform={"capitalize"}
                 variant="h3"
                 fontSize={open ? 12 : 0}
                 color="error"
-                fontWeight={'bold'}
+                fontWeight={"bold"}
               >
                 {userData?.role}
               </Typography>
@@ -94,12 +97,12 @@ export default function ProfilePerson({ open }) {
         open={openMenue}
         onClose={handleClose}
         anchorOrigin={{
-          vertical: 'top',
-          horizontal: 'right',
+          vertical: "top",
+          horizontal: "right",
         }}
         transformOrigin={{
-          vertical: 'bottom',
-          horizontal: 'center',
+          vertical: "bottom",
+          horizontal: "center",
         }}
       >
         <MenuItem
@@ -108,13 +111,17 @@ export default function ProfilePerson({ open }) {
             setOpen(false);
           }}
           sx={{
-            ':hover': { bgcolor: theme.palette.action.selected },
+            ":hover": { bgcolor: theme.palette.action.selected },
             borderRadius: 1,
           }}
         >
           Logout
           <ListItemIcon>
-            <Logout fontSize="small" sx={{ ml: 2 }} color="error" />
+            <Logout
+              fontSize="small"
+              sx={{ ml: 2 }}
+              color="error"
+            />
           </ListItemIcon>
         </MenuItem>
       </Menu>

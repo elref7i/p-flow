@@ -112,7 +112,10 @@ export default function UsersAction() {
           name="keywords"
           content="users, actions, manage data, user control, account settings, website features"
         />
-        <meta property="og:title" content="User Action - Manage Your Data" />
+        <meta
+          property="og:title"
+          content="User Action - Manage Your Data"
+        />
         <meta
           property="og:description"
           content="Explore the available actions users can take to manage their data efficiently."
@@ -124,6 +127,7 @@ export default function UsersAction() {
         data={filteredData}
         columnsWithActions={columnsWithActions}
         check={true}
+        checkTable={"admin".toLowerCase()}
       />
     </>
   );

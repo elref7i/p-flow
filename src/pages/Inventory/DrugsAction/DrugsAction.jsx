@@ -1,6 +1,5 @@
-import { Box } from "@mui/material";
+import { Box, Table } from "@mui/material";
 import { useTypeContext } from "@/context/UserType.context";
-import Table from "../../../components/InventoryComponents/Table/Table";
 import { columns } from "./data";
 import { useDeleteDrug, useOwnDrugs } from "../../../lib/hooks/useDrugAction";
 import UpdateModal from "../../../components/InventoryComponents/UpdateModal/UpdateModal";
@@ -73,18 +72,24 @@ export default function DrugsAction() {
           name="keywords"
           content="drugs, inventory management, pharmacy, medicine, update drugs, delete drugs"
         />
-        <meta property="og:title" content="Manage Drugs - Pharmacy Inventory" />
+        <meta
+          property="og:title"
+          content="Manage Drugs - Pharmacy Inventory"
+        />
         <meta
           property="og:description"
           content="Easily update or delete drugs from your inventory with a user-friendly interface."
         />
-        <meta property="og:type" content="website" />
+        <meta
+          property="og:type"
+          content="website"
+        />
       </Helmet>
       <Table
         isLoading={isLoading}
         data={data || []}
         columnsWithActions={columnsWithActions}
-        check={true}
+        check={false}
       />
     </>
   );

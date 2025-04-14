@@ -1,22 +1,22 @@
 /* eslint-disable react-refresh/only-export-components */
 /* eslint-disable react/prop-types */
-import axios from 'axios';
-import { createContext, useContext, useEffect, useState } from 'react';
-import toast from 'react-hot-toast';
-import { getloggedUserData } from '../lib/api/userAPI';
+import axios from "axios";
+import { createContext, useContext, useEffect, useState } from "react";
+import toast from "react-hot-toast";
+import { getloggedUserData } from "../lib/api/userAPI";
 
 export const UserTypeContext = createContext(0);
 
 export default function UserTypeProvider({ children }) {
-  const [role, setRole] = useState(localStorage.getItem('role'));
-  const [token, setToken] = useState(localStorage.getItem('token'));
+  const [role, setRole] = useState(localStorage.getItem("role"));
+  const [token, setToken] = useState(localStorage.getItem("token"));
   const [userData, setUserData] = useState(
-    JSON.parse(localStorage.getItem('userData'))
+    JSON.parse(localStorage.getItem("userData"))
   );
 
   useEffect(() => {
-    setRole(localStorage.getItem('role'));
-    setToken(localStorage.getItem('token'));
+    setRole(localStorage.getItem("role"));
+    setToken(localStorage.getItem("token"));
   }, []);
 
   const fetchUserData = async (token) => {
@@ -25,30 +25,30 @@ export default function UserTypeProvider({ children }) {
       console.log(data);
 
       setUserData(data);
-      localStorage.setItem('userData', JSON.stringify(data));
+      localStorage.setItem("userData", JSON.stringify(data));
     } catch (error) {
-      console.error('Failed to fetch user data:', error);
+      console.error("Failed to fetch user data:", error);
     }
   };
   async function login(values) {
-    const loading = toast.loading('Waiting...');
+    const loading = toast.loading("Waiting...");
     try {
       const { data } = await axios.post(
-        'https://pflow-api-v3-1655e5b56c39.herokuapp.com/api/v1/auth/login',
+        "https://pflow-api-v3-1655e5b56c39.herokuapp.com/api/v1/auth/login",
         values,
         { withCredentials: true }
       );
-      if (data.message === 'success') {
-        toast.success('Login successful!');
+      if (data.message === "success") {
+        toast.success("Login successful!");
         setRole(data.user.role);
         setToken(data.token);
-        localStorage.setItem('token', data.token);
-        localStorage.setItem('role', data.user.role);
+        localStorage.setItem("token", data.token);
+        localStorage.setItem("role", data.user.role);
         fetchUserData(data.token);
       }
     } catch (error) {
       console.error(error);
-      toast.error(error.response?.data?.message || 'Login failed!');
+      toast.error(error.response?.data?.message || "Login failed!");
     } finally {
       toast.dismiss(loading);
     }
@@ -58,10 +58,10 @@ export default function UserTypeProvider({ children }) {
     setRole(null);
     setToken(null);
     setUserData(null);
-    localStorage.removeItem('token');
-    localStorage.removeItem('role');
-    localStorage.removeItem('userData');
-    toast.success('Logged out successfully!');
+    localStorage.removeItem("token");
+    localStorage.removeItem("role");
+    localStorage.removeItem("userData");
+    toast.success("Logged out successfully!");
   }
 
   return (

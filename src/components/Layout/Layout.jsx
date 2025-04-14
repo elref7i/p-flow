@@ -1,30 +1,31 @@
 // import Navbar from '@/components/Navbar/Navbar';
-import { Outlet, useLocation } from 'react-router-dom';
-import { Box, Container, useTheme } from '@mui/material';
-import Sidebar from '../Layout/Sidebar/Sidebar';
-import { useTypeContext } from '../../context/UserType.context';
-import NavbarPharmacy from '../PharmacyComonents/DrugCard/NavbarPharmacy/NavbarPharmacy';
-import { useMemo } from 'react';
-import Navbar from './Navbar/Navbar';
-import { useThemeContext } from '../../context/theme.context';
-import ThemeToggle from './ThemeToggle';
+import { Outlet, useLocation } from "react-router-dom";
+import { Box, Container, useTheme } from "@mui/material";
+import Sidebar from "../Layout/Sidebar/Sidebar";
+import { useTypeContext } from "../../context/UserType.context";
+import { useMemo } from "react";
+import Navbar from "./Navbar/Navbar";
+import { useThemeContext } from "../../context/theme.context";
+import ThemeToggle from "./ThemeToggle";
+//!
+import NavbarPharmacy from "../PharmacyComonents/NavbarPharmacy/NavbarPharmacy";
 
 // تعريف الصفحات كمجموعات ثابتة
-const CONTROL_PAGES = new Set(['admin', 'inventory']);
+const CONTROL_PAGES = new Set(["admin", "inventory"]);
 const PUBLIC_PAGES = new Set([
-  '/login',
-  '/signup',
-  '/forgetpassword',
-  '/updatedpassword',
-  '/verifysendcoding',
-  '/landing',
+  "/login",
+  "/signup",
+  "/forgetpassword",
+  "/updatedpassword",
+  "/verifysendcoding",
+  "/landing",
 ]);
 const AUTH_PAGES = new Set([
-  '/login',
-  '/signup',
-  '/forgetpassword',
-  '/updatedpassword',
-  '/verifysendcoding',
+  "/login",
+  "/signup",
+  "/forgetpassword",
+  "/updatedpassword",
+  "/verifysendcoding",
 ]);
 
 export default function Layout() {
@@ -38,10 +39,10 @@ export default function Layout() {
   const inentory = theme.palette.background.pharmacy;
 
   const toggleTheme = () => {
-    setMode((prevMode) => (prevMode === 'light' ? 'dark' : 'light'));
+    setMode((prevMode) => (prevMode === "light" ? "dark" : "light"));
     localStorage.setItem(
-      'mode',
-      theme.palette.mode === 'dark' ? 'light' : 'dark'
+      "mode",
+      theme.palette.mode === "dark" ? "light" : "dark"
     );
   };
 
@@ -66,10 +67,10 @@ export default function Layout() {
       <Box
         component="main"
         sx={{
-          pl: isPublicPage ? '0px' : '48px',
-          pt: isPublicPage ? '0px' : '15px',
-          // pb: isPublicPage ? '0px' : '5px',
-          minHeight: 'calc(100vh - 68.01px)',
+          pl: isPublicPage ? "0px" : "48px",
+          pt: isPublicPage ? "0px" : "15px",
+          // pb: isPublicPage ? "0px" : "5px",
+          minHeight: isPublicPage ? "calc(100vh - 68.01px)" : "100vh",
           background: inentory,
         }}
       >

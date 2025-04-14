@@ -7,14 +7,13 @@ import {
 } from "@mui/icons-material";
 import { Link } from "react-router-dom";
 import { NavLink } from "../utils/style-nav";
-
+// import { navLinks } from "../utils/links";
 const navLinks = [
   { name: "Home", path: "/pharmacy", icon: <HomeIcon /> },
   { name: "Drugs", path: "/pharmacy/drugs", icon: <MedicationIcon /> },
   { name: "Cart", path: "/pharmacy/cart", icon: <ShoppingCartIcon /> },
   { name: "Orders", path: "/orders", icon: <AssignmentIcon /> },
 ];
-
 export default function NavLinkDesktop() {
   return (
     <Box sx={{ display: { xs: "none", md: "flex" } }}>

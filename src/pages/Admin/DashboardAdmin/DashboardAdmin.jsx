@@ -1,4 +1,5 @@
 import { Helmet } from "react-helmet";
+import { Box } from "@mui/material";
 
 export default function DashboardAdmin() {
   return (
@@ -15,7 +16,7 @@ export default function DashboardAdmin() {
         />
       </Helmet>
 
-      <div>DashboardAdmin</div>
+      <Box sx={{ color: "red" }}></Box>
     </>
   );
 }
