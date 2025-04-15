@@ -68,7 +68,7 @@ export default function Layout() {
         component="main"
         sx={{
           pl: isPublicPage ? "0px" : "48px",
-          pt: isPublicPage ? "0px" : "15px",
+          pt: isPublicPage ? "0px" : isControlPage ? "80px" : "15px",
           // pb: isPublicPage ? "0px" : "5px",
           minHeight: isPublicPage ? "calc(100vh - 68.01px)" : "100vh",
           background: inentory,
@@ -77,7 +77,10 @@ export default function Layout() {
         {isPublicPage ? (
           <Outlet />
         ) : (
-          <Container maxWidth="xl">
+          <Container
+            cn
+            maxWidth="lg"
+          >
             <Outlet />
           </Container>
         )}

@@ -1,10 +1,11 @@
-import { Box, Table } from "@mui/material";
+import { Box } from "@mui/material";
 import { useTypeContext } from "@/context/UserType.context";
 import { columns } from "./data";
 import { useDeleteDrug, useOwnDrugs } from "../../../lib/hooks/useDrugAction";
 import UpdateModal from "../../../components/InventoryComponents/UpdateModal/UpdateModal";
 import DeleteModal from "../../../components/InventoryComponents/DeleteModal/DeleteModal";
 import { Helmet } from "react-helmet";
+import Table from "../../../components/Table/Table";
 
 export default function DrugsAction() {
   const { token } = useTypeContext();
