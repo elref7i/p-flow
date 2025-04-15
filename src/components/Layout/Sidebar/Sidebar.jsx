@@ -13,6 +13,8 @@ export default function Sidebar() {
   const { open, isLargeScreen } = useThemeContext();
   const { role } = useTypeContext();
 
+  const inentory = theme.palette.background.navbarPharmacy;
+
   const { HeaderSection, MiddleSection, FooterSection } =
     role === "admin" ? admin : role === "pharmacy" ? pharmacy : inventory;
 
@@ -27,7 +29,7 @@ export default function Sidebar() {
       open={isOpen}
       sx={{
         "& .MuiDrawer-paper": {
-          backgroundColor: isDarkMode ? "#121212" : "#ffffff",
+          backgroundColor: inentory,
           color: isDarkMode ? "#ffffff" : "#000000",
           boxShadow: isDarkMode
             ? "0 4px 20px 0 rgba(0,0,0,0.5)"

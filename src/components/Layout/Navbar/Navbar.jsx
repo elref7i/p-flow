@@ -48,7 +48,7 @@ const AppBar = styled(MuiAppBar, {
 
 export default function Navbar() {
   const theme = useTheme();
-  const { token, role } = useTypeContext();
+  const { token } = useTypeContext();
   const { open, toggleDrawer, isLargeScreen, isMediumScreen } =
     useThemeContext();
 

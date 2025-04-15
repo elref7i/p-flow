@@ -22,7 +22,7 @@ export default function Table({
           minHeight: 550,
           p: 2,
           overflowX: "auto",
-          width: check ? { lg: "fit-content" } : "auto",
+          width: "100%",
           mx: "auto",
           backgroundColor: theme.palette.background.paper,
         }}
