@@ -1,13 +1,13 @@
-import { Box, Button } from "@mui/material";
+import { Box, IconButton } from "@mui/material";
 import { columns } from "./data";
 import { useTypeContext } from "@/context/UserType.context";
 import { useAllUsers, useDeleteUser } from "@/lib/hooks/useAdminAction";
 import AlertModal from "@/components/AdminComonents/MessageAlert/MessageAlert";
 import ModalUpdated from "@/components/AdminComonents/ModalUpdated/ModalUpdated";
-import Table from "../../../components/Table/Table";
 import { useActiveAdminUser } from "../../../lib/hooks/useAdminAction";
 import { Helmet } from "react-helmet";
-
+import { MoreVert as MoreVertIcon } from "@mui/icons-material";
+import TableData from "../../../components/TableData/TableData";
 export default function UsersAction() {
   const { token } = useTypeContext();
   const { data, isLoading } = useAllUsers();
@@ -16,89 +16,31 @@ export default function UsersAction() {
 
   const filteredData = data ? data.filter((row) => row.role !== "admin") : [];
 
-  const DeletedColumn = {
-    field: "deleted",
-    headerName: "Deleted",
-    align: "center",
-    headerAlign: "center",
-    minWidth: 150,
-    renderCell: (params) => {
-      return (
-        <Box
-          sx={{
-            px: 5,
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
+  const actions = {
+    field: "actions",
+    headerName: "Action",
+    width: 120,
+    sortable: false,
+    renderCell: (params) => (
+      <Box>
+        <ModalUpdated userId={params.row._id} />
+        <AlertModal
+          isDeleting={isDeleting}
+          handleAction={() => handleDelete({ userId: params.row._id, token })}
+        />
+        <IconButton
+          onClick={() => {
+            handleActive({ userId: params.row._id, token });
           }}
+          size="small"
         >
-          <AlertModal
-            isDeleting={isDeleting}
-            handleAction={() => handleDelete({ userId: params.row._id, token })}
-          />
-        </Box>
-      );
-    },
-  };
-  const ActiveUser = {
-    field: "Acitve",
-    headerName: "Active",
-    align: "center",
-    headerAlign: "center",
-    renderCell: (params) => {
-      return (
-        <Box
-          component={"form"}
-          sx={{
-            pt: 1,
-            display: "flex",
-            alignItems: "center",
-          }}
-        >
-          <Button
-            type="submit"
-            onClick={() => {
-              handleActive({ userId: params.row._id, token });
-            }}
-            variant="contained"
-            fullWidth
-            color="success"
-          >
-            Active
-          </Button>
-        </Box>
-      );
-    },
+          <MoreVertIcon fontSize="small" />
+        </IconButton>
+      </Box>
+    ),
   };
 
-  const updatedColumn = {
-    field: "updated",
-    headerName: "Updated",
-    align: "center",
-    headerAlign: "center",
-    minWidth: 150,
-    renderCell: (params) => {
-      return (
-        <Box
-          sx={{
-            px: 5,
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
-          <ModalUpdated userId={params.row._id} />
-        </Box>
-      );
-    },
-  };
-
-  const columnsWithActions = [
-    ...columns,
-    ActiveUser,
-    DeletedColumn,
-    updatedColumn,
-  ];
+  const columnsWithActions = [...columns, actions];
 
   return (
     <>
@@ -121,13 +63,12 @@ export default function UsersAction() {
           content="Explore the available actions users can take to manage their data efficiently."
         />
       </Helmet>
-
-      <Table
+      <TableData
         isLoading={isLoading}
         data={filteredData}
         columnsWithActions={columnsWithActions}
-        check={true}
-        checkTable={"admin".toLowerCase()}
+        check={false}
+        checkTable={false}
       />
     </>
   );

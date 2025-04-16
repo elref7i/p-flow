@@ -1,5 +1,5 @@
-import axios from 'axios';
-import { API_URL } from './api_url';
+import axios from "axios";
+import { API_URL } from "./api_url";
 
 //* GET ALL Users
 
@@ -12,7 +12,7 @@ export const fetchUsers = async () => {
 export const addAdminUser = async ({ token, values }) => {
   const options = {
     url: `${API_URL}`,
-    method: 'POST',
+    method: "POST",
     data: values,
     headers: {
       Authorization: `Bearer ${token}`,
@@ -23,7 +23,7 @@ export const addAdminUser = async ({ token, values }) => {
 export const ActiveAdminUser = async ({ token, userId }) => {
   const options = {
     url: `${API_URL}/activate/${userId}`,
-    method: 'POST',
+    method: "POST",
     data: {
       active: true,
     },
@@ -37,7 +37,7 @@ export const ActiveAdminUser = async ({ token, userId }) => {
 export const deleteUser = async ({ userId, token }) => {
   const options = {
     url: `${API_URL}/${userId}`,
-    method: 'DELETE',
+    method: "DELETE",
     headers: {
       Authorization: `Bearer ${token}`,
     },
@@ -47,7 +47,7 @@ export const deleteUser = async ({ userId, token }) => {
 export const updateUserData = async ({ userId, token, values }) => {
   const options = {
     url: `${API_URL}/${userId}`,
-    method: 'PUT',
+    method: "PUT",
     data: values,
     headers: {
       Authorization: `Bearer ${token}`,
@@ -60,7 +60,7 @@ export const updateUserData = async ({ userId, token, values }) => {
 export const getSpecificUser = async ({ token, userId }) => {
   const options = {
     url: `${API_URL}/${userId}`,
-    method: 'GET',
+    method: "GET",
     headers: {
       Authorization: `Bearer ${token}`,
     },

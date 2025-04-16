@@ -5,7 +5,7 @@ import { useDeleteDrug, useOwnDrugs } from "../../../lib/hooks/useDrugAction";
 import UpdateModal from "../../../components/InventoryComponents/UpdateModal/UpdateModal";
 import DeleteModal from "../../../components/InventoryComponents/DeleteModal/DeleteModal";
 import { Helmet } from "react-helmet";
-import Table from "../../../components/Table/Table";
+import TableData from "../../../components/TableData/TableData";
 
 export default function DrugsAction() {
   const { token } = useTypeContext();
@@ -86,11 +86,12 @@ export default function DrugsAction() {
           content="website"
         />
       </Helmet>
-      <Table
+      <TableData
         isLoading={isLoading}
         data={data || []}
         columnsWithActions={columnsWithActions}
         check={false}
+        checkTable={false}
       />
     </>
   );

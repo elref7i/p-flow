@@ -1,5 +1,5 @@
 "use client";
-import { Box, Container, Grid, Typography, useTheme } from "@mui/material";
+import { Container, Grid } from "@mui/material";
 import { motion } from "framer-motion";
 import SalesOverview from "./components/SalesOverview";
 import PurchaseOverview from "./components/PurchaseOverview";
@@ -10,8 +10,6 @@ import SalesStatistics from "./components/SalesStatistics";
 import CustomerStatistics from "./components/CustomerStatistics";
 
 const DashboardContent = () => {
-  const theme = useTheme();
-
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {

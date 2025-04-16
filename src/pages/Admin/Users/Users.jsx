@@ -1,8 +1,8 @@
 import { Avatar, Box } from "@mui/material";
 import { columns } from "./Allusers";
-import Table from "../../../components/Table/Table";
 import { useAllUsers } from "../../../lib/hooks/useAdminAction";
 import { Helmet } from "react-helmet";
+import TableData from "../../../components/TableData/TableData";
 
 export default function Users() {
   const { data, isLoading } = useAllUsers();
@@ -55,11 +55,12 @@ export default function Users() {
   const columnsWithActions = [PrfileImage, ...columns];
 
   return (
-    <Table
+    <TableData
       isLoading={isLoading}
       data={filteredData}
       columnsWithActions={columnsWithActions}
-      check={false}
+      check={true}
+      checkTable={false}
     />
   );
 }

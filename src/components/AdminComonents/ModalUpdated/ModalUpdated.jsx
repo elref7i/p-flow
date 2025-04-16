@@ -1,32 +1,31 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/prop-types */
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import Modal from '@mui/material/Modal';
-import { CircularProgress, TextField } from '@mui/material';
-import { useEffect, useState } from 'react';
-import { useFormik } from 'formik';
-import { UpdateDataUser } from '@/lib/schemas/AdminSchema';
-import { useTypeContext } from '@/context/UserType.context';
-import { getSpecificUser } from '@/lib/api/adminApi';
-import { useUpdateUser } from '@/lib/hooks/useAdminAction';
-import EditIcon from '@mui/icons-material/Edit';
-import WarningAmberIcon from '@mui/icons-material/WarningAmber';
-import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import Modal from "@mui/material/Modal";
+import { CircularProgress, IconButton, TextField } from "@mui/material";
+import { useEffect, useState } from "react";
+import { useFormik } from "formik";
+import { UpdateDataUser } from "@/lib/schemas/AdminSchema";
+import { useTypeContext } from "@/context/UserType.context";
+import { getSpecificUser } from "@/lib/api/adminApi";
+import { useUpdateUser } from "@/lib/hooks/useAdminAction";
+import EditIcon from "@mui/icons-material/Edit";
+import WarningAmberIcon from "@mui/icons-material/WarningAmber";
+import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 
 const style = {
-  position: 'fixed',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  width: 400,
-  height: 500,
-  bgcolor: 'background.paper',
-  border: '2px solid #fff',
-  boxShadow: 24,
-  borderRadius: '10px',
-  p: 4,
-  overflow: 'auto',
+  position: "fixed",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: 450,
+  maxHeight: "85vh",
+  bgcolor: "background.paper",
+  boxShadow: "0 8px 32px rgba(0, 0, 0, 0.15)",
+  borderRadius: "16px",
+  p: 0, // Remove padding here to apply it differently
+  overflow: "hidden", // Hide overflow initially
 };
 
 export default function ModalUpdated({ userId }) {
@@ -61,11 +60,11 @@ export default function ModalUpdated({ userId }) {
     setValues,
   } = useFormik({
     initialValues: {
-      name: '',
-      ownerName: '',
-      phone: '',
-      city: '',
-      governorate: '',
+      name: "",
+      ownerName: "",
+      phone: "",
+      city: "",
+      governorate: "",
     },
     validationSchema: UpdateDataUser,
     onSubmit: async (values) => {
@@ -86,31 +85,32 @@ export default function ModalUpdated({ userId }) {
     if (dataSpecificUser) {
       const { name, ownerName, phone, city, governorate } = dataSpecificUser;
       setValues({
-        name: name || '',
-        ownerName: ownerName || '',
-        phone: phone || '',
-        city: city || '',
-        governorate: governorate || '',
+        name: name || "",
+        ownerName: ownerName || "",
+        phone: phone || "",
+        city: city || "",
+        governorate: governorate || "",
       });
     }
   }, [dataSpecificUser]);
 
   return (
-    <Box>
-      <Button
+    <>
+      <IconButton
         onClick={async () => {
           await fetchUserSpecific();
           handleOpen();
         }}
-        variant="contained"
-        color="warning"
+        size="small"
         sx={{
-          fontSize: { xs: '10px', md: '15px', textTransform: 'capitalize' },
+          transition: "all 0.3s ease",
+          "&:hover": {
+            transform: "scale(1.1)",
+          },
         }}
-        startIcon={<EditIcon />}
       >
-        Updated
-      </Button>
+        <EditIcon fontSize="small" />
+      </IconButton>
       <Modal
         open={open}
         onClose={handleClose}
@@ -119,12 +119,50 @@ export default function ModalUpdated({ userId }) {
       >
         <Box sx={style}>
           <Box
-            component={'form'}
+            sx={{
+              p: 2,
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+            }}
+          >
+            <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+              <EditIcon />
+              <Box
+                component="h2"
+                sx={{ m: 0, fontSize: "1.25rem", fontWeight: "600" }}
+              >
+                Update User Information
+              </Box>
+            </Box>
+          </Box>
+          <Box
+            component={"form"}
             onSubmit={handleSubmit}
-            sx={{ overflow: 'auto' }}
+            sx={{
+              p: 3,
+              overflow: "auto",
+              maxHeight: "calc(85vh - 60px)", // Adjust for header
+              display: "grid",
+              gap: 1,
+              gridTemplateColumns: "1fr 1fr",
+              "& .MuiTextField-root": {
+                gridColumn: { xs: "span 2", sm: "span 1" },
+              },
+              "& .MuiTextField-root:nth-of-type(odd)": {
+                pr: { sm: 1 },
+              },
+              "& .MuiTextField-root:nth-of-type(even)": {
+                pl: { sm: 1 },
+              },
+              "& .MuiTextField-root.fullWidth": {
+                gridColumn: "span 2",
+                px: 0,
+              },
+            }}
           >
             <TextField
-              fullWidth
+              className="fullWidth"
               label="Name"
               margin="normal"
               type="text"
@@ -134,9 +172,12 @@ export default function ModalUpdated({ userId }) {
               onBlur={handleBlur}
               error={errors.name && touched.name}
               helperText={touched.name && errors.name}
+              InputProps={{
+                sx: { borderRadius: "10px" },
+              }}
             />
             <TextField
-              fullWidth
+              className="fullWidth"
               label="Owner Name"
               name="ownerName"
               margin="normal"
@@ -146,9 +187,12 @@ export default function ModalUpdated({ userId }) {
               onBlur={handleBlur}
               error={errors.ownerName && touched.ownerName}
               helperText={touched.ownerName && errors.ownerName}
+              InputProps={{
+                sx: { borderRadius: "10px" },
+              }}
             />
             <TextField
-              fullWidth
+              className="fullWidth"
               label="Phone"
               name="phone"
               margin="normal"
@@ -158,9 +202,11 @@ export default function ModalUpdated({ userId }) {
               onBlur={handleBlur}
               error={errors.phone && touched.phone}
               helperText={touched.phone && errors.phone}
+              InputProps={{
+                sx: { borderRadius: "10px" },
+              }}
             />
             <TextField
-              fullWidth
               label="City"
               name="city"
               margin="normal"
@@ -169,9 +215,11 @@ export default function ModalUpdated({ userId }) {
               onBlur={handleBlur}
               error={errors.city && touched.city}
               helperText={touched.city && errors.city}
+              InputProps={{
+                sx: { borderRadius: "10px" },
+              }}
             />
             <TextField
-              fullWidth
               label="Governorate"
               name="governorate"
               margin="normal"
@@ -181,36 +229,61 @@ export default function ModalUpdated({ userId }) {
               onBlur={handleBlur}
               error={errors.governorate && touched.governorate}
               helperText={touched.governorate && errors.governorate}
+              InputProps={{
+                sx: { borderRadius: "10px" },
+              }}
             />
 
-            <Box sx={{ mx: 'auto', mt: 3, width: 'fit-content' }}>
+            <Box
+              sx={{
+                gridColumn: "span 2",
+                display: "flex",
+                justifyContent: "center",
+                mt: 3,
+              }}
+            >
               <Button
                 type="submit"
                 variant="contained"
-                color={isError ? 'error' : 'warning'}
+                color={isError ? "error" : "warning"}
                 sx={{
-                  fontSize: { xs: '10px', md: '18px', mx: 'auto' },
+                  fontSize: { xs: "14px", md: "16px" },
                   px: 5,
-                  fontWeight: 'bold',
+                  py: 1.5,
+                  fontWeight: "bold",
+                  borderRadius: "10px",
+                  transition: "all 0.3s ease",
+                  "&:hover": {
+                    transform: "translateY(-2px)",
+                  },
                 }}
                 startIcon={
                   isLoading ? (
-                    <CircularProgress color="inherit" size={16} />
+                    <CircularProgress
+                      color="inherit"
+                      size={20}
+                    />
                   ) : isError ? (
-                    <WarningAmberIcon color="warning" size={16} />
+                    <WarningAmberIcon
+                      color="warning"
+                      size={20}
+                    />
                   ) : isSuccess ? (
-                    <CheckCircleIcon color="success" size={16} />
+                    <CheckCircleIcon
+                      color="success"
+                      size={20}
+                    />
                   ) : (
-                    ''
+                    <EditIcon size={20} />
                   )
                 }
               >
-                Updated
+                Update Data
               </Button>
             </Box>
           </Box>
         </Box>
       </Modal>
-    </Box>
+    </>
   );
 }

@@ -1,7 +1,7 @@
 import { columns } from "./Drugs";
 import { useOwnDrugs } from "../../../lib/hooks/useDrugAction";
 import { Helmet } from "react-helmet";
-import Table from "../../../components/Table/Table";
+import TableData from "../../../components/TableData/TableData";
 export default function AllDrugs() {
   const { data, isLoading } = useOwnDrugs();
 
@@ -31,12 +31,12 @@ export default function AllDrugs() {
       </Helmet>
 
       {/* Table */}
-      <Table
+      <TableData
         isLoading={isLoading}
         data={data || []}
         columnsWithActions={columnsWithActions}
-        check={true}
-        checkTable={false}
+        check={false}
+        checkTable={true}
       />
     </>
   );

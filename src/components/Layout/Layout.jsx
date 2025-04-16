@@ -67,7 +67,11 @@ export default function Layout() {
       <Box
         component="main"
         sx={{
-          pl: isPublicPage ? "0px" : isControlPage ? "150px" : "15px",
+          pl: isPublicPage
+            ? "0px"
+            : isControlPage
+            ? { xs: "60px", lg: "150px" }
+            : "15px",
 
           pt: isPublicPage ? "0px" : isControlPage ? "80px" : "15px",
           // pb: isPublicPage ? "0px" : "5px",

@@ -1,11 +1,8 @@
 "use client";
 
 import { Helmet } from "react-helmet";
-import { Box, Typography, Grid, Button } from "@mui/material";
-import {
-  Refresh as RefreshIcon,
-  FileDownload as ExportIcon,
-} from "@mui/icons-material";
+import { Box, Grid } from "@mui/material";
+
 import { styled, alpha } from "@mui/material/styles";
 import MetricCards from "./components/metric-cards";
 import CashflowChart from "./components/cashflow-chart";
@@ -41,38 +38,6 @@ export default function DashboardAdmin() {
       >
         {/* Main Content */}
         <MainContent>
-          <Box
-            sx={{
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
-              mb: 3,
-            }}
-          >
-            <Typography
-              variant="h5"
-              fontWeight="bold"
-            >
-              Dashboard
-            </Typography>
-            <Box sx={{ display: "flex", gap: 1 }}>
-              <Button
-                variant="outlined"
-                startIcon={<RefreshIcon />}
-                size="small"
-              >
-                Refresh Data
-              </Button>
-              <Button
-                variant="contained"
-                startIcon={<ExportIcon />}
-                size="small"
-              >
-                Export
-              </Button>
-            </Box>
-          </Box>
-
           {/* Metrics Cards */}
           <MetricCards />
 
