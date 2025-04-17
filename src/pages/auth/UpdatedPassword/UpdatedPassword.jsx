@@ -16,10 +16,13 @@ import { CustomLink } from "@/components/Common/ButtonStyle";
 import HomeIcon from "@mui/icons-material/Home";
 import { updateAuthSchema } from "@/lib/schemas/AuthSchema";
 import PasswordControl from "@/components/Common/PasswordControl";
+import { GradientLogo } from "@/components/Common/LogoImage";
+import Logo from "../../../components/Common/LogoImage";
 import { Helmet } from "react-helmet";
 
 export default function UpdatedPassword() {
   const theme = useTheme();
+  const textColor = theme.palette.mode === "dark" ? "#fff" : "#000";
   const backgroundAuth = theme.palette.background.auth;
   const navigator = useNavigate();
 
@@ -32,14 +35,12 @@ export default function UpdatedPassword() {
         data: values,
       };
       const { data } = await axios.request(options);
-      console.log(data);
       if (data.message === "success") {
         toast.success(data.message);
         navigator("/login");
       }
     } catch (error) {
       toast.error(error.response.data.message);
-      console.log(error);
     } finally {
       toast.dismiss(loading);
     }
@@ -73,11 +74,11 @@ export default function UpdatedPassword() {
           content="Your password has been updated. Log in now with your new credentials."
         />
       </Helmet>
+
       <Box
         component={"main"}
         sx={{
-          background: backgroundAuth, // لون ثابت
-          // backgroundImage: (theme) => theme.palette.background.authImage, // التدرج
+          background: backgroundAuth,
           minHeight: "100vh",
           width: "100%",
           display: "flex",
@@ -105,13 +106,12 @@ export default function UpdatedPassword() {
               fs={"30px"}
               fw="bold"
             >
-              <HomeIcon color="primary"></HomeIcon>
+              <HomeIcon color="primary" />
             </CustomLink>
           </Box>
           <Grid2
             size={{ xs: 12, md: 8 }}
             sx={{
-              bg: "red",
               pt: 5,
               display: "flex",
               flexDirection: "column",
@@ -119,13 +119,28 @@ export default function UpdatedPassword() {
             }}
           >
             <Container maxWidth="sm">
-              <Box component={"header"} marginBottom={3}>
-                <CustomHead variant="h1" align="left">
+              <Box
+                component={"header"}
+                marginBottom={3}
+                sx={{ textAlign: "center" }}
+              >
+                <Logo justifyContent={"center"} mb={2}>
+                  <GradientLogo />
+                </Logo>
+                <CustomHead
+                  variant="h1"
+                  align="center"
+                  style={{ color: textColor }}
+                >
                   Update Your Password
                 </CustomHead>
                 <Typography
                   variant="body1"
-                  sx={{ fontSize: "15px", color: "#939494" }}
+                  sx={{
+                    fontSize: "15px",
+                    color: "#939494",
+                    textAlign: "center",
+                  }}
                 >
                   Please create a new password for your account. Ensure it meets
                   the required criteria to keep your account secure.
@@ -156,7 +171,7 @@ export default function UpdatedPassword() {
                 />
                 <CustomButton
                   type="submit"
-                  // @ts-ignore
+                  sx={{ mt: 3 }}
                   w="100%"
                   sm="50%"
                   md="40%"

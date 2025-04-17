@@ -1,9 +1,9 @@
 /* eslint-disable react/prop-types */
-import { CircularProgress, Paper, Typography, useTheme } from '@mui/material';
-import MyLocationIcon from '@mui/icons-material/MyLocation';
-import { useState } from 'react';
-import toast from 'react-hot-toast';
-import CustomButton from '../Common/ButtonStyle';
+import { CircularProgress, Paper, Typography, useTheme } from "@mui/material";
+import MyLocationIcon from "@mui/icons-material/MyLocation";
+import { useState } from "react";
+import toast from "react-hot-toast";
+import CustomButton from "../Common/ButtonStyle";
 
 export default function Location({ setFieldValue, errors }) {
   const [isLoading, setIsLoading] = useState(false);
@@ -15,16 +15,16 @@ export default function Location({ setFieldValue, errors }) {
       navigator.geolocation.getCurrentPosition(
         (position) => {
           const newLocation = {
-            type: 'Point',
+            type: "Point",
             coordinates: [position.coords.longitude, position.coords.latitude],
           };
-          setFieldValue('location', newLocation);
+          setFieldValue("location", newLocation);
           setIsLoading(false);
-          toast.success('Location fetched successfully!');
-          console.log('Updated location:', newLocation);
+          toast.success("Location fetched successfully!");
+          console.log("Updated location:", newLocation);
         },
         (error) => {
-          console.error('Error fetching location:', error);
+          console.error("Error fetching location:", error);
           setIsLoading(false);
           toast.error(`${errors.location}`);
         },
@@ -35,31 +35,32 @@ export default function Location({ setFieldValue, errors }) {
         }
       );
     } else {
-      toast.error('Geolocation is not supported by your browser.');
+      toast.error("Geolocation is not supported by your browser.");
     }
   };
+
   return (
     <Paper
       elevation={9}
       sx={{
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
         gap: 2,
-        p: '15px 10px',
+        p: "15px 10px",
         border: `1px solid ${theme.palette.divider}`,
         borderRadius: 2,
         maxWidth: 300,
       }}
     >
-      <Typography variant="h6" sx={{ fontWeight: 'bold', textAlign: 'center' }}>
+      <Typography variant="h6" sx={{ fontWeight: "bold", textAlign: "center" }}>
         Select Your Location
       </Typography>
       <CustomButton
         variant="contained"
         startIcon={
           isLoading ? (
-            <CircularProgress size={24} sx={{ color: 'white' }} />
+            <CircularProgress size={24} sx={{ color: "white" }} />
           ) : (
             <MyLocationIcon />
           )
@@ -69,14 +70,14 @@ export default function Location({ setFieldValue, errors }) {
         sx={{
           boxShadow: theme.shadows[4],
           borderRadius: 2,
-          padding: '10px 20px',
-          fontSize: '16px',
-          fontWeight: 'bold',
+          padding: "10px 20px",
+          fontSize: "16px",
+          fontWeight: "bold",
           minWidth: 150,
-          display: 'flex',
+          display: "flex",
         }}
       >
-        {isLoading ? 'Fetching...' : 'Get Location'}
+        {isLoading ? "Fetching..." : "Get Location"}
       </CustomButton>
     </Paper>
   );

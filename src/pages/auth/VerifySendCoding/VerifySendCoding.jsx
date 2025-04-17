@@ -3,6 +3,8 @@ import { TextField, Button, Box, Container, useTheme } from "@mui/material";
 import { CustomHead } from "@/components/Common/CustomTypography";
 import { useFormik } from "formik";
 import CustomButton from "@/components/Common/ButtonStyle";
+import { GradientLogo } from "@/components/Common/LogoImage";
+import Logo from "../../../components/Common/LogoImage";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
@@ -11,6 +13,7 @@ import { Helmet } from "react-helmet";
 
 function VerifySendCoding() {
   const theme = useTheme();
+  const textColor = theme.palette.mode === "dark" ? "#fff" : "#000";
   const backgroundAuth = theme.palette.background.auth;
   const [remainingTime, setRemainingTime] = useState(0);
   const [isCounting, setIsCounting] = useState(false);
@@ -87,10 +90,9 @@ function VerifySendCoding() {
       </Helmet>
 
       <Box
-        component={"main"}
+        component="main"
         sx={{
-          background: backgroundAuth, // لون ثابت
-          // backgroundImage: (theme) => theme.palette.background.authImage, // التدرج
+          background: backgroundAuth,
           minHeight: "100vh",
           width: "100%",
           display: "flex",
@@ -106,16 +108,47 @@ function VerifySendCoding() {
             alignItems: "center",
             justifyContent: "center",
             minHeight: "80vh",
+            width: "100%",
           }}
         >
-          <Container maxWidth="sm" sx={{ textAlign: "center" }}>
-            <CustomHead variant="h1">Verfiy Code</CustomHead>
-            <form onSubmit={handleSubmit}>
+          <Container
+            maxWidth="sm"
+            sx={{
+              textAlign: "center",
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+            }}
+          >
+            <Logo justifyContent="center" mb={3}>
+              <GradientLogo />
+            </Logo>
+
+            <CustomHead
+              variant="h1"
+              style={{
+                color: textColor,
+                textAlign: "center",
+              }}
+            >
+              Verify Code
+            </CustomHead>
+
+            <form
+              onSubmit={handleSubmit}
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                width: "100%",
+                marginTop: "2rem",
+              }}
+            >
               <TextField
                 type="text"
                 label="6-Digit Code"
                 variant="outlined"
-                sx={{ mb: 3, width: "100%" }}
+                sx={{ mb: 3, width: "100%", textAlign: "center" }}
                 name="resetCode"
                 value={values.resetCode}
                 onChange={handleChange}
@@ -123,6 +156,7 @@ function VerifySendCoding() {
                 error={errors.resetCode && touched.resetCode}
                 helperText={touched.resetCode && errors.resetCode}
               />
+
               <CustomButton
                 type="submit"
                 disabled={isCounting}
@@ -132,12 +166,13 @@ function VerifySendCoding() {
               >
                 {isCounting ? `Resend in ${remainingTime}s` : "Verify"}
               </CustomButton>
+
               <Button
-                type="submit"
                 variant="text"
                 color="secondary"
                 onClick={handleResend}
                 disabled={isCounting}
+                sx={{ mt: 2 }}
               >
                 Resend Code
               </Button>

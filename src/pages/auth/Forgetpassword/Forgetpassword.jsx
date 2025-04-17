@@ -22,6 +22,7 @@ export default function ForgetPassword() {
   const theme = useTheme();
   const backgroundAuth = theme.palette.background.auth;
   const navigator = useNavigate();
+  const textColor = theme.palette.mode === "dark" ? "#fff" : "#000";
 
   const { setForgetCompleted } = useForgetPassword();
   async function forgetpassword(values) {
@@ -128,7 +129,11 @@ export default function ForgetPassword() {
           >
             <Container maxWidth={"sm"}>
               <Box component={"header"} paddingBottom={4}>
-                <CustomHead variant="h1" align="left">
+                <CustomHead
+                  variant="h1"
+                  align="left"
+                  style={{ color: textColor }}
+                >
                   Forget Password
                 </CustomHead>
                 <Typography
