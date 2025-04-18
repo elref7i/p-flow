@@ -1,22 +1,19 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-import { useContext, useEffect } from "react";
-import { cartContext } from "../../../context/Cart.context";
 import LoadingSpinner from "../../../components/Common/Loading/LoadingSpinner";
 import CartItem from "../../../components/PharmacyComonents/CartItem/CartItem";
 import { Box, Button, Divider, Paper, Typography } from "@mui/material";
 import { Delete } from "@mui/icons-material";
 import { Helmet } from "react-helmet";
 import { useTheme } from "@mui/material/styles";
+import { useCart, useClearCart } from "../../../lib/hooks/useCartAction";
 
 export default function Cart() {
-  let { getLoggedUserCart, cartInfo, clearCart } = useContext(cartContext);
   const theme = useTheme();
   const isDark = theme.palette.mode === "dark";
 
-  useEffect(() => {
-    getLoggedUserCart();
-  }, []);
+  const { data: cartInfo, isLoading } = useCart();
+  const clearCartMutation = useClearCart();
 
+  if (isLoading) return <LoadingSpinner />;
   return (
     <>
       <Helmet>
@@ -39,65 +36,59 @@ export default function Cart() {
         />
       </Helmet>
 
-      {cartInfo === null ? (
-        <LoadingSpinner />
+      {cartInfo.numOfCartItems === 0 ? (
+        <Paper
+          elevation={3}
+          sx={{
+            p: 6,
+            textAlign: "center",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            gap: 3,
+            bgcolor: isDark ? theme.palette.background.paper : "#f9f9f9",
+            borderRadius: 4,
+            boxShadow: isDark
+              ? "0 4px 20px rgba(255, 255, 255, 0.05)"
+              : "0 4px 20px rgba(0, 0, 0, 0.05)",
+          }}
+        >
+          <Typography variant="h4" color="text.primary" fontWeight="bold">
+            Your Cart is Empty 🛒
+          </Typography>
+
+          <Typography variant="body1" color="text.secondary">
+            Looks like you haven’t added anything yet.
+          </Typography>
+
+          <Button
+            variant="contained"
+            color="primary"
+            sx={{ mt: 2, px: 4, py: 1 }}
+            onClick={() => (window.location.href = "/pharmacy/drugs")}
+          >
+            Back to Drugs
+          </Button>
+        </Paper>
       ) : (
-        <>
-          {cartInfo.numOfCartItems === 0 ? (
-            <Paper
-              elevation={3}
-              sx={{
-                p: 6,
-                textAlign: "center",
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-                gap: 3,
-                bgcolor: isDark ? theme.palette.background.paper : "#f9f9f9",
-                borderRadius: 4,
-                boxShadow: isDark
-                  ? "0 4px 20px rgba(255, 255, 255, 0.05)"
-                  : "0 4px 20px rgba(0, 0, 0, 0.05)",
-              }}
+        <Box display="flex" flexDirection="column" gap={3}>
+          {cartInfo.data.inventories.map((inventory) => (
+            <CartItem key={inventory._id} inventoryInfo={inventory} />
+          ))}
+
+          <Divider sx={{ my: 2 }} />
+
+          <Box textAlign="center">
+            <Button
+              variant="outlined"
+              color="error"
+              startIcon={<Delete />}
+              onClick={() => clearCartMutation.mutate()}
             >
-              <Typography variant="h4" color="text.primary" fontWeight="bold">
-                Your Cart is Empty 🛒
-              </Typography>
-
-              <Typography variant="body1" color="text.secondary">
-                Looks like you haven’t added anything yet.
-              </Typography>
-
-              <Button
-                variant="contained"
-                color="primary"
-                sx={{ mt: 2, px: 4, py: 1 }}
-                onClick={() => (window.location.href = "/pharmacy/drugs")}
-              >
-                Back to Drugs
-              </Button>
-            </Paper>
-          ) : (
-            <Box display="flex" flexDirection="column" gap={3}>
-              {cartInfo.data.inventories.map((inventory) => (
-                <CartItem key={inventory._id} inventoryInfo={inventory} />
-              ))}
-
-              <Divider sx={{ my: 2 }} />
-
-              <Box textAlign="center">
-                <Button
-                  variant="outlined"
-                  color="error"
-                  startIcon={<Delete />}
-                  onClick={clearCart}
-                >
-                  Clear Cart
-                </Button>
-              </Box>
-            </Box>
-          )}
-        </>
+              Clear Cart
+            </Button>
+          </Box>
+        </Box>
       )}
     </>
   );

@@ -1,23 +1,24 @@
 /* eslint-disable react/prop-types */
 import { Box, Typography, IconButton, Button, Avatar } from "@mui/material";
 import { Delete } from "@mui/icons-material";
-import { useContext } from "react";
-import { cartContext } from "../../../context/Cart.context";
 import LoadingSpinner from "../../Common/Loading/LoadingSpinner";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
 import CloseIcon from "@mui/icons-material/Close";
 import { useTheme } from "@mui/material/styles";
+import {
+  useRemoveDrug,
+  useRemoveInventory,
+  useUpdateCartItem,
+} from "../../../lib/hooks/useCartAction";
 
 export default function CartItem({ inventoryInfo }) {
-  const {
-    removeDrugFromCart,
-    updateCartItemQuantity,
-    removeInventoryFromCart,
-  } = useContext(cartContext);
-
   const theme = useTheme();
   const isDarkMode = theme.palette.mode === "dark";
+
+  const removeInventoryMutation = useRemoveInventory();
+  const removeDrugMutation = useRemoveDrug();
+  const updateQuantityMutation = useUpdateCartItem();
 
   if (!inventoryInfo || !inventoryInfo.inventory || !inventoryInfo.drugs) {
     return <LoadingSpinner />;
@@ -43,7 +44,7 @@ export default function CartItem({ inventoryInfo }) {
         <IconButton
           color="error"
           onClick={() =>
-            removeInventoryFromCart({ inventoryId: inventory._id })
+            removeInventoryMutation.mutate({ inventoryId: inventory._id })
           }
         >
           <Delete />
@@ -102,12 +103,12 @@ export default function CartItem({ inventoryInfo }) {
               <Box sx={{ display: "flex", alignItems: "center" }}>
                 <IconButton
                   size="small"
-                  onClick={() => {
-                    updateCartItemQuantity({
-                      drugId: _id,
+                  onClick={() =>
+                    updateQuantityMutation.mutate({
+                      drugId: drug._id,
                       quantity: quantity + 1,
-                    });
-                  }}
+                    })
+                  }
                 >
                   <AddCircleOutlineIcon
                     sx={{ color: isDarkMode ? "#90caf9" : "#1976d2" }}
@@ -116,12 +117,12 @@ export default function CartItem({ inventoryInfo }) {
                 <Typography mx={1}>{quantity}</Typography>
                 <IconButton
                   size="small"
-                  onClick={() => {
-                    updateCartItemQuantity({
-                      drugId: _id,
+                  onClick={() =>
+                    updateQuantityMutation.mutate({
+                      drugId: drug._id,
                       quantity: quantity - 1,
-                    });
-                  }}
+                    })
+                  }
                 >
                   <RemoveCircleOutlineIcon
                     sx={{ color: isDarkMode ? "#90caf9" : "#1976d2" }}
@@ -130,15 +131,11 @@ export default function CartItem({ inventoryInfo }) {
               </Box>
 
               {/* Delete Icon */}
-              <IconButton
-                size="small"
-                color="error"
-                sx={{ ml: 1 }}
-                onClick={() => {
-                  removeDrugFromCart({ drugId: _id });
-                }}
-              >
-                <CloseIcon color="error" />
+              <IconButton size="small" color="error" sx={{ ml: 1 }}>
+                <CloseIcon
+                  color="error"
+                  onClick={() => removeDrugMutation.mutate({ drugId: _id })}
+                />
               </IconButton>
             </Box>
           );

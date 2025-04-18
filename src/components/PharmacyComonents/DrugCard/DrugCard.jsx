@@ -10,15 +10,13 @@ import {
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { motion } from "framer-motion";
 import DistanceIndicator from "../../../pages/Inventory/InventoryProfile/components/DistanceIndicator";
-import { useContext } from "react";
-import { cartContext } from "../../../context/Cart.context";
+import { useAddToCart } from "../../../lib/hooks/useCartAction";
 import { useNavigate } from "react-router-dom";
 import { formatNumber } from "../../../lib/utils/formateNumber";
 const DrugCard = ({ dataInfo: drug, checkPage }) => {
   const theme = useTheme();
   const navigate = useNavigate();
-  let { addDrugToCart } = useContext(cartContext);
-
+  const addToCartMutation = useAddToCart();
   return (
     <Box
       component={motion.div}
@@ -173,10 +171,7 @@ const DrugCard = ({ dataInfo: drug, checkPage }) => {
         }}
       >
         <Box>
-          <Typography
-            variant="subtitle1"
-            fontWeight="bold"
-          >
+          <Typography variant="subtitle1" fontWeight="bold">
             ${formatNumber(drug.discountedPrice)}
           </Typography>
           {drug.discount > 0 && (
@@ -196,7 +191,7 @@ const DrugCard = ({ dataInfo: drug, checkPage }) => {
         <Box sx={{ display: "flex" }}>
           <Button
             onClick={() => {
-              addDrugToCart({
+              addToCartMutation.mutate({
                 drugId: drug._id,
                 quantity: 1,
               });

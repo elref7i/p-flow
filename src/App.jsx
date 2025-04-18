@@ -58,7 +58,6 @@ import ThemeModeProvider from "@/context/theme.context";
 import ForgetPasswordProvider from "@/context/Forget.context";
 import UserTypeProvider from "@/context/UserType.context";
 import Cart from "./pages/Pharmacy/Cart/Cart";
-import CartProvider from "./context/Cart.context";
 import Profile from "./pages/Inventory/InventoryProfile/Profile";
 
 function App() {
@@ -165,17 +164,15 @@ function App() {
     <>
       <QueryClientProvider client={queryClient}>
         <UserTypeProvider>
-          <CartProvider>
-            <ForgetPasswordProvider>
-              <ThemeModeProvider>
-                <Suspense fallback={<SkeletonLoader />}>
-                  <RouterProvider router={router} />
-                  <ReactQueryDevtools initialIsOpen={false} />
-                </Suspense>
-              </ThemeModeProvider>
-              <Toaster />
-            </ForgetPasswordProvider>
-          </CartProvider>
+          <ForgetPasswordProvider>
+            <ThemeModeProvider>
+              <Suspense fallback={<SkeletonLoader />}>
+                <RouterProvider router={router} />
+                <ReactQueryDevtools initialIsOpen={false} />
+              </Suspense>
+            </ThemeModeProvider>
+            <Toaster />
+          </ForgetPasswordProvider>
         </UserTypeProvider>
       </QueryClientProvider>
     </>
