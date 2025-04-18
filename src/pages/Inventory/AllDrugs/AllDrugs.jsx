@@ -37,7 +37,7 @@ export default function AllDrugs() {
         isLoading={isLoading}
         data={data && data.data.drugs}
         columnsWithActions={columnsWithActions}
-        check={true}
+        check={false}
         checkTable={true}
       />
     </>

@@ -93,7 +93,7 @@ export default function ModalAdd() {
           },
         }}
       >
-        Add Orders
+        Add User
       </Button>
       <Modal
         open={open}
