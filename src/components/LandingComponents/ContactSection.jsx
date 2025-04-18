@@ -1,6 +1,6 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
+import { useState } from "react";
 import {
   Box,
   Container,
@@ -13,27 +13,27 @@ import {
   Snackbar,
   Alert,
   useTheme,
-} from '@mui/material';
-import EmailIcon from '@mui/icons-material/Email';
-import PhoneIcon from '@mui/icons-material/Phone';
-import LocationOnIcon from '@mui/icons-material/LocationOn';
-import PersonIcon from '@mui/icons-material/Person';
-import MessageIcon from '@mui/icons-material/Message';
-import SendIcon from '@mui/icons-material/Send';
-import { motion } from 'framer-motion';
+} from "@mui/material";
+import EmailIcon from "@mui/icons-material/Email";
+import PhoneIcon from "@mui/icons-material/Phone";
+import LocationOnIcon from "@mui/icons-material/LocationOn";
+import PersonIcon from "@mui/icons-material/Person";
+import MessageIcon from "@mui/icons-material/Message";
+import SendIcon from "@mui/icons-material/Send";
+import { motion } from "framer-motion";
 
 const ContactSection = () => {
   const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    message: '',
+    name: "",
+    email: "",
+    phone: "",
+    message: "",
   });
   const [errors, setErrors] = useState({});
   const [snackbar, setSnackbar] = useState({
     open: false,
-    message: '',
-    severity: 'success',
+    message: "",
+    severity: "success",
   });
   const theme = useTheme();
 
@@ -42,19 +42,19 @@ const ContactSection = () => {
     setFormData((prev) => ({ ...prev, [name]: value }));
     // Clear error when user types
     if (errors[name]) {
-      setErrors((prev) => ({ ...prev, [name]: '' }));
+      setErrors((prev) => ({ ...prev, [name]: "" }));
     }
   };
 
   const validateForm = () => {
     const newErrors = {};
-    if (!formData.name.trim()) newErrors.name = 'Name is required';
+    if (!formData.name.trim()) newErrors.name = "Name is required";
     if (!formData.email.trim()) {
-      newErrors.email = 'Email is required';
+      newErrors.email = "Email is required";
     } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
-      newErrors.email = 'Email is invalid';
+      newErrors.email = "Email is invalid";
     }
-    if (!formData.message.trim()) newErrors.message = 'Message is required';
+    if (!formData.message.trim()) newErrors.message = "Message is required";
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -64,25 +64,25 @@ const ContactSection = () => {
     e.preventDefault();
     if (validateForm()) {
       // Handle form submission
-      console.log('Form submitted:', formData);
+      console.log("Form submitted:", formData);
       // Show success message
       setSnackbar({
         open: true,
         message: "Message sent successfully! We'll get back to you soon.",
-        severity: 'success',
+        severity: "success",
       });
       // Reset form
       setFormData({
-        name: '',
-        email: '',
-        phone: '',
-        message: '',
+        name: "",
+        email: "",
+        phone: "",
+        message: "",
       });
     } else {
       setSnackbar({
         open: true,
-        message: 'Please fix the errors in the form.',
-        severity: 'error',
+        message: "Please fix the errors in the form.",
+        severity: "error",
       });
     }
   };
@@ -97,40 +97,40 @@ const ContactSection = () => {
       sx={{
         py: { xs: 10, md: 16 },
         bgcolor: theme.palette.background.paper,
-        position: 'relative',
-        overflow: 'hidden',
+        position: "relative",
+        overflow: "hidden",
       }}
     >
       {/* Background elements */}
       <Box
         sx={{
-          position: 'absolute',
-          top: '10%',
-          right: '5%',
-          width: '300px',
-          height: '300px',
-          borderRadius: '50%',
+          position: "absolute",
+          top: "10%",
+          right: "5%",
+          width: "300px",
+          height: "300px",
+          borderRadius: "50%",
           background:
-            'radial-gradient(circle, rgba(25, 118, 210, 0.05) 0%, rgba(25, 118, 210, 0) 70%)',
+            "radial-gradient(circle, rgba(25, 118, 210, 0.05) 0%, rgba(25, 118, 210, 0) 70%)",
           zIndex: 0,
         }}
       />
       <Box
         sx={{
-          position: 'absolute',
-          bottom: '10%',
-          left: '5%',
-          width: '400px',
-          height: '400px',
-          borderRadius: '50%',
+          position: "absolute",
+          bottom: "10%",
+          left: "5%",
+          width: "400px",
+          height: "400px",
+          borderRadius: "50%",
           background:
-            'radial-gradient(circle, rgba(0, 188, 212, 0.05) 0%, rgba(0, 188, 212, 0) 70%)',
+            "radial-gradient(circle, rgba(0, 188, 212, 0.05) 0%, rgba(0, 188, 212, 0) 70%)",
           zIndex: 0,
         }}
       />
 
-      <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 1 }}>
-        <Box sx={{ textAlign: 'center', mb: 8 }}>
+      <Container maxWidth="lg" sx={{ position: "relative", zIndex: 1 }}>
+        <Box sx={{ textAlign: "center", mb: 8 }}>
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -141,7 +141,7 @@ const ContactSection = () => {
               variant="overline"
               component="div"
               sx={{
-                color: 'primary.main',
+                color: "primary.main",
                 fontWeight: 600,
                 letterSpacing: 1,
                 mb: 2,
@@ -163,9 +163,9 @@ const ContactSection = () => {
               gutterBottom
               sx={{
                 fontWeight: 700,
-                background: 'linear-gradient(45deg, #1565c0 30%, #0097a7 90%)',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
+                background: "linear-gradient(45deg, #1565c0 30%, #0097a7 90%)",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
               }}
             >
               Get in Touch
@@ -181,7 +181,7 @@ const ContactSection = () => {
             <Typography
               variant="h6"
               color="textSecondary"
-              sx={{ maxWidth: 800, mx: 'auto' }}
+              sx={{ maxWidth: 800, mx: "auto" }}
             >
               Have questions about P-FLOW? Our team is here to help you get
               started.
@@ -202,9 +202,9 @@ const ContactSection = () => {
                 sx={{
                   p: 4,
                   borderRadius: 4,
-                  height: '100%',
+                  height: "100%",
                   background:
-                    'linear-gradient(135deg, #ffffff 0%, #f8fbff 100%)',
+                    "linear-gradient(135deg, #ffffff 0%, #f8fbff 100%)",
                 }}
               >
                 <Typography
@@ -212,6 +212,7 @@ const ContactSection = () => {
                   component="h3"
                   gutterBottom
                   fontWeight={700}
+                  sx={{ color: "black" }}
                 >
                   Send Us a Message
                 </Typography>
@@ -246,9 +247,9 @@ const ContactSection = () => {
                           ),
                         }}
                         sx={{
-                          '& .MuiOutlinedInput-root': {
-                            '&.Mui-focused fieldset': {
-                              borderColor: 'primary.main',
+                          "& .MuiOutlinedInput-root": {
+                            "&.Mui-focused fieldset": {
+                              borderColor: "primary.main",
                               borderWidth: 2,
                             },
                           },
@@ -275,9 +276,9 @@ const ContactSection = () => {
                           ),
                         }}
                         sx={{
-                          '& .MuiOutlinedInput-root': {
-                            '&.Mui-focused fieldset': {
-                              borderColor: 'primary.main',
+                          "& .MuiOutlinedInput-root": {
+                            "&.Mui-focused fieldset": {
+                              borderColor: "primary.main",
                               borderWidth: 2,
                             },
                           },
@@ -300,9 +301,9 @@ const ContactSection = () => {
                           ),
                         }}
                         sx={{
-                          '& .MuiOutlinedInput-root': {
-                            '&.Mui-focused fieldset': {
-                              borderColor: 'primary.main',
+                          "& .MuiOutlinedInput-root": {
+                            "&.Mui-focused fieldset": {
+                              borderColor: "primary.main",
                               borderWidth: 2,
                             },
                           },
@@ -326,16 +327,16 @@ const ContactSection = () => {
                           startAdornment: (
                             <InputAdornment
                               position="start"
-                              sx={{ alignSelf: 'flex-start', mt: 1.5 }}
+                              sx={{ alignSelf: "flex-start", mt: 1.5 }}
                             >
                               <MessageIcon color="primary" />
                             </InputAdornment>
                           ),
                         }}
                         sx={{
-                          '& .MuiOutlinedInput-root': {
-                            '&.Mui-focused fieldset': {
-                              borderColor: 'primary.main',
+                          "& .MuiOutlinedInput-root": {
+                            "&.Mui-focused fieldset": {
+                              borderColor: "primary.main",
                               borderWidth: 2,
                             },
                           },
@@ -353,8 +354,8 @@ const ContactSection = () => {
                           px: 4,
                           mt: 2,
                           background:
-                            'linear-gradient(45deg, #1976d2 30%, #00bcd4 90%)',
-                          boxShadow: '0 8px 20px rgba(25, 118, 210, 0.3)',
+                            "linear-gradient(45deg, #1976d2 30%, #00bcd4 90%)",
+                          boxShadow: "0 8px 20px rgba(25, 118, 210, 0.3)",
                         }}
                       >
                         Send Message
@@ -371,7 +372,7 @@ const ContactSection = () => {
               container
               spacing={3}
               direction="column"
-              sx={{ height: '100%' }}
+              sx={{ height: "100%" }}
             >
               <Grid item>
                 <motion.div
@@ -386,22 +387,22 @@ const ContactSection = () => {
                       p: 4,
                       borderRadius: 4,
                       background:
-                        'linear-gradient(135deg, #1976d2 0%, #42a5f5 100%)',
-                      color: 'white',
+                        "linear-gradient(135deg, #1976d2 0%, #42a5f5 100%)",
+                      color: "white",
                     }}
                   >
                     <Box
-                      sx={{ display: 'flex', alignItems: 'flex-start', gap: 3 }}
+                      sx={{ display: "flex", alignItems: "flex-start", gap: 3 }}
                     >
                       <Box
                         sx={{
                           width: 60,
                           height: 60,
-                          borderRadius: '50%',
-                          bgcolor: 'rgba(255, 255, 255, 0.2)',
-                          display: 'flex',
-                          alignItems: 'center',
-                          justifyContent: 'center',
+                          borderRadius: "50%",
+                          bgcolor: "rgba(255, 255, 255, 0.2)",
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
                         }}
                       >
                         <EmailIcon fontSize="large" />
@@ -427,20 +428,20 @@ const ContactSection = () => {
                             component="a"
                             href="mailto:info@p-flow.com"
                             sx={{
-                              color: 'white',
-                              textDecoration: 'none',
-                              position: 'relative',
-                              '&::after': {
+                              color: "white",
+                              textDecoration: "none",
+                              position: "relative",
+                              "&::after": {
                                 content: '""',
-                                position: 'absolute',
-                                width: '100%',
-                                height: '2px',
+                                position: "absolute",
+                                width: "100%",
+                                height: "2px",
                                 bottom: -2,
                                 left: 0,
-                                backgroundColor: 'white',
+                                backgroundColor: "white",
                                 opacity: 0.5,
                               },
-                              '&:hover::after': {
+                              "&:hover::after": {
                                 opacity: 1,
                               },
                             }}
@@ -467,22 +468,22 @@ const ContactSection = () => {
                       p: 4,
                       borderRadius: 4,
                       background:
-                        'linear-gradient(135deg, #00bcd4 0%, #4dd0e1 100%)',
-                      color: 'white',
+                        "linear-gradient(135deg, #00bcd4 0%, #4dd0e1 100%)",
+                      color: "white",
                     }}
                   >
                     <Box
-                      sx={{ display: 'flex', alignItems: 'flex-start', gap: 3 }}
+                      sx={{ display: "flex", alignItems: "flex-start", gap: 3 }}
                     >
                       <Box
                         sx={{
                           width: 60,
                           height: 60,
-                          borderRadius: '50%',
-                          bgcolor: 'rgba(255, 255, 255, 0.2)',
-                          display: 'flex',
-                          alignItems: 'center',
-                          justifyContent: 'center',
+                          borderRadius: "50%",
+                          bgcolor: "rgba(255, 255, 255, 0.2)",
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
                         }}
                       >
                         <PhoneIcon fontSize="large" />
@@ -508,20 +509,20 @@ const ContactSection = () => {
                             component="a"
                             href="tel:+1234567890"
                             sx={{
-                              color: 'white',
-                              textDecoration: 'none',
-                              position: 'relative',
-                              '&::after': {
+                              color: "white",
+                              textDecoration: "none",
+                              position: "relative",
+                              "&::after": {
                                 content: '""',
-                                position: 'absolute',
-                                width: '100%',
-                                height: '2px',
+                                position: "absolute",
+                                width: "100%",
+                                height: "2px",
                                 bottom: -2,
                                 left: 0,
-                                backgroundColor: 'white',
+                                backgroundColor: "white",
                                 opacity: 0.5,
                               },
-                              '&:hover::after': {
+                              "&:hover::after": {
                                 opacity: 1,
                               },
                             }}
@@ -548,22 +549,22 @@ const ContactSection = () => {
                       p: 4,
                       borderRadius: 4,
                       background:
-                        'linear-gradient(135deg, #4caf50 0%, #81c784 100%)',
-                      color: 'white',
+                        "linear-gradient(135deg, #4caf50 0%, #81c784 100%)",
+                      color: "white",
                     }}
                   >
                     <Box
-                      sx={{ display: 'flex', alignItems: 'flex-start', gap: 3 }}
+                      sx={{ display: "flex", alignItems: "flex-start", gap: 3 }}
                     >
                       <Box
                         sx={{
                           width: 60,
                           height: 60,
-                          borderRadius: '50%',
-                          bgcolor: 'rgba(255, 255, 255, 0.2)',
-                          display: 'flex',
-                          alignItems: 'center',
-                          justifyContent: 'center',
+                          borderRadius: "50%",
+                          bgcolor: "rgba(255, 255, 255, 0.2)",
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
                         }}
                       >
                         <LocationOnIcon fontSize="large" />
@@ -605,13 +606,13 @@ const ContactSection = () => {
         open={snackbar.open}
         autoHideDuration={6000}
         onClose={handleCloseSnackbar}
-        anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+        anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
       >
         <Alert
           onClose={handleCloseSnackbar}
           severity={snackbar.severity}
           variant="filled"
-          sx={{ width: '100%' }}
+          sx={{ width: "100%" }}
         >
           {snackbar.message}
         </Alert>

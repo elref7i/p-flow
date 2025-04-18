@@ -1,6 +1,6 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
+import { useState } from "react";
 import {
   Box,
   Container,
@@ -17,77 +17,78 @@ import {
   Avatar,
   Divider,
   useTheme,
-} from '@mui/material';
-import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
-import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
-import { motion } from 'framer-motion';
+} from "@mui/material";
+import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
+import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
+import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 
 const steps = [
   {
-    title: 'Inventory Management',
-    description: 'Easily track all medications and supplies in your pharmacy.',
+    title: "Inventory Management",
+    description: "Easily track all medications and supplies in your pharmacy.",
     content: [
       {
-        title: 'Add Products',
+        title: "Add Products",
         description:
-          'Add new medications to your inventory with detailed information including NDC, lot numbers, and expiration dates.',
+          "Add new medications to your inventory with detailed information including NDC, lot numbers, and expiration dates.",
       },
       {
-        title: 'Track Stock Levels',
+        title: "Track Stock Levels",
         description:
-          'Monitor stock levels in real-time and receive alerts when inventory is running low.',
+          "Monitor stock levels in real-time and receive alerts when inventory is running low.",
       },
       {
-        title: 'Manage Expiration Dates',
+        title: "Manage Expiration Dates",
         description:
-          'Track expiration dates and receive notifications for products nearing expiration.',
+          "Track expiration dates and receive notifications for products nearing expiration.",
       },
     ],
-    image: '/placeholder.svg?height=720&width=1280&text=Inventory+Management',
+    image: "/placeholder.svg?height=720&width=1280&text=Inventory+Management",
   },
   {
-    title: 'Order Processing',
-    description: 'Streamline the order creation and fulfillment process.',
+    title: "Order Processing",
+    description: "Streamline the order creation and fulfillment process.",
     content: [
       {
-        title: 'Create Orders',
+        title: "Create Orders",
         description:
-          'Quickly create new orders with an intuitive interface that suggests products based on customer history.',
+          "Quickly create new orders with an intuitive interface that suggests products based on customer history.",
       },
       {
-        title: 'Process Payments',
+        title: "Process Payments",
         description:
-          'Accept various payment methods and process transactions securely.',
+          "Accept various payment methods and process transactions securely.",
       },
       {
-        title: 'Fulfill Orders',
+        title: "Fulfill Orders",
         description:
-          'Track order status from creation to delivery with a comprehensive fulfillment workflow.',
+          "Track order status from creation to delivery with a comprehensive fulfillment workflow.",
       },
     ],
-    image: '/placeholder.svg?height=720&width=1280&text=Order+Processing',
+    image: "/placeholder.svg?height=720&width=1280&text=Order+Processing",
   },
   {
-    title: 'Analytics & Reporting',
+    title: "Analytics & Reporting",
     description: "Gain insights into your pharmacy's performance.",
     content: [
       {
-        title: 'Sales Reports',
+        title: "Sales Reports",
         description:
-          'Generate detailed sales reports to track revenue, popular products, and customer trends.',
+          "Generate detailed sales reports to track revenue, popular products, and customer trends.",
       },
       {
-        title: 'Inventory Analysis',
+        title: "Inventory Analysis",
         description:
-          'Analyze inventory turnover and identify slow-moving products to optimize stock levels.',
+          "Analyze inventory turnover and identify slow-moving products to optimize stock levels.",
       },
       {
-        title: 'Performance Metrics',
+        title: "Performance Metrics",
         description:
           "Monitor key performance indicators to measure and improve your pharmacy's efficiency.",
       },
     ],
-    image: '/placeholder.svg?height=720&width=1280&text=Analytics+Reporting',
+    image: "/placeholder.svg?height=720&width=1280&text=Analytics+Reporting",
   },
 ];
 
@@ -113,40 +114,40 @@ const HowItWorksSection = () => {
       sx={{
         py: { xs: 10, md: 16 },
         bgcolor: theme.palette.background.default,
-        position: 'relative',
-        overflow: 'hidden',
+        position: "relative",
+        overflow: "hidden",
       }}
     >
       {/* Background elements */}
       <Box
         sx={{
-          position: 'absolute',
-          top: '30%',
-          right: '10%',
-          width: '300px',
-          height: '300px',
-          borderRadius: '50%',
+          position: "absolute",
+          top: "30%",
+          right: "10%",
+          width: "300px",
+          height: "300px",
+          borderRadius: "50%",
           background:
-            'radial-gradient(circle, rgba(25, 118, 210, 0.05) 0%, rgba(25, 118, 210, 0) 70%)',
+            "radial-gradient(circle, rgba(25, 118, 210, 0.05) 0%, rgba(25, 118, 210, 0) 70%)",
           zIndex: 0,
         }}
       />
       <Box
         sx={{
-          position: 'absolute',
-          bottom: '20%',
-          left: '5%',
-          width: '400px',
-          height: '400px',
-          borderRadius: '50%',
+          position: "absolute",
+          bottom: "20%",
+          left: "5%",
+          width: "400px",
+          height: "400px",
+          borderRadius: "50%",
           background:
-            'radial-gradient(circle, rgba(0, 188, 212, 0.05) 0%, rgba(0, 188, 212, 0) 70%)',
+            "radial-gradient(circle, rgba(0, 188, 212, 0.05) 0%, rgba(0, 188, 212, 0) 70%)",
           zIndex: 0,
         }}
       />
 
-      <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 1 }}>
-        <Box sx={{ textAlign: 'center', mb: 8 }}>
+      <Container maxWidth="lg" sx={{ position: "relative", zIndex: 1 }}>
+        <Box sx={{ textAlign: "center", mb: 8 }}>
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -157,7 +158,7 @@ const HowItWorksSection = () => {
               variant="overline"
               component="div"
               sx={{
-                color: 'primary.main',
+                color: "primary.main",
                 fontWeight: 600,
                 letterSpacing: 1,
                 mb: 2,
@@ -179,9 +180,9 @@ const HowItWorksSection = () => {
               gutterBottom
               sx={{
                 fontWeight: 700,
-                background: 'linear-gradient(45deg, #1565c0 30%, #0097a7 90%)',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
+                background: "linear-gradient(45deg, #1565c0 30%, #0097a7 90%)",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
               }}
             >
               Simplify Your Pharmacy Operations
@@ -197,7 +198,7 @@ const HowItWorksSection = () => {
             <Typography
               variant="h6"
               color="textSecondary"
-              sx={{ maxWidth: 800, mx: 'auto' }}
+              sx={{ maxWidth: 800, mx: "auto" }}
             >
               P-FLOW streamlines your workflow with an intuitive interface and
               powerful features.
@@ -207,25 +208,25 @@ const HowItWorksSection = () => {
 
         <Grid container spacing={6}>
           <Grid item xs={12} md={5}>
-            <Box sx={{ maxWidth: 400, mx: 'auto' }}>
+            <Box sx={{ maxWidth: 400, mx: "auto" }}>
               <Stepper activeStep={activeStep} orientation="vertical">
                 {steps.map((step, index) => (
                   <Step key={step.title} completed={activeStep > index}>
                     <StepLabel
                       onClick={() => handleStepClick(index)}
                       sx={{
-                        cursor: 'pointer',
-                        '& .MuiStepLabel-iconContainer': {
-                          '& .MuiStepIcon-root': {
+                        cursor: "pointer",
+                        "& .MuiStepLabel-iconContainer": {
+                          "& .MuiStepIcon-root": {
                             color:
-                              activeStep >= index ? 'primary.main' : 'grey.400',
+                              activeStep >= index ? "primary.main" : "grey.400",
                             width: 40,
                             height: 40,
-                            transition: 'all 0.3s ease',
+                            transition: "all 0.3s ease",
                           },
-                          '& .MuiStepIcon-text': {
-                            fill: activeStep >= index ? 'white' : 'grey.700',
-                            fontWeight: 'bold',
+                          "& .MuiStepIcon-text": {
+                            fill: activeStep >= index ? "white" : "grey.700",
+                            fontWeight: "bold",
                           },
                         },
                       }}
@@ -236,8 +237,8 @@ const HowItWorksSection = () => {
                           fontWeight: activeStep === index ? 700 : 500,
                           color:
                             activeStep === index
-                              ? 'primary.main'
-                              : 'text.primary',
+                              ? "primary.main"
+                              : "text.primary",
                         }}
                       >
                         {step.title}
@@ -259,7 +260,7 @@ const HowItWorksSection = () => {
                             sx={{ mt: 1, mr: 1 }}
                             endIcon={<KeyboardArrowRightIcon />}
                           >
-                            {index === steps.length - 1 ? 'Finish' : 'Continue'}
+                            {index === steps.length - 1 ? "Finish" : "Continue"}
                           </Button>
                           <Button
                             disabled={index === 0}
@@ -295,7 +296,12 @@ const HowItWorksSection = () => {
                   >
                     Reset
                   </Button>
-                  <Button variant="contained" sx={{ mt: 1, mr: 1 }}>
+                  <Button
+                    component={Link}
+                    to={"/signup"}
+                    variant="contained"
+                    sx={{ mt: 1, mr: 1 }}
+                  >
                     Get Started
                   </Button>
                 </Paper>
@@ -315,17 +321,17 @@ const HowItWorksSection = () => {
                 <Box>
                   <Box
                     sx={{
-                      position: 'relative',
-                      '&::before': {
+                      position: "relative",
+                      "&::before": {
                         content: '""',
-                        position: 'absolute',
+                        position: "absolute",
                         top: -15,
                         left: -15,
                         right: 15,
                         bottom: 15,
                         borderRadius: 4,
                         background:
-                          'linear-gradient(45deg, rgba(25, 118, 210, 0.1) 0%, rgba(0, 188, 212, 0.1) 100%)',
+                          "linear-gradient(45deg, rgba(25, 118, 210, 0.1) 0%, rgba(0, 188, 212, 0.1) 100%)",
                         zIndex: -1,
                       },
                     }}
@@ -333,7 +339,7 @@ const HowItWorksSection = () => {
                     <Paper
                       elevation={6}
                       sx={{
-                        overflow: 'hidden',
+                        overflow: "hidden",
                         borderRadius: 4,
                         mb: 4,
                       }}
@@ -343,9 +349,9 @@ const HowItWorksSection = () => {
                         src={steps[activeStep].image}
                         alt={steps[activeStep].title}
                         sx={{
-                          width: '100%',
-                          height: 'auto',
-                          display: 'block',
+                          width: "100%",
+                          height: "auto",
+                          display: "block",
                         }}
                       />
                     </Paper>
@@ -361,29 +367,29 @@ const HowItWorksSection = () => {
                         >
                           <Card
                             sx={{
-                              height: '100%',
-                              transition: 'transform 0.3s, box-shadow 0.3s',
-                              '&:hover': {
-                                transform: 'translateY(-5px)',
-                                boxShadow: '0 12px 30px rgba(0, 0, 0, 0.1)',
+                              height: "100%",
+                              transition: "transform 0.3s, box-shadow 0.3s",
+                              "&:hover": {
+                                transform: "translateY(-5px)",
+                                boxShadow: "0 12px 30px rgba(0, 0, 0, 0.1)",
                               },
                             }}
                           >
                             <CardContent>
                               <Box
                                 sx={{
-                                  display: 'flex',
-                                  alignItems: 'center',
+                                  display: "flex",
+                                  alignItems: "center",
                                   mb: 2,
                                 }}
                               >
                                 <Avatar
                                   sx={{
-                                    bgcolor: 'primary.main',
+                                    bgcolor: "primary.main",
                                     mr: 2,
                                     width: 40,
                                     height: 40,
-                                    fontWeight: 'bold',
+                                    fontWeight: "bold",
                                   }}
                                 >
                                   {itemIndex + 1}
