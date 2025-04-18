@@ -16,7 +16,14 @@ const navLinks = [
 ];
 export default function NavLinkDesktop() {
   return (
-    <Box sx={{ display: { xs: "none", md: "flex" } }}>
+    <Box
+      sx={{
+        display: { xs: "none", md: "flex" },
+        flex: 1,
+        gap: 5,
+        justifyContent: "center",
+      }}
+    >
       {navLinks.map((link) => (
         <NavLink
           key={link.path}

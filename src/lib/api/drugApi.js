@@ -1,12 +1,11 @@
-import axios from 'axios';
-import { API_URL_DRUG } from './api_url';
+import axios from "axios";
+import { API_URL_DRUG } from "./api_url";
 
 //* Get All Drugs
-
 export const getAllDrugs = async (token, params = {}) => {
   const options = {
     url: API_URL_DRUG,
-    method: 'GET',
+    method: "GET",
     headers: {
       Authorization: `Bearer ${token}`,
     },
@@ -16,11 +15,22 @@ export const getAllDrugs = async (token, params = {}) => {
   return data.data;
 };
 
+//* get all drugs for specific inventory
+
+export const getDrugsspecificInventory = async ({ drugId }) => {
+  const options = {
+    url: `${API_URL_DRUG}/inventory/${drugId}`,
+    method: "GET",
+  };
+  const data = await axios.request(options);
+  return data.data;
+};
+
 // ^ Add Drug
 export const addDrug = async ({ token, values }) => {
   const options = {
     url: `${API_URL_DRUG}`,
-    method: 'POST',
+    method: "POST",
     data: values,
     headers: {
       Authorization: `Bearer ${token}`,
@@ -33,7 +43,7 @@ export const addDrug = async ({ token, values }) => {
 export const deleteDrug = async ({ token, drugId }) => {
   const options = {
     url: `${API_URL_DRUG}/${drugId}`,
-    method: 'DELETE',
+    method: "DELETE",
     headers: {
       Authorization: `Bearer ${token}`,
     },
@@ -45,7 +55,7 @@ export const deleteDrug = async ({ token, drugId }) => {
 export const updateDrug = async ({ token, values, drugId }) => {
   const options = {
     url: `${API_URL_DRUG}/${drugId}`,
-    method: 'PUT',
+    method: "PUT",
     data: values,
     headers: {
       Authorization: `Bearer ${token}`,
@@ -58,7 +68,7 @@ export const updateDrug = async ({ token, values, drugId }) => {
 export const getSpecificDrug = async ({ token, drugId }) => {
   const options = {
     url: `${API_URL_DRUG}/${drugId}`,
-    method: 'GET',
+    method: "GET",
     headers: {
       Authorization: `Bearer ${token}`,
     },
@@ -67,20 +77,17 @@ export const getSpecificDrug = async ({ token, drugId }) => {
   return data.data;
 };
 
-
 // * get All Own Drugs
-
 export const getAllOwnDrugs = async (token) => {
   const options = {
-    url: `${API_URL_DRUG}/owndrugs`,
-    method: 'GET',
+    url: `${API_URL_DRUG}/inventory`,
+    method: "GET",
     headers: {
       Authorization: `Bearer ${token}`,
     },
   };
   const data = await axios.request(options);
-      return data.data;
-  }
-
+  return data.data;
+};
 
 //*Filtter Drug

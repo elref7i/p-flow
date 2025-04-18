@@ -1,316 +1,221 @@
 /* eslint-disable react/prop-types */
 import {
   Box,
-  CardActions,
-  Paper,
-  Stack,
+  Typography,
+  Button,
   useTheme,
+  alpha,
   Avatar,
-  Divider,
 } from "@mui/material";
-import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
-import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-import CardContent from "@mui/material/CardContent";
-import CardMedia from "@mui/material/CardMedia";
-import Typography from "@mui/material/Typography";
-import { useNavigate } from "react-router-dom";
-import CustomButton from "../../Common/ButtonStyle";
-import LocationComponent from "../../Flow-Loaction/Flow-Loaction";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import { motion } from "framer-motion";
+import DistanceIndicator from "../../../pages/Inventory/InventoryProfile/components/DistanceIndicator";
 import { useContext } from "react";
 import { cartContext } from "../../../context/Cart.context";
-const truncateText = (text, maxLength) => {
-  if (text.length > maxLength) {
-    return text.slice(0, maxLength).trim() + "..."; // إزالة المسافات الزائدة وإضافة نقاط
-  }
-  return text;
-};
-export default function DrugCard({ dataInfo }) {
+import { useNavigate } from "react-router-dom";
+import { formatNumber } from "../../../lib/utils/formateNumber";
+const DrugCard = ({ dataInfo: drug, checkPage }) => {
   const theme = useTheme();
   const navigate = useNavigate();
   let { addDrugToCart } = useContext(cartContext);
-  const {
-    _id,
-    name,
-    inventory,
-    // description,
-    price,
-    discount,
-    discountedPrice,
-    // productionDate,
-    // expirationDate,
-    distanceInKm,
-  } = dataInfo;
 
   return (
-    <Paper
-      elevation={3}
+    <Box
+      component={motion.div}
+      whileHover={{ y: -5, boxShadow: "0 10px 20px rgba(0,0,0,0.1)" }}
+      transition={{ type: "spring", stiffness: 300 }}
       sx={{
-        width: 250,
-        maxHeight: 500,
+        p: 2,
         borderRadius: 2,
-        ":hover": {
-          boxShadow: `inset 7px -3px 0px 0px ${theme.palette.action.active}`,
-          transition: "all 0.3s",
-          "& .box-icon": { opacity: 1, transition: "opacity 0.3s" },
-        },
-        transition: "all 0.3s",
-        // pb: 1,
+        bgcolor: "background.paper",
+        boxShadow: "0 2px 8px rgba(0,0,0,0.08)",
+        border: `1px solid ${alpha(theme.palette.divider, 0.1)}`,
         position: "relative",
         overflow: "hidden",
       }}
     >
-      <Paper
-        className="box-image"
+      {/* Category Badge */}
+      <Box
         sx={{
-          bgcolor: "#fff",
-          borderRadius: 0,
-          position: "relative",
+          position: "absolute",
+          top: 12,
+          right: 12,
+          bgcolor: alpha(theme.palette.primary.light, 0.2),
+          color: theme.palette.primary.main,
+          borderRadius: 10,
+          px: 1.5,
+          py: 0.5,
+          fontSize: "0.75rem",
+          fontWeight: "medium",
         }}
       >
-        <CardMedia
-          component="img"
-          height="140"
-          sx={{ objectFit: "contain" }}
-          width={"100%"}
-          image={
-            "https://www.netmeds.com/images/product-v1/600x600/397251/nasomist_saline_nasal_spray_20ml_149351_0_2.jpg"
-          }
-          alt={name}
-          aria-label={`Image of ${name}`}
-        />
-        {discountedPrice && (
-          <Box
-            component={"discount"}
-            sx={{
-              bgcolor: "red",
-              p: 1,
-              zIndex: 99,
-              borderRadius: "20px",
-              position: "absolute",
-              top: 5,
-              right: 5,
-              color: "#FAFAFA",
-              fontWeight: "bold",
-              fontSize: "12px",
-            }}
-            aria-label={`Discount of ${discount}%`}
-          >
-            {discount}% OFF
-          </Box>
-        )}
-        <Stack
-          className="box-icon"
-          direction={"column"}
-          justifyContent={"center"}
-          alignItems={"start"}
-          gap={1}
-          component={"IconsAction"}
+        {drug.discount}
+      </Box>
+
+      {/* Drug Name and Active Ingredient */}
+      <Box sx={{ mb: 2, mt: 0.5 }}>
+        <Typography
+          variant="h6"
+          onClick={() => {
+            navigate(`/pharmacy/drugdetails/${drug._id}`);
+          }}
+          fontWeight="bold"
           sx={{
-            bgcolor: "#000000aa",
-            position: "absolute",
-            borderTopRightRadius: 5,
-            borderBottomRightRadius: 5,
-            top: 0,
-            left: 0,
-            pl: 1,
-            color: "#FAFAFA",
-            height: "100%",
-            width: "100%",
-            fontWeight: "bold",
-            transition: "opacity 0.3s",
-            opacity: 0,
             cursor: "pointer",
+            lineHeight: 1.2,
+            maxWidth: "300px",
+            overflow: "hidden",
+            textOverflow: "ellipsis",
+            whiteSpace: "nowrap",
           }}
         >
-          <FavoriteBorderIcon
-            zIndex={99}
-            color="#FAFAFA"
-            sx={{
-              fontSize: "30px",
-              fontWeight: "bold",
-              transition: "color 0.3s",
-              ":hover": { color: "red" },
-            }}
-            aria-label="Add to favorites"
-          />
-          <RemoveRedEyeIcon
-            color="#FAFAFA"
-            onClick={() => {
-              navigate(`/pharmacy/drugdetails/${_id}`);
-            }}
-            sx={{
-              fontSize: "30px",
-              fontWeight: "bold",
-              transition: "color 0.3s",
-              ":hover": { color: "red" },
-            }}
-            aria-label="View drug details"
-          />
-        </Stack>
-      </Paper>
-      <CardContent elevation={2}>
-        {/* Inventory Avatar */}
-        <Stack
-          direction="row"
-          alignItems="center"
-          gap={1}
-          sx={{ cursor: "pointer" }}
-          onClick={() => {
-            navigate(`/inventoryprofile`);
+          {drug.name}
+        </Typography>
+        {/* <Typography
+          variant="body2"
+          color="text.secondary"
+        >
+          {drug.activeIngredient}
+        </Typography> */}
+      </Box>
+
+      {/* Inventory Information */}
+      {checkPage && (
+        <Box
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            mb: 2,
+            pb: 1.5,
+            borderBottom: `1px dashed ${alpha(theme.palette.divider, 0.5)}`,
           }}
         >
           <Avatar
-            src={inventory?.profileImage} // صورة الـ Inventory
-            alt={inventory?.name}
-            sx={{ width: 30, height: 30 }}
-          >
-            {inventory?.name?.charAt(0)}{" "}
-          </Avatar>
-          <Typography
-            variant="body2"
+            src={drug.inventory?.image || "/placeholder.svg?height=32&width=32"}
+            alt={drug.inventory?.name || "Pharmacy"}
             sx={{
-              color: theme.palette.text.primary,
+              width: 24,
+              height: 24,
+              mr: 1,
+              border: `1px solid ${alpha(theme.palette.primary.main, 0.2)}`,
+            }}
+          />
+          <Typography
+            variant="caption"
+            onClick={() => navigate(`/inventoryprofile/${drug.inventory._id}`)}
+            sx={{
+              cursor: "pointer",
               fontWeight: "bold",
-              fontSize: "14px", // زيادة حجم الخط
-            }}
-            aria-label={`Inventory: ${inventory?.name || "N/A"}`}
-          >
-            {inventory?.name || "N/A"}
-          </Typography>
-        </Stack>
-        <Divider sx={{ my: 1 }} /> {/* زيادة المسافة حول الـ Divider */}
-        {/* Drug Name and Description */}
-        <Stack alignItems={"start"} spacing={1} pt={1}>
-          <Typography
-            gutterBottom
-            variant="h2"
-            onClick={() => {
-              navigate(`/pharmacy/drugdetails/${_id}`);
-            }}
-            sx={{
-              fontSize: { xs: "15px", md: "20px" },
-              display: "-webkit-box",
-              WebkitBoxOrient: "vertical",
-              WebkitLineClamp: 1,
+              fontSize: "20px",
+              color: theme.palette.text.secondary,
+              maxWidth: "200px",
               overflow: "hidden",
               textOverflow: "ellipsis",
-              fontWeight: "bold",
-              cursor: "pointer",
-              color: theme.palette.text.primary,
+              whiteSpace: "nowrap",
             }}
-            component="div"
-            aria-label={`Drug name: ${name}`}
           >
-            {truncateText(name, 30)}
+            {drug.inventory?.name || "Unknown Pharmacy"}
           </Typography>
+        </Box>
+      )}
 
+      {/* Dosage and Units */}
+      {/* <Box sx={{ display: "flex", gap: 2, mb: 2 }}> */}
+      {/* <Box sx={{ display: "flex", alignItems: "center" }}>
+          <Box
+            component="span"
+            sx={{
+              color: "text.secondary",
+              mr: 1,
+              display: "inline-flex",
+              alignItems: "center",
+            }}
+          >
+            <DuoRounded />
+          </Box>
           <Typography
             variant="body2"
+            color="text.secondary"
+          >
+            {drug.dosage}
+          </Typography>
+        </Box> */}
+      {/* <Box sx={{ display: "flex", alignItems: "center" }}>
+          <Box
+            component="span"
             sx={{
-              fontSize: { xs: "15px", md: "17px" },
-              fontWeight: "bold",
+              color: "text.secondary",
+              mr: 1,
+              display: "inline-flex",
+              alignItems: "center",
             }}
           >
-            Consumer:
-            <Box
-              component={"span"}
+            <DuoRounded />
+          </Box>
+          <Typography
+            variant="body2"
+            color="text.secondary"
+          >
+            {drug.units} units
+          </Typography>
+        </Box> */}
+      {/* </Box> */}
+
+      {/* Distance Indicator */}
+      {checkPage && <DistanceIndicator distance={drug.distanceInKm} />}
+
+      {/* Price and Actions */}
+      <Box
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+        }}
+      >
+        <Box>
+          <Typography
+            variant="subtitle1"
+            fontWeight="bold"
+          >
+            ${formatNumber(drug.discountedPrice)}
+          </Typography>
+          {drug.discount > 0 && (
+            <Typography
+              variant="caption"
+              color="text.secondary"
               sx={{
-                ml: 1,
-                fontWeight: "bold",
-                color: theme.palette.success.main,
+                textDecoration: "line-through",
+                display: "block",
+                mt: -0.5,
               }}
             >
-              {discountedPrice.toFixed(2)} EGP
-            </Box>{" "}
-          </Typography>
-          <Typography
-            variant="body2"
-            sx={{
-              fontSize: { xs: "15px", md: "17px" },
-              fontWeight: "bold",
-            }}
-          >
-            Pharmacy:{" "}
-            <Box
-              component={"span"}
-              sx={{ ml: 1, color: theme.palette.error.main }}
-            >
-              {price.toFixed(2)} EGP
-            </Box>
-          </Typography>
-
-          {/* Production and Expiration Dates */}
-          {/* <Typography
-            component={'Date'}
-            variant="body2"
-            aria-label={`Production Date: ${formatDate(
-              productionDate
-            )}, Expiration Date: ${formatDate(expirationDate)}`}
-          >
-            <Stack
-              direction={'row'}
-              justifyItems={'center'}
-              alignItems={'center'}
-            >
-              <strong>Date: </strong>
-              <Box
-                component={'span'}
-                sx={{ color: '#F9A825', fontWeight: 'bold' }} // لون تاريخ الإنتاج
-              >
-                {formatDate(productionDate)}
-              </Box>
-              <ArrowRightRoundedIcon color="secondary" />
-              <Box
-                component={'span'}
-                sx={{ color: '#ff0000', fontWeight: 'bold' }} // لون تاريخ انتهاء الصلاحية
-              >
-                {formatDate(expirationDate)}
-              </Box>
-            </Stack>
-          </Typography> */}
-
-          {/* Distance and Location */}
-          {/* <Stack
-            component={'loaction'}
-            direction={'row'}
-            gap={1}
-            alignItems={'center'}
-            justifyContent={'start'}
-          >
-            <Stack direction={'row'} alignItems={'center'} sx={{ pr: 1 }}>
-              <PlaceIcon color={'success'} />
-              <Typography
-                variant="body2"
-                aria-label={`Distance: ${
-                  distanceInKm ? `${distanceInKm.toFixed(2)} km` : 'N/A'
-                }`}
-                sx={{ fontWeight: 'bold' }}
-              >
-                {distanceInKm ? `${distanceInKm.toFixed(2)} km` : 'N/A'}{' '}
-              </Typography>
-            </Stack>
-          </Stack> */}
-          <LocationComponent distanceInKm={distanceInKm} />
-        </Stack>
-        <CardActions>
-          <CustomButton
-            variant={"contained"}
-            p={"4px 40px"}
-            fs={"15px"}
-            width={"100%"}
-            aria-label="Add to cart"
-            sx={{ fontWeight: "bold" }}
+              ${formatNumber(drug.price)}
+            </Typography>
+          )}
+        </Box>
+        <Box sx={{ display: "flex" }}>
+          <Button
             onClick={() => {
               addDrugToCart({
-                drugId: _id,
+                drugId: drug._id,
                 quantity: 1,
               });
             }}
+            variant="contained"
+            color="primary"
+            startIcon={<ShoppingCartIcon />}
+            sx={{
+              borderRadius: 1,
+              textTransform: "none",
+              boxShadow: "none",
+            }}
           >
             Add to Cart
-          </CustomButton>
-        </CardActions>
-      </CardContent>
-    </Paper>
+          </Button>
+        </Box>
+      </Box>
+    </Box>
   );
-}
+};
+
+export default DrugCard;

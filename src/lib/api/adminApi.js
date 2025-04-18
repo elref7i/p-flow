@@ -9,6 +9,8 @@ export const fetchUsers = async () => {
 
   return data.data;
 };
+
+//* Add User
 export const addAdminUser = async ({ token, values }) => {
   const options = {
     url: `${API_URL}`,
@@ -20,6 +22,8 @@ export const addAdminUser = async ({ token, values }) => {
   };
   return axios.request(options);
 };
+
+//* Active User
 export const ActiveAdminUser = async ({ token, userId }) => {
   const options = {
     url: `${API_URL}/activate/${userId}`,
@@ -34,6 +38,7 @@ export const ActiveAdminUser = async ({ token, userId }) => {
   return axios.request(options);
 };
 
+//* Delete User
 export const deleteUser = async ({ userId, token }) => {
   const options = {
     url: `${API_URL}/${userId}`,
@@ -44,6 +49,8 @@ export const deleteUser = async ({ userId, token }) => {
   };
   return axios.request(options);
 };
+
+//*Update User
 export const updateUserData = async ({ userId, token, values }) => {
   const options = {
     url: `${API_URL}/${userId}`,
@@ -68,12 +75,3 @@ export const getSpecificUser = async ({ token, userId }) => {
   const { data } = await axios.request(options);
   return data.user;
 };
-
-// export const UpdateAdminPassUser = async ({ userId, values }) => {
-//   const options = {
-//     url: `${API_URL}${userId}`,
-//     method: 'PATCH',
-//     data: values,
-//   };
-//   return axios.request(options);
-// };

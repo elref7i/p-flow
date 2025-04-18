@@ -59,6 +59,7 @@ import ForgetPasswordProvider from "@/context/Forget.context";
 import UserTypeProvider from "@/context/UserType.context";
 import Cart from "./pages/Pharmacy/Cart/Cart";
 import CartProvider from "./context/Cart.context";
+import Profile from "./pages/Inventory/InventoryProfile/Profile";
 
 function App() {
   const router = createBrowserRouter([
@@ -80,7 +81,7 @@ function App() {
       ),
       children: [
         { path: "setting", element: <Setting /> },
-        { path: "inventoryprofile", element: <InventoryProfile /> },
+        { path: "inventoryprofile/:id", element: <InventoryProfile /> },
       ],
     },
     {
@@ -121,6 +122,7 @@ function App() {
         { index: true, element: <DashboardInventory /> },
         { path: "AllDrugs", element: <AllDrugs /> },
         { path: "DrugsAction", element: <DrugsAction /> },
+        { path: "myprofile", element: <Profile /> },
       ],
     },
 

@@ -12,25 +12,17 @@ import {
 } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import {
-  Search as SearchIcon,
   Chat as ChatIcon,
   Notifications as NotificationsIcon,
   Menu as MenuIcon,
-  Close as CloseIcon,
 } from "@mui/icons-material";
 import { Link } from "react-router-dom";
 import NavLinkDesktop from "./components/NavLink";
 import MoblieDrawer from "./components/Drawer";
-import {
-  SearchIconWrapper,
-  SearchWrapper,
-  StyledInputBase,
-} from "./utils/style-nav";
+
 import AccountMenu from "./components/AccountMenu";
 
 export default function NavbarPhamracy() {
-  // States
-  const [mobileSearchOpen, setMobileSearchOpen] = useState(false);
   const [drawerOpen, setDrawerOpen] = useState(false);
 
   //Theme
@@ -40,7 +32,6 @@ export default function NavbarPhamracy() {
   const inentory = theme.palette.background.navbarPharmacy;
 
   //Handlers
-
   const handleDrawerToggle = () => {
     setDrawerOpen(!drawerOpen);
   };
@@ -92,53 +83,6 @@ export default function NavbarPhamracy() {
 
           {/* Desktop Navigation */}
           <NavLinkDesktop />
-
-          {/* Search - Desktop */}
-          <SearchWrapper
-            sx={{ display: { xs: "none", md: "block" }, flexGrow: 1, mx: 2 }}
-          >
-            <SearchIconWrapper>
-              <SearchIcon />
-            </SearchIconWrapper>
-            <StyledInputBase
-              placeholder="Search…"
-              inputProps={{ "aria-label": "search" }}
-              fullWidth
-            />
-          </SearchWrapper>
-
-          {/* Search - Mobile */}
-          {isMobile && !mobileSearchOpen && (
-            <IconButton
-              color="inherit"
-              onClick={() => setMobileSearchOpen(true)}
-              sx={{ ml: "auto", mr: 1 }}
-            >
-              <SearchIcon />
-            </IconButton>
-          )}
-
-          {isMobile && mobileSearchOpen && (
-            <Box sx={{ display: "flex", flexGrow: 1, alignItems: "center" }}>
-              <SearchWrapper sx={{ flexGrow: 1 }}>
-                <SearchIconWrapper>
-                  <SearchIcon />
-                </SearchIconWrapper>
-                <StyledInputBase
-                  placeholder="Search…"
-                  inputProps={{ "aria-label": "search" }}
-                  autoFocus
-                  fullWidth
-                />
-              </SearchWrapper>
-              <IconButton
-                color="inherit"
-                onClick={() => setMobileSearchOpen(false)}
-              >
-                <CloseIcon />
-              </IconButton>
-            </Box>
-          )}
 
           {/* Right side icons */}
           <Box sx={{ display: "flex", ml: "auto" }}>

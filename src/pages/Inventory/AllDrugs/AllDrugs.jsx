@@ -2,8 +2,10 @@ import { columns } from "./Drugs";
 import { useOwnDrugs } from "../../../lib/hooks/useDrugAction";
 import { Helmet } from "react-helmet";
 import TableData from "../../../components/TableData/TableData";
+import { useTypeContext } from "../../../context/UserType.context";
 export default function AllDrugs() {
-  const { data, isLoading } = useOwnDrugs();
+  const { token } = useTypeContext();
+  const { data, isLoading } = useOwnDrugs(token);
 
   // console.log("Fetched data:", data);
   const columnsWithActions = [...columns];
@@ -33,9 +35,9 @@ export default function AllDrugs() {
       {/* Table */}
       <TableData
         isLoading={isLoading}
-        data={data || []}
+        data={data && data.data.drugs}
         columnsWithActions={columnsWithActions}
-        check={false}
+        check={true}
         checkTable={true}
       />
     </>

@@ -4,6 +4,7 @@ import axios from "axios";
 import { createContext, useContext, useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { getloggedUserData } from "../lib/api/userAPI";
+import { useQueryClient } from "@tanstack/react-query";
 
 export const UserTypeContext = createContext(0);
 
@@ -13,6 +14,7 @@ export default function UserTypeProvider({ children }) {
   const [userData, setUserData] = useState(
     JSON.parse(localStorage.getItem("userData"))
   );
+  const queryClient = useQueryClient();
 
   useEffect(() => {
     setRole(localStorage.getItem("role"));
@@ -45,6 +47,7 @@ export default function UserTypeProvider({ children }) {
         localStorage.setItem("token", data.token);
         localStorage.setItem("role", data.user.role);
         fetchUserData(data.token);
+        queryClient.invalidateQueries(["ownDrugs"]);
       }
     } catch (error) {
       console.error(error);

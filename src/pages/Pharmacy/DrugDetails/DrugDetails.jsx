@@ -1,96 +1,82 @@
-"use client";
-
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import {
   Box,
   Paper,
   Typography,
   Card,
-  CardMedia,
   CardContent,
   IconButton,
   Button,
   Divider,
-  Stack,
   useTheme,
   styled,
-  Grid2,
+  Grid,
+  Chip,
 } from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-import FavoriteIcon from "@mui/icons-material/Favorite";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
+import MedicationIcon from "@mui/icons-material/Medication";
+import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
+import InventoryIcon from "@mui/icons-material/Inventory";
+import LocalOfferIcon from "@mui/icons-material/LocalOffer";
+import BusinessIcon from "@mui/icons-material/Business";
+import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
+import { DiscountBadge } from "../../../components/Common/Loading/DiscountBadge";
+import { formatNumber } from "../../../lib/utils/formateNumber";
+import { useSpecificDrug } from "../../../lib/hooks/useDrugAction";
+import { useTypeContext } from "../../../context/UserType.context";
+import DrugDetailsSkeleton from "../../../components/Common/Loading/DrugDetailsSkeleton";
+import { formatDate } from "../../../lib/utils/dateUtils";
 
-// Helper function to format dates
-const formatDate = (dateString) => {
-  const date = new Date(dateString);
-  return date.toLocaleDateString("en-US", {
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-  });
-};
-
-// Styled components
-const DiscountBadge = styled(Box)(({ theme }) => ({
-  position: "absolute",
-  top: 16,
-  right: 16,
-  backgroundColor: theme.palette.error.main,
-  color: theme.palette.error.contrastText,
-  padding: "4px 8px",
-  borderRadius: 16,
-  fontWeight: "bold",
-  zIndex: 1,
-}));
-
-const ThumbnailImage = styled(Box)(({ theme, selected }) => ({
-  width: 64,
-  height: 64,
-  border: `1px solid ${
-    selected ? theme.palette.primary.main : theme.palette.divider
-  }`,
-  borderRadius: theme.shape.borderRadius,
-  overflow: "hidden",
-  cursor: "pointer",
-  transition: "all 0.2s",
-  boxShadow: selected ? `0 0 0 2px ${theme.palette.primary.main}` : "none",
+const InfoCard = styled(Paper)(({ theme }) => ({
+  padding: theme.spacing(2),
+  height: "100%",
+  display: "flex",
+  flexDirection: "column",
+  justifyContent: "center",
+  alignItems: "center",
+  borderRadius: theme.shape.borderRadius * 2,
+  transition: "transform 0.2s, box-shadow 0.2s",
+  "&:hover": {
+    transform: "translateY(-4px)",
+    boxShadow: theme.shadows[4],
+  },
 }));
 
 export default function DrugDetails() {
+  const { id } = useParams();
   const navigate = useNavigate();
+  const { token } = useTypeContext();
   const theme = useTheme();
-  const [selectedImage, setSelectedImage] = useState(0);
-  const [isFavorite, setIsFavorite] = useState(false);
 
-  const backgroundAuth = theme.palette.background.cart;
+  //Queries
+  const { isFetching, data } = useSpecificDrug({ token, drugId: id });
 
-  // Mock data - replace with your actual data fetching
-  const data = {
-    id: "1",
-    name: "Nasomist Saline Nasal Spray",
-    description:
-      "A saline nasal spray that helps moisturize and clear nasal passages for better breathing.",
-    manufacturer: "Pharma Solutions Inc.",
-    createdBy: { name: "Central Pharmacy" },
-    price: 85.0,
-    discountedPrice: 68.0,
-    discount: 20,
-    productionDate: "2023-05-15",
-    expirationDate: "2025-05-15",
-    images: [
-      "https://www.netmeds.com/images/product-v1/600x600/397251/nasomist_saline_nasal_spray_20ml_149351_0_2.jpg",
-      "https://www.netmeds.com/images/product-v1/600x600/397251/nasomist_saline_nasal_spray_20ml_149351_0_1.jpg",
-      "https://www.netmeds.com/images/product-v1/600x600/397251/nasomist_saline_nasal_spray_20ml_149351_0_3.jpg",
-    ],
+  console.log(data);
+
+  // Calculate days until expiration
+  const daysUntilExpiration = () => {
+    const today = new Date();
+    const expDate = new Date(data.expirationDate);
+    const diffTime = Math.abs(expDate - today);
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    return diffDays;
   };
 
-  const toggleFavorite = () => setIsFavorite(!isFavorite);
+  // Determine expiration status color
+  const getExpirationColor = () => {
+    const days = daysUntilExpiration();
+    if (days > 180) return "success.main";
+    if (days > 90) return "warning.main";
+    return "error.main";
+  };
+
+  if (isFetching) return <DrugDetailsSkeleton />;
 
   return (
-    <Box sx={{ p: 2, maxWidth: 1100, mx: "auto" }}>
-      <Box sx={{ display: "flex", alignItems: "center", mb: 3 }}>
+    <Box sx={{ p: { xs: 2, md: 3 }, maxWidth: 1200, mx: "auto" }}>
+      {/* Drug Details */}
+      <Box sx={{ display: "flex", alignItems: "center", mb: 1 }}>
         <IconButton
           onClick={() => navigate(-1)}
           sx={{ mr: 1 }}
@@ -106,229 +92,310 @@ export default function DrugDetails() {
           Drug Details
         </Typography>
       </Box>
-
-      <Grid2
+      <Grid
         container
-        spacing={{ xs: 0, md: 5 }}
-        rowGap={{ xs: 2, md: 0 }}
+        spacing={3}
       >
-        {/* Left column - Images */}
-        <Grid2
+        {/* Main Details Card */}
+        <Grid
           item
-          size={{ xs: 12, md: 5 }}
-        >
-          <Paper
-            elevation={3}
-            sx={{ position: "relative", borderRadius: 2, overflow: "hidden" }}
-          >
-            {data.discount > 0 && (
-              <DiscountBadge>{data.discount}% OFF</DiscountBadge>
-            )}
-            <CardMedia
-              component="img"
-              image={data.images[selectedImage]}
-              alt={data.name}
-              sx={{
-                width: "100%",
-                height: "auto",
-                aspectRatio: "1/1",
-                objectFit: "contain",
-                p: 2,
-                background: backgroundAuth,
-              }}
-            />
-          </Paper>
-
-          <Stack
-            direction="row"
-            spacing={1}
-            sx={{ mt: 2, overflowX: "auto", pb: 1 }}
-          >
-            {data.images.map((image, index) => (
-              <ThumbnailImage
-                key={index}
-                selected={selectedImage === index}
-                onClick={() => setSelectedImage(index)}
-              >
-                <CardMedia
-                  component="img"
-                  image={image}
-                  alt={`${data.name} view ${index + 1}`}
-                  sx={{
-                    width: "100%",
-                    height: "100%",
-                    objectFit: "cover",
-                  }}
-                />
-              </ThumbnailImage>
-            ))}
-          </Stack>
-        </Grid2>
-
-        {/* Right column - Details */}
-        <Grid2
-          item
-          size={{ xs: 12, md: 7 }}
+          xs={12}
         >
           <Card
             elevation={3}
-            sx={{ borderRadius: 2, background: backgroundAuth }}
+            sx={{
+              borderRadius: 3,
+              position: "relative",
+              overflow: "visible",
+              background:
+                theme.palette.mode === "dark"
+                  ? "rgba(45, 45, 60, 0.8)"
+                  : "rgba(255, 255, 255, 0.9)",
+              backdropFilter: "blur(10px)",
+              boxShadow: "0 8px 32px rgba(0, 0, 0, 0.1)",
+            }}
           >
-            <CardContent sx={{ p: 3 }}>
-              <Box
-                sx={{
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "flex-start",
-                }}
-              >
-                <Box>
+            {data.discount > 0 && (
+              <DiscountBadge
+                label={`${data.discount}% OFF`}
+                color="error"
+                size="medium"
+                icon={<LocalOfferIcon />}
+              />
+            )}
+
+            <CardContent sx={{ p: { xs: 2, md: 4 } }}>
+              <Box sx={{ flex: 1, minWidth: "280px" }}>
+                <Typography
+                  variant="h4"
+                  component="h2"
+                  fontWeight="bold"
+                  gutterBottom
+                  sx={{
+                    color: theme.palette.primary.main,
+                    fontSize: { xs: "1.5rem", md: "2rem" },
+                  }}
+                >
+                  {data.name}
+                </Typography>
+
+                <Box sx={{ display: "flex", alignItems: "center", mb: 1 }}>
+                  <BusinessIcon
+                    sx={{
+                      color: "text.secondary",
+                      mr: 1,
+                      fontSize: "1.2rem",
+                    }}
+                  />
                   <Typography
-                    variant="h4"
-                    component="h2"
-                    fontWeight="bold"
-                    gutterBottom
-                  >
-                    {data.name}
-                  </Typography>
-                  <Typography
-                    variant="body2"
+                    variant="body1"
                     color="text.secondary"
                   >
                     {data.manufacturer}
                   </Typography>
                 </Box>
-                <IconButton
-                  onClick={toggleFavorite}
-                  color={isFavorite ? "error" : "default"}
-                  sx={{ border: 1, borderColor: "divider" }}
-                >
-                  {isFavorite ? <FavoriteIcon /> : <FavoriteBorderIcon />}
-                </IconButton>
+
+                <Box sx={{ display: "flex", alignItems: "center" }}>
+                  <InfoOutlinedIcon
+                    sx={{
+                      color: "text.secondary",
+                      mr: 1,
+                      fontSize: "1.2rem",
+                    }}
+                  />
+                  <Typography
+                    variant="body1"
+                    sx={{
+                      fontStyle: "italic",
+                      color:
+                        theme.palette.mode === "dark"
+                          ? theme.palette.info.light
+                          : theme.palette.info.dark,
+                    }}
+                  >
+                    {data.description}
+                  </Typography>
+                </Box>
               </Box>
 
-              <Typography
-                variant="body1"
-                sx={{ my: 2 }}
-              >
-                {data.description}
-              </Typography>
+              <Divider sx={{ my: 3 }} />
 
-              <Divider sx={{ my: 2 }} />
-
-              <Stack spacing={2}>
-                <Box sx={{ display: "flex", justifyContent: "space-between" }}>
-                  <Typography
-                    variant="body1"
-                    fontWeight="medium"
-                  >
-                    Inventory
-                  </Typography>
-                  <Typography variant="body1">
-                    {data.createdBy?.name || "N/A"}
-                  </Typography>
-                </Box>
-
-                <Box sx={{ display: "flex", justifyContent: "space-between" }}>
-                  <Typography
-                    variant="body1"
-                    fontWeight="medium"
-                  >
-                    Production Date
-                  </Typography>
-                  <Typography
-                    variant="body1"
-                    color="success.main"
-                  >
-                    {formatDate(data.productionDate)}
-                  </Typography>
-                </Box>
-
-                <Box sx={{ display: "flex", justifyContent: "space-between" }}>
-                  <Typography
-                    variant="body1"
-                    fontWeight="medium"
-                  >
-                    Expiration Date
-                  </Typography>
-                  <Typography
-                    variant="body1"
-                    color="error.main"
-                  >
-                    {formatDate(data.expirationDate)}
-                  </Typography>
-                </Box>
-              </Stack>
-
-              <Divider sx={{ my: 2 }} />
-
-              <Grid2
+              {/* Info Cards Grid */}
+              <Grid
                 container
-                spacing={2}
-                alignItems={"center"}
+                spacing={3}
                 sx={{ mb: 3 }}
               >
-                <Grid2
+                {/* Stock */}
+                <Grid
                   item
-                  size={{ xs: 12, md: 6 }}
+                  xs={12}
+                  sm={6}
+                  md={3}
                 >
-                  <Typography
-                    variant="caption"
-                    color="text.secondary"
-                  >
-                    Consumer Price
-                  </Typography>
-                  <Typography
-                    variant="h4"
-                    color="primary"
-                    fontWeight="bold"
-                  >
-                    {data.discountedPrice.toFixed(2)} EGP
-                  </Typography>
-                  {data.discount > 0 && (
+                  <InfoCard elevation={2}>
+                    <MedicationIcon
+                      sx={{
+                        fontSize: 40,
+                        color: theme.palette.primary.main,
+                        mb: 1,
+                      }}
+                    />
+                    <Typography
+                      variant="h6"
+                      fontWeight="medium"
+                      align="center"
+                    >
+                      Stock
+                    </Typography>
+                    <Typography
+                      variant="h4"
+                      color="text.primary"
+                      fontWeight="bold"
+                    >
+                      {data.stock}
+                    </Typography>
                     <Typography
                       variant="body2"
                       color="text.secondary"
-                      sx={{ textDecoration: "line-through" }}
                     >
-                      {data.price.toFixed(2)} EGP
+                      {data.sold} sold
                     </Typography>
-                  )}
-                </Grid2>
-                <Grid2
-                  textAlign={"end"}
-                  item
-                  size={{ xs: 12, md: 6 }}
-                >
-                  <Typography
-                    variant="caption"
-                    color="text.secondary"
-                  >
-                    Pharmacy Price
-                  </Typography>
-                  <Typography
-                    variant="h6"
-                    color="error"
-                    fontWeight="medium"
-                  >
-                    {data.price.toFixed(2)} EGP
-                  </Typography>
-                </Grid2>
-              </Grid2>
+                  </InfoCard>
+                </Grid>
 
+                {/* Production */}
+                <Grid
+                  item
+                  xs={12}
+                  sm={6}
+                  md={3}
+                >
+                  <InfoCard elevation={2}>
+                    <CalendarMonthIcon
+                      sx={{ fontSize: 40, color: "success.main", mb: 1 }}
+                    />
+                    <Typography
+                      variant="h6"
+                      fontWeight="medium"
+                      align="center"
+                    >
+                      Production
+                    </Typography>
+                    <Typography
+                      variant="body1"
+                      color="success.main"
+                      fontWeight="medium"
+                    >
+                      {formatDate(data.productionDate)}
+                    </Typography>
+                  </InfoCard>
+                </Grid>
+
+                {/* Expiration */}
+                <Grid
+                  item
+                  xs={12}
+                  sm={6}
+                  md={3}
+                >
+                  <InfoCard elevation={2}>
+                    <CalendarMonthIcon
+                      sx={{ fontSize: 40, color: getExpirationColor(), mb: 1 }}
+                    />
+                    <Typography
+                      variant="h6"
+                      fontWeight="medium"
+                      align="center"
+                    >
+                      Expiration
+                    </Typography>
+                    <Typography
+                      variant="body1"
+                      color={getExpirationColor()}
+                      fontWeight="medium"
+                    >
+                      {formatDate(data.expirationDate)}
+                    </Typography>
+                    <Chip
+                      size="small"
+                      label={`${daysUntilExpiration()} days left`}
+                      color={
+                        getExpirationColor() === "error.main"
+                          ? "error"
+                          : "default"
+                      }
+                      sx={{ mt: 1 }}
+                    />
+                  </InfoCard>
+                </Grid>
+
+                <Grid
+                  item
+                  xs={12}
+                  sm={6}
+                  md={3}
+                >
+                  <InfoCard elevation={2}>
+                    <InventoryIcon
+                      sx={{
+                        fontSize: 40,
+                        color: theme.palette.secondary.main,
+                        mb: 1,
+                      }}
+                    />
+                    <Typography
+                      variant="h6"
+                      fontWeight="medium"
+                      align="center"
+                    >
+                      Inventory
+                    </Typography>
+                    <Typography
+                      variant="body1"
+                      color="text.primary"
+                      fontWeight="medium"
+                    >
+                      {data.createdBy?.name || "N/A"}
+                    </Typography>
+                  </InfoCard>
+                </Grid>
+              </Grid>
+
+              <Divider sx={{ my: 3 }} />
+
+              {/* Pricing Section */}
+              <Box
+                sx={{
+                  p: 2,
+                  mb: 2,
+                  borderRadius: 2,
+                  bgcolor:
+                    theme.palette.mode === "dark"
+                      ? "rgba(0, 0, 0, 0.2)"
+                      : "rgba(0, 0, 0, 0.03)",
+                }}
+              >
+                <Typography
+                  variant="caption"
+                  color="text.secondary"
+                >
+                  Consumer Price
+                </Typography>
+                <Typography
+                  variant="h3"
+                  color="primary"
+                  fontWeight="bold"
+                  sx={{ fontSize: { xs: "2rem", md: "2.5rem" } }}
+                >
+                  {formatNumber(data.discountedPrice)} EGP
+                </Typography>
+                {data.discount > 0 && (
+                  <Typography
+                    variant="body1"
+                    color="text.secondary"
+                    sx={{ textDecoration: "line-through" }}
+                  >
+                    {formatNumber(data.price)} EGP
+                  </Typography>
+                )}
+              </Box>
+
+              {/* Action Button */}
               <Button
                 variant="contained"
                 size="large"
                 startIcon={<AddShoppingCartIcon />}
-                sx={{ py: 1.5, fontSize: "1.1rem" }}
+                sx={{
+                  py: 1.5,
+                  mb: 2,
+                  fontSize: "1.1rem",
+                  borderRadius: 2,
+                  boxShadow: "0 4px 14px rgba(0, 0, 0, 0.25)",
+                  transition: "all 0.2s",
+                  "&:hover": {
+                    transform: "translateY(-2px)",
+                    boxShadow: "0 6px 20px rgba(0, 0, 0, 0.3)",
+                  },
+                }}
                 fullWidth
+                disabled={data.stock < 1}
               >
-                Add to Cart
+                {data.stock > 0 ? "Add to Cart" : "Out of Stock"}
               </Button>
+
+              {/*  Last updated*/}
+              <Typography
+                sx={{ textAlign: "end" }}
+                variant="caption"
+                color="text.secondary"
+              >
+                Last updated: {new Date(data.updatedAt).toLocaleString()}
+              </Typography>
             </CardContent>
           </Card>
-        </Grid2>
-      </Grid2>
+        </Grid>
+      </Grid>
     </Box>
   );
 }

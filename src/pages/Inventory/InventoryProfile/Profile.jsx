@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Button, Container } from "@mui/material";
 
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
@@ -9,25 +9,25 @@ import { motion, AnimatePresence } from "framer-motion";
 // Import components
 import ProfileHeader from "./components/ProfileHeader";
 import TabContent from "./components/TabContent";
-import { useDrugsSpecificInventory } from "../../../lib/hooks/useDrugAction";
-import LoadingProfileSkeleton from "../../../components/Common/Loading/LoadingProfileSkeleton";
 import ProfileTabs from "./components/ProfileTabs";
+import { useOwnDrugs } from "../../../lib/hooks/useDrugAction";
+import { useTypeContext } from "../../../context/UserType.context";
+import LoadingProfileSkeleton from "../../../components/Common/Loading/LoadingProfileSkeleton";
 
 const InventoryProfile = () => {
-  const { id } = useParams();
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState(0);
-
-  const { isLoading, data: payload } = useDrugsSpecificInventory({
-    drugId: id,
-  });
-
-  if (isLoading) return LoadingProfileSkeleton;
-  console.log(payload.data.user);
+  const { token } = useTypeContext();
 
   const handleTabChange = (event, newValue) => {
     setActiveTab(newValue);
   };
+
+  const { data: payload, isLoading } = useOwnDrugs(token);
+
+  if (isLoading) return <LoadingProfileSkeleton />;
+
+  console.log(payload);
 
   // Animation variants
   const containerVariants = {

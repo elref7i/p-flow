@@ -10,9 +10,7 @@ import {
   Divider,
   Box,
 } from "@mui/material";
-import { styled, alpha } from "@mui/material/styles";
 import {
-  Search as SearchIcon,
   Close as CloseIcon,
   Home as HomeIcon,
   Medication as MedicationIcon,
@@ -20,8 +18,6 @@ import {
   Assignment as AssignmentIcon,
 } from "@mui/icons-material";
 import { Link, useLocation } from "react-router-dom";
-import { SearchIconWrapper, StyledInputBase } from "../utils/style-nav";
-// import { navLinks } from "../utils/links";
 
 const navLinks = [
   { name: "Home", path: "/pharmacy", icon: <HomeIcon /> },
@@ -29,23 +25,6 @@ const navLinks = [
   { name: "Cart", path: "/pharmacy/cart", icon: <ShoppingCartIcon /> },
   { name: "Orders", path: "/orders", icon: <AssignmentIcon /> },
 ];
-
-// Styled components
-const SearchWrapper = styled("div")(({ theme }) => ({
-  position: "relative",
-  borderRadius: theme.shape.borderRadius,
-  backgroundColor: alpha(theme.palette.common.white, 0.15),
-  "&:hover": {
-    backgroundColor: alpha(theme.palette.common.white, 0.25),
-  },
-  marginRight: theme.spacing(2),
-  marginLeft: 0,
-  width: "100%",
-  [theme.breakpoints.up("sm")]: {
-    marginLeft: theme.spacing(3),
-    width: "auto",
-  },
-}));
 
 export default function MoblieDrawer({ handleDrawerToggle, drawerOpen }) {
   // States
@@ -77,18 +56,6 @@ export default function MoblieDrawer({ handleDrawerToggle, drawerOpen }) {
         </IconButton>
       </Box>
       <Divider />
-      <Box sx={{ p: 2 }}>
-        <SearchWrapper>
-          <SearchIconWrapper>
-            <SearchIcon />
-          </SearchIconWrapper>
-          <StyledInputBase
-            placeholder="Search…"
-            inputProps={{ "aria-label": "search" }}
-            fullWidth
-          />
-        </SearchWrapper>
-      </Box>
       <Divider />
       <List>
         {navLinks.map((link) => (

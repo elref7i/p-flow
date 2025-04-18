@@ -9,8 +9,10 @@ import TableData from "../../../components/TableData/TableData";
 
 export default function DrugsAction() {
   const { token } = useTypeContext();
-  const { data, isLoading } = useOwnDrugs();
+  const { data, isLoading } = useOwnDrugs(token);
+
   const { isLoading: isDeleting, mutate: handleDelete } = useDeleteDrug();
+  console.log(data);
 
   const DeletedColumn = {
     field: "deleted",
@@ -88,7 +90,7 @@ export default function DrugsAction() {
       </Helmet>
       <TableData
         isLoading={isLoading}
-        data={data || []}
+        data={data && data.data.drugs}
         columnsWithActions={columnsWithActions}
         check={false}
         checkTable={false}
