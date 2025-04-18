@@ -18,6 +18,7 @@ import VerifiedIcon from "@mui/icons-material/Verified";
 import MessageIcon from "@mui/icons-material/Message";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import { motion } from "framer-motion";
+import { useTypeContext } from "../../../../context/UserType.context";
 
 const ProfileHeader = ({
   inventory,
@@ -26,7 +27,7 @@ const ProfileHeader = ({
   totalProducts,
 }) => {
   const theme = useTheme();
-
+  const { role } = useTypeContext();
   return (
     <Box
       sx={{
@@ -126,7 +127,8 @@ const ProfileHeader = ({
             />
           </Box>
 
-          <Typography
+          {/* !Tsting */}
+          {/* <Typography
             variant="body1"
             color="text.secondary"
             sx={{
@@ -135,35 +137,37 @@ const ProfileHeader = ({
               lineHeight: 1.6,
             }}
           >
-            {inventory.description}
-          </Typography>
+            inventory.description
+          </Typography> */}
 
-          <Box
-            sx={{
-              display: "flex",
-              mb: 2,
-            }}
-          >
-            <Button
-              variant="contained"
-              size="medium"
-              startIcon={<MessageIcon />}
+          {role === "pharmacy" && (
+            <Box
               sx={{
-                borderRadius: 2,
-                textTransform: "none",
-                px: 3,
-                py: 1,
-                fontWeight: "bold",
-                background: theme.palette.primary.main,
-                boxShadow: `0 4px 10px ${alpha(
-                  theme.palette.primary.main,
-                  0.3
-                )}`,
+                display: "flex",
+                mb: 2,
               }}
             >
-              Message
-            </Button>
-          </Box>
+              <Button
+                variant="contained"
+                size="medium"
+                startIcon={<MessageIcon />}
+                sx={{
+                  borderRadius: 2,
+                  textTransform: "none",
+                  px: 3,
+                  py: 1,
+                  fontWeight: "bold",
+                  background: theme.palette.primary.main,
+                  boxShadow: `0 4px 10px ${alpha(
+                    theme.palette.primary.main,
+                    0.3
+                  )}`,
+                }}
+              >
+                Message
+              </Button>
+            </Box>
+          )}
         </Box>
       </Box>
 

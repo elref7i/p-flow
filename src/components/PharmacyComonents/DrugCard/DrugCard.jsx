@@ -13,10 +13,12 @@ import DistanceIndicator from "../../../pages/Inventory/InventoryProfile/compone
 import { useAddToCart } from "../../../lib/hooks/useCartAction";
 import { useNavigate } from "react-router-dom";
 import { formatNumber } from "../../../lib/utils/formateNumber";
+import { useTypeContext } from "../../../context/UserType.context";
 const DrugCard = ({ dataInfo: drug, checkPage }) => {
   const theme = useTheme();
   const navigate = useNavigate();
   const addToCartMutation = useAddToCart();
+  const { role } = useTypeContext();
   return (
     <Box
       component={motion.div}
@@ -171,7 +173,10 @@ const DrugCard = ({ dataInfo: drug, checkPage }) => {
         }}
       >
         <Box>
-          <Typography variant="subtitle1" fontWeight="bold">
+          <Typography
+            variant="subtitle1"
+            fontWeight="bold"
+          >
             ${formatNumber(drug.discountedPrice)}
           </Typography>
           {drug.discount > 0 && (
@@ -188,26 +193,28 @@ const DrugCard = ({ dataInfo: drug, checkPage }) => {
             </Typography>
           )}
         </Box>
-        <Box sx={{ display: "flex" }}>
-          <Button
-            onClick={() => {
-              addToCartMutation.mutate({
-                drugId: drug._id,
-                quantity: 1,
-              });
-            }}
-            variant="contained"
-            color="primary"
-            startIcon={<ShoppingCartIcon />}
-            sx={{
-              borderRadius: 1,
-              textTransform: "none",
-              boxShadow: "none",
-            }}
-          >
-            Add to Cart
-          </Button>
-        </Box>
+        {role === "pharmacy" && (
+          <Box sx={{ display: "flex" }}>
+            <Button
+              onClick={() => {
+                addToCartMutation.mutate({
+                  drugId: drug._id,
+                  quantity: 1,
+                });
+              }}
+              variant="contained"
+              color="primary"
+              startIcon={<ShoppingCartIcon />}
+              sx={{
+                borderRadius: 1,
+                textTransform: "none",
+                boxShadow: "none",
+              }}
+            >
+              Add to Cart
+            </Button>
+          </Box>
+        )}
       </Box>
     </Box>
   );
