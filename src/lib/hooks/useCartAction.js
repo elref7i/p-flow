@@ -21,8 +21,7 @@ export const useCart = () => {
     queryFn: () => getCart(token),
     enabled: !!token,
     refetchOnMount: true,
-    refetchOnWindowFocus: false,
-    refetchInterval: 1000,
+    refetchOnWindowFocus: true,
   });
 };
 
@@ -37,6 +36,7 @@ export const useAddToCart = () => {
       console.log(data);
       toast.success(data.data.message);
       queryClient.invalidateQueries(["cart"]);
+      queryClient.refetchQueries(["cart"]);
     },
     onError: (error) => {
       toast.error("Failed to add drug to cart!");
@@ -70,6 +70,7 @@ export const useUpdateCartItem = () => {
       updateCartItemQuantity({ token, drugId, quantity }),
     onSuccess: () => {
       queryClient.invalidateQueries(["cart"]);
+      queryClient.refetchQueries(["cart"]);
     },
   });
 };
@@ -84,9 +85,6 @@ export const useClearCart = () => {
       toast.success(data.data.message);
       queryClient.setQueryData(["cart"], {
         numOfCartItems: 0,
-        data: {
-          inventories: [],
-        },
       });
     },
   });

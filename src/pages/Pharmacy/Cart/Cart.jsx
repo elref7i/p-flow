@@ -13,7 +13,46 @@ export default function Cart() {
   const { data: cartInfo, isLoading } = useCart();
   const clearCartMutation = useClearCart();
 
-  if (isLoading) return <LoadingSpinner />;
+  if (!cartInfo && isLoading) return <LoadingSpinner />;
+
+  if (!cartInfo || !cartInfo.data || cartInfo.numOfCartItems === 0) {
+    return (
+      <Paper
+        elevation={3}
+        sx={{
+          p: 6,
+          textAlign: "center",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          gap: 3,
+          bgcolor: isDark ? theme.palette.background.paper : "#f9f9f9",
+          borderRadius: 4,
+          boxShadow: isDark
+            ? "0 4px 20px rgba(255, 255, 255, 0.05)"
+            : "0 4px 20px rgba(0, 0, 0, 0.05)",
+        }}
+      >
+        <Typography variant="h4" color="text.primary" fontWeight="bold">
+          Your Cart is Empty 🛒
+        </Typography>
+
+        <Typography variant="body1" color="text.secondary">
+          Looks like you haven’t added anything yet.
+        </Typography>
+
+        <Button
+          variant="contained"
+          color="primary"
+          sx={{ mt: 2, px: 4, py: 1 }}
+          onClick={() => (window.location.href = "/pharmacy/drugs")}
+        >
+          Back to Drugs
+        </Button>
+      </Paper>
+    );
+  }
+
   return (
     <>
       <Helmet>
@@ -36,60 +75,24 @@ export default function Cart() {
         />
       </Helmet>
 
-      {cartInfo.numOfCartItems === 0 ? (
-        <Paper
-          elevation={3}
-          sx={{
-            p: 6,
-            textAlign: "center",
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            gap: 3,
-            bgcolor: isDark ? theme.palette.background.paper : "#f9f9f9",
-            borderRadius: 4,
-            boxShadow: isDark
-              ? "0 4px 20px rgba(255, 255, 255, 0.05)"
-              : "0 4px 20px rgba(0, 0, 0, 0.05)",
-          }}
-        >
-          <Typography variant="h4" color="text.primary" fontWeight="bold">
-            Your Cart is Empty 🛒
-          </Typography>
+      <Box display="flex" flexDirection="column" gap={3}>
+        {cartInfo.data.inventories.map((inventory) => (
+          <CartItem key={inventory._id} inventoryInfo={inventory} />
+        ))}
 
-          <Typography variant="body1" color="text.secondary">
-            Looks like you haven’t added anything yet.
-          </Typography>
+        <Divider sx={{ my: 2 }} />
 
+        <Box textAlign="center">
           <Button
-            variant="contained"
-            color="primary"
-            sx={{ mt: 2, px: 4, py: 1 }}
-            onClick={() => (window.location.href = "/pharmacy/drugs")}
+            variant="outlined"
+            color="error"
+            startIcon={<Delete />}
+            onClick={() => clearCartMutation.mutate()}
           >
-            Back to Drugs
+            Clear Cart
           </Button>
-        </Paper>
-      ) : (
-        <Box display="flex" flexDirection="column" gap={3}>
-          {cartInfo.data.inventories.map((inventory) => (
-            <CartItem key={inventory._id} inventoryInfo={inventory} />
-          ))}
-
-          <Divider sx={{ my: 2 }} />
-
-          <Box textAlign="center">
-            <Button
-              variant="outlined"
-              color="error"
-              startIcon={<Delete />}
-              onClick={() => clearCartMutation.mutate()}
-            >
-              Clear Cart
-            </Button>
-          </Box>
         </Box>
-      )}
+      </Box>
     </>
   );
 }

@@ -27,6 +27,7 @@ import { useSpecificDrug } from "../../../lib/hooks/useDrugAction";
 import { useTypeContext } from "../../../context/UserType.context";
 import DrugDetailsSkeleton from "../../../components/Common/Loading/DrugDetailsSkeleton";
 import { formatDate } from "../../../lib/utils/dateUtils";
+import { useAddToCart } from "../../../lib/hooks/useCartAction";
 
 const InfoCard = styled(Paper)(({ theme }) => ({
   padding: theme.spacing(2),
@@ -48,7 +49,7 @@ export default function DrugDetails() {
   const navigate = useNavigate();
   const { token } = useTypeContext();
   const theme = useTheme();
-
+  const addToCartMutation = useAddToCart();
   //Queries
   const { isFetching, data } = useSpecificDrug({ token, drugId: id });
 
@@ -77,10 +78,7 @@ export default function DrugDetails() {
     <Box sx={{ p: { xs: 2, md: 3 }, maxWidth: 1200, mx: "auto" }}>
       {/* Drug Details */}
       <Box sx={{ display: "flex", alignItems: "center", mb: 1 }}>
-        <IconButton
-          onClick={() => navigate(-1)}
-          sx={{ mr: 1 }}
-        >
+        <IconButton onClick={() => navigate(-1)} sx={{ mr: 1 }}>
           <ArrowBackIcon />
         </IconButton>
         <Typography
@@ -92,15 +90,9 @@ export default function DrugDetails() {
           Drug Details
         </Typography>
       </Box>
-      <Grid
-        container
-        spacing={3}
-      >
+      <Grid container spacing={3}>
         {/* Main Details Card */}
-        <Grid
-          item
-          xs={12}
-        >
+        <Grid item xs={12}>
           <Card
             elevation={3}
             sx={{
@@ -147,10 +139,7 @@ export default function DrugDetails() {
                       fontSize: "1.2rem",
                     }}
                   />
-                  <Typography
-                    variant="body1"
-                    color="text.secondary"
-                  >
+                  <Typography variant="body1" color="text.secondary">
                     {data.manufacturer}
                   </Typography>
                 </Box>
@@ -181,18 +170,9 @@ export default function DrugDetails() {
               <Divider sx={{ my: 3 }} />
 
               {/* Info Cards Grid */}
-              <Grid
-                container
-                spacing={3}
-                sx={{ mb: 3 }}
-              >
+              <Grid container spacing={3} sx={{ mb: 3 }}>
                 {/* Stock */}
-                <Grid
-                  item
-                  xs={12}
-                  sm={6}
-                  md={3}
-                >
+                <Grid item xs={12} sm={6} md={3}>
                   <InfoCard elevation={2}>
                     <MedicationIcon
                       sx={{
@@ -201,11 +181,7 @@ export default function DrugDetails() {
                         mb: 1,
                       }}
                     />
-                    <Typography
-                      variant="h6"
-                      fontWeight="medium"
-                      align="center"
-                    >
+                    <Typography variant="h6" fontWeight="medium" align="center">
                       Stock
                     </Typography>
                     <Typography
@@ -215,31 +191,19 @@ export default function DrugDetails() {
                     >
                       {data.stock}
                     </Typography>
-                    <Typography
-                      variant="body2"
-                      color="text.secondary"
-                    >
+                    <Typography variant="body2" color="text.secondary">
                       {data.sold} sold
                     </Typography>
                   </InfoCard>
                 </Grid>
 
                 {/* Production */}
-                <Grid
-                  item
-                  xs={12}
-                  sm={6}
-                  md={3}
-                >
+                <Grid item xs={12} sm={6} md={3}>
                   <InfoCard elevation={2}>
                     <CalendarMonthIcon
                       sx={{ fontSize: 40, color: "success.main", mb: 1 }}
                     />
-                    <Typography
-                      variant="h6"
-                      fontWeight="medium"
-                      align="center"
-                    >
+                    <Typography variant="h6" fontWeight="medium" align="center">
                       Production
                     </Typography>
                     <Typography
@@ -253,21 +217,12 @@ export default function DrugDetails() {
                 </Grid>
 
                 {/* Expiration */}
-                <Grid
-                  item
-                  xs={12}
-                  sm={6}
-                  md={3}
-                >
+                <Grid item xs={12} sm={6} md={3}>
                   <InfoCard elevation={2}>
                     <CalendarMonthIcon
                       sx={{ fontSize: 40, color: getExpirationColor(), mb: 1 }}
                     />
-                    <Typography
-                      variant="h6"
-                      fontWeight="medium"
-                      align="center"
-                    >
+                    <Typography variant="h6" fontWeight="medium" align="center">
                       Expiration
                     </Typography>
                     <Typography
@@ -290,12 +245,7 @@ export default function DrugDetails() {
                   </InfoCard>
                 </Grid>
 
-                <Grid
-                  item
-                  xs={12}
-                  sm={6}
-                  md={3}
-                >
+                <Grid item xs={12} sm={6} md={3}>
                   <InfoCard elevation={2}>
                     <InventoryIcon
                       sx={{
@@ -304,11 +254,7 @@ export default function DrugDetails() {
                         mb: 1,
                       }}
                     />
-                    <Typography
-                      variant="h6"
-                      fontWeight="medium"
-                      align="center"
-                    >
+                    <Typography variant="h6" fontWeight="medium" align="center">
                       Inventory
                     </Typography>
                     <Typography
@@ -336,10 +282,7 @@ export default function DrugDetails() {
                       : "rgba(0, 0, 0, 0.03)",
                 }}
               >
-                <Typography
-                  variant="caption"
-                  color="text.secondary"
-                >
+                <Typography variant="caption" color="text.secondary">
                   Consumer Price
                 </Typography>
                 <Typography
@@ -363,6 +306,12 @@ export default function DrugDetails() {
 
               {/* Action Button */}
               <Button
+                onClick={() => {
+                  addToCartMutation.mutate({
+                    drugId: id,
+                    quantity: 1,
+                  });
+                }}
                 variant="contained"
                 size="large"
                 startIcon={<AddShoppingCartIcon />}

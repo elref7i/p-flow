@@ -2,6 +2,7 @@
 import { Box, Typography, IconButton, Button, Avatar } from "@mui/material";
 import { Delete } from "@mui/icons-material";
 import LoadingSpinner from "../../Common/Loading/LoadingSpinner";
+import { formatNumber } from "../../../lib/utils/formateNumber";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
 import CloseIcon from "@mui/icons-material/Close";
@@ -53,7 +54,7 @@ export default function CartItem({ inventoryInfo }) {
 
       {/* Drugs */}
       <Box sx={{ display: "flex", gap: 2, flexWrap: "wrap" }}>
-        {drugs.map(({ drug, quantity }) => {
+        {drugs.map(({ drug, quantity, Price }) => {
           const { _id } = drug;
           return (
             <Box
@@ -87,15 +88,13 @@ export default function CartItem({ inventoryInfo }) {
                 </Typography>
                 <Typography
                   variant="body2"
-                  sx={{ fontSize: 12, color: isDarkMode ? "#ccc" : "#555" }}
+                  sx={{
+                    fontSize: 12,
+                    mt: 1,
+                    color: isDarkMode ? "#ccc" : "#555",
+                  }}
                 >
-                  Consumer price: 25$
-                </Typography>
-                <Typography
-                  variant="body2"
-                  sx={{ fontSize: 12, color: isDarkMode ? "#ccc" : "#555" }}
-                >
-                  Pharmacy price: 18$
+                  Price: {formatNumber(Price)} $
                 </Typography>
               </Box>
 
