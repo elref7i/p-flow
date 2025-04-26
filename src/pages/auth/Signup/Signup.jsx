@@ -26,7 +26,7 @@ const SignupForm = () => {
     const toastloading = toast.loading("Waiting...");
     try {
       const options = {
-        url: "https://pflow-api-v3-1655e5b56c39.herokuapp.com/api/v1/auth/signup",
+        url: "https://p-flow-v4.onrender.com/api/v1/auth/signup",
         method: "POST",
         data: values,
       };

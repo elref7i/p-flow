@@ -2,10 +2,12 @@
 import { Box, Typography, IconButton, Button, Avatar } from "@mui/material";
 import { Delete } from "@mui/icons-material";
 import LoadingSpinner from "../../Common/Loading/LoadingSpinner";
+import { formatNumber } from "../../../lib/utils/formateNumber";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
 import CloseIcon from "@mui/icons-material/Close";
 import { useTheme } from "@mui/material/styles";
+import { useNavigate } from "react-router-dom";
 import {
   useRemoveDrug,
   useRemoveInventory,
@@ -15,6 +17,7 @@ import {
 export default function CartItem({ inventoryInfo }) {
   const theme = useTheme();
   const isDarkMode = theme.palette.mode === "dark";
+  const navigate = useNavigate();
 
   const removeInventoryMutation = useRemoveInventory();
   const removeDrugMutation = useRemoveDrug();
@@ -53,7 +56,7 @@ export default function CartItem({ inventoryInfo }) {
 
       {/* Drugs */}
       <Box sx={{ display: "flex", gap: 2, flexWrap: "wrap" }}>
-        {drugs.map(({ drug, quantity }) => {
+        {drugs.map(({ drug, quantity, Price }) => {
           const { _id } = drug;
           return (
             <Box
@@ -80,22 +83,25 @@ export default function CartItem({ inventoryInfo }) {
               <Box sx={{ flexGrow: 1, mr: 2, minWidth: 150, maxWidth: 200 }}>
                 <Typography
                   variant="body1"
-                  sx={{ fontWeight: 500, color: isDarkMode ? "#fff" : "#000" }}
+                  onClick={() => navigate(`/pharmacy/drugdetails/${drug._id}`)}
+                  sx={{
+                    fontWeight: 500,
+                    cursor: "pointer",
+                    color: isDarkMode ? "#fff" : "#000",
+                  }}
                   noWrap
                 >
                   {drug.name}
                 </Typography>
                 <Typography
                   variant="body2"
-                  sx={{ fontSize: 12, color: isDarkMode ? "#ccc" : "#555" }}
+                  sx={{
+                    fontSize: 12,
+                    mt: 1,
+                    color: isDarkMode ? "#ccc" : "#555",
+                  }}
                 >
-                  Consumer price: 25$
-                </Typography>
-                <Typography
-                  variant="body2"
-                  sx={{ fontSize: 12, color: isDarkMode ? "#ccc" : "#555" }}
-                >
-                  Pharmacy price: 18$
+                  Price: {formatNumber(Price)} $
                 </Typography>
               </Box>
 
