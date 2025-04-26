@@ -7,6 +7,6 @@ export const DiscountBadge = styled(Chip)(({ theme }) => ({
   backgroundColor: theme.palette.error.main,
   color: theme.palette.error.contrastText,
   fontWeight: "bold",
-  fontSize: "13px",
+  fontSize: "12px",
   zIndex: 1,
 }));
