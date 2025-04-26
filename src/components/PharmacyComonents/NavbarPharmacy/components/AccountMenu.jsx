@@ -1,3 +1,5 @@
+"use client";
+
 import * as React from "react";
 import Box from "@mui/material/Box";
 import Avatar from "@mui/material/Avatar";
@@ -9,18 +11,33 @@ import IconButton from "@mui/material/IconButton";
 import Tooltip from "@mui/material/Tooltip";
 import Settings from "@mui/icons-material/Settings";
 import Logout from "@mui/icons-material/Logout";
+import Person from "@mui/icons-material/Person";
+import Email from "@mui/icons-material/Email";
+import Typography from "@mui/material/Typography";
 import { useTypeContext } from "../../../../context/UserType.context";
+import { useNavigate } from "react-router-dom";
 
 export default function AccountMenu() {
+  //States
   const [anchorEl, setAnchorEl] = React.useState(null);
-  const { logout } = useTypeContext();
+
+  //Context
+  const { logout, userData } = useTypeContext();
+
+  //Navigation
+  const navigate = useNavigate();
+
+  //Vars
   const open = Boolean(anchorEl);
+
+  // Functions
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
   const handleClose = () => {
     setAnchorEl(null);
   };
+
   return (
     <>
       <Box sx={{ display: "flex", alignItems: "center", textAlign: "center" }}>
@@ -33,7 +50,14 @@ export default function AccountMenu() {
             aria-haspopup="true"
             aria-expanded={open ? "true" : undefined}
           >
-            <Avatar sx={{ width: 32, height: 32 }}>M</Avatar>
+            <Avatar
+              alt={userData.name}
+              src={userData.profileImage}
+              sx={{
+                width: 40,
+                height: 40,
+              }}
+            />
           </IconButton>
         </Tooltip>
       </Box>
@@ -74,14 +98,52 @@ export default function AccountMenu() {
         transformOrigin={{ horizontal: "right", vertical: "top" }}
         anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
       >
+        {/* User info section */}
+        <Box sx={{ px: 2, py: 1, display: "flex", alignItems: "center" }}>
+          <Avatar
+            alt={userData.name}
+            src={userData.profileImage}
+            sx={{ width: 40, height: 40, mr: 1.5 }}
+          />
+          <Box>
+            <Typography
+              variant="subtitle1"
+              sx={{ fontWeight: "bold" }}
+            >
+              {userData.name}
+            </Typography>
+          </Box>
+        </Box>
+
         <Divider />
-        <MenuItem onClick={handleClose}>Email</MenuItem>
-        <MenuItem onClick={handleClose}>
+
+        <MenuItem>
+          <ListItemIcon>
+            <Person fontSize="small" />
+          </ListItemIcon>
+          {userData.name}
+        </MenuItem>
+
+        <MenuItem>
+          <ListItemIcon>
+            <Email fontSize="small" />
+          </ListItemIcon>
+          {userData.email}
+        </MenuItem>
+
+        <Divider />
+
+        <MenuItem
+          onClick={() => {
+            navigate("/setting");
+          }}
+        >
           <ListItemIcon>
             <Settings fontSize="small" />
           </ListItemIcon>
           Settings
         </MenuItem>
+
         <MenuItem onClick={logout}>
           <ListItemIcon>
             <Logout fontSize="small" />

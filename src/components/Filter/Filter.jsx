@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 "use client";
 
 import { useState } from "react";
@@ -22,6 +23,7 @@ import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
 import FilterAltIcon from "@mui/icons-material/FilterAlt";
+import { useThemeConstants } from "../../lib/constants/theme.constant";
 
 // Custom transition component for sliding from right
 const SlideTransition = (props) => {
@@ -34,11 +36,24 @@ const SlideTransition = (props) => {
 };
 
 export default function Filter({ open, handleClose, applyFilters }) {
+  //States
   const [priceRange, setPriceRange] = useState([0, 1000]);
   const [distance, setDistance] = useState(10);
   const [date, setDate] = useState("");
   const [category, setCategory] = useState("all");
 
+  //Theme
+  const {
+    textPrimary,
+    shadow1,
+    shadow2,
+    shadow3,
+    typography,
+    cardBackground,
+    border,
+  } = useThemeConstants();
+
+  // Functions
   const handlePriceChange = (event, newValue) => {
     setPriceRange(newValue);
   };
@@ -85,7 +100,7 @@ export default function Filter({ open, handleClose, applyFilters }) {
     >
       <SlideTransition in={open}>
         <Paper
-          elevation={24}
+          elevation={1}
           sx={{
             position: "fixed",
             top: 0,
@@ -95,7 +110,6 @@ export default function Filter({ open, handleClose, applyFilters }) {
             maxWidth: "100%",
             overflow: "auto",
             borderRadius: 0,
-            bgcolor: "#FFFFFF",
           }}
         >
           <Box sx={{ p: { xs: 2, sm: 3 } }}>
@@ -106,16 +120,30 @@ export default function Filter({ open, handleClose, applyFilters }) {
                 alignItems: "center",
                 mb: 3,
                 pb: 2,
-                borderBottom: "1px solid rgba(0, 0, 0, 0.08)",
+                borderBottom: `1px solid ${border}`,
               }}
             >
-              <Box sx={{ display: "flex", alignItems: "center" }}>
-                <FilterAltIcon sx={{ color: "primary.main", mr: 1 }} />
+              <Box
+                sx={{
+                  display: "flex",
+                  alignItems: "center",
+                }}
+              >
+                <FilterAltIcon
+                  sx={{
+                    color: "primary.main",
+                    mr: 1,
+                    fontSize: typography.h2.fontSize,
+                  }}
+                />
                 <Typography
                   id="filter-modal-title"
                   variant="h6"
-                  component="h2"
-                  fontWeight="600"
+                  sx={{
+                    fontWeight: typography.h2.fontWeight,
+                    fontSize: typography.h2.fontSize,
+                    lineHeight: typography.h2.lineHeight,
+                  }}
                   color="text.primary"
                 >
                   Filter Results
@@ -137,19 +165,29 @@ export default function Filter({ open, handleClose, applyFilters }) {
 
             <Box
               sx={{
-                mb: 4,
-                p: 2.5,
-                bgcolor: "rgba(0, 0, 0, 0.02)",
+                mb: 1.5,
+                p: 2,
+                background: cardBackground,
                 borderRadius: 2,
                 border: "1px solid rgba(0, 0, 0, 0.04)",
+                boxShadow: shadow3,
               }}
             >
-              <Box sx={{ display: "flex", alignItems: "center", mb: 1.5 }}>
-                <AttachMoneyIcon
-                  sx={{ color: "primary.main", mr: 1, fontSize: 20 }}
-                />
+              <Box
+                sx={{
+                  display: "flex",
+                  alignItems: "center",
+                  mb: 1.5,
+                }}
+              >
+                <AttachMoneyIcon sx={{ color: "primary.main", fontSize: 20 }} />
                 <Typography
                   fontWeight="500"
+                  sx={{
+                    fontWeight: typography.h6.fontWeight,
+                    fontSize: typography.h6.fontSize,
+                    lineHeight: typography.h6.lineHeight,
+                  }}
                   color="text.primary"
                 >
                   Price Range
@@ -197,11 +235,12 @@ export default function Filter({ open, handleClose, applyFilters }) {
 
             <Box
               sx={{
-                mb: 4,
-                p: 2.5,
-                bgcolor: "rgba(0, 0, 0, 0.02)",
+                mb: 1.5,
+                p: 2,
+                background: cardBackground,
                 borderRadius: 2,
-                border: "1px solid rgba(0, 0, 0, 0.04)",
+                border: border,
+                boxShadow: shadow3,
               }}
             >
               <Box sx={{ display: "flex", alignItems: "center", mb: 1.5 }}>
@@ -242,20 +281,21 @@ export default function Filter({ open, handleClose, applyFilters }) {
               <Box sx={{ display: "flex", justifyContent: "center" }}>
                 <Chip
                   label={`${distance} km`}
-                  size="small"
+                  size="medium"
                   color="primary"
-                  sx={{ fontWeight: "medium" }}
+                  sx={{ fontWeight: "bold", fontSize: "15px" }}
                 />
               </Box>
             </Box>
 
             <Box
               sx={{
-                mb: 4,
-                p: 2.5,
-                bgcolor: "rgba(0, 0, 0, 0.02)",
+                mb: 1.5,
+                p: 2,
+                background: cardBackground,
                 borderRadius: 2,
-                border: "1px solid rgba(0, 0, 0, 0.04)",
+                border: border,
+                boxShadow: shadow3,
               }}
             >
               <Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>
@@ -283,7 +323,6 @@ export default function Filter({ open, handleClose, applyFilters }) {
                 sx={{
                   "& .MuiOutlinedInput-root": {
                     borderRadius: 1.5,
-                    bgcolor: "#FFFFFF",
                   },
                 }}
               />
@@ -291,11 +330,12 @@ export default function Filter({ open, handleClose, applyFilters }) {
 
             <Box
               sx={{
-                mb: 4,
-                p: 2.5,
-                bgcolor: "rgba(0, 0, 0, 0.02)",
+                mb: 1.5,
+                p: 2,
+                background: cardBackground,
                 borderRadius: 2,
-                border: "1px solid rgba(0, 0, 0, 0.04)",
+                border: border,
+                boxShadow: shadow3,
               }}
             >
               <Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>
@@ -320,7 +360,6 @@ export default function Filter({ open, handleClose, applyFilters }) {
                   displayEmpty
                   sx={{
                     borderRadius: 1.5,
-                    bgcolor: "#FFFFFF",
                   }}
                 >
                   <MenuItem value="all">All Categories</MenuItem>
@@ -349,10 +388,11 @@ export default function Filter({ open, handleClose, applyFilters }) {
                       borderRadius: 2,
                       py: 1.2,
                       textTransform: "none",
-                      fontWeight: 500,
-                      fontSize: "0.95rem",
+                      fontWeight: typography.button.fontWeight,
+                      fontSize: typography.button.fontSize,
+                      boxShadow: shadow2,
                       border: "1px solid rgba(0, 0, 0, 0.12)",
-                      color: "text.primary",
+                      color: textPrimary,
                       "&:hover": {
                         backgroundColor: "rgba(0, 0, 0, 0.04)",
                         border: "1px solid rgba(0, 0, 0, 0.12)",
@@ -375,9 +415,9 @@ export default function Filter({ open, handleClose, applyFilters }) {
                       borderRadius: 2,
                       py: 1.2,
                       textTransform: "none",
-                      fontWeight: 500,
-                      fontSize: "0.95rem",
-                      boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.1)",
+                      fontWeight: typography.button.fontWeight,
+                      fontSize: typography.button.fontSize,
+                      boxShadow: shadow1,
                       "&:hover": {
                         boxShadow: "0px 6px 10px rgba(0, 0, 0, 0.15)",
                       },

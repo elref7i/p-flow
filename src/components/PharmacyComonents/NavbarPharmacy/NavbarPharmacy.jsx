@@ -30,15 +30,7 @@ export default function NavbarPhamracy() {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
 
-  const {
-    cardBackground,
-    cardDetailsBackground,
-    textPrimary,
-    textSecondary,
-    shadow2,
-    typography,
-    navbarPharmacyBackground,
-  } = useThemeConstants();
+  const { shadow2, navbarPharmacyBackground } = useThemeConstants();
 
   //Handlers
   const handleDrawerToggle = () => {
@@ -66,7 +58,7 @@ export default function NavbarPhamracy() {
               aria-label="open drawer"
               edge="start"
               onClick={handleDrawerToggle}
-              sx={{ mr: 2, background: inentory }}
+              sx={{ mr: 2, background: navbarPharmacyBackground }}
             >
               <MenuIcon />
             </IconButton>
