@@ -4,7 +4,6 @@ import { API } from "./api_url";
 
 export const signup = async (values) => {
   const toastloading = toast.loading("Waiting...");
-  const toastloading = toast.loading("Waiting...");
   try {
     const options = {
       url: `${API}/auth/signup`,
@@ -13,11 +12,12 @@ export const signup = async (values) => {
     };
     const { data } = await axios.request(options);
     if (data.message === "success") {
-    if (data.message === "success") {
-      toast.success(data.message);
+      if (data.message === "success") {
+        toast.success(data.message);
+      }
+      console.log("Response:", data);
+      console.log("Response:", data);
     }
-    console.log("Response:", data);
-    console.log("Response:", data);
   } catch (error) {
     toast.error(error.response.data.message);
     console.error("Error:", error);
@@ -26,4 +26,3 @@ export const signup = async (values) => {
     toast.dismiss(toastloading);
   }
 };
-// https://pflow-api-v3-1655e5b56c39.herokuapp.com
