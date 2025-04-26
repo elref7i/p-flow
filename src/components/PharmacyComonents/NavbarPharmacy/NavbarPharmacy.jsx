@@ -21,6 +21,7 @@ import NavLinkDesktop from "./components/NavLink";
 import MoblieDrawer from "./components/Drawer";
 
 import AccountMenu from "./components/AccountMenu";
+import { useThemeConstants } from "../../../lib/constants/theme.constant";
 
 export default function NavbarPhamracy() {
   const [drawerOpen, setDrawerOpen] = useState(false);
@@ -29,7 +30,15 @@ export default function NavbarPhamracy() {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
 
-  const inentory = theme.palette.background.navbarPharmacy;
+  const {
+    cardBackground,
+    cardDetailsBackground,
+    textPrimary,
+    textSecondary,
+    shadow2,
+    typography,
+    navbarPharmacyBackground,
+  } = useThemeConstants();
 
   //Handlers
   const handleDrawerToggle = () => {
@@ -45,10 +54,9 @@ export default function NavbarPhamracy() {
   return (
     <>
       <AppBar
-        sx={{ background: inentory }}
+        sx={{ background: navbarPharmacyBackground, boxShadow: shadow2 }}
         position="sticky"
         color="default"
-        elevation={1}
       >
         <Toolbar>
           {/* Mobile menu icon */}

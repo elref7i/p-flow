@@ -1,54 +1,54 @@
 export const columns = [
   {
-    field: 'name',
-    headerName: 'Name',
-    align: 'center',
-    headerAlign: 'center',
+    field: "name",
+    headerName: "Name",
+    align: "center",
+    headerAlign: "center",
     minWidth: 150,
   },
   {
-    field: 'ownerName',
-    headerName: 'Owner Name',
-    align: 'center',
-    headerAlign: 'center',
+    field: "ownerName",
+    headerName: "Owner Name",
+    align: "center",
+    headerAlign: "center",
     minWidth: 150,
   },
 
   {
-    field: 'phone',
-    headerName: 'Phone',
+    field: "phone",
+    headerName: "Phone",
     flex: 1,
-    align: 'center',
-    headerAlign: 'center',
+    align: "center",
+    headerAlign: "center",
     minWidth: 150,
   },
 
   {
-    field: 'city',
-    headerName: 'City',
-    align: 'center',
-    headerAlign: 'center',
+    field: "city",
+    headerName: "City",
+    align: "center",
+    headerAlign: "center",
     minWidth: 100,
   },
   {
-    field: 'governorate',
-    headerName: 'Governorate',
-    align: 'center',
-    headerAlign: 'center',
+    field: "governorate",
+    headerName: "Governorate",
+    align: "center",
+    headerAlign: "center",
     minWidth: 100,
   },
-  {
-    field: 'active',
-    headerName: 'Active',
-    align: 'center',
-    headerAlign: 'center',
-    minWidth: 100, // تحديد عرض أدنى للعمود
-  },
-  {
-    field: 'isVerified',
-    headerName: 'Verify',
-    align: 'center',
-    headerAlign: 'center',
-    minWidth: 100, // تحديد عرض أدنى للعمود
-  },
+  // {
+  //   field: 'active',
+  //   headerName: 'Active',
+  //   align: 'center',
+  //   headerAlign: 'center',
+  //   minWidth: 100, // تحديد عرض أدنى للعمود
+  // },
+  // {
+  //   field: 'isVerified',
+  //   headerName: 'Verify',
+  //   align: 'center',
+  //   headerAlign: 'center',
+  //   minWidth: 100, // تحديد عرض أدنى للعمود
+  // },
 ];

@@ -1,10 +1,10 @@
-import axios from 'axios';
-import { API_URL } from './api_url';
+import axios from "axios";
+import { API_URL_USER } from "./api_url";
 
 export const getloggedUserData = async ({ token }) => {
   const options = {
-    url: `${API_URL}/getMe`,
-    method: 'GET',
+    url: `${API_URL_USER}/getMe`,
+    method: "GET",
     headers: {
       Authorization: `Bearer ${token}`,
     },
@@ -14,8 +14,8 @@ export const getloggedUserData = async ({ token }) => {
 };
 export const updateLoggedUserData = async ({ token, values }) => {
   const options = {
-    url: `${API_URL}/updateMe`,
-    method: 'PATCH',
+    url: `${API_URL_USER}/updateMe`,
+    method: "PATCH",
     data: values,
     headers: {
       Authorization: `Bearer ${token}`,
@@ -25,8 +25,8 @@ export const updateLoggedUserData = async ({ token, values }) => {
 };
 export const updateLoggedUserPass = async ({ token, values }) => {
   const options = {
-    url: `${API_URL}/updateMyPassword`,
-    method: 'PATCH',
+    url: `${API_URL_USER}/updateMyPassword`,
+    method: "PATCH",
     data: values,
     headers: {
       Authorization: `Bearer ${token}`,

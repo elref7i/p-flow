@@ -8,6 +8,7 @@ import { Box, Card, Typography } from "@mui/material";
 import ModalAdd from "../AdminComonents/ModalAdd/ModalAdd";
 import AddDrugComponent from "../InventoryComponents/AddDrugComponent/AddDrugComponent";
 import AddDrugFromExcel from "../InventoryComponents/AddDrugFromExcel/AddDrugFromExcel";
+import { useThemeConstants } from "../../lib/constants/theme.constant";
 
 // Stats data
 const stats = [
@@ -44,8 +45,26 @@ export default function TableData({
   check,
   checkTable,
 }) {
+  //Temes
+
+  const {
+    tableRowHover,
+    tableBorder,
+    tableText,
+    shadow1,
+    shadow2,
+    shadow3,
+    typography,
+  } = useThemeConstants();
   return (
-    <Box sx={{ bgcolor: "transparent", p: 2, borderRadius: 2, boxShadow: 1 }}>
+    <Box
+      sx={{
+        bgcolor: "transparent",
+        p: 2,
+        borderRadius: 2,
+        boxShadow: shadow1,
+      }}
+    >
       {/* Top action buttons */}
       {check && (
         <Box sx={{ display: "flex", justifyContent: "end", mb: 2 }}>
@@ -71,9 +90,9 @@ export default function TableData({
                 display: "flex",
                 flexDirection: "column",
                 alignItems: "flex-start",
-                borderRadius: 2,
-                boxShadow: "none",
-                border: "1px solid #eee",
+                borderRadius: 3,
+                boxShadow: shadow2,
+                border: tableBorder,
               }}
             >
               <Box sx={{ display: "flex", alignItems: "center", mb: 1 }}>
@@ -105,7 +124,7 @@ export default function TableData({
       )}
 
       {/* DataGrid */}
-      <Box sx={{ height: !check ? 600 : 720, width: "100%" }}>
+      <Box sx={{ height: !check ? 600 : 650, width: "100%" }}>
         <DataGrid
           rows={data}
           columns={columnsWithActions}
@@ -120,21 +139,22 @@ export default function TableData({
           checkboxSelection
           disableRowSelectionOnClick
           sx={{
-            border: "none",
+            boxShadow: shadow3,
+            p: 2,
             "& .MuiDataGrid-columnHeaders": {
-              // backgroundColor: "#f9f9f9",
+              backgroundColor: "tableHeader",
             },
             "& .MuiDataGrid-cell": {
-              // borderBottom: "1px solid #f0f0f0",
+              borderBottom: `1px solid '${tableBorder} '`,
             },
             "& .MuiDataGrid-row:hover": {
-              // backgroundColor: "#f5f5f5",
+              backgroundColor: tableRowHover,
             },
             "& .MuiDataGrid-columnHeaderTitle": {
-              fontWeight: "bold",
+              fontWeight: typography.h1.fontWeight,
             },
             "& .MuiCheckbox-root": {
-              // color: "#5E5ADB",
+              color: tableText,
             },
           }}
           slots={{
@@ -154,7 +174,7 @@ export default function TableData({
           display: "flex",
           justifyContent: "space-between",
           mt: 2,
-          color: "text.secondary",
+          color: tableText,
         }}
       >
         <Typography variant="body2">Showing 1-9 of 240 entries</Typography>

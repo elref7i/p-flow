@@ -1,5 +1,3 @@
-"use client";
-
 import {
   AppBar as MuiAppBar,
   Box,
@@ -8,16 +6,13 @@ import {
   Stack,
   styled,
   Toolbar,
-  Typography,
-  useTheme,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import { MessageTwoTone } from "@mui/icons-material";
-// import InputSearch from "../../Common/InputSearch";
 import { useThemeContext } from "../../../context/theme.context";
-import { CustomLink, LogoLink } from "../../Common/ButtonStyle";
 import { useTypeContext } from "../../../context/UserType.context";
+import { useThemeConstants } from "../../../lib/constants/theme.constant";
 
 const drawerWidth = 240;
 
@@ -26,12 +21,6 @@ const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== "open",
 })(({ theme, open }) => ({
   zIndex: theme.zIndex.drawer + 1,
-  backgroundColor: "transparent", // Transparent background
-  color: theme.palette.mode === "dark" ? "#fff" : "#000",
-  boxShadow: "none", // Remove shadow
-  borderBottom: "1px solid",
-  borderColor:
-    theme.palette.mode === "dark" ? "rgba(255,255,255,0.1)" : "rgba(0,0,0,0.1)",
   transition: theme.transitions.create(["width", "margin"], {
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.leavingScreen,
@@ -47,10 +36,13 @@ const AppBar = styled(MuiAppBar, {
 }));
 
 export default function Navbar() {
-  const theme = useTheme();
+  //Context
   const { token } = useTypeContext();
   const { open, toggleDrawer, isLargeScreen, isMediumScreen } =
     useThemeContext();
+
+  // Theme
+  const { textPrimary } = useThemeConstants();
 
   // Force open state on large screens for AppBar styling
   const isOpen = isLargeScreen ? true : open;
@@ -59,7 +51,11 @@ export default function Navbar() {
     <AppBar
       position="fixed"
       open={isOpen}
-      elevation={0}
+      sx={{
+        bgcolor: "transparent",
+        backgroundImage: "none",
+        boxShadowL: "none",
+      }}
     >
       <Container maxWidth="xl">
         <Toolbar sx={{ px: { xs: 1, sm: 2, md: 1 } }}>
@@ -71,44 +67,11 @@ export default function Navbar() {
               edge="start"
               sx={{
                 marginRight: 2,
-                color: theme.palette.mode === "dark" ? "#fff" : "#000",
               }}
             >
               <MenuIcon />
             </IconButton>
           )}
-
-          {/* Logo Link */}
-          <Typography
-            variant="h6"
-            noWrap
-            fontWeight="bold"
-            sx={{
-              color: theme.palette.mode === "dark" ? "#fff" : "#000",
-            }}
-          >
-            <LogoLink
-              sx={{
-                color: "inherit",
-                textDecoration: "none",
-                "&:hover": {
-                  color:
-                    theme.palette.mode === "dark"
-                      ? "rgba(255,255,255,0.8)"
-                      : "rgba(0,0,0,0.8)",
-                },
-              }}
-            >
-              P-Flow
-            </LogoLink>
-          </Typography>
-
-          {/* Search Bar (visible for non-admin users)
-          {token && role !== "admin" && (
-            <Box sx={{ ml: 4, flexGrow: 0.3 }}>
-              <InputSearch />
-            </Box>
-          )} */}
 
           {/* Spacer to push right-side elements */}
           <Box flexGrow={1} />
@@ -116,7 +79,7 @@ export default function Navbar() {
           {/* Right-side Icons & Links */}
           <Stack
             direction="row"
-            spacing={3}
+            spacing={0}
             sx={{
               alignItems: "center",
             }}
@@ -128,7 +91,7 @@ export default function Navbar() {
                   aria-label="notifications"
                   size="medium"
                   sx={{
-                    color: theme.palette.mode === "dark" ? "#fff" : "#000",
+                    color: textPrimary,
                   }}
                 >
                   <NotificationsIcon fontSize="inherit" />
@@ -137,53 +100,11 @@ export default function Navbar() {
                   aria-label="messages"
                   size="medium"
                   sx={{
-                    color: theme.palette.mode === "dark" ? "#fff" : "#000",
+                    color: textPrimary,
                   }}
                 >
                   <MessageTwoTone fontSize="inherit" />
                 </IconButton>
-              </>
-            )}
-
-            {/* Authentication Links (Login / Signup) for non-authenticated users */}
-            {!token && (
-              <>
-                <CustomLink
-                  to="/login"
-                  sx={{
-                    padding: "8px 16px",
-                    fontSize: "16px",
-                    fontWeight: "500",
-                    color: theme.palette.mode === "dark" ? "#fff" : "#000",
-                    textDecoration: "none",
-                    "&:hover": {
-                      color:
-                        theme.palette.mode === "dark"
-                          ? "rgba(255,255,255,0.8)"
-                          : "rgba(0,0,0,0.8)",
-                    },
-                  }}
-                >
-                  Login
-                </CustomLink>
-                <CustomLink
-                  to="/signup"
-                  sx={{
-                    padding: "8px 16px",
-                    fontSize: "16px",
-                    fontWeight: "500",
-                    color: theme.palette.mode === "dark" ? "#fff" : "#000",
-                    textDecoration: "none",
-                    "&:hover": {
-                      color:
-                        theme.palette.mode === "dark"
-                          ? "rgba(255,255,255,0.8)"
-                          : "rgba(0,0,0,0.8)",
-                    },
-                  }}
-                >
-                  Sign up
-                </CustomLink>
               </>
             )}
           </Stack>

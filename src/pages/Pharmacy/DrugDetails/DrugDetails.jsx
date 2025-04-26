@@ -117,7 +117,7 @@ export default function DrugDetails() {
           >
             {data.discount > 0 && (
               <DiscountBadge
-                label={`${data.discount}% OFF`}
+                label={`${data.discount.toFixed(0)}% OFF`}
                 color="error"
                 size="medium"
                 icon={<LocalOfferIcon />}

@@ -1,8 +1,5 @@
 /* eslint-disable react/prop-types */
-"use client";
-
 import { Box, Typography, Grid } from "@mui/material";
-import LocalOfferIcon from "@mui/icons-material/LocalOffer";
 import InventoryIcon from "@mui/icons-material/Inventory";
 import { motion } from "framer-motion";
 import DrugCard from "../../../../components/PharmacyComonents/DrugCard/DrugCard";
@@ -18,8 +15,9 @@ const TabContent = ({
       {activeTab === 0 && (
         <Grid
           container
-          spacing={2}
+          spacing={4}
           component={motion.div}
+          py={2}
           variants={containerVariants}
           initial="hidden"
           animate="visible"
@@ -28,7 +26,7 @@ const TabContent = ({
             <Grid
               item
               xs={12}
-              sm={6}
+              sm={4}
               key={drug._id}
               component={motion.div}
               variants={itemVariants}
@@ -36,6 +34,7 @@ const TabContent = ({
               <DrugCard
                 dataInfo={drug}
                 checkPage={false}
+                offer={true}
               />
             </Grid>
           ))}
@@ -43,26 +42,33 @@ const TabContent = ({
       )}
 
       {activeTab === 1 && (
-        <Box sx={{ textAlign: "center", py: 6 }}>
-          <LocalOfferIcon
-            sx={{
-              fontSize: 60,
-              color: "text.secondary",
-              mb: 2,
-            }}
-          />
-          <Typography
-            variant="h6"
-            color="text.secondary"
+        <Box sx={{ textAlign: "center", py: 2 }}>
+          <Grid
+            container
+            spacing={4}
+            component={motion.div}
+            pt={2}
+            variants={containerVariants}
+            initial="hidden"
+            animate="visible"
           >
-            No Current Offers
-          </Typography>
-          <Typography
-            variant="body2"
-            color="text.secondary"
-          >
-            Check back later for special promotions and discounts
-          </Typography>
+            {payload.map((drug) => (
+              <Grid
+                item
+                xs={12}
+                sm={4}
+                key={drug._id}
+                component={motion.div}
+                variants={itemVariants}
+              >
+                <DrugCard
+                  dataInfo={drug}
+                  checkPage={false}
+                  offer={true}
+                />
+              </Grid>
+            ))}
+          </Grid>
         </Box>
       )}
 

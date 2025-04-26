@@ -12,8 +12,8 @@ import Role from "../../Role/Role";
 import { AdminAddUser } from "../../../lib/schemas/AdminSchema";
 import { useAdminAddUser } from "../../../lib/hooks/useAdminAction";
 import PasswordControl from "../../Common/PasswordControl";
-// تعديل حجم وتخطيط Modal Add
-// تغيير style المودال ليكون أوسع
+import { useThemeConstants } from "../../../lib/constants/theme.constant";
+
 const style = {
   position: "fixed",
   top: "50%",
@@ -23,17 +23,30 @@ const style = {
   maxWidth: "1200px", // وضع حد أقصى للعرض
   maxHeight: "90vh",
   bgcolor: "background.paper",
-  boxShadow: "0 8px 32px rgba(0, 0, 0, 0.15)",
+  boxShadow: "0px 2px 7px 0px rgba(59, 130, 246, 0.75)",
   borderRadius: "16px",
   p: 0,
   overflow: "hidden",
 };
 
 export default function ModalAdd() {
-  const { token } = useTypeContext();
+  //States
   const [open, setOpen] = useState(false);
-  // const theme = useTheme();
+  //Context
+  const { token } = useTypeContext();
 
+  //Theme
+  const {
+    buttonBackground,
+    buttonHover,
+    buttonText,
+    shadow2,
+    typography,
+    pharmacyBackground,
+    textPrimary,
+  } = useThemeConstants();
+
+  //Functions
   const handleOpen = () => setOpen(true);
   const handleClose = () => {
     setOpen(false);
@@ -58,7 +71,6 @@ export default function ModalAdd() {
       phone: "",
       role: "",
       city: "",
-
       governorate: "",
       registrationNumber: "",
       identificationNumber: "",
@@ -86,16 +98,18 @@ export default function ModalAdd() {
         variant="contained"
         startIcon={<PersonAddIcon />}
         sx={{
+          color: buttonText,
           borderRadius: "8px",
-          bgcolor: "#333",
+          bgcolor: buttonBackground,
           "&:hover": {
-            bgcolor: "#555",
+            bgcolor: buttonHover,
           },
         }}
       >
         Add User
       </Button>
       <Modal
+        sx={{ bgcolor: "#000000aa" }}
         open={open}
         onClose={handleClose}
         aria-labelledby="modal-modal-title"
@@ -104,19 +118,32 @@ export default function ModalAdd() {
         <Box sx={style}>
           <Box
             sx={{
-              bgcolor: "#333", // Green header for Add modal
-              color: "white",
+              bgcolor: pharmacyBackground,
+              boxShadow: shadow2, // Green header for Add modal
+              color: textPrimary,
               p: 2,
               display: "flex",
               alignItems: "center",
               justifyContent: "space-between",
             }}
           >
-            <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+            <Box
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                gap: 1,
+              }}
+            >
               <PersonAddIcon />
               <Box
                 component="h2"
-                sx={{ m: 0, fontSize: "1.25rem", fontWeight: "600" }}
+                sx={{
+                  m: 0,
+                  fontSize: typography.h1.fontSize,
+                  fontWeight: typography.h1.fontWeight,
+                  lineHeight: typography.h1.lineHeight,
+                  textWrap: "nowrap",
+                }}
               >
                 Add User
               </Box>
@@ -311,37 +338,37 @@ export default function ModalAdd() {
                 variant="contained"
                 color={isError ? "error" : "primary"}
                 sx={{
-                  fontSize: { xs: "14px", md: "16px" },
                   px: 5,
                   py: 1.5,
-                  fontWeight: "bold",
+                  fontWeight: typography.button.fontWeight,
+                  fontSize: typography.button.fontSize,
                   borderRadius: "10px",
-                  bgcolor: "#333",
-                  boxShadow: "0 4px 12px rgba(25, 118, 210, 0.2)",
+                  bgcolor: buttonBackground,
+                  boxShadow: shadow2,
                   transition: "all 0.3s ease",
                   "&:hover": {
                     transform: "translateY(-2px)",
-                    boxShadow: "0 6px 16px rgba(25, 118, 210, 0.3)",
+                    buttonHover,
                   },
                 }}
                 startIcon={
                   isLoading ? (
                     <CircularProgress
                       color="inherit"
-                      size={20}
+                      size={25}
                     />
                   ) : isError ? (
                     <WarningAmberIcon
                       color="warning"
-                      size={20}
+                      size={25}
                     />
                   ) : isSuccess ? (
                     <CheckCircleIcon
                       color="success"
-                      size={20}
+                      size={25}
                     />
                   ) : (
-                    <PersonAddIcon size={20} />
+                    <PersonAddIcon size={30} />
                   )
                 }
               >

@@ -3,21 +3,22 @@
 import { Helmet } from "react-helmet";
 import { Box, Grid } from "@mui/material";
 
-import { styled, alpha } from "@mui/material/styles";
+import { styled } from "@mui/material/styles";
 import MetricCards from "./components/metric-cards";
 import CashflowChart from "./components/cashflow-chart";
 import IncomeBreakdown from "./components/income-breakdown";
 import TransactionHistory from "./components/transaction-history";
+import { useThemeConstants } from "../../../lib/constants/theme.constant";
 
-const MainContent = styled(Box)(({ theme }) => ({
+const MainContent = styled(Box)(() => ({
   flexGrow: 1,
   maxWidth: "lg",
   mx: "auto",
-  backgroundColor: alpha(theme.palette.primary.light, 0.03),
   minHeight: "100vh",
 }));
 
 export default function DashboardAdmin() {
+  const { paperBackground, shadow1 } = useThemeConstants();
   return (
     <>
       <Helmet>
@@ -33,7 +34,13 @@ export default function DashboardAdmin() {
       </Helmet>
 
       <Box
-        sx={{ display: "flex" }}
+        sx={{
+          display: "flex",
+          bgcolor: paperBackground,
+          p: 1,
+          borderRadius: 2,
+          boxShadow: shadow1,
+        }}
         container="lg"
       >
         {/* Main Content */}

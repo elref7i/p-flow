@@ -8,17 +8,27 @@ import { useActiveAdminUser } from "../../../lib/hooks/useAdminAction";
 import { Helmet } from "react-helmet";
 import { MoreVert as MoreVertIcon } from "@mui/icons-material";
 import TableData from "../../../components/TableData/TableData";
+import NewReleasesIcon from "@mui/icons-material/NewReleases";
+import VerifiedIcon from "@mui/icons-material/Verified";
+import CancelIcon from "@mui/icons-material/Cancel";
+import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 export default function UsersAction() {
+  //Context
   const { token } = useTypeContext();
+
+  //Queries
   const { data, isLoading } = useAllUsers();
   const { isLoading: isDeleting, mutate: handleDelete } = useDeleteUser();
   const { mutate: handleActive } = useActiveAdminUser();
 
+  //Vars
   const filteredData = data ? data.filter((row) => row.role !== "admin") : [];
 
   const actions = {
     field: "actions",
     headerName: "Action",
+    align: "center",
+    headerAlign: "center",
     width: 120,
     sortable: false,
     renderCell: (params) => (
@@ -34,13 +44,63 @@ export default function UsersAction() {
           }}
           size="small"
         >
-          <MoreVertIcon fontSize="small" />
+          <MoreVertIcon fontSize="medium" />
         </IconButton>
       </Box>
     ),
   };
 
-  const columnsWithActions = [...columns, actions];
+  //Verify User in Table
+  const verifie = {
+    field: "isVerified",
+    headerName: "Verify Email",
+    align: "center",
+    headerAlign: "center",
+    width: 120,
+    sortable: false,
+    renderCell: (params) => (
+      <Box sx={{ pt: 1 }}>
+        {params.row.isVerified ? (
+          <VerifiedIcon
+            color="success"
+            fontSize="medium"
+          />
+        ) : (
+          <NewReleasesIcon
+            color="warning"
+            fontSize="medium"
+          />
+        )}
+      </Box>
+    ),
+  };
+
+  //Active User In table
+  const active = {
+    field: "active",
+    headerName: "Active User",
+    align: "center",
+    headerAlign: "center",
+    width: 120,
+    sortable: false,
+    renderCell: (params) => (
+      <Box sx={{ pt: 1 }}>
+        {params.row.active === true ? (
+          <CheckCircleIcon
+            color="success"
+            fontSize="medium"
+          />
+        ) : (
+          <CancelIcon
+            color="error"
+            fontSize="medium"
+          />
+        )}
+      </Box>
+    ),
+  };
+
+  const columnsWithActions = [...columns, verifie, active, actions];
 
   return (
     <>

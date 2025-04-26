@@ -3,13 +3,18 @@ import { columns } from "./Allusers";
 import { useAllUsers } from "../../../lib/hooks/useAdminAction";
 import { Helmet } from "react-helmet";
 import TableData from "../../../components/TableData/TableData";
-
+import NewReleasesIcon from "@mui/icons-material/NewReleases";
+import VerifiedIcon from "@mui/icons-material/Verified";
+import CancelIcon from "@mui/icons-material/Cancel";
+import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 export default function Users() {
   const { data, isLoading } = useAllUsers();
 
   const filteredData = data ? data.filter((row) => row.role !== "admin") : [];
 
   console.log(filteredData);
+
+  //Profile Image in Table
   const PrfileImage = {
     field: "profileImage",
     headerName: "PrfileImage",
@@ -52,7 +57,57 @@ export default function Users() {
     },
   };
 
-  const columnsWithActions = [PrfileImage, ...columns];
+  //Verify User in Table
+  const verifie = {
+    field: "isVerified",
+    headerName: "Verify Email",
+    align: "center",
+    headerAlign: "center",
+    width: 120,
+    sortable: false,
+    renderCell: (params) => (
+      <Box sx={{ pt: 1 }}>
+        {params.row.isVerified ? (
+          <VerifiedIcon
+            color="success"
+            fontSize="medium"
+          />
+        ) : (
+          <NewReleasesIcon
+            color="warning"
+            fontSize="medium"
+          />
+        )}
+      </Box>
+    ),
+  };
+
+  //Active User In table
+  const active = {
+    field: "active",
+    headerName: "Active User",
+    align: "center",
+    headerAlign: "center",
+    width: 120,
+    sortable: false,
+    renderCell: (params) => (
+      <Box sx={{ pt: 1 }}>
+        {params.row.active === true ? (
+          <CheckCircleIcon
+            color="success"
+            fontSize="medium"
+          />
+        ) : (
+          <CancelIcon
+            color="error"
+            fontSize="medium"
+          />
+        )}
+      </Box>
+    ),
+  };
+
+  const columnsWithActions = [PrfileImage, ...columns, verifie, active];
 
   return (
     <TableData

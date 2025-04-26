@@ -1,6 +1,7 @@
-import { Box, Typography, Paper, Grid, IconButton } from "@mui/material";
+import { Box, Typography, Paper, Grid2, IconButton } from "@mui/material";
 import { KeyboardArrowRight as ArrowRightIcon } from "@mui/icons-material";
 import { styled } from "@mui/material/styles";
+import { useThemeConstants } from "../../../../lib/constants/theme.constant";
 
 const MetricCard = styled(Paper)(({ theme }) => ({
   padding: theme.spacing(2),
@@ -25,6 +26,8 @@ const PercentageChange = styled(Typography)(() => ({
 }));
 
 export default function MetricCards() {
+  const { background, shadow2 } = useThemeConstants();
+
   const metrics = [
     {
       title: "Balance",
@@ -57,20 +60,18 @@ export default function MetricCards() {
   ];
 
   return (
-    <Grid
+    <Grid2
       container
-      spacing={3}
-      sx={{ mb: 3 }}
+      spacing={1}
+      sx={{ mb: 3, p: 1 }}
     >
       {metrics.map((metric, index) => (
-        <Grid
+        <Grid2
           item
-          xs={12}
-          sm={6}
-          md={3}
+          size={{ xs: 12, md: 6, lg: 3 }}
           key={index}
         >
-          <MetricCard elevation={0}>
+          <MetricCard sx={{ bgcolor: background, boxShadow: shadow2 }}>
             <Box
               sx={{
                 display: "flex",
@@ -122,8 +123,8 @@ export default function MetricCards() {
               {metric.change}
             </PercentageChange>
           </MetricCard>
-        </Grid>
+        </Grid2>
       ))}
-    </Grid>
+    </Grid2>
   );
 }

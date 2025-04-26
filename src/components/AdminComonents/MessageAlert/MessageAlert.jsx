@@ -8,26 +8,28 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import DeleteIcon from "@mui/icons-material/Delete";
 import CancelIcon from "@mui/icons-material/Cancel";
-import { CircularProgress, IconButton, useTheme } from "@mui/material";
-
+import { CircularProgress, IconButton } from "@mui/material";
+import ReportProblemIcon from "@mui/icons-material/ReportProblem";
+import { useThemeConstants } from "../../../lib/constants/theme.constant";
 const style = {
   position: "absolute",
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
   width: 400,
-  bgcolor: "background.paper",
-  border: "2px solid #f44336",
   borderRadius: "8px",
-  boxShadow: 24,
+  boxShadow: "0px 1px 5px 0px rgba(220, 38, 38, 80%)",
   p: 4,
   textAlign: "center",
 };
 
 export default function AlertModal({ handleAction, isDeleting }) {
-  const theme = useTheme();
+  //States
   const [open, setOpen] = React.useState(false);
 
+  const { typography, adminBackground } = useThemeConstants();
+
+  //Functions
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
@@ -35,11 +37,12 @@ export default function AlertModal({ handleAction, isDeleting }) {
     <>
       <IconButton
         onClick={handleOpen}
-        size="small"
+        color="error"
       >
-        <DeleteIcon fontSize="small" />
+        <DeleteIcon fontSize="medium" />
       </IconButton>
       <Modal
+        sx={{ bgcolor: "#000000aa" }}
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"
         open={open}
@@ -53,19 +56,20 @@ export default function AlertModal({ handleAction, isDeleting }) {
         }}
       >
         <Fade in={open}>
-          <Box sx={style}>
-            <Typography
-              id="transition-modal-title"
-              variant="h6"
-              component="h2"
+          <Box sx={{ ...style, background: adminBackground }}>
+            <ReportProblemIcon
               color="error"
-            >
-              Delete User
-            </Typography>
+              sx={{ fontSize: "60px" }}
+            />
+
             <Typography
               id="transition-modal-description"
-              color={theme.palette.text.primary}
-              sx={{ mt: 2, mb: 3 }}
+              color="error"
+              sx={{
+                mb: 3,
+                fontSize: typography.body1.fontSize,
+                lineHeight: typography.body1.lineHeight,
+              }}
             >
               Are you sure you want to delete this user?
             </Typography>

@@ -1,27 +1,30 @@
 /* eslint-disable react/prop-types */
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
-import {
-  Avatar,
-  ListItemIcon,
-  Stack,
-  Typography,
-  useTheme,
-} from "@mui/material";
+import { Avatar, ListItemIcon, Stack, Typography } from "@mui/material";
 import { useTypeContext } from "@/context/UserType.context";
 import { useState } from "react";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import { Logout } from "@mui/icons-material";
 import { useThemeContext } from "../../context/theme.context";
 import LoadingSpinner from "./Loading/LoadingSpinner";
+import { useThemeConstants } from "../../lib/constants/theme.constant";
 
 export default function ProfilePerson({ open }) {
+  //States
   const [anchorEl, setAnchorEl] = useState(null);
-  const theme = useTheme();
-  const { logout, userData } = useTypeContext();
-  const { setOpen } = useThemeContext();
 
+  //Context
+  const { logout, userData } = useTypeContext();
+
+  // Themes
+  const { setOpen } = useThemeContext();
+  const { sidebarItemHover, typography, textPrimary } = useThemeConstants();
+
+  //Vars
   const openMenue = Boolean(anchorEl);
+
+  //Functions
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -37,13 +40,14 @@ export default function ProfilePerson({ open }) {
         aria-expanded={openMenue ? "true" : undefined}
         onClick={handleClick}
         sx={{
+          color: textPrimary,
           cursor: "pointer",
           p: open ? 1 : 0,
           borderRadius: 2,
-          ":hover": { bgcolor: theme.palette.grey[400] },
+          ":hover": { bgcolor: sidebarItemHover },
           transition: "all ",
         }}
-        py={2}
+        py={1}
         direction={"row"}
         gap={open ? 2 : 0}
         alignItems={"center"}
@@ -57,8 +61,8 @@ export default function ProfilePerson({ open }) {
               alt={userData.name}
               src={userData.profileImage}
               sx={{
-                width: open ? 50 : 40,
-                height: open ? 50 : 40,
+                width: open ? 40 : 40,
+                height: open ? 40 : 40,
               }}
             />
             <Stack
@@ -69,7 +73,7 @@ export default function ProfilePerson({ open }) {
                 textTransform={"capitalize"}
                 variant="h2"
                 fontWeight={"bold"}
-                fontSize={open ? 15 : 0}
+                fontSize={open ? typography.h6.fontSize : 0}
                 mb={0.5}
               >
                 {userData.name}
@@ -77,7 +81,7 @@ export default function ProfilePerson({ open }) {
               <Typography
                 textTransform={"capitalize"}
                 variant="h3"
-                fontSize={open ? 12 : 0}
+                fontSize={open ? typography.body2.fontSize : 0}
                 color="error"
                 fontWeight={"bold"}
               >
@@ -96,6 +100,7 @@ export default function ProfilePerson({ open }) {
         anchorEl={anchorEl}
         open={openMenue}
         onClose={handleClose}
+        sx={{ zIndex: 9999, p: 2 }}
         anchorOrigin={{
           vertical: "top",
           horizontal: "right",
@@ -111,14 +116,17 @@ export default function ProfilePerson({ open }) {
             setOpen(false);
           }}
           sx={{
-            ":hover": { bgcolor: theme.palette.action.selected },
+            ":hover": { bgcolor: sidebarItemHover },
             borderRadius: 1,
+            fontWeight: typography.h3.fontWeight,
+            fontSize: typography.h6.fontSize,
+            p: 1,
           }}
         >
           Logout
           <ListItemIcon>
             <Logout
-              fontSize="small"
+              fontSize="medium"
               sx={{ ml: 2 }}
               color="error"
             />

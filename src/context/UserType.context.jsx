@@ -5,6 +5,7 @@ import { createContext, useContext, useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { getloggedUserData } from "../lib/api/userAPI";
 import { useQueryClient } from "@tanstack/react-query";
+import { API_URL } from "../lib/api/api_url";
 
 export const UserTypeContext = createContext(0);
 
@@ -35,11 +36,9 @@ export default function UserTypeProvider({ children }) {
   async function login(values) {
     const loading = toast.loading("Waiting...");
     try {
-      const { data } = await axios.post(
-        "https://pflow-api-v3-1655e5b56c39.herokuapp.com/api/v1/auth/login",
-        values,
-        { withCredentials: true }
-      );
+      const { data } = await axios.post(`${API_URL}/auth/login`, values, {
+        withCredentials: true,
+      });
       if (data.message === "success") {
         toast.success("Login successful!");
         setRole(data.user.role);

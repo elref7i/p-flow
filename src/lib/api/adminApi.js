@@ -1,10 +1,10 @@
 import axios from "axios";
-import { API_URL } from "./api_url";
+import { API_URL_USER } from "./api_url";
 
 //* GET ALL Users
 
 export const fetchUsers = async () => {
-  const { data } = await axios.get(API_URL);
+  const { data } = await axios.get(API_URL_USER);
   console.log(data.data);
 
   return data.data;
@@ -13,7 +13,7 @@ export const fetchUsers = async () => {
 //* Add User
 export const addAdminUser = async ({ token, values }) => {
   const options = {
-    url: `${API_URL}`,
+    url: `${API_URL_USER}`,
     method: "POST",
     data: values,
     headers: {
@@ -26,7 +26,7 @@ export const addAdminUser = async ({ token, values }) => {
 //* Active User
 export const ActiveAdminUser = async ({ token, userId }) => {
   const options = {
-    url: `${API_URL}/activate/${userId}`,
+    url: `${API_URL_USER}/activate/${userId}`,
     method: "POST",
     data: {
       active: true,
@@ -41,7 +41,7 @@ export const ActiveAdminUser = async ({ token, userId }) => {
 //* Delete User
 export const deleteUser = async ({ userId, token }) => {
   const options = {
-    url: `${API_URL}/${userId}`,
+    url: `${API_URL_USER}/${userId}`,
     method: "DELETE",
     headers: {
       Authorization: `Bearer ${token}`,
@@ -53,7 +53,7 @@ export const deleteUser = async ({ userId, token }) => {
 //*Update User
 export const updateUserData = async ({ userId, token, values }) => {
   const options = {
-    url: `${API_URL}/${userId}`,
+    url: `${API_URL_USER}/${userId}`,
     method: "PUT",
     data: values,
     headers: {
@@ -66,7 +66,7 @@ export const updateUserData = async ({ userId, token, values }) => {
 //* Hints delete Try And Catch
 export const getSpecificUser = async ({ token, userId }) => {
   const options = {
-    url: `${API_URL}/${userId}`,
+    url: `${API_URL_USER}/${userId}`,
     method: "GET",
     headers: {
       Authorization: `Bearer ${token}`,

@@ -7,16 +7,26 @@ import {
   ListItemIcon,
   ListItemText,
   useTheme,
-  alpha,
 } from "@mui/material";
 import { useLocation, useNavigate } from "react-router-dom";
+import { useThemeConstants } from "../../../lib/constants/theme.constant";
 
 export default function Sidebaritem({ item, open }) {
+  //Navigation
   const navigate = useNavigate();
-  const theme = useTheme();
   const { pathname } = useLocation();
+
+  //Theme
+  const theme = useTheme();
+  const {
+    textPrimary,
+    sidebarItemHover,
+    sidebarItemActive,
+    sidebarIcon,
+    typography,
+  } = useThemeConstants();
+
   const isActive = pathname === item.path;
-  const isDarkMode = theme.palette.mode === "dark";
 
   const handleClick = () => {
     if (item.text === "Sign out") {
@@ -37,16 +47,11 @@ export default function Sidebaritem({ item, open }) {
           minHeight: 48,
           px: 2,
           py: 1,
+          color: isActive ? "#fff" : textPrimary,
           borderRadius: "8px",
-          backgroundColor: isActive
-            ? isDarkMode
-              ? alpha("#ffffff", 0.1)
-              : alpha("#000000", 0.05)
-            : "transparent",
+          backgroundColor: isActive ? sidebarItemActive : "transparent",
           "&:hover": {
-            backgroundColor: isDarkMode
-              ? alpha("#ffffff", 0.05)
-              : alpha("#000000", 0.03),
+            backgroundColor: !isActive && sidebarItemHover,
           },
           justifyContent: open ? "initial" : "center",
           transition: theme.transitions.create(["background-color"], {
@@ -59,15 +64,9 @@ export default function Sidebaritem({ item, open }) {
             minWidth: 0,
             mr: open ? 2 : "auto",
             justifyContent: "center",
-            color: isActive
-              ? isDarkMode
-                ? "#ffffff"
-                : "#000000"
-              : isDarkMode
-              ? "rgba(255,255,255,0.7)"
-              : "rgba(0,0,0,0.7)",
+            color: isActive ? "#fff" : sidebarIcon,
             "& .MuiSvgIcon-root": {
-              fontSize: 20,
+              fontSize: typography.h4.fontSize,
             },
           }}
         >
@@ -78,15 +77,10 @@ export default function Sidebaritem({ item, open }) {
           sx={{
             opacity: open ? 1 : 0,
             "& .MuiTypography-root": {
-              fontWeight: isActive ? "medium" : "normal",
-              fontSize: "0.9rem",
-              color: isActive
-                ? isDarkMode
-                  ? "#ffffff"
-                  : "#000000"
-                : isDarkMode
-                ? "rgba(255,255,255,0.7)"
-                : "rgba(0,0,0,0.7)",
+              fontWeight: isActive
+                ? typography.h1.fontWeight
+                : typography.h3.fontWeight,
+              fontSize: typography.h6.fontSize,
             },
             transition: theme.transitions.create(["opacity"], {
               duration: theme.transitions.duration.shorter,

@@ -1,6 +1,4 @@
 /* eslint-disable react/prop-types */
-"use client";
-
 import {
   Box,
   Typography,
@@ -19,6 +17,7 @@ import MessageIcon from "@mui/icons-material/Message";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import { motion } from "framer-motion";
 import { useTypeContext } from "../../../../context/UserType.context";
+import { useThemeConstants } from "../../../../lib/constants/theme.constant";
 
 const ProfileHeader = ({
   inventory,
@@ -26,19 +25,34 @@ const ProfileHeader = ({
   itemVariants,
   totalProducts,
 }) => {
-  const theme = useTheme();
+  //Context
   const { role } = useTypeContext();
+
+  //Theme
+  const theme = useTheme();
+  const {
+    primary,
+    textPrimary,
+    textSecondary,
+    buttonText,
+    buttonBackground,
+    buttonHover,
+    shadow1,
+    shadow2,
+    shadow3,
+    typography,
+    background,
+    inventoryBackground,
+  } = useThemeConstants();
+
   return (
     <Box
       sx={{
         mb: 4,
-        background: `linear-gradient(to bottom, ${alpha(
-          theme.palette.primary.light,
-          0.05
-        )}, transparent)`,
+        background: inventoryBackground,
         borderRadius: 2,
         p: 3,
-        boxShadow: `0 2px 10px ${alpha(theme.palette.common.black, 0.05)}`,
+        boxShadow: shadow3,
       }}
     >
       {/* Profile Info Section */}
@@ -66,16 +80,13 @@ const ProfileHeader = ({
         >
           <Box sx={{ position: "relative" }}>
             <Avatar
-              src={inventory.image}
+              src={inventory.profileImage}
               alt={inventory.name}
               sx={{
                 width: 100,
                 height: 100,
                 border: `3px solid ${alpha(theme.palette.primary.main, 0.3)}`,
-                boxShadow: `0 4px 14px ${alpha(
-                  theme.palette.primary.main,
-                  0.2
-                )}`,
+                boxShadow: shadow2,
               }}
             />
 
@@ -89,9 +100,13 @@ const ProfileHeader = ({
                 position: "absolute",
                 bottom: 0,
                 right: 0,
-                background: theme.palette.background.paper,
+                width: 25,
+                height: 25,
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                background: background,
                 borderRadius: "50%",
-                padding: "2px",
                 border: `2px solid ${theme.palette.background.paper}`,
               }}
             >
@@ -108,20 +123,25 @@ const ProfileHeader = ({
           <Box sx={{ display: "flex", alignItems: "center", mb: 1 }}>
             <Typography
               variant="h5"
-              fontWeight="bold"
-              sx={{ mr: 1 }}
+              sx={{
+                mr: 1,
+                fontSize: typography.h1.fontSize,
+                fontWeight: typography.h1.fontWeight,
+                lineHeight: typography.h1.lineHeight,
+                color: textPrimary,
+              }}
             >
               {inventory.name}
             </Typography>
             <Chip
-              size="small"
+              size="medium"
               label="Verified"
               color="primary"
               variant="outlined"
               sx={{
                 height: 22,
-                fontSize: "0.7rem",
-                fontWeight: "bold",
+                fontSize: typography.body1.fontSize,
+                lineHeight: typography.body1.lineHeight,
                 ml: 1,
               }}
             />
@@ -152,16 +172,17 @@ const ProfileHeader = ({
                 size="medium"
                 startIcon={<MessageIcon />}
                 sx={{
+                  color: buttonText,
                   borderRadius: 2,
                   textTransform: "none",
                   px: 3,
                   py: 1,
                   fontWeight: "bold",
-                  background: theme.palette.primary.main,
-                  boxShadow: `0 4px 10px ${alpha(
-                    theme.palette.primary.main,
-                    0.3
-                  )}`,
+                  background: buttonBackground,
+                  boxShadow: shadow1,
+                  "&:hover": {
+                    background: buttonHover,
+                  },
                 }}
               >
                 Message
@@ -196,17 +217,26 @@ const ProfileHeader = ({
             sx={{
               bgcolor: alpha(theme.palette.success.main, 0.1),
               color: theme.palette.success.main,
-              p: 1,
+              width: 40,
+              height: 40,
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
               borderRadius: "50%",
               mr: 1.5,
             }}
           >
-            <AccessTimeIcon fontSize="small" />
+            <AccessTimeIcon fontSize="medium" />
           </Box>
           <Box>
             <Typography
               variant="subtitle1"
-              fontWeight="bold"
+              sx={{
+                color: textSecondary,
+                fontWeight: typography.h5.fontWeight,
+                fontSize: typography.h5.fontSize,
+                lineHeight: typography.h5.lineHeight,
+              }}
             >
               Open Now
             </Typography>
@@ -232,14 +262,24 @@ const ProfileHeader = ({
         >
           <Typography
             variant="h6"
-            fontWeight="bold"
-            color="primary"
+            sx={{
+              color: primary,
+              fontWeight: typography.h3.fontWeight,
+              fontSize: typography.h3.fontSize,
+              lineHeight: typography.h3.lineHeight,
+            }}
           >
             {totalProducts}
           </Typography>
           <Typography
             variant="body2"
             color="text.secondary"
+            sx={{
+              color: textSecondary,
+              fontWeight: typography.body2.fontWeight,
+              fontSize: typography.body2.fontSize,
+              lineHeight: typography.body2.lineHeight,
+            }}
           >
             Available Products
           </Typography>

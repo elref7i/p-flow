@@ -4,6 +4,7 @@ import {
   Medication as MedicationIcon,
   ShoppingCart as ShoppingCartIcon,
   Assignment as AssignmentIcon,
+  Inventory as InventoryIcon,
 } from "@mui/icons-material";
 import { Link } from "react-router-dom";
 import { NavLink } from "../utils/style-nav";
@@ -12,6 +13,7 @@ const navLinks = [
   { name: "Home", path: "/pharmacy", icon: <HomeIcon /> },
   { name: "Drugs", path: "/pharmacy/drugs", icon: <MedicationIcon /> },
   { name: "Cart", path: "/pharmacy/cart", icon: <ShoppingCartIcon /> },
+  { name: "Inventores", path: "/pharmacy/inventores", icon: <InventoryIcon /> },
   { name: "Orders", path: "/orders", icon: <AssignmentIcon /> },
 ];
 export default function NavLinkDesktop() {

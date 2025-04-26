@@ -13,6 +13,7 @@ import { useUpdateUser } from "@/lib/hooks/useAdminAction";
 import EditIcon from "@mui/icons-material/Edit";
 import WarningAmberIcon from "@mui/icons-material/WarningAmber";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
+import { useThemeConstants } from "../../../lib/constants/theme.constant";
 
 const style = {
   position: "fixed",
@@ -22,21 +23,30 @@ const style = {
   width: 450,
   maxHeight: "85vh",
   bgcolor: "background.paper",
-  boxShadow: "0 8px 32px rgba(0, 0, 0, 0.15)",
+  boxShadow: " 0px 1px 4px 0px rgba(245, 158, 11, 0.75)",
   borderRadius: "16px",
   p: 0, // Remove padding here to apply it differently
   overflow: "hidden", // Hide overflow initially
 };
 
 export default function ModalUpdated({ userId }) {
-  const { token } = useTypeContext();
+  //States
   const [open, setOpen] = useState(false);
+  const [dataSpecificUser, setDataSpecificUser] = useState(null);
+
+  //Context
+  const { token } = useTypeContext();
+
+  //Themes
+  const { shadow2, typography, pharmacyBackground, textPrimary } =
+    useThemeConstants();
+
+  //Functions
   const handleOpen = () => setOpen(true);
   const handleClose = () => {
     setOpen(false);
     reset();
   };
-  const [dataSpecificUser, setDataSpecificUser] = useState(null);
 
   //* Function GET SPECIFIC USER
   const fetchUserSpecific = async () => {
@@ -101,7 +111,7 @@ export default function ModalUpdated({ userId }) {
           await fetchUserSpecific();
           handleOpen();
         }}
-        size="small"
+        color="warning"
         sx={{
           transition: "all 0.3s ease",
           "&:hover": {
@@ -109,10 +119,11 @@ export default function ModalUpdated({ userId }) {
           },
         }}
       >
-        <EditIcon fontSize="small" />
+        <EditIcon fontSize="medium" />
       </IconButton>
       <Modal
         open={open}
+        sx={{ bgcolor: "#000000aa" }}
         onClose={handleClose}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
@@ -124,13 +135,28 @@ export default function ModalUpdated({ userId }) {
               display: "flex",
               alignItems: "center",
               justifyContent: "space-between",
+              bgcolor: pharmacyBackground,
+              boxShadow: shadow2, // Green header for Add modal
+              color: textPrimary,
             }}
           >
-            <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+            <Box
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                gap: 1,
+              }}
+            >
               <EditIcon />
               <Box
                 component="h2"
-                sx={{ m: 0, fontSize: "1.25rem", fontWeight: "600" }}
+                sx={{
+                  m: 0,
+                  fontSize: typography.h1.fontSize,
+                  fontWeight: typography.h1.fontWeight,
+                  lineHeight: typography.h1.lineHeight,
+                  textWrap: "nowrap",
+                }}
               >
                 Update User Information
               </Box>

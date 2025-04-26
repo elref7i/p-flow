@@ -59,6 +59,7 @@ import ForgetPasswordProvider from "@/context/Forget.context";
 import UserTypeProvider from "@/context/UserType.context";
 import Cart from "./pages/Pharmacy/Cart/Cart";
 import Profile from "./pages/Inventory/InventoryProfile/Profile";
+import Inventoers from "./pages/Pharmacy/Inventoers/Inventoers";
 
 function App() {
   const router = createBrowserRouter([
@@ -108,6 +109,7 @@ function App() {
         { path: "drugs", element: <Drugs /> },
         { path: "drugdetails/:id", element: <DrugDetails /> },
         { path: "cart", element: <Cart /> },
+        { path: "inventores", element: <Inventoers /> },
       ],
     },
     {

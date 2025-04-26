@@ -1,19 +1,18 @@
-"use client";
-
 /* eslint-disable react/prop-types */
-import { Divider, List, useTheme } from "@mui/material";
+import { Divider, List } from "@mui/material";
 import Sidebaritem from "./Sidebaritem";
+import { useThemeConstants } from "../../../lib/constants/theme.constant";
 
 export default function SidebarSection({ items, open }) {
-  const theme = useTheme();
-  const isDarkMode = theme.palette.mode === "dark";
+  //Theme
+  const { sidebarBorder } = useThemeConstants();
 
   return (
     <>
       <List
         sx={{
-          px: 1,
-          py: 0.5,
+          px: 2,
+          py: 2,
         }}
       >
         {items.map((item) => (
@@ -26,10 +25,7 @@ export default function SidebarSection({ items, open }) {
         {items.length !== 0 && (
           <Divider
             sx={{
-              backgroundColor: isDarkMode
-                ? "rgba(255,255,255,0.1)"
-                : "rgba(0,0,0,0.1)",
-              my: 1,
+              backgroundColor: sidebarBorder,
             }}
           />
         )}

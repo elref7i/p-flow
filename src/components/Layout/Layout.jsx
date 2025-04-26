@@ -7,8 +7,8 @@ import { useMemo } from "react";
 import Navbar from "./Navbar/Navbar";
 import { useThemeContext } from "../../context/theme.context";
 import ThemeToggle from "./ThemeToggle";
-//!
 import NavbarPharmacy from "../PharmacyComonents/NavbarPharmacy/NavbarPharmacy";
+import { useThemeConstants } from "../../lib/constants/theme.constant";
 
 // تعريف الصفحات كمجموعات ثابتة
 const CONTROL_PAGES = new Set(["admin", "inventory"]);
@@ -31,12 +31,20 @@ const AUTH_PAGES = new Set([
 export default function Layout() {
   // States
   const { token, role } = useTypeContext();
+
+  //Theme
   const { setMode } = useThemeContext();
   const theme = useTheme();
-  const { pathname } = useLocation();
 
-  // Theme
-  const inentory = theme.palette.background.pharmacy;
+  //Theme
+  const {
+    authBackground,
+    adminBackground,
+    pharmacyBackground,
+    inventoryBackground,
+    typography,
+  } = useThemeConstants();
+  const { pathname } = useLocation();
 
   const toggleTheme = () => {
     setMode((prevMode) => (prevMode === "light" ? "dark" : "light"));
@@ -67,6 +75,7 @@ export default function Layout() {
       <Box
         component="main"
         sx={{
+          fontFamily: typography.fontFamily,
           pl: isPublicPage
             ? "0px"
             : isControlPage
@@ -74,9 +83,16 @@ export default function Layout() {
             : "15px",
 
           pt: isPublicPage ? "0px" : isControlPage ? "80px" : "15px",
-          // pb: isPublicPage ? "0px" : "5px",
+          pb: isPublicPage ? "0px" : "20px",
           minHeight: isPublicPage ? "calc(100vh - 68.01px)" : "100vh",
-          background: inentory,
+          background:
+            role === "admin"
+              ? adminBackground
+              : role === "inventory"
+              ? inventoryBackground
+              : role === "pharmacy"
+              ? pharmacyBackground
+              : authBackground,
         }}
       >
         {isPublicPage ? (
@@ -90,6 +106,8 @@ export default function Layout() {
           </Container>
         )}
       </Box>
+
+      {/*Theme Toggle */}
       <ThemeToggle toggleTheme={toggleTheme} />
       {/* Footer */}
       {/* {!isAuthPage && <Footer />} */}
