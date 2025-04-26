@@ -16,6 +16,7 @@ import Email from "@mui/icons-material/Email";
 import Typography from "@mui/material/Typography";
 import { useTypeContext } from "../../../../context/UserType.context";
 import { useNavigate } from "react-router-dom";
+import LoadingSpinner from "../../../Common/Loading/LoadingSpinner";
 
 export default function AccountMenu() {
   //States
@@ -37,6 +38,8 @@ export default function AccountMenu() {
   const handleClose = () => {
     setAnchorEl(null);
   };
+
+  if (!userData) return <LoadingSpinner />;
 
   return (
     <>
@@ -61,6 +64,7 @@ export default function AccountMenu() {
           </IconButton>
         </Tooltip>
       </Box>
+
       <Menu
         anchorEl={anchorEl}
         id="account-menu"

@@ -26,9 +26,8 @@ export const useDrugs = (token, params = {}) => {
 //* get all drugs for specific inventory
 export const useDrugsSpecificInventory = ({ drugId }) => {
   return useQuery({
-    queryKey: ["drugsSpecificInventory"],
+    queryKey: ["drugsSpecificInventory", drugId],
     queryFn: () => getDrugsspecificInventory({ drugId }),
-    refetchOnMount: false,
     keepPreviousData: true,
     refetchOnWindowFocus: false,
     cacheTime: 1 * 60 * 1000,
