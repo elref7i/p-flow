@@ -1,12 +1,14 @@
 import LoadingSpinner from "../../../components/Common/Loading/LoadingSpinner";
 import CartItem from "../../../components/PharmacyComonents/CartItem/CartItem";
-import { Box, Button, Divider, Paper, Typography } from "@mui/material";
+import { Box, Button, Divider, Grid, Paper, Typography } from "@mui/material";
 import { Delete } from "@mui/icons-material";
 import { Helmet } from "react-helmet";
 import { useTheme } from "@mui/material/styles";
 import { useCart, useClearCart } from "../../../lib/hooks/useCartAction";
-
+import { useState } from "react";
+import Invoice from "../../../components/PharmacyComonents/Invoice/Invoice";
 export default function Cart() {
+  const [selectedInventory, setSelectedInventory] = useState(null);
   const theme = useTheme();
   const isDark = theme.palette.mode === "dark";
 
@@ -34,7 +36,7 @@ export default function Cart() {
         }}
       >
         <Typography variant="h4" color="text.primary" fontWeight="bold">
-          Your Cart is Empty 🛒
+          🛒 Your Cart is Empty
         </Typography>
 
         <Typography variant="body1" color="text.secondary">
@@ -56,7 +58,7 @@ export default function Cart() {
   return (
     <>
       <Helmet>
-        <title> Pharmacy Cart </title>
+        <title>Pharmacy Cart</title>
         <meta
           name="description"
           content="Review and manage the drugs you've added to your pharmacy cart. Adjust quantities, remove items, and proceed to checkout."
@@ -67,7 +69,6 @@ export default function Cart() {
         />
         <meta name="author" content="Your Pharmacy Website" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
         <meta property="og:title" content="Your Pharmacy Cart" />
         <meta
           property="og:description"
@@ -75,24 +76,40 @@ export default function Cart() {
         />
       </Helmet>
 
-      <Box display="flex" flexDirection="column" gap={3}>
-        {cartInfo.data.inventories.map((inventory) => (
-          <CartItem key={inventory._id} inventoryInfo={inventory} />
-        ))}
+      <Grid container spacing={3}>
+        {/*  cart items */}
+        <Grid item xs={12} md={9}>
+          <Box display="flex" flexDirection="column" gap={3}>
+            {cartInfo.data.inventories.map((inventory) => (
+              <CartItem
+                key={inventory._id}
+                inventoryInfo={inventory}
+                onReadyToBuy={() => setSelectedInventory(inventory)}
+              />
+            ))}
 
-        <Divider sx={{ my: 2 }} />
+            <Divider sx={{ my: 2 }} />
 
-        <Box textAlign="center">
-          <Button
-            variant="outlined"
-            color="error"
-            startIcon={<Delete />}
-            onClick={() => clearCartMutation.mutate()}
-          >
-            Clear Cart
-          </Button>
-        </Box>
-      </Box>
+            <Box textAlign="center">
+              <Button
+                variant="outlined"
+                color="error"
+                startIcon={<Delete />}
+                onClick={() => clearCartMutation.mutate()}
+              >
+                Clear Cart
+              </Button>
+            </Box>
+          </Box>
+        </Grid>
+
+        {/* Your cart */}
+        <Grid item xs={12} md={3}>
+          <Box>
+            <Invoice selectedInventory={selectedInventory} />
+          </Box>
+        </Grid>
+      </Grid>
     </>
   );
 }
