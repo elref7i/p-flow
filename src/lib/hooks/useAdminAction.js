@@ -1,18 +1,19 @@
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import {
   ActiveAdminUser,
   addAdminUser,
   deleteUser,
   fetchUsers,
   updateUserData,
-} from '../api/adminApi';
-import toast from 'react-hot-toast';
+} from "../api/adminApi";
+import toast from "react-hot-toast";
 
 //* GET ALL USERS
 export const useAllUsers = () => {
   return useQuery({
-    queryKey: ['users'],
+    queryKey: ["users"],
     queryFn: fetchUsers,
+
     refetchOnMount: false,
     refetchOnWindowFocus: false,
   });
@@ -24,13 +25,13 @@ export const useAdminAddUser = () => {
 
   return useMutation(addAdminUser, {
     onSuccess: () => {
-      toast.success('User added successfully!');
-      queryClient.invalidateQueries(['users']);
+      toast.success("User added successfully!");
+      queryClient.invalidateQueries(["users"]);
     },
     onError: (error) => {
       toast.error(
         error.response?.data?.message ||
-          'Failed to add user. Please try again later. '
+          "Failed to add user. Please try again later. "
       );
       console.error(error);
     },
@@ -42,13 +43,13 @@ export const useActiveAdminUser = () => {
   const queryClient = useQueryClient();
   return useMutation(ActiveAdminUser, {
     onSuccess: () => {
-      toast.success('The account has been activated successfully!');
-      queryClient.invalidateQueries(['users']);
+      toast.success("The account has been activated successfully!");
+      queryClient.invalidateQueries(["users"]);
     },
     onError: (error) => {
       toast.error(
         error.response?.data?.message ||
-          'Failed to activate the account. Please try again later.'
+          "Failed to activate the account. Please try again later."
       );
       console.error(error);
     },
@@ -61,14 +62,14 @@ export const useDeleteUser = () => {
 
   return useMutation(deleteUser, {
     onSuccess: () => {
-      toast.success('User deleted successfully!');
+      toast.success("User deleted successfully!");
 
-      queryClient.invalidateQueries(['users']);
+      queryClient.invalidateQueries(["users"]);
     },
     onError: (error) => {
       toast.error(
         error.response?.data?.message ||
-          'Failed to delete user. Please try again later.'
+          "Failed to delete user. Please try again later."
       );
       console.log(error);
     },
@@ -80,13 +81,13 @@ export const useUpdateUser = () => {
   const queryClient = useQueryClient();
   return useMutation(updateUserData, {
     onSuccess: () => {
-      toast.success('User updated successfully!');
-      queryClient.invalidateQueries(['users']);
+      toast.success("User updated successfully!");
+      queryClient.invalidateQueries(["users"]);
     },
     onError: (error) => {
       toast.error(
         error.response?.data?.message ||
-          'Failed to update user. Please try again later.'
+          "Failed to update user. Please try again later."
       );
       console.log(error);
     },

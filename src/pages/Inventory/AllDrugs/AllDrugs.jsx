@@ -3,11 +3,19 @@ import { useOwnDrugs } from "../../../lib/hooks/useDrugAction";
 import { Helmet } from "react-helmet";
 import TableData from "../../../components/TableData/TableData";
 import { useTypeContext } from "../../../context/UserType.context";
+import { usePaginationTable } from "../../../context/Pagination.context";
 export default function AllDrugs() {
-  const { token } = useTypeContext();
-  const { data, isLoading } = useOwnDrugs(token);
+  //Context
+  //States
+  const { params } = usePaginationTable();
 
-  // console.log("Fetched data:", data);
+  // Context
+  const { token } = useTypeContext();
+
+  //Queries
+  const { data, isLoading } = useOwnDrugs(token, params);
+
+  console.log("Fetched data:", data);
   const columnsWithActions = [...columns];
 
   return (
@@ -39,6 +47,7 @@ export default function AllDrugs() {
         columnsWithActions={columnsWithActions}
         check={false}
         checkTable={true}
+        paginationAbout={data && data.pagination}
       />
     </>
   );

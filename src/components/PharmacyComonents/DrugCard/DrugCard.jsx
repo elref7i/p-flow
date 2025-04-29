@@ -73,11 +73,13 @@ const DrugCard = ({ dataInfo: drug, checkPage }) => {
         <Typography
           variant="h6"
           onClick={() => {
-            navigate(`/pharmacy/drugdetails/${drug._id}`);
+            if (role === "pharmacy") {
+              return navigate(`/pharmacy/drugdetails/${drug._id}`);
+            }
           }}
           fontWeight="bold"
           sx={{
-            cursor: "pointer",
+            cursor: role === "pharmacy" ? "pointer" : "auto",
             lineHeight: 1.2,
             maxWidth: "250px",
             overflow: "hidden",
@@ -87,12 +89,6 @@ const DrugCard = ({ dataInfo: drug, checkPage }) => {
         >
           {drug.name}
         </Typography>
-        {/* <Typography
-          variant="body2"
-          color="text.secondary"
-        >
-          {"drug.activeIngredient"}
-        </Typography> */}
       </Box>
 
       {/* Inventory Information */}

@@ -3,13 +3,10 @@
 
 // import { useState } from "react";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
-import { Box, Card, Pagination, Typography } from "@mui/material";
+import { Box, Card, Typography } from "@mui/material";
 
 import ModalAdd from "../AdminComonents/ModalAdd/ModalAdd";
-import AddDrugComponent from "../InventoryComponents/AddDrugComponent/AddDrugComponent";
-import AddDrugFromExcel from "../InventoryComponents/AddDrugFromExcel/AddDrugFromExcel";
 import { useThemeConstants } from "../../lib/constants/theme.constant";
-import { usePaginationTable } from "../../context/Pagination.context";
 
 // Stats data
 const stats = [
@@ -39,32 +36,13 @@ const stats = [
   },
 ];
 
-export default function TableData({
+export default function AdminTable({
   isLoading,
   data,
   columnsWithActions,
   check,
-  checkTable,
-  paginationAbout,
 }) {
-  const { setParams } = usePaginationTable();
-  const paginationData = paginationAbout || {};
-  const totalPages = paginationData.numberOfPages || 1;
-  const currentPage = paginationData.currentPage || 1;
-  const limitDrug = paginationData.limit || 1;
-  const totalDocuments = paginationData.totalDocuments || 0;
-  console.log(data);
-
-  console.log("paginationData", paginationData);
-  console.log("totalPages", totalPages);
-  console.log("currentPage", currentPage);
-  console.log("limitDrug", limitDrug);
-  console.log("totalDocuments", totalDocuments);
-
-  const handlePageChange = (event, newPage) => {
-    console.log("Changing page to:", newPage);
-    setParams({ page: newPage, limit: limitDrug });
-  };
+  //Temes
 
   const {
     tableRowHover,
@@ -85,15 +63,9 @@ export default function TableData({
       }}
     >
       {/* Top action buttons */}
-      {check && checkTable && (
+      {check && (
         <Box sx={{ display: "flex", justifyContent: "end", mb: 2 }}>
           <ModalAdd />
-        </Box>
-      )}
-      {checkTable && (
-        <Box sx={{ display: "flex", justifyContent: "end", mb: 2, gap: 1 }}>
-          <AddDrugComponent />
-          <AddDrugFromExcel />
         </Box>
       )}
 
@@ -143,14 +115,18 @@ export default function TableData({
       )}
 
       {/* DataGrid */}
-      <Box sx={{ height: !check ? 700 : 650, width: "100%" }}>
+      <Box sx={{ height: !check ? 600 : 650, width: "100%" }}>
         <DataGrid
           rows={data}
           columns={columnsWithActions}
           getRowId={(row) => row._id}
           loading={isLoading}
-          hideFooterPagination={true}
-          hideFooter={true}
+          initialState={{
+            pagination: {
+              paginationModel: { page: 0, pageSize: 10 },
+            },
+          }}
+          pageSizeOptions={[5, 10, 25]}
           checkboxSelection
           disableRowSelectionOnClick
           sx={{
@@ -188,23 +164,11 @@ export default function TableData({
         sx={{
           display: "flex",
           justifyContent: "space-between",
-          alignItems: "center",
           mt: 2,
+          color: tableText,
         }}
       >
-        {/* <Typography variant="body2">
-          Showing {(currentPage - 1) * limit + 1}-
-          {Math.min(currentPage * limit, totalDocuments)} of {totalDocuments}{" "}
-          entries
-        </Typography> */}
-        <Pagination
-          count={totalPages}
-          page={currentPage}
-          onChange={handlePageChange}
-          color="primary"
-          showFirstButton
-          showLastButton
-        />
+        <Typography variant="body2">Showing 1-9 of 240 entries</Typography>
       </Box>
     </Box>
   );

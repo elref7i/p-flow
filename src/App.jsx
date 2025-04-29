@@ -60,6 +60,8 @@ import UserTypeProvider from "@/context/UserType.context";
 import Cart from "./pages/Pharmacy/Cart/Cart";
 import Profile from "./pages/Inventory/InventoryProfile/Profile";
 import Inventoers from "./pages/Pharmacy/Inventoers/Inventoers";
+import Orders from "./pages/Inventory/Orders/Orders";
+import PaginationProvider from "./context/Pagination.context";
 
 function App() {
   const router = createBrowserRouter([
@@ -124,6 +126,7 @@ function App() {
         { path: "AllDrugs", element: <AllDrugs /> },
         { path: "DrugsAction", element: <DrugsAction /> },
         { path: "myprofile", element: <Profile /> },
+        { path: "orders", element: <Orders /> },
       ],
     },
 
@@ -167,12 +170,14 @@ function App() {
       <QueryClientProvider client={queryClient}>
         <UserTypeProvider>
           <ForgetPasswordProvider>
-            <ThemeModeProvider>
-              <Suspense fallback={<SkeletonLoader />}>
-                <RouterProvider router={router} />
-                <ReactQueryDevtools initialIsOpen={false} />
-              </Suspense>
-            </ThemeModeProvider>
+            <PaginationProvider>
+              <ThemeModeProvider>
+                <Suspense fallback={<SkeletonLoader />}>
+                  <RouterProvider router={router} />
+                  <ReactQueryDevtools initialIsOpen={false} />
+                </Suspense>
+              </ThemeModeProvider>
+            </PaginationProvider>
             <Toaster />
           </ForgetPasswordProvider>
         </UserTypeProvider>

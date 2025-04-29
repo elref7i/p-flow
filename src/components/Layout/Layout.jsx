@@ -98,10 +98,7 @@ export default function Layout() {
         {isPublicPage ? (
           <Outlet />
         ) : (
-          <Container
-            cn
-            maxWidth="lg"
-          >
+          <Container maxWidth="lg">
             <Outlet />
           </Container>
         )}

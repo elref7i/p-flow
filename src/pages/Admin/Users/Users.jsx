@@ -2,12 +2,14 @@ import { Avatar, Box } from "@mui/material";
 import { columns } from "./Allusers";
 import { useAllUsers } from "../../../lib/hooks/useAdminAction";
 import { Helmet } from "react-helmet";
-import TableData from "../../../components/TableData/TableData";
 import NewReleasesIcon from "@mui/icons-material/NewReleases";
 import VerifiedIcon from "@mui/icons-material/Verified";
 import CancelIcon from "@mui/icons-material/Cancel";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
+import AdminTable from "../../../components/TableAdmin/AdminTable";
 export default function Users() {
+  //States
+
   const { data, isLoading } = useAllUsers();
 
   const filteredData = data ? data.filter((row) => row.role !== "admin") : [];
@@ -110,12 +112,11 @@ export default function Users() {
   const columnsWithActions = [PrfileImage, ...columns, verifie, active];
 
   return (
-    <TableData
+    <AdminTable
       isLoading={isLoading}
       data={filteredData}
       columnsWithActions={columnsWithActions}
       check={true}
-      checkTable={false}
     />
   );
 }

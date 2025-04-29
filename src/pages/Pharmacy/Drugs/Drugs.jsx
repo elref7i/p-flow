@@ -1,90 +1,53 @@
-"use client";
-
-import {
-  Box,
-  Grid2,
-  Pagination,
-  PaginationItem,
-  useTheme,
-  useMediaQuery,
-} from "@mui/material";
+import { Box, Button, Grid2 } from "@mui/material";
 import DrugCard from "../../../components/PharmacyComonents/DrugCard/DrugCard";
-import LoadingSpinner from "../../../components/Common/Loading/LoadingSpinner";
 import { useTypeContext } from "../../../context/UserType.context";
 import { useState } from "react";
-import { useDrugs } from "../../../lib/hooks/useDrugAction";
+import { useInfiniteDrugs } from "../../../lib/hooks/useDrugAction";
 import { Helmet } from "react-helmet";
 import FilterListIcon from "@mui/icons-material/FilterList";
 import Filter from "../../../components/Filter/Filter";
 import { TextField } from "@mui/material";
-import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
-
-// import FilterListIcon from "@mui/icons-material/FilterList";
-// import Filter from "../../../components/Filter/Filter";
-
+import InfiniteScroll from "react-infinite-scroll-component";
+import { useDebounce } from "use-debounce";
+import DrugCardSkeleton from "../../../components/Common/Loading/DrugCardSkeleton";
 export default function Drugs() {
-  const { token } = useTypeContext();
+  //states
   const [params, setParams] = useState({});
-  const { data, isLoading } = useDrugs(token, params);
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
-
   const [openFilter, setOpenFilter] = useState(false);
-  const [searchTerm, setSearchTerm] = useState("");
-  const [page, setPage] = useState(1);
 
-  // Assuming each page has 9 items
-  const itemsPerPage = 9;
-  const totalPages = data?.data
-    ? Math.ceil(data.data.length / itemsPerPage)
-    : 0;
+  //Contexts
+  const { token } = useTypeContext();
 
+  // Debounce
+  const [debouncedParams] = useDebounce(params, 500);
+
+  const { data, fetchNextPage, hasNextPage, isLoading, isFetched } =
+    useInfiniteDrugs(token, debouncedParams);
+
+  //Fuctions
   const handleOpenFilter = () => setOpenFilter(true);
+
   const handleCloseFilter = () => setOpenFilter(false);
 
-  const handleApplyFilters = (filterParams) => {
-    setParams({
-      ...params,
-      ...filterParams,
-      search: searchTerm,
-    });
-    setPage(1); // Reset to first page when filters change
+  const handleSearch = (searchValue) => {
+    if (searchValue.length === 0) {
+      setParams({});
+    } else {
+      setParams({ keyword: searchValue });
+    }
   };
-
-  const handleSearch = (e) => {
-    setSearchTerm(e.target.value);
-    setParams({
-      ...params,
-      search: e.target.value,
-    });
-    setPage(1); // Reset to first page when search changes
-  };
-
-  const handlePageChange = (event, value) => {
-    setPage(value);
-    // If your API supports pagination, you would update params here
-    // setParams({
-    //   ...params,
-    //   page: value,
-    // })
-
-    // Scroll to top when page changes
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
-  };
-
-  // Calculate which items to display based on current page
-  const displayedData = data?.data
-    ? data.data.slice((page - 1) * itemsPerPage, page * itemsPerPage)
-    : [];
 
   console.log(data);
 
-  if (isLoading) return <LoadingSpinner />;
+  const totalItems =
+    data?.pages.reduce((total, page) => {
+      return total + (page.data?.length || 0);
+    }, 0) || 0;
 
+  // Flatten the data from all pages
+  const flattenedDrugs = data?.pages.flatMap((page) => page.data || []) || [];
+
+  // if (error) return <ErrorPage />;
   return (
     <>
       <Helmet>
@@ -104,8 +67,9 @@ export default function Drugs() {
             fullWidth
             placeholder="Search drugs..."
             variant="outlined"
-            value={searchTerm}
-            onChange={handleSearch}
+            onChange={(e) => {
+              handleSearch(e.target.value);
+            }}
             InputProps={{
               endAdornment: (
                 <Box
@@ -123,9 +87,10 @@ export default function Drugs() {
           />
         </Box>
         <Filter
-          open={openFilter}
-          handleClose={handleCloseFilter}
-          applyFilters={handleApplyFilters}
+          openFilter={openFilter}
+          handleCloseFilter={handleCloseFilter}
+          handleOpenFilter={handleOpenFilter}
+          setParams={setParams}
         />
       </Box>
       <Box
@@ -135,82 +100,44 @@ export default function Drugs() {
           mb: 2,
         }}
       ></Box>
-      <Grid2
-        py={2}
-        spacing={4}
-        container
-        // sx={{ bgcolor: "red" }}
-      >
-        {displayedData.map((drug) => (
-          <Grid2
-            key={drug._id}
-            size={{ xs: 12, md: 6, lg: 4 }}
-          >
-            <DrugCard
-              dataInfo={drug}
-              checkPage={true}
-            />
-          </Grid2>
-        ))}
-      </Grid2>
 
-      {/* Pagination Component */}
-      {totalPages > 1 && (
-        <Box
-          sx={{
-            display: "flex",
-            justifyContent: "center",
-            mt: 4,
-            py: 2,
-          }}
+      {!isLoading && (
+        <InfiniteScroll
+          dataLength={totalItems}
+          next={fetchNextPage}
+          hasMore={hasNextPage}
+          loader={<DrugCardSkeleton count={totalItems} />}
+          endMessage={
+            <p style={{ textAlign: "center", padding: "20px" }}>
+              <b>You have seen all drugs</b>
+              <Button variant="contained">Search By AI</Button>
+            </p>
+          }
+          style={{ overflow: "hidden" }}
         >
-          <Box
-            sx={{
-              bgcolor: "rgba(0, 0, 0, 0.02)",
-              borderRadius: 3,
-              py: 1.5,
-              px: { xs: 2, sm: 3 },
-              border: "1px solid rgba(0, 0, 0, 0.04)",
-              boxShadow: "0px 2px 8px rgba(0, 0, 0, 0.05)",
-            }}
+          <Grid2
+            container
+            spacing={4}
+            px={3}
+            py={2}
           >
-            <Pagination
-              count={totalPages}
-              page={page}
-              onChange={handlePageChange}
-              variant="outlined"
-              shape="rounded"
-              size={isMobile ? "small" : "medium"}
-              siblingCount={isMobile ? 0 : 1}
-              renderItem={(item) => (
-                <PaginationItem
-                  slots={{ previous: ArrowBackIcon, next: ArrowForwardIcon }}
-                  {...item}
-                  sx={{
-                    borderRadius: 1.5,
-                    mx: 0.3,
-                    border: item.selected
-                      ? "none"
-                      : "1px solid rgba(0, 0, 0, 0.12)",
-                    bgcolor: item.selected ? "primary.main" : "transparent",
-                    color: item.selected ? "white" : "text.primary",
-                    "&:hover": {
-                      bgcolor: item.selected
-                        ? "primary.dark"
-                        : "rgba(0, 0, 0, 0.04)",
-                    },
-                    "&.Mui-selected": {
-                      fontWeight: "bold",
-                    },
-                    "& .MuiPaginationItem-icon": {
-                      fontSize: isMobile ? 18 : 22,
-                    },
-                  }}
-                />
-              )}
-            />
-          </Box>
-        </Box>
+            {isFetched ? (
+              flattenedDrugs.map((drug) => (
+                <Grid2
+                  key={drug._id}
+                  size={{ xs: 12, md: 6, lg: 4 }}
+                >
+                  <DrugCard
+                    dataInfo={drug}
+                    checkPage={true}
+                  />
+                </Grid2>
+              ))
+            ) : (
+              <DrugCardSkeleton count={totalItems} />
+            )}
+          </Grid2>
+        </InfiniteScroll>
       )}
     </>
   );

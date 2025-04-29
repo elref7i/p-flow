@@ -7,12 +7,12 @@ import ModalUpdated from "@/components/AdminComonents/ModalUpdated/ModalUpdated"
 import { useActiveAdminUser } from "../../../lib/hooks/useAdminAction";
 import { Helmet } from "react-helmet";
 import { MoreVert as MoreVertIcon } from "@mui/icons-material";
+import TableData from "../../../components/TableData/TableData";
 import NewReleasesIcon from "@mui/icons-material/NewReleases";
 import VerifiedIcon from "@mui/icons-material/Verified";
 import CancelIcon from "@mui/icons-material/Cancel";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
-import AdminTable from "../../../components/TableAdmin/AdminTable";
-export default function UsersAction() {
+export default function Orders() {
   //Context
   const { token } = useTypeContext();
 
@@ -123,11 +123,11 @@ export default function UsersAction() {
           content="Explore the available actions users can take to manage their data efficiently."
         />
       </Helmet>
-      <AdminTable
+      <TableData
         isLoading={isLoading}
         data={filteredData}
         columnsWithActions={columnsWithActions}
-        check={false}
+        check={true}
         checkTable={false}
       />
     </>

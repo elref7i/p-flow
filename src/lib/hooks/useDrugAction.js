@@ -1,4 +1,9 @@
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import {
+  useInfiniteQuery,
+  useMutation,
+  useQuery,
+  useQueryClient,
+} from "@tanstack/react-query";
 import {
   addDrug,
   deleteDrug,
@@ -11,17 +16,53 @@ import {
 import toast from "react-hot-toast";
 
 //* Get all Drugs
-export const useDrugs = (token, params = {}) => {
-  // const { search, ...restParams } = params;
-  return useQuery({
-    queryKey: ["drugs", params],
-    queryFn: () => getAllDrugs(token, params),
-    refetchOnMount: false,
-    keepPreviousData: true,
+
+export const useInfiniteDrugs = (token, params = {}) => {
+  return useInfiniteQuery({
+    queryKey: ["infinite-drugs", params],
+    queryFn: ({ pageParam = 1 }) =>
+      getAllDrugs(token, { ...params, page: pageParam }),
+    getNextPageParam: (lastPage) => {
+      return lastPage.paginationResult?.next || undefined;
+    },
+    keepPreviousData: false,
     refetchOnWindowFocus: false,
-    cacheTime: 1 * 60 * 1000,
+    staleTime: 5 * 60 * 1000,
   });
 };
+
+//*Testing
+/* export const useDrugs = (token, params = {}) => {
+  return useQuery({
+    queryKey: ["drugs", params],
+    queryFn: () => getAllDrugs(token, params), // Pass all params directly
+    keepPreviousData: true,
+    refetchOnWindowFocus: false,
+    staleTime: 5 * 60 * 1000,
+    cacheTime: 5 * 60 * 1000,
+  });
+};
+ const [page, setPage] = useState(1);
+
+  const pagination = data?.paginationResult || {};
+  const totalPages = pagination.numberOfPages || 1;
+  const currentPage = pagination.currentPage || 1;
+  const hasNextPage = Boolean(pagination.next);
+  const hasPrevPage = Boolean(pagination.prev);
+  const numberOfPages = data?.pages[0]?.paginationResult?.numberOfPages || 1;
+  const handlePageChange = (event, newPage) => {
+    setPage(newPage);
+  };
+<Pagination
+          count={totalPages}
+          page={currentPage}
+          onChange={handlePageChange}
+          color="primary"
+          showFirstButton
+          showLastButton
+          hidePrevButton={!hasPrevPage}
+          hideNextButton={!hasNextPage}
+        /> */
 
 //* get all drugs for specific inventory
 export const useDrugsSpecificInventory = ({ drugId }) => {
@@ -93,10 +134,10 @@ export const useUpdateDrug = () => {
 };
 
 // * get All Own Drugs
-export const useOwnDrugs = (token) => {
+export const useOwnDrugs = (token, params = {}) => {
   return useQuery({
-    queryKey: ["Owndrugs"],
-    queryFn: () => getAllOwnDrugs(token),
+    queryKey: ["Owndrugs", params],
+    queryFn: () => getAllOwnDrugs(token, params),
     enabled: !!token, // ميشتغلش لو مفيش توكن
     refetchOnMount: true,
     refetchOnWindowFocus: false,

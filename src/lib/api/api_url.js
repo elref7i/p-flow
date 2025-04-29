@@ -5,6 +5,8 @@ export const API_URL_USER = "https://p-flow-v4.onrender.com/api/v1/users";
 
 export const API_URL_DRUG = "https://p-flow-v4.onrender.com/api/v1/drugs";
 
+export const API_URL_ORDERS = "https://p-flow-v4.onrender.com/api/v1/orders";
+
 export const CART_URL = "https://p-flow-v4.onrender.com/api/v1/cart";
 
 //* herokuapp

@@ -64,6 +64,7 @@ export default function UserTypeProvider({ children }) {
     localStorage.removeItem("role");
     localStorage.removeItem("userData");
     toast.success("Logged out successfully!");
+    queryClient.removeQueries();
   }
 
   return (

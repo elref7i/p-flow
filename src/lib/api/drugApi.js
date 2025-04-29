@@ -11,6 +11,8 @@ export const getAllDrugs = async (token, params = {}) => {
     },
     params,
   };
+  console.log(options.url + options.params);
+
   const data = await axios.request(options);
   return data.data;
 };
@@ -78,13 +80,14 @@ export const getSpecificDrug = async ({ token, drugId }) => {
 };
 
 // * get All Own Drugs
-export const getAllOwnDrugs = async (token) => {
+export const getAllOwnDrugs = async (token, params = {}) => {
   const options = {
     url: `${API_URL_DRUG}/inventory`,
     method: "GET",
     headers: {
       Authorization: `Bearer ${token}`,
     },
+    params,
   };
   const data = await axios.request(options);
   return data.data;

@@ -6,13 +6,20 @@ import UpdateModal from "../../../components/InventoryComponents/UpdateModal/Upd
 import DeleteModal from "../../../components/InventoryComponents/DeleteModal/DeleteModal";
 import { Helmet } from "react-helmet";
 import TableData from "../../../components/TableData/TableData";
+import { usePaginationTable } from "../../../context/Pagination.context";
 
 export default function DrugsAction() {
+  //State
+  const { params } = usePaginationTable();
+  // const { setPaginationData } = usePaginationTable();
+
+  //Context
   const { token } = useTypeContext();
-  const { data, isLoading } = useOwnDrugs(token);
+
+  //Queries
+  const { data, isLoading } = useOwnDrugs(token, params);
 
   const { isLoading: isDeleting, mutate: handleDelete } = useDeleteDrug();
-  console.log(data);
 
   const DeletedColumn = {
     field: "deleted",
@@ -94,6 +101,7 @@ export default function DrugsAction() {
         columnsWithActions={columnsWithActions}
         check={false}
         checkTable={false}
+        paginationAbout={data && data.pagination}
       />
     </>
   );

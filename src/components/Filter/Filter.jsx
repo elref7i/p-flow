@@ -13,17 +13,18 @@ import {
   IconButton,
   Paper,
   Slide,
-  Chip,
   FormControl,
   Select,
   MenuItem,
+  AccordionDetails,
+  AccordionSummary,
+  Accordion,
+  InputLabel,
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
-import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
-import LocationOnIcon from "@mui/icons-material/LocationOn";
-import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
 import FilterAltIcon from "@mui/icons-material/FilterAlt";
 import { useThemeConstants } from "../../lib/constants/theme.constant";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
 // Custom transition component for sliding from right
 const SlideTransition = (props) => {
@@ -35,12 +36,15 @@ const SlideTransition = (props) => {
   );
 };
 
-export default function Filter({ open, handleClose, applyFilters }) {
+export default function Filter({ openFilter, handleCloseFilter, setParams }) {
   //States
-  const [priceRange, setPriceRange] = useState([0, 1000]);
-  const [distance, setDistance] = useState(10);
-  const [date, setDate] = useState("");
-  const [category, setCategory] = useState("all");
+  const [filters, setFilters] = useState({
+    "productionDate[gte]": null,
+    "expirationDate[lte]": null,
+    "price[gte]": 0,
+    "price[lte]": 1000,
+    sort: "distanceInKm",
+  });
 
   //Theme
   const {
@@ -54,51 +58,45 @@ export default function Filter({ open, handleClose, applyFilters }) {
   } = useThemeConstants();
 
   // Functions
-  const handlePriceChange = (event, newValue) => {
-    setPriceRange(newValue);
+  const handleFilterChange = (key, value) => {
+    setFilters((prev) => ({
+      ...prev,
+      [key]: value,
+    }));
   };
 
-  const handleDistanceChange = (event, newValue) => {
-    setDistance(newValue);
-  };
-
-  const handleDateChange = (event) => {
-    setDate(event.target.value);
-  };
-
-  const handleCategoryChange = (event) => {
-    setCategory(event.target.value);
-  };
-
-  const handleApplyFilters = () => {
-    applyFilters({
-      minPrice: priceRange[0],
-      maxPrice: priceRange[1],
-      distance: distance,
-      date: date,
-      category: category,
-    });
-    handleClose();
+  const applyFilters = () => {
+    const validFilters = Object.fromEntries(
+      // eslint-disable-next-line no-unused-vars
+      Object.entries(filters).filter(([_, value]) => value !== null)
+    );
+    setParams(validFilters);
+    if (handleCloseFilter) handleCloseFilter();
   };
 
   const handleResetFilters = () => {
-    setPriceRange([0, 1000]);
-    setDistance(10);
-    setDate("");
-    setCategory("all");
+    setFilters({
+      "productionDate[gte]": null,
+      "expirationDate[lte]": null,
+      "price[gte]": 0,
+      "price[lte]": 1000,
+      sort: "distanceInKm",
+    });
+    setParams({});
+    if (openFilter) handleCloseFilter();
   };
 
   return (
     <Modal
-      open={open}
-      onClose={handleClose}
+      open={openFilter}
+      onClose={handleCloseFilter}
       aria-labelledby="filter-modal-title"
       closeAfterTransition
       BackdropProps={{
         timeout: 500,
       }}
     >
-      <SlideTransition in={open}>
+      <SlideTransition in={openFilter}>
         <Paper
           elevation={1}
           sx={{
@@ -150,7 +148,7 @@ export default function Filter({ open, handleClose, applyFilters }) {
                 </Typography>
               </Box>
               <IconButton
-                onClick={handleClose}
+                onClick={handleCloseFilter}
                 size="small"
                 sx={{
                   bgcolor: "rgba(0, 0, 0, 0.04)",
@@ -163,170 +161,132 @@ export default function Filter({ open, handleClose, applyFilters }) {
               </IconButton>
             </Box>
 
-            <Box
+            <Accordion
+              defaultExpanded
+              elevation={0}
               sx={{
-                mb: 1.5,
-                p: 2,
                 background: cardBackground,
-                borderRadius: 2,
-                border: "1px solid rgba(0, 0, 0, 0.04)",
                 boxShadow: shadow3,
+                mb: 1,
+                "&:before": { display: "none" },
+                border: "1px solid rgba(0, 0, 0, 0.08)",
+                borderRadius: "8px",
+                overflow: "hidden",
               }}
             >
-              <Box
+              <AccordionSummary
+                expandIcon={<ExpandMoreIcon />}
                 sx={{
-                  display: "flex",
-                  alignItems: "center",
-                  mb: 1.5,
+                  bgcolor: cardBackground,
+                  boxShadow: shadow1,
+                  "&:hover": { bgcolor: "rgba(0, 0, 0, 0.04)" },
                 }}
               >
-                <AttachMoneyIcon sx={{ color: "primary.main", fontSize: 20 }} />
                 <Typography
-                  fontWeight="500"
                   sx={{
-                    fontWeight: typography.h6.fontWeight,
-                    fontSize: typography.h6.fontSize,
-                    lineHeight: typography.h6.lineHeight,
+                    fontSize: typography.h5.fontSize,
+                    fontWeight: typography.h5.fontWeight,
+                    lineHeight: typography.h5.lineHeight,
                   }}
-                  color="text.primary"
                 >
                   Price Range
                 </Typography>
-              </Box>
+              </AccordionSummary>
+              <AccordionDetails>
+                <Box sx={{ pt: 2, px: 2 }}>
+                  <Box
+                    sx={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      mb: 1,
+                    }}
+                  >
+                    <Typography
+                      variant="body2"
+                      color="text.secondary"
+                      font
+                    >
+                      {filters["price[gte]"]} EGP
+                    </Typography>
+                    <Typography
+                      variant="body2"
+                      color="text.secondary"
+                    >
+                      {filters["price[lte]"]} EGP
+                    </Typography>
+                  </Box>
+                  <Slider
+                    value={[filters["price[gte]"], filters["price[lte]"]]}
+                    onChange={(e, newValue) => {
+                      handleFilterChange("price[gte]", newValue[0]);
+                      handleFilterChange("price[lte]", newValue[1]);
+                    }}
+                    valueLabelDisplay="auto"
+                    min={0}
+                    max={1000}
+                    sx={{ mb: 1 }}
+                  />
+                </Box>
+              </AccordionDetails>
+            </Accordion>
 
-              <Box sx={{ px: 1, mb: 1 }}>
-                <Slider
-                  value={priceRange}
-                  onChange={handlePriceChange}
-                  valueLabelDisplay="auto"
-                  min={0}
-                  max={1000}
-                  sx={{
-                    color: "primary.main",
-                    "& .MuiSlider-thumb": {
-                      height: 16,
-                      width: 16,
-                      "&:hover, &.Mui-focusVisible": {
-                        boxShadow: "0px 0px 0px 8px rgba(25, 118, 210, 0.16)",
-                      },
-                    },
-                    "& .MuiSlider-rail": {
-                      opacity: 0.32,
-                    },
-                  }}
-                />
-              </Box>
-
-              <Box sx={{ display: "flex", justifyContent: "space-between" }}>
-                <Chip
-                  label={`$${priceRange[0]}`}
-                  size="small"
-                  variant="outlined"
-                  sx={{ fontWeight: "medium" }}
-                />
-                <Chip
-                  label={`$${priceRange[1]}`}
-                  size="small"
-                  variant="outlined"
-                  sx={{ fontWeight: "medium" }}
-                />
-              </Box>
-            </Box>
-
-            <Box
+            <Accordion
+              defaultExpanded
+              elevation={0}
               sx={{
-                mb: 1.5,
-                p: 2,
-                background: cardBackground,
-                borderRadius: 2,
+                mb: 1,
+                "&:before": { display: "none" },
                 border: border,
+                background: cardBackground,
                 boxShadow: shadow3,
+                borderRadius: "8px",
+                overflow: "hidden",
               }}
             >
-              <Box sx={{ display: "flex", alignItems: "center", mb: 1.5 }}>
-                <LocationOnIcon
-                  sx={{ color: "primary.main", mr: 1, fontSize: 20 }}
-                />
-                <Typography
-                  fontWeight="500"
-                  color="text.primary"
-                >
-                  Distance
-                </Typography>
-              </Box>
-
-              <Box sx={{ px: 1, mb: 1 }}>
-                <Slider
-                  value={distance}
-                  onChange={handleDistanceChange}
-                  valueLabelDisplay="auto"
-                  min={1}
-                  max={50}
-                  sx={{
-                    color: "primary.main",
-                    "& .MuiSlider-thumb": {
-                      height: 16,
-                      width: 16,
-                      "&:hover, &.Mui-focusVisible": {
-                        boxShadow: "0px 0px 0px 8px rgba(25, 118, 210, 0.16)",
-                      },
-                    },
-                    "& .MuiSlider-rail": {
-                      opacity: 0.32,
-                    },
-                  }}
-                />
-              </Box>
-
-              <Box sx={{ display: "flex", justifyContent: "center" }}>
-                <Chip
-                  label={`${distance} km`}
-                  size="medium"
-                  color="primary"
-                  sx={{ fontWeight: "bold", fontSize: "15px" }}
-                />
-              </Box>
-            </Box>
-
-            <Box
-              sx={{
-                mb: 1.5,
-                p: 2,
-                background: cardBackground,
-                borderRadius: 2,
-                border: border,
-                boxShadow: shadow3,
-              }}
-            >
-              <Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>
-                <CalendarTodayIcon
-                  sx={{ color: "primary.main", mr: 1, fontSize: 20 }}
-                />
-                <Typography
-                  fontWeight="500"
-                  color="text.primary"
-                >
-                  Date
-                </Typography>
-              </Box>
-
-              <TextField
-                type="date"
-                value={date}
-                onChange={handleDateChange}
-                fullWidth
-                variant="outlined"
-                size="small"
-                InputLabelProps={{
-                  shrink: true,
-                }}
+              <AccordionSummary
+                expandIcon={<ExpandMoreIcon />}
                 sx={{
-                  "& .MuiOutlinedInput-root": {
-                    borderRadius: 1.5,
-                  },
+                  bgcolor: cardBackground,
+                  boxShadow: shadow1,
+                  "&:hover": { bgcolor: "rgba(0, 0, 0, 0.04)" },
                 }}
-              />
-            </Box>
+              >
+                <Typography
+                  sx={{
+                    fontSize: typography.h5.fontSize,
+                    fontWeight: typography.h5.fontWeight,
+                    lineHeight: typography.h5.lineHeight,
+                  }}
+                >
+                  Date Range
+                </Typography>
+              </AccordionSummary>
+              <AccordionDetails sx={{ pt: 3 }}>
+                <TextField
+                  label="Production Date"
+                  type="date"
+                  fullWidth
+                  InputLabelProps={{ shrink: true }}
+                  value={filters["productionDate[gte]"] || ""}
+                  onChange={(e) =>
+                    handleFilterChange("productionDate[gte]", e.target.value)
+                  }
+                  sx={{ mb: 2 }}
+                  size="small"
+                />
+                <TextField
+                  label="Expiration Date"
+                  type="date"
+                  fullWidth
+                  InputLabelProps={{ shrink: true }}
+                  value={filters["expirationDate[lte]"] || ""}
+                  onChange={(e) =>
+                    handleFilterChange("expirationDate[lte]", e.target.value)
+                  }
+                  size="small"
+                />
+              </AccordionDetails>
+            </Accordion>
 
             <Box
               sx={{
@@ -343,10 +303,14 @@ export default function Filter({ open, handleClose, applyFilters }) {
                   sx={{ color: "primary.main", mr: 1, fontSize: 20 }}
                 />
                 <Typography
-                  fontWeight="500"
+                  sx={{
+                    fontSize: typography.h5.fontSize,
+                    fontWeight: typography.h5.fontWeight,
+                    lineHeight: typography.h5.lineHeight,
+                  }}
                   color="text.primary"
                 >
-                  Category
+                  Select Sort
                 </Typography>
               </Box>
 
@@ -354,19 +318,14 @@ export default function Filter({ open, handleClose, applyFilters }) {
                 fullWidth
                 size="small"
               >
+                <InputLabel>Sort By</InputLabel>
                 <Select
-                  value={category}
-                  onChange={handleCategoryChange}
-                  displayEmpty
-                  sx={{
-                    borderRadius: 1.5,
-                  }}
+                  value={filters.sort}
+                  label="Sort By"
+                  onChange={(e) => handleFilterChange("sort", e.target.value)}
                 >
-                  <MenuItem value="all">All Categories</MenuItem>
-                  <MenuItem value="prescription">Prescription Drugs</MenuItem>
-                  <MenuItem value="otc">Over-the-Counter</MenuItem>
-                  <MenuItem value="supplements">Supplements</MenuItem>
-                  <MenuItem value="skincare">Skincare</MenuItem>
+                  <MenuItem value="distanceInKm">Distance</MenuItem>
+                  <MenuItem value="price">Price</MenuItem>
                 </Select>
               </FormControl>
             </Box>
@@ -391,11 +350,10 @@ export default function Filter({ open, handleClose, applyFilters }) {
                       fontWeight: typography.button.fontWeight,
                       fontSize: typography.button.fontSize,
                       boxShadow: shadow2,
-                      border: "1px solid rgba(0, 0, 0, 0.12)",
+                      border: border,
                       color: textPrimary,
                       "&:hover": {
                         backgroundColor: "rgba(0, 0, 0, 0.04)",
-                        border: "1px solid rgba(0, 0, 0, 0.12)",
                       },
                     }}
                   >
@@ -407,7 +365,7 @@ export default function Filter({ open, handleClose, applyFilters }) {
                   xs={6}
                 >
                   <Button
-                    onClick={handleApplyFilters}
+                    onClick={applyFilters}
                     variant="contained"
                     color="primary"
                     fullWidth

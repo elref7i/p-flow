@@ -3,7 +3,7 @@
 import { Divider, useTheme, Box } from "@mui/material";
 import { useThemeContext } from "@/context/theme.context";
 import { Drawer, DrawerHeader } from "../../Common/Drawer";
-import { admin, inventory, pharmacy } from "./DefaultItemes";
+import { admin, inventory } from "./DefaultItemes";
 import { useTypeContext } from "@/context/UserType.context";
 import SidebarSection from "./SidebarSection";
 import ProfilePerson from "../../Common/ProfilePerson";
@@ -21,7 +21,7 @@ export default function Sidebar() {
     useThemeConstants();
 
   const { HeaderSection, MiddleSection, FooterSection } =
-    role === "admin" ? admin : role === "pharmacy" ? pharmacy : inventory;
+    role === "admin" ? admin : inventory;
 
   // Force open state on large screens
   const isOpen = isLargeScreen ? true : open;
