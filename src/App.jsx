@@ -60,8 +60,6 @@ import UserTypeProvider from "@/context/UserType.context";
 import Cart from "./pages/Pharmacy/Cart/Cart";
 import Profile from "./pages/Inventory/InventoryProfile/Profile";
 import Inventoers from "./pages/Pharmacy/Inventoers/Inventoers";
-import Orders from "./pages/Inventory/Orders/Orders";
-import PaginationProvider from "./context/Pagination.context";
 
 function App() {
   const router = createBrowserRouter([
@@ -112,6 +110,7 @@ function App() {
         { path: "drugdetails/:id", element: <DrugDetails /> },
         { path: "cart", element: <Cart /> },
         { path: "inventores", element: <Inventoers /> },
+        { path: "orders", element: <Orders /> },
       ],
     },
     {

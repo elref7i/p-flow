@@ -14,7 +14,7 @@ const navLinks = [
   { name: "Drugs", path: "/pharmacy/drugs", icon: <MedicationIcon /> },
   { name: "Cart", path: "/pharmacy/cart", icon: <ShoppingCartIcon /> },
   { name: "Inventores", path: "/pharmacy/inventores", icon: <InventoryIcon /> },
-  { name: "Orders", path: "/orders", icon: <AssignmentIcon /> },
+  { name: "Orders", path: "/pharmacy/orders", icon: <AssignmentIcon /> },
 ];
 export default function NavLinkDesktop() {
   return (

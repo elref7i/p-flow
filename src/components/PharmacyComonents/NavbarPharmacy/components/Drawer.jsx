@@ -25,7 +25,7 @@ const navLinks = [
   { name: "Drugs", path: "/pharmacy/drugs", icon: <MedicationIcon /> },
   { name: "Cart", path: "/pharmacy/cart", icon: <ShoppingCartIcon /> },
   { name: "Inventores", path: "/pharmacy/inventores", icon: <InventoryIcon /> },
-  { name: "Orders", path: "/orders", icon: <AssignmentIcon /> },
+  { name: "Orders", path: "/pharmacy/orders", icon: <AssignmentIcon /> },
 ];
 
 export default function MoblieDrawer({ handleDrawerToggle, drawerOpen }) {
@@ -35,10 +35,7 @@ export default function MoblieDrawer({ handleDrawerToggle, drawerOpen }) {
   // Handlers
 
   const drawer = (
-    <Box
-      sx={{ width: 250 }}
-      role="presentation"
-    >
+    <Box sx={{ width: 250 }} role="presentation">
       <Box
         sx={{
           display: "flex",
@@ -47,10 +44,7 @@ export default function MoblieDrawer({ handleDrawerToggle, drawerOpen }) {
           p: 2,
         }}
       >
-        <Typography
-          variant="h6"
-          component="div"
-        >
+        <Typography variant="h6" component="div">
           Pharmacy
         </Typography>
         <IconButton onClick={handleDrawerToggle}>
