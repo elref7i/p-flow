@@ -12,7 +12,7 @@ import NewReleasesIcon from "@mui/icons-material/NewReleases";
 import VerifiedIcon from "@mui/icons-material/Verified";
 import CancelIcon from "@mui/icons-material/Cancel";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
-export default function Orders() {
+export default function OrdersInventory() {
   //Context
   const { token } = useTypeContext();
 

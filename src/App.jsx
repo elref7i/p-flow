@@ -48,10 +48,13 @@ const HomePharmacy = lazy(() =>
 import InventoryProfile from "@/pages/Inventory/InventoryProfile/InventoryProfile";
 import AllDrugs from "@/pages/Inventory/AllDrugs/AllDrugs";
 import DrugsAction from "@/pages/Inventory/DrugsAction/DrugsAction";
+const OrdersInventory = lazy(() =>
+  import("@/pages/Inventory/OrdersInventory/OrdersInventory")
+);
 
 // Shared Pages
-const Setting = lazy(() => import("@/pages/Setting/Setting"));
 import SkeletonLoader from "@/components/SkeletonLoader/SkeletonLoader";
+const Setting = lazy(() => import("@/pages/Setting/Setting"));
 
 //Provider
 import ThemeModeProvider from "@/context/theme.context";
@@ -60,6 +63,8 @@ import UserTypeProvider from "@/context/UserType.context";
 import Cart from "./pages/Pharmacy/Cart/Cart";
 import Profile from "./pages/Inventory/InventoryProfile/Profile";
 import Inventoers from "./pages/Pharmacy/Inventoers/Inventoers";
+import Orders from "./pages/Pharmacy/Orders/Orders";
+import PaginationProvider from "./context/Pagination.context";
 
 function App() {
   const router = createBrowserRouter([
@@ -125,7 +130,7 @@ function App() {
         { path: "AllDrugs", element: <AllDrugs /> },
         { path: "DrugsAction", element: <DrugsAction /> },
         { path: "myprofile", element: <Profile /> },
-        { path: "orders", element: <Orders /> },
+        { path: "orders", element: <OrdersInventory /> },
       ],
     },
 

@@ -10,6 +10,7 @@ import { TextField } from "@mui/material";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { useDebounce } from "use-debounce";
 import DrugCardSkeleton from "../../../components/Common/Loading/DrugCardSkeleton";
+import LoadingSpinner from "../../../components/Common/Loading/LoadingSpinner";
 export default function Drugs() {
   //states
   const [params, setParams] = useState({});
@@ -101,18 +102,19 @@ export default function Drugs() {
         }}
       ></Box>
 
-      {!isLoading && (
+      {!isLoading ? (
         <InfiniteScroll
           dataLength={totalItems}
           next={fetchNextPage}
           hasMore={hasNextPage}
-          loader={<DrugCardSkeleton count={totalItems} />}
+          loader={<DrugCardSkeleton count={3} />}
           endMessage={
             <p style={{ textAlign: "center", padding: "20px" }}>
               <b>You have seen all drugs</b>
               <Button variant="contained">Search By AI</Button>
             </p>
           }
+          scrollThreshold={0.8}
           style={{ overflow: "hidden" }}
         >
           <Grid2
@@ -134,10 +136,12 @@ export default function Drugs() {
                 </Grid2>
               ))
             ) : (
-              <DrugCardSkeleton count={totalItems} />
+              <LoadingSpinner />
             )}
           </Grid2>
         </InfiniteScroll>
+      ) : (
+        <DrugCardSkeleton count={6} />
       )}
     </>
   );
