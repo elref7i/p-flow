@@ -1,13 +1,9 @@
 /* eslint-disable react/prop-types */
-"use client";
 
 // import { useState } from "react";
-import { DataGrid, GridToolbar } from "@mui/x-data-grid";
+import { DataGrid } from "@mui/x-data-grid";
 import { Box, Card, Pagination, Typography } from "@mui/material";
 
-import ModalAdd from "../AdminComonents/ModalAdd/ModalAdd";
-import AddDrugComponent from "../InventoryComponents/AddDrugComponent/AddDrugComponent";
-import AddDrugFromExcel from "../InventoryComponents/AddDrugFromExcel/AddDrugFromExcel";
 import { useThemeConstants } from "../../lib/constants/theme.constant";
 import { usePaginationTable } from "../../context/Pagination.context";
 
@@ -44,7 +40,6 @@ export default function TableData({
   data,
   columnsWithActions,
   check,
-  checkTable,
   paginationAbout,
 }) {
   const { setParams } = usePaginationTable();
@@ -70,33 +65,12 @@ export default function TableData({
     tableRowHover,
     tableBorder,
     tableText,
-    shadow1,
     shadow2,
     shadow3,
     typography,
   } = useThemeConstants();
   return (
-    <Box
-      sx={{
-        bgcolor: "transparent",
-        p: 2,
-        borderRadius: 2,
-        boxShadow: shadow1,
-      }}
-    >
-      {/* Top action buttons */}
-      {check && checkTable && (
-        <Box sx={{ display: "flex", justifyContent: "end", mb: 2 }}>
-          <ModalAdd />
-        </Box>
-      )}
-      {checkTable && (
-        <Box sx={{ display: "flex", justifyContent: "end", mb: 2, gap: 1 }}>
-          <AddDrugComponent />
-          <AddDrugFromExcel />
-        </Box>
-      )}
-
+    <>
       {/* Stats cards */}
       {check && (
         <Box sx={{ display: "flex", gap: 2, mb: 3, flexWrap: "wrap" }}>
@@ -172,14 +146,14 @@ export default function TableData({
               color: tableText,
             },
           }}
-          slots={{
-            toolbar: GridToolbar,
-          }}
-          slotProps={{
-            toolbar: {
-              showQuickFilter: true,
-            },
-          }}
+          // slots={{
+          //   toolbar: GridToolbar,
+          // }}
+          // slotProps={{
+          //   toolbar: {
+          //     showQuickFilter: true,
+          //   },
+          // }}
         />
       </Box>
 
@@ -206,6 +180,6 @@ export default function TableData({
           showLastButton
         />
       </Box>
-    </Box>
+    </>
   );
 }

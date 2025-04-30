@@ -6,6 +6,7 @@ import {
 } from "@tanstack/react-query";
 import {
   addDrug,
+  addDrugFromExcel,
   deleteDrug,
   getAllDrugs,
   getAllOwnDrugs,
@@ -42,7 +43,7 @@ export const useInfiniteDrugs = (token, params = {}) => {
     cacheTime: 5 * 60 * 1000,
   });
 };
- const [page, setPage] = useState(1);
+    const [page, setPage] = useState(1);
 
   const pagination = data?.paginationResult || {};
   const totalPages = pagination.numberOfPages || 1;
@@ -63,6 +64,8 @@ export const useInfiniteDrugs = (token, params = {}) => {
           hidePrevButton={!hasPrevPage}
           hideNextButton={!hasNextPage}
         /> */
+
+//*Testing
 
 //* get all drugs for specific inventory
 export const useDrugsSpecificInventory = ({ drugId }) => {
@@ -91,6 +94,21 @@ export const useAddDrug = () => {
   const queryClient = useQueryClient();
 
   return useMutation(addDrug, {
+    onSuccess: () => {
+      toast.success("Drug added successfully");
+      queryClient.invalidateQueries(["Owndrugs"]);
+    },
+    onError: (error) => {
+      toast.error(error.response.data.message || "error");
+      console.log(error);
+    },
+  });
+};
+
+//* Add Drug Excel
+export const useAddDrugExcel = () => {
+  const queryClient = useQueryClient();
+  return useMutation(addDrugFromExcel, {
     onSuccess: () => {
       toast.success("Drug added successfully");
       queryClient.invalidateQueries(["Owndrugs"]);

@@ -228,11 +228,20 @@ export default function UpdateModal({ drugId }) {
                 }}
                 startIcon={
                   isLoading ? (
-                    <CircularProgress color="inherit" size={16} />
+                    <CircularProgress
+                      color="inherit"
+                      size={16}
+                    />
                   ) : isError ? (
-                    <WarningAmberIcon color="warning" size={16} />
+                    <WarningAmberIcon
+                      color="warning"
+                      size={16}
+                    />
                   ) : isSuccess ? (
-                    <CheckCircleIcon color="success" size={16} />
+                    <CheckCircleIcon
+                      color="success"
+                      size={16}
+                    />
                   ) : (
                     ""
                   )

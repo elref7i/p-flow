@@ -31,11 +31,7 @@ export default function Drugs() {
   const handleCloseFilter = () => setOpenFilter(false);
 
   const handleSearch = (searchValue) => {
-    if (searchValue.length === 0) {
-      setParams({});
-    } else {
-      setParams({ keyword: searchValue });
-    }
+    setParams((prev) => ({ ...prev, keyword: searchValue }));
   };
 
   console.log(data);

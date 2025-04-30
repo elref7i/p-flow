@@ -41,6 +41,18 @@ export const addDrug = async ({ token, values }) => {
   return axios.request(options);
 };
 
+export const addDrugFromExcel = async ({ token, formData }) => {
+  const options = {
+    url: `${API_URL_DRUG}/excel`,
+    method: "POST",
+    data: formData,
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+  return axios.request(options);
+};
+
 // * Delete Drug
 export const deleteDrug = async ({ token, drugId }) => {
   const options = {
@@ -92,5 +104,3 @@ export const getAllOwnDrugs = async (token, params = {}) => {
   const data = await axios.request(options);
   return data.data;
 };
-
-//*Filtter Drug
