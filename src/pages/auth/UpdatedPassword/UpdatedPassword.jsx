@@ -19,6 +19,7 @@ import PasswordControl from "@/components/Common/PasswordControl";
 import { GradientLogo } from "@/components/Common/LogoImage";
 import Logo from "../../../components/Common/LogoImage";
 import { Helmet } from "react-helmet";
+import { API_URL } from "../lib/api/api_url";
 
 export default function UpdatedPassword() {
   const theme = useTheme();
@@ -30,7 +31,7 @@ export default function UpdatedPassword() {
     const loading = toast.loading("waiting...");
     try {
       const options = {
-        url: "https://p-flow-v4.onrender.com/api/v1/auth/resetPassword",
+        url: `${API_URL}/auth/resetPassword`,
         method: "PUT",
         data: values,
       };

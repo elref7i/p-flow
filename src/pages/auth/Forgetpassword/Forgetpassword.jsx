@@ -16,6 +16,7 @@ import { CustomLink } from "@/components/Common/ButtonStyle";
 import LoginIcon from "@mui/icons-material/Login";
 import { useForgetPassword } from "@/context/Forget.context";
 import { forgetSchema } from "@/lib/schemas/AuthSchema";
+import { API_URL } from "../lib/api/api_url";
 import { Helmet } from "react-helmet";
 
 export default function ForgetPassword() {
@@ -30,7 +31,7 @@ export default function ForgetPassword() {
 
     try {
       const options = {
-        url: "https://p-flow-v4.onrender.com/api/v1/auth/forgetpassword",
+        url: `${API_URL}/auth/forgetpassword`,
         method: "POST",
         data: values,
       };

@@ -10,6 +10,7 @@ import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { verifySchema } from "@/lib/schemas/AuthSchema";
 import { Helmet } from "react-helmet";
+import { API_URL } from "../lib/api/api_url";
 
 function VerifySendCoding() {
   const theme = useTheme();
@@ -43,7 +44,7 @@ function VerifySendCoding() {
     const loading = toast.loading("watting");
     try {
       const options = {
-        url: "https://p-flow-v4.onrender.com/api/v1/auth/verifyResetCode",
+        url: `${API_URL}/auth/verifyResetCode`,
         method: "POST",
         data: values,
       };
