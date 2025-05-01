@@ -3,7 +3,12 @@
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Modal from "@mui/material/Modal";
-import { CircularProgress, MenuItem, TextField } from "@mui/material";
+import {
+  CircularProgress,
+  IconButton,
+  MenuItem,
+  TextField,
+} from "@mui/material";
 import { useEffect, useState } from "react";
 import { useFormik } from "formik";
 import { useTypeContext } from "@/context/UserType.context";
@@ -13,20 +18,20 @@ import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import { getSpecificDrug } from "../../../lib/api/drugApi";
 import { useUpdateDrug } from "../../../lib/hooks/useDrugAction";
 import { updateDrugSchema } from "../../../lib/schemas/DrugSchema";
+import { useThemeConstants } from "../../../lib/constants/theme.constant";
 
 const style = {
   position: "fixed",
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  width: 400,
-  height: 500,
+  width: 450,
+  maxHeight: "85vh",
   bgcolor: "background.paper",
-  border: "2px solid #fff",
-  boxShadow: 24,
-  borderRadius: "10px",
-  p: 4,
-  overflow: "auto",
+  boxShadow: " 0px 1px 4px 0px rgba(245, 158, 11, 0.75)",
+  borderRadius: "16px",
+  p: 0, // Remove padding here to apply it differently
+  overflow: "hidden", // Hide overflow initially
 };
 
 export default function UpdateModal({ drugId }) {
@@ -37,6 +42,9 @@ export default function UpdateModal({ drugId }) {
     setOpen(false);
     reset();
   };
+
+  const { shadow2, typography, pharmacyBackground, textPrimary } =
+    useThemeConstants();
   const [specificDrug, setspecificDrug] = useState(null);
 
   //* Function GET SPECIFIC Drug
@@ -101,32 +109,87 @@ export default function UpdateModal({ drugId }) {
   }, [specificDrug]);
 
   return (
-    <Box>
-      <Button
+    <>
+      <IconButton
         onClick={async () => {
           await fetchSpecificDrug();
           handleOpen();
         }}
-        variant="contained"
         color="warning"
         sx={{
-          fontSize: { xs: "10px", md: "15px", textTransform: "capitalize" },
+          transition: "all 0.3s ease",
+          "&:hover": {
+            transform: "scale(1.1)",
+          },
         }}
-        startIcon={<EditIcon />}
       >
-        Update
-      </Button>
+        <EditIcon fontSize="medium" />
+      </IconButton>
       <Modal
         open={open}
+        sx={{ bgcolor: "#000000aa" }}
         onClose={handleClose}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
           <Box
+            sx={{
+              p: 2,
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+              bgcolor: pharmacyBackground,
+              boxShadow: shadow2,
+              color: textPrimary,
+            }}
+          >
+            <Box
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                gap: 1,
+              }}
+            >
+              {/* <EditIcon /> */}
+              <Box
+                component="h2"
+                sx={{
+                  m: 0,
+                  fontSize: typography.h1.fontSize,
+                  fontWeight: typography.h1.fontWeight,
+                  lineHeight: typography.h1.lineHeight,
+                  textWrap: "nowrap",
+                }}
+              >
+                Update Drug
+              </Box>
+            </Box>
+          </Box>
+          <Box
             component={"form"}
             onSubmit={handleSubmit}
-            sx={{ overflow: "auto" }}
+            sx={{
+              p: 3,
+              overflow: "auto",
+              maxHeight: "calc(85vh - 60px)", // Adjust for header
+              display: "grid",
+              gap: 1,
+              gridTemplateColumns: "1fr 1fr",
+              "& .MuiTextField-root": {
+                gridColumn: { xs: "span 2", sm: "span 1" },
+              },
+              "& .MuiTextField-root:nth-of-type(odd)": {
+                pr: { sm: 1 },
+              },
+              "& .MuiTextField-root:nth-of-type(even)": {
+                pl: { sm: 1 },
+              },
+              "& .MuiTextField-root.fullWidth": {
+                gridColumn: "span 2",
+                px: 0,
+              },
+            }}
           >
             <TextField
               fullWidth
@@ -215,44 +278,47 @@ export default function UpdateModal({ drugId }) {
               <MenuItem value={true}>True</MenuItem>
               <MenuItem value={false}>False</MenuItem>
             </TextField>
-
-            <Box sx={{ mx: "auto", mt: 3, width: "fit-content" }}>
+            <Box
+              sx={{
+                gridColumn: "span 2",
+                display: "flex",
+                justifyContent: "center",
+                mt: 3,
+              }}
+            >
               <Button
                 type="submit"
                 variant="contained"
                 color={isError ? "error" : "warning"}
                 sx={{
-                  fontSize: { xs: "10px", md: "18px", mx: "auto" },
+                  fontSize: { xs: "14px", md: "16px" },
                   px: 5,
+                  py: 1.5,
                   fontWeight: "bold",
+                  borderRadius: "10px",
+                  transition: "all 0.3s ease",
+                  "&:hover": {
+                    transform: "translateY(-2px)",
+                  },
                 }}
                 startIcon={
                   isLoading ? (
-                    <CircularProgress
-                      color="inherit"
-                      size={16}
-                    />
+                    <CircularProgress color="inherit" size={20} />
                   ) : isError ? (
-                    <WarningAmberIcon
-                      color="warning"
-                      size={16}
-                    />
+                    <WarningAmberIcon color="warning" size={20} />
                   ) : isSuccess ? (
-                    <CheckCircleIcon
-                      color="success"
-                      size={16}
-                    />
+                    <CheckCircleIcon color="success" size={20} />
                   ) : (
-                    ""
+                    <EditIcon size={20} />
                   )
                 }
               >
-                Update
+                Update Drug Info
               </Button>
             </Box>
           </Box>
         </Box>
       </Modal>
-    </Box>
+    </>
   );
 }

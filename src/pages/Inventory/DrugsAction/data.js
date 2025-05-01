@@ -4,14 +4,14 @@ export const columns = [
     headerName: "Name",
     align: "center",
     headerAlign: "center",
-    minWidth: 250,
+    minWidth: 150,
   },
   {
     field: "manufacturer",
     headerName: "manufacturer",
     align: "center",
     headerAlign: "center",
-    minWidth: 200,
+    minWidth: 150,
   },
 
   {
@@ -19,7 +19,7 @@ export const columns = [
     headerName: "price",
     align: "center",
     headerAlign: "center",
-    minWidth: 100,
+    minWidth: 70,
   },
   {
     field: "discount",
@@ -27,7 +27,7 @@ export const columns = [
     flex: 1,
     align: "center",
     headerAlign: "center",
-    minWidth: 100,
+    minWidth: 70,
   },
 
   {
@@ -36,7 +36,7 @@ export const columns = [
     flex: 1,
     align: "center",
     headerAlign: "center",
-    minWidth: 100,
+    minWidth: 70,
   },
   {
     field: "sold",
@@ -45,15 +45,6 @@ export const columns = [
     align: "center",
     headerAlign: "center",
     type: "number",
-    minWidth: 100,
-  },
-  {
-    field: "isVisible",
-    headerName: "Visibility",
-    flex: 1,
-    align: "center",
-    headerAlign: "center",
-    type: "boolean",
-    minWidth: 100,
+    minWidth: 70,
   },
 ];

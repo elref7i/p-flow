@@ -22,10 +22,10 @@ export default function DashboardAdmin() {
   return (
     <>
       <Helmet>
-        <title>Pharmacy Admin Dashboard</title>
+        <title>Admin Dashboard</title>
         <meta
           name="description"
-          content="Admin panel to manage pharmacy inventory, transactions, and analytics."
+          content="Admin panel to manage pharmacy, inventory, transactions, and analytics."
         />
         <meta
           name="keywords"
@@ -49,26 +49,14 @@ export default function DashboardAdmin() {
           <MetricCards />
 
           {/* Charts Section */}
-          <Grid
-            container
-            spacing={3}
-            sx={{ mb: 3 }}
-          >
+          <Grid container spacing={3} sx={{ mb: 3 }}>
             {/* Cashflow Chart */}
-            <Grid
-              item
-              xs={12}
-              md={8}
-            >
+            <Grid item xs={12} md={8}>
               <CashflowChart />
             </Grid>
 
             {/* Income Breakdown */}
-            <Grid
-              item
-              xs={12}
-              md={4}
-            >
+            <Grid item xs={12} md={4}>
               <IncomeBreakdown />
             </Grid>
           </Grid>

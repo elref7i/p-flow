@@ -39,6 +39,7 @@ export const columns = [
     headerName: "price",
     align: "center",
     headerAlign: "center",
+    type: "number",
     minWidth: 100,
   },
   {
@@ -47,6 +48,7 @@ export const columns = [
     flex: 1,
     align: "center",
     headerAlign: "center",
+    type: "number",
     minWidth: 100,
   },
   {
@@ -63,6 +65,7 @@ export const columns = [
     flex: 1,
     align: "center",
     headerAlign: "center",
+    type: "number",
     minWidth: 50,
   },
   {
@@ -80,7 +83,6 @@ export const columns = [
     flex: 1,
     align: "center",
     headerAlign: "center",
-    type: "number",
     minWidth: 100,
   },
 ];

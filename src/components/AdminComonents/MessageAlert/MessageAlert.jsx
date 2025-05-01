@@ -11,6 +11,7 @@ import CancelIcon from "@mui/icons-material/Cancel";
 import { CircularProgress, IconButton } from "@mui/material";
 import ReportProblemIcon from "@mui/icons-material/ReportProblem";
 import { useThemeConstants } from "../../../lib/constants/theme.constant";
+import { useTypeContext } from "../../../context/UserType.context";
 const style = {
   position: "absolute",
   top: "50%",
@@ -26,7 +27,7 @@ const style = {
 export default function AlertModal({ handleAction, isDeleting }) {
   //States
   const [open, setOpen] = React.useState(false);
-
+  const { role } = useTypeContext();
   const { typography, adminBackground } = useThemeConstants();
 
   //Functions
@@ -35,10 +36,7 @@ export default function AlertModal({ handleAction, isDeleting }) {
 
   return (
     <>
-      <IconButton
-        onClick={handleOpen}
-        color="error"
-      >
+      <IconButton onClick={handleOpen} color="error">
         <DeleteIcon fontSize="medium" />
       </IconButton>
       <Modal
@@ -57,22 +55,32 @@ export default function AlertModal({ handleAction, isDeleting }) {
       >
         <Fade in={open}>
           <Box sx={{ ...style, background: adminBackground }}>
-            <ReportProblemIcon
-              color="error"
-              sx={{ fontSize: "60px" }}
-            />
-
-            <Typography
-              id="transition-modal-description"
-              color="error"
-              sx={{
-                mb: 3,
-                fontSize: typography.body1.fontSize,
-                lineHeight: typography.body1.lineHeight,
-              }}
-            >
-              Are you sure you want to delete this user?
-            </Typography>
+            <ReportProblemIcon color="error" sx={{ fontSize: "60px" }} />
+            {role === "admin" ? (
+              <Typography
+                id="transition-modal-description"
+                color="error"
+                sx={{
+                  mb: 3,
+                  fontSize: typography.body1.fontSize,
+                  lineHeight: typography.body1.lineHeight,
+                }}
+              >
+                Are you sure you want to delete this user?
+              </Typography>
+            ) : (
+              <Typography
+                id="transition-modal-description"
+                color="error"
+                sx={{
+                  mb: 3,
+                  fontSize: typography.body1.fontSize,
+                  lineHeight: typography.body1.lineHeight,
+                }}
+              >
+                Are you sure you want to delete this drug?
+              </Typography>
+            )}
             <Box sx={{ display: "flex", justifyContent: "center", gap: 2 }}>
               <Button
                 onClick={handleAction}
@@ -80,10 +88,7 @@ export default function AlertModal({ handleAction, isDeleting }) {
                 color="error"
                 startIcon={
                   isDeleting ? (
-                    <CircularProgress
-                      color="inherit"
-                      size={16}
-                    />
+                    <CircularProgress color="inherit" size={16} />
                   ) : (
                     <DeleteIcon />
                   )
