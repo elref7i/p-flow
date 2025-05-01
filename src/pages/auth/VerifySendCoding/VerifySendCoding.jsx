@@ -10,7 +10,6 @@ import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { verifySchema } from "@/lib/schemas/AuthSchema";
 import { Helmet } from "react-helmet";
-import { API_URL } from "../lib/api/api_url";
 
 function VerifySendCoding() {
   const theme = useTheme();
@@ -44,7 +43,7 @@ function VerifySendCoding() {
     const loading = toast.loading("watting");
     try {
       const options = {
-        url: `${API_URL}/auth/verifyResetCode`,
+        url: "https://pflow-api-v3-1655e5b56c39.herokuapp.com/api/v1/auth/verifyResetCode",
         method: "POST",
         data: values,
       };

@@ -16,7 +16,6 @@ import { CustomLink } from "@/components/Common/ButtonStyle";
 import LoginIcon from "@mui/icons-material/Login";
 import { useForgetPassword } from "@/context/Forget.context";
 import { forgetSchema } from "@/lib/schemas/AuthSchema";
-import { API_URL } from "../lib/api/api_url";
 import { Helmet } from "react-helmet";
 
 export default function ForgetPassword() {
@@ -31,7 +30,7 @@ export default function ForgetPassword() {
 
     try {
       const options = {
-        url: `${API_URL}/auth/forgetpassword`,
+        url: "https://pflow-api-v3-1655e5b56c39.herokuapp.com/api/v1/auth/forgetpassword",
         method: "POST",
         data: values,
       };

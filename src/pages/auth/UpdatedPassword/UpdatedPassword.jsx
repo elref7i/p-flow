@@ -19,7 +19,6 @@ import PasswordControl from "@/components/Common/PasswordControl";
 import { GradientLogo } from "@/components/Common/LogoImage";
 import Logo from "../../../components/Common/LogoImage";
 import { Helmet } from "react-helmet";
-import { API_URL } from "../lib/api/api_url";
 
 export default function UpdatedPassword() {
   const theme = useTheme();
@@ -31,7 +30,7 @@ export default function UpdatedPassword() {
     const loading = toast.loading("waiting...");
     try {
       const options = {
-        url: `${API_URL}/auth/resetPassword`,
+        url: "https://pflow-api-v3-1655e5b56c39.herokuapp.com/api/v1/auth/resetPassword",
         method: "PUT",
         data: values,
       };
