@@ -12,13 +12,13 @@ import SearchBar from "../../../components/SearchBar/SearchBar";
 export default function AllDrugs() {
   //Context
   //States
-  const { paramsPagination } = useQueryParams();
+  const { searchParams } = useQueryParams();
 
   // Context
   const { token } = useTypeContext();
 
   //Queries
-  const { data, isLoading } = useOwnDrugs(token, paramsPagination);
+  const { data, isLoading } = useOwnDrugs(token, searchParams);
 
   const { shadow1 } = useThemeConstants();
   console.log("Fetched data:", data);

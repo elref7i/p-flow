@@ -1,24 +1,22 @@
 /* eslint-disable react/prop-types */
 // PaginationContext.js
 import { createContext, useContext, useState } from "react";
+import { useDebounce } from "use-debounce";
 
 const PaginationContext = createContext();
 
 export default function PaginationProvider({ children }) {
-  const [paramsPagination, setParamsPagination] = useState({
-    page: 1,
-    limit: 10, // يمكنك تغيير هذا حسب احتياجاتك
-  });
-
   const [searchParams, setSearchParams] = useState({});
+
+  // Debounce
+  const [debouncedParams] = useDebounce(searchParams, 500);
 
   return (
     <PaginationContext.Provider
       value={{
-        paramsPagination,
-        setParamsPagination,
         searchParams,
         setSearchParams,
+        debouncedParams,
       }}
     >
       {children}

@@ -11,26 +11,24 @@ export default function TableData({
   isLoading,
   data,
   columnsWithActions,
-  check,
   paginationAbout,
 }) {
-  const { setParamsPagination } = useQueryParams();
+  //Context
+  const { setSearchParams } = useQueryParams();
+
+  //Variables
   const paginationData = paginationAbout || {};
   const totalPages = paginationData.numberOfPages || 1;
   const currentPage = paginationData.currentPage || 1;
   const limitDrug = paginationData.limit || 1;
-  const totalDocuments = paginationData.totalDocuments || 0;
-  console.log(data);
 
-  console.log("paginationData", paginationData);
-  console.log("totalPages", totalPages);
-  console.log("currentPage", currentPage);
-  console.log("limitDrug", limitDrug);
-  console.log("totalDocuments", totalDocuments);
-
+  //Functions
   const handlePageChange = (event, newPage) => {
-    console.log("Changing page to:", newPage);
-    setParamsPagination({ page: newPage, limit: limitDrug });
+    if (newPage === 1) {
+      setSearchParams({});
+    } else {
+      setSearchParams({ page: newPage, limit: limitDrug });
+    }
   };
 
   const { tableRowHover, tableBorder, tableText, shadow3, typography } =
@@ -38,7 +36,14 @@ export default function TableData({
   return (
     <>
       {/* DataGrid */}
-      <Box sx={{ height: !check ? 700 : 650, width: "100%" }}>
+      <Box
+        sx={{
+          minHeight: 400,
+          maxHeight: 700,
+          width: "100%",
+          overflow: "auto",
+        }}
+      >
         <DataGrid
           rows={data}
           columns={columnsWithActions}

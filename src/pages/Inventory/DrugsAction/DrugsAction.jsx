@@ -1,4 +1,4 @@
-import { Box, TextField } from "@mui/material";
+import { Box } from "@mui/material";
 import { useTypeContext } from "@/context/UserType.context";
 import { columns } from "./data";
 import { useDeleteDrug, useOwnDrugs } from "../../../lib/hooks/useDrugAction";
@@ -12,17 +12,17 @@ import SearchBar from "../../../components/SearchBar/SearchBar";
 
 export default function DrugsAction() {
   //State
-  const { paramsPagination } = useQueryParams();
+  const { debouncedParams } = useQueryParams();
   // const { setPaginationData } = usePaginationTable();
 
   //Context
   const { token } = useTypeContext();
 
   //Themes
-  const { shadow1, shadow2, background } = useThemeConstants();
+  const { shadow1 } = useThemeConstants();
 
   //Queries
-  const { data, isLoading } = useOwnDrugs(token, paramsPagination);
+  const { data, isLoading } = useOwnDrugs(token, debouncedParams);
   4;
   //Mutaions
   const { isLoading: isDeleting, mutate: handleDelete } = useDeleteDrug();
@@ -120,8 +120,6 @@ export default function DrugsAction() {
           isLoading={isLoading}
           data={data && data.data.drugs}
           columnsWithActions={columnsWithActions}
-          check={false}
-          checkTable={false}
           paginationAbout={data && data.pagination}
         />
       </Box>
