@@ -10,6 +10,7 @@ import Role from "@/components/Role/Role";
 import IconHomeAuth from "../../../components/Common/IconHomeAuth";
 import Logo, { GradientLogo } from "../../../components/Common/LogoImage";
 import { Helmet } from "react-helmet";
+import { API_URL } from "../../../lib/api/api_url";
 
 const SignupForm = () => {
   const theme = useTheme();
@@ -26,7 +27,7 @@ const SignupForm = () => {
     const toastloading = toast.loading("Waiting...");
     try {
       const options = {
-        url: "https://p-flow-v4.onrender.com/api/v1/auth/signup",
+        url: `${API_URL}/auth/signup`,
         method: "POST",
         data: values,
       };
@@ -230,7 +231,10 @@ const SignupForm = () => {
               setFieldValue={setFieldValue}
               values={values}
             />
-            <Location setFieldValue={setFieldValue} errors={errors} />
+            <Location
+              setFieldValue={setFieldValue}
+              errors={errors}
+            />
           </>
         );
       default:
@@ -250,7 +254,10 @@ const SignupForm = () => {
             name="keywords"
             content="sign up, register, create account, user registration, new account"
           />
-          <meta property="og:title" content="Sign Up - Create Your Account" />
+          <meta
+            property="og:title"
+            content="Sign Up - Create Your Account"
+          />
           <meta
             property="og:description"
             content="Join us today! Sign up to access exclusive features and manage your profile."
@@ -272,7 +279,10 @@ const SignupForm = () => {
           <IconHomeAuth />
 
           <Container maxWidth="sm">
-            <Logo justifyContent={"center"} mb={3}>
+            <Logo
+              justifyContent={"center"}
+              mb={3}
+            >
               <GradientLogo />
             </Logo>
             <CustomizedSteppers activeStep={activeStep} />
@@ -289,13 +299,22 @@ const SignupForm = () => {
                 Back
               </Button>
               {activeStep === steps.length - 1 ? (
-                <Box component={"form"} onSubmit={handleSubmit}>
-                  <Button type="submit" variant="contained">
+                <Box
+                  component={"form"}
+                  onSubmit={handleSubmit}
+                >
+                  <Button
+                    type="submit"
+                    variant="contained"
+                  >
                     Signup
                   </Button>
                 </Box>
               ) : (
-                <Button variant="contained" onClick={handleNext}>
+                <Button
+                  variant="contained"
+                  onClick={handleNext}
+                >
                   Next
                 </Button>
               )}
