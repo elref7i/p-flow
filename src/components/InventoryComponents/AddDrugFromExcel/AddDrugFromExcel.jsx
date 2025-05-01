@@ -46,7 +46,7 @@ export default function AddDrugFromExcel() {
   const { token } = useTypeContext();
 
   //Themes
-  const { shadow2, typography, pharmacyBackground, textPrimary } =
+  const { shadow2, shadow1, typography, pharmacyBackground, textPrimary } =
     useThemeConstants();
 
   //Mutaion
@@ -102,35 +102,9 @@ export default function AddDrugFromExcel() {
       formData.append("file", values.file);
 
       addSheetExcel({ token, formData });
-
-      // console.log(values.startRow);
-      // console.log(values.endRow);
-      // console.log(values.file);
-      // console.log("refai");
-
-      // const loading = toast.loading("loading...");
-      // try {
-      //   const options = {
-      //     url: `${API_URL_DRUG}/excel`,
-      //     method: "POST",
-      //     data: formData,
-      //     headers: {
-      //       Authorization: `Bearer ${token}`,
-      //     },
-      //   };
-
-      //   const { data } = await axios.request(options);
-
-      //   if (data.status === "success") {
-      //     toast.success(data.status);
-      //   }
-      //   console.log(data);
-      // } catch (error) {
-      //   console.log(error);
-      //   toast.error(error.message || "An error occurred");
-      // } finally {
-      //   toast.dismiss(loading);
-      // }
+      setTimeout(() => {
+        handleClose();
+      }, 1000);
     },
   });
 
@@ -139,7 +113,15 @@ export default function AddDrugFromExcel() {
       <Button
         onClick={handleOpen}
         variant="contained"
-        sx={{ ml: "auto", display: "block" }}
+        sx={{
+          ml: "auto",
+          display: "block",
+          py: 1.5,
+          fontSize: typography.button.fontSize,
+          fontWeight: typography.button.fontWeight,
+          lineHeight: typography.button.lineHeight,
+          boxShadow: shadow1,
+        }}
       >
         Add Drug From Excel
       </Button>

@@ -6,20 +6,25 @@ import UpdateModal from "../../../components/InventoryComponents/UpdateModal/Upd
 import DeleteModal from "../../../components/InventoryComponents/DeleteModal/DeleteModal";
 import { Helmet } from "react-helmet";
 import TableData from "../../../components/TableData/TableData";
-import { usePaginationTable } from "../../../context/Pagination.context";
+import { useQueryParams } from "../../../context/params.context";
 import { useThemeConstants } from "../../../lib/constants/theme.constant";
+import SearchBar from "../../../components/SearchBar/SearchBar";
 
 export default function DrugsAction() {
   //State
-  const { params } = usePaginationTable();
+  const { paramsPagination } = useQueryParams();
   // const { setPaginationData } = usePaginationTable();
 
   //Context
   const { token } = useTypeContext();
 
-  //Queries
-  const { data, isLoading } = useOwnDrugs(token, params);
+  //Themes
   const { shadow1, shadow2, background } = useThemeConstants();
+
+  //Queries
+  const { data, isLoading } = useOwnDrugs(token, paramsPagination);
+  4;
+  //Mutaions
   const { isLoading: isDeleting, mutate: handleDelete } = useDeleteDrug();
 
   const DeletedColumn = {
@@ -99,63 +104,17 @@ export default function DrugsAction() {
       <Box
         sx={{
           bgcolor: "transparent",
-          p: 2,
+          pt: 3,
+          px: 2,
           borderRadius: 2,
           boxShadow: shadow1,
         }}
       >
-        <Box sx={{ mb: 3, mt: 2, width: "100%" }}>
-          <Box
-            sx={{
-              display: "flex",
-              justifyContent: "end",
-              gap: 1,
-              alignItems: "center",
-            }}
-          >
-            <Box sx={{ position: "relative", flex: 1 }}>
-              <TextField
-                fullWidth
-                placeholder="Search drugs..."
-                variant="filled"
-                type="search"
-                sx={{
-                  borderRadius: "10px",
-                  boxShadow: shadow2,
-                  overflow: "hidden",
-                  background: background,
-                  "& input::placeholder": {
-                    fontSize: "18px",
-                    fontWeight: "bold",
-                  },
-                }}
-                // onChange={(e) => {
-                //   handleSearch(e.target.value);
-                // }}
-                InputProps={{
-                  endAdornment: (
-                    <Box
-                      sx={{
-                        cursor: "pointer",
-                        display: "flex",
-                        alignItems: "center",
-                      }}
-                      // onClick={handleOpenFilter}
-                    >
-                      {/* <FilterListIcon color="action" /> */}
-                    </Box>
-                  ),
-                }}
-              />
-            </Box>
-            {/* <Filter
-          openFilter={openFilter}
-          handleCloseFilter={handleCloseFilter}
-          handleOpenFilter={handleOpenFilter}
-          setParams={setParams}
-        /> */}
-          </Box>
+        {/* Search bar */}
+        <Box mb={3}>
+          <SearchBar />
         </Box>
+
         {/* Table */}
         <TableData
           isLoading={isLoading}

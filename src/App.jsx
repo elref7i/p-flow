@@ -64,7 +64,7 @@ import Cart from "./pages/Pharmacy/Cart/Cart";
 import Profile from "./pages/Inventory/InventoryProfile/Profile";
 import Inventoers from "./pages/Pharmacy/Inventoers/Inventoers";
 import Orders from "./pages/Pharmacy/Orders/Orders";
-import PaginationProvider from "./context/Pagination.context";
+import PaginationProvider from "./context/params.context";
 
 function App() {
   const router = createBrowserRouter([

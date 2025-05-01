@@ -3,23 +3,24 @@ import { useOwnDrugs } from "../../../lib/hooks/useDrugAction";
 import { Helmet } from "react-helmet";
 import TableData from "../../../components/TableData/TableData";
 import { useTypeContext } from "../../../context/UserType.context";
-import { usePaginationTable } from "../../../context/Pagination.context";
-import { Box, TextField } from "@mui/material";
+import { useQueryParams } from "../../../context/params.context";
+import { Box } from "@mui/material";
 import { useThemeConstants } from "../../../lib/constants/theme.constant";
 import AddDrugComponent from "../../../components/InventoryComponents/AddDrugComponent/AddDrugComponent";
 import AddDrugFromExcel from "../../../components/InventoryComponents/AddDrugFromExcel/AddDrugFromExcel";
+import SearchBar from "../../../components/SearchBar/SearchBar";
 export default function AllDrugs() {
   //Context
   //States
-  const { params } = usePaginationTable();
+  const { paramsPagination } = useQueryParams();
 
   // Context
   const { token } = useTypeContext();
 
   //Queries
-  const { data, isLoading } = useOwnDrugs(token, params);
+  const { data, isLoading } = useOwnDrugs(token, paramsPagination);
 
-  const { shadow1, shadow2, background } = useThemeConstants();
+  const { shadow1 } = useThemeConstants();
   console.log("Fetched data:", data);
   const columnsWithActions = [...columns];
 
@@ -47,6 +48,22 @@ export default function AllDrugs() {
 
       <Box
         sx={{
+          display: "flex",
+          justifyContent: "end",
+          gap: 1,
+          mb: 3,
+          mr: 2,
+          alignItems: "center",
+        }}
+      >
+        {/* Add Drug Modal */}
+        <AddDrugComponent />
+
+        {/* Add Drug From Excel */}
+        <AddDrugFromExcel />
+      </Box>
+      <Box
+        sx={{
           bgcolor: "transparent",
           p: 2,
           borderRadius: 2,
@@ -54,6 +71,7 @@ export default function AllDrugs() {
         }}
       >
         <Box sx={{ mb: 3, mt: 2, width: "100%" }}>
+          {/* Header Section */}
           <Box
             sx={{
               display: "flex",
@@ -62,53 +80,12 @@ export default function AllDrugs() {
               alignItems: "center",
             }}
           >
-            <Box sx={{ position: "relative", flex: 1 }}>
-              <TextField
-                fullWidth
-                placeholder="Search drugs..."
-                variant="filled"
-                type="search"
-                sx={{
-                  borderRadius: "10px",
-                  boxShadow: shadow2,
-                  overflow: "hidden",
-                  background: background,
-                  "& input::placeholder": {
-                    fontSize: "18px",
-                    fontWeight: "bold",
-                  },
-                }}
-                // onChange={(e) => {
-                //   handleSearch(e.target.value);
-                // }}
-                InputProps={{
-                  endAdornment: (
-                    <Box
-                      sx={{
-                        cursor: "pointer",
-                        display: "flex",
-                        alignItems: "center",
-                      }}
-                      // onClick={handleOpenFilter}
-                    >
-                      {/* <FilterListIcon color="action" /> */}
-                    </Box>
-                  ),
-                }}
-              />
-            </Box>
-            {/* <Filter
-          openFilter={openFilter}
-          handleCloseFilter={handleCloseFilter}
-          handleOpenFilter={handleOpenFilter}
-          setParams={setParams}
-        /> */}
-            <AddDrugComponent />
-            <AddDrugFromExcel />
+            {/* Search Bar */}
+            <SearchBar />
           </Box>
         </Box>
-        {/* Table */}
 
+        {/* Table */}
         <TableData
           isLoading={isLoading}
           data={data && data.data.drugs}

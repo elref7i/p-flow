@@ -13,6 +13,7 @@ import { useTypeContext } from "../../../context/UserType.context";
 import { useAddDrug } from "../../../lib/hooks/useDrugAction";
 import { DrugSchema } from "../../../lib/schemas/DrugSchema";
 import CustomButton from "../../Common/ButtonStyle";
+import { useThemeConstants } from "../../../lib/constants/theme.constant";
 
 const style = {
   position: "absolute",
@@ -27,11 +28,23 @@ const style = {
 };
 
 export default function AddDrugComponent() {
+  //States
   const [open, setOpen] = React.useState(false);
+
+  //Context
+  const { token } = useTypeContext();
+
+  //Mutation
+  const { mutate, isLoading, isError } = useAddDrug();
+
+  //themes
+  const { shadow1, typography } = useThemeConstants();
+
+  //Function
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-  const { token } = useTypeContext();
-  const { mutate, isLoading, isError } = useAddDrug();
+
+  //Formik
   const { handleSubmit, handleBlur, handleChange, values, errors, touched } =
     useFormik({
       initialValues: {
@@ -59,9 +72,17 @@ export default function AddDrugComponent() {
       <Button
         onClick={handleOpen}
         variant="contained"
-        sx={{ ml: "auto", display: "block" }}
+        sx={{
+          ml: "auto",
+          display: "block",
+          py: 1.5,
+          fontSize: typography.button.fontSize,
+          fontWeight: typography.button.fontWeight,
+          lineHeight: typography.button.lineHeight,
+          boxShadow: shadow1,
+        }}
       >
-        Add Drug
+        Add Drug Data
       </Button>
 
       <Modal

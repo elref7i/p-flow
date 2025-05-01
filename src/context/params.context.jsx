@@ -5,18 +5,27 @@ import { createContext, useContext, useState } from "react";
 const PaginationContext = createContext();
 
 export default function PaginationProvider({ children }) {
-  const [params, setParams] = useState({
+  const [paramsPagination, setParamsPagination] = useState({
     page: 1,
     limit: 10, // يمكنك تغيير هذا حسب احتياجاتك
   });
 
+  const [searchParams, setSearchParams] = useState({});
+
   return (
-    <PaginationContext.Provider value={{ params, setParams }}>
+    <PaginationContext.Provider
+      value={{
+        paramsPagination,
+        setParamsPagination,
+        searchParams,
+        setSearchParams,
+      }}
+    >
       {children}
     </PaginationContext.Provider>
   );
 }
 
-export function usePaginationTable() {
+export function useQueryParams() {
   return useContext(PaginationContext);
 }
