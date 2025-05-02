@@ -21,7 +21,7 @@ export default function SearchBar() {
   const handleCloseFilter = () => setOpenFilter(false);
 
   const handleSearch = (searchValue) => {
-    setSearchParams((prev) => ({ ...prev, keyword: searchValue }));
+    setSearchParams({ keyword: searchValue });
   };
 
   return (

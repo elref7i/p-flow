@@ -13,6 +13,7 @@ import { MessageTwoTone } from "@mui/icons-material";
 import { useThemeContext } from "../../../context/theme.context";
 import { useTypeContext } from "../../../context/UserType.context";
 import { useThemeConstants } from "../../../lib/constants/theme.constant";
+import CloseIcon from "@mui/icons-material/Close";
 
 const drawerWidth = 240;
 
@@ -42,7 +43,7 @@ export default function Navbar() {
     useThemeContext();
 
   // Theme
-  const { textPrimary } = useThemeConstants();
+  const { textPrimary, cardBackground, shadow3 } = useThemeConstants();
 
   // Force open state on large screens for AppBar styling
   const isOpen = isLargeScreen ? true : open;
@@ -66,10 +67,24 @@ export default function Navbar() {
               onClick={toggleDrawer}
               edge="start"
               sx={{
-                marginRight: 2,
+                bgcolor: cardBackground,
+                boxShadow: shadow3,
+                position: "absolute",
+                borderRadius: open && "0px 40px 40px 0px",
+                left: open ? -12 : 0,
+                top: 8,
               }}
             >
-              <MenuIcon />
+              {open ? (
+                <CloseIcon
+                  color="error"
+                  sx={{
+                    fontSize: "1.5rem",
+                  }}
+                />
+              ) : (
+                <MenuIcon />
+              )}
             </IconButton>
           )}
 

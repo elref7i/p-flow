@@ -81,12 +81,6 @@ const colors = {
     "linear-gradient(135deg, #2A2A2A 0%, #2F3645 50%, #3A4454 100%)",
   darkbgCart: "linear-gradient(135deg, #2A2A2A 0%, #2F3645 50%, #3A4454 100%)",
 
-  // Testing
-  // darkbgCard: "linear-gradient(135deg, #2A2A2A 0%, #2F3645 50%, #3A4454 100%)",
-  // darkbgCardDetails:
-  //   "linear-gradient(135deg, #2A2A2A 0%, #2F3645 50%, #3A4454 100%)",
-  // darkbgCart: "linear-gradient(135deg, #2A2A2A 0%, #2F3645 50%, #3A4454 100%)",
-
   darkPaper: "#1E2228",
   darkNavbar: "#2A303A",
 

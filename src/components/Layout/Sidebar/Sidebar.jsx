@@ -1,5 +1,3 @@
-"use client";
-
 import { Divider, useTheme, Box } from "@mui/material";
 import { useThemeContext } from "@/context/theme.context";
 import { Drawer, DrawerHeader } from "../../Common/Drawer";
@@ -35,11 +33,14 @@ export default function Sidebar() {
           bgcolor: sidebarBackground,
           borderRight: `3px solid ${sidebarBorder}`,
           width: isOpen ? 240 : 65,
+          borderRadius: open ? "0px 0px 0px 10px" : "0px 20px 20px 0px",
           transition: theme.transitions.create("width", {
             easing: theme.transitions.easing.sharp,
             duration: theme.transitions.duration.enteringScreen,
           }),
           overflowX: "hidden",
+          textAlign: "center",
+          boxShadow: theme.shadows[2],
           color: sidebarText,
         },
       }}
@@ -62,11 +63,13 @@ export default function Sidebar() {
           </Box>
         )}
       </DrawerHeader>
+
       <Divider
         sx={{
           backgroundColor: sidebarBorder,
         }}
       />
+
       <SidebarSection
         items={HeaderSection}
         open={isOpen}
