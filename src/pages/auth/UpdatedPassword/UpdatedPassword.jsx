@@ -30,7 +30,7 @@ export default function UpdatedPassword() {
     const loading = toast.loading("waiting...");
     try {
       const options = {
-        url: "https://p-flow-v4.onrender.com/api/v1/auth/resetPassword",
+        url: "https://pflow-api-v3-1655e5b56c39.herokuapp.com/api/v1/auth/resetPassword",
         method: "PUT",
         data: values,
       };

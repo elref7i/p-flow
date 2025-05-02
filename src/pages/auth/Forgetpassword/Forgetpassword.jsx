@@ -30,7 +30,7 @@ export default function ForgetPassword() {
 
     try {
       const options = {
-        url: "https://p-flow-v4.onrender.com/api/v1/auth/forgetpassword",
+        url: "https://pflow-api-v3-1655e5b56c39.herokuapp.com/api/v1/auth/forgetpassword",
         method: "POST",
         data: values,
       };
