@@ -1,6 +1,6 @@
 import LoadingSpinner from "../../../components/Common/Loading/LoadingSpinner";
 import CartItem from "../../../components/PharmacyComonents/CartItem/CartItem";
-import { Box, Button, Divider, Grid, Paper, Typography } from "@mui/material";
+import { Box, Button, Grid, Paper, Typography } from "@mui/material";
 import { Delete } from "@mui/icons-material";
 import { Helmet } from "react-helmet";
 import { useTheme } from "@mui/material/styles";
@@ -76,7 +76,7 @@ export default function Cart() {
         />
       </Helmet>
 
-      <Grid container spacing={3}>
+      <Grid container spacing={5}>
         {/*  cart items */}
         <Grid item xs={12} md={9}>
           <Box display="flex" flexDirection="column" gap={3}>
@@ -88,7 +88,7 @@ export default function Cart() {
               />
             ))}
 
-            <Divider sx={{ my: 2 }} />
+            {/* <Divider sx={{ my: 2 }} /> */}
 
             <Box textAlign="center">
               <Button
