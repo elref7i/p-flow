@@ -10,81 +10,16 @@ import {
   Stack,
   Divider,
   IconButton,
+  Badge,
 } from "@mui/material";
 import { Phone, LocalShipping, ArrowForward } from "@mui/icons-material";
 import { useThemeConstants } from "../../../lib/constants/theme.constant";
 import RoomIcon from "@mui/icons-material/Room";
 import DistanceIndicator from "../../../pages/Inventory/InventoryProfile/components/DistanceIndicator";
 import { useNavigate } from "react-router-dom";
-// Sample data based on the provided structure
-// const inventories = [
-//   {
-//     _id: "67fc5523701e6187750fc720",
-//     name: "Aya Alaa",
-//     ownerName: "Owner",
-//     phone: "01234567890",
-//     identificationNumber: "98716154321",
-//     registrationNumber: "12345167189",
-//     city: "Cairo",
-//     governorate: "Cairo",
-//     shippingPrice: 0,
-//     location: {
-//       type: "Point",
-//       coordinates: [29.1, 25.1167],
-//     },
-//     DistanceInKm: 0,
-//   },
-//   {
-//     _id: "67fc5523701e6187750fc721",
-//     name: "Mohamed Hassan",
-//     ownerName: "Ahmed Mahmoud",
-//     phone: "01098765432",
-//     identificationNumber: "12345678901",
-//     registrationNumber: "98765432109",
-//     city: "Alexandria",
-//     governorate: "Alexandria",
-//     shippingPrice: 25,
-//     location: {
-//       type: "Point",
-//       coordinates: [31.2001, 29.9187],
-//     },
-//     DistanceInKm: 215,
-//   },
-//   {
-//     _id: "67fc5523701e6187750fc722",
-//     name: "Fatima Ahmed",
-//     ownerName: "Khaled Ibrahim",
-//     phone: "01112345678",
-//     identificationNumber: "45678901234",
-//     registrationNumber: "56789012345",
-//     city: "Giza",
-//     governorate: "Giza",
-//     shippingPrice: 15,
-//     location: {
-//       type: "Point",
-//       coordinates: [30.0131, 31.2089],
-//     },
-//     DistanceInKm: 125,
-//   },
-//   {
-//     _id: "67fc5523701e6187750fc723",
-//     name: "Omar Khaled",
-//     ownerName: "Laila Mostafa",
-//     phone: "01023456789",
-//     identificationNumber: "78901234567",
-//     registrationNumber: "89012345678",
-//     city: "Luxor",
-//     governorate: "Luxor",
-//     shippingPrice: 40,
-//     location: {
-//       type: "Point",
-//       coordinates: [25.6872, 32.6396],
-//     },
-//     DistanceInKm: 650,
-//   },
-// ];
+import AddCircleOutlineTwoToneIcon from "@mui/icons-material/AddCircleOutlineTwoTone";
+import AddCircleIcon from "@mui/icons-material/AddCircle";
 
-// eslint-disable-next-line react/prop-types
 const EnhancedInventoryCard = ({ inventory }) => {
   //Navigation
   const navigate = useNavigate();
@@ -98,6 +33,8 @@ const EnhancedInventoryCard = ({ inventory }) => {
     buttonHover,
     buttonText,
     cardDetailsBackground,
+    success,
+    border,
   } = useThemeConstants();
 
   return (
@@ -121,6 +58,25 @@ const EnhancedInventoryCard = ({ inventory }) => {
           },
         }}
       >
+        {/* Wishlist Button */}
+        <IconButton
+          size="large"
+          // onClick={handleWishlistToggle}
+          sx={{
+            position: "absolute",
+            top: 10,
+            right: 10,
+            zIndex: 10,
+            bgcolor: buttonBackground,
+            color: buttonText,
+            "&:hover": {
+              bgcolor: buttonHover,
+            },
+          }}
+        >
+          <AddCircleOutlineTwoToneIcon sx={{ color: "error" }} />
+          {/* {inWishlist ? <Favorite sx={{ color: error }} /> : <FavoriteBorder sx={{ color: textPrimary }} />} */}
+        </IconButton>
         <CardContent
           sx={{
             p: 0,
@@ -134,7 +90,7 @@ const EnhancedInventoryCard = ({ inventory }) => {
             sx={{
               background: cardDetailsBackground,
               color: textPrimary,
-              p: 2,
+              py: 2,
               display: "flex",
               alignItems: "center",
               flexDirection: "column",
@@ -154,9 +110,10 @@ const EnhancedInventoryCard = ({ inventory }) => {
               <Typography
                 variant="h6"
                 sx={{
-                  fontWeight: typography.h6.fontWeight,
-                  fontSize: typography.h6.fontSize,
-                  lineHeight: typography.h6.lineHeight,
+                  fontWeight: typography.h5.fontWeight,
+                  fontSize: typography.h5.fontSize,
+                  lineHeight: typography.h5.lineHeight,
+                  textTransform: "capitalize",
                 }}
               >
                 {inventory.name}
@@ -245,6 +202,58 @@ const EnhancedInventoryCard = ({ inventory }) => {
                   </Box>
                 </Stack>
               </Stack>
+              <Stack
+                alignItems={"center"}
+                direction={"row"}
+                justifyContent={"center"}
+                gap={2}
+                sx={{
+                  p: 1.5,
+                  borderRadius: "8px",
+                  background: cardDetailsBackground,
+                  boxShadow: 2,
+                  border: border,
+                  backdropFilter: "blur(10px)",
+                }}
+              >
+                <Typography
+                  variant="body2"
+                  sx={{
+                    color: textPrimary,
+                    fontWeight: 500,
+                    textTransform: "capitalize",
+                    letterSpacing: "0.5px",
+                  }}
+                >
+                  minimum Order
+                </Typography>
+                <Typography
+                  variant="h5"
+                  sx={{
+                    background: cardDetailsBackground,
+                    borderRadius: "50%",
+                    width: "60px",
+                    height: "60px",
+                    color: success,
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    flexDirection: "column",
+                    fontWeight: typography.h6.fontWeight,
+                    fontSize: typography.h6.fontSize,
+                    lineHeight: typography.h6.lineHeight,
+                    boxShadow: 1,
+                  }}
+                >
+                  {inventory.minimumOrderValue.toLocaleString()}{" "}
+                  <Box
+                    component={"span"}
+                    sx={{ fontSize: "13px" }}
+                  >
+                    EGP
+                  </Box>
+                </Typography>
+              </Stack>
             </Stack>
           </Box>
 
@@ -253,7 +262,7 @@ const EnhancedInventoryCard = ({ inventory }) => {
           {/* Footer */}
           <Box
             sx={{
-              py: 2,
+              pt: 2,
               display: "flex",
               justifyContent: "space-between",
               alignItems: "center",
