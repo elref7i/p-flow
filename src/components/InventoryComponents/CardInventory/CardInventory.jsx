@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import {
   Box,
   Typography,
@@ -11,12 +12,9 @@ import {
   IconButton,
 } from "@mui/material";
 import { Phone, LocalShipping, ArrowForward } from "@mui/icons-material";
-import SearchBar from "../../SearchBar/SearchBar";
 import { useThemeConstants } from "../../../lib/constants/theme.constant";
 import RoomIcon from "@mui/icons-material/Room";
 import DistanceIndicator from "../../../pages/Inventory/InventoryProfile/components/DistanceIndicator";
-import { useGetAllInventoriesQuery } from "../../../lib/hooks/pharmacy.action";
-import { useTypeContext } from "../../../context/UserType.context";
 import { useNavigate } from "react-router-dom";
 // Sample data based on the provided structure
 // const inventories = [
@@ -86,20 +84,10 @@ import { useNavigate } from "react-router-dom";
 //   },
 // ];
 
-const EnhancedInventoryCard = () => {
+// eslint-disable-next-line react/prop-types
+const EnhancedInventoryCard = ({ inventory }) => {
   //Navigation
   const navigate = useNavigate();
-
-  //Context
-  const { token } = useTypeContext();
-
-  // Quieries
-  const { data: payload, isLoading } = useGetAllInventoriesQuery({
-    token,
-    params: {},
-  });
-
-  isLoading && <p>Loading...</p>;
 
   //Themes
   const {
@@ -113,201 +101,188 @@ const EnhancedInventoryCard = () => {
   } = useThemeConstants();
 
   return (
-    <Box sx={{ p: 3 }}>
-      <Box mb={3}>
-        <SearchBar />
-      </Box>
-      <Grid
-        container
-        spacing={3}
+    <Grid
+      item
+      xs={12}
+      sm={6}
+      md={4}
+      lg={3}
+    >
+      <Card
+        sx={{
+          background: cardBackground,
+          boxShadow: 2,
+          borderRadius: "16px",
+          overflow: "hidden",
+          height: "100%",
+          transition: "all 0.3s ease",
+          "&:hover": {
+            transform: "translateY(-8px)",
+          },
+        }}
       >
-        {payload.inventories.map((inventory) => (
-          <Grid
-            item
-            xs={12}
-            sm={6}
-            md={4}
-            lg={3}
-            key={inventory._id}
+        <CardContent
+          sx={{
+            p: 0,
+            height: "100%",
+            display: "flex",
+            flexDirection: "column",
+          }}
+        >
+          {/* Header */}
+          <Box
+            sx={{
+              background: cardDetailsBackground,
+              color: textPrimary,
+              p: 2,
+              display: "flex",
+              alignItems: "center",
+              flexDirection: "column",
+              gap: 2,
+            }}
           >
-            <Card
+            <Avatar
+              alt="Remy Sharp"
+              src={inventory.profileImage}
               sx={{
-                background: cardBackground,
-                boxShadow: 2,
-                borderRadius: "16px",
-                overflow: "hidden",
-                height: "100%",
-                transition: "all 0.3s ease",
-                "&:hover": {
-                  transform: "translateY(-8px)",
-                },
+                width: 60,
+                height: 60,
+                color: textPrimary,
               }}
-            >
-              <CardContent
+            ></Avatar>
+            <Box>
+              <Typography
+                variant="h6"
                 sx={{
-                  p: 0,
-                  height: "100%",
-                  display: "flex",
-                  flexDirection: "column",
+                  fontWeight: typography.h6.fontWeight,
+                  fontSize: typography.h6.fontSize,
+                  lineHeight: typography.h6.lineHeight,
                 }}
               >
-                {/* Header */}
-                <Box
-                  sx={{
-                    background: cardDetailsBackground,
-                    color: textPrimary,
-                    p: 2,
-                    display: "flex",
-                    alignItems: "center",
-                    flexDirection: "column",
-                    gap: 2,
-                  }}
+                {inventory.name}
+              </Typography>
+            </Box>
+          </Box>
+
+          {/* Content */}
+          <Box sx={{ p: 2, flexGrow: 1 }}>
+            <Stack spacing={1.5}>
+              <Stack
+                alignItems="start"
+                gap={2}
+                justifyContent={"center"}
+              >
+                <Stack
+                  direction={"row"}
+                  alignItems="center"
+                  gap={2}
                 >
-                  <Avatar
-                    alt="Remy Sharp"
-                    src={inventory.profileImage}
-                    sx={{
-                      width: 60,
-                      height: 60,
-                      color: textPrimary,
-                    }}
-                  ></Avatar>
-                  <Box>
-                    <Typography
-                      variant="h6"
-                      sx={{
-                        fontWeight: typography.h6.fontWeight,
-                        fontSize: typography.h6.fontSize,
-                        lineHeight: typography.h6.lineHeight,
-                      }}
-                    >
-                      {inventory.name}
-                    </Typography>
-                  </Box>
-                </Box>
-
-                {/* Content */}
-                <Box sx={{ p: 2, flexGrow: 1 }}>
-                  <Stack spacing={1.5}>
-                    <Stack
-                      alignItems="start"
-                      gap={2}
-                      justifyContent={"center"}
-                    >
-                      <Stack
-                        direction={"row"}
-                        alignItems="center"
-                        gap={2}
-                      >
-                        <IconButton
-                          size="small"
-                          sx={{
-                            bgcolor: buttonBackground,
-                            color: buttonText,
-                            "&:hover": {
-                              background: buttonHover,
-                            },
-                          }}
-                        >
-                          <RoomIcon fontSize="small" />
-                        </IconButton>
-                        <Typography
-                          variant="body1"
-                          fontWeight={500}
-                        >
-                          {inventory.governorate}, {inventory.city}
-                        </Typography>
-                      </Stack>
-                      <Stack
-                        alignItems={"center"}
-                        direction={"row"}
-                        gap={2}
-                        title="Phone Number"
-                      >
-                        <IconButton
-                          size="small"
-                          sx={{
-                            background: buttonBackground,
-                            color: buttonText,
-                            "&:hover": {
-                              background: buttonHover,
-                            },
-                          }}
-                        >
-                          <Phone fontSize="small" />
-                        </IconButton>
-                        <Typography>+201007890938</Typography>
-                      </Stack>
-                      <Stack
-                        alignItems={"center"}
-                        direction={"row"}
-                        gap={3}
-                        width={"100%"}
-                        title={`Shipping: ${
-                          inventory.shippingPrice > 0
-                            ? `${inventory.shippingPrice} EGP`
-                            : "Free"
-                        }`}
-                      >
-                        <IconButton
-                          size="small"
-                          color="primary"
-                          sx={{
-                            bgcolor: buttonBackground,
-                            color: buttonText,
-                            "&:hover": {
-                              bgcolor: buttonHover,
-                            },
-                          }}
-                        >
-                          <LocalShipping fontSize="small" />
-                        </IconButton>
-                        <Box sx={{ flexGrow: 1 }}>
-                          <DistanceIndicator distance={20} />
-                        </Box>
-                      </Stack>
-                    </Stack>
-                  </Stack>
-                </Box>
-
-                <Divider />
-
-                {/* Footer */}
-                <Box
-                  sx={{
-                    py: 2,
-                    display: "flex",
-                    justifyContent: "space-between",
-                    alignItems: "center",
-                  }}
-                >
-                  <Button
-                    variant="contained"
+                  <IconButton
                     size="small"
-                    onClick={() => {
-                      navigate(`/inventoryprofile/${inventory._id}`);
-                    }}
-                    endIcon={<ArrowForward />}
                     sx={{
-                      fontSize: typography.button.fontSize,
-                      fontWeight: typography.button.fontWeight,
+                      bgcolor: buttonBackground,
+                      color: buttonText,
+                      "&:hover": {
+                        background: buttonHover,
+                      },
+                    }}
+                  >
+                    <RoomIcon fontSize="small" />
+                  </IconButton>
+                  <Typography
+                    variant="body1"
+                    fontWeight={500}
+                  >
+                    {inventory.governorate}, {inventory.city}
+                  </Typography>
+                </Stack>
+                <Stack
+                  alignItems={"center"}
+                  direction={"row"}
+                  gap={2}
+                  title="Phone Number"
+                >
+                  <IconButton
+                    size="small"
+                    sx={{
                       background: buttonBackground,
                       color: buttonText,
                       "&:hover": {
                         background: buttonHover,
                       },
-                      mx: "auto",
                     }}
                   >
-                    View Profile
-                  </Button>
-                </Box>
-              </CardContent>
-            </Card>
-          </Grid>
-        ))}
-      </Grid>
-    </Box>
+                    <Phone fontSize="small" />
+                  </IconButton>
+                  <Typography>+201007890938</Typography>
+                </Stack>
+                <Stack
+                  alignItems={"center"}
+                  direction={"row"}
+                  gap={3}
+                  width={"100%"}
+                  title={`Shipping: ${
+                    inventory.shippingPrice > 0
+                      ? `${inventory.shippingPrice} EGP`
+                      : "Free"
+                  }`}
+                >
+                  <IconButton
+                    size="small"
+                    color="primary"
+                    sx={{
+                      bgcolor: buttonBackground,
+                      color: buttonText,
+                      "&:hover": {
+                        bgcolor: buttonHover,
+                      },
+                    }}
+                  >
+                    <LocalShipping fontSize="small" />
+                  </IconButton>
+                  <Box sx={{ flexGrow: 1 }}>
+                    <DistanceIndicator distance={inventory.DistanceInKm} />
+                  </Box>
+                </Stack>
+              </Stack>
+            </Stack>
+          </Box>
+
+          <Divider />
+
+          {/* Footer */}
+          <Box
+            sx={{
+              py: 2,
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+            }}
+          >
+            <Button
+              variant="contained"
+              size="small"
+              onClick={() => {
+                navigate(`/inventoryprofile/${inventory._id}`);
+              }}
+              endIcon={<ArrowForward />}
+              sx={{
+                fontSize: typography.button.fontSize,
+                fontWeight: typography.button.fontWeight,
+                background: buttonBackground,
+                color: buttonText,
+                "&:hover": {
+                  background: buttonHover,
+                },
+                mx: "auto",
+              }}
+            >
+              View Profile
+            </Button>
+          </Box>
+        </CardContent>
+      </Card>
+    </Grid>
   );
 };
 
