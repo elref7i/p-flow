@@ -18,6 +18,7 @@ import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import { motion } from "framer-motion";
 import { useTypeContext } from "../../../../context/UserType.context";
 import { useThemeConstants } from "../../../../lib/constants/theme.constant";
+import ButtonWhishlist from "../../../../components/Common/Loading/button_whishlist";
 
 const ProfileHeader = ({
   inventory,
@@ -53,8 +54,11 @@ const ProfileHeader = ({
         borderRadius: 2,
         p: 3,
         boxShadow: shadow3,
+        position: "relative",
       }}
     >
+      {/* Wishlist Button */}
+      <ButtonWhishlist check={true} />
       {/* Profile Info Section */}
       <Box
         sx={{

@@ -10,15 +10,13 @@ import {
   Stack,
   Divider,
   IconButton,
-  Badge,
 } from "@mui/material";
 import { Phone, LocalShipping, ArrowForward } from "@mui/icons-material";
 import { useThemeConstants } from "../../../lib/constants/theme.constant";
 import RoomIcon from "@mui/icons-material/Room";
 import DistanceIndicator from "../../../pages/Inventory/InventoryProfile/components/DistanceIndicator";
 import { useNavigate } from "react-router-dom";
-import AddCircleOutlineTwoToneIcon from "@mui/icons-material/AddCircleOutlineTwoTone";
-import AddCircleIcon from "@mui/icons-material/AddCircle";
+import ButtonWhishlist from "../../Common/Loading/button_whishlist";
 
 const EnhancedInventoryCard = ({ inventory }) => {
   //Navigation
@@ -59,24 +57,7 @@ const EnhancedInventoryCard = ({ inventory }) => {
         }}
       >
         {/* Wishlist Button */}
-        <IconButton
-          size="large"
-          // onClick={handleWishlistToggle}
-          sx={{
-            position: "absolute",
-            top: 10,
-            right: 10,
-            zIndex: 10,
-            bgcolor: buttonBackground,
-            color: buttonText,
-            "&:hover": {
-              bgcolor: buttonHover,
-            },
-          }}
-        >
-          <AddCircleOutlineTwoToneIcon sx={{ color: "error" }} />
-          {/* {inWishlist ? <Favorite sx={{ color: error }} /> : <FavoriteBorder sx={{ color: textPrimary }} />} */}
-        </IconButton>
+        <ButtonWhishlist check={false} />
         <CardContent
           sx={{
             p: 0,

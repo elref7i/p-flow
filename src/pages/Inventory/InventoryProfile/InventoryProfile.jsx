@@ -53,7 +53,7 @@ const InventoryProfile = () => {
   return (
     <>
       <Helmet>
-        <title>{payload.data.user.name} | Pharmacy Profile</title>
+        <title>{payload.data.user.name} | Inventory Profile</title>
         <meta
           name="description"
           content={`View ${name}'s profile and available products.`}
