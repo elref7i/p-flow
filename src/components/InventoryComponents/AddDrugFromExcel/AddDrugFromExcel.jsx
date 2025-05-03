@@ -58,36 +58,6 @@ export default function AddDrugFromExcel() {
     setOpen(false);
   };
 
-  // async function onSubmit(e) {
-  //   e.preventDefault();
-  //   const formData = new FormData(e.target);
-  //   // await validationSchema.validate(values, { abortEarly: false });
-
-  //   const loading = toast.loading("loading...");
-  //   try {
-  //     const options = {
-  //       url: `${API_URL_DRUG}/excel`,
-  //       method: "POST",
-  //       data: formData,
-  //       headers: {
-  //         Authorization: `Bearer ${token}`,
-  //       },
-  //     };
-
-  //     const { data } = await axios.request(options);
-
-  //     if (data.status === "success") {
-  //       toast.success(data.status);
-  //     }
-  //     console.log(data);
-  //   } catch (error) {
-  //     console.log(error);
-  //     toast.error(error);
-  //   } finally {
-  //     toast.dismiss(loading);
-  //   }
-  // }
-  //Formil
   const formik = useFormik({
     initialValues: {
       startRow: "",
@@ -104,7 +74,7 @@ export default function AddDrugFromExcel() {
       addSheetExcel({ token, formData });
       setTimeout(() => {
         handleClose();
-      }, 1000);
+      }, 500);
     },
   });
 
