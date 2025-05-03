@@ -41,17 +41,21 @@ export default function CartItem({ inventoryInfo, onReadyToBuy }) {
       sx={{
         p: 3,
         borderRadius: 4,
-        backgroundColor: isDarkMode ? "#0e1a2b" : "#f9f9f9",
+        backgroundColor: isDarkMode ? "#0e1a2b" : "#F5F5F5",
         width: "100%",
         color: isDarkMode ? "#ffffff" : "#000000",
         boxShadow: isDarkMode
           ? "0 0 10px rgba(255,255,255,0.1)"
           : "0 0 10px rgba(0,0,0,0.1)",
         mb: 4,
+        "@media (max-width: 600px)": {
+          p: 2,
+          mb: 3,
+        },
       }}
     >
       {/* Inventory Header */}
-      <Box sx={{ display: "flex", alignItems: "center", mb: 3 }}>
+      <Box sx={{ display: "flex", alignItems: "center", mb: 1.5 }}>
         <Typography variant="h6" sx={{ flexGrow: 1, fontWeight: "bold" }}>
           {inventory.name}
         </Typography>
@@ -66,7 +70,21 @@ export default function CartItem({ inventoryInfo, onReadyToBuy }) {
       </Box>
 
       {/* Drugs */}
-      <Box sx={{ display: "flex", gap: 2, flexWrap: "wrap" }}>
+      <Box
+        sx={{
+          display: "grid",
+          gridTemplateColumns: "repeat(2, 1fr)",
+          gap: 3,
+          maxHeight: 180,
+          overflowY: "auto",
+          pr: 3,
+          mb: 2,
+          "@media (max-width: 600px)": {
+            gridTemplateColumns: "repeat(1, 1fr)",
+            maxHeight: 250,
+          },
+        }}
+      >
         {drugs.map(({ drug, quantity, Price }) => {
           const { _id } = drug;
           return (
@@ -75,7 +93,6 @@ export default function CartItem({ inventoryInfo, onReadyToBuy }) {
               sx={{
                 display: "flex",
                 alignItems: "center",
-                backgroundColor: isDarkMode ? "#172b45" : "#ffffff",
                 borderRadius: 3,
                 px: 2,
                 py: 1.5,
@@ -98,7 +115,7 @@ export default function CartItem({ inventoryInfo, onReadyToBuy }) {
               />
 
               {/* Texts */}
-              <Box sx={{ flexGrow: 1, mr: 2, minWidth: 150, maxWidth: 200 }}>
+              <Box sx={{ flexGrow: 1, mr: 2, maxWidth: 140 }}>
                 <Tooltip title={drug.name} arrow>
                   <Typography
                     variant="body1"
@@ -109,7 +126,6 @@ export default function CartItem({ inventoryInfo, onReadyToBuy }) {
                       fontWeight: 600,
                       cursor: "pointer",
                       color: isDarkMode ? "#90caf9" : "#1976d2",
-                      // textDecoration: "underline",
                       "&:hover": {
                         color: isDarkMode ? "#bbdefb" : "#1565c0",
                       },

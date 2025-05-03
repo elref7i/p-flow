@@ -12,6 +12,8 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 
 export default function Invoice({ selectedInventory }) {
   const theme = useTheme();
+  const isDarkMode = theme.palette.mode === "dark";
+
   const textColor = theme.palette.mode === "dark" ? "#fff" : "#000";
 
   const drugs = selectedInventory?.drugs || [];
@@ -20,21 +22,23 @@ export default function Invoice({ selectedInventory }) {
     <Box
       sx={{
         width: { xs: "100%", md: "380px" },
-        minHeight: 500,
-        bgcolor: "background.paper",
+        height: 600,
+        backgroundColor: isDarkMode ? "#0e1a2b" : "#F5F5F5",
+        color: isDarkMode ? "#ffffff" : "#000000",
         borderRadius: 3,
-        boxShadow: "0px 4px 8px rgba(0,0,0,0.05)",
+        boxShadow: isDarkMode
+          ? "0 0 10px rgba(255,255,255,0.1)"
+          : "0 0 10px rgba(0,0,0,0.1)",
         p: 2.5,
         display: "flex",
         flexDirection: "column",
         gap: 2,
         position: "relative",
-        ml: { md: 4 },
       }}
     >
-      <Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>
+      <Box sx={{ display: "flex", alignItems: "center" }}>
         <Box
-          sx={{ display: "flex", alignItems: "center", flexGrow: 1, gap: 1 }}
+          sx={{ display: "flex", alignItems: "center", flexGrow: 1, gap: 2 }}
         >
           <Box
             sx={{
@@ -58,88 +62,105 @@ export default function Invoice({ selectedInventory }) {
         </Box>
       </Box>
 
-      {drugs.length > 0 ? (
-        drugs.map(({ drug, quantity, Price }) => (
-          <Box
-            key={drug._id}
-            sx={{
-              display: "flex",
-              alignItems: "center",
-              bgcolor: "background.default",
-              borderRadius: 2,
-              p: 1.5,
-              mb: 1,
-              boxShadow: 1,
-            }}
-          >
-            <Avatar
-              src="https://www.netmeds.com/images/product-v1/600x600/397251/nasomist_saline_nasal_spray_20ml_149351_0_2.jpg"
-              variant="rounded"
-              sx={{ width: 56, height: 56, mr: 2 }}
-            />
+      {/* ✅ Scrollable drug list container with padding fix */}
+      <Box
+        sx={{
+          flexGrow: 1,
+          overflowY: "auto",
+          minHeight: 0,
+          pr: 2,
+          display: "flex",
+          flexDirection: "column",
+        }}
+      >
+        <Box sx={{ pt: 1, pb: 1 }}>
+          {" "}
+          {drugs.length > 0 ? (
+            drugs.map(({ drug, quantity, Price }) => (
+              <Box
+                key={drug._id}
+                sx={{
+                  display: "flex",
+                  alignItems: "center",
+                  borderRadius: 3,
+                  p: 1,
+                  ml: 1,
+                  mb: 2,
+                  boxShadow: 1,
+                  transition: "all 0.3s ease-in-out",
+                }}
+              >
+                <Avatar
+                  src="https://www.netmeds.com/images/product-v1/600x600/397251/nasomist_saline_nasal_spray_20ml_149351_0_2.jpg"
+                  variant="rounded"
+                  sx={{ width: 56, height: 56, mr: 1 }}
+                />
 
-            <Box
-              sx={{
-                display: "flex",
-                flexDirection: "column",
-                flexGrow: 1,
-                overflow: "hidden",
-              }}
-            >
-              <Tooltip title={drug.name} arrow>
+                <Box
+                  sx={{
+                    display: "flex",
+                    flexDirection: "column",
+                    flexGrow: 1,
+                    overflow: "hidden",
+                  }}
+                >
+                  <Tooltip title={drug.name} arrow>
+                    <Typography
+                      fontSize={14}
+                      fontWeight="bold"
+                      style={{ color: textColor }}
+                      sx={{
+                        overflow: "hidden",
+                        textOverflow: "ellipsis",
+                        display: "-webkit-box",
+                        WebkitLineClamp: 2,
+                        WebkitBoxOrient: "vertical",
+                        cursor: "pointer",
+                      }}
+                    >
+                      {drug.name}
+                    </Typography>
+                  </Tooltip>
+                  <Typography fontSize={12} color="text.secondary">
+                    Price: {formatNumber(Price)} $
+                  </Typography>
+                </Box>
+
                 <Typography
                   fontSize={14}
                   fontWeight="bold"
                   style={{ color: textColor }}
-                  sx={{
-                    overflow: "hidden",
-                    textOverflow: "ellipsis",
-                    display: "-webkit-box",
-                    WebkitLineClamp: 2,
-                    WebkitBoxOrient: "vertical",
-                    cursor: "pointer",
-                  }}
+                  sx={{ ml: 1 }}
                 >
-                  {drug.name}
+                  x{quantity}
                 </Typography>
-              </Tooltip>
-              <Typography fontSize={12} color="text.secondary">
-                Price: {formatNumber(Price)} $
+              </Box>
+            ))
+          ) : (
+            <Box
+              sx={{
+                flexGrow: 1,
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                height: "100%",
+                textAlign: "center",
+                p: 2,
+              }}
+            >
+              <Typography variant="h6" color="text.secondary">
+                No items selected yet
               </Typography>
             </Box>
-
-            <Typography
-              fontSize={14}
-              fontWeight="bold"
-              style={{ color: textColor }}
-              sx={{ ml: 1 }}
-            >
-              x{quantity}
-            </Typography>
-          </Box>
-        ))
-      ) : (
-        <Box
-          sx={{
-            flexGrow: 1,
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            textAlign: "center",
-            p: 2,
-          }}
-        >
-          <Typography variant="h6" color="text.secondary">
-            No items selected yet
-          </Typography>
+          )}
         </Box>
-      )}
+      </Box>
 
       <Button
         variant="contained"
         color="primary"
         fullWidth
-        sx={{ mt: "auto", py: 1.5, fontWeight: "bold", fontSize: "18px" }}
+        sx={{ fontWeight: "bold", fontSize: "18px" }}
         disabled={drugs.length === 0}
       >
         Approach Now
