@@ -8,9 +8,54 @@ export default function Whishlist() {
       spacing={2}
       sx={{ pt: "20px" }}
     >
-      <CardWhishlist />
-      <CardWhishlist />
-      <CardWhishlist />
+      <Grid2
+        item
+        size={{ xs: 12, md: 6, lg: 4 }}
+        sx={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          mb: 2,
+        }}
+      >
+        <CardWhishlist />
+      </Grid2>
+      <Grid2
+        item
+        size={{ xs: 12, md: 6, lg: 4 }}
+        sx={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          mb: 2,
+        }}
+      >
+        <CardWhishlist />
+      </Grid2>
+      <Grid2
+        item
+        size={{ xs: 12, md: 6, lg: 4 }}
+        sx={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          mb: 2,
+        }}
+      >
+        <CardWhishlist />
+      </Grid2>
+      <Grid2
+        item
+        size={{ xs: 12, md: 6, lg: 4 }}
+        sx={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          mb: 2,
+        }}
+      >
+        <CardWhishlist />
+      </Grid2>
     </Grid2>
   );
 }

@@ -1,154 +1,155 @@
-import { Box, Grid2, IconButton, Stack, Typography } from "@mui/material";
+import { Box, Card, CardContent, Chip, Stack, Typography } from "@mui/material";
+import { Phone, Room } from "@mui/icons-material";
 import { useThemeConstants } from "../../lib/constants/theme.constant";
-import { Phone } from "@mui/icons-material";
-import RoomIcon from "@mui/icons-material/Room";
 import MoreAction from "./menu_modal";
 import { useState } from "react";
 
-export default function CardWhishlist() {
-  //states
+export default function WishlistCard() {
   const [anchorEl, setAnchorEl] = useState(false);
+  // Theme constants - you can adjust these based on your theme
+  // const themeConstants = {
+  //   textPrimary: "#1a1a1a",
+  //   textSecondary: "#666666",
+  //   buttonBackground: "#f5f5f5",
+  //   buttonHover: "#e0e0e0",
+  //   buttonText: "#333333",
+  //   success: "#4caf50",
+  //   cardDetailsBackground: "#f9f9f9",
+  // };
 
-  //Themes
   const {
-    typography,
     textPrimary,
-    buttonBackground,
-    buttonHover,
-    buttonText,
+    textSecondary,
     cardDetailsBackground,
     success,
-    textSecondary,
+    typography,
+    background,
+    cardBackground,
   } = useThemeConstants();
 
   return (
-    <Grid2
+    <Card
       sx={{
-        display: "flex",
-        alignItems: "start",
-        gap: 3,
+        borderRadius: "10px",
         boxShadow: 1,
-        borderRadius: "20px",
-        px: "5px",
-        py: "20px",
+        overflow: "initial",
         position: "relative",
+        backgroundColor: cardBackground,
       }}
-      size={{ xs: 12, md: 6 }}
-      item
     >
       <MoreAction
         anchorEl={anchorEl}
         setAnchorEl={setAnchorEl}
       />
-      <Box
-        component={"img"}
-        sx={{
-          width: "100px",
-          height: "100px",
-          objectFit: "cover",
-          borderRadius: "10px",
-        }}
-        alt="Inventory Image"
-        src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
-      ></Box>
-      <Stack>
+      <CardContent sx={{ p: 2 }}>
         <Stack
-          direction={"row"}
-          gap={2}
-          mb={2}
-          alignItems={"center"}
-          component={"header"}
+          direction="row"
+          spacing={2}
         >
-          <Typography
-            variant="h1"
-            sx={{ color: textPrimary }}
-            textTransform={"capitalize"}
-          >
-            Ahmed Refai
-          </Typography>
-          <Typography
-            variant="h5"
+          {/* Image */}
+          <Box
+            component="img"
+            src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
+            alt="Inventory Image"
             sx={{
-              background: cardDetailsBackground,
-              borderRadius: "50%",
-              width: "45px",
-              height: "45px",
-              color: success,
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              flexDirection: "column",
-              fontWeight: typography.h6.fontWeight,
-              fontSize: typography.h6.fontSize,
-              lineHeight: typography.h6.lineHeight,
-              boxShadow: 1,
+              width: 80,
+              height: 80,
+              borderRadius: "15px",
+              objectFit: "cover",
             }}
+          />
+
+          {/* Content */}
+          <Stack
+            spacing={1}
+            sx={{ minWidth: 0 }}
           >
-            1000
-            {/* {inventory.minimumOrderValue.toLocaleString()}{" "} */}
-            <Box
-              component={"span"}
-              sx={{ fontSize: "13px" }}
-            >
-              EGP
-            </Box>
-          </Typography>
-        </Stack>
-        <Box sx={{ flexGrow: 1, color: textSecondary }}>
-          <Stack spacing={1.5}>
+            {/* Header with name and price */}
             <Stack
-              alignItems="start"
-              gap={2}
-              justifyContent={"center"}
+              direction="row"
+              alignItems="center"
+              spacing={1}
             >
-              <Stack
-                direction={"row"}
-                alignItems="center"
-                gap={2}
+              <Typography
+                variant="subtitle1"
+                sx={{
+                  color: textPrimary,
+                  fontWeight: typography.h4.fontWeight,
+                  fontSize: typography.h4.fontSize,
+                  lineHeight: typography.h4.lineHeight,
+                  whiteSpace: "nowrap",
+                }}
               >
-                <IconButton
-                  size="small"
-                  sx={{
-                    bgcolor: buttonBackground,
-                    color: buttonText,
-                    "&:hover": {
-                      background: buttonHover,
-                    },
-                  }}
-                >
-                  <RoomIcon fontSize="small" />
-                </IconButton>
-                <Typography
-                  variant="body1"
-                  fontWeight={500}
-                >
-                  {"inventory.governorate"}, {"inventory.city"}
-                </Typography>
-              </Stack>
-              <Stack
-                alignItems={"center"}
-                direction={"row"}
-                gap={2}
-                title="Phone Number"
+                Ahmed Refai
+              </Typography>
+
+              <Chip
+                label={
+                  <Box
+                    sx={{
+                      display: "flex",
+                      alignItems: "center",
+                    }}
+                  >
+                    1000
+                    <Box
+                      component="span"
+                      sx={{ fontSize: "0.7rem", ml: 0.3 }}
+                    >
+                      EGP
+                    </Box>
+                  </Box>
+                }
+                size="small"
+                sx={{
+                  bgcolor: cardDetailsBackground,
+                  color: success,
+                  fontWeight: 500,
+                  height: "auto",
+                  py: 0.5,
+                }}
+              />
+            </Stack>
+
+            {/* Location */}
+            <Stack
+              direction="row"
+              alignItems="center"
+              spacing={1}
+              sx={{ color: textSecondary }}
+            >
+              <Room
+                fontSize="small"
+                sx={{ fontSize: 16 }}
+              />
+              <Typography
+                variant="body2"
+                sx={{
+                  overflow: "hidden",
+                  textOverflow: "ellipsis",
+                  whiteSpace: "nowrap",
+                }}
               >
-                <IconButton
-                  size="small"
-                  sx={{
-                    background: buttonBackground,
-                    color: buttonText,
-                    "&:hover": {
-                      background: buttonHover,
-                    },
-                  }}
-                >
-                  <Phone fontSize="small" />
-                </IconButton>
-                <Typography>+201007890938</Typography>
-              </Stack>
+                {"inventory.governorate"}, {"inventory.city"}
+              </Typography>
+            </Stack>
+
+            {/* Phone */}
+            <Stack
+              direction="row"
+              alignItems="center"
+              spacing={1}
+              sx={{ color: textSecondary }}
+            >
+              <Phone
+                fontSize="small"
+                sx={{ fontSize: 16 }}
+              />
+              <Typography variant="body2">+201007890938</Typography>
             </Stack>
           </Stack>
-        </Box>
-      </Stack>
-    </Grid2>
+        </Stack>
+      </CardContent>
+    </Card>
   );
 }

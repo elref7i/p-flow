@@ -25,9 +25,11 @@ export default function DrugsAction() {
 
   //Queries
   const { data, isLoading } = useOwnDrugs(token, debouncedParams);
-  4;
+
   //Mutaions
   const { isLoading: isDeleting, mutate: handleDelete } = useDeleteDrug();
+
+  console.log(data);
 
   const actions = {
     field: "actions",
@@ -57,9 +59,15 @@ export default function DrugsAction() {
     renderCell: (params) => (
       <Box sx={{ pt: 1 }}>
         {params.row.isVisible ? (
-          <CheckCircleIcon color="success" fontSize="medium" />
+          <CheckCircleIcon
+            color="success"
+            fontSize="medium"
+          />
         ) : (
-          <CancelIcon color="error" fontSize="medium" />
+          <CancelIcon
+            color="error"
+            fontSize="medium"
+          />
         )}
       </Box>
     ),
@@ -79,12 +87,18 @@ export default function DrugsAction() {
           name="keywords"
           content="drugs, inventory management, pharmacy, medicine, update drugs, delete drugs"
         />
-        <meta property="og:title" content="Manage Drugs - Pharmacy Inventory" />
+        <meta
+          property="og:title"
+          content="Manage Drugs - Pharmacy Inventory"
+        />
         <meta
           property="og:description"
           content="Easily update or delete drugs from your inventory with a user-friendly interface."
         />
-        <meta property="og:type" content="website" />
+        <meta
+          property="og:type"
+          content="website"
+        />
       </Helmet>
 
       <Box

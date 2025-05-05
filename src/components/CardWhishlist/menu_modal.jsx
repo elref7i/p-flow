@@ -3,11 +3,10 @@ import { Box, Button, Stack } from "@mui/material";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { useThemeConstants } from "../../lib/constants/theme.constant";
 import { useEffect, useRef } from "react";
+import { grey } from "@mui/material/colors";
 export default function MoreAction({ anchorEl, setAnchorEl }) {
-  //States
-
   //themes
-  const { textSecondary, cartBackground } = useThemeConstants();
+  const { textSecondary, cartBackground, background } = useThemeConstants();
 
   //Functions
   const handleClick = () => {
@@ -22,7 +21,7 @@ export default function MoreAction({ anchorEl, setAnchorEl }) {
 
   // 🔁 Close menu when clicking outside
   useEffect(() => {
-    const handleClickOutside = (event) => {
+    const handleClickOutside = () => {
       if (menuRef.current) {
         setAnchorEl(false);
       }
@@ -54,23 +53,24 @@ export default function MoreAction({ anchorEl, setAnchorEl }) {
           ref={menuRef}
           gap={2}
           sx={{
+            zIndex: 1000,
             position: "absolute",
             top: 40,
             right: 0,
-            p: 2,
-            background: cartBackground,
+            p: 1,
+            background: grey[100],
             borderRadius: "5px",
-            boxShadow: 3,
+            boxShadow: 1,
           }}
         >
           <Button
-            variant="text"
+            variant="outlined"
             onClick={handleClose}
           >
             View Profile
           </Button>
           <Button
-            variant="text"
+            variant="outlined"
             color="error"
             onClick={handleClose}
           >
