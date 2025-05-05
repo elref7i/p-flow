@@ -1,56 +1,66 @@
-"use client";
-
 import { useState } from "react";
 import {
   AppBar,
   Toolbar,
-  Typography,
   IconButton,
   Badge,
   Box,
   useMediaQuery,
 } from "@mui/material";
+
 import { useTheme } from "@mui/material/styles";
 import {
   Chat as ChatIcon,
   Notifications as NotificationsIcon,
   Menu as MenuIcon,
 } from "@mui/icons-material";
-import { Link } from "react-router-dom";
 import NavLinkDesktop from "./components/NavLink";
 import MoblieDrawer from "./components/Drawer";
 
 import AccountMenu from "./components/AccountMenu";
 import { useThemeConstants } from "../../../lib/constants/theme.constant";
+import Logo, { GradientLogo } from "../../Common/LogoImage";
 
 export default function NavbarPhamracy() {
+  //States
   const [drawerOpen, setDrawerOpen] = useState(false);
 
   //Theme
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
+  const { navbarPharmacyBackground, textPrimary, pharmacyBackground } =
+    useThemeConstants();
 
-  const { shadow2, navbarPharmacyBackground } = useThemeConstants();
+  //Media query
+  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
 
   //Handlers
   const handleDrawerToggle = () => {
     setDrawerOpen(!drawerOpen);
   };
 
-  // const isMenuOpen = Boolean(anchorEl);
-
-  // const handleMenuClose = () => {
-  //   setAnchorEl(null);
-  // };
-
   return (
     <>
       <AppBar
-        sx={{ background: navbarPharmacyBackground, boxShadow: shadow2 }}
+        sx={{
+          boxShadow: "none",
+          border: "none",
+          background: pharmacyBackground,
+        }}
         position="sticky"
-        color="default"
       >
-        <Toolbar>
+        <Toolbar
+          sx={{
+            gap: "30px",
+
+            width: "fit-content",
+            mx: "auto",
+            boxShadow: 1,
+            color: textPrimary,
+            borderRadius: "30px",
+            justifyContent: "space-between",
+            alignItems: "center",
+          }}
+        >
           {/* Mobile menu icon */}
           {isMobile && (
             <IconButton
@@ -65,21 +75,9 @@ export default function NavbarPhamracy() {
           )}
 
           {/* Logo */}
-          <Typography
-            variant="h6"
-            noWrap
-            component={Link}
-            to="/"
-            sx={{
-              display: { xs: "none", md: "flex" },
-              fontWeight: 700,
-              color: "inherit",
-              textDecoration: "none",
-              mr: 2,
-            }}
-          >
-            Pharmacy
-          </Typography>
+          <Logo>
+            <GradientLogo />
+          </Logo>
 
           {/* Desktop Navigation */}
           <NavLinkDesktop />

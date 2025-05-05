@@ -65,6 +65,7 @@ import Profile from "./pages/Inventory/InventoryProfile/Profile";
 import Inventoers from "./pages/Pharmacy/Inventoers/Inventoers";
 import Orders from "./pages/Pharmacy/Orders/Orders";
 import PaginationProvider from "./context/params.context";
+import Whishlist from "./pages/Pharmacy/wishlist/whishlist";
 
 function App() {
   const router = createBrowserRouter([
@@ -84,10 +85,7 @@ function App() {
           <Layout />
         </ProtectedRoute>
       ),
-      children: [
-        { path: "setting", element: <Setting /> },
-        { path: "inventoryprofile/:id", element: <InventoryProfile /> },
-      ],
+      children: [{ path: "setting", element: <Setting /> }],
     },
     {
       path: "/admin",
@@ -116,6 +114,8 @@ function App() {
         { path: "cart", element: <Cart /> },
         { path: "inventores", element: <Inventoers /> },
         { path: "orders", element: <Orders /> },
+        { path: "inventoryprofile/:id", element: <InventoryProfile /> },
+        { path: "wishlist", element: <Whishlist /> },
       ],
     },
     {
