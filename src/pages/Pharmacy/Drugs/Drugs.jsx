@@ -88,7 +88,6 @@ export default function Drugs() {
   // Flatten the data from all pages
   const flattenedDrugs = data?.pages.flatMap((page) => page.data || []) || [];
 
-  // if (error) return <ErrorPage />;
   return (
     <>
       <Helmet>
@@ -118,9 +117,9 @@ export default function Drugs() {
             value={searchValue}
             placeholder="Search Drugs"
             variant="outlined"
+            autoComplete="false"
             type="search"
             onFocus={() => setOpenHistory(true)}
-            // onBlur={() => setTimeout(() => setOpenHistory(false), 200)}
             onChange={handleSearch}
             InputProps={{
               endAdornment: (

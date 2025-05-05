@@ -113,7 +113,9 @@ const DrugCard = ({ dataInfo: drug, checkPage }) => {
           />
           <Typography
             variant="caption"
-            onClick={() => navigate(`/inventoryprofile/${drug.inventory._id}`)}
+            onClick={() =>
+              navigate(`/pharmacy/inventoryprofile/${drug.inventory._id}`)
+            }
             sx={{
               cursor: "pointer",
               fontWeight: "bold",

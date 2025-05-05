@@ -253,7 +253,7 @@ const EnhancedInventoryCard = ({ inventory }) => {
               variant="contained"
               size="small"
               onClick={() => {
-                navigate(`/inventoryprofile/${inventory._id}`);
+                navigate(`/pharmacy/inventoryprofile/${inventory._id}`);
               }}
               endIcon={<ArrowForward />}
               sx={{
