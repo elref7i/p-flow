@@ -57,7 +57,10 @@ const EnhancedInventoryCard = ({ inventory }) => {
         }}
       >
         {/* Wishlist Button */}
-        <ButtonWhishlist check={false} />
+        <ButtonWhishlist
+          check={false}
+          id={inventory._id}
+        />
         <CardContent
           sx={{
             p: 0,

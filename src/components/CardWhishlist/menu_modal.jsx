@@ -1,20 +1,34 @@
 /* eslint-disable react/prop-types */
-import { Box, Button, Stack } from "@mui/material";
+import { Box, Button, CircularProgress, Stack } from "@mui/material";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { useThemeConstants } from "../../lib/constants/theme.constant";
 import { useEffect, useRef } from "react";
 import { grey } from "@mui/material/colors";
-export default function MoreAction({ anchorEl, setAnchorEl }) {
+import { useNavigate } from "react-router-dom";
+import { useDeleteInventoryWishlist } from "../../lib/hooks/usewishlist.action";
+import { useTypeContext } from "../../context/UserType.context";
+import { DeleteForeverOutlined } from "@mui/icons-material";
+import CheckCircleIcon from "@mui/icons-material/CheckCircle";
+
+export default function MoreAction({ anchorEl, setAnchorEl, id }) {
+  //Context
+  const { token } = useTypeContext();
+
+  //Navigations
+  const navigate = useNavigate();
+
+  //Mutaions
+  const { isLoading, mutate, isSuccess } = useDeleteInventoryWishlist();
+
   //themes
-  const { textSecondary, cartBackground, background } = useThemeConstants();
+  const { textSecondary } = useThemeConstants();
 
   //Functions
   const handleClick = () => {
     setAnchorEl(!anchorEl);
   };
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
+
+  const handleViewProfile = () => navigate(`/pharmacy/inventoryprofile/${id}`);
 
   const menuRef = useRef(null);
   console.log("menuRef", menuRef.current);
@@ -22,7 +36,7 @@ export default function MoreAction({ anchorEl, setAnchorEl }) {
   // 🔁 Close menu when clicking outside
   useEffect(() => {
     const handleClickOutside = () => {
-      if (menuRef.current) {
+      if (menuRef.current && !menuRef.current.contains(event.target)) {
         setAnchorEl(false);
       }
     };
@@ -65,14 +79,33 @@ export default function MoreAction({ anchorEl, setAnchorEl }) {
         >
           <Button
             variant="outlined"
-            onClick={handleClose}
+            onClick={handleViewProfile}
           >
             View Profile
           </Button>
           <Button
             variant="outlined"
             color="error"
-            onClick={handleClose}
+            cursor="pointer"
+            disabled={isLoading}
+            startIcon={
+              isLoading ? (
+                <CircularProgress
+                  color="inherit"
+                  size={20}
+                />
+              ) : isSuccess ? (
+                <CheckCircleIcon
+                  color="success"
+                  size={20}
+                />
+              ) : (
+                <DeleteForeverOutlined />
+              )
+            }
+            onClick={() => {
+              mutate({ token, id });
+            }}
           >
             Delete
           </Button>

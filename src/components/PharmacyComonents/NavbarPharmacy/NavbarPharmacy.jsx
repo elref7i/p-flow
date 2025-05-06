@@ -41,6 +41,7 @@ export default function NavbarPhamracy() {
   return (
     <>
       <AppBar
+        elevation={0}
         sx={{
           boxShadow: "none",
           border: "none",
@@ -51,12 +52,13 @@ export default function NavbarPhamracy() {
         <Toolbar
           sx={{
             gap: "30px",
-
             width: "fit-content",
             mx: "auto",
-            boxShadow: 1,
+            boxShadow: 9,
             color: textPrimary,
+            background: navbarPharmacyBackground,
             borderRadius: "30px",
+            backgroundImage: "none",
             justifyContent: "space-between",
             alignItems: "center",
           }}

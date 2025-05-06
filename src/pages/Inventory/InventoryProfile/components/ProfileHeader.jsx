@@ -19,6 +19,7 @@ import { motion } from "framer-motion";
 import { useTypeContext } from "../../../../context/UserType.context";
 import { useThemeConstants } from "../../../../lib/constants/theme.constant";
 import ButtonWhishlist from "../../../../components/Common/Loading/button_whishlist";
+import { useAddnventoryWishlist } from "../../../../lib/hooks/usewishlist.action";
 
 const ProfileHeader = ({
   inventory,
@@ -27,7 +28,9 @@ const ProfileHeader = ({
   totalProducts,
 }) => {
   //Context
-  const { role } = useTypeContext();
+  const { role, token } = useTypeContext();
+
+  console.log(inventory);
 
   //Theme
   const theme = useTheme();
@@ -46,6 +49,9 @@ const ProfileHeader = ({
     inventoryBackground,
   } = useThemeConstants();
 
+  //Mutations
+  const { isLoading, isSuccess, mutate } = useAddnventoryWishlist();
+
   return (
     <Box
       sx={{
@@ -58,7 +64,10 @@ const ProfileHeader = ({
       }}
     >
       {/* Wishlist Button */}
-      <ButtonWhishlist check={true} />
+      <ButtonWhishlist
+        check={true}
+        id={inventory.id}
+      />
       {/* Profile Info Section */}
       <Box
         sx={{

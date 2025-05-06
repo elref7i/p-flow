@@ -52,14 +52,21 @@ export default function Navbar() {
     <AppBar
       position="fixed"
       open={isOpen}
+      elevation={0}
       sx={{
         bgcolor: "transparent",
         backgroundImage: "none",
-        boxShadowL: "none",
       }}
     >
       <Container maxWidth="xl">
-        <Toolbar sx={{ px: { xs: 1, sm: 2, md: 1 } }}>
+        <Toolbar
+          sx={{
+            px: { xs: 1, sm: 2, md: 1 },
+            background: "transparent",
+            backgroundImage: "none",
+            boxShadowL: 2,
+          }}
+        >
           {/* Menu Icon for Sidebar Toggle - only visible on md screens and smaller */}
           {token && isMediumScreen && (
             <IconButton

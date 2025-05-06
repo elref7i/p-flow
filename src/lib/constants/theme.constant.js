@@ -14,8 +14,13 @@ export const useThemeConstants = () => {
   const success = theme.palette.success.main;
   const info = theme.palette.info.main;
 
-  // الخلفيات
+  // الخلفيات الرئيسية
   const background = theme.palette.background.default;
+  const backgroundElevated = theme.palette.background.elevated;
+  const backgroundLowered = theme.palette.background.lowered;
+  const backgroundBlue = theme.palette.background.blue;
+
+  // خلفيات الأقسام
   const authBackground = theme.palette.background.auth;
   const inventoryBackground = theme.palette.background.inventory;
   const pharmacyBackground = theme.palette.background.pharmacy;
@@ -23,9 +28,38 @@ export const useThemeConstants = () => {
 
   // خلفيات المكونات
   const cardBackground = theme.palette.background.card;
+  const cardHoverBackground = theme.palette.background.cardHover;
+  const cardActiveBackground = theme.palette.background.cardActive;
   const cardDetailsBackground = theme.palette.background.cardDetails;
   const cartBackground = theme.palette.background.cart;
   const paperBackground = theme.palette.background.paper;
+  const sidebarBackground = theme.palette.background.sidebar;
+  const headerBackground = theme.palette.background.header;
+  const footerBackground = theme.palette.background.footer;
+  const tooltipBackground = theme.palette.background.tooltip;
+  const badgeBackground = theme.palette.background.badge;
+
+  // خلفيات لوحة المعلومات
+  const dashboardBackground = theme.palette.background.dashboard;
+  const statsBackground = theme.palette.background.stats;
+  const statsSecondaryBackground = theme.palette.background.statsSecondary;
+  const chartsBackground = theme.palette.background.charts;
+  const tableBackground = theme.palette.background.table;
+  const tableHeaderBackground = theme.palette.background.tableHeader;
+  const tableRowBackground = theme.palette.background.tableRow;
+  const tableRowAltBackground = theme.palette.background.tableRowAlt;
+  const tableRowHoverBackground = theme.palette.background.tableRowHover;
+
+  // التدرجات اللونية
+  const gradientBlue = theme.palette.background.gradientBlue;
+  const gradientNavy = theme.palette.background.gradientNavy;
+  const gradientChart = theme.palette.background.gradientChart;
+  const gradientPurple = theme.palette.background.gradientPurple;
+  const gradientGreen = theme.palette.background.gradientGreen;
+
+  // خلفيات خاصة بالوضع الداكن
+  const navyBackground = theme.palette.background.navy;
+  const deepBlueBackground = theme.palette.background.deepBlue;
 
   // شريط التنقل
   const navbarBackground = theme.palette.background.navbar;
@@ -36,14 +70,38 @@ export const useThemeConstants = () => {
   // النصوص
   const textPrimary = theme.palette.text.primary;
   const textSecondary = theme.palette.text.secondary;
+  const textTertiary = theme.palette.text.tertiary;
+  const textInverted = theme.palette.text.inverted;
+  const textDisabled = theme.palette.text.disabled;
+  const textLink = theme.palette.text.link;
+  const textSuccess = theme.palette.text.success;
+  const textWarning = theme.palette.text.warning;
+  const textError = theme.palette.text.error;
   const buttonText = theme.palette.text.button;
+  const buttonTextDisabled = theme.palette.text.buttonDisabled;
 
   // الأزرار
   const buttonBackground = theme.palette.background.button;
+  const buttonHoverBackground = theme.palette.background.buttonHover;
+  const buttonActiveBackground = theme.palette.background.buttonActive;
+  const buttonDisabledBackground = theme.palette.background.buttonDisabled;
   const buttonHover = theme.palette.action.hover;
+
+  // حقول الإدخال
+  const inputBackground = theme.palette.background.input;
+  const inputHoverBackground = theme.palette.background.inputHover;
+  const inputFocusBackground = theme.palette.background.inputFocus;
+  const inputDisabledBackground = theme.palette.background.inputDisabled;
 
   // الحدود
   const border = theme.palette.border.default;
+  const borderFocus = theme.palette.border.focus;
+  const borderHover = theme.palette.border.hover;
+  const inputBorder = theme.palette.border.input;
+  const inputBorderHover = theme.palette.border.inputHover;
+  const inputBorderFocus = theme.palette.border.inputFocus;
+  const inputBorderDisabled = theme.palette.border.inputDisabled;
+  const tableBorder = theme.palette.border.table;
 
   // أنماط الجداول
   const tableHeader = theme.palette.table.header;
@@ -51,11 +109,11 @@ export const useThemeConstants = () => {
   const tableRow = theme.palette.table.row;
   const tableRowAlt = theme.palette.table.rowAlt;
   const tableRowHover = theme.palette.table.rowHover;
-  const tableBorder = theme.palette.table.border;
+  const tableBorderColor = theme.palette.table.border;
   const tableText = theme.palette.table.text;
 
   // أنماط الـ Sidebar
-  const sidebarBackground = theme.palette.sidebar.background;
+  const sidebarBackgroundColor = theme.palette.sidebar.background;
   const sidebarBorder = theme.palette.sidebar.border;
   const sidebarText = theme.palette.sidebar.text;
   const sidebarTextSecondary = theme.palette.sidebar.textSecondary;
@@ -64,13 +122,68 @@ export const useThemeConstants = () => {
   const sidebarItemActiveBackground =
     theme.palette.sidebar.itemActiveBackground;
   const sidebarIcon = theme.palette.sidebar.icon;
+  const sidebarIconActive = theme.palette.sidebar.iconActive;
   const sidebarHeader = theme.palette.sidebar.header;
   const sidebarFooter = theme.palette.sidebar.footer;
 
-  // الظلال (تستخدم الظلال المحدثة تلقائيًا)
-  const shadow1 = theme.shadows[1];
-  const shadow2 = theme.shadows[2];
-  const shadow3 = theme.shadows[3];
+  // ألوان الرسوم البيانية
+  const chartBlue = theme.palette.chart.blue;
+  const chartGreen = theme.palette.chart.green;
+  const chartRed = theme.palette.chart.red;
+  const chartYellow = theme.palette.chart.yellow;
+  const chartPurple = theme.palette.chart.purple;
+  const chartTeal = theme.palette.chart.teal;
+  const chartOrange = theme.palette.chart.orange;
+  const chartPink = theme.palette.chart.pink;
+  const chartGray = theme.palette.chart.gray;
+
+  // مؤشرات الحالة
+  const statusOnline = theme.palette.status.online;
+  const statusOffline = theme.palette.status.offline;
+  const statusAway = theme.palette.status.away;
+  const statusBusy = theme.palette.status.busy;
+
+  // الظلال
+  const shadowSm = theme.shadows[1];
+  const shadowMd = theme.shadows[2];
+  const shadowLg = theme.shadows[3];
+  const shadowXl = theme.shadows[4];
+  const shadow2xl = theme.shadows[5];
+  const shadowInner = theme.shadows[6];
+  const shadowButton = theme.shadows[7];
+  const shadowBlue = theme.shadows[8];
+
+  // الأشكال
+  const borderRadius = theme.shape.borderRadius;
+  const borderRadiusSm = theme.shape.borderRadiusSm;
+  const borderRadiusLg = theme.shape.borderRadiusLg;
+  const borderRadiusXl = theme.shape.borderRadiusXl;
+  const borderRadiusFull = theme.shape.borderRadiusFull;
+
+  // الانتقالات
+  const transitionEasingEaseInOut = theme.transitions.easing.easeInOut;
+  const transitionEasingEaseOut = theme.transitions.easing.easeOut;
+  const transitionEasingEaseIn = theme.transitions.easing.easeIn;
+  const transitionEasingSharp = theme.transitions.easing.sharp;
+  const transitionDurationShortest = theme.transitions.duration.shortest;
+  const transitionDurationShorter = theme.transitions.duration.shorter;
+  const transitionDurationShort = theme.transitions.duration.short;
+  const transitionDurationStandard = theme.transitions.duration.standard;
+  const transitionDurationComplex = theme.transitions.duration.complex;
+  const transitionDurationEnteringScreen =
+    theme.transitions.duration.enteringScreen;
+  const transitionDurationLeavingScreen =
+    theme.transitions.duration.leavingScreen;
+
+  // مؤشرات z-index
+  const zIndexMobileStepper = theme.zIndex.mobileStepper;
+  const zIndexFab = theme.zIndex.fab;
+  const zIndexSpeedDial = theme.zIndex.speedDial;
+  const zIndexAppBar = theme.zIndex.appBar;
+  const zIndexDrawer = theme.zIndex.drawer;
+  const zIndexModal = theme.zIndex.modal;
+  const zIndexSnackbar = theme.zIndex.snackbar;
+  const zIndexTooltip = theme.zIndex.tooltip;
 
   const typography = {
     fontFamily: theme.typography.fontFamily,
@@ -118,6 +231,17 @@ export const useThemeConstants = () => {
       lineHeight: theme.typography.button.lineHeight,
       textTransform: theme.typography.button.textTransform,
     },
+    caption: {
+      fontSize: theme.typography.caption.fontSize,
+      lineHeight: theme.typography.caption.lineHeight,
+    },
+    overline: {
+      fontSize: theme.typography.overline.fontSize,
+      fontWeight: theme.typography.overline.fontWeight,
+      letterSpacing: theme.typography.overline.letterSpacing,
+      lineHeight: theme.typography.overline.lineHeight,
+      textTransform: theme.typography.overline.textTransform,
+    },
   };
 
   return {
@@ -130,8 +254,13 @@ export const useThemeConstants = () => {
     success,
     info,
 
-    // الخلفيات
+    // الخلفيات الرئيسية
     background,
+    backgroundElevated,
+    backgroundLowered,
+    backgroundBlue,
+
+    // خلفيات الأقسام
     authBackground,
     inventoryBackground,
     pharmacyBackground,
@@ -139,9 +268,38 @@ export const useThemeConstants = () => {
 
     // خلفيات المكونات
     cardBackground,
+    cardHoverBackground,
+    cardActiveBackground,
     cardDetailsBackground,
     cartBackground,
     paperBackground,
+    sidebarBackground,
+    headerBackground,
+    footerBackground,
+    tooltipBackground,
+    badgeBackground,
+
+    // خلفيات لوحة المعلومات
+    dashboardBackground,
+    statsBackground,
+    statsSecondaryBackground,
+    chartsBackground,
+    tableBackground,
+    tableHeaderBackground,
+    tableRowBackground,
+    tableRowAltBackground,
+    tableRowHoverBackground,
+
+    // التدرجات اللونية
+    gradientBlue,
+    gradientNavy,
+    gradientChart,
+    gradientPurple,
+    gradientGreen,
+
+    // خلفيات خاصة بالوضع الداكن
+    navyBackground,
+    deepBlueBackground,
 
     // شريط التنقل
     navbarBackground,
@@ -152,19 +310,38 @@ export const useThemeConstants = () => {
     // النصوص
     textPrimary,
     textSecondary,
+    textTertiary,
+    textInverted,
+    textDisabled,
+    textLink,
+    textSuccess,
+    textWarning,
+    textError,
     buttonText,
+    buttonTextDisabled,
 
     // الأزرار
     buttonBackground,
+    buttonHoverBackground,
+    buttonActiveBackground,
+    buttonDisabledBackground,
     buttonHover,
+
+    // حقول الإدخال
+    inputBackground,
+    inputHoverBackground,
+    inputFocusBackground,
+    inputDisabledBackground,
+    inputBorder,
+    inputBorderHover,
+    inputBorderFocus,
+    inputBorderDisabled,
 
     // الحدود
     border,
-
-    // الظلال
-    shadow1,
-    shadow2,
-    shadow3,
+    borderFocus,
+    borderHover,
+    tableBorder,
 
     // أنماط الجداول
     tableHeader,
@@ -172,11 +349,11 @@ export const useThemeConstants = () => {
     tableRow,
     tableRowAlt,
     tableRowHover,
-    tableBorder,
+    tableBorderColor,
     tableText,
 
     // أنماط الـ Sidebar
-    sidebarBackground,
+    sidebarBackgroundColor,
     sidebarBorder,
     sidebarText,
     sidebarTextSecondary,
@@ -184,8 +361,66 @@ export const useThemeConstants = () => {
     sidebarItemActive,
     sidebarItemActiveBackground,
     sidebarIcon,
+    sidebarIconActive,
     sidebarHeader,
     sidebarFooter,
+
+    // ألوان الرسوم البيانية
+    chartBlue,
+    chartGreen,
+    chartRed,
+    chartYellow,
+    chartPurple,
+    chartTeal,
+    chartOrange,
+    chartPink,
+    chartGray,
+
+    // مؤشرات الحالة
+    statusOnline,
+    statusOffline,
+    statusAway,
+    statusBusy,
+
+    // الظلال
+    shadowSm,
+    shadowMd,
+    shadowLg,
+    shadowXl,
+    shadow2xl,
+    shadowInner,
+    shadowButton,
+    shadowBlue,
+
+    // الأشكال
+    borderRadius,
+    borderRadiusSm,
+    borderRadiusLg,
+    borderRadiusXl,
+    borderRadiusFull,
+
+    // الانتقالات
+    transitionEasingEaseInOut,
+    transitionEasingEaseOut,
+    transitionEasingEaseIn,
+    transitionEasingSharp,
+    transitionDurationShortest,
+    transitionDurationShorter,
+    transitionDurationShort,
+    transitionDurationStandard,
+    transitionDurationComplex,
+    transitionDurationEnteringScreen,
+    transitionDurationLeavingScreen,
+
+    // مؤشرات z-index
+    zIndexMobileStepper,
+    zIndexFab,
+    zIndexSpeedDial,
+    zIndexAppBar,
+    zIndexDrawer,
+    zIndexModal,
+    zIndexSnackbar,
+    zIndexTooltip,
 
     // أنماط Typography
     typography,

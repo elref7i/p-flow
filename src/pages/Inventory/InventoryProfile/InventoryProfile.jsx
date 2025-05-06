@@ -18,6 +18,7 @@ const InventoryProfile = () => {
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState(0);
 
+  //Queries
   const { isLoading, data: payload } = useDrugsSpecificInventory({
     drugId: id,
   });

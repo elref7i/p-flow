@@ -20,7 +20,7 @@ export default function AllDrugs() {
   //Queries
   const { data, isLoading } = useOwnDrugs(token, searchParams);
 
-  const { shadow1 } = useThemeConstants();
+  const { headerBackground } = useThemeConstants();
   console.log("Fetched data:", data);
   const columnsWithActions = [...columns];
 
@@ -67,7 +67,8 @@ export default function AllDrugs() {
           bgcolor: "transparent",
           p: 2,
           borderRadius: 2,
-          boxShadow: shadow1,
+          background: headerBackground,
+          boxShadow: 8,
         }}
       >
         <Box sx={{ mb: 3, mt: 2, width: "100%" }}>
