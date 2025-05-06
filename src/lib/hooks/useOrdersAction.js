@@ -1,1 +1,58 @@
-//* Get my orders
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useContext } from "react";
+import toast from "react-hot-toast";
+import { CancelOrder, createOrder, getMyOrders } from "../api/ordersApi";
+import {
+  UserTypeContext,
+  useTypeContext,
+} from "../../context/UserType.context";
+
+// * get orders
+export const useOrders = () => {
+  const { token } = useTypeContext();
+  return useQuery({
+    queryKey: ["orders"],
+    queryFn: () => getMyOrders(token),
+    enabled: !!token,
+  });
+};
+
+// ^ Create Order
+export const useCreateOrder = () => {
+  const { token } = useContext(UserTypeContext);
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: ({ cartId, inventoryId }) =>
+      createOrder({ token, cartId, inventoryId }),
+    onSuccess: (data) => {
+      console.log(data);
+      toast.success("Order created successfully");
+      queryClient.invalidateQueries(["orders"]);
+      queryClient.refetchQueries(["orders"]);
+    },
+    onError: (error) => {
+      toast.error("Error creating order");
+      console.log(error);
+    },
+  });
+};
+
+// & Cancel Order
+export const useCancelOrder = () => {
+  const { token } = useContext(UserTypeContext);
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: ({ orderId }) => CancelOrder({ token, orderId }),
+    onSuccess: () => {
+      toast.success("Order cancelled successfully");
+      queryClient.invalidateQueries(["orders"]);
+      queryClient.refetchQueries(["orders"]);
+    },
+    onError: (error) => {
+      toast.error("Error cancelling order");
+      console.log(error);
+    },
+  });
+};
