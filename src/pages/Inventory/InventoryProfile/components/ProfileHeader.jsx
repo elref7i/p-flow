@@ -28,7 +28,7 @@ const ProfileHeader = ({
   totalProducts,
 }) => {
   //Context
-  const { role, token } = useTypeContext();
+  const { role } = useTypeContext();
 
   console.log(inventory);
 
@@ -50,7 +50,6 @@ const ProfileHeader = ({
   } = useThemeConstants();
 
   //Mutations
-  const { isLoading, isSuccess, mutate } = useAddnventoryWishlist();
 
   return (
     <Box
@@ -64,10 +63,12 @@ const ProfileHeader = ({
       }}
     >
       {/* Wishlist Button */}
-      <ButtonWhishlist
-        check={true}
-        id={inventory.id}
-      />
+      {role === "inventory" || (
+        <ButtonWhishlist
+          check={true}
+          id={inventory.id}
+        />
+      )}
       {/* Profile Info Section */}
       <Box
         sx={{
