@@ -9,14 +9,18 @@ import {
 } from "@mui/material";
 import { formatNumber } from "../../../lib/utils/formateNumber";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import { useCreateOrder } from "../../../lib/hooks/useOrdersAction";
+import { useCart } from "../../../lib/hooks/useCartAction";
 
 export default function Invoice({ selectedInventory }) {
+  const createOrderMutation = useCreateOrder();
+  const { data: cartInfo } = useCart();
+  const drugs = selectedInventory?.drugs || [];
+  const inventoryId = cartInfo.data.inventories[0].inventory._id;
+
   const theme = useTheme();
   const isDarkMode = theme.palette.mode === "dark";
-
   const textColor = theme.palette.mode === "dark" ? "#fff" : "#000";
-
-  const drugs = selectedInventory?.drugs || [];
 
   return (
     <Box
@@ -157,13 +161,19 @@ export default function Invoice({ selectedInventory }) {
       </Box>
 
       <Button
+        onClick={() => {
+          createOrderMutation.mutate({
+            cartId: cartInfo.data._id,
+            inventoryId,
+          });
+        }}
         variant="contained"
         color="primary"
         fullWidth
-        sx={{ fontWeight: "bold", fontSize: "18px" }}
+        sx={{ fontWeight: "bold", fontSize: "20px" }}
         disabled={drugs.length === 0}
       >
-        Approach Now
+        Order Now
       </Button>
     </Box>
   );

@@ -15,7 +15,7 @@ export const API_URL = "https://pflow-api-v3-1655e5b56c39.herokuapp.com/api/v1";
 
 export const API_URL_USER = `${API_URL}/users`;
 
-export const API_URL_ORDERS = `${API_URL}orders`;
+export const API_URL_ORDERS = `${API_URL}/orders`;
 
 export const API_URL_DRUG = `${API_URL}/drugs`;
 
