@@ -65,11 +65,8 @@ import Profile from "./pages/Inventory/InventoryProfile/Profile";
 import Inventoers from "./pages/Pharmacy/Inventoers/Inventoers";
 import PaginationProvider from "./context/params.context";
 import Whishlist from "./pages/Pharmacy/wishlist/whishlist";
-<<<<<<< HEAD
 import CategoriesAdmin from "./pages/Admin/categories_admin/categories_admin";
-=======
 import PharmacyOrders from "./pages/Pharmacy/PharmacyOrders/PharmacyOrders";
->>>>>>> d093b0085a69b1f7051513ea48f4a6d544b740ac
 
 function App() {
   const router = createBrowserRouter([
