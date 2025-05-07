@@ -66,6 +66,7 @@ import Inventoers from "./pages/Pharmacy/Inventoers/Inventoers";
 import Orders from "./pages/Pharmacy/Orders/Orders";
 import PaginationProvider from "./context/params.context";
 import Whishlist from "./pages/Pharmacy/wishlist/whishlist";
+import CategoriesAdmin from "./pages/Admin/categories_admin/categories_admin";
 
 function App() {
   const router = createBrowserRouter([
@@ -98,6 +99,7 @@ function App() {
         { index: true, element: <DashboardAdmin /> },
         { path: "users", element: <Users /> },
         { path: "usersaction", element: <UsersAction /> },
+        { path: "categories_admin", element: <CategoriesAdmin /> },
       ],
     },
     {

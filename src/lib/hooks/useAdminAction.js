@@ -2,8 +2,12 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import {
   ActiveAdminUser,
   addAdminUser,
+  addCategory,
+  deleteCategory,
   deleteUser,
   fetchUsers,
+  getCategories,
+  updateCategory,
   updateUserData,
 } from "../api/adminApi";
 import toast from "react-hot-toast";
@@ -88,6 +92,72 @@ export const useUpdateUser = () => {
       toast.error(
         error.response?.data?.message ||
           "Failed to update user. Please try again later."
+      );
+      console.log(error);
+    },
+  });
+};
+
+// GET ALL Categories
+export const useCategories = () => {
+  return useQuery({
+    queryKey: ["categories"],
+    queryFn: getCategories,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
+  });
+};
+
+// Add Category
+export const useAddCategory = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation(addCategory, {
+    onSuccess: () => {
+      toast.success("User added successfully!");
+      queryClient.invalidateQueries(["categories"]);
+    },
+    onError: (error) => {
+      toast.error(
+        error.response?.data?.message ||
+          "Failed to add user. Please try again later. "
+      );
+      console.error(error);
+    },
+  });
+};
+
+//UPDATE Category
+export const useUpdateCategory = () => {
+  const queryClient = useQueryClient();
+  return useMutation(updateCategory, {
+    onSuccess: () => {
+      toast.success("User updated successfully!");
+      queryClient.invalidateQueries(["categories"]);
+    },
+    onError: (error) => {
+      toast.error(
+        error.response?.data?.message ||
+          "Failed to update user. Please try again later."
+      );
+      console.log(error);
+    },
+  });
+};
+
+// DELETE Category
+export const useDeleteCategory = () => {
+  const queryClient = useQueryClient();
+  return useMutation(deleteCategory, {
+    onSuccess: () => {
+      toast.success("Category deleted successfully!");
+
+      queryClient.invalidateQueries(["categories"]);
+    },
+    onError: (error) => {
+      toast.error(
+        error.response?.data?.message ||
+          "Failed to delete Category. Please try again later."
       );
       console.log(error);
     },

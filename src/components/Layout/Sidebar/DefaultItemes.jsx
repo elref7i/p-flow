@@ -8,6 +8,8 @@ import ArticleIcon from "@mui/icons-material/Article";
 import BarChartIcon from "@mui/icons-material/BarChart";
 import SettingsIcon from "@mui/icons-material/Settings";
 import AddTaskIcon from "@mui/icons-material/AddTask";
+import CategoryIcon from "@mui/icons-material/Category";
+
 const Shared = { text: "Setting", icon: <SettingsIcon />, path: "/setting" };
 export const admin = {
   HeaderSection: [
@@ -21,7 +23,11 @@ export const admin = {
     },
   ],
   MiddleSection: [
-    { text: "Invoices", icon: <ArticleIcon />, path: "/invoices" },
+    {
+      text: "Categories",
+      icon: <CategoryIcon />,
+      path: "/admin/categories_admin",
+    },
     { text: "Profile Form", icon: <PersonIcon />, path: "/profile" },
     { text: "Calendar", icon: <CalendarTodayIcon />, path: "/calendar" },
     { text: "FAQ Page", icon: <HelpOutlineIcon />, path: "/faq" },
@@ -49,9 +55,6 @@ export const inventory = {
   ],
   FooterSection: [
     { text: "Bar Chart", icon: <BarChartIcon />, path: "/bar" },
-    // { text: 'Pie Chart', icon: <PieChartIcon />, path: '/pie' },
-    // { text: 'Line Chart', icon: <TimelineIcon />, path: '/line' },
-    // { text: 'Geography Chart', icon: <MapIcon />, path: '/geography' },
     Shared,
   ],
 };

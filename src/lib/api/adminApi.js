@@ -1,5 +1,5 @@
 import axios from "axios";
-import { API_URL_USER } from "./api_url";
+import { API_URL_CAT, API_URL_USER } from "./api_url";
 
 //* GET ALL Users
 
@@ -74,4 +74,60 @@ export const getSpecificUser = async ({ token, userId }) => {
   };
   const { data } = await axios.request(options);
   return data.user;
+};
+
+// Get Categories
+export const getCategories = async () => {
+  const { data } = await axios.get(`${API_URL_CAT}`);
+  return data;
+};
+
+// Get Specific Category
+export const getSpecificCategory = async ({ id }) => {
+  const options = {
+    url: `${API_URL_CAT}/${id}`,
+    method: "GET",
+  };
+
+  const { data } = await axios.request(options);
+
+  return data;
+};
+
+// Add Category
+export const addCategory = async ({ token, formData }) => {
+  const options = {
+    url: `${API_URL_CAT}`,
+    method: "POST",
+    data: formData,
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+  return axios.request(options);
+};
+
+// Update Category
+export const updateCategory = async ({ token, id, formData }) => {
+  const options = {
+    url: `${API_URL_CAT}/${id}`,
+    method: "PUT",
+    data: formData,
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+  return axios.request(options);
+};
+
+// Delete Category
+export const deleteCategory = async ({ token, id }) => {
+  const options = {
+    url: `${API_URL_CAT}/${id}`,
+    method: "DELETE",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+  return axios.request(options);
 };

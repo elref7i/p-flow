@@ -19,7 +19,6 @@ import { motion } from "framer-motion";
 import { useTypeContext } from "../../../../context/UserType.context";
 import { useThemeConstants } from "../../../../lib/constants/theme.constant";
 import ButtonWhishlist from "../../../../components/Common/Loading/button_whishlist";
-import { useAddnventoryWishlist } from "../../../../lib/hooks/usewishlist.action";
 
 const ProfileHeader = ({
   inventory,
