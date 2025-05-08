@@ -7,6 +7,7 @@ import { useTheme } from "@mui/material/styles";
 import { useCart, useClearCart } from "../../../lib/hooks/useCartAction";
 import { useState } from "react";
 import Invoice from "../../../components/PharmacyComonents/Invoice/Invoice";
+
 export default function Cart() {
   const [selectedInventory, setSelectedInventory] = useState(null);
   const theme = useTheme();
@@ -17,7 +18,7 @@ export default function Cart() {
 
   if (!cartInfo && isLoading) return <LoadingSpinner />;
 
-  if (!cartInfo || !cartInfo.data || cartInfo.numOfCartItems === 0) {
+  if (!cartInfo || !cartInfo.data || cartInfo.data.totalItems === 0) {
     return (
       <Paper
         elevation={3}
@@ -77,18 +78,16 @@ export default function Cart() {
       </Helmet>
 
       <Grid container spacing={5}>
-        {/*  cart items */}
+        {/* cart items */}
         <Grid item xs={12} md={9}>
           <Box display="flex" flexDirection="column" gap={3}>
             {cartInfo.data.inventories.map((inventory) => (
               <CartItem
-                key={inventory._id}
+                key={inventory.inventory.id}
                 inventoryInfo={inventory}
                 onReadyToBuy={() => setSelectedInventory(inventory)}
               />
             ))}
-
-            {/* <Divider sx={{ my: 2 }} /> */}
 
             <Box textAlign="center">
               <Button
@@ -103,7 +102,7 @@ export default function Cart() {
           </Box>
         </Grid>
 
-        {/* Your cart */}
+        {/* invoice */}
         <Grid item xs={12} md={3}>
           <Box>
             <Invoice selectedInventory={selectedInventory} />

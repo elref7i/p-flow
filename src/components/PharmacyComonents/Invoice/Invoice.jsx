@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import {
   Box,
   Typography,
@@ -7,28 +6,32 @@ import {
   Tooltip,
   useTheme,
 } from "@mui/material";
-import { formatNumber } from "../../../lib/utils/formateNumber";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { useCreateOrder } from "../../../lib/hooks/useOrdersAction";
 import { useCart } from "../../../lib/hooks/useCartAction";
+import { formatNumber } from "../../../lib/utils/formateNumber";
 
+/* eslint-disable react/prop-types */
 export default function Invoice({ selectedInventory }) {
-  const createOrderMutation = useCreateOrder();
-  const { data: cartInfo } = useCart();
-  const drugs = selectedInventory?.drugs || [];
-  const inventoryId = cartInfo.data.inventories[0].inventory._id;
-
   const theme = useTheme();
   const isDarkMode = theme.palette.mode === "dark";
-  const textColor = theme.palette.mode === "dark" ? "#fff" : "#000";
+  const textColor = isDarkMode ? "#fff" : "#000";
+
+  const { data: cartInfo } = useCart();
+  const createOrderMutation = useCreateOrder();
+
+  const drugs = selectedInventory?.drugs || [];
+
+  const inventoryId = selectedInventory?.inventory?.id;
 
   return (
     <Box
       sx={{
         width: { xs: "100%", md: "380px" },
         height: 600,
+        mt: 3,
         backgroundColor: isDarkMode ? "#0e1a2b" : "#F5F5F5",
-        color: isDarkMode ? "#ffffff" : "#000000",
+        color: textColor,
         borderRadius: 3,
         boxShadow: isDarkMode
           ? "0 0 10px rgba(255,255,255,0.1)"
@@ -56,7 +59,6 @@ export default function Invoice({ selectedInventory }) {
           >
             <ShoppingCartIcon sx={{ color: "white", fontSize: 28 }} />
           </Box>
-
           <Typography
             variant="h2"
             sx={{ fontWeight: "bold", color: "text.primary" }}
@@ -66,7 +68,6 @@ export default function Invoice({ selectedInventory }) {
         </Box>
       </Box>
 
-      {/* ✅ Scrollable drug list container with padding fix */}
       <Box
         sx={{
           flexGrow: 1,
@@ -78,11 +79,10 @@ export default function Invoice({ selectedInventory }) {
         }}
       >
         <Box sx={{ pt: 1, pb: 1 }}>
-          {" "}
           {drugs.length > 0 ? (
-            drugs.map(({ drug, quantity, Price }) => (
+            drugs.map(({ drug, quantity, price }) => (
               <Box
-                key={drug._id}
+                key={drug.id}
                 sx={{
                   display: "flex",
                   alignItems: "center",
@@ -126,7 +126,7 @@ export default function Invoice({ selectedInventory }) {
                     </Typography>
                   </Tooltip>
                   <Typography fontSize={12} color="text.secondary">
-                    Price: {formatNumber(Price)} $
+                    Price: {formatNumber(price)} $
                   </Typography>
                 </Box>
 
@@ -163,7 +163,7 @@ export default function Invoice({ selectedInventory }) {
       <Button
         onClick={() => {
           createOrderMutation.mutate({
-            cartId: cartInfo.data._id,
+            cartId: cartInfo.data.id,
             inventoryId,
           });
         }}

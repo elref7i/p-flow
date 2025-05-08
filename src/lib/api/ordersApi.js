@@ -56,3 +56,31 @@ export const CancelOrder = async ({ token, orderId }) => {
   };
   return axios.request(options);
 };
+
+//* Get Specific Order
+export const getSpecificOrder = async ({ token, orderId }) => {
+  const options = {
+    url: `${API_URL_ORDERS}/${orderId}`,
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+  const data = await axios.request(options);
+  return data.data;
+};
+
+// * Reject Order
+export const rejectOrder = async ({ token, orderId }) => {
+  const options = {
+    url: `${API_URL_ORDERS}/${orderId}/reject`,
+    method: "PATCH",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+    data: {
+      reason: "Order not allowed",
+    },
+  };
+  return axios.request(options);
+};

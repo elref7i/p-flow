@@ -48,6 +48,7 @@ export default function CartItem({ inventoryInfo, onReadyToBuy }) {
           ? "0 0 10px rgba(255,255,255,0.1)"
           : "0 0 10px rgba(0,0,0,0.1)",
         mb: 4,
+        mt: 3,
         "@media (max-width: 600px)": {
           p: 2,
           mb: 3,
@@ -62,7 +63,7 @@ export default function CartItem({ inventoryInfo, onReadyToBuy }) {
         <IconButton
           color="error"
           onClick={() =>
-            removeInventoryMutation.mutate({ inventoryId: inventory._id })
+            removeInventoryMutation.mutate({ inventoryId: inventory.id })
           }
         >
           <Delete />
@@ -85,11 +86,12 @@ export default function CartItem({ inventoryInfo, onReadyToBuy }) {
           },
         }}
       >
-        {drugs.map(({ drug, quantity, Price }) => {
-          const { _id } = drug;
+        {drugs.map(({ drug, quantity, price }) => {
+          const drugId = drug.id;
+
           return (
             <Box
-              key={_id}
+              key={drugId}
               sx={{
                 display: "flex",
                 alignItems: "center",
@@ -119,9 +121,7 @@ export default function CartItem({ inventoryInfo, onReadyToBuy }) {
                 <Tooltip title={drug.name} arrow>
                   <Typography
                     variant="body1"
-                    onClick={() =>
-                      navigate(`/pharmacy/drugdetails/${drug._id}`)
-                    }
+                    onClick={() => navigate(`/pharmacy/drugdetails/${drugId}`)}
                     sx={{
                       fontWeight: 600,
                       cursor: "pointer",
@@ -143,7 +143,7 @@ export default function CartItem({ inventoryInfo, onReadyToBuy }) {
                     color: isDarkMode ? "#ccc" : "#555",
                   }}
                 >
-                  Price: {formatNumber(Price)} $
+                  Price: {formatNumber(price)} $
                 </Typography>
               </Box>
 
@@ -153,7 +153,7 @@ export default function CartItem({ inventoryInfo, onReadyToBuy }) {
                   size="small"
                   onClick={() =>
                     updateQuantityMutation.mutate({
-                      drugId: drug._id,
+                      drugId,
                       quantity: quantity + 1,
                     })
                   }
@@ -167,7 +167,7 @@ export default function CartItem({ inventoryInfo, onReadyToBuy }) {
                   size="small"
                   onClick={() =>
                     updateQuantityMutation.mutate({
-                      drugId: drug._id,
+                      drugId,
                       quantity: quantity - 1,
                     })
                   }
@@ -183,7 +183,7 @@ export default function CartItem({ inventoryInfo, onReadyToBuy }) {
                 size="small"
                 color="error"
                 sx={{ ml: 1 }}
-                onClick={() => removeDrugMutation.mutate({ drugId: _id })}
+                onClick={() => removeDrugMutation.mutate({ drugId })}
               >
                 <CloseIcon />
               </IconButton>
