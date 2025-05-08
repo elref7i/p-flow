@@ -14,6 +14,7 @@ import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import imagedashBoard from "../../assets/image.png";
+import imagedashBoardLight from "../../assets/imagelight.png";
 
 // Animated background component
 const AnimatedBackground = () => {
@@ -306,7 +307,11 @@ const HeroSection = () => {
                   ) : (
                     <Box
                       component="img"
-                      src={imagedashBoard}
+                      src={
+                        theme.palette.mode === "light"
+                          ? imagedashBoardLight
+                          : imagedashBoard
+                      }
                       alt="P-FLOW Dashboard Preview"
                       sx={{
                         width: "100%",
