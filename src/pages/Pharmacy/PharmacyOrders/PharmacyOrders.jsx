@@ -9,6 +9,7 @@ import {
   Stack,
   Divider,
   useTheme,
+  Tooltip,
 } from "@mui/material";
 import { useOrders } from "@/lib/hooks/useOrdersAction";
 import LoadingSpinner from "@/components/Common/Loading/LoadingSpinner";
@@ -33,7 +34,7 @@ export default function PharmacyOrders() {
       id: item.drug._id,
       name: item.drug.name,
       price: item.drug.price,
-      quantity: item.quantity,
+      quantity: item.paidQuantity,
       image:
         "https://www.netmeds.com/images/product-v1/600x600/397251/nasomist_saline_nasal_spray_20ml_149351_0_2.jpg",
     })),
@@ -92,9 +93,11 @@ export default function PharmacyOrders() {
                       sx={{ width: 60, borderRadius: 1 }}
                     />
                     <Box>
-                      <Typography variant="h6" noWrap>
-                        {product.name}
-                      </Typography>
+                      <Tooltip title={product.name} arrow>
+                        <Typography variant="h6" noWrap sx={{ maxWidth: 300 }}>
+                          {product.name}
+                        </Typography>
+                      </Tooltip>
                       <Typography
                         variant="body2"
                         color={isDark ? "gray" : "text.secondary"}

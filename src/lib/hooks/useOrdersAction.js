@@ -1,7 +1,13 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useContext } from "react";
 import toast from "react-hot-toast";
-import { CancelOrder, createOrder, getMyOrders } from "../api/ordersApi";
+import {
+  CancelOrder,
+  createOrder,
+  getMyOrders,
+  getSpecificOrder,
+  rejectOrder,
+} from "../api/ordersApi";
 import {
   UserTypeContext,
   useTypeContext,
@@ -52,6 +58,35 @@ export const useCancelOrder = () => {
     },
     onError: (error) => {
       toast.error("Error cancelling order");
+      console.log(error);
+    },
+  });
+};
+
+// ~  Get Specific Order
+export const useGetSpecificOrder = (orderId) => {
+  const { token } = useContext(UserTypeContext);
+  return useQuery({
+    queryKey: ["orders", orderId],
+    queryFn: () => getSpecificOrder(token),
+    enabled: !!token,
+  });
+};
+
+// ? Reject Order
+export const useRejectOrder = () => {
+  const { token } = useContext(UserTypeContext);
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: ({ orderId }) => rejectOrder({ token, orderId }),
+    onSuccess: () => {
+      toast.success("Order rejected successfully");
+      queryClient.invalidateQueries(["orders"]);
+      queryClient.refetchQueries(["orders"]);
+    },
+    onError: (error) => {
+      toast.error("Error rejecting order");
       console.log(error);
     },
   });
