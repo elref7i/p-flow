@@ -15,8 +15,14 @@ export default function Sidebar() {
   const { role } = useTypeContext();
 
   //Theme
-  const { sidebarBackground, sidebarBorder, sidebarText, sidebarHeader } =
-    useThemeConstants();
+  const {
+    sidebarBackgroundColor,
+    sidebarBorder,
+    sidebarText,
+    sidebarHeader,
+    border,
+    borderFocus,
+  } = useThemeConstants();
 
   const { HeaderSection, MiddleSection, FooterSection } =
     role === "admin" ? admin : inventory;
@@ -30,8 +36,8 @@ export default function Sidebar() {
       open={isOpen}
       sx={{
         "& .MuiDrawer-paper": {
-          bgcolor: sidebarBackground,
-          borderRight: `3px solid ${sidebarBorder}`,
+          bgcolor: sidebarBackgroundColor,
+          borderRight: `3px solid ${border}`,
           width: isOpen ? 240 : 65,
           borderRadius: open ? "0px 0px 0px 10px" : "0px 20px 20px 0px",
           transition: theme.transitions.create("width", {
@@ -40,8 +46,11 @@ export default function Sidebar() {
           }),
           overflowX: "hidden",
           textAlign: "center",
-          boxShadow: theme.shadows[2],
+          boxShadow: 7,
           color: sidebarText,
+          "&:hover": {
+            borderRight: `3px solid ${borderFocus}`,
+          },
         },
       }}
     >

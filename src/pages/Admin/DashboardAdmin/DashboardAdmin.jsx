@@ -1,5 +1,3 @@
-"use client";
-
 import { Helmet } from "react-helmet";
 import { Box, Grid } from "@mui/material";
 
@@ -18,7 +16,7 @@ const MainContent = styled(Box)(() => ({
 }));
 
 export default function DashboardAdmin() {
-  const { paperBackground, shadow1 } = useThemeConstants();
+  const { dashboardBackground } = useThemeConstants();
   return (
     <>
       <Helmet>
@@ -36,10 +34,10 @@ export default function DashboardAdmin() {
       <Box
         sx={{
           display: "flex",
-          bgcolor: paperBackground,
-          p: 1,
+          bgcolor: dashboardBackground,
+          p: 1.5,
           borderRadius: 2,
-          boxShadow: shadow1,
+          boxShadow: 8,
         }}
         container="lg"
       >
@@ -49,14 +47,26 @@ export default function DashboardAdmin() {
           <MetricCards />
 
           {/* Charts Section */}
-          <Grid container spacing={3} sx={{ mb: 3 }}>
+          <Grid
+            container
+            spacing={3}
+            sx={{ mb: 3 }}
+          >
             {/* Cashflow Chart */}
-            <Grid item xs={12} md={8}>
+            <Grid
+              item
+              xs={12}
+              md={8}
+            >
               <CashflowChart />
             </Grid>
 
             {/* Income Breakdown */}
-            <Grid item xs={12} md={4}>
+            <Grid
+              item
+              xs={12}
+              md={4}
+            >
               <IncomeBreakdown />
             </Grid>
           </Grid>

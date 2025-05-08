@@ -1,5 +1,3 @@
-"use client";
-
 import { useState } from "react";
 import {
   Box,
@@ -16,6 +14,7 @@ import {
 } from "@mui/icons-material";
 import { styled } from "@mui/material/styles";
 import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer } from "recharts";
+import { useThemeConstants } from "../../../../lib/constants/theme.constant";
 
 const SeeDetailLink = styled(Box)(({ theme }) => ({
   display: "flex",
@@ -40,10 +39,17 @@ export default function IncomeBreakdown() {
   const [incomeBreakdownPeriod, setIncomeBreakdownPeriod] =
     useState("December");
 
+  const { backgroundLowered } = useThemeConstants();
+
   return (
     <Paper
-      elevation={0}
-      sx={{ p: 2, height: "100%" }}
+      elevation={9}
+      sx={{
+        p: 2,
+        height: "100%",
+        background: backgroundLowered,
+        "&:hover": { boxShadow: 8 },
+      }}
     >
       <Box
         sx={{

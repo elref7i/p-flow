@@ -19,7 +19,7 @@ export default function Sidebaritem({ item, open }) {
   //Theme
   const theme = useTheme();
   const {
-    textPrimary,
+    sidebarText,
     sidebarItemHover,
     sidebarItemActive,
     sidebarIcon,
@@ -47,7 +47,7 @@ export default function Sidebaritem({ item, open }) {
           minHeight: 48,
           px: 2,
           py: 1,
-          color: isActive ? "#fff" : textPrimary,
+          color: isActive ? "#fff" : sidebarText,
           borderRadius: "8px",
           backgroundColor: isActive ? sidebarItemActive : "transparent",
           "&:hover": {

@@ -1,5 +1,3 @@
-"use client";
-
 import {
   Box,
   Typography,
@@ -19,7 +17,8 @@ import {
   MoreVert as MoreVertIcon,
   KeyboardArrowRight as ArrowRightIcon,
 } from "@mui/icons-material";
-import { styled, alpha, useTheme } from "@mui/material/styles";
+import { styled, alpha } from "@mui/material/styles";
+import { useThemeConstants } from "../../../../lib/constants/theme.constant";
 
 const SeeDetailLink = styled(Box)(({ theme }) => ({
   display: "flex",
@@ -92,12 +91,12 @@ const getStatusChipColor = (status) => {
 };
 
 export default function TransactionHistory() {
-  const theme = useTheme();
+  const { tableBackground, background } = useThemeConstants();
 
   return (
     <Paper
-      elevation={0}
-      sx={{ p: 2 }}
+      elevation={7}
+      sx={{ p: 2, background: tableBackground, "&:hover": { boxShadow: 9 } }}
     >
       <Box
         sx={{
@@ -164,7 +163,7 @@ export default function TransactionHistory() {
                       sx={{
                         width: 32,
                         height: 32,
-                        bgcolor: alpha(theme.palette.primary.main, 0.1),
+                        bgcolor: alpha(background, 0.1),
                         borderRadius: "4px",
                         display: "flex",
                         alignItems: "center",

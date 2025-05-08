@@ -45,21 +45,26 @@ export default function AdminTable({
   //Temes
 
   const {
+    chartsBackground,
+    tableBackground,
+    tableHeaderBackground,
+    tableHeaderText,
     tableRowHover,
-    tableBorder,
+    tableBorderColor,
     tableText,
-    shadow1,
-    shadow2,
-    shadow3,
+    tableBorder,
     typography,
   } = useThemeConstants();
   return (
     <Box
       sx={{
-        bgcolor: "transparent",
+        background: tableBorder,
         p: 2,
         borderRadius: 2,
-        boxShadow: shadow1,
+        boxShadow: 7,
+        "&:hover": {
+          boxShadow: 8,
+        },
       }}
     >
       {/* Top action buttons */}
@@ -82,8 +87,12 @@ export default function AdminTable({
                 flexDirection: "column",
                 alignItems: "flex-start",
                 borderRadius: 3,
-                boxShadow: shadow2,
+                boxShadow: 7,
                 border: tableBorder,
+                background: chartsBackground,
+                "&:hover": {
+                  boxShadow: 8,
+                },
               }}
             >
               <Box sx={{ display: "flex", alignItems: "center", mb: 1 }}>
@@ -115,7 +124,12 @@ export default function AdminTable({
       )}
 
       {/* DataGrid */}
-      <Box sx={{ height: !check ? 600 : 650, width: "100%" }}>
+      <Box
+        sx={{
+          height: !check ? 600 : 650,
+          width: "100%",
+        }}
+      >
         <DataGrid
           rows={data}
           columns={columnsWithActions}
@@ -130,10 +144,13 @@ export default function AdminTable({
           checkboxSelection
           disableRowSelectionOnClick
           sx={{
-            boxShadow: shadow3,
+            background: tableBackground,
+            boxShadow: 2,
+            borderColor: tableBorderColor,
             p: 2,
             "& .MuiDataGrid-columnHeaders": {
-              backgroundColor: "tableHeader",
+              backgroundColor: tableHeaderBackground,
+              color: tableHeaderText,
             },
             "& .MuiDataGrid-cell": {
               borderBottom: `1px solid '${tableBorder} '`,

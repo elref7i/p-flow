@@ -26,7 +26,7 @@ const PercentageChange = styled(Typography)(() => ({
 }));
 
 export default function MetricCards() {
-  const { background, shadow2 } = useThemeConstants();
+  const { statsSecondaryBackground } = useThemeConstants();
 
   const metrics = [
     {
@@ -71,7 +71,15 @@ export default function MetricCards() {
           size={{ xs: 12, md: 6, lg: 3 }}
           key={index}
         >
-          <MetricCard sx={{ bgcolor: background, boxShadow: shadow2 }}>
+          <MetricCard
+            sx={{
+              bgcolor: statsSecondaryBackground,
+              boxShadow: 5,
+              "&:hover": {
+                boxShadow: 8,
+              },
+            }}
+          >
             <Box
               sx={{
                 display: "flex",

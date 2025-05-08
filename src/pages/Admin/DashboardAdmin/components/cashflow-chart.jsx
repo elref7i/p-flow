@@ -11,7 +11,6 @@ import {
   IconButton,
 } from "@mui/material";
 import { MoreVert as MoreVertIcon } from "@mui/icons-material";
-import { useTheme } from "@mui/material/styles";
 import {
   BarChart,
   Bar,
@@ -22,6 +21,7 @@ import {
   Legend,
   ResponsiveContainer,
 } from "recharts";
+import { useThemeConstants } from "../../../../lib/constants/theme.constant";
 
 // Mock data
 const cashflowData = [
@@ -36,13 +36,19 @@ const cashflowData = [
 ];
 
 export default function CashflowChart() {
-  const theme = useTheme();
+  const { gradientChart, chartBlue, chartGray } = useThemeConstants();
   const [timeframe, setTimeframe] = useState("Last 6 Months");
 
   return (
     <Paper
       elevation={0}
-      sx={{ p: 2, height: "100%" }}
+      sx={{
+        p: 2,
+        height: "100%",
+        background: gradientChart,
+        boxShadow: 8,
+        "&:hover": { boxShadow: 9 },
+      }}
     >
       <Box
         sx={{
@@ -52,7 +58,7 @@ export default function CashflowChart() {
           mb: 2,
         }}
       >
-        <Typography variant="h6">Cashflow</Typography>
+        <Typography variant="h3">Cashflow</Typography>
         <Box sx={{ display: "flex", alignItems: "center" }}>
           <FormControl
             size="small"
@@ -104,14 +110,15 @@ export default function CashflowChart() {
             labelFormatter={(label) => `Month: ${label}`}
           />
           <Legend />
+
           <Bar
             dataKey="income"
-            fill={theme.palette.primary.main}
+            fill={chartBlue}
             name="Income"
           />
           <Bar
             dataKey="expense"
-            fill={theme.palette.grey[800]}
+            fill={chartGray}
             name="Expense"
           />
         </BarChart>

@@ -5,7 +5,7 @@ import { useThemeConstants } from "../../../lib/constants/theme.constant";
 
 export default function SidebarSection({ items, open }) {
   //Theme
-  const { sidebarBorder } = useThemeConstants();
+  const { borderFocus } = useThemeConstants();
 
   return (
     <>
@@ -25,7 +25,7 @@ export default function SidebarSection({ items, open }) {
         {items.length !== 0 && (
           <Divider
             sx={{
-              backgroundColor: sidebarBorder,
+              backgroundColor: borderFocus,
             }}
           />
         )}
