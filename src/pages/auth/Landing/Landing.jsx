@@ -15,13 +15,22 @@ const LandingPage = () => {
     <>
       <Helmet>
         <title>Landing Page</title>
-        <meta name="description" content="Landing page for our application" />
-        <meta property="og:title" content="Landing Page" />
+        <meta
+          name="description"
+          content="Landing page for our application"
+        />
+        <meta
+          property="og:title"
+          content="Landing Page"
+        />
         <meta
           property="og:description"
           content="Landing page for our application"
         />
-        <meta property="og:type" content="website" />
+        <meta
+          property="og:type"
+          content="website"
+        />
       </Helmet>
 
       <NavbarLanding />

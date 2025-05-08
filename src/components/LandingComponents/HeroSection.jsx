@@ -13,6 +13,7 @@ import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
+import imagedashBoard from "../../assets/image.png";
 
 // Animated background component
 const AnimatedBackground = () => {
@@ -89,9 +90,20 @@ const HeroSection = () => {
     >
       <AnimatedBackground />
 
-      <Container maxWidth="lg" sx={{ position: "relative", zIndex: 1 }}>
-        <Grid container spacing={6} alignItems="center">
-          <Grid item xs={12} md={6}>
+      <Container
+        maxWidth="lg"
+        sx={{ position: "relative", zIndex: 1 }}
+      >
+        <Grid
+          container
+          spacing={6}
+          alignItems="center"
+        >
+          <Grid
+            item
+            xs={12}
+            md={6}
+          >
             <Box>
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
@@ -226,7 +238,11 @@ const HeroSection = () => {
             </Box>
           </Grid>
 
-          <Grid item xs={12} md={6}>
+          <Grid
+            item
+            xs={12}
+            md={6}
+          >
             <motion.div
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
@@ -290,7 +306,7 @@ const HeroSection = () => {
                   ) : (
                     <Box
                       component="img"
-                      src="/placeholder.svg?height=1080&width=1920&text=P-FLOW+Dashboard"
+                      src={imagedashBoard}
                       alt="P-FLOW Dashboard Preview"
                       sx={{
                         width: "100%",
@@ -363,7 +379,10 @@ const HeroSection = () => {
                 color: "white",
               }}
             >
-              <Typography variant="body2" fontWeight="bold">
+              <Typography
+                variant="body2"
+                fontWeight="bold"
+              >
                 99.9% Uptime
               </Typography>
             </Paper>
@@ -400,7 +419,10 @@ const HeroSection = () => {
                 color: "white",
               }}
             >
-              <Typography variant="body2" fontWeight="bold">
+              <Typography
+                variant="body2"
+                fontWeight="bold"
+              >
                 500+ Pharmacies Trust Us
               </Typography>
             </Paper>
