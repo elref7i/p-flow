@@ -118,7 +118,7 @@ export default function PharmacyOrders() {
               </Typography>
             </Stack>
 
-            <Grid container spacing={2}>
+            <Grid container spacing={1.5}>
               {order.drugs.map((item) => (
                 <Grid item xs={12} sm={6} md={4} lg={3} key={item.drug._id}>
                   <Card
@@ -126,12 +126,12 @@ export default function PharmacyOrders() {
                       display: "flex",
                       flexDirection: "column",
                       alignItems: "center",
-                      backgroundColor: isDark ? "#1e293b" : "#F5F5F5",
+                      backgroundColor: isDark ? "#353e4f" : "#dddddd",
                       color: isDark ? "white" : "black",
                       borderRadius: 2,
                       height: "100%",
                       p: 2,
-                      boxShadow: 2,
+                      boxShadow: 1,
                     }}
                   >
                     {/* <CardMedia
@@ -164,10 +164,7 @@ export default function PharmacyOrders() {
                     >
                       Price: {formatNumber(item.drug.price)} EGP
                     </Typography>
-                    <Typography
-                      variant="caption"
-                      sx={{ fontSize: "0.75rem", color: "#475569" }}
-                    >
+                    <Typography variant="caption" sx={{ fontSize: "0.80rem" }}>
                       Quantity: {item.paidQuantity}
                     </Typography>
                   </Card>

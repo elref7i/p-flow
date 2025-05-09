@@ -31,11 +31,9 @@ export default function Invoice({ selectedInventory }) {
         height: 600,
         mt: 3,
         backgroundColor: isDarkMode ? "#0e1a2b" : "#F5F5F5",
+        boxShadow: "0px 2px 7px rgb(103, 161, 247)",
         color: textColor,
-        borderRadius: 3,
-        boxShadow: isDarkMode
-          ? "0 0 10px rgba(255,255,255,0.1)"
-          : "0 0 10px rgba(0,0,0,0.1)",
+        borderRadius: 2,
         p: 2.5,
         display: "flex",
         flexDirection: "column",
@@ -45,12 +43,12 @@ export default function Invoice({ selectedInventory }) {
     >
       <Box sx={{ display: "flex", alignItems: "center" }}>
         <Box
-          sx={{ display: "flex", alignItems: "center", flexGrow: 1, gap: 2 }}
+          sx={{ display: "flex", alignItems: "center", flexGrow: 1, gap: 1 }}
         >
           <Box
             sx={{
               bgcolor: "#007bff",
-              borderRadius: 2,
+              borderRadius: 1,
               p: 0.5,
               display: "flex",
               alignItems: "center",
@@ -78,7 +76,7 @@ export default function Invoice({ selectedInventory }) {
           flexDirection: "column",
         }}
       >
-        <Box sx={{ pt: 1, pb: 1 }}>
+        <Box>
           {drugs.length > 0 ? (
             drugs.map(({ drug, quantity, price }) => (
               <Box
@@ -86,12 +84,11 @@ export default function Invoice({ selectedInventory }) {
                 sx={{
                   display: "flex",
                   alignItems: "center",
-                  borderRadius: 3,
+                  borderRadius: 1,
                   p: 1,
-                  ml: 1,
                   mb: 2,
-                  boxShadow: 1,
-                  transition: "all 0.3s ease-in-out",
+                  // transition: "all 0.3s ease-in-out",
+                  backgroundColor: isDarkMode ? "#1e293b" : "#e4e4e4",
                 }}
               >
                 <Avatar
@@ -126,7 +123,7 @@ export default function Invoice({ selectedInventory }) {
                     </Typography>
                   </Tooltip>
                   <Typography fontSize={12} color="text.secondary">
-                    Price: {formatNumber(price)} $
+                    Price: {formatNumber(price)} EGP
                   </Typography>
                 </Box>
 

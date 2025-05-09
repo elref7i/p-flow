@@ -47,14 +47,12 @@ export default function CartItem({ inventoryInfo, onReadyToBuy }) {
   return (
     <Box
       sx={{
-        p: 3,
-        borderRadius: 4,
+        p: 2,
+        borderRadius: 2,
         backgroundColor: isDarkMode ? "#0e1a2b" : "#F5F5F5",
         width: "100%",
         color: isDarkMode ? "#ffffff" : "#000000",
-        boxShadow: isDarkMode
-          ? "0 0 10px rgba(255,255,255,0.1)"
-          : "0 0 10px rgba(0,0,0,0.1)",
+        boxShadow: "0px 2px 7px rgb(103, 161, 247)",
         mb: 4,
         mt: 3,
         "@media (max-width: 600px)": {
@@ -64,7 +62,7 @@ export default function CartItem({ inventoryInfo, onReadyToBuy }) {
       }}
     >
       {/* Inventory Header */}
-      <Box sx={{ display: "flex", alignItems: "center", mb: 1.5 }}>
+      <Box sx={{ display: "flex", alignItems: "center", mb: 0.5 }}>
         <Typography variant="h6" sx={{ flexGrow: 1, fontWeight: "bold" }}>
           {inventory.name}
         </Typography>
@@ -83,8 +81,8 @@ export default function CartItem({ inventoryInfo, onReadyToBuy }) {
         sx={{
           display: "grid",
           gridTemplateColumns: "repeat(2, 1fr)",
-          gap: 3,
-          maxHeight: 180,
+          gap: 1.5,
+          maxHeight: 170,
           overflowY: "auto",
           pr: 3,
           mb: 2,
@@ -103,18 +101,12 @@ export default function CartItem({ inventoryInfo, onReadyToBuy }) {
               sx={{
                 display: "flex",
                 alignItems: "center",
-                borderRadius: 3,
+                borderRadius: 2,
                 px: 2,
                 py: 1.5,
                 width: "fit-content",
                 minWidth: 300,
-                boxShadow: isDarkMode
-                  ? "0 0 8px rgba(255,255,255,0.05)"
-                  : "0 0 8px rgba(0,0,0,0.05)",
-                transition: "all 0.3s ease",
-                "&:hover": {
-                  transform: "scale(1.02)",
-                },
+                backgroundColor: isDarkMode ? "#1e293b" : "#dddddd",
               }}
             >
               {/* Image */}
@@ -133,10 +125,6 @@ export default function CartItem({ inventoryInfo, onReadyToBuy }) {
                     sx={{
                       fontWeight: 600,
                       cursor: "pointer",
-                      color: isDarkMode ? "#90caf9" : "#1976d2",
-                      "&:hover": {
-                        color: isDarkMode ? "#bbdefb" : "#1565c0",
-                      },
                     }}
                     noWrap
                   >
