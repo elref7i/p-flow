@@ -6,12 +6,15 @@ import {
   Button,
   Avatar,
   Tooltip,
+  Snackbar,
+  Alert,
 } from "@mui/material";
 import { Delete } from "@mui/icons-material";
 import LoadingSpinner from "../../Common/Loading/LoadingSpinner";
 import { formatNumber } from "../../../lib/utils/formateNumber";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
+import LocalAtmIcon from "@mui/icons-material/LocalAtm";
 import CloseIcon from "@mui/icons-material/Close";
 import { useTheme } from "@mui/material/styles";
 import { useNavigate } from "react-router-dom";
@@ -20,6 +23,8 @@ import {
   useRemoveInventory,
   useUpdateCartItem,
 } from "../../../lib/hooks/useCartAction";
+import { useState } from "react";
+import { getloggedUserData } from "../../../lib/api/userAPI";
 
 export default function CartItem({ inventoryInfo, onReadyToBuy }) {
   const theme = useTheme();
@@ -30,6 +35,9 @@ export default function CartItem({ inventoryInfo, onReadyToBuy }) {
   const removeDrugMutation = useRemoveDrug();
   const updateQuantityMutation = useUpdateCartItem();
 
+  const [showWarning, setShowWarning] = useState(false);
+  const { data } = getloggedUserData();
+  const minimumOrderValue = data?.minimumOrderValue || 1000;
   if (!inventoryInfo || !inventoryInfo.inventory || !inventoryInfo.drugs) {
     return <LoadingSpinner />;
   }
@@ -139,11 +147,12 @@ export default function CartItem({ inventoryInfo, onReadyToBuy }) {
                   variant="body2"
                   sx={{
                     fontSize: 12,
+                    fontWeight: "bold",
                     mt: 1,
                     color: isDarkMode ? "#ccc" : "#555",
                   }}
                 >
-                  Price: {formatNumber(price)} $
+                  Price: {formatNumber(price)} EGP
                 </Typography>
               </Box>
 
@@ -204,12 +213,16 @@ export default function CartItem({ inventoryInfo, onReadyToBuy }) {
         <Typography
           sx={{
             fontWeight: "bold",
-            color: totalInventoryPrice < 1000 ? "#ff5f5f" : "green",
+            display: "inline-flex",
+            alignItems: "center",
+            color:
+              totalInventoryPrice < `${minimumOrderValue}`
+                ? "#ff5f5f"
+                : "green",
           }}
         >
-          {totalInventoryPrice < 1000
-            ? `Less Than 1000 $`
-            : `Total Price: ${formatNumber(totalInventoryPrice)} $`}
+          <LocalAtmIcon sx={{ fontSize: "20", mr: 0.5 }} />
+          Total Order : {formatNumber(totalInventoryPrice)} EGP
         </Typography>
 
         <Box sx={{ display: "flex", gap: 2 }}>
@@ -233,16 +246,32 @@ export default function CartItem({ inventoryInfo, onReadyToBuy }) {
             variant="contained"
             color="secondary"
             size="small"
-            disabled={totalInventoryPrice < 1000}
-            sx={{
-              fontWeight: 600,
+            sx={{ fontWeight: 600 }}
+            onClick={() => {
+              if (totalInventoryPrice < `${minimumOrderValue}`) {
+                setShowWarning(true);
+                return;
+              }
+              onReadyToBuy();
             }}
-            onClick={() => onReadyToBuy()}
           >
             Ready to buy
           </Button>
         </Box>
       </Box>
+
+      {/* Snackbar warning */}
+      <Snackbar
+        open={showWarning}
+        autoHideDuration={3000}
+        onClose={() => setShowWarning(false)}
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
+      >
+        <Alert severity="warning" onClose={() => setShowWarning(false)}>
+          Your Total Order must be at least `${minimumOrderValue}` L.E to
+          proceed.
+        </Alert>
+      </Snackbar>
     </Box>
   );
 }

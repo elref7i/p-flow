@@ -4,6 +4,7 @@ import { useGetAllInventoriesQuery } from "../../../lib/hooks/pharmacy.action";
 import EnhancedInventoryCard from "../../../components/InventoryComponents/CardInventory/CardInventory";
 import { useTypeContext } from "../../../context/UserType.context";
 import { useQueryParams } from "../../../context/params.context";
+import LoadingSpinner from "../../../components/Common/Loading/LoadingSpinner";
 
 export default function Inventoers() {
   //Context
@@ -18,7 +19,7 @@ export default function Inventoers() {
   });
 
   //Loading State
-  if (isLoading) return <p>Loading...</p>;
+  if (isLoading) return <LoadingSpinner />;
 
   console.log(payload);
 
@@ -27,15 +28,9 @@ export default function Inventoers() {
       <Box mb={3}>
         <SearchBar />
       </Box>
-      <Grid
-        container
-        spacing={3}
-      >
+      <Grid container spacing={3}>
         {payload.inventories.map((inventory) => (
-          <EnhancedInventoryCard
-            key={inventory._id}
-            inventory={inventory}
-          />
+          <EnhancedInventoryCard key={inventory._id} inventory={inventory} />
         ))}
       </Grid>
     </Box>

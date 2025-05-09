@@ -4,6 +4,7 @@ import { useWishlist } from "../../../lib/hooks/usewishlist.action";
 import { useTypeContext } from "../../../context/UserType.context";
 import { useThemeConstants } from "../../../lib/constants/theme.constant";
 import { useNavigate } from "react-router-dom";
+import LoadingSpinner from "../../../components/Common/Loading/LoadingSpinner";
 
 export default function Whishlist() {
   //Context
@@ -18,7 +19,7 @@ export default function Whishlist() {
   //Thems
   const { typography, cardBackground, textPrimary } = useThemeConstants();
 
-  if (isLoading) return <p>loading</p>;
+  if (isLoading) return <LoadingSpinner />;
 
   return (
     <>
@@ -39,10 +40,7 @@ export default function Whishlist() {
         >
           My Favorite Inventories
         </Typography>
-        <Stack
-          direction={"row"}
-          gap={2}
-        >
+        <Stack direction={"row"} gap={2}>
           <Button
             color="error"
             variant="outlined"
