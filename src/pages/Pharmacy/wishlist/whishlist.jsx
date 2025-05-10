@@ -5,6 +5,7 @@ import { useTypeContext } from "../../../context/UserType.context";
 import { useThemeConstants } from "../../../lib/constants/theme.constant";
 import { useNavigate } from "react-router-dom";
 import LoadingSpinner from "../../../components/Common/Loading/LoadingSpinner";
+import { Helmet } from "react-helmet";
 
 export default function Whishlist() {
   //Context
@@ -23,6 +24,25 @@ export default function Whishlist() {
 
   return (
     <>
+      <Helmet>
+        <title>My Wishlisht</title>
+        <meta
+          name="description"
+          content="View and manage your favorite inventories with ease."
+        />
+        <meta
+          name="keywords"
+          content="inventory, favorites, pharmacy, warehouse, medicine"
+        />
+        <meta name="author" content="Your Project Name or Team" />
+
+        <meta property="og:title" content="My Favorite Inventories" />
+        <meta
+          property="og:description"
+          content="Check your saved favorite inventories in one place."
+        />
+        <meta property="og:type" content="website" />
+      </Helmet>
       <Stack
         component={"header"}
         sx={{ py: 3 }}

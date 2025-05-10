@@ -81,7 +81,7 @@ export default function CartItem({ inventoryInfo, onReadyToBuy }) {
         sx={{
           display: "grid",
           gridTemplateColumns: "repeat(2, 1fr)",
-          gap: 1.5,
+          gap: 2,
           maxHeight: 170,
           overflowY: "auto",
           pr: 3,

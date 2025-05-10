@@ -126,6 +126,7 @@ export default function PharmacyOrders() {
                       display: "flex",
                       flexDirection: "column",
                       alignItems: "center",
+                      // backgroundColor: isDark ? "#1e293b" : "#F5F5F5",
                       backgroundColor: isDark ? "#353e4f" : "#dddddd",
                       color: isDark ? "white" : "black",
                       borderRadius: 2,

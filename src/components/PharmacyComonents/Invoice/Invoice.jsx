@@ -131,7 +131,7 @@ export default function Invoice({ selectedInventory }) {
                   fontSize={14}
                   fontWeight="bold"
                   style={{ color: textColor }}
-                  sx={{ ml: 1 }}
+                  sx={{ mr: 1 }}
                 >
                   x{quantity}
                 </Typography>
