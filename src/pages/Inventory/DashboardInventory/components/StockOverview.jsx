@@ -7,9 +7,28 @@ import {
   useTheme,
 } from "@mui/material";
 import { motion } from "framer-motion";
+import { useThemeConstants } from "../../../../lib/constants/theme.constant";
 
 const StockOverview = () => {
   const theme = useTheme();
+  const {
+    backgroundElevated,
+    cardBackground,
+    badgeBackground,
+    textLink,
+    textSuccess,
+    textWarning,
+    textSecondary,
+    textError,
+    border,
+    borderHover,
+    transitionDurationEnteringScreen,
+    backgroundLowered,
+    statsSecondaryBackground,
+    gradientChart,
+    textPrimary,
+    paperBackground,
+  } = useThemeConstants();
 
   const stockData = [
     { title: "Low Stock Items", value: "02" },

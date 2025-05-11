@@ -1,11 +1,4 @@
-import {
-  Box,
-  Card,
-  CardContent,
-  Grid,
-  Typography,
-  useTheme,
-} from "@mui/material";
+import { Box, Card, CardContent, Grid, Typography } from "@mui/material";
 import {
   ShoppingCart,
   Cancel,
@@ -13,46 +6,71 @@ import {
   AssignmentReturn,
 } from "@mui/icons-material";
 import { motion } from "framer-motion";
+import { useThemeConstants } from "../../../../lib/constants/theme.constant";
 
 const PurchaseOverview = () => {
-  const theme = useTheme();
+  const {
+    backgroundElevated,
+    cardBackground,
+    badgeBackground,
+    textLink,
+    textWarning,
+    textError,
+    border,
+    borderHover,
+    transitionDurationEnteringScreen,
+
+    textPrimary,
+  } = useThemeConstants();
 
   const purchaseData = [
     {
       title: "No of Purchase",
       value: "45",
       icon: <ShoppingCart />,
-      iconBg: theme.palette.secondary.light,
-      iconColor: theme.palette.secondary.main,
+      iconBg: badgeBackground,
+      iconColor: textPrimary,
     },
     {
       title: "Cancel Order",
       value: "04",
       icon: <Cancel />,
-      iconBg: theme.palette.error.light,
-      iconColor: theme.palette.error.main,
+      iconBg: badgeBackground,
+      iconColor: textError,
     },
     {
       title: "Cost",
       value: "786",
       icon: <AttachMoney />,
-      iconBg: theme.palette.warning.light,
-      iconColor: theme.palette.warning.main,
+      iconBg: badgeBackground,
+      iconColor: textWarning,
     },
     {
       title: "Returns",
       value: "07",
       icon: <AssignmentReturn />,
-      iconBg: theme.palette.info.light,
-      iconColor: theme.palette.info.main,
+      iconBg: badgeBackground,
+      iconColor: textLink,
     },
   ];
 
   return (
-    <Card sx={{ height: "100%" }}>
+    <Card
+      sx={{
+        height: "100%",
+        background: cardBackground,
+        boxShadow: 1,
+        border: `2px solid ${borderHover}`,
+        transition: transitionDurationEnteringScreen,
+        ":hover": {
+          borderColor: border,
+          boxShadow: 2,
+        },
+      }}
+    >
       <CardContent>
         <Typography
-          variant="h6"
+          variant="h3"
           sx={{ mb: 2 }}
         >
           Purchase Overview
@@ -78,7 +96,11 @@ const PurchaseOverview = () => {
                     alignItems: "center",
                     p: 2,
                     borderRadius: 2,
-                    backgroundColor: theme.palette.background.default,
+                    background: backgroundElevated,
+                    boxShadow: 8,
+                    "&:hover": {
+                      boxShadow: 7,
+                    },
                   }}
                 >
                   <Box

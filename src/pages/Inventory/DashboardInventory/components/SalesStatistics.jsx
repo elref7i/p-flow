@@ -9,9 +9,16 @@ import {
   ResponsiveContainer,
 } from "recharts";
 import { BarChart as ChartIcon } from "@mui/icons-material";
+import { useThemeConstants } from "../../../../lib/constants/theme.constant";
 
 const SalesStatistics = () => {
-  const theme = useTheme();
+  const {
+    textWarning,
+    textSecondary,
+    gradientChart,
+    textPrimary,
+    paperBackground,
+  } = useThemeConstants();
 
   const data = [
     { name: "JAN", value: 30000 },
@@ -26,7 +33,17 @@ const SalesStatistics = () => {
   ];
 
   return (
-    <Card sx={{ height: "100%" }}>
+    <Card
+      sx={{
+        height: "100%",
+        background: gradientChart,
+        color: textPrimary,
+        boxShadow: 9,
+        ":hover": {
+          boxShadow: 8,
+        },
+      }}
+    >
       <CardContent>
         <Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>
           <Box
@@ -38,18 +55,18 @@ const SalesStatistics = () => {
               width: 36,
               height: 36,
               backgroundColor: "rgba(76, 175, 80, 0.1)",
-              color: theme.palette.primary.main,
+              color: textPrimary,
               mr: 2,
             }}
           >
             <ChartIcon />
           </Box>
-          <Typography variant="h6">Sales Statistics</Typography>
+          <Typography variant="h3">Sales Statistics</Typography>
         </Box>
 
         <Typography
           variant="h5"
-          sx={{ fontWeight: "bold", color: theme.palette.warning.main, mb: 2 }}
+          sx={{ fontWeight: "bold", color: textWarning, mb: 2 }}
         >
           ${data[6].value.toLocaleString()}
         </Typography>
@@ -71,18 +88,18 @@ const SalesStatistics = () => {
               <CartesianGrid
                 strokeDasharray="3 3"
                 vertical={false}
-                stroke="#f0f0f0"
+                stroke={textPrimary}
               />
               <XAxis
                 dataKey="name"
                 axisLine={false}
                 tickLine={false}
-                tick={{ fill: theme.palette.text.secondary, fontSize: 12 }}
+                tick={{ fill: textSecondary, fontSize: 12 }}
               />
               <YAxis hide={true} />
               <Tooltip
                 contentStyle={{
-                  backgroundColor: theme.palette.background.paper,
+                  backgroundColor: paperBackground,
                   border: "none",
                   borderRadius: 8,
                   boxShadow: "0 4px 20px rgba(0,0,0,0.1)",
@@ -93,14 +110,14 @@ const SalesStatistics = () => {
               <Line
                 type="monotone"
                 dataKey="value"
-                stroke={theme.palette.primary.main}
+                stroke={textPrimary}
                 strokeWidth={3}
                 dot={false}
                 activeDot={{
                   r: 8,
-                  fill: theme.palette.primary.main,
+                  fill: textPrimary,
                   strokeWidth: 4,
-                  stroke: theme.palette.background.paper,
+                  stroke: paperBackground,
                 }}
               />
             </LineChart>
