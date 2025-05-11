@@ -1,4 +1,3 @@
-"use client";
 import { Box, Card, CardContent, Typography, useTheme } from "@mui/material";
 import {
   LineChart,

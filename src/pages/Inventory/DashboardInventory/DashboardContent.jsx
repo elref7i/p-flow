@@ -1,4 +1,3 @@
-"use client";
 import { Container, Grid } from "@mui/material";
 import { motion } from "framer-motion";
 import SalesOverview from "./components/SalesOverview";

@@ -1,12 +1,4 @@
-"use client";
-import {
-  Box,
-  Card,
-  CardContent,
-  Grid,
-  Typography,
-  useTheme,
-} from "@mui/material";
+import { Box, Card, CardContent, Grid, Typography } from "@mui/material";
 import {
   ShoppingBag,
   TrendingUp,
@@ -14,46 +6,70 @@ import {
   BarChart,
 } from "@mui/icons-material";
 import { motion } from "framer-motion";
+import { useThemeConstants } from "../../../../lib/constants/theme.constant";
 
 const SalesOverview = () => {
-  const theme = useTheme();
+  const {
+    backgroundElevated,
+    cardBackground,
+    badgeBackground,
+    textLink,
+    textSuccess,
+    textWarning,
+    textError,
+    border,
+    borderHover,
+    transitionDurationEnteringScreen,
+  } = useThemeConstants();
 
   const salesData = [
     {
       title: "Total Sales",
       value: "786",
       icon: <ShoppingBag />,
-      iconBg: theme.palette.info.light,
-      iconColor: theme.palette.info.main,
+      iconBg: badgeBackground,
+      iconColor: textLink,
     },
     {
       title: "Revenue",
       value: "17584",
       icon: <TrendingUp />,
-      iconBg: theme.palette.warning.light,
-      iconColor: theme.palette.warning.main,
+      iconBg: badgeBackground,
+      iconColor: textWarning,
     },
     {
       title: "Cost",
       value: "12487",
       icon: <AttachMoney />,
-      iconBg: theme.palette.error.light,
-      iconColor: theme.palette.error.main,
+      iconBg: badgeBackground,
+      iconColor: textError,
     },
     {
       title: "Profit",
       value: "5097",
       icon: <BarChart />,
-      iconBg: theme.palette.success.light,
-      iconColor: theme.palette.success.main,
+      iconBg: badgeBackground,
+      iconColor: textSuccess,
     },
   ];
 
   return (
-    <Card sx={{ height: "100%" }}>
+    <Card
+      sx={{
+        height: "100%",
+        background: cardBackground,
+        boxShadow: 2,
+        border: `2px solid ${border}`,
+        transition: transitionDurationEnteringScreen,
+        ":hover": {
+          borderColor: borderHover,
+          boxShadow: 1,
+        },
+      }}
+    >
       <CardContent>
         <Typography
-          variant="h6"
+          variant="h3"
           sx={{ mb: 2 }}
         >
           Sales Overview
@@ -79,7 +95,11 @@ const SalesOverview = () => {
                     alignItems: "center",
                     p: 2,
                     borderRadius: 2,
-                    backgroundColor: theme.palette.background.default,
+                    background: backgroundElevated,
+                    boxShadow: 7,
+                    "&:hover": {
+                      boxShadow: 8,
+                    },
                   }}
                 >
                   <Box
