@@ -1,39 +1,43 @@
-import {
-  Box,
-  Card,
-  CardContent,
-  Grid,
-  Typography,
-  useTheme,
-} from "@mui/material";
+import { Box, Card, CardContent, Grid, Typography } from "@mui/material";
 import { People, Business } from "@mui/icons-material";
 import { motion } from "framer-motion";
+import { useThemeConstants } from "../../../../lib/constants/theme.constant";
 
 const UsersOverview = () => {
-  const theme = useTheme();
+  const { backgroundElevated, badgeBackground, textSuccess, textSecondary } =
+    useThemeConstants();
 
   const userData = [
     {
       title: "Total Customers",
       value: "1.8k",
       icon: <People />,
-      iconBg: theme.palette.info.light,
-      iconColor: theme.palette.info.main,
+      iconBg: badgeBackground,
+      iconColor: textSuccess,
     },
     {
       title: "Total Suppliers",
       value: "27",
       icon: <Business />,
-      iconBg: theme.palette.secondary.light,
-      iconColor: theme.palette.secondary.main,
+      iconBg: badgeBackground,
+      iconColor: textSecondary,
     },
   ];
 
   return (
-    <Card sx={{ height: "100%" }}>
+    <Card
+      sx={{
+        height: "100%",
+        background: badgeBackground,
+        boxShadow: 4,
+        ":hover": {
+          boxShadow: 8,
+        },
+      }}
+    >
       <CardContent>
         <Typography
-          variant="h6"
+          variant="h3"
           sx={{ mb: 2 }}
         >
           No. of Users
@@ -58,7 +62,11 @@ const UsersOverview = () => {
                     alignItems: "center",
                     p: 2,
                     borderRadius: 2,
-                    backgroundColor: theme.palette.background.default,
+                    boxShadow: 7,
+                    background: backgroundElevated,
+                    ":hover": {
+                      boxShadow: 8,
+                    },
                   }}
                 >
                   <Box

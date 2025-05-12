@@ -1,39 +1,43 @@
-import {
-  Box,
-  Card,
-  CardContent,
-  Grid,
-  Typography,
-  useTheme,
-} from "@mui/material";
+import { Box, Card, CardContent, Grid, Typography } from "@mui/material";
 import { Inventory } from "@mui/icons-material";
 import { motion } from "framer-motion";
+import { useThemeConstants } from "../../../../lib/constants/theme.constant";
 
 const InventoryOverview = () => {
-  const theme = useTheme();
+  const { badgeBackground, textSuccess, textWarning, backgroundElevated } =
+    useThemeConstants();
 
   const inventoryData = [
     {
       title: "Quantity in Hand",
       value: "214",
       icon: <Inventory />,
-      iconBg: theme.palette.primary.light,
-      iconColor: theme.palette.primary.main,
+      iconBg: badgeBackground,
+      iconColor: textSuccess,
     },
     {
       title: "Will be Received",
       value: "64",
       icon: <Inventory />,
-      iconBg: theme.palette.warning.light,
-      iconColor: theme.palette.warning.main,
+      iconBg: badgeBackground,
+      iconColor: textWarning,
     },
   ];
 
   return (
-    <Card sx={{ height: "100%" }}>
+    <Card
+      sx={{
+        height: "100%",
+        background: badgeBackground,
+        boxShadow: 8,
+        ":hover": {
+          boxShadow: 4,
+        },
+      }}
+    >
       <CardContent>
         <Typography
-          variant="h6"
+          variant="h3"
           sx={{ mb: 2 }}
         >
           Inventory Overview
@@ -58,7 +62,11 @@ const InventoryOverview = () => {
                     alignItems: "center",
                     p: 2,
                     borderRadius: 2,
-                    backgroundColor: theme.palette.background.default,
+                    boxShadow: 8,
+                    background: backgroundElevated,
+                    ":hover": {
+                      boxShadow: 7,
+                    },
                   }}
                 >
                   <Box

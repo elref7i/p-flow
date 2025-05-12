@@ -10,8 +10,10 @@ import {
   ResponsiveContainer,
 } from "recharts";
 import { People } from "@mui/icons-material";
+import { useThemeConstants } from "../../../../lib/constants/theme.constant";
 
 const CustomerStatistics = () => {
+  const { badgeBackground, textPrimary } = useThemeConstants();
   const theme = useTheme();
 
   const data = [
@@ -27,7 +29,16 @@ const CustomerStatistics = () => {
   ];
 
   return (
-    <Card sx={{ height: "100%" }}>
+    <Card
+      sx={{
+        height: "100%",
+        background: badgeBackground,
+        boxShadow: 7,
+        ":hover": {
+          boxShadow: 6,
+        },
+      }}
+    >
       <CardContent>
         <Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>
           <Box
@@ -45,7 +56,7 @@ const CustomerStatistics = () => {
           >
             <People />
           </Box>
-          <Typography variant="h6">Customer Statistics</Typography>
+          <Typography variant="h3">Customer Statistics</Typography>
         </Box>
 
         <Typography
@@ -72,7 +83,7 @@ const CustomerStatistics = () => {
               <CartesianGrid
                 strokeDasharray="3 3"
                 vertical={false}
-                stroke="#f0f0f0"
+                stroke={textPrimary}
               />
               <XAxis
                 dataKey="name"

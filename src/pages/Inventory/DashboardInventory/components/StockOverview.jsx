@@ -1,34 +1,9 @@
-import {
-  Box,
-  Card,
-  CardContent,
-  Grid,
-  Typography,
-  useTheme,
-} from "@mui/material";
+import { Box, Card, CardContent, Grid, Typography } from "@mui/material";
 import { motion } from "framer-motion";
 import { useThemeConstants } from "../../../../lib/constants/theme.constant";
 
 const StockOverview = () => {
-  const theme = useTheme();
-  const {
-    backgroundElevated,
-    cardBackground,
-    badgeBackground,
-    textLink,
-    textSuccess,
-    textWarning,
-    textSecondary,
-    textError,
-    border,
-    borderHover,
-    transitionDurationEnteringScreen,
-    backgroundLowered,
-    statsSecondaryBackground,
-    gradientChart,
-    textPrimary,
-    paperBackground,
-  } = useThemeConstants();
+  const { badgeBackground, gradientChart } = useThemeConstants();
 
   const stockData = [
     { title: "Low Stock Items", value: "02" },
@@ -37,10 +12,19 @@ const StockOverview = () => {
   ];
 
   return (
-    <Card sx={{ height: "100%" }}>
+    <Card
+      sx={{
+        height: "100%",
+        background: badgeBackground,
+        boxShadow: 7,
+        ":hover": {
+          boxShadow: 6,
+        },
+      }}
+    >
       <CardContent>
         <Typography
-          variant="h6"
+          variant="h3"
           sx={{ mb: 2 }}
         >
           Stock Overview
@@ -66,7 +50,11 @@ const StockOverview = () => {
                     justifyContent: "space-between",
                     p: 2,
                     borderRadius: 2,
-                    backgroundColor: theme.palette.background.default,
+                    boxShadow: 8,
+                    background: gradientChart,
+                    ":hover": {
+                      boxShadow: 7,
+                    },
                   }}
                 >
                   <Typography variant="body1">{item.title}</Typography>
