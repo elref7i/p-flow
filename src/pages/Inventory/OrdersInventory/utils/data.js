@@ -4,6 +4,7 @@ export const columns = [
     headerName: "_id",
     align: "center",
     headerAlign: "center",
+    minWidth: 250,
   },
   {
     field: "orderNumber",

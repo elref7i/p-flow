@@ -10,39 +10,33 @@ import {
   Typography,
   Grid,
   IconButton,
-  Divider,
-  Card,
-  CardContent,
   Stack,
   useTheme,
   useMediaQuery,
 } from "@mui/material";
-import {
-  Visibility,
-  Close,
-  LocalShipping,
-  AttachMoney,
-  Phone,
-  LocationOn,
-  CalendarToday,
-  Receipt,
-  ShoppingBag,
-  Person,
-} from "@mui/icons-material";
+import { Visibility, Close, Receipt } from "@mui/icons-material";
 import StepStatus from "./step_status";
 import OrderSummary from "./order_summary";
 import TableDrugsOrder from "./table_drugs_order";
 import StatusHistory from "./status_history";
+import OrderInformation from "./order_info";
+import DeliveryInfo from "./delivery_info";
+import PricingInfo from "./pricing_info";
+import { useThemeConstants } from "../../../../lib/constants/theme.constant";
 
 export default function OrderDetailsModal({ order }) {
   //States
   const [open, setOpen] = useState(false);
-  console.log("refai");
-
-  console.log(order);
 
   //Themes
   const theme = useTheme();
+  const {
+    textError,
+    headerBackground,
+    background,
+    buttonBackground,
+    buttonHover,
+  } = useThemeConstants();
 
   //Variables
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
@@ -56,58 +50,6 @@ export default function OrderDetailsModal({ order }) {
     setOpen(false);
   };
 
-  // Format date to a readable format
-  const formatDate = (dateString) => {
-    return new Date(dateString).toLocaleString("en-US", {
-      year: "numeric",
-      month: "long",
-      day: "numeric",
-      hour: "2-digit",
-      minute: "2-digit",
-    });
-  };
-
-  // Custom List Item Component
-  const List = ({ children }) => {
-    return <Box sx={{ py: 1 }}>{children}</Box>;
-  };
-
-  const ListItem = ({ icon, label, value, bold = false }) => {
-    return (
-      <Box
-        sx={{
-          display: "flex",
-          px: 3,
-          py: 1.5,
-          borderBottom: "1px solid #f0f0f0",
-          "&:last-child": {
-            borderBottom: "none",
-          },
-        }}
-      >
-        <Box sx={{ display: "flex", alignItems: "center", width: "40%" }}>
-          <Box sx={{ color: "#5E5ADB", mr: 1.5 }}>{icon}</Box>
-          <Typography
-            variant="body2"
-            color="text.secondary"
-          >
-            {label}
-          </Typography>
-        </Box>
-        <Typography
-          variant="body2"
-          sx={{
-            fontWeight: bold ? "bold" : "regular",
-            color: bold ? "#5E5ADB" : "text.primary",
-            flex: 1,
-          }}
-        >
-          {value}
-        </Typography>
-      </Box>
-    );
-  };
-
   return (
     <>
       {/* Button */}
@@ -117,12 +59,12 @@ export default function OrderDetailsModal({ order }) {
         startIcon={<Visibility />}
         onClick={handleOpen}
         sx={{
-          bgcolor: "#5E5ADB",
-          "&:hover": {
-            bgcolor: "#4A47B1",
-          },
+          background: buttonBackground,
           borderRadius: "8px",
-          boxShadow: "0 4px 10px rgba(94, 90, 219, 0.2)",
+          boxShadow: 12,
+          "&:hover": {
+            bgcolor: buttonHover,
+          },
         }}
       >
         Details
@@ -136,7 +78,8 @@ export default function OrderDetailsModal({ order }) {
         PaperProps={{
           sx: {
             borderRadius: 3,
-            boxShadow: "0 8px 32px rgba(0,0,0,0.12)",
+            background: background,
+            boxShadow: 9,
             overflow: "hidden",
           },
         }}
@@ -148,15 +91,17 @@ export default function OrderDetailsModal({ order }) {
             display: "flex",
             justifyContent: "space-between",
             alignItems: "center",
-            bgcolor: "#5E5ADB",
+            bgcolor: headerBackground,
+            boxShadow: 3,
+            mb: 4,
             color: "white",
             py: 2,
           }}
         >
           <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-            <Receipt fontSize="medium" />
+            <Receipt fontSize="large" />
             <Typography
-              variant="h6"
+              variant="h1"
               component="div"
               sx={{ fontWeight: "bold" }}
             >
@@ -165,8 +110,8 @@ export default function OrderDetailsModal({ order }) {
           </Box>
           <IconButton
             onClick={handleClose}
-            size="small"
-            sx={{ color: "white" }}
+            size="medium"
+            sx={{ color: textError }}
           >
             <Close />
           </IconButton>
@@ -192,158 +137,14 @@ export default function OrderDetailsModal({ order }) {
                 md={4}
               >
                 <Stack spacing={3}>
-                  {/* Basic Info Card */}
-                  <Card
-                    elevation={0}
-                    sx={{
-                      borderRadius: 3,
-                      border: "1px solid #e0e0e0",
-                      overflow: "hidden",
-                    }}
-                  >
-                    <Box
-                      sx={{
-                        bgcolor: "#f8f9fa",
-                        px: 3,
-                        py: 2,
-                        borderBottom: "1px solid #e0e0e0",
-                        display: "flex",
-                        alignItems: "center",
-                        gap: 1,
-                      }}
-                    >
-                      <Receipt
-                        fontSize="small"
-                        color="primary"
-                      />
-                      <Typography
-                        variant="subtitle1"
-                        sx={{ fontWeight: "bold" }}
-                      >
-                        Order Information
-                      </Typography>
-                    </Box>
-                    <CardContent sx={{ p: 0 }}>
-                      <List>
-                        <ListItem
-                          icon={<CalendarToday fontSize="small" />}
-                          label="Created Date"
-                          value={formatDate(order.createdAt)}
-                        />
-                        <ListItem
-                          icon={<Person fontSize="small" />}
-                          label="Inventory"
-                          value={order.inventory.name}
-                        />
-                        <ListItem
-                          icon={<ShoppingBag fontSize="small" />}
-                          label="Number of Products"
-                          value={order.drugs.length}
-                        />
-                      </List>
-                    </CardContent>
-                  </Card>
+                  {/* Order Information */}
+                  <OrderInformation order={order} />
 
                   {/* Delivery Info Card */}
-                  <Card
-                    elevation={0}
-                    sx={{
-                      borderRadius: 3,
-                      border: "1px solid #e0e0e0",
-                      overflow: "hidden",
-                    }}
-                  >
-                    <Box
-                      sx={{
-                        bgcolor: "#f8f9fa",
-                        px: 3,
-                        py: 2,
-                        borderBottom: "1px solid #e0e0e0",
-                        display: "flex",
-                        alignItems: "center",
-                        gap: 1,
-                      }}
-                    >
-                      <LocalShipping
-                        fontSize="small"
-                        color="primary"
-                      />
-                      <Typography
-                        variant="subtitle1"
-                        sx={{ fontWeight: "bold" }}
-                      >
-                        Delivery Information
-                      </Typography>
-                    </Box>
-                    <CardContent sx={{ p: 0 }}>
-                      <List>
-                        <ListItem
-                          icon={<Phone fontSize="small" />}
-                          label="Contact Phone"
-                          value={order.delivery.contactPhone}
-                        />
-                        <ListItem
-                          icon={<LocationOn fontSize="small" />}
-                          label="Coordinates"
-                          value={`${order.delivery.location.coordinates[0]}, ${order.delivery.location.coordinates[1]}`}
-                        />
-                      </List>
-                    </CardContent>
-                  </Card>
+                  <DeliveryInfo delivery={order.delivery} />
 
                   {/* Pricing Info Card */}
-                  <Card
-                    elevation={0}
-                    sx={{
-                      borderRadius: 3,
-                      border: "1px solid #e0e0e0",
-                      overflow: "hidden",
-                    }}
-                  >
-                    <Box
-                      sx={{
-                        bgcolor: "#f8f9fa",
-                        px: 3,
-                        py: 2,
-                        borderBottom: "1px solid #e0e0e0",
-                        display: "flex",
-                        alignItems: "center",
-                        gap: 1,
-                      }}
-                    >
-                      <AttachMoney
-                        fontSize="small"
-                        color="primary"
-                      />
-                      <Typography
-                        variant="subtitle1"
-                        sx={{ fontWeight: "bold" }}
-                      >
-                        Pricing Information
-                      </Typography>
-                    </Box>
-                    <CardContent sx={{ p: 0 }}>
-                      <List>
-                        <ListItem
-                          icon={<AttachMoney fontSize="small" />}
-                          label="Subtotal"
-                          value={`$${order.pricing.subtotal.toFixed(2)}`}
-                        />
-                        <ListItem
-                          icon={<LocalShipping fontSize="small" />}
-                          label="Shipping Cost"
-                          value={`$${order.pricing.shippingCost.toFixed(2)}`}
-                        />
-                        <Divider sx={{ mx: 3 }} />
-                        <ListItem
-                          icon={<AttachMoney fontSize="small" />}
-                          label="Total"
-                          value={`$${order.pricing.total.toFixed(2)}`}
-                          bold
-                        />
-                      </List>
-                    </CardContent>
-                  </Card>
+                  <PricingInfo pricing={order.pricing} />
                 </Stack>
               </Grid>
 

@@ -6,7 +6,7 @@ import TableData from "../../../components/TableData/TableData";
 import { useThemeConstants } from "../../../lib/constants/theme.constant";
 import { useOrders } from "../../../lib/hooks/useOrdersAction";
 import OrderDetailsModal from "./_components/order_details_modal";
-
+import UpdateStatusOrder from "./_components/update_status";
 // Stats data
 const stats = [
   {
@@ -45,7 +45,8 @@ export default function OrdersInventory() {
   //Themes
   const { shadow1, shadow2, background, tableBorder } = useThemeConstants();
 
-  const actions = {
+  //Variables
+  const details = {
     field: "Details",
     headerName: "Details",
     align: "center",
@@ -59,7 +60,21 @@ export default function OrdersInventory() {
     ),
   };
 
-  const columnsWithActions = [...columns, actions];
+  const actions = {
+    field: "actions",
+    headerName: "Action",
+    align: "center",
+    headerAlign: "center",
+    width: 120,
+    sortable: false,
+    renderCell: (params) => (
+      <Box>
+        <UpdateStatusOrder status={params.row.status} />
+      </Box>
+    ),
+  };
+
+  const columnsWithActions = [...columns, details, actions];
 
   return (
     <>
