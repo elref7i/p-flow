@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState } from "react";
 import {
   Stack,
   Paper,
@@ -6,90 +6,139 @@ import {
   Tab,
   useMediaQuery,
   useTheme,
-} from '@mui/material';
-import Profile from './Profile';
-import ChangePassword from './ChangePassword';
-import EmailUser from './EmailUser';
-import { useTypeContext } from '../../context/UserType.context';
-import DeactivateAcount from './DeactivateAcount';
+} from "@mui/material";
+import Profile from "./Profile";
+import ChangePassword from "./ChangePassword";
+import EmailUser from "./EmailUser";
+import { useTypeContext } from "../../context/UserType.context";
+import DeactivateAcount from "./DeactivateAcount";
+import { useThemeConstants } from "../../lib/constants/theme.constant";
 
 export default function Setting() {
-  const theme = useTheme();
+  //States
   const [tabIndex, setTabIndex] = useState(0);
-  const isSmallScreen = useMediaQuery(theme.breakpoints.down('md'));
+
+  //Context
   const { userData } = useTypeContext();
 
+  //Themes
+  const theme = useTheme();
+  const {
+    cardBackground,
+    headerBackground,
+    transitionDurationShortest,
+    borderFocus,
+    borderHover,
+    textPrimary,
+    transitionDurationComplex,
+    textLink,
+  } = useThemeConstants();
+
+  // Varabiles
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down("md"));
+
+  //Functions
   const handleTabChange = (event, newIndex) => {
     setTabIndex(newIndex);
   };
 
   return (
     <Stack
-      maxWidth={'lg'}
-      mx={'auto'}
-      py={4}
-      direction={{ sm: 'column', md: 'row' }}
+      maxWidth={"lg"}
+      mx={"auto"}
+      direction={{ sm: "column", md: "row" }}
       gap={4}
     >
       {/* Sidebar */}
-      <Paper sx={{ p: 2, borderRadius: 2 }}>
+      <Paper
+        sx={{
+          p: 2,
+          background: headerBackground,
+          borderRadius: 2,
+          boxShadow: 3,
+          position: "sticky",
+          border: `1px solid ${borderHover}`,
+          top: 60,
+          transition: transitionDurationComplex,
+          height: "fit-content",
+          ":hover": {
+            boxShadow: 8,
+            borderColor: borderFocus,
+          },
+        }}
+      >
         <Tabs
-          orientation={isSmallScreen ? 'horizontal' : 'vertical'}
+          orientation={isSmallScreen ? "horizontal" : "vertical"}
           value={tabIndex}
           onChange={handleTabChange}
           sx={{
             borderRight: 1,
-            borderColor: 'divider',
-            '& .MuiTabs-indicator': {
-              backgroundColor: theme.palette.action.active,
+            borderColor: "divider",
+            "& .MuiTabs-indicator": {
+              backgroundColor: textLink,
             },
           }}
         >
           <Tab
             label="Profile"
             sx={{
-              color: theme.palette.text.primary,
-              '&.Mui-selected': {
-                color: theme.palette.action.active,
+              color: textPrimary,
+              "&.Mui-selected": {
+                color: textLink,
               },
-              textTransform: 'capitalize',
+              textTransform: "capitalize",
             }}
           />
           <Tab
             label="Change Password"
             sx={{
               color: theme.palette.text.primary,
-              '&.Mui-selected': {
-                color: theme.palette.action.active,
+              "&.Mui-selected": {
+                color: textLink,
               },
-              textTransform: 'capitalize',
+              textTransform: "capitalize",
             }}
           />
           <Tab
             label="Email"
             sx={{
               color: theme.palette.text.primary,
-              '&.Mui-selected': {
-                color: theme.palette.action.active,
+              "&.Mui-selected": {
+                color: textLink,
               },
-              textTransform: 'capitalize',
+              textTransform: "capitalize",
             }}
           />
           <Tab
             label="deactivate your account"
             sx={{
               color: theme.palette.text.primary,
-              '&.Mui-selected': {
-                color: theme.palette.action.active,
+              "&.Mui-selected": {
+                color: textLink,
               },
-              textTransform: 'capitalize',
+              textTransform: "capitalize",
             }}
           />
         </Tabs>
       </Paper>
 
       {/* Content */}
-      <Paper sx={{ flex: 1, p: 4, borderRadius: 2 }}>
+      <Paper
+        sx={{
+          flex: 1,
+          p: 4,
+          borderRadius: 2,
+          background: cardBackground,
+          boxShadow: 8,
+          border: `1px solid ${borderFocus}`,
+
+          transition: transitionDurationShortest,
+          ":hover": {
+            boxShadow: 4,
+            borderColor: borderHover,
+          },
+        }}
+      >
         {tabIndex === 0 && <Profile userData={userData} />}
         {tabIndex === 1 && <ChangePassword />}
         {tabIndex === 2 && <EmailUser userData={userData} />}

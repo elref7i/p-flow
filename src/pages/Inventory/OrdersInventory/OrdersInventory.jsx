@@ -1,14 +1,11 @@
-import { Box, Card, IconButton, TextField, Typography } from "@mui/material";
-import { columns } from "./data";
+import { Box, Card, TextField, Typography } from "@mui/material";
+import { columns } from "./utils/data";
 import { useTypeContext } from "@/context/UserType.context";
-import { useAllUsers, useDeleteUser } from "@/lib/hooks/useAdminAction";
-import AlertModal from "@/components/AdminComonents/MessageAlert/MessageAlert";
-import ModalUpdated from "@/components/AdminComonents/ModalUpdated/ModalUpdated";
-import { useActiveAdminUser } from "../../../lib/hooks/useAdminAction";
 import { Helmet } from "react-helmet";
-import { MoreVert as MoreVertIcon } from "@mui/icons-material";
 import TableData from "../../../components/TableData/TableData";
 import { useThemeConstants } from "../../../lib/constants/theme.constant";
+import { useOrders } from "../../../lib/hooks/useOrdersAction";
+import OrderDetailsModal from "./_components/order_details_modal";
 
 // Stats data
 const stats = [
@@ -43,37 +40,21 @@ export default function OrdersInventory() {
   const { token } = useTypeContext();
 
   //Queries
-  const { data, isLoading } = useAllUsers();
-  const { isLoading: isDeleting, mutate: handleDelete } = useDeleteUser();
-  const { mutate: handleActive } = useActiveAdminUser();
+  const { data, isLoading } = useOrders();
 
   //Themes
   const { shadow1, shadow2, background, tableBorder } = useThemeConstants();
 
-  //Vars
-  const filteredData = data ? data.filter((row) => row.role !== "admin") : [];
   const actions = {
-    field: "actions",
-    headerName: "Action",
+    field: "Details",
+    headerName: "Details",
     align: "center",
     headerAlign: "center",
     width: 120,
     sortable: false,
     renderCell: (params) => (
-      <Box>
-        <ModalUpdated userId={params.row._id} />
-        <AlertModal
-          isDeleting={isDeleting}
-          handleAction={() => handleDelete({ userId: params.row._id, token })}
-        />
-        <IconButton
-          onClick={() => {
-            handleActive({ userId: params.row._id, token });
-          }}
-          size="small"
-        >
-          <MoreVertIcon fontSize="medium" />
-        </IconButton>
+      <Box sx={{ display: "flex", gap: 1, pt: 1 }}>
+        <OrderDetailsModal order={params.row} />
       </Box>
     ),
   };
@@ -207,7 +188,7 @@ export default function OrdersInventory() {
         </Box>
         <TableData
           isLoading={isLoading}
-          data={filteredData}
+          data={data && data.data}
           columnsWithActions={columnsWithActions}
           check={true}
           checkTable={false}

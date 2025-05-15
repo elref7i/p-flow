@@ -34,18 +34,72 @@ const ProfileHeader = ({
   //Theme
   const theme = useTheme();
   const {
-    primary,
-    textPrimary,
-    textSecondary,
-    buttonText,
-    buttonBackground,
-    buttonHover,
-    shadow1,
-    shadow2,
-    shadow3,
-    typography,
     background,
+    backgroundElevated,
+    backgroundLowered,
+    backgroundBlue,
+    authBackground,
     inventoryBackground,
+    pharmacyBackground,
+    adminBackground,
+    cardBackground,
+    cardHoverBackground,
+    cardActiveBackground,
+    cardDetailsBackground,
+    cartBackground,
+    paperBackground,
+    sidebarBackground,
+    headerBackground,
+    footerBackground,
+    tooltipBackground,
+    badgeBackground,
+    dashboardBackground,
+    statsBackground,
+    statsSecondaryBackground,
+    chartsBackground,
+    tableBackground,
+    tableHeaderBackground,
+    tableRowBackground,
+    tableRowAltBackground,
+    tableRowHoverBackground,
+    gradientBlue,
+    gradientNavy,
+    gradientChart,
+    gradientPurple,
+    gradientGreen,
+    navyBackground,
+    deepBlueBackground,
+    buttonBackground,
+    buttonHoverBackground,
+    buttonActiveBackground,
+    buttonDisabledBackground,
+    buttonHover,
+    transitionEasingEaseInOut,
+    transitionEasingEaseOut,
+    transitionEasingEaseIn,
+    transitionEasingSharp,
+    transitionDurationShortest,
+    transitionDurationShorter,
+    transitionDurationShort,
+    transitionDurationStandard,
+    transitionDurationComplex,
+    transitionDurationEnteringScreen,
+    transitionDurationLeavingScreen,
+    border,
+    borderFocus,
+    borderHover,
+    tableBorder,
+    textPrimary,
+    typography,
+    buttonText,
+    buttonTextDisabled,
+    textSecondary,
+    textTertiary,
+    textInverted,
+    textDisabled,
+    textSuccess,
+    textWarning,
+    textLink,
   } = useThemeConstants();
 
   //Mutations
@@ -54,11 +108,16 @@ const ProfileHeader = ({
     <Box
       sx={{
         mb: 4,
-        background: inventoryBackground,
+        background:
+          theme.palette.mode === "light" ? badgeBackground : gradientNavy,
         borderRadius: 2,
         p: 3,
-        boxShadow: shadow3,
+        boxShadow: 8,
+        transition: transitionDurationShort,
         position: "relative",
+        ":hover": {
+          boxShadow: 7,
+        },
       }}
     >
       {/* Wishlist Button */}
@@ -98,8 +157,8 @@ const ProfileHeader = ({
               sx={{
                 width: 100,
                 height: 100,
-                border: `3px solid ${alpha(theme.palette.primary.main, 0.3)}`,
-                boxShadow: shadow2,
+                border: `3px solid ${alpha(border, 0.3)}`,
+                boxShadow: 2,
               }}
             />
 
@@ -120,7 +179,7 @@ const ProfileHeader = ({
                 alignItems: "center",
                 background: background,
                 borderRadius: "50%",
-                border: `2px solid ${theme.palette.background.paper}`,
+                border: `2px solid ${paperBackground}`,
               }}
             >
               <VerifiedIcon
@@ -138,6 +197,7 @@ const ProfileHeader = ({
               variant="h5"
               sx={{
                 mr: 1,
+                textTransform: "capitalize",
                 fontSize: typography.h1.fontSize,
                 fontWeight: typography.h1.fontWeight,
                 lineHeight: typography.h1.lineHeight,
@@ -187,14 +247,15 @@ const ProfileHeader = ({
                 sx={{
                   color: buttonText,
                   borderRadius: 2,
+                  fontSize: typography.button.fontSize,
                   textTransform: "none",
                   px: 3,
                   py: 1,
                   fontWeight: "bold",
                   background: buttonBackground,
-                  boxShadow: shadow1,
+                  boxShadow: 1,
                   "&:hover": {
-                    background: buttonHover,
+                    background: buttonHoverBackground,
                   },
                 }}
               >
@@ -245,7 +306,8 @@ const ProfileHeader = ({
             <Typography
               variant="subtitle1"
               sx={{
-                color: textSecondary,
+                color: textSuccess,
+                textTransform: "capitalize",
                 fontWeight: typography.h5.fontWeight,
                 fontSize: typography.h5.fontSize,
                 lineHeight: typography.h5.lineHeight,
@@ -265,7 +327,7 @@ const ProfileHeader = ({
         <Divider
           orientation="vertical"
           flexItem
-          sx={{ mx: 2 }}
+          sx={{ mx: 2, background: borderFocus }}
         />
 
         <Box
@@ -276,7 +338,17 @@ const ProfileHeader = ({
           <Typography
             variant="h6"
             sx={{
-              color: primary,
+              color: textPrimary,
+              width: 40,
+              height: 40,
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              background: cardActiveBackground,
+              mx: "auto",
+              boxShadow: 6,
+              mb: 1,
+              borderRadius: "50%",
               fontWeight: typography.h3.fontWeight,
               fontSize: typography.h3.fontSize,
               lineHeight: typography.h3.lineHeight,
@@ -285,10 +357,11 @@ const ProfileHeader = ({
             {totalProducts}
           </Typography>
           <Typography
-            variant="body2"
+            variant="h6"
             color="text.secondary"
             sx={{
               color: textSecondary,
+              textTransform: "capitalize",
               fontWeight: typography.body2.fontWeight,
               fontSize: typography.body2.fontSize,
               lineHeight: typography.body2.lineHeight,
@@ -345,13 +418,14 @@ const ProfileHeader = ({
               fontWeight="bold"
               color="text.primary"
             >
-              {inventory.governorate}
+              {/* {inventory.governorate} */}
+              Location
             </Typography>
             <Typography
               variant="body2"
               color="text.secondary"
             >
-              {inventory.city}
+              {inventory.governorate},{inventory.city}
             </Typography>
           </Box>
         </Box>

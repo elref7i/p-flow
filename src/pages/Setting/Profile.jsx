@@ -6,25 +6,31 @@ import {
   TextField,
   InputLabel,
   CircularProgress,
-} from '@mui/material';
-import { useFormik } from 'formik';
-import WarningAmberIcon from '@mui/icons-material/WarningAmber';
-import CheckCircleIcon from '@mui/icons-material/CheckCircle';
-import CustomButton from '@/components/Common/ButtonStyle';
-import Location from '@/components/Loaction/Location';
-import { loggedUserSchema } from '@/lib/schemas/UserSchema';
-import { useTypeContext } from '@/context/UserType.context';
-import { useUpdateLoggedUser } from '@/lib/hooks/useUserAction';
-import MapModal from '@/components/UserModal/MapComponent/MapComponent';
-import UploadProfileImage from './UploadImage/UploadImage';
+} from "@mui/material";
+import { useFormik } from "formik";
+import WarningAmberIcon from "@mui/icons-material/WarningAmber";
+import CheckCircleIcon from "@mui/icons-material/CheckCircle";
+import CustomButton from "@/components/Common/ButtonStyle";
+import Location from "@/components/Loaction/Location";
+import { loggedUserSchema } from "@/lib/schemas/UserSchema";
+import { useTypeContext } from "@/context/UserType.context";
+import { useUpdateLoggedUser } from "@/lib/hooks/useUserAction";
+import MapModal from "@/components/UserModal/MapComponent/MapComponent";
+import UploadProfileImage from "./UploadImage/UploadImage";
 import {
   CustomHead,
   CustomParagraph,
-} from '../../components/Common/CustomTypography';
+} from "../../components/Common/CustomTypography";
+import { useEffect } from "react";
 
 export default function Profile({ userData }) {
+  // Context
   const { token, fetchUserData } = useTypeContext();
+
+  //Mutation
   const { mutateAsync, isLoading, isError, isSuccess } = useUpdateLoggedUser();
+
+  // Formik
   const {
     handleSubmit,
     handleBlur,
@@ -37,13 +43,13 @@ export default function Profile({ userData }) {
     setFieldValue,
   } = useFormik({
     initialValues: {
-      name: userData?.name || '',
-      ownerName: userData?.ownerName || '',
-      phone: userData?.phone || '',
-      city: userData?.city || '',
-      governorate: userData?.governorate || '',
+      name: userData?.name || "",
+      ownerName: userData?.ownerName || "",
+      phone: userData?.phone || "",
+      city: userData?.city || "",
+      governorate: userData?.governorate || "",
       location: {
-        type: userData.location?.type || 'Point',
+        type: userData.location?.type || "Point",
         coordinates: [
           userData.location?.coordinates[0] || 0,
           userData.location?.coordinates[1] || 0,
@@ -57,28 +63,35 @@ export default function Profile({ userData }) {
         values,
       });
 
-      if (data.message === 'success') {
+      if (data.message === "success") {
         fetchUserData(token);
         resetForm({ values });
       }
     },
   });
-  useFormik(() => {
+
+  //Effects
+  useEffect(() => {
     if (userData) {
       resetForm({
         values: {
-          name: userData.name || '',
-          ownerName: userData.ownerName || '',
-          phone: userData.phone || '',
-          city: userData.city || '',
-          governorate: userData.governorate || '',
+          name: userData.name || "",
+          ownerName: userData.ownerName || "",
+          phone: userData.phone || "",
+          city: userData.city || "",
+          governorate: userData.governorate || "",
         },
       });
     }
   }, [userData, resetForm]);
+
   return (
     <>
-      <CustomHead variant="h5" fontWeight={'bold'} mb={1}>
+      <CustomHead
+        variant="h5"
+        fontWeight={"bold"}
+        mb={1}
+      >
         Profile Settings
       </CustomHead>
       <CustomParagraph mb={3}>
@@ -87,15 +100,18 @@ export default function Profile({ userData }) {
       </CustomParagraph>
       <Divider sx={{ mb: 3 }} />
       <Stack
-        component={'form'}
-        direction={{ xs: 'column', md: 'row' }}
+        component={"form"}
+        direction={{ xs: "column", md: "row" }}
         gap={5}
         onSubmit={handleSubmit}
       >
         <Box flex={1}>
           <Stack spacing={3}>
-            <Box component={'div'}>
-              <InputLabel htmlFor="profile-name" sx={{ mb: 1 }}>
+            <Box component={"div"}>
+              <InputLabel
+                htmlFor="profile-name"
+                sx={{ mb: 1 }}
+              >
                 Profile Name
               </InputLabel>
               <TextField
@@ -110,7 +126,10 @@ export default function Profile({ userData }) {
               />
             </Box>
             <Box>
-              <InputLabel htmlFor="owner-name" sx={{ mb: 1 }}>
+              <InputLabel
+                htmlFor="owner-name"
+                sx={{ mb: 1 }}
+              >
                 Owner Name
               </InputLabel>
               <TextField
@@ -125,7 +144,10 @@ export default function Profile({ userData }) {
               />
             </Box>
             <Box>
-              <InputLabel htmlFor="owner-phone" sx={{ mb: 1 }}>
+              <InputLabel
+                htmlFor="owner-phone"
+                sx={{ mb: 1 }}
+              >
                 Phone
               </InputLabel>
               <TextField
@@ -140,7 +162,10 @@ export default function Profile({ userData }) {
               />
             </Box>
             <Box>
-              <InputLabel htmlFor="owner-city" sx={{ mb: 1 }}>
+              <InputLabel
+                htmlFor="owner-city"
+                sx={{ mb: 1 }}
+              >
                 City
               </InputLabel>
               <TextField
@@ -155,7 +180,10 @@ export default function Profile({ userData }) {
               />
             </Box>
             <Box>
-              <InputLabel htmlFor="owner-governorate" sx={{ mb: 1 }}>
+              <InputLabel
+                htmlFor="owner-governorate"
+                sx={{ mb: 1 }}
+              >
                 Governorate
               </InputLabel>
               <TextField
@@ -170,7 +198,10 @@ export default function Profile({ userData }) {
               />
             </Box>
             <Box>
-              <Location setFieldValue={setFieldValue} errors={errors} />
+              <Location
+                setFieldValue={setFieldValue}
+                errors={errors}
+              />
             </Box>
             <Box></Box>
           </Stack>
@@ -179,17 +210,26 @@ export default function Profile({ userData }) {
             type="submit"
             disabled={!dirty}
             variant="contained"
-            mx={'auto 0'}
-            sx={{ mt: 3, ml: 'auto', display: 'flex' }}
+            mx={"auto 0"}
+            sx={{ mt: 3, ml: "auto", display: "flex" }}
             startIcon={
               isLoading ? (
-                <CircularProgress color="inherit" size={16} />
+                <CircularProgress
+                  color="inherit"
+                  size={16}
+                />
               ) : isError ? (
-                <WarningAmberIcon color="warning" size={16} />
+                <WarningAmberIcon
+                  color="warning"
+                  size={16}
+                />
               ) : isSuccess ? (
-                <CheckCircleIcon color="success" size={16} />
+                <CheckCircleIcon
+                  color="success"
+                  size={16}
+                />
               ) : (
-                ''
+                ""
               )
             }
           >
@@ -198,8 +238,8 @@ export default function Profile({ userData }) {
         </Box>
         <Stack
           order={{ xs: -1, md: 0 }}
-          direction={'column'}
-          alignItems={'center'}
+          direction={"column"}
+          alignItems={"center"}
           gap={3}
         >
           <UploadProfileImage />
