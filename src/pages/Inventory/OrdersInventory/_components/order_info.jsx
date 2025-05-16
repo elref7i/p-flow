@@ -8,26 +8,34 @@ import {
 import { Box, Card, CardContent, Typography } from "@mui/material";
 import { formatDate } from "../../../../lib/utils/formDate";
 import List, { ListItem } from "./common/list";
+import { useThemeConstants } from "../../../../lib/constants/theme.constant";
 
 export default function OrderInformation({ order }) {
+  const { cardBackground, headerBackground, border, borderHover } =
+    useThemeConstants();
+
   return (
     <Card
-      elevation={0}
+      elevation={8}
       sx={{
+        background: cardBackground,
         borderRadius: 3,
-        border: "1px solid #e0e0e0",
+        border: `1px solid ${border}`,
         overflow: "hidden",
       }}
     >
       <Box
         sx={{
-          bgcolor: "#f8f9fa",
+          bgcolor: headerBackground,
           px: 3,
           py: 2,
-          borderBottom: "1px solid #e0e0e0",
+          borderBottom: `1px solid ${borderHover}`,
           display: "flex",
           alignItems: "center",
           gap: 1,
+          ":hover": {
+            boxShadow: 6,
+          },
         }}
       >
         <Receipt

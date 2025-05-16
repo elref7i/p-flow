@@ -13,52 +13,8 @@ import { useThemeConstants } from "../../../../lib/constants/theme.constant";
 export default function StepStatus({ status }) {
   //Themes
   const theme = useTheme();
-  const {
-    textPrimary,
-    textSecondary,
-    textTertiary,
-    textInverted,
-    textDisabled,
-    textLink,
-    textSuccess,
-    textWarning,
-    textError,
-    buttonText,
-    buttonTextDisabled,
-    gradientBlue,
-    gradientNavy,
-    gradientChart,
-    gradientPurple,
-    gradientGreen,
-    cardBackground,
-    cardHoverBackground,
-    cardActiveBackground,
-    cardDetailsBackground,
-    cartBackground,
-    paperBackground,
-    sidebarBackground,
-    headerBackground,
-    footerBackground,
-    tooltipBackground,
-    badgeBackground,
-    background,
-    backgroundElevated,
-    backgroundLowered,
-    backgroundBlue,
-    buttonBackground,
-    buttonHoverBackground,
-    buttonActiveBackground,
-    buttonDisabledBackground,
-    buttonHover,
-    primary,
-    authBackground,
-    secondary,
-    auth,
-    error,
-    warning,
-    success,
-    info,
-  } = useThemeConstants();
+  const { textPrimary, textSecondary, background, authBackground } =
+    useThemeConstants();
 
   //Variables
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
@@ -84,7 +40,11 @@ export default function StepStatus({ status }) {
             <StepLabel
               StepIconProps={{
                 sx: {
-                  color: index <= getActiveStep(status) ? "#5E5ADB" : undefined,
+                  fontSize: "30px",
+                  color:
+                    index <= getActiveStep(status)
+                      ? textPrimary
+                      : textSecondary,
                 },
               }}
             >

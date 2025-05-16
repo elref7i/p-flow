@@ -1,37 +1,45 @@
 /* eslint-disable react/prop-types */
 import { Box, Typography } from "@mui/material";
+import { useThemeConstants } from "../../../../../lib/constants/theme.constant";
 
 export default function List({ children }) {
   return <Box sx={{ py: 1 }}>{children}</Box>;
 }
 
 export function ListItem({ icon, label, value, bold = false }) {
+  const {
+    border,
+
+    textLink,
+  } = useThemeConstants();
   return (
     <Box
       sx={{
         display: "flex",
         px: 3,
+        gap: 5,
         py: 1.5,
-        borderBottom: "1px solid #f0f0f0",
+        borderBottom: `1px solid ${border}`,
         "&:last-child": {
           borderBottom: "none",
         },
       }}
     >
       <Box sx={{ display: "flex", alignItems: "center", width: "40%" }}>
-        <Box sx={{ color: "#5E5ADB", mr: 1.5 }}>{icon}</Box>
+        <Box sx={{ color: textLink, mr: 1.5 }}>{icon}</Box>
         <Typography
-          variant="body2"
+          variant="h6"
           color="text.secondary"
+          sx={{ textWrap: "nowrap" }}
         >
           {label}
         </Typography>
       </Box>
       <Typography
-        variant="body2"
+        variant="body1"
         sx={{
           fontWeight: bold ? "bold" : "regular",
-          color: bold ? "#5E5ADB" : "text.primary",
+          color: bold ? textLink : "text.primary",
           flex: 1,
         }}
       >

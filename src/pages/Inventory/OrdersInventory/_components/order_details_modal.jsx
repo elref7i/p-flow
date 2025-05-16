@@ -36,6 +36,9 @@ export default function OrderDetailsModal({ order }) {
     background,
     buttonBackground,
     buttonHover,
+    footerBackground,
+    borderFocus,
+    borderHover,
   } = useThemeConstants();
 
   //Variables
@@ -176,21 +179,22 @@ export default function OrderDetailsModal({ order }) {
           sx={{
             px: 3,
             py: 2,
-            bgcolor: "#f8f9fa",
-            borderTop: "1px solid #e0e0e0",
+            bgcolor: footerBackground,
+            borderTop: `1px solid ${borderFocus}`,
           }}
         >
           {/* Close */}
           <Button
             onClick={handleClose}
             variant="outlined"
+            color="error"
             sx={{
               borderRadius: "8px",
-              borderColor: "#5E5ADB",
-              color: "#5E5ADB",
+              borderColor: borderFocus,
+              boxShadow: 2,
               "&:hover": {
-                borderColor: "#4A47B1",
-                bgcolor: "#5E5ADB10",
+                borderColor: borderHover,
+                background: buttonBackground,
               },
             }}
           >
@@ -201,12 +205,12 @@ export default function OrderDetailsModal({ order }) {
           <Button
             variant="contained"
             sx={{
-              bgcolor: "#5E5ADB",
+              background: buttonBackground,
               "&:hover": {
-                bgcolor: "#4A47B1",
+                background: buttonHover,
               },
               borderRadius: "8px",
-              boxShadow: "0 4px 10px rgba(94, 90, 219, 0.2)",
+              boxShadow: 4,
             }}
           >
             Print Order

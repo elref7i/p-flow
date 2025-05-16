@@ -14,23 +14,35 @@ import {
   Tooltip,
   Typography,
 } from "@mui/material";
+import { useThemeConstants } from "../../../../lib/constants/theme.constant";
 
 export default function TableDrugsOrder({ drugs, pricing }) {
+  const {
+    cardBackground,
+    cardHoverBackground,
+    cardDetailsBackground,
+    headerBackground,
+    badgeBackground,
+    border,
+    borderHover,
+    textLink,
+  } = useThemeConstants();
   return (
     <Card
-      elevation={0}
+      elevation={8}
       sx={{
+        background: cardBackground,
         borderRadius: 3,
-        border: "1px solid #e0e0e0",
+        border: `1px solid ${border}`,
         overflow: "hidden",
       }}
     >
       <Box
         sx={{
-          bgcolor: "#f8f9fa",
+          bgcolor: headerBackground,
           px: 3,
           py: 2,
-          borderBottom: "1px solid #e0e0e0",
+          borderBottom: `1px solid ${borderHover}`,
           display: "flex",
           alignItems: "center",
           gap: 1,
@@ -55,30 +67,30 @@ export default function TableDrugsOrder({ drugs, pricing }) {
           >
             <TableHead>
               <TableRow>
-                <TableCell sx={{ fontWeight: "bold", bgcolor: "#f8f9fa" }}>
+                <TableCell sx={{ fontWeight: "bold", bgcolor: cardBackground }}>
                   Drug Name
                 </TableCell>
                 <TableCell
                   align="center"
-                  sx={{ fontWeight: "bold", bgcolor: "#f8f9fa" }}
+                  sx={{ fontWeight: "bold", bgcolor: cardBackground }}
                 >
                   Price
                 </TableCell>
                 <TableCell
                   align="center"
-                  sx={{ fontWeight: "bold", bgcolor: "#f8f9fa" }}
+                  sx={{ fontWeight: "bold", bgcolor: cardBackground }}
                 >
                   Quantity
                 </TableCell>
                 <TableCell
                   align="center"
-                  sx={{ fontWeight: "bold", bgcolor: "#f8f9fa" }}
+                  sx={{ fontWeight: "bold", bgcolor: cardBackground }}
                 >
                   Free Items
                 </TableCell>
                 <TableCell
                   align="right"
-                  sx={{ fontWeight: "bold", bgcolor: "#f8f9fa" }}
+                  sx={{ fontWeight: "bold", bgcolor: cardBackground }}
                 >
                   Subtotal
                 </TableCell>
@@ -89,8 +101,8 @@ export default function TableDrugsOrder({ drugs, pricing }) {
                 <TableRow
                   key={index}
                   sx={{
-                    "&:nth-of-type(odd)": { bgcolor: "#fafafa" },
-                    "&:hover": { bgcolor: "#f5f5f5" },
+                    "&:nth-of-type(odd)": { background: cardDetailsBackground },
+                    "&:hover": { background: cardHoverBackground },
                   }}
                 >
                   <TableCell>
@@ -118,20 +130,28 @@ export default function TableDrugsOrder({ drugs, pricing }) {
                   <TableCell align="center">
                     <Chip
                       label={drugItem.paidQuantity}
-                      size="small"
+                      size="medium"
                       sx={{
-                        bgcolor: "#5E5ADB20",
+                        bgcolor: badgeBackground,
                         minWidth: "30px",
+                        boxShadow: 8,
+                        ":hover": {
+                          boxShadow: 7,
+                        },
                       }}
                     />
                   </TableCell>
                   <TableCell align="center">
                     <Chip
                       label={drugItem.freeItems}
-                      size="small"
+                      size="medium"
                       sx={{
-                        bgcolor: "#4CAF5020",
-                        minWidth: "30px",
+                        background: badgeBackground,
+                        minWidth: "35px",
+                        boxShadow: 7,
+                        ":hover": {
+                          boxShadow: 8,
+                        },
                       }}
                     />
                   </TableCell>
@@ -143,17 +163,17 @@ export default function TableDrugsOrder({ drugs, pricing }) {
                   </TableCell>
                 </TableRow>
               ))}
-              <TableRow sx={{ bgcolor: "#f8f9fa" }}>
+              <TableRow sx={{ bgcolor: cardBackground }}>
                 <TableCell
                   colSpan={4}
                   align="right"
-                  sx={{ fontWeight: "bold" }}
+                  sx={{ fontWeight: "bold", fontSize: "20px" }}
                 >
                   Total
                 </TableCell>
                 <TableCell
                   align="right"
-                  sx={{ fontWeight: "bold", color: "#5E5ADB" }}
+                  sx={{ fontWeight: "bold", color: textLink, fontSize: "15px" }}
                 >
                   ${pricing.subtotal.toFixed(2)}
                 </TableCell>

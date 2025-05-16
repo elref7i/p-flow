@@ -7,6 +7,7 @@ import { Box, Card, Typography } from "@mui/material";
 
 import ModalAdd from "../AdminComonents/ModalAdd/ModalAdd";
 import { useThemeConstants } from "../../lib/constants/theme.constant";
+import { useTypeContext } from "../../context/UserType.context";
 
 // Stats data
 const stats = [
@@ -42,8 +43,9 @@ export default function AdminTable({
   columnsWithActions,
   check,
 }) {
-  //Temes
+  const { role } = useTypeContext();
 
+  //Temes
   const {
     chartsBackground,
     tableBackground,
@@ -75,7 +77,53 @@ export default function AdminTable({
       )}
 
       {/* Stats cards */}
-      {check && (
+      {role === "inventory" ? (
+        <Box sx={{ display: "flex", gap: 2, mb: 3, flexWrap: "wrap" }}>
+          {stats.map((stat, index) => (
+            <Card
+              key={index}
+              sx={{
+                p: 2,
+                flex: "1 1 200px",
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "flex-start",
+                borderRadius: 3,
+                boxShadow: 7,
+                border: tableBorder,
+                background: chartsBackground,
+                "&:hover": {
+                  boxShadow: 8,
+                },
+              }}
+            >
+              <Box sx={{ display: "flex", alignItems: "center", mb: 1 }}>
+                <Box
+                  sx={{
+                    width: 8,
+                    height: 8,
+                    borderRadius: "50%",
+                    bgcolor: stat.dotColor,
+                    mr: 1,
+                  }}
+                />
+                <Typography
+                  variant="body2"
+                  color="text.secondary"
+                >
+                  {stat.label}
+                </Typography>
+              </Box>
+              <Typography
+                variant="h4"
+                sx={{ fontWeight: "bold", color: stat.color }}
+              >
+                {stat.value}
+              </Typography>
+            </Card>
+          ))}
+        </Box>
+      ) : (
         <Box sx={{ display: "flex", gap: 2, mb: 3, flexWrap: "wrap" }}>
           {stats.map((stat, index) => (
             <Card

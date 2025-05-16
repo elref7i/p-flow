@@ -15,26 +15,39 @@ import {
 } from "@mui/material";
 import { formatDate } from "../../../../lib/utils/formDate";
 import { getStatusColor, getStatusIcon } from "../utils/status_functions";
+import { useThemeConstants } from "../../../../lib/constants/theme.constant";
 
 export default function StatusHistory({ statusHistory }) {
+  const {
+    cardBackground,
+    cardHoverBackground,
+    cardDetailsBackground,
+    headerBackground,
+    border,
+    borderHover,
+  } = useThemeConstants();
   return (
     <Card
-      elevation={0}
+      elevation={8}
       sx={{
+        background: cardBackground,
         borderRadius: 3,
-        border: "1px solid #e0e0e0",
+        border: `1px solid ${border}`,
         overflow: "hidden",
       }}
     >
       <Box
         sx={{
-          bgcolor: "#f8f9fa",
+          bgcolor: headerBackground,
           px: 3,
           py: 2,
-          borderBottom: "1px solid #e0e0e0",
+          borderBottom: `1px solid ${borderHover}`,
           display: "flex",
           alignItems: "center",
           gap: 1,
+          ":hover": {
+            boxShadow: 6,
+          },
         }}
       >
         <ReceiptLong
@@ -59,7 +72,7 @@ export default function StatusHistory({ statusHistory }) {
                 <TableCell
                   sx={{
                     fontWeight: "bold",
-                    bgcolor: "#f8f9fa",
+                    background: cardBackground,
                   }}
                 >
                   Status
@@ -67,7 +80,7 @@ export default function StatusHistory({ statusHistory }) {
                 <TableCell
                   sx={{
                     fontWeight: "bold",
-                    bgcolor: "#f8f9fa",
+                    bgcolor: cardBackground,
                   }}
                 >
                   Date
@@ -75,7 +88,7 @@ export default function StatusHistory({ statusHistory }) {
                 <TableCell
                   sx={{
                     fontWeight: "bold",
-                    bgcolor: "#f8f9fa",
+                    bgcolor: cardBackground,
                   }}
                 >
                   Note
@@ -83,7 +96,7 @@ export default function StatusHistory({ statusHistory }) {
                 <TableCell
                   sx={{
                     fontWeight: "bold",
-                    bgcolor: "#f8f9fa",
+                    bgcolor: cardBackground,
                   }}
                 >
                   Updated By
@@ -96,9 +109,9 @@ export default function StatusHistory({ statusHistory }) {
                   key={index}
                   sx={{
                     "&:nth-of-type(odd)": {
-                      bgcolor: "#fafafa",
+                      background: cardDetailsBackground,
                     },
-                    "&:hover": { bgcolor: "#f5f5f5" },
+                    "&:hover": { bgcolor: cardHoverBackground },
                   }}
                 >
                   <TableCell>

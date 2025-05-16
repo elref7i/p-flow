@@ -15,8 +15,16 @@ import {
   getStatusColor,
   getStatusIcon,
 } from "../utils/status_functions";
+import { useThemeConstants } from "../../../../lib/constants/theme.constant";
 
 export default function OrderSummary({ order }) {
+  const {
+    cardActiveBackground,
+    badgeBackground,
+    border,
+    transitionDurationEnteringScreen,
+    textPrimary,
+  } = useThemeConstants();
   return (
     <Grid
       container
@@ -34,10 +42,12 @@ export default function OrderSummary({ order }) {
           elevation={0}
           sx={{
             borderRadius: 3,
-            border: "1px solid #e0e0e0",
+            background: cardActiveBackground,
+            border: `1px solid ${border}`,
             height: "100%",
-            transition: "all 0.3s",
-            "&:hover": { boxShadow: "0 4px 20px rgba(0,0,0,0.08)" },
+            boxShadow: 7,
+            transition: transitionDurationEnteringScreen,
+            "&:hover": { boxShadow: 3 },
           }}
         >
           <CardContent>
@@ -48,8 +58,8 @@ export default function OrderSummary({ order }) {
             >
               <Avatar
                 sx={{
-                  bgcolor: "#EBF2FF",
-                  color: "#5E5ADB",
+                  bgcolor: badgeBackground,
+                  color: textPrimary,
                   width: 48,
                   height: 48,
                 }}
@@ -87,10 +97,12 @@ export default function OrderSummary({ order }) {
           elevation={0}
           sx={{
             borderRadius: 3,
-            border: "1px solid #e0e0e0",
+            background: cardActiveBackground,
+            border: `1px solid ${border}`,
             height: "100%",
-            transition: "all 0.3s",
-            "&:hover": { boxShadow: "0 4px 20px rgba(0,0,0,0.08)" },
+            boxShadow: 7,
+            transition: transitionDurationEnteringScreen,
+            "&:hover": { boxShadow: 3 },
           }}
         >
           <CardContent>
@@ -143,10 +155,12 @@ export default function OrderSummary({ order }) {
           elevation={0}
           sx={{
             borderRadius: 3,
-            border: "1px solid #e0e0e0",
+            background: cardActiveBackground,
+            border: `1px solid ${border}`,
             height: "100%",
-            transition: "all 0.3s",
-            "&:hover": { boxShadow: "0 4px 20px rgba(0,0,0,0.08)" },
+            boxShadow: 7,
+            transition: transitionDurationEnteringScreen,
+            "&:hover": { boxShadow: 3 },
           }}
         >
           <CardContent>
@@ -199,11 +213,12 @@ export default function OrderSummary({ order }) {
           elevation={0}
           sx={{
             borderRadius: 3,
-            border: "1px solid #e0e0e0",
+            background: cardActiveBackground,
+            border: `1px solid ${border}`,
             height: "100%",
-            bgcolor: "#5E5ADB10",
-            transition: "all 0.3s",
-            "&:hover": { boxShadow: "0 4px 20px rgba(0,0,0,0.08)" },
+            boxShadow: 7,
+            transition: transitionDurationEnteringScreen,
+            "&:hover": { boxShadow: 3 },
           }}
         >
           <CardContent>
