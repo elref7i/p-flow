@@ -16,6 +16,8 @@ export function ListItem({ icon, label, value, bold = false }) {
     <Box
       sx={{
         display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
         px: 3,
         gap: 5,
         py: 1.5,
@@ -25,14 +27,14 @@ export function ListItem({ icon, label, value, bold = false }) {
         },
       }}
     >
-      <Box sx={{ display: "flex", alignItems: "center", width: "40%" }}>
+      <Box sx={{ display: "flex", alignItems: "center" }}>
         <Box sx={{ color: textLink, mr: 1.5 }}>{icon}</Box>
         <Typography
           variant="h6"
           color="text.secondary"
           sx={{ textWrap: "nowrap" }}
         >
-          {label}
+          {label}:
         </Typography>
       </Box>
       <Typography
