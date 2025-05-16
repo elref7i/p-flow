@@ -7,6 +7,7 @@ import {
   getMyOrders,
   getSpecificOrder,
   rejectOrder,
+  statusOrder,
 } from "../api/ordersApi";
 import {
   UserTypeContext,
@@ -75,18 +76,31 @@ export const useGetSpecificOrder = (orderId) => {
 
 // ? Reject Order
 export const useRejectOrder = () => {
-  const { token } = useContext(UserTypeContext);
   const queryClient = useQueryClient();
 
-  return useMutation({
-    mutationFn: ({ orderId }) => rejectOrder({ token, orderId }),
+  return useMutation(rejectOrder, {
     onSuccess: () => {
       toast.success("Order rejected successfully");
       queryClient.invalidateQueries(["orders"]);
-      queryClient.refetchQueries(["orders"]);
     },
     onError: (error) => {
       toast.error("Error rejecting order");
+      console.log(error);
+    },
+  });
+};
+
+//Update Order Status
+export const useUpdateOrderStatus = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation(statusOrder, {
+    onSuccess: () => {
+      toast.success("Updated Order Status successfully");
+      queryClient.invalidateQueries(["orders"]);
+    },
+    onError: (error) => {
+      toast.error("Error Status order");
       console.log(error);
     },
   });

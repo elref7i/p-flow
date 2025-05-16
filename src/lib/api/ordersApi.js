@@ -75,11 +75,24 @@ export const rejectOrder = async ({ token, orderId }) => {
   const options = {
     url: `${API_URL_ORDERS}/${orderId}/reject`,
     method: "PATCH",
+    data: {
+      reason: "Order not allowed",
+    },
     headers: {
       Authorization: `Bearer ${token}`,
     },
-    data: {
-      reason: "Order not allowed",
+  };
+  return axios.request(options);
+};
+
+// *  Order Status
+export const statusOrder = async ({ token, orderId, values }) => {
+  const options = {
+    url: `${API_URL_ORDERS}/${orderId}/status`,
+    method: "PATCH",
+    data: values,
+    headers: {
+      Authorization: `Bearer ${token}`,
     },
   };
   return axios.request(options);

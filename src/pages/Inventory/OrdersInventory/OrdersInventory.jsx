@@ -3,10 +3,11 @@ import { columns } from "./utils/data";
 import { useTypeContext } from "@/context/UserType.context";
 import { Helmet } from "react-helmet";
 import { useThemeConstants } from "../../../lib/constants/theme.constant";
-import { useOrders } from "../../../lib/hooks/useOrdersAction";
+import { useOrders, useRejectOrder } from "../../../lib/hooks/useOrdersAction";
 import OrderDetailsModal from "./_components/order_details_modal";
 import UpdateStatusOrder from "./_components/update_status";
 import AdminTable from "../../../components/TableAdmin/AdminTable";
+import AlertModal from "../../../components/AdminComonents/MessageAlert/MessageAlert";
 
 export default function OrdersInventory() {
   //Context
@@ -14,6 +15,9 @@ export default function OrdersInventory() {
 
   //Queries
   const { data, isLoading } = useOrders();
+
+  //Mutations
+  const { mutate, isLoading: rejectOrder } = useRejectOrder();
 
   //Themes
   const { shadow1 } = useThemeConstants();
@@ -42,7 +46,14 @@ export default function OrdersInventory() {
     sortable: false,
     renderCell: (params) => (
       <Box>
-        <UpdateStatusOrder status={params.row.status} />
+        <UpdateStatusOrder
+          status={params.row.status}
+          id={params.row._id}
+        />
+        <AlertModal
+          isDeleting={rejectOrder}
+          handleAction={() => mutate({ token, orderId: params.row._id })}
+        />
       </Box>
     ),
   };

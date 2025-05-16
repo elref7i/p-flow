@@ -13,8 +13,13 @@ import {
   Modal,
   Select,
   TextareaAutosize,
+  CircularProgress,
 } from "@mui/material";
 import { useFormik } from "formik";
+import { useUpdateOrderStatus } from "../../../../lib/hooks/useOrdersAction";
+import { useTypeContext } from "../../../../context/UserType.context";
+import CheckCircleIcon from "@mui/icons-material/CheckCircle";
+import WarningAmberIcon from "@mui/icons-material/WarningAmber";
 
 const style = {
   position: "fixed",
@@ -30,9 +35,15 @@ const style = {
   overflow: "hidden", // Hide overflow initially
 };
 
-export default function UpdateStatusOrder({ status }) {
+export default function UpdateStatusOrder({ status, id }) {
   //States
   const [open, setOpen] = useState(false);
+
+  //Context
+  const { token } = useTypeContext();
+
+  //Mutations
+  const { mutate, isLoading, isSuccess, isError } = useUpdateOrderStatus();
 
   //Themes
   const { shadow2, typography, pharmacyBackground, textPrimary } =
@@ -50,11 +61,13 @@ export default function UpdateStatusOrder({ status }) {
     setFieldValue,
   } = useFormik({
     initialValues: {
-      status,
+      status: "",
       note: "",
     },
     onSubmit: (values) => {
       console.log(values);
+
+      mutate({ values, token, orderId: id });
     },
   });
 
@@ -142,7 +155,7 @@ export default function UpdateStatusOrder({ status }) {
                 fullWidth
                 labelId="demo-simple-select-error-label"
                 id="demo-simple-select-error"
-                value={values.status}
+                defaultValue={status}
                 label="Age"
                 onChange={(e) => {
                   setFieldValue("status", e.target.value);
@@ -152,9 +165,9 @@ export default function UpdateStatusOrder({ status }) {
                 <MenuItem value={"pending"}>Pending</MenuItem>
                 <MenuItem value={"confirmed"}>Confirmed</MenuItem>
                 <MenuItem value={"processing"}>Processing</MenuItem>
-                <MenuItem value={"delivered"}>Delivered</MenuItem>
                 <MenuItem value={"shipped"}>Shipped</MenuItem>
-                <MenuItem value={"cancelled"}>Cancelled</MenuItem>
+                <MenuItem value={"delivered"}>Delivered</MenuItem>
+                <MenuItem value={"rejected"}>Rejected</MenuItem>
               </Select>
               {errors.status && touched.status && (
                 <FormHelperText>Error</FormHelperText>
@@ -210,26 +223,26 @@ export default function UpdateStatusOrder({ status }) {
                     transform: "translateY(-2px)",
                   },
                 }}
-                // startIcon={
-                //   isLoading ? (
-                //     <CircularProgress
-                //       color="inherit"
-                //       size={20}
-                //     />
-                //   ) : isError ? (
-                //     <WarningAmberIcon
-                //       color="warning"
-                //       size={20}
-                //     />
-                //   ) : isSuccess ? (
-                //     <CheckCircleIcon
-                //       color="success"
-                //       size={20}
-                //     />
-                //   ) : (
-                //     <EditIcon size={20} />
-                //   )
-                // }
+                startIcon={
+                  isLoading ? (
+                    <CircularProgress
+                      color="inherit"
+                      size={20}
+                    />
+                  ) : isError ? (
+                    <WarningAmberIcon
+                      color="warning"
+                      size={20}
+                    />
+                  ) : isSuccess ? (
+                    <CheckCircleIcon
+                      color="success"
+                      size={20}
+                    />
+                  ) : (
+                    <EditIcon size={20} />
+                  )
+                }
               >
                 Update Status
               </Button>
