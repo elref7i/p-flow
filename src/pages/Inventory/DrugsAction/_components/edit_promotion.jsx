@@ -11,11 +11,9 @@ import {
 import { useFormik } from "formik";
 import { useThemeConstants } from "../../../../lib/constants/theme.constant";
 
-export default function EditPromotion({ active }) {
+export default function EditPromotion({ promotion }) {
   //Themes
   const { cardBackground, buttonText } = useThemeConstants();
-
-  console.log(active);
 
   // Formik
   const {
@@ -28,9 +26,9 @@ export default function EditPromotion({ active }) {
     setFieldValue,
   } = useFormik({
     initialValues: {
-      isActive: active,
-      buyQuantity: 0,
-      freeQuantity: 0,
+      isActive: promotion.isActive,
+      buyQuantity: promotion.buyQuantity,
+      freeQuantity: promotion.freeQuantity,
     },
 
     // validationSchema: AdminAddUser,
@@ -97,7 +95,7 @@ export default function EditPromotion({ active }) {
           Age
         </InputLabel>
         <NativeSelect
-          defaultValue={active}
+          defaultValue={promotion.isActive}
           name="isActive"
           inputProps={{
             name: "age",

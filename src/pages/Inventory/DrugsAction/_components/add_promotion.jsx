@@ -1,19 +1,18 @@
 /* eslint-disable react/prop-types */
-import {
-  Button,
-  FormControl,
-  FormHelperText,
-  InputLabel,
-  NativeSelect,
-  Paper,
-  TextField,
-} from "@mui/material";
+import { Button, Paper, TextField } from "@mui/material";
 import { useFormik } from "formik";
 import { useThemeConstants } from "../../../../lib/constants/theme.constant";
+import { AddPromotionSchema } from "../../../../lib/schemas/order_schema";
 
-export default function AddPromotaion() {
+export default function AddPromotaion({ dataInfo }) {
   //Themes
-  const { cardBackground, buttonText } = useThemeConstants();
+  const {
+    cardBackground,
+    buttonText,
+    buttonBackground,
+    buttonHoverBackground,
+  } = useThemeConstants();
+  const { _id, name, price, stock } = dataInfo;
 
   // Formik
   const {
@@ -24,23 +23,25 @@ export default function AddPromotaion() {
     errors,
     touched,
     setFieldValue,
+    dirty,
   } = useFormik({
     initialValues: {
-      originalDrugId: "",
-      name: "",
-      price: 0,
-      stock: 0,
+      originalDrugId: _id,
+      name,
+      price,
+      stock,
       promotion: {
-        quantity: 0,
-        freeItems: 0,
+        quantity: 1,
+        freeItems: 1,
       },
     },
 
-    // validationSchema: AdminAddUser,
+    validationSchema: AddPromotionSchema,
     onSubmit: (values) => {
       console.log(values);
     },
   });
+  console.log(dirty);
 
   return (
     <Paper
@@ -48,12 +49,13 @@ export default function AddPromotaion() {
       elevation={2}
       onSubmit={handleSubmit}
       sx={{
-        p: 3,
+        py: 1,
+        px: 3,
         mb: 3,
         borderRadius: "8px",
         position: "relative",
         background: cardBackground,
-        boxShadow: 12,
+        boxShadow: 9,
       }}
     >
       <TextField
@@ -61,74 +63,87 @@ export default function AddPromotaion() {
         label="Buy Quantity"
         margin="normal"
         type="number"
-        name="buyQuantity"
-        value={values.buyQuantity}
+        name="price"
+        value={values.price}
         onChange={handleChange}
         onBlur={handleBlur}
-        error={errors.buyQuantity && touched.buyQuantity}
-        helperText={touched.buyQuantity && errors.buyQuantity}
+        error={errors.price && touched.price}
+        helperText={touched.price && errors.price}
         InputProps={{
           sx: { borderRadius: "10px" },
         }}
       />
       <TextField
         fullWidth
-        sx={{ mb: 3 }}
-        label="Free Quantity"
+        sx={{ mb: 1 }}
+        label="Stock"
         margin="normal"
         type="number"
-        name="freeQuantity"
-        value={values.freeQuantity}
+        name="stock"
+        value={values.stock}
         onChange={handleChange}
         onBlur={handleBlur}
-        error={errors.freeQuantity && touched.freeQuantity}
-        helperText={touched.freeQuantity && errors.freeQuantity}
+        error={errors.stock && touched.stock}
+        helperText={touched.stock && errors.stock}
         InputProps={{
           sx: { borderRadius: "10px" },
         }}
       />
-
-      <FormControl
+      <TextField
         fullWidth
-        sx={{ mb: 3 }}
-        error={errors.isActive && touched.isActive}
-      >
-        <InputLabel
-          variant="standard"
-          htmlFor="uncontrolled-native"
-        >
-          Age
-        </InputLabel>
-        <NativeSelect
-          // defaultValue={active}
-          name="isActive"
-          inputProps={{
-            name: "age",
-            id: "uncontrolled-native",
-          }}
-          onChange={(e) => {
-            setFieldValue("isActive", e.target.value);
-          }}
-        >
-          <option value={"true"}>Active</option>
-          <option value={"false"}>NotActive</option>
-        </NativeSelect>
-        {errors.status && touched.status && (
-          <FormHelperText>Error</FormHelperText>
-        )}
-      </FormControl>
+        sx={{ mb: 1 }}
+        label="Quantity"
+        margin="normal"
+        type="number"
+        name="promotion.quantity"
+        value={values.promotion.quantity}
+        onChange={(e) => setFieldValue("promotion.quantity", e.target.value)}
+        onBlur={(e) => setFieldValue("promotion.quantity", e.target.value)}
+        error={
+          touched?.promotion?.quantity && Boolean(errors?.promotion?.quantity)
+        }
+        helperText={touched?.promotion?.quantity && errors?.promotion?.quantity}
+        InputProps={{
+          sx: { borderRadius: "10px" },
+        }}
+      />
+      <TextField
+        fullWidth
+        sx={{ mb: 1 }}
+        label="freeItems"
+        margin="normal"
+        type="number"
+        name="promotion.freeItems"
+        value={values.promotion.freeItems}
+        onChange={(e) => setFieldValue("promotion.freeItems", e.target.value)}
+        onBlur={(e) => setFieldValue("promotion.freeItems", e.target.value)}
+        error={
+          touched?.promotion?.freeItems && Boolean(errors?.promotion?.freeItems)
+        }
+        helperText={
+          touched?.promotion?.freeItems && errors?.promotion?.freeItems
+        }
+        InputProps={{
+          sx: { borderRadius: "10px" },
+        }}
+      />
 
       <Button
         // onClick={handleEdit}
         variant="contained"
         color="primary"
         type="submit"
+        disabled={!dirty}
         sx={{
           mx: "auto",
           color: buttonText,
+          background: buttonBackground,
           display: "block",
           px: 4,
-          mt: 2,
+          mt: 1,
+          ":hover": {
+            background: buttonHoverBackground,
+          },
         }}
         // startIcon={
         //   isLoading ? (
@@ -141,8 +156,7 @@ export default function AddPromotaion() {
         //   )
         // }
       >
-        add
-        {/* {!showEdit ? "Edit Promotion" : "Show Details"} */}
+        Add
       </Button>
     </Paper>
   );

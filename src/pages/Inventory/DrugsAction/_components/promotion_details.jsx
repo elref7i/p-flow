@@ -20,8 +20,6 @@ export default function PromotionDetails({ dataInfo }) {
   const [open, setOpen] = useState(false);
   const [showOptions, setShowOptions] = useState("default");
 
-  console.log(dataInfo);
-
   //Variabled
   const { promotion } = dataInfo;
 
@@ -81,7 +79,8 @@ export default function PromotionDetails({ dataInfo }) {
               position: "absolute",
               top: "50%",
               px: 2,
-              py: 6,
+              pt: 4,
+              pb: 2,
               left: "50%",
               transform: "translate(-50%, -50%)",
               width: 400,
@@ -99,7 +98,7 @@ export default function PromotionDetails({ dataInfo }) {
               sx={{
                 color: textError,
                 position: "absolute",
-                top: 4,
+                top: -7,
                 right: 2,
               }}
             >
@@ -109,7 +108,7 @@ export default function PromotionDetails({ dataInfo }) {
               sx={{
                 display: "flex",
                 alignItems: "center",
-                mb: 2,
+                mb: 1,
                 pb: 1,
               }}
             >
@@ -139,7 +138,7 @@ export default function PromotionDetails({ dataInfo }) {
 
             <Divider
               sx={{
-                mb: 3,
+                mb: 2,
                 boxShadow: 8,
               }}
             />
@@ -150,7 +149,7 @@ export default function PromotionDetails({ dataInfo }) {
                   setShowOptions("default");
                 }}
                 sx={{
-                  mb: 2,
+                  mb: 1,
                   fontSize: typography.h6.fontSize,
                   fontWeight: typography.h6.fontWeight,
                   color: textLink,
@@ -161,42 +160,45 @@ export default function PromotionDetails({ dataInfo }) {
               </Button>
             )}
             {showOptions === "edit" ? (
-              <EditPromotion active={promotion.isActive} />
+              <EditPromotion promotion={promotion} />
             ) : showOptions === "add" ? (
-              <AddPromotaion />
+              <AddPromotaion dataInfo={dataInfo} />
             ) : (
               <DetailsPromotion promotion={promotion} />
             )}
 
             <Box sx={{ display: "flex", justifyContent: "center", gap: 2 }}>
-              <Button
-                onClick={handleEdit}
-                variant="contained"
-                color={"warning"}
-                sx={{
-                  color: textPrimary,
-                }}
-                // startIcon={
-                //   isLoading ? (
-                //     <CircularProgress
-                //       color="inherit"
-                //       size={16}
-                //     />
-                //   ) : (
-                //     <EditIcon />
-                //   )
-                // }
-              >
-                {"Edit Offer"}
-              </Button>
-              <Button
-                onClick={handleAdd}
-                variant="outlined"
-                color={"primary"}
-                // startIcon={<CancelIcon />}
-              >
-                {"Add Offer"}
-              </Button>
+              {dataInfo.promotion.isActive === false ? (
+                <Button
+                  onClick={handleAdd}
+                  variant="outlined"
+                  color={"primary"}
+                  // startIcon={<CancelIcon />}
+                >
+                  {"Add Offer"}
+                </Button>
+              ) : (
+                <Button
+                  onClick={handleEdit}
+                  variant="contained"
+                  color={"warning"}
+                  sx={{
+                    color: textPrimary,
+                  }}
+                  // startIcon={
+                  //   isLoading ? (
+                  //     <CircularProgress
+                  //       color="inherit"
+                  //       size={16}
+                  //     />
+                  //   ) : (
+                  //     <EditIcon />
+                  //   )
+                  // }
+                >
+                  {"Edit Offer"}
+                </Button>
+              )}
             </Box>
           </Box>
         </Fade>

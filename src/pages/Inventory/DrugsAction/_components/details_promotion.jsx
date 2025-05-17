@@ -6,7 +6,7 @@ import CardGiftcardIcon from "@mui/icons-material/CardGiftcard";
 
 export default function DetailsPromotion({ promotion }) {
   //Variabled
-  const { originalDrugId, freeQuantity, buyQuantity } = promotion;
+  const { originalDrugId, freeQuantity, buyQuantity, isActive } = promotion;
   const { typography, textPrimary, cardBackground } = useThemeConstants();
   return (
     <Paper
@@ -17,7 +17,7 @@ export default function DetailsPromotion({ promotion }) {
         borderRadius: "8px",
         position: "relative",
         background: cardBackground,
-        boxShadow: 9,
+        boxShadow: isActive === true ? 11 : 13,
       }}
     >
       <Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>
