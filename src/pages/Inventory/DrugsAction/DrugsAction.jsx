@@ -11,6 +11,7 @@ import SearchBar from "../../../components/SearchBar/SearchBar";
 import CancelIcon from "@mui/icons-material/Cancel";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import AlertModal from "../../../components/AdminComonents/MessageAlert/MessageAlert";
+import PromotionDetails from "./_components/promotion_details";
 
 export default function DrugsAction() {
   //State
@@ -72,8 +73,47 @@ export default function DrugsAction() {
       </Box>
     ),
   };
+  const promotion = {
+    field: "promotion",
+    headerName: "Promotion",
+    align: "center",
+    headerAlign: "center",
+    width: 100,
+    sortable: false,
+    renderCell: (params) => (
+      <Box sx={{ pt: 1 }}>
+        {params.row.promotion.isActive ? (
+          <CheckCircleIcon
+            color="success"
+            fontSize="medium"
+          />
+        ) : (
+          <CancelIcon
+            color="error"
+            fontSize="medium"
+          />
+        )}
+      </Box>
+    ),
+  };
+  const DetailsPromotion = {
+    field: "DetailsPromotion",
+    headerName: "DetailsPromotion",
+    align: "center",
+    headerAlign: "center",
+    minWidth: 200,
+    renderCell: (params) => (
+      <Box>{params.row && <PromotionDetails dataInfo={params.row} />}</Box>
+    ),
+  };
 
-  const columnsWithActions = [...columns, Visibility, actions];
+  const columnsWithActions = [
+    ...columns,
+    Visibility,
+    promotion,
+    actions,
+    DetailsPromotion,
+  ];
 
   return (
     <>

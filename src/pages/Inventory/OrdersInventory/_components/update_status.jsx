@@ -61,7 +61,7 @@ export default function UpdateStatusOrder({ status, id }) {
     setFieldValue,
   } = useFormik({
     initialValues: {
-      status: "",
+      status,
       note: "",
     },
     onSubmit: (values) => {

@@ -36,7 +36,10 @@ export default function AlertModal({ handleAction, isDeleting }) {
 
   return (
     <>
-      <IconButton onClick={handleOpen} color="error">
+      <IconButton
+        onClick={handleOpen}
+        color="error"
+      >
         <DeleteIcon fontSize="medium" />
       </IconButton>
       <Modal
@@ -55,7 +58,10 @@ export default function AlertModal({ handleAction, isDeleting }) {
       >
         <Fade in={open}>
           <Box sx={{ ...style, background: adminBackground }}>
-            <ReportProblemIcon color="error" sx={{ fontSize: "60px" }} />
+            <ReportProblemIcon
+              color="error"
+              sx={{ fontSize: "60px" }}
+            />
             {role === "admin" ? (
               <Typography
                 id="transition-modal-description"
@@ -88,7 +94,10 @@ export default function AlertModal({ handleAction, isDeleting }) {
                 color="error"
                 startIcon={
                   isDeleting ? (
-                    <CircularProgress color="inherit" size={16} />
+                    <CircularProgress
+                      color="inherit"
+                      size={16}
+                    />
                   ) : (
                     <DeleteIcon />
                   )
