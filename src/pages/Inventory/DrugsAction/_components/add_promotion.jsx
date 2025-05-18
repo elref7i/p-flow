@@ -1,10 +1,18 @@
 /* eslint-disable react/prop-types */
-import { Button, Paper, TextField } from "@mui/material";
+import { Button, CircularProgress, Paper, TextField } from "@mui/material";
 import { useFormik } from "formik";
-import { useThemeConstants } from "../../../../lib/constants/theme.constant";
-import { AddPromotionSchema } from "../../../../lib/schemas/order_schema";
+import { useThemeConstants } from "@/lib/constants/theme.constant";
+import { useAddPromotion } from "@/lib/hooks/usepromotion";
+import { useTypeContext } from "@/context/UserType.context";
+import { AddPromotionSchema } from "@/lib/schemas/DrugSchema";
 
-export default function AddPromotaion({ dataInfo }) {
+export default function AddPromotaion({ dataInfo, setOpen }) {
+  //Context
+  const { token } = useTypeContext();
+
+  //Mutation
+  const { mutateAsync, isLoading } = useAddPromotion();
+
   //Themes
   const {
     cardBackground,
@@ -12,7 +20,7 @@ export default function AddPromotaion({ dataInfo }) {
     buttonBackground,
     buttonHoverBackground,
   } = useThemeConstants();
-  const { _id, name, price, stock } = dataInfo;
+  const { _id, name, price, stock: oldStock } = dataInfo;
 
   // Formik
   const {
@@ -23,25 +31,23 @@ export default function AddPromotaion({ dataInfo }) {
     errors,
     touched,
     setFieldValue,
-    dirty,
   } = useFormik({
     initialValues: {
       originalDrugId: _id,
       name,
       price,
-      stock,
+      stock: oldStock,
       promotion: {
         quantity: 1,
         freeItems: 1,
       },
     },
-
     validationSchema: AddPromotionSchema,
-    onSubmit: (values) => {
-      console.log(values);
+    onSubmit: async (values) => {
+      await mutateAsync({ token, values });
+      setOpen(false);
     },
   });
-  console.log(dirty);
 
   return (
     <Paper
@@ -128,33 +134,34 @@ export default function AddPromotaion({ dataInfo }) {
         }}
       />
 
+      {/* Actions */}
       <Button
-        // onClick={handleEdit}
         variant="contained"
         color="primary"
         type="submit"
-        disabled={!dirty}
+        disabled={oldStock === 0}
         sx={{
+          display: "flex",
+          justifyContent: "center",
           mx: "auto",
           color: buttonText,
           background: buttonBackground,
-          display: "block",
-          px: 4,
+          px: 6,
           mt: 1,
-          ":hover": {
+          "&:hover": {
             background: buttonHoverBackground,
           },
         }}
-        // startIcon={
-        //   isLoading ? (
-        //     <CircularProgress
-        //       color="inherit"
-        //       size={16}
-        //     />
-        //   ) : (
-        //     <EditIcon />
-        //   )
-        // }
+        startIcon={
+          isLoading ? (
+            <CircularProgress
+              color="inherit"
+              size={16}
+            />
+          ) : (
+            ""
+          )
+        }
       >
         Add
       </Button>

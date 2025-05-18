@@ -1,14 +1,13 @@
+/* eslint-disable react/prop-types */
 import { Box, Card, CardContent, Grid, Typography } from "@mui/material";
-import {
-  ShoppingCart,
-  Cancel,
-  AttachMoney,
-  AssignmentReturn,
-} from "@mui/icons-material";
+import { ShoppingCart } from "@mui/icons-material";
 import { motion } from "framer-motion";
 import { useThemeConstants } from "../../../../lib/constants/theme.constant";
-
-const PurchaseOverview = () => {
+import CardDashboardSkeleton from "../../../../components/Common/Loading/card_dashboard_skeleton";
+import AccessTimeIcon from "@mui/icons-material/AccessTime";
+import LocalShippingIcon from "@mui/icons-material/LocalShipping";
+import AlignHorizontalLeftIcon from "@mui/icons-material/AlignHorizontalLeft";
+const PurchaseOverview = ({ dataInfo, isLoading }) => {
   const {
     backgroundElevated,
     cardBackground,
@@ -23,34 +22,37 @@ const PurchaseOverview = () => {
     textPrimary,
   } = useThemeConstants();
 
+  if (isLoading) return <CardDashboardSkeleton />;
+  const { totalOrders, totalSales, orderStatuses } = dataInfo;
+  const avgSalesPerOrder = totalSales / totalOrders;
   const purchaseData = [
     {
-      title: "No of Purchase",
-      value: "45",
+      title: "Total Orders",
+      value: totalOrders,
       icon: <ShoppingCart />,
       iconBg: badgeBackground,
       iconColor: textPrimary,
     },
     {
-      title: "Cancel Order",
-      value: "04",
-      icon: <Cancel />,
+      title: "Average Sales Order",
+      value: avgSalesPerOrder.toFixed(2),
+      icon: <AlignHorizontalLeftIcon />,
+      iconBg: badgeBackground,
+      iconColor: textLink,
+    },
+    {
+      title: "Pending Order",
+      value: orderStatuses.pending,
+      icon: <AccessTimeIcon />,
       iconBg: badgeBackground,
       iconColor: textError,
     },
     {
-      title: "Cost",
-      value: "786",
-      icon: <AttachMoney />,
+      title: "Shipped",
+      value: orderStatuses.shipped,
+      icon: <LocalShippingIcon />,
       iconBg: badgeBackground,
       iconColor: textWarning,
-    },
-    {
-      title: "Returns",
-      value: "07",
-      icon: <AssignmentReturn />,
-      iconBg: badgeBackground,
-      iconColor: textLink,
     },
   ];
 
@@ -73,7 +75,7 @@ const PurchaseOverview = () => {
           variant="h3"
           sx={{ mb: 2 }}
         >
-          Purchase Overview
+          Orders Overview
         </Typography>
         <Grid
           container

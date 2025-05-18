@@ -6,13 +6,11 @@ import {
   TextField,
   InputLabel,
   CircularProgress,
+  Button,
 } from "@mui/material";
 import { useFormik } from "formik";
 import WarningAmberIcon from "@mui/icons-material/WarningAmber";
-import CheckCircleIcon from "@mui/icons-material/CheckCircle";
-import CustomButton from "@/components/Common/ButtonStyle";
 import Location from "@/components/Loaction/Location";
-import { loggedUserSchema } from "@/lib/schemas/UserSchema";
 import { useTypeContext } from "@/context/UserType.context";
 import { useUpdateLoggedUser } from "@/lib/hooks/useUserAction";
 import MapModal from "@/components/UserModal/MapComponent/MapComponent";
@@ -22,13 +20,14 @@ import {
   CustomParagraph,
 } from "../../components/Common/CustomTypography";
 import { useEffect } from "react";
+import { loggedUserSchema } from "../../lib/schemas/UserSchema";
 
 export default function Profile({ userData }) {
   // Context
   const { token, fetchUserData } = useTypeContext();
 
   //Mutation
-  const { mutateAsync, isLoading, isError, isSuccess } = useUpdateLoggedUser();
+  const { mutateAsync, isLoading, isError } = useUpdateLoggedUser();
 
   // Formik
   const {
@@ -43,21 +42,23 @@ export default function Profile({ userData }) {
     setFieldValue,
   } = useFormik({
     initialValues: {
-      name: userData?.name || "",
-      ownerName: userData?.ownerName || "",
-      phone: userData?.phone || "",
-      city: userData?.city || "",
-      governorate: userData?.governorate || "",
+      name: userData.name,
+      ownerName: userData.ownerName,
+      phone: userData.phone,
+      city: userData.city,
+      governorate: userData.governorate,
       location: {
-        type: userData.location?.type || "Point",
+        type: userData?.location?.type || "point",
         coordinates: [
-          userData.location?.coordinates[0] || 0,
-          userData.location?.coordinates[1] || 0,
+          userData?.location?.coordinates[0] || 1,
+          userData?.location?.coordinates[1] || 1,
         ],
       },
     },
     validationSchema: loggedUserSchema,
     onSubmit: async (values, { resetForm }) => {
+      console.log(values);
+
       const { data } = await mutateAsync({
         token,
         values,
@@ -80,6 +81,13 @@ export default function Profile({ userData }) {
           phone: userData.phone || "",
           city: userData.city || "",
           governorate: userData.governorate || "",
+          location: {
+            type: userData?.location?.type || "point",
+            coordinates: [
+              userData?.location?.coordinates?.[0] || 1,
+              userData?.location?.coordinates?.[1] || 1,
+            ],
+          },
         },
       });
     }
@@ -206,7 +214,7 @@ export default function Profile({ userData }) {
             <Box></Box>
           </Stack>
 
-          <CustomButton
+          <Button
             type="submit"
             disabled={!dirty}
             variant="contained"
@@ -223,18 +231,13 @@ export default function Profile({ userData }) {
                   color="warning"
                   size={16}
                 />
-              ) : isSuccess ? (
-                <CheckCircleIcon
-                  color="success"
-                  size={16}
-                />
               ) : (
                 ""
               )
             }
           >
             Save Changes
-          </CustomButton>
+          </Button>
         </Box>
         <Stack
           order={{ xs: -1, md: 0 }}

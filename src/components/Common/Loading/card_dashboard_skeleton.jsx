@@ -1,66 +1,29 @@
-/* eslint-disable react/prop-types */
-import { Box, Card, CardContent, Grid, Typography } from "@mui/material";
-import { TrendingUp } from "@mui/icons-material";
-import { motion } from "framer-motion";
-import { useThemeConstants } from "../../../../lib/constants/theme.constant";
-import CardDashboardSkeleton from "../../../../components/Common/Loading/card_dashboard_skeleton";
-import TrendingDownIcon from "@mui/icons-material/TrendingDown";
-import { IS_SOLD_GOOD, TOTAL_SALES } from "../constants/sales";
+"use client";
 
-const SalesOverview = ({ dataInfo, isLoading }) => {
-  //Themes
+import {
+  Box,
+  Card,
+  CardContent,
+  Grid,
+  Typography,
+  Skeleton,
+} from "@mui/material";
+import { motion } from "framer-motion";
+import { useThemeConstants } from "../../../lib/constants/theme.constant";
+
+const CardDashboardSkeleton = () => {
+  // Themes
   const {
     backgroundElevated,
     cardBackground,
     badgeBackground,
-    textSuccess,
-    textError,
     border,
     borderHover,
     transitionDurationEnteringScreen,
   } = useThemeConstants();
 
-  if (isLoading) return <CardDashboardSkeleton />;
-
-  const { totalSales, totalDrugs, soldPercentage } = dataInfo;
-
-  const soldDrugs = Math.round((soldPercentage / 100) * totalDrugs);
-  const unsoldDrugs = totalDrugs - soldDrugs;
-  //Varaiables
-  const salesData = [
-    {
-      title: "Sales Percentage",
-      value: soldPercentage.toFixed(2) + "%",
-      icon:
-        soldPercentage >= IS_SOLD_GOOD ? <TrendingUp /> : <TrendingDownIcon />,
-      iconBg: badgeBackground,
-      iconColor: soldPercentage >= IS_SOLD_GOOD ? textSuccess : textError,
-    },
-    {
-      title: "Total Sales",
-      value: totalSales.toFixed(2),
-      icon: totalSales > TOTAL_SALES ? <TrendingUp /> : <TrendingDownIcon />,
-      iconBg: badgeBackground,
-      iconColor: totalSales > TOTAL_SALES ? textSuccess : textError,
-    },
-
-    {
-      title: "unsold Drugs",
-      value: unsoldDrugs,
-      icon:
-        soldPercentage <= IS_SOLD_GOOD ? <TrendingDownIcon /> : <TrendingUp />,
-      iconBg: badgeBackground,
-      iconColor: soldPercentage <= IS_SOLD_GOOD ? textError : textSuccess,
-    },
-    {
-      title: "Sold Drugs",
-      value: soldDrugs,
-      icon:
-        soldPercentage >= IS_SOLD_GOOD ? <TrendingUp /> : <TrendingDownIcon />,
-      iconBg: badgeBackground,
-      iconColor: soldPercentage >= IS_SOLD_GOOD ? textSuccess : textError,
-    },
-  ];
+  // Create an array of 4 items for the skeleton
+  const skeletonItems = Array(4).fill(null);
 
   return (
     <Card
@@ -81,13 +44,13 @@ const SalesOverview = ({ dataInfo, isLoading }) => {
           variant="h3"
           sx={{ mb: 2 }}
         >
-          Sales Overview
+          <Skeleton width="60%" />
         </Typography>
         <Grid
           container
           spacing={2}
         >
-          {salesData.map((item, index) => (
+          {skeletonItems.map((_, index) => (
             <Grid
               item
               xs={12}
@@ -119,25 +82,28 @@ const SalesOverview = ({ dataInfo, isLoading }) => {
                       borderRadius: 2,
                       width: 48,
                       height: 48,
-                      backgroundColor: item.iconBg,
-                      color: item.iconColor,
+                      backgroundColor: badgeBackground,
                       mr: 2,
                     }}
                   >
-                    {item.icon}
+                    <Skeleton
+                      variant="circular"
+                      width={24}
+                      height={24}
+                    />
                   </Box>
-                  <Box>
+                  <Box sx={{ width: "100%" }}>
                     <Typography
                       variant="body2"
                       color="text.secondary"
                     >
-                      {item.title}
+                      <Skeleton width="80%" />
                     </Typography>
                     <Typography
                       variant="h5"
                       sx={{ fontWeight: "bold" }}
                     >
-                      {item.value}
+                      <Skeleton width="50%" />
                     </Typography>
                   </Box>
                 </Box>
@@ -150,4 +116,4 @@ const SalesOverview = ({ dataInfo, isLoading }) => {
   );
 };
 
-export default SalesOverview;
+export default CardDashboardSkeleton;

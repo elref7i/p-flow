@@ -7,7 +7,7 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { Divider, IconButton, Chip } from "@mui/material";
 import LocalOfferIcon from "@mui/icons-material/LocalOffer";
-import { useThemeConstants } from "../../../../lib/constants/theme.constant";
+import { useThemeConstants } from "@/lib/constants/theme.constant";
 import { Close } from "@mui/icons-material";
 import { useState } from "react";
 import EditPromotion from "./edit_promotion";
@@ -160,45 +160,43 @@ export default function PromotionDetails({ dataInfo }) {
               </Button>
             )}
             {showOptions === "edit" ? (
-              <EditPromotion promotion={promotion} />
+              <EditPromotion
+                promotion={promotion}
+                id={dataInfo._id}
+                setShowOptions={setShowOptions}
+              />
             ) : showOptions === "add" ? (
-              <AddPromotaion dataInfo={dataInfo} />
+              <AddPromotaion
+                dataInfo={dataInfo}
+                setOpen={setOpen}
+              />
             ) : (
               <DetailsPromotion promotion={promotion} />
             )}
 
             <Box sx={{ display: "flex", justifyContent: "center", gap: 2 }}>
-              {dataInfo.promotion.isActive === false ? (
-                <Button
-                  onClick={handleAdd}
-                  variant="outlined"
-                  color={"primary"}
-                  // startIcon={<CancelIcon />}
-                >
-                  {"Add Offer"}
-                </Button>
-              ) : (
-                <Button
-                  onClick={handleEdit}
-                  variant="contained"
-                  color={"warning"}
-                  sx={{
-                    color: textPrimary,
-                  }}
-                  // startIcon={
-                  //   isLoading ? (
-                  //     <CircularProgress
-                  //       color="inherit"
-                  //       size={16}
-                  //     />
-                  //   ) : (
-                  //     <EditIcon />
-                  //   )
-                  // }
-                >
-                  {"Edit Offer"}
-                </Button>
-              )}
+              {dataInfo.promotion.isActive === false
+                ? showOptions !== "add" && (
+                    <Button
+                      onClick={handleAdd}
+                      variant="outlined"
+                      color={"primary"}
+                    >
+                      {"Add Offer"}
+                    </Button>
+                  )
+                : showOptions !== "edit" && (
+                    <Button
+                      onClick={handleEdit}
+                      variant="contained"
+                      color={"warning"}
+                      sx={{
+                        color: textPrimary,
+                      }}
+                    >
+                      {"Edit Offer"}
+                    </Button>
+                  )}
             </Box>
           </Box>
         </Fade>

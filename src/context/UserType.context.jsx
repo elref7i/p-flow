@@ -3,9 +3,9 @@
 import axios from "axios";
 import { createContext, useContext, useEffect, useState } from "react";
 import toast from "react-hot-toast";
-import { getloggedUserData } from "../lib/api/userAPI";
+import { getloggedUserData } from "@/lib/api/userAPI";
 import { useQueryClient } from "@tanstack/react-query";
-import { API_URL } from "../lib/api/api_url";
+import { API_URL } from "@/lib/api/api_url";
 
 export const UserTypeContext = createContext(0);
 

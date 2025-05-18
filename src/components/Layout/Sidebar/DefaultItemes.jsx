@@ -50,11 +50,10 @@ export const inventory = {
       icon: <ArticleIcon />,
       path: "/inventory/DrugsAction",
     },
-    { text: "Profile", icon: <PersonIcon />, path: "/inventory/myprofile" },
     { text: "Orders", icon: <AddTaskIcon />, path: "/inventory/orders" },
   ],
   FooterSection: [
-    { text: "Bar Chart", icon: <BarChartIcon />, path: "/bar" },
+    { text: "Profile", icon: <PersonIcon />, path: "/inventory/myprofile" },
     Shared,
   ],
 };

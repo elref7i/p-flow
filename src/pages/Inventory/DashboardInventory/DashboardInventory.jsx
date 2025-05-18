@@ -1,17 +1,14 @@
-import { useState } from "react";
 import { Box, useMediaQuery, useTheme } from "@mui/material";
 import { motion } from "framer-motion";
 import DashboardContent from "./DashboardContent";
 // import DashboardContent from "./DashboardContent";
 
 const DashboardInventory = () => {
+  //Themes
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
-  const [sidebarOpen, setSidebarOpen] = useState(!isMobile);
 
-  const toggleSidebar = () => {
-    setSidebarOpen(!sidebarOpen);
-  };
+  //Variables
+  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
 
   return (
     <Box sx={{ display: "flex", width: "100%" }}>
@@ -25,7 +22,7 @@ const DashboardInventory = () => {
             duration: theme.transitions.duration.leavingScreen,
           }),
           marginLeft: 0,
-          ...(sidebarOpen && {
+          ...(isMobile && {
             transition: theme.transitions.create(["margin", "width"], {
               easing: theme.transitions.easing.easeOut,
               duration: theme.transitions.duration.enteringScreen,

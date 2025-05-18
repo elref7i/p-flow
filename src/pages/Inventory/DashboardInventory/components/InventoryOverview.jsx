@@ -1,26 +1,59 @@
+/* eslint-disable react/prop-types */
 import { Box, Card, CardContent, Grid, Typography } from "@mui/material";
-import { Inventory } from "@mui/icons-material";
 import { motion } from "framer-motion";
 import { useThemeConstants } from "../../../../lib/constants/theme.constant";
+import CardDashboardSkeleton from "../../../../components/Common/Loading/card_dashboard_skeleton";
+import HourglassBottomIcon from "@mui/icons-material/HourglassBottom";
+import LocalShippingIcon from "@mui/icons-material/LocalShipping";
+import MedicationIcon from "@mui/icons-material/Medication";
+import MedicalInformationIcon from "@mui/icons-material/MedicalInformation";
+const InventoryOverview = ({ isLoading, dataInfo }) => {
+  const {
+    badgeBackground,
+    textSuccess,
+    textWarning,
+    transitionDurationEnteringScreen,
+    borderHover,
+    border,
+    textLink,
+    gradientChart,
+  } = useThemeConstants();
 
-const InventoryOverview = () => {
-  const { badgeBackground, textSuccess, textWarning, backgroundElevated } =
-    useThemeConstants();
+  if (isLoading) return <CardDashboardSkeleton />;
+
+  const { totalSales, totalDrugs, orderStatuses, totalOrders } = dataInfo;
+  const avgSalesPerDrug = totalSales / totalDrugs;
+  const pendingOrdersPercentage = (orderStatuses.pending / totalOrders) * 100;
+  const shippedOrdersPercentage = (orderStatuses.shipped / totalOrders) * 100;
 
   const inventoryData = [
     {
-      title: "Quantity in Hand",
-      value: "214",
-      icon: <Inventory />,
+      title: "Total Drugs",
+      value: totalDrugs,
+      icon: <MedicalInformationIcon />,
       iconBg: badgeBackground,
       iconColor: textSuccess,
     },
     {
-      title: "Will be Received",
-      value: "64",
-      icon: <Inventory />,
+      title: "Average Sales Drug",
+      value: avgSalesPerDrug.toFixed(2),
+      icon: <MedicationIcon />,
       iconBg: badgeBackground,
       iconColor: textWarning,
+    },
+    {
+      title: "Pending Orders",
+      value: pendingOrdersPercentage.toFixed(2) + "%",
+      icon: <HourglassBottomIcon />,
+      iconBg: badgeBackground,
+      iconColor: textWarning,
+    },
+    {
+      title: "Shipped Orders",
+      value: shippedOrdersPercentage.toFixed(2) + "%",
+      icon: <LocalShippingIcon />,
+      iconBg: badgeBackground,
+      iconColor: textLink,
     },
   ];
 
@@ -29,9 +62,12 @@ const InventoryOverview = () => {
       sx={{
         height: "100%",
         background: badgeBackground,
-        boxShadow: 8,
+        boxShadow: 6,
+        border: `2px solid ${border}`,
+        transition: transitionDurationEnteringScreen,
         ":hover": {
-          boxShadow: 4,
+          borderColor: borderHover,
+          boxShadow: 7,
         },
       }}
     >
@@ -50,6 +86,7 @@ const InventoryOverview = () => {
             <Grid
               item
               xs={12}
+              sm={6}
               key={index}
             >
               <motion.div
@@ -62,10 +99,10 @@ const InventoryOverview = () => {
                     alignItems: "center",
                     p: 2,
                     borderRadius: 2,
-                    boxShadow: 8,
-                    background: backgroundElevated,
-                    ":hover": {
-                      boxShadow: 7,
+                    background: gradientChart,
+                    boxShadow: 7,
+                    "&:hover": {
+                      boxShadow: 8,
                     },
                   }}
                 >

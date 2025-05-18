@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import { Box, Paper, Typography } from "@mui/material";
-import { useThemeConstants } from "../../../../lib/constants/theme.constant";
+import { useThemeConstants } from "@/lib/constants/theme.constant";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import CardGiftcardIcon from "@mui/icons-material/CardGiftcard";
 

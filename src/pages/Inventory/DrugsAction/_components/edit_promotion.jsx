@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 import {
   Button,
+  CircularProgress,
   FormControl,
   FormHelperText,
   InputLabel,
@@ -9,9 +10,18 @@ import {
   TextField,
 } from "@mui/material";
 import { useFormik } from "formik";
-import { useThemeConstants } from "../../../../lib/constants/theme.constant";
+import { useThemeConstants } from "@/lib/constants/theme.constant";
+import { UpdatePromotionSchema } from "@/lib/schemas/DrugSchema";
+import { useTypeContext } from "@/context/UserType.context";
+import { useUpdatePromotion } from "@/lib/hooks/usepromotion";
 
-export default function EditPromotion({ promotion }) {
+export default function EditPromotion({ promotion, id, setShowOptions }) {
+  //Context
+  const { token } = useTypeContext();
+
+  //Mutations
+  const { mutateAsync, isLoading } = useUpdatePromotion();
+
   //Themes
   const { cardBackground, buttonText } = useThemeConstants();
 
@@ -31,9 +41,10 @@ export default function EditPromotion({ promotion }) {
       freeQuantity: promotion.freeQuantity,
     },
 
-    // validationSchema: AdminAddUser,
-    onSubmit: (values) => {
-      console.log(values);
+    validationSchema: UpdatePromotionSchema,
+    onSubmit: async (values) => {
+      await mutateAsync({ token, values, drugId: id });
+      setShowOptions("default");
     },
   });
 
@@ -119,22 +130,21 @@ export default function EditPromotion({ promotion }) {
         color="warning"
         type="submit"
         sx={{
+          display: "flex",
+          justifyContent: "center",
           mx: "auto",
           color: buttonText,
-          display: "block",
-          px: 4,
+          px: 6,
           mt: 2,
         }}
-        // startIcon={
-        //   isLoading ? (
-        //     <CircularProgress
-        //       color="inherit"
-        //       size={16}
-        //     />
-        //   ) : (
-        //     <EditIcon />
-        //   )
-        // }
+        startIcon={
+          isLoading && (
+            <CircularProgress
+              color="inherit"
+              size={16}
+            />
+          )
+        }
       >
         Edit
         {/* {!showEdit ? "Edit Promotion" : "Show Details"} */}
