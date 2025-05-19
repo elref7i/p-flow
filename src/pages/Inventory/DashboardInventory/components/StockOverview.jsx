@@ -1,20 +1,27 @@
+/* eslint-disable react/prop-types */
 import { Box, Card, CardContent, Grid, Typography } from "@mui/material";
 import { motion } from "framer-motion";
 import { useThemeConstants } from "../../../../lib/constants/theme.constant";
+import CardDashboardSkeleton from "../../../../components/Common/Loading/card_dashboard_skeleton";
 
-const StockOverview = () => {
+const StockOverview = ({ isLoading, dataInfo }) => {
+  //Themes
   const { badgeBackground, gradientChart } = useThemeConstants();
 
+  if (isLoading) return <CardDashboardSkeleton />;
+  const { lowStockDrugs } = dataInfo;
+  console.log(dataInfo);
+
   const stockData = [
-    { title: "Low Stock Items", value: "02" },
-    { title: "Item Group", value: "14" },
+    { title: "Low Stock Items", value: lowStockDrugs },
+    { title: "Item Group", value: "20" },
     { title: "No of Items", value: "104" },
   ];
 
   return (
     <Card
       sx={{
-        height: "100%",
+        minHeight: "100%",
         background: badgeBackground,
         boxShadow: 7,
         ":hover": {

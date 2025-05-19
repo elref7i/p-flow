@@ -101,7 +101,10 @@ const DashboardContent = () => {
             lg={6}
           >
             <motion.div variants={itemVariants}>
-              <StockOverview />
+              <StockOverview
+                dataInfo={data}
+                isLoading={isLoading}
+              />
             </motion.div>
           </Grid>
           {/* Sales Statistics */}
@@ -121,7 +124,10 @@ const DashboardContent = () => {
             lg={6}
           >
             <motion.div variants={itemVariants}>
-              <CustomerStatistics />
+              <CustomerStatistics
+                dataInfo={data}
+                isLoading={isLoading}
+              />
             </motion.div>
           </Grid>
         </Grid>

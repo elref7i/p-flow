@@ -31,8 +31,14 @@ export default function TableData({
     }
   };
 
-  const { tableRowHover, tableBorder, tableText, shadow3, typography } =
-    useThemeConstants();
+  const {
+    tableBackground,
+    tableRowHover,
+    tableBorder,
+    tableBorderColor,
+    tableText,
+    typography,
+  } = useThemeConstants();
   return (
     <>
       {/* DataGrid */}
@@ -54,7 +60,9 @@ export default function TableData({
           checkboxSelection
           disableRowSelectionOnClick
           sx={{
-            boxShadow: shadow3,
+            background: tableBackground,
+            boxShadow: 8,
+            borderColor: tableBorderColor,
             p: 2,
             "& .MuiDataGrid-columnHeaders": {
               backgroundColor: "tableHeader",

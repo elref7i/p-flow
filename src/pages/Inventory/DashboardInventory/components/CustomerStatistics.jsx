@@ -1,4 +1,4 @@
-"use client";
+/* eslint-disable react/prop-types */
 import { Box, Card, CardContent, Typography, useTheme } from "@mui/material";
 import {
   BarChart,
@@ -9,24 +9,16 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from "recharts";
-import { People } from "@mui/icons-material";
 import { useThemeConstants } from "../../../../lib/constants/theme.constant";
-
-const CustomerStatistics = () => {
+import CardDashboardSkeleton from "../../../../components/Common/Loading/card_dashboard_skeleton";
+import CategoryIcon from "@mui/icons-material/Category";
+const CustomerStatistics = ({ isLoading, dataInfo }) => {
+  //Themes
   const { badgeBackground, textPrimary } = useThemeConstants();
   const theme = useTheme();
 
-  const data = [
-    { name: "JAN", value: 800 },
-    { name: "FEB", value: 700 },
-    { name: "MAR", value: 1200 },
-    { name: "APR", value: 900 },
-    { name: "MAY", value: 500 },
-    { name: "JUN", value: 800 },
-    { name: "JUL", value: 1377 },
-    { name: "AUG", value: 1300 },
-    { name: "SEP", value: 1100 },
-  ];
+  if (isLoading) return <CardDashboardSkeleton />;
+  const { categoriesStats } = dataInfo;
 
   return (
     <Card
@@ -54,16 +46,16 @@ const CustomerStatistics = () => {
               mr: 2,
             }}
           >
-            <People />
+            <CategoryIcon />
           </Box>
-          <Typography variant="h3">Customer Statistics</Typography>
+          <Typography variant="h3">Categoires Statistics</Typography>
         </Box>
 
         <Typography
           variant="h5"
           sx={{ fontWeight: "bold", color: theme.palette.primary.main, mb: 2 }}
         >
-          {data[6].value.toLocaleString()}
+          {categoriesStats[1].nearExpirationCount.toLocaleString()}
         </Typography>
 
         <Box sx={{ height: 300, mt: 4 }}>
@@ -72,7 +64,7 @@ const CustomerStatistics = () => {
             height="100%"
           >
             <BarChart
-              data={data}
+              data={categoriesStats}
               margin={{
                 top: 5,
                 right: 30,
@@ -81,12 +73,12 @@ const CustomerStatistics = () => {
               }}
             >
               <CartesianGrid
-                strokeDasharray="3 3"
+                strokeDasharray="6 6"
                 vertical={false}
                 stroke={textPrimary}
               />
               <XAxis
-                dataKey="name"
+                dataKey="categoryName"
                 axisLine={false}
                 tickLine={false}
                 tick={{ fill: theme.palette.text.secondary, fontSize: 12 }}
@@ -99,11 +91,14 @@ const CustomerStatistics = () => {
                   borderRadius: 8,
                   boxShadow: "0 4px 20px rgba(0,0,0,0.1)",
                 }}
-                formatter={(value) => [value.toLocaleString(), "Customers"]}
-                labelFormatter={(label) => `Month: ${label}`}
+                formatter={(totalStockInCategory) => [
+                  totalStockInCategory.toLocaleString(),
+                  "Stock in category",
+                ]}
+                labelFormatter={(label) => `Category name: ${label}`}
               />
               <Bar
-                dataKey="value"
+                dataKey="totalStockInCategory"
                 fill={theme.palette.primary.main}
                 radius={[4, 4, 0, 0]}
                 barSize={30}
