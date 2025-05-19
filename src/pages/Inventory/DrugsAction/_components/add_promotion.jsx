@@ -139,7 +139,7 @@ export default function AddPromotaion({ dataInfo, setOpen }) {
         variant="contained"
         color="primary"
         type="submit"
-        disabled={oldStock === 0}
+        disabled={oldStock <= 1}
         sx={{
           display: "flex",
           justifyContent: "center",
