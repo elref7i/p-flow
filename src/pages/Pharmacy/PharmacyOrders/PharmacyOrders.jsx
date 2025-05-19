@@ -16,6 +16,7 @@ import { formatNumber } from "../../../lib/utils/formateNumber";
 import { useState } from "react";
 import OrderDetails from "../OrderDetails/OrderDetails";
 import { Helmet } from "react-helmet";
+import ConfirmCancelModal from "./components/ConfirmCancelModal";
 
 export default function PharmacyOrders() {
   const { data, isLoading } = useOrders();
@@ -27,6 +28,7 @@ export default function PharmacyOrders() {
   const [modalOpen, setModalOpen] = useState(false);
   const [isCanceling, setIsCanceling] = useState(false);
   const [cancelingOrderId, setCancelingOrderId] = useState(null);
+  const [confirmCancelModalOpen, setConfirmCancelModalOpen] = useState(false);
 
   if (isLoading) return <LoadingSpinner />;
 
@@ -50,6 +52,7 @@ export default function PharmacyOrders() {
         onSuccess: () => {
           setIsCanceling(false);
           setCancelingOrderId(null);
+          setConfirmCancelModalOpen(false);
         },
         onError: () => {
           setIsCanceling(false);
@@ -82,7 +85,7 @@ export default function PharmacyOrders() {
             sx={{
               backgroundColor: isDark ? "#101926" : "#FFFFFF",
               color: isDark ? "white" : "black",
-              mb: 3,
+              mb: 5,
               borderRadius: 2,
               p: 2,
               boxShadow: "0px 2px 7px rgb(103, 161, 247)",
@@ -199,13 +202,15 @@ export default function PharmacyOrders() {
                   variant="outlined"
                   color="error"
                   size="small"
-                  onClick={() => handleCancel(order._id)}
-                  disabled={order.status === "cancelled" || isCanceling}
+                  onClick={() => {
+                    setSelectedOrder(order);
+                    setConfirmCancelModalOpen(true);
+                  }}
+                  disabled={order.status === "cancelled"}
                 >
-                  {isCanceling && cancelingOrderId === order._id
-                    ? "Canceling..."
-                    : "Cancel"}
+                  Cancel
                 </Button>
+
                 <Button
                   variant="contained"
                   color="primary"
@@ -223,6 +228,12 @@ export default function PharmacyOrders() {
           open={modalOpen}
           onClose={handleCloseModal}
           order={selectedOrder}
+        />
+        <ConfirmCancelModal
+          open={confirmCancelModalOpen}
+          onClose={() => setConfirmCancelModalOpen(false)}
+          onConfirm={() => handleCancel(selectedOrder._id)}
+          loading={isCanceling && cancelingOrderId === selectedOrder?._id}
         />
       </Box>
     </>

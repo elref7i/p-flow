@@ -13,6 +13,7 @@ import {
   UserTypeContext,
   useTypeContext,
 } from "../../context/UserType.context";
+import { useNavigate } from "react-router-dom";
 
 // * get orders
 export const useOrders = () => {
@@ -21,6 +22,7 @@ export const useOrders = () => {
     queryKey: ["orders"],
     queryFn: () => getMyOrders(token),
     enabled: !!token,
+    staleTime: 0,
   });
 };
 
@@ -28,7 +30,7 @@ export const useOrders = () => {
 export const useCreateOrder = () => {
   const { token } = useContext(UserTypeContext);
   const queryClient = useQueryClient();
-
+  const navigate = useNavigate();
   return useMutation({
     mutationFn: ({ cartId, inventoryId }) =>
       createOrder({ token, cartId, inventoryId }),
@@ -36,7 +38,9 @@ export const useCreateOrder = () => {
       console.log(data);
       toast.success("Order created successfully");
       queryClient.invalidateQueries(["orders"]);
-      queryClient.refetchQueries(["orders"]);
+      setTimeout(() => {
+        navigate("/pharmacy/orders");
+      }, 2000);
     },
     onError: (error) => {
       toast.error("Error creating order");
@@ -55,7 +59,6 @@ export const useCancelOrder = () => {
     onSuccess: () => {
       toast.success("Order cancelled successfully");
       queryClient.invalidateQueries(["orders"]);
-      queryClient.refetchQueries(["orders"]);
     },
     onError: (error) => {
       toast.error("Error cancelling order");

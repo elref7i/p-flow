@@ -29,7 +29,7 @@ export default function Invoice({ selectedInventory }) {
       sx={{
         width: { xs: "100%", md: "380px" },
         height: 600,
-        mt: 3,
+        mt: 4,
         backgroundColor: isDarkMode ? "#0e1a2b" : "#F5F5F5",
         boxShadow: "0px 2px 7px rgb(103, 161, 247)",
         color: textColor,

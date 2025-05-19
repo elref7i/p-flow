@@ -53,8 +53,8 @@ export default function CartItem({ inventoryInfo, onReadyToBuy }) {
         width: "100%",
         color: isDarkMode ? "#ffffff" : "#000000",
         boxShadow: "0px 2px 7px rgb(103, 161, 247)",
-        mb: 4,
-        mt: 3,
+        mb: 1.5,
+        mt: 4,
         "@media (max-width: 600px)": {
           p: 2,
           mb: 3,
@@ -256,8 +256,7 @@ export default function CartItem({ inventoryInfo, onReadyToBuy }) {
         anchorOrigin={{ vertical: "top", horizontal: "center" }}
       >
         <Alert severity="warning" onClose={() => setShowWarning(false)}>
-          Your Total Order must be at least `${minimumOrderValue}` L.E to
-          proceed.
+          Your Total Order must be at least {minimumOrderValue} L.E to proceed.
         </Alert>
       </Snackbar>
     </Box>

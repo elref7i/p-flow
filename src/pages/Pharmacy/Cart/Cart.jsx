@@ -80,7 +80,7 @@ export default function Cart() {
       <Grid container spacing={5}>
         {/* cart items */}
         <Grid item xs={12} md={9}>
-          <Box display="flex" flexDirection="column" gap={3}>
+          <Box display="flex" flexDirection="column">
             {cartInfo.data.inventories.map((inventory) => (
               <CartItem
                 key={inventory.inventory.id}
@@ -91,6 +91,7 @@ export default function Cart() {
 
             <Box textAlign="center">
               <Button
+                sx={{ mt: 3 }}
                 variant="outlined"
                 color="error"
                 startIcon={<Delete />}
