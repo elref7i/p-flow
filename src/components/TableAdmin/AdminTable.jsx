@@ -8,34 +8,8 @@ import { Box, Card, Typography } from "@mui/material";
 import ModalAdd from "../AdminComonents/ModalAdd/ModalAdd";
 import { useThemeConstants } from "../../lib/constants/theme.constant";
 import { useTypeContext } from "../../context/UserType.context";
-
-// Stats data
-const stats = [
-  {
-    label: "Total Orders This Month",
-    value: "200",
-    color: "#5E5ADB",
-    dotColor: "#5E5ADB",
-  },
-  {
-    label: "Pending Orders",
-    value: "20",
-    color: "#FF8A00",
-    dotColor: "#FF8A00",
-  },
-  {
-    label: "Shipped Orders",
-    value: "180",
-    color: "#4CAF50",
-    dotColor: "#4CAF50",
-  },
-  {
-    label: "Refunded Orders",
-    value: "10",
-    color: "#F44336",
-    dotColor: "#F44336",
-  },
-];
+import StatisticsOrders from "../../pages/Inventory/OrdersInventory/_components/statistics_orders";
+import { useStatisticsInventory } from "../../lib/hooks/useinventory.action";
 
 export default function AdminTable({
   isLoading,
@@ -43,7 +17,40 @@ export default function AdminTable({
   columnsWithActions,
   check,
 }) {
-  const { role } = useTypeContext();
+  //Context
+  const { role, token } = useTypeContext();
+
+  //Queries
+  const { data: statisticsInventory, isLoading: loadingStatic } =
+    useStatisticsInventory({ token });
+
+  // Status data
+  const stats = [
+    {
+      label: "Total Orders ",
+      value: "15",
+      color: "#5E5ADB",
+      dotColor: "#5E5ADB",
+    },
+    {
+      label: "Pending Orders",
+      value: "15",
+      color: "#FF8A00",
+      dotColor: "#FF8A00",
+    },
+    {
+      label: "Shipped Orders",
+      value: "15",
+      color: "#4CAF50",
+      dotColor: "#4CAF50",
+    },
+    {
+      label: "Refunded Orders",
+      value: "10",
+      color: "#F44336",
+      dotColor: "#F44336",
+    },
+  ];
 
   //Temes
   const {
@@ -79,49 +86,10 @@ export default function AdminTable({
       {/* Stats cards */}
       {role === "inventory" ? (
         <Box sx={{ display: "flex", gap: 2, mb: 3, flexWrap: "wrap" }}>
-          {stats.map((stat, index) => (
-            <Card
-              key={index}
-              sx={{
-                p: 2,
-                flex: "1 1 200px",
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "flex-start",
-                borderRadius: 3,
-                boxShadow: 7,
-                border: tableBorder,
-                background: chartsBackground,
-                "&:hover": {
-                  boxShadow: 8,
-                },
-              }}
-            >
-              <Box sx={{ display: "flex", alignItems: "center", mb: 1 }}>
-                <Box
-                  sx={{
-                    width: 8,
-                    height: 8,
-                    borderRadius: "50%",
-                    bgcolor: stat.dotColor,
-                    mr: 1,
-                  }}
-                />
-                <Typography
-                  variant="body2"
-                  color="text.secondary"
-                >
-                  {stat.label}
-                </Typography>
-              </Box>
-              <Typography
-                variant="h4"
-                sx={{ fontWeight: "bold", color: stat.color }}
-              >
-                {stat.value}
-              </Typography>
-            </Card>
-          ))}
+          <StatisticsOrders
+            loadingStatus={loadingStatic}
+            dataStatus={statisticsInventory && statisticsInventory}
+          />
         </Box>
       ) : (
         <Box sx={{ display: "flex", gap: 2, mb: 3, flexWrap: "wrap" }}>
@@ -195,7 +163,7 @@ export default function AdminTable({
             background: tableBackground,
             boxShadow: 2,
             borderColor: tableBorderColor,
-            p: 2,
+            p: 1,
             "& .MuiDataGrid-columnHeaders": {
               backgroundColor: tableHeaderBackground,
               color: tableHeaderText,

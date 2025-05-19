@@ -12,7 +12,8 @@ import EditIcon from "@mui/icons-material/Edit";
 import { useTypeContext } from "../../../context/UserType.context";
 import { validationSchemaSheetExcel } from "../../../lib/schemas/DrugSchema";
 import { useAddDrugExcel } from "../../../lib/hooks/useDrugAction";
-import { CircularProgress } from "@mui/material";
+import { Autocomplete, CircularProgress } from "@mui/material";
+import { useCategories } from "../../../lib/hooks/useAdminAction";
 
 const style = {
   position: "absolute",
@@ -21,7 +22,6 @@ const style = {
   transform: "translate(-50%, -50%)",
   width: { xs: "85%", sm: "60%", md: "50%" },
   bgcolor: "background.paper",
-  border: "2px solid #000",
   boxShadow: 24,
   borderRadius: "10px",
 };
@@ -46,11 +46,20 @@ export default function AddDrugFromExcel() {
   const { token } = useTypeContext();
 
   //Themes
-  const { shadow2, shadow1, typography, pharmacyBackground, textPrimary } =
-    useThemeConstants();
+  const {
+    shadow2,
+    shadow1,
+    typography,
+    pharmacyBackground,
+    textPrimary,
+    border,
+  } = useThemeConstants();
 
-  //Mutaion
-  const { mutate: addSheetExcel, isLoading } = useAddDrugExcel();
+  // Quieries
+  const { data, isLoading: loadingCategories } = useCategories();
+
+  //Mutations
+  const { mutateAsync: addSheetExcel, isLoading } = useAddDrugExcel();
 
   //Functions
   const handleOpen = () => setOpen(true);
@@ -63,18 +72,22 @@ export default function AddDrugFromExcel() {
       startRow: "",
       endRow: "",
       file: null,
+      category: "",
     },
     validationSchema: validationSchemaSheetExcel,
     onSubmit: async (values) => {
+      //Form Data
       const formData = new FormData();
       formData.append("startRow", values.startRow);
       formData.append("endRow", values.endRow);
       formData.append("file", values.file);
+      formData.append("category", values.category);
 
-      addSheetExcel({ token, formData });
-      setTimeout(() => {
-        handleClose();
-      }, 500);
+      //Mutation
+      await addSheetExcel({ token, formData });
+
+      //Close Modal
+      handleClose();
     },
   });
 
@@ -101,7 +114,7 @@ export default function AddDrugFromExcel() {
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <Box sx={style}>
+        <Box sx={{ ...style, border: `1.5px solid ${border}` }}>
           <Box
             sx={{
               p: 2,
@@ -168,6 +181,27 @@ export default function AddDrugFromExcel() {
               helperText={formik.touched.endRow && formik.errors.endRow}
               margin="normal"
               InputProps={{ inputProps: { min: 1 } }}
+            />
+            <Autocomplete
+              fullWidth
+              options={data && data.data}
+              getOptionLabel={(option) => option.name}
+              loading={loadingCategories}
+              onChange={(event, value) => {
+                formik.setFieldValue("category", value._id);
+              }}
+              renderInput={(params) => (
+                <TextField
+                  {...params}
+                  label="Category"
+                  name="category"
+                  margin="normal"
+                  error={
+                    formik.touched.category && Boolean(formik.errors.category)
+                  }
+                  helperText={formik.touched.category && formik.errors.category}
+                />
+              )}
             />
 
             <Box sx={{ mt: 3, mb: 3 }}>

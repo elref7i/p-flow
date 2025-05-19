@@ -94,7 +94,6 @@ export default function OrdersInventory() {
           data={data && data.data}
           columnsWithActions={columnsWithActions}
           check={false}
-          checkTable={false}
         />
       </Box>
     </>
