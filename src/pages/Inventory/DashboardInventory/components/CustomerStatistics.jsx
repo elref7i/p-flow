@@ -55,7 +55,9 @@ const CustomerStatistics = ({ isLoading, dataInfo }) => {
           variant="h5"
           sx={{ fontWeight: "bold", color: theme.palette.primary.main, mb: 2 }}
         >
-          {categoriesStats[1].nearExpirationCount.toLocaleString()}
+          {categoriesStats.length >= 0
+            ? categoriesStats[0]?.nearExpirationCount.toLocaleString()
+            : "0"}
         </Typography>
 
         <Box sx={{ height: 300, mt: 4 }}>

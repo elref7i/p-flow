@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import { Container, Grid } from "@mui/material";
 import { motion } from "framer-motion";
 import SalesOverview from "./components/SalesOverview";
@@ -124,10 +125,12 @@ const DashboardContent = () => {
             lg={6}
           >
             <motion.div variants={itemVariants}>
-              <CustomerStatistics
-                dataInfo={data}
-                isLoading={isLoading}
-              />
+              {data && data.categoriesStats.length > 0 && (
+                <CustomerStatistics
+                  dataInfo={data}
+                  isLoading={isLoading}
+                />
+              )}
             </motion.div>
           </Grid>
         </Grid>
