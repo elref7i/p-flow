@@ -34,14 +34,23 @@ export default function Whishlist() {
           name="keywords"
           content="inventory, favorites, pharmacy, warehouse, medicine"
         />
-        <meta name="author" content="Your Project Name or Team" />
+        <meta
+          name="author"
+          content="Your Project Name or Team"
+        />
 
-        <meta property="og:title" content="My Favorite Inventories" />
+        <meta
+          property="og:title"
+          content="My Favorite Inventories"
+        />
         <meta
           property="og:description"
           content="Check your saved favorite inventories in one place."
         />
-        <meta property="og:type" content="website" />
+        <meta
+          property="og:type"
+          content="website"
+        />
       </Helmet>
       <Stack
         component={"header"}
@@ -60,7 +69,10 @@ export default function Whishlist() {
         >
           My Favorite Inventories
         </Typography>
-        <Stack direction={"row"} gap={2}>
+        <Stack
+          direction={"row"}
+          gap={2}
+        >
           <Button
             color="error"
             variant="outlined"
@@ -73,7 +85,7 @@ export default function Whishlist() {
             sx={{
               textDecoration: "underline",
             }}
-            onClick={() => navigate("/pharmacy/inventores")}
+            onClick={() => navigate("/pharmacy/inventories")}
           >
             View All
           </Button>
