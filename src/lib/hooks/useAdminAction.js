@@ -114,13 +114,13 @@ export const useAddCategory = () => {
 
   return useMutation(addCategory, {
     onSuccess: () => {
-      toast.success("User added successfully!");
+      toast.success("Category added successfully!");
       queryClient.invalidateQueries(["categories"]);
     },
     onError: (error) => {
       toast.error(
         error.response?.data?.message ||
-          "Failed to add user. Please try again later. "
+          "Failed to add category. Please try again later. "
       );
       console.error(error);
     },
@@ -132,13 +132,13 @@ export const useUpdateCategory = () => {
   const queryClient = useQueryClient();
   return useMutation(updateCategory, {
     onSuccess: () => {
-      toast.success("User updated successfully!");
+      toast.success("Category updated successfully!");
       queryClient.invalidateQueries(["categories"]);
     },
     onError: (error) => {
       toast.error(
         error.response?.data?.message ||
-          "Failed to update user. Please try again later."
+          "Failed to update category. Please try again later."
       );
       console.log(error);
     },

@@ -103,11 +103,17 @@ export default function PharmacyOrders() {
                 sx={{
                   backgroundColor:
                     order.status === "pending"
-                      ? "orange"
-                      : order.status === "completed"
-                      ? "green"
+                      ? "#FF8A00"
+                      : order.status === "confirmed"
+                      ? "#4CAF50"
+                      : order.status === "rejected"
+                      ? "#621b16"
+                      : order.status === "delivered"
+                      ? "#9C27B0"
+                      : order.status === "shipped"
+                      ? "#A16207"
                       : order.status === "cancelled"
-                      ? "darkred"
+                      ? "#f44336"
                       : "gray",
                   color: "white",
                   px: 1,
@@ -206,7 +212,13 @@ export default function PharmacyOrders() {
                     setSelectedOrder(order);
                     setConfirmCancelModalOpen(true);
                   }}
-                  disabled={order.status === "cancelled"}
+                  disabled={
+                    order.status === "cancelled" ||
+                    order.status === "delivered" ||
+                    order.status === "shipped" ||
+                    order.status === "rejected" ||
+                    order.status === "confirmed"
+                  }
                 >
                   Cancel
                 </Button>

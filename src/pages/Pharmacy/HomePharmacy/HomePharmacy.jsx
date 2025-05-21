@@ -1,4 +1,8 @@
+import { Container } from "@mui/material";
 import { Helmet } from "react-helmet";
+import HeroSection from "./_components/HeroSection";
+import InventorySection from "./_components/InventorySection";
+import CategorySection from "./_components/CategorySection";
 
 export default function HomePharmacy() {
   return (
@@ -14,7 +18,12 @@ export default function HomePharmacy() {
           content="pharmacy, medicine, healthcare, prescription, drugs, online pharmacy"
         />
       </Helmet>
-      <div>HomePharmacy</div>
+
+      <Container>
+        <HeroSection />
+        <InventorySection />
+        <CategorySection />
+      </Container>
     </>
   );
 }
