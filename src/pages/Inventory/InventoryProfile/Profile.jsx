@@ -7,12 +7,13 @@ import { Helmet } from "react-helmet";
 import { motion, AnimatePresence } from "framer-motion";
 
 // Import components
-import ProfileHeader from "./components/ProfileHeader";
-import TabContent from "./components/TabContent";
-import ProfileTabs from "./components/ProfileTabs";
+
 import { useOwnDrugs } from "../../../lib/hooks/useDrugAction";
 import { useTypeContext } from "../../../context/UserType.context";
 import LoadingProfileSkeleton from "../../../components/Common/Loading/LoadingProfileSkeleton";
+import ProfileHeader from "./_components/ProfileHeader";
+import ProfileTabs from "./_components/ProfileTabs";
+import TabContent from "./_components/TabContent";
 
 const InventoryProfile = () => {
   const navigate = useNavigate();

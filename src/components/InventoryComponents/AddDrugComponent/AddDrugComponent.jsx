@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import * as React from "react";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
@@ -14,6 +15,7 @@ import { useAddDrug } from "../../../lib/hooks/useDrugAction";
 import { DrugSchema } from "../../../lib/schemas/DrugSchema";
 import CustomButton from "../../Common/ButtonStyle";
 import { useThemeConstants } from "../../../lib/constants/theme.constant";
+import CategorySelect from "../../category_select/category_select";
 
 const style = {
   position: "absolute",
@@ -45,27 +47,34 @@ export default function AddDrugComponent() {
   const handleClose = () => setOpen(false);
 
   //Formik
-  const { handleSubmit, handleBlur, handleChange, values, errors, touched } =
-    useFormik({
-      initialValues: {
-        name: "",
-        manufacturer: "",
-        description: "",
-        originType: "",
-        productionDate: "",
-        expirationDate: "",
-        price: "",
-        discount: "",
-        stock: "",
-        sold: "",
-        isVisible: "",
-      },
-      validationSchema: DrugSchema,
-      onSubmit: (values) => {
-        console.log("Submitting values:", values);
-        mutate({ token, values });
-      },
-    });
+  const {
+    handleSubmit,
+    handleBlur,
+    handleChange,
+    values,
+    errors,
+    touched,
+    setFieldValue,
+  } = useFormik({
+    initialValues: {
+      name: "",
+      manufacturer: "",
+      description: "",
+      originType: "",
+      productionDate: "",
+      expirationDate: "",
+      price: "",
+      discount: "",
+      stock: "",
+      sold: "",
+      isVisible: "",
+    },
+    validationSchema: DrugSchema,
+    onSubmit: (values) => {
+      console.log("Submitting values:", values);
+      mutate({ token, values });
+    },
+  });
 
   return (
     <div>
@@ -258,6 +267,12 @@ export default function AddDrugComponent() {
               onBlur={handleBlur}
               error={errors.description && touched.description}
               helperText={touched.description && errors.description}
+            />
+
+            <CategorySelect
+              touched={touched}
+              setFieldValue={setFieldValue}
+              errors={errors}
             />
 
             <CustomButton

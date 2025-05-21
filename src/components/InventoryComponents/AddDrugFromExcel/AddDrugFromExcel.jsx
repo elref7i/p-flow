@@ -12,8 +12,8 @@ import EditIcon from "@mui/icons-material/Edit";
 import { useTypeContext } from "../../../context/UserType.context";
 import { validationSchemaSheetExcel } from "../../../lib/schemas/DrugSchema";
 import { useAddDrugExcel } from "../../../lib/hooks/useDrugAction";
-import { Autocomplete, CircularProgress } from "@mui/material";
-import { useCategories } from "../../../lib/hooks/useAdminAction";
+import { CircularProgress } from "@mui/material";
+import CategorySelect from "../../category_select/category_select";
 
 const style = {
   position: "absolute",
@@ -54,9 +54,6 @@ export default function AddDrugFromExcel() {
     textPrimary,
     border,
   } = useThemeConstants();
-
-  // Quieries
-  const { data, isLoading: loadingCategories } = useCategories();
 
   //Mutations
   const { mutateAsync: addSheetExcel, isLoading } = useAddDrugExcel();
@@ -182,7 +179,12 @@ export default function AddDrugFromExcel() {
               margin="normal"
               InputProps={{ inputProps: { min: 1 } }}
             />
-            <Autocomplete
+            <CategorySelect
+              touched={formik.touched}
+              setFieldValue={formik.setFieldValue}
+              errors={formik.errors}
+            />
+            {/* <Autocomplete
               fullWidth
               options={data && data.data}
               getOptionLabel={(option) => option.name}
@@ -202,7 +204,7 @@ export default function AddDrugFromExcel() {
                   helperText={formik.touched.category && formik.errors.category}
                 />
               )}
-            />
+            /> */}
 
             <Box sx={{ mt: 3, mb: 3 }}>
               <Button

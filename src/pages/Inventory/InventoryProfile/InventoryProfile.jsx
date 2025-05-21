@@ -7,11 +7,11 @@ import { Helmet } from "react-helmet";
 import { motion, AnimatePresence } from "framer-motion";
 
 // Import components
-import ProfileHeader from "./components/ProfileHeader";
-import TabContent from "./components/TabContent";
 import { useDrugsSpecificInventory } from "../../../lib/hooks/useDrugAction";
 import LoadingProfileSkeleton from "../../../components/Common/Loading/LoadingProfileSkeleton";
-import ProfileTabs from "./components/ProfileTabs";
+import ProfileTabs from "./_components/ProfileTabs";
+import ProfileHeader from "./_components/ProfileHeader";
+import TabContent from "./_components/TabContent";
 
 const InventoryProfile = () => {
   const { id } = useParams();

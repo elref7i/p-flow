@@ -32,41 +32,6 @@ export const useInfiniteDrugs = (token, params = {}) => {
   });
 };
 
-//*Testing
-/* export const useDrugs = (token, params = {}) => {
-  return useQuery({
-    queryKey: ["drugs", params],
-    queryFn: () => getAllDrugs(token, params), // Pass all params directly
-    keepPreviousData: true,
-    refetchOnWindowFocus: false,
-    staleTime: 5 * 60 * 1000,
-    cacheTime: 5 * 60 * 1000,
-  });
-};
-    const [page, setPage] = useState(1);
-
-  const pagination = data?.paginationResult || {};
-  const totalPages = pagination.numberOfPages || 1;
-  const currentPage = pagination.currentPage || 1;
-  const hasNextPage = Boolean(pagination.next);
-  const hasPrevPage = Boolean(pagination.prev);
-  const numberOfPages = data?.pages[0]?.paginationResult?.numberOfPages || 1;
-  const handlePageChange = (event, newPage) => {
-    setPage(newPage);
-  };
-<Pagination
-          count={totalPages}
-          page={currentPage}
-          onChange={handlePageChange}
-          color="primary"
-          showFirstButton
-          showLastButton
-          hidePrevButton={!hasPrevPage}
-          hideNextButton={!hasNextPage}
-        /> */
-
-//*Testing
-
 //* get all drugs for specific inventory
 export const useDrugsSpecificInventory = ({ drugId }) => {
   return useQuery({

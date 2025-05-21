@@ -9,7 +9,7 @@ import {
 } from "@mui/material";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { motion } from "framer-motion";
-import DistanceIndicator from "../../../pages/Inventory/InventoryProfile/components/DistanceIndicator";
+import DistanceIndicator from "../../../pages/Inventory/InventoryProfile/_components/DistanceIndicator";
 import { useAddToCart } from "../../../lib/hooks/useCartAction";
 import { useNavigate } from "react-router-dom";
 import { formatNumber } from "../../../lib/utils/formateNumber";
