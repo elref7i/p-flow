@@ -132,7 +132,7 @@ export const useInfiniteOwnDrugs = (token, params = {}) => {
 
 export const useDrugsSpecificInventory = (inventoryId, params = {}) => {
   return useQuery({
-    queryKey: ["drugsSpecificInventory", "normal", params],
+    queryKey: ["drugsSpecificInventory", "normal", inventoryId, params],
     queryFn: () => getDrugsspecificInventory(inventoryId, params),
     refetchOnMount: true,
     refetchOnWindowFocus: false,
@@ -141,7 +141,7 @@ export const useDrugsSpecificInventory = (inventoryId, params = {}) => {
 
 export const useInfiniteDrugsSpecificInventory = (inventoryId, params = {}) => {
   return useInfiniteQuery({
-    queryKey: ["drugsSpecificInventory", "infinite", params],
+    queryKey: ["drugsSpecificInventory", "infinite", inventoryId, params],
     queryFn: ({ pageParam = 1 }) =>
       getDrugsspecificInventory(inventoryId, { ...params, page: pageParam }),
     getNextPageParam: (lastPage) => {
