@@ -7,16 +7,19 @@ import { Helmet } from "react-helmet";
 import { motion, AnimatePresence } from "framer-motion";
 
 // Import components
-
-import { useOwnDrugs } from "../../../lib/hooks/useDrugAction";
+import {
+  useInfiniteOwnDrugs,
+  useOwnDrugs,
+} from "../../../lib/hooks/useDrugAction";
 import { useTypeContext } from "../../../context/UserType.context";
-import LoadingProfileSkeleton from "../../../components/Common/Loading/LoadingProfileSkeleton";
 import ProfileHeader from "./_components/ProfileHeader";
 import ProfileTabs from "./_components/ProfileTabs";
 import TabContent from "./_components/TabContent";
+import HeaderProfileSkeleton from "../../../components/Common/Loading/profile_headers_keleton";
 
-const InventoryProfile = () => {
+const ProfileBase = () => {
   const navigate = useNavigate();
+  const [params, setParams] = useState({});
   const [activeTab, setActiveTab] = useState(0);
   const { token } = useTypeContext();
 
@@ -24,11 +27,17 @@ const InventoryProfile = () => {
     setActiveTab(newValue);
   };
 
-  const { data: payload, isLoading } = useOwnDrugs(token);
+  const { data: payload, isLoading: LoadingHeader } = useOwnDrugs(token, {});
 
-  if (isLoading) return <LoadingProfileSkeleton />;
+  console.log(LoadingHeader);
 
-  console.log(payload);
+  const {
+    data: InfiniteData,
+    fetchNextPage,
+    isLoading: LoadingOwnDrugs,
+    hasNextPage,
+    isFetched,
+  } = useInfiniteOwnDrugs(token, params);
 
   // Animation variants
   const containerVariants = {
@@ -54,7 +63,7 @@ const InventoryProfile = () => {
   return (
     <>
       <Helmet>
-        <title>{payload.data.user.name} Profile</title>
+        {!LoadingHeader && <title>{payload?.data?.user?.name} Profile</title>}
         <meta
           name="description"
           content={`View ${name}'s profile and available products.`}
@@ -69,12 +78,16 @@ const InventoryProfile = () => {
         sx={{ py: 3 }}
       >
         {/* Profile Header */}
-        <ProfileHeader
-          totalProducts={payload.results}
-          inventory={payload.data.user}
-          containerVariants={containerVariants}
-          itemVariants={itemVariants}
-        />
+        {!LoadingHeader ? (
+          <ProfileHeader
+            totalProducts={payload.pagination}
+            inventory={payload.data.user}
+            containerVariants={containerVariants}
+            itemVariants={itemVariants}
+          />
+        ) : (
+          <HeaderProfileSkeleton />
+        )}
 
         {/* Pharmacy Tabs */}
         <ProfileTabs
@@ -93,9 +106,13 @@ const InventoryProfile = () => {
           >
             <TabContent
               activeTab={activeTab}
-              dataInfo={payload.data.drugs}
               containerVariants={containerVariants}
               itemVariants={itemVariants}
+              dataInfo={InfiniteData}
+              LoadingOwnDrugs={LoadingOwnDrugs}
+              hasNextPage={hasNextPage}
+              isFetched={isFetched}
+              fetchNextPage={fetchNextPage}
             />
           </motion.div>
         </AnimatePresence>
@@ -119,4 +136,4 @@ const InventoryProfile = () => {
   );
 };
 
-export default InventoryProfile;
+export default ProfileBase;

@@ -29,8 +29,6 @@ const ProfileHeader = ({
   //Context
   const { role } = useTypeContext();
 
-  console.log(inventory);
-
   //Theme
   const theme = useTheme();
   const {
@@ -50,8 +48,6 @@ const ProfileHeader = ({
     textSecondary,
     textSuccess,
   } = useThemeConstants();
-
-  //Mutations
 
   return (
     <Box
@@ -303,7 +299,7 @@ const ProfileHeader = ({
               lineHeight: typography.h3.lineHeight,
             }}
           >
-            {totalProducts}
+            {totalProducts.totalDocuments}
           </Typography>
           <Typography
             variant="h6"

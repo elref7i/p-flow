@@ -61,12 +61,12 @@ import ThemeModeProvider from "@/context/theme.context";
 import ForgetPasswordProvider from "@/context/Forget.context";
 import UserTypeProvider from "@/context/UserType.context";
 import Cart from "./pages/Pharmacy/Cart/Cart";
-import Profile from "./pages/Inventory/InventoryProfile/Profile";
 import PaginationProvider from "./context/params.context";
 import Whishlist from "./pages/Pharmacy/wishlist/whishlist";
 import CategoriesAdmin from "./pages/Admin/categories_admin/categories_admin";
 import PharmacyOrders from "./pages/Pharmacy/PharmacyOrders/PharmacyOrders";
 import Inventories from "./pages/Pharmacy/Inventories/Inventories";
+import ProfileBase from "./pages/Inventory/InventoryProfile/Profile";
 
 function App() {
   const router = createBrowserRouter([
@@ -131,7 +131,7 @@ function App() {
         { index: true, element: <DashboardInventory /> },
         { path: "AllDrugs", element: <AllDrugs /> },
         { path: "DrugsAction", element: <DrugsAction /> },
-        { path: "myprofile", element: <Profile /> },
+        { path: "myprofile", element: <ProfileBase /> },
         { path: "orders", element: <OrdersInventory /> },
       ],
     },

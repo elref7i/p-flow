@@ -28,6 +28,8 @@ const DrugCard = ({ dataInfo: drug, checkPage }) => {
   //Mutation
   const addToCartMutation = useAddToCart();
 
+  // console.log(drug);
+
   //Theme
   const theme = useTheme();
   const {

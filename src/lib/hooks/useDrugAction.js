@@ -32,17 +32,6 @@ export const useInfiniteDrugs = (token, params = {}) => {
   });
 };
 
-//* get all drugs for specific inventory
-export const useDrugsSpecificInventory = ({ drugId }) => {
-  return useQuery({
-    queryKey: ["drugsSpecificInventory", drugId],
-    queryFn: () => getDrugsspecificInventory({ drugId }),
-    keepPreviousData: true,
-    refetchOnWindowFocus: false,
-    cacheTime: 1 * 60 * 1000,
-  });
-};
-
 //*  get specific Drug
 export const useSpecificDrug = ({ token, drugId }) => {
   return useQuery({
@@ -119,10 +108,47 @@ export const useUpdateDrug = () => {
 // * get All Own Drugs
 export const useOwnDrugs = (token, params = {}) => {
   return useQuery({
-    queryKey: ["Owndrugs", params],
+    queryKey: ["Owndrugs", "normal", params],
     queryFn: () => getAllOwnDrugs(token, params),
     enabled: !!token, // ميشتغلش لو مفيش توكن
     refetchOnMount: true,
     refetchOnWindowFocus: false,
+  });
+};
+
+export const useInfiniteOwnDrugs = (token, params = {}) => {
+  return useInfiniteQuery({
+    queryKey: ["Owndrugs", "infinite", params],
+    queryFn: ({ pageParam = 1 }) =>
+      getAllOwnDrugs(token, { ...params, page: pageParam }),
+    getNextPageParam: (lastPage) => {
+      return lastPage.pagination?.next || undefined;
+    },
+    keepPreviousData: false,
+    refetchOnWindowFocus: false,
+    staleTime: 5 * 60 * 1000,
+  });
+};
+
+export const useDrugsSpecificInventory = (inventoryId, params = {}) => {
+  return useQuery({
+    queryKey: ["drugsSpecificInventory", "normal", params],
+    queryFn: () => getDrugsspecificInventory(inventoryId, params),
+    refetchOnMount: true,
+    refetchOnWindowFocus: false,
+  });
+};
+
+export const useInfiniteDrugsSpecificInventory = (inventoryId, params = {}) => {
+  return useInfiniteQuery({
+    queryKey: ["drugsSpecificInventory", "infinite", params],
+    queryFn: ({ pageParam = 1 }) =>
+      getDrugsspecificInventory(inventoryId, { ...params, page: pageParam }),
+    getNextPageParam: (lastPage) => {
+      return lastPage.pagination?.next || undefined;
+    },
+    keepPreviousData: false,
+    refetchOnWindowFocus: false,
+    staleTime: 5 * 60 * 1000,
   });
 };

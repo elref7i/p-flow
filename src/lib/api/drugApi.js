@@ -19,15 +19,6 @@ export const getAllDrugs = async (token, params = {}) => {
 
 //* get all drugs for specific inventory
 
-export const getDrugsspecificInventory = async ({ drugId }) => {
-  const options = {
-    url: `${API_URL_DRUG}/inventory/${drugId}`,
-    method: "GET",
-  };
-  const data = await axios.request(options);
-  return data.data;
-};
-
 // ^ Add Drug
 export const addDrug = async ({ token, values }) => {
   const options = {
@@ -102,5 +93,19 @@ export const getAllOwnDrugs = async (token, params = {}) => {
     params,
   };
   const data = await axios.request(options);
+  console.log(data);
+
+  return data.data;
+};
+
+export const getDrugsspecificInventory = async (inventoryId, params = {}) => {
+  const options = {
+    url: `${API_URL_DRUG}/inventory/${inventoryId}`,
+    method: "GET",
+    params,
+  };
+  const data = await axios.request(options);
+  console.log(data);
+
   return data.data;
 };

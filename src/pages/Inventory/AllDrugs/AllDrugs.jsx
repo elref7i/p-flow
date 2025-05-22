@@ -20,6 +20,8 @@ export default function AllDrugs() {
   //Queries
   const { data, isLoading } = useOwnDrugs(token, searchParams);
 
+  console.log(data);
+
   const { headerBackground } = useThemeConstants();
   console.log("Fetched data:", data);
   const columnsWithActions = [...columns];

@@ -80,6 +80,8 @@ export default function Drugs() {
     };
   }, []);
 
+  console.log(data);
+
   const totalItems =
     data?.pages.reduce((total, page) => {
       return total + (page.data?.length || 0);
@@ -87,6 +89,7 @@ export default function Drugs() {
 
   // Flatten the data from all pages
   const flattenedDrugs = data?.pages.flatMap((page) => page.data || []) || [];
+  console.log(flattenedDrugs);
 
   return (
     <>

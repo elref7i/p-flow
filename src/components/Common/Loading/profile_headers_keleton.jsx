@@ -1,8 +1,8 @@
 // Loading Skeleton Component
 
-import { Box, Grid, Skeleton } from "@mui/material";
+import { Box, Skeleton } from "@mui/material";
 
-export default function LoadingProfileSkeleton() {
+export default function HeaderProfileSkeleton() {
   return (
     <>
       {/* Instagram-like loading skeleton */}
@@ -28,6 +28,7 @@ export default function LoadingProfileSkeleton() {
         </Box>
       </Box>
 
+      {/* Text */}
       <Box sx={{ display: "flex", justifyContent: "space-around", mb: 3 }}>
         <Skeleton
           variant="text"
@@ -36,31 +37,12 @@ export default function LoadingProfileSkeleton() {
         />
       </Box>
 
+      {/* rectangular */}
       <Skeleton
         variant="rectangular"
         height={40}
         sx={{ mb: 2, borderRadius: 1 }}
       />
-
-      <Grid
-        container
-        spacing={1}
-      >
-        {[1, 2, 3, 4, 5, 6].map((item) => (
-          <Grid
-            item
-            xs={12}
-            sm={6}
-            key={item}
-          >
-            <Skeleton
-              variant="rectangular"
-              height={120}
-              sx={{ borderRadius: 1 }}
-            />
-          </Grid>
-        ))}
-      </Grid>
     </>
   );
 }
