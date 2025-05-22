@@ -10,7 +10,6 @@ const StockOverview = ({ isLoading, dataInfo }) => {
 
   if (isLoading) return <CardDashboardSkeleton />;
   const { lowStockDrugs, expiredDrugs, outOfStockDrugs } = dataInfo;
-  console.log(dataInfo);
 
   const stockData = [
     { title: "Low Stock Items", value: lowStockDrugs },

@@ -4,8 +4,16 @@ import { getStatValue } from "../../../../lib/utils/statistic_order";
 
 export default function StatisticsOrders({ dataStatus, loadingStatus }) {
   //Temes
-  const { chartsBackground, tableBorder, textLink, textSuccess, textWarning } =
-    useThemeConstants();
+  const {
+    chartsBackground,
+    tableBorder,
+    textError,
+    textLink,
+    textSuccess,
+    textWarning,
+  } = useThemeConstants();
+
+  console.log(dataStatus);
 
   // Stats data
   const stats = [
@@ -16,13 +24,10 @@ export default function StatisticsOrders({ dataStatus, loadingStatus }) {
       dotColor: textLink,
     },
     {
-      label: "Average Sales Per Order",
-      value: getStatValue(
-        loadingStatus,
-        (dataStatus?.totalSales / dataStatus?.totalOrders)?.toFixed(2)
-      ),
-      color: textLink,
-      dotColor: textLink,
+      label: "Pending Orders",
+      value: getStatValue(loadingStatus, dataStatus?.orderStatuses?.pending),
+      color: textWarning,
+      dotColor: textWarning,
     },
     {
       label: "Shipped Orders",
@@ -31,10 +36,22 @@ export default function StatisticsOrders({ dataStatus, loadingStatus }) {
       dotColor: textSuccess,
     },
     {
-      label: "Pending Orders",
-      value: getStatValue(loadingStatus, dataStatus?.orderStatuses?.pending),
-      color: textWarning,
-      dotColor: textWarning,
+      label: "delivered Orders ",
+      value: getStatValue(loadingStatus, dataStatus.orderStatuses?.delivered),
+      color: textSuccess,
+      dotColor: textSuccess,
+    },
+    {
+      label: "Canceld Orders",
+      value: getStatValue(loadingStatus, dataStatus?.orderStatuses?.cancelled),
+      color: textError,
+      dotColor: textError,
+    },
+    {
+      label: "rejected Orders",
+      value: getStatValue(loadingStatus, dataStatus?.orderStatuses?.rejected),
+      color: textError,
+      dotColor: textError,
     },
   ];
 
@@ -43,10 +60,11 @@ export default function StatisticsOrders({ dataStatus, loadingStatus }) {
       key={index}
       sx={{
         p: 2,
-        flex: "1 1 200px",
+        width: "165px",
         display: "flex",
         flexDirection: "column",
         alignItems: "flex-start",
+        flexWrap: "wrap",
         borderRadius: 3,
         boxShadow: 7,
         border: tableBorder,
@@ -56,11 +74,18 @@ export default function StatisticsOrders({ dataStatus, loadingStatus }) {
         },
       }}
     >
-      <Box sx={{ display: "flex", alignItems: "center", mb: 1 }}>
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          mb: 1,
+        }}
+      >
         <Box
           sx={{
-            width: 8,
-            height: 8,
+            width: 9,
+            height: 9,
             borderRadius: "50%",
             bgcolor: stat.dotColor,
             mr: 1,
@@ -74,7 +99,7 @@ export default function StatisticsOrders({ dataStatus, loadingStatus }) {
         </Typography>
       </Box>
       <Typography
-        variant="h4"
+        variant="h3"
         sx={{ fontWeight: "bold", color: stat.color }}
       >
         {stat.value}

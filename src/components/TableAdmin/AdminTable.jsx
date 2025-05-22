@@ -85,7 +85,15 @@ export default function AdminTable({
 
       {/* Stats cards */}
       {role === "inventory" ? (
-        <Box sx={{ display: "flex", gap: 2, mb: 3, flexWrap: "wrap" }}>
+        <Box
+          sx={{
+            display: "flex",
+            gap: 2,
+            mb: 3,
+            flexWrap: "wrap",
+            justifyContent: "center",
+          }}
+        >
           <StatisticsOrders
             loadingStatus={loadingStatic}
             dataStatus={statisticsInventory && statisticsInventory}

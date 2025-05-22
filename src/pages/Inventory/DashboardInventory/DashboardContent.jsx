@@ -16,7 +16,6 @@ const DashboardContent = () => {
 
   //Queries
   const { data, isLoading } = useStatisticsInventory({ token });
-  console.log(data);
 
   const containerVariants = {
     hidden: { opacity: 0 },
