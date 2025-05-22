@@ -1,11 +1,11 @@
 import { Box, Grid } from "@mui/material";
 import SearchBar from "../../../components/SearchBar/SearchBar";
 import { useGetAllInventoriesQuery } from "../../../lib/hooks/pharmacy.action";
-import EnhancedInventoryCard from "../../../components/InventoryComponents/CardInventory/CardInventory";
 import { useTypeContext } from "../../../context/UserType.context";
 import { useQueryParams } from "../../../context/params.context";
-import LoadingSpinner from "../../../components/Common/Loading/LoadingSpinner";
 import { Helmet } from "react-helmet";
+import InventoryCardSkeleton from "./_components/InventoryCardSkeleton";
+import EnhancedInventoryCard from "../../../components/InventoryComponents/CardInventory/CardInventory";
 
 export default function Inventories() {
   //Context
@@ -20,7 +20,15 @@ export default function Inventories() {
   });
 
   //Loading State
-  if (isLoading) return <LoadingSpinner />;
+  if (isLoading) {
+    return (
+      <Grid container spacing={2}>
+        {[...Array(6)].map((_, i) => (
+          <InventoryCardSkeleton key={i} />
+        ))}
+      </Grid>
+    );
+  }
 
   console.log(payload);
 

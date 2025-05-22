@@ -17,6 +17,8 @@ import RoomIcon from "@mui/icons-material/Room";
 import DistanceIndicator from "../../../pages/Inventory/InventoryProfile/_components/DistanceIndicator";
 import { useNavigate } from "react-router-dom";
 import ButtonWhishlist from "../../Common/Loading/button_whishlist";
+import { useWishlist } from "../../../lib/hooks/usewishlist.action";
+import { useTypeContext } from "../../../context/UserType.context";
 
 const EnhancedInventoryCard = ({ inventory }) => {
   //Navigation
@@ -35,14 +37,14 @@ const EnhancedInventoryCard = ({ inventory }) => {
     border,
   } = useThemeConstants();
 
+  const { token } = useTypeContext();
+  const { data } = useWishlist({ token });
+
+  const wishlistIds = data?.data?.map((item) => item._id) || [];
+  const isInWishlist = wishlistIds.includes(inventory._id);
+
   return (
-    <Grid
-      item
-      xs={12}
-      sm={6}
-      md={4}
-      lg={3}
-    >
+    <Grid item xs={12} sm={6} md={4} lg={3}>
       <Card
         sx={{
           background: cardBackground,
@@ -57,10 +59,7 @@ const EnhancedInventoryCard = ({ inventory }) => {
         }}
       >
         {/* Wishlist Button */}
-        <ButtonWhishlist
-          check={false}
-          id={inventory._id}
-        />
+        <ButtonWhishlist check={isInWishlist} id={inventory._id} />
         <CardContent
           sx={{
             p: 0,
@@ -108,16 +107,8 @@ const EnhancedInventoryCard = ({ inventory }) => {
           {/* Content */}
           <Box sx={{ p: 2, flexGrow: 1 }}>
             <Stack spacing={1.5}>
-              <Stack
-                alignItems="start"
-                gap={2}
-                justifyContent={"center"}
-              >
-                <Stack
-                  direction={"row"}
-                  alignItems="center"
-                  gap={2}
-                >
+              <Stack alignItems="start" gap={2} justifyContent={"center"}>
+                <Stack direction={"row"} alignItems="center" gap={2}>
                   <IconButton
                     size="small"
                     sx={{
@@ -130,10 +121,7 @@ const EnhancedInventoryCard = ({ inventory }) => {
                   >
                     <RoomIcon fontSize="small" />
                   </IconButton>
-                  <Typography
-                    variant="body1"
-                    fontWeight={500}
-                  >
+                  <Typography variant="body1" fontWeight={500}>
                     {inventory.governorate}, {inventory.city}
                   </Typography>
                 </Stack>
@@ -230,10 +218,7 @@ const EnhancedInventoryCard = ({ inventory }) => {
                   }}
                 >
                   {inventory.minimumOrderValue.toLocaleString()}{" "}
-                  <Box
-                    component={"span"}
-                    sx={{ fontSize: "13px" }}
-                  >
+                  <Box component={"span"} sx={{ fontSize: "13px" }}>
                     EGP
                   </Box>
                 </Typography>
