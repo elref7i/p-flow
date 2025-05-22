@@ -24,7 +24,11 @@ const navLinks = [
   { name: "Home", path: "/pharmacy", icon: <HomeIcon /> },
   { name: "Drugs", path: "/pharmacy/drugs", icon: <MedicationIcon /> },
   { name: "Cart", path: "/pharmacy/cart", icon: <ShoppingCartIcon /> },
-  { name: "Inventores", path: "/pharmacy/inventores", icon: <InventoryIcon /> },
+  {
+    name: "Inventories",
+    path: "/pharmacy/inventories",
+    icon: <InventoryIcon />,
+  },
   { name: "Orders", path: "/pharmacy/orders", icon: <AssignmentIcon /> },
 ];
 

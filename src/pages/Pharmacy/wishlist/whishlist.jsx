@@ -1,6 +1,9 @@
 import { Button, Grid2, Stack, Typography } from "@mui/material";
 import CardWhishlist from "../../../components/CardWhishlist/CardWhishlist";
-import { useWishlist } from "../../../lib/hooks/usewishlist.action";
+import {
+  useClearWishlist,
+  useWishlist,
+} from "../../../lib/hooks/usewishlist.action";
 import { useTypeContext } from "../../../context/UserType.context";
 import { useThemeConstants } from "../../../lib/constants/theme.constant";
 import { useNavigate } from "react-router-dom";
@@ -20,6 +23,8 @@ export default function Whishlist() {
   //Thems
   const { typography, cardBackground, textPrimary } = useThemeConstants();
 
+  const clearWishlistMutation = useClearWishlist();
+
   if (isLoading) return <LoadingSpinner />;
 
   return (
@@ -34,23 +39,14 @@ export default function Whishlist() {
           name="keywords"
           content="inventory, favorites, pharmacy, warehouse, medicine"
         />
-        <meta
-          name="author"
-          content="Your Project Name or Team"
-        />
+        <meta name="author" content="Your Project Name or Team" />
 
-        <meta
-          property="og:title"
-          content="My Favorite Inventories"
-        />
+        <meta property="og:title" content="My Favorite Inventories" />
         <meta
           property="og:description"
           content="Check your saved favorite inventories in one place."
         />
-        <meta
-          property="og:type"
-          content="website"
-        />
+        <meta property="og:type" content="website" />
       </Helmet>
       <Stack
         component={"header"}
@@ -69,14 +65,11 @@ export default function Whishlist() {
         >
           My Favorite Inventories
         </Typography>
-        <Stack
-          direction={"row"}
-          gap={2}
-        >
+        <Stack direction={"row"} gap={2}>
           <Button
             color="error"
             variant="outlined"
-            // onClick={() => navigate("/pharmacy/inventores")}
+            onClick={() => clearWishlistMutation.mutate()}
           >
             Delete All
           </Button>

@@ -35,3 +35,14 @@ export async function deleteInventoryWishllist({ token, id }) {
   const { data } = await axios(options);
   return data;
 }
+
+export async function clearWishllist({ token }) {
+  const options = {
+    url: `${API_URL_USER}/favourite`,
+    method: "DELETE",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+  return await axios(options);
+}
