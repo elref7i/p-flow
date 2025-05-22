@@ -2,7 +2,7 @@
 import { Container, Grid } from "@mui/material";
 import { motion } from "framer-motion";
 import SalesOverview from "./components/SalesOverview";
-import PurchaseOverview from "./components/PurchaseOverview";
+import OrdersOverview from "./components/OrdersOverview";
 import InventoryOverview from "./components/InventoryOverview";
 import StockOverview from "./components/StockOverview";
 import SalesStatistics from "./components/SalesStatistics";
@@ -16,6 +16,7 @@ const DashboardContent = () => {
 
   //Queries
   const { data, isLoading } = useStatisticsInventory({ token });
+  console.log(data);
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -54,32 +55,6 @@ const DashboardContent = () => {
           container
           spacing={3}
         >
-          {/* Sales Overview */}
-          <Grid
-            item
-            xs={12}
-            lg={6}
-          >
-            <motion.div variants={itemVariants}>
-              <SalesOverview
-                dataInfo={data}
-                isLoading={isLoading}
-              />
-            </motion.div>
-          </Grid>
-          {/* Purchase Overview */}
-          <Grid
-            item
-            xs={12}
-            lg={6}
-          >
-            <motion.div variants={itemVariants}>
-              <PurchaseOverview
-                dataInfo={data}
-                isLoading={isLoading}
-              />
-            </motion.div>
-          </Grid>
           {/* Inventory Overview */}
           <Grid
             item
@@ -94,7 +69,32 @@ const DashboardContent = () => {
               />
             </motion.div>
           </Grid>
-
+          {/* Purchase Overview */}
+          <Grid
+            item
+            xs={12}
+            lg={6}
+          >
+            <motion.div variants={itemVariants}>
+              <OrdersOverview
+                dataInfo={data}
+                isLoading={isLoading}
+              />
+            </motion.div>
+          </Grid>
+          {/* Sales Overview */}
+          <Grid
+            item
+            xs={12}
+            lg={6}
+          >
+            <motion.div variants={itemVariants}>
+              <SalesOverview
+                dataInfo={data}
+                isLoading={isLoading}
+              />
+            </motion.div>
+          </Grid>
           {/* Stock Overview */}
           <Grid
             item

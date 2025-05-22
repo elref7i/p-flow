@@ -3,10 +3,10 @@ import { Box, Card, CardContent, Grid, Typography } from "@mui/material";
 import { motion } from "framer-motion";
 import { useThemeConstants } from "../../../../lib/constants/theme.constant";
 import CardDashboardSkeleton from "../../../../components/Common/Loading/card_dashboard_skeleton";
-import HourglassBottomIcon from "@mui/icons-material/HourglassBottom";
 import LocalShippingIcon from "@mui/icons-material/LocalShipping";
-import MedicationIcon from "@mui/icons-material/Medication";
 import MedicalInformationIcon from "@mui/icons-material/MedicalInformation";
+import ShoppingCartCheckoutIcon from "@mui/icons-material/ShoppingCartCheckout";
+import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
 const InventoryOverview = ({ isLoading, dataInfo }) => {
   const {
     badgeBackground,
@@ -15,16 +15,13 @@ const InventoryOverview = ({ isLoading, dataInfo }) => {
     transitionDurationEnteringScreen,
     borderHover,
     border,
-    textLink,
-    gradientChart,
+    backgroundElevated,
+    cardBackground,
   } = useThemeConstants();
 
   if (isLoading) return <CardDashboardSkeleton />;
 
   const { totalSales, totalDrugs, orderStatuses, totalOrders } = dataInfo;
-  const avgSalesPerDrug = totalSales / totalDrugs;
-  const pendingOrdersPercentage = (orderStatuses.pending / totalOrders) * 100;
-  const shippedOrdersPercentage = (orderStatuses.shipped / totalOrders) * 100;
 
   const inventoryData = [
     {
@@ -35,25 +32,25 @@ const InventoryOverview = ({ isLoading, dataInfo }) => {
       iconColor: textSuccess,
     },
     {
-      title: "Average Sales Drug",
-      value: avgSalesPerDrug.toFixed(2),
-      icon: <MedicationIcon />,
+      title: "Total Orders",
+      value: totalOrders,
+      icon: <ShoppingCartCheckoutIcon />,
       iconBg: badgeBackground,
       iconColor: textWarning,
     },
     {
-      title: "Pending Orders",
-      value: pendingOrdersPercentage.toFixed(2) + "%",
-      icon: <HourglassBottomIcon />,
+      title: "Total Sales",
+      value: totalSales,
+      icon: <AttachMoneyIcon />,
       iconBg: badgeBackground,
       iconColor: textWarning,
     },
     {
-      title: "Shipped Orders",
-      value: shippedOrdersPercentage.toFixed(2) + "%",
+      title: "Total Delivered Orders",
+      value: orderStatuses.delivered,
       icon: <LocalShippingIcon />,
       iconBg: badgeBackground,
-      iconColor: textLink,
+      iconColor: textSuccess,
     },
   ];
 
@@ -61,13 +58,13 @@ const InventoryOverview = ({ isLoading, dataInfo }) => {
     <Card
       sx={{
         height: "100%",
-        background: badgeBackground,
-        boxShadow: 6,
+        background: cardBackground,
+        boxShadow: 2,
         border: `2px solid ${border}`,
         transition: transitionDurationEnteringScreen,
         ":hover": {
           borderColor: borderHover,
-          boxShadow: 7,
+          boxShadow: 1,
         },
       }}
     >
@@ -99,7 +96,7 @@ const InventoryOverview = ({ isLoading, dataInfo }) => {
                     alignItems: "center",
                     p: 2,
                     borderRadius: 2,
-                    background: gradientChart,
+                    background: backgroundElevated,
                     boxShadow: 7,
                     "&:hover": {
                       boxShadow: 8,

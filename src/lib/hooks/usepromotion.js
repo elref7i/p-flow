@@ -10,6 +10,7 @@ export const useAddPromotion = () => {
     onSuccess: () => {
       toast.success("added Promotion successfully!");
       queryClient.refetchQueries(["Owndrugs"]);
+      queryClient.invalidateQueries(["statisticsInventory"]);
     },
     onError: (error) => {
       toast.error(
@@ -29,6 +30,7 @@ export const useUpdatePromotion = () => {
     onSuccess: () => {
       toast.success("updated Promotion successfully!");
       queryClient.refetchQueries(["Owndrugs"]);
+      queryClient.invalidateQueries(["statisticsInventory"]);
     },
     onError: (error) => {
       toast.error(

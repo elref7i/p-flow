@@ -1,13 +1,12 @@
 /* eslint-disable react/prop-types */
 import { Box, Card, CardContent, Grid, Typography } from "@mui/material";
-import { ShoppingCart } from "@mui/icons-material";
+import { CancelOutlined, ShoppingCart } from "@mui/icons-material";
 import { motion } from "framer-motion";
 import { useThemeConstants } from "../../../../lib/constants/theme.constant";
 import CardDashboardSkeleton from "../../../../components/Common/Loading/card_dashboard_skeleton";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import LocalShippingIcon from "@mui/icons-material/LocalShipping";
-import AlignHorizontalLeftIcon from "@mui/icons-material/AlignHorizontalLeft";
-const PurchaseOverview = ({ dataInfo, isLoading }) => {
+const OrdersOverview = ({ dataInfo, isLoading }) => {
   const {
     backgroundElevated,
     cardBackground,
@@ -15,28 +14,20 @@ const PurchaseOverview = ({ dataInfo, isLoading }) => {
     textLink,
     textWarning,
     textError,
+    textSuccess,
     border,
     borderHover,
     transitionDurationEnteringScreen,
-
-    textPrimary,
   } = useThemeConstants();
 
   if (isLoading) return <CardDashboardSkeleton />;
-  const { totalOrders, totalSales, orderStatuses } = dataInfo;
-  const avgSalesPerOrder = totalSales / totalOrders;
+  const { orderStatuses } = dataInfo;
+
   const purchaseData = [
     {
-      title: "Total Orders",
-      value: totalOrders,
+      title: "Processing order",
+      value: orderStatuses.processing,
       icon: <ShoppingCart />,
-      iconBg: badgeBackground,
-      iconColor: textPrimary,
-    },
-    {
-      title: "Average Sales Order",
-      value: avgSalesPerOrder.toFixed(2),
-      icon: <AlignHorizontalLeftIcon />,
       iconBg: badgeBackground,
       iconColor: textLink,
     },
@@ -45,14 +36,21 @@ const PurchaseOverview = ({ dataInfo, isLoading }) => {
       value: orderStatuses.pending,
       icon: <AccessTimeIcon />,
       iconBg: badgeBackground,
+      iconColor: textWarning,
+    },
+    {
+      title: "Rejected Orders",
+      value: orderStatuses.rejected,
+      icon: <CancelOutlined />,
+      iconBg: badgeBackground,
       iconColor: textError,
     },
     {
-      title: "Shipped",
+      title: "Shipped Orders",
       value: orderStatuses.shipped,
       icon: <LocalShippingIcon />,
       iconBg: badgeBackground,
-      iconColor: textWarning,
+      iconColor: textSuccess,
     },
   ];
 
@@ -144,4 +142,4 @@ const PurchaseOverview = ({ dataInfo, isLoading }) => {
   );
 };
 
-export default PurchaseOverview;
+export default OrdersOverview;

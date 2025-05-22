@@ -9,13 +9,13 @@ const StockOverview = ({ isLoading, dataInfo }) => {
   const { badgeBackground, gradientChart } = useThemeConstants();
 
   if (isLoading) return <CardDashboardSkeleton />;
-  const { lowStockDrugs } = dataInfo;
+  const { lowStockDrugs, expiredDrugs, outOfStockDrugs } = dataInfo;
   console.log(dataInfo);
 
   const stockData = [
     { title: "Low Stock Items", value: lowStockDrugs },
-    { title: "Item Group", value: "20" },
-    { title: "No of Items", value: "104" },
+    { title: "Expired Drugs", value: expiredDrugs },
+    { title: "Out Of Stock Drugs", value: outOfStockDrugs },
   ];
 
   return (
@@ -34,7 +34,7 @@ const StockOverview = ({ isLoading, dataInfo }) => {
           variant="h3"
           sx={{ mb: 2 }}
         >
-          Stock Overview
+          Drugs Overview
         </Typography>
         <Grid
           container

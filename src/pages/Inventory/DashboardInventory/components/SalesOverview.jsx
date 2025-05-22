@@ -1,78 +1,34 @@
 /* eslint-disable react/prop-types */
 import { Box, Card, CardContent, Grid, Typography } from "@mui/material";
-import { TrendingUp } from "@mui/icons-material";
 import { motion } from "framer-motion";
 import { useThemeConstants } from "../../../../lib/constants/theme.constant";
 import CardDashboardSkeleton from "../../../../components/Common/Loading/card_dashboard_skeleton";
-import TrendingDownIcon from "@mui/icons-material/TrendingDown";
-import { IS_SOLD_GOOD, TOTAL_SALES } from "../constants/sales";
 
 const SalesOverview = ({ dataInfo, isLoading }) => {
   //Themes
-  const {
-    backgroundElevated,
-    cardBackground,
-    badgeBackground,
-    textSuccess,
-    textError,
-    border,
-    borderHover,
-    transitionDurationEnteringScreen,
-  } = useThemeConstants();
+  const { badgeBackground, gradientChart } = useThemeConstants();
 
   if (isLoading) return <CardDashboardSkeleton />;
 
-  const { totalSales, totalDrugs, soldPercentage } = dataInfo;
+  const { totalDrugs, soldPercentage } = dataInfo;
 
   const soldDrugs = Math.round((soldPercentage / 100) * totalDrugs);
   const unsoldDrugs = totalDrugs - soldDrugs;
   //Varaiables
-  const salesData = [
-    {
-      title: "Sales Percentage",
-      value: soldPercentage.toFixed(2) + "%",
-      icon:
-        soldPercentage >= IS_SOLD_GOOD ? <TrendingUp /> : <TrendingDownIcon />,
-      iconBg: badgeBackground,
-      iconColor: soldPercentage >= IS_SOLD_GOOD ? textSuccess : textError,
-    },
-    {
-      title: "Total Sales",
-      value: totalSales.toFixed(2),
-      icon: totalSales > TOTAL_SALES ? <TrendingUp /> : <TrendingDownIcon />,
-      iconBg: badgeBackground,
-      iconColor: totalSales > TOTAL_SALES ? textSuccess : textError,
-    },
-
-    {
-      title: "unsold Drugs",
-      value: unsoldDrugs,
-      icon:
-        soldPercentage <= IS_SOLD_GOOD ? <TrendingDownIcon /> : <TrendingUp />,
-      iconBg: badgeBackground,
-      iconColor: soldPercentage <= IS_SOLD_GOOD ? textError : textSuccess,
-    },
-    {
-      title: "Sold Drugs",
-      value: soldDrugs,
-      icon:
-        soldPercentage >= IS_SOLD_GOOD ? <TrendingUp /> : <TrendingDownIcon />,
-      iconBg: badgeBackground,
-      iconColor: soldPercentage >= IS_SOLD_GOOD ? textSuccess : textError,
-    },
+  const slalesData = [
+    { title: "Sold Percentage", value: soldPercentage.toFixed(2) + "%" },
+    { title: "Sold Drugs", value: soldDrugs },
+    { title: "Unsold Drugs", value: unsoldDrugs },
   ];
 
   return (
     <Card
       sx={{
-        height: "100%",
-        background: cardBackground,
-        boxShadow: 2,
-        border: `2px solid ${border}`,
-        transition: transitionDurationEnteringScreen,
+        minHeight: "100%",
+        background: badgeBackground,
+        boxShadow: 6,
         ":hover": {
-          borderColor: borderHover,
-          boxShadow: 1,
+          boxShadow: 7,
         },
       }}
     >
@@ -87,11 +43,10 @@ const SalesOverview = ({ dataInfo, isLoading }) => {
           container
           spacing={2}
         >
-          {salesData.map((item, index) => (
+          {slalesData.map((item, index) => (
             <Grid
               item
               xs={12}
-              sm={6}
               key={index}
             >
               <motion.div
@@ -102,44 +57,23 @@ const SalesOverview = ({ dataInfo, isLoading }) => {
                   sx={{
                     display: "flex",
                     alignItems: "center",
+                    justifyContent: "space-between",
                     p: 2,
                     borderRadius: 2,
-                    background: backgroundElevated,
                     boxShadow: 7,
-                    "&:hover": {
+                    background: gradientChart,
+                    ":hover": {
                       boxShadow: 8,
                     },
                   }}
                 >
-                  <Box
-                    sx={{
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      borderRadius: 2,
-                      width: 48,
-                      height: 48,
-                      backgroundColor: item.iconBg,
-                      color: item.iconColor,
-                      mr: 2,
-                    }}
+                  <Typography variant="body1">{item.title}</Typography>
+                  <Typography
+                    variant="h5"
+                    sx={{ fontWeight: "bold" }}
                   >
-                    {item.icon}
-                  </Box>
-                  <Box>
-                    <Typography
-                      variant="body2"
-                      color="text.secondary"
-                    >
-                      {item.title}
-                    </Typography>
-                    <Typography
-                      variant="h5"
-                      sx={{ fontWeight: "bold" }}
-                    >
-                      {item.value}
-                    </Typography>
-                  </Box>
+                    {item.value}
+                  </Typography>
                 </Box>
               </motion.div>
             </Grid>
