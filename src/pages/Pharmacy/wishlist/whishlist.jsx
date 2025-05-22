@@ -7,8 +7,8 @@ import {
 import { useTypeContext } from "../../../context/UserType.context";
 import { useThemeConstants } from "../../../lib/constants/theme.constant";
 import { useNavigate } from "react-router-dom";
-import LoadingSpinner from "../../../components/Common/Loading/LoadingSpinner";
 import { Helmet } from "react-helmet";
+import WishlistSkeleton from "./_components/WishlistSkeleton";
 
 export default function Whishlist() {
   //Context
@@ -25,7 +25,7 @@ export default function Whishlist() {
 
   const clearWishlistMutation = useClearWishlist();
 
-  if (isLoading) return <LoadingSpinner />;
+  if (isLoading) return <WishlistSkeleton />;
 
   return (
     <>

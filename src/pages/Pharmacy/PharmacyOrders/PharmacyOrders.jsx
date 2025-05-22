@@ -11,12 +11,12 @@ import {
 } from "@mui/material";
 import { useOrders, useCancelOrder } from "@/lib/hooks/useOrdersAction";
 import LocalAtmIcon from "@mui/icons-material/LocalAtm";
-import LoadingSpinner from "@/components/Common/Loading/LoadingSpinner";
 import { formatNumber } from "../../../lib/utils/formateNumber";
 import { useState } from "react";
 import OrderDetails from "../OrderDetails/OrderDetails";
 import { Helmet } from "react-helmet";
 import ConfirmCancelModal from "./components/ConfirmCancelModal";
+import OrdersSkeleton from "./components/OrdersSkeleton";
 
 export default function PharmacyOrders() {
   const { data, isLoading } = useOrders();
@@ -30,7 +30,7 @@ export default function PharmacyOrders() {
   const [cancelingOrderId, setCancelingOrderId] = useState(null);
   const [confirmCancelModalOpen, setConfirmCancelModalOpen] = useState(false);
 
-  if (isLoading) return <LoadingSpinner />;
+  if (isLoading) return <OrdersSkeleton />;
 
   const handleOpenModal = (order) => {
     setSelectedOrder(order);

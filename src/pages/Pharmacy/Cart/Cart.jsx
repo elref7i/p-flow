@@ -1,5 +1,3 @@
-import LoadingSpinner from "../../../components/Common/Loading/LoadingSpinner";
-import CartItem from "../../../components/PharmacyComonents/CartItem/CartItem";
 import { Box, Button, Grid, Paper, Typography } from "@mui/material";
 import { Delete } from "@mui/icons-material";
 import { Helmet } from "react-helmet";
@@ -7,6 +5,9 @@ import { useTheme } from "@mui/material/styles";
 import { useCart, useClearCart } from "../../../lib/hooks/useCartAction";
 import { useState } from "react";
 import Invoice from "../../../components/PharmacyComonents/Invoice/Invoice";
+import CartItem from "../../../components/PharmacyComonents/CartItem/CartItem";
+
+import CartSkeleton from "./_components/CartSkeleton";
 
 export default function Cart() {
   const [selectedInventory, setSelectedInventory] = useState(null);
@@ -16,7 +17,7 @@ export default function Cart() {
   const { data: cartInfo, isLoading } = useCart();
   const clearCartMutation = useClearCart();
 
-  if (!cartInfo && isLoading) return <LoadingSpinner />;
+  if (!cartInfo && isLoading) return <CartSkeleton />;
 
   if (!cartInfo || !cartInfo.data || cartInfo.data.totalItems === 0) {
     return (
