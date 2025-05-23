@@ -13,20 +13,21 @@ import { useFormik } from "formik";
 import { useTypeContext } from "../../../context/UserType.context";
 import { useAddDrug } from "../../../lib/hooks/useDrugAction";
 import { DrugSchema } from "../../../lib/schemas/DrugSchema";
-import CustomButton from "../../Common/ButtonStyle";
 import { useThemeConstants } from "../../../lib/constants/theme.constant";
 import CategorySelect from "../../category_select/category_select";
+import { MedicalInformation } from "@mui/icons-material";
 
 const style = {
-  position: "absolute",
+  position: "fixed",
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  width: { xs: "85%", sm: "60%", md: "50%" },
+  width: "90%", // تغيير العرض ليكون نسبة من الشاشة
+  maxWidth: "1200px", // وضع حد أقصى للعرض
+  maxHeight: "90vh",
   bgcolor: "background.paper",
-  boxShadow: 24,
-  p: 4,
-  borderRadius: "10px",
+  borderRadius: "16px",
+  overflow: "auto",
 };
 
 export default function AddDrugComponent() {
@@ -40,7 +41,16 @@ export default function AddDrugComponent() {
   const { mutate, isLoading, isError } = useAddDrug();
 
   //themes
-  const { shadow1, typography } = useThemeConstants();
+  const {
+    typography,
+    border,
+    textPrimary,
+    textLink,
+    cardHoverBackground,
+    cardBackground,
+    transitionDurationComplex,
+    buttonText,
+  } = useThemeConstants();
 
   //Function
   const handleOpen = () => setOpen(true);
@@ -55,6 +65,7 @@ export default function AddDrugComponent() {
     errors,
     touched,
     setFieldValue,
+    dirty,
   } = useFormik({
     initialValues: {
       name: "",
@@ -88,7 +99,7 @@ export default function AddDrugComponent() {
           fontSize: typography.button.fontSize,
           fontWeight: typography.button.fontWeight,
           lineHeight: typography.button.lineHeight,
-          boxShadow: shadow1,
+          boxShadow: 9,
         }}
       >
         Add Drug Data
@@ -99,21 +110,59 @@ export default function AddDrugComponent() {
         onClose={handleClose}
       >
         <Box
-          sx={style}
+          sx={{
+            ...style,
+            boxShadow: 9,
+            background: cardBackground,
+            transition: transitionDurationComplex,
+            ":hover": {
+              boxShadow: 8,
+              background: cardHoverBackground,
+            },
+          }}
           component="form"
           onSubmit={handleSubmit}
         >
-          <Typography
-            variant="h6"
-            sx={{ mb: 2 }}
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              gap: 1,
+              p: 2,
+              mb: 5,
+              border: border,
+              background: cardBackground,
+              boxShadow: 8,
+              ":hover": {
+                boxShadow: 7,
+              },
+            }}
           >
-            Add a New Drug
-          </Typography>
+            <MedicalInformation sx={{ fontSize: "40px", color: textLink }} />
+            <Typography
+              component="h2"
+              sx={{
+                fontSize: typography.h1.fontSize,
+                fontWeight: typography.h1.fontWeight,
+                lineHeight: typography.h1.lineHeight,
+                color: textPrimary,
+                mb: 0,
+                pb: 0,
+              }}
+            >
+              Add Drug
+            </Typography>
+          </Box>
 
-          <Stack spacing={2}>
+          <Stack
+            spacing={2}
+            px={2}
+            pb={4}
+          >
             <Stack
               direction="row"
               gap={2}
+              sx={{ flexWrap: { xs: "wrap", md: "nowrap" } }}
             >
               <TextField
                 fullWidth
@@ -142,6 +191,7 @@ export default function AddDrugComponent() {
             <Stack
               direction="row"
               gap={2}
+              sx={{ flexWrap: { xs: "wrap", md: "nowrap" } }}
             >
               <TextField
                 fullWidth
@@ -176,6 +226,7 @@ export default function AddDrugComponent() {
             <Stack
               direction="row"
               gap={2}
+              sx={{ flexWrap: { xs: "wrap", md: "nowrap" } }}
             >
               <TextField
                 fullWidth
@@ -210,6 +261,7 @@ export default function AddDrugComponent() {
             <Stack
               direction="row"
               gap={2}
+              sx={{ flexWrap: { xs: "wrap", md: "nowrap" } }}
             >
               <TextField
                 fullWidth
@@ -234,69 +286,94 @@ export default function AddDrugComponent() {
                 helperText={touched.discount && errors.discount}
               />
             </Stack>
-
-            <TextField
-              fullWidth
-              label="Stock"
-              name="stock"
-              type="number"
-              value={values.stock}
-              onChange={handleChange}
-              onBlur={handleBlur}
-              error={errors.stock && touched.stock}
-              helperText={touched.stock && errors.stock}
-            />
-            <TextField
-              fullWidth
-              label="Sold"
-              name="sold"
-              type="number"
-              value={values.sold}
-              onChange={handleChange}
-              onBlur={handleBlur}
-              error={errors.sold && touched.sold}
-              helperText={touched.sold && errors.sold}
-            />
-            <TextField
-              fullWidth
-              label="Description"
-              name="description"
-              type="text"
-              value={values.description}
-              onChange={handleChange}
-              onBlur={handleBlur}
-              error={errors.description && touched.description}
-              helperText={touched.description && errors.description}
-            />
-
-            <CategorySelect
-              touched={touched}
-              setFieldValue={setFieldValue}
-              errors={errors}
-            />
-
-            <CustomButton
-              type="submit"
-              mx={"auto 0"}
-              sx={{ display: "flex" }}
-              startIcon={
-                isLoading ? (
-                  <CircularProgress
-                    color="inherit"
-                    size={20}
-                  />
-                ) : isError ? (
-                  <WarningAmberIcon
-                    color="error"
-                    size={20}
-                  />
-                ) : (
-                  ""
-                )
-              }
+            <Stack
+              direction="row"
+              gap={2}
+              sx={{ flexWrap: { xs: "wrap", md: "nowrap" } }}
             >
-              Add Drug
-            </CustomButton>
+              <TextField
+                fullWidth
+                label="Stock"
+                name="stock"
+                type="number"
+                value={values.stock}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                error={errors.stock && touched.stock}
+                helperText={touched.stock && errors.stock}
+              />
+              <TextField
+                fullWidth
+                label="Sold"
+                name="sold"
+                type="number"
+                value={values.sold}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                error={errors.sold && touched.sold}
+                helperText={touched.sold && errors.sold}
+              />
+            </Stack>
+
+            <Stack
+              direction="row"
+              gap={2}
+              sx={{ flexWrap: { xs: "wrap", md: "nowrap" } }}
+            >
+              <TextField
+                fullWidth
+                label="Description"
+                name="description"
+                type="text"
+                value={values.description}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                error={errors.description && touched.description}
+                helperText={touched.description && errors.description}
+              />
+              <CategorySelect
+                touched={touched}
+                setFieldValue={setFieldValue}
+                errors={errors}
+              />
+            </Stack>
+
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "center",
+              }}
+            >
+              <Button
+                variant="contained"
+                type="submit"
+                disabled={!dirty}
+                sx={{
+                  px: 9,
+                  py: 1,
+                  color: buttonText,
+                  fontSize: typography.button.fontSize,
+                  fontWeight: typography.button.fontWeight,
+                }}
+                startIcon={
+                  isLoading ? (
+                    <CircularProgress
+                      color="inherit"
+                      size={20}
+                    />
+                  ) : isError ? (
+                    <WarningAmberIcon
+                      color="error"
+                      size={20}
+                    />
+                  ) : (
+                    ""
+                  )
+                }
+              >
+                Add Drug
+              </Button>
+            </Box>
           </Stack>
         </Box>
       </Modal>

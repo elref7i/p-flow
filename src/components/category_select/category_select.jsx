@@ -9,6 +9,7 @@ export default function CategorySelect({ touched, setFieldValue, errors }) {
   return (
     <Autocomplete
       fullWidth
+      sx={{ m: 0 }}
       options={data && data.data}
       getOptionLabel={(option) => option.name}
       loading={loadingCategories}
@@ -20,7 +21,7 @@ export default function CategorySelect({ touched, setFieldValue, errors }) {
           {...params}
           label="Category"
           name="category"
-          margin="normal"
+          margin="none"
           error={touched.category && Boolean(errors.category)}
           helperText={touched.category && errors.category}
         />

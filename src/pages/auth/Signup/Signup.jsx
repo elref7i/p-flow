@@ -1,5 +1,12 @@
 import { useState } from "react";
-import { Box, TextField, Container, Button, useTheme } from "@mui/material";
+import {
+  Box,
+  TextField,
+  Container,
+  Button,
+  useTheme,
+  Stack,
+} from "@mui/material";
 import axios from "axios";
 import { useFormik } from "formik";
 import toast from "react-hot-toast";
@@ -231,10 +238,16 @@ const SignupForm = () => {
               setFieldValue={setFieldValue}
               values={values}
             />
-            <Location
-              setFieldValue={setFieldValue}
-              errors={errors}
-            />
+            <Stack
+              direction={"row"}
+              justifyContent={"center"}
+              mb={2}
+            >
+              <Location
+                setFieldValue={setFieldValue}
+                errors={errors}
+              />
+            </Stack>
           </>
         );
       default:

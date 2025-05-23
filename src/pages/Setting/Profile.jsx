@@ -211,7 +211,6 @@ export default function Profile({ userData }) {
                 errors={errors}
               />
             </Box>
-            <Box></Box>
           </Stack>
 
           <Button

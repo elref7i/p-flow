@@ -8,12 +8,12 @@ import TextField from "@mui/material/TextField";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import { styled } from "@mui/material/styles";
 import { useThemeConstants } from "../../../lib/constants/theme.constant";
-import EditIcon from "@mui/icons-material/Edit";
 import { useTypeContext } from "../../../context/UserType.context";
 import { validationSchemaSheetExcel } from "../../../lib/schemas/DrugSchema";
 import { useAddDrugExcel } from "../../../lib/hooks/useDrugAction";
 import { CircularProgress } from "@mui/material";
 import CategorySelect from "../../category_select/category_select";
+import DescriptionIcon from "@mui/icons-material/Description";
 
 const style = {
   position: "absolute",
@@ -21,9 +21,8 @@ const style = {
   left: "50%",
   transform: "translate(-50%, -50%)",
   width: { xs: "85%", sm: "60%", md: "50%" },
-  bgcolor: "background.paper",
   boxShadow: 24,
-  borderRadius: "10px",
+  borderRadius: "20px",
 };
 
 const VisuallyHiddenInput = styled("input")({
@@ -46,13 +45,15 @@ export default function AddDrugFromExcel() {
   const { token } = useTypeContext();
 
   //Themes
+  //themes
   const {
-    shadow2,
-    shadow1,
     typography,
-    pharmacyBackground,
-    textPrimary,
     border,
+    textLink,
+    cardBackground,
+    transitionDurationComplex,
+    cardHoverBackground,
+    textPrimary,
   } = useThemeConstants();
 
   //Mutations
@@ -100,7 +101,7 @@ export default function AddDrugFromExcel() {
           fontSize: typography.button.fontSize,
           fontWeight: typography.button.fontWeight,
           lineHeight: typography.button.lineHeight,
-          boxShadow: shadow1,
+          boxShadow: 1,
         }}
       >
         Add Drug From Excel
@@ -111,16 +112,32 @@ export default function AddDrugFromExcel() {
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <Box sx={{ ...style, border: `1.5px solid ${border}` }}>
+        <Box
+          sx={{
+            ...style,
+            boxShadow: 9,
+            background: cardBackground,
+            transition: transitionDurationComplex,
+            color: textPrimary,
+            ":hover": {
+              boxShadow: 8,
+              background: cardHoverBackground,
+            },
+          }}
+        >
           <Box
             sx={{
-              p: 2,
               display: "flex",
               alignItems: "center",
-              justifyContent: "space-between",
-              bgcolor: pharmacyBackground,
-              boxShadow: shadow2, // Green header for Add modal
-              color: textPrimary,
+              gap: 1,
+              p: 2,
+              mb: 5,
+              border: border,
+              background: cardBackground,
+              boxShadow: 8,
+              ":hover": {
+                boxShadow: 7,
+              },
             }}
           >
             <Box
@@ -130,7 +147,7 @@ export default function AddDrugFromExcel() {
                 gap: 1,
               }}
             >
-              <EditIcon />
+              <DescriptionIcon sx={{ fontSize: "40px", color: textLink }} />
               <Box
                 component="h2"
                 sx={{

@@ -4,10 +4,15 @@ import MyLocationIcon from "@mui/icons-material/MyLocation";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import CustomButton from "../Common/ButtonStyle";
+import { useTypeContext } from "../../context/UserType.context";
+import { useThemeConstants } from "../../lib/constants/theme.constant";
 
 export default function Location({ setFieldValue, errors }) {
+  const { token } = useTypeContext();
   const [isLoading, setIsLoading] = useState(false);
   const theme = useTheme();
+  const { cardBackground, border, borderFocus, borderHover } =
+    useThemeConstants();
 
   const handleGetLocation = () => {
     if (navigator.geolocation) {
@@ -47,20 +52,35 @@ export default function Location({ setFieldValue, errors }) {
         flexDirection: "column",
         alignItems: "center",
         gap: 2,
-        p: "15px 10px",
-        border: `1px solid ${theme.palette.divider}`,
+        background: cardBackground,
+        p: "20px 20px",
+        border: `1px solid ${border}`,
         borderRadius: 2,
         maxWidth: 300,
+        boxShadow: 8,
+        ":focus": {
+          borderColor: borderFocus,
+        },
+        ":hover": {
+          borderColor: borderHover,
+          boxShadow: 7,
+        },
       }}
     >
-      <Typography variant="h6" sx={{ fontWeight: "bold", textAlign: "center" }}>
-        Select Your Location
+      <Typography
+        variant="h5"
+        sx={{ fontWeight: "bold", textAlign: "center" }}
+      >
+        {!token ? " Select Your Location" : " Upadate Your Location"}
       </Typography>
       <CustomButton
         variant="contained"
         startIcon={
           isLoading ? (
-            <CircularProgress size={24} sx={{ color: "white" }} />
+            <CircularProgress
+              size={24}
+              sx={{ color: "white" }}
+            />
           ) : (
             <MyLocationIcon />
           )
