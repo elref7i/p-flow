@@ -6,11 +6,13 @@ import {
   deleteCategory,
   deleteUser,
   fetchUsers,
+  getAdminStatistics,
   getCategories,
   updateCategory,
   updateUserData,
 } from "../api/adminApi";
 import toast from "react-hot-toast";
+import { useTypeContext } from "../../context/UserType.context";
 
 //* GET ALL USERS
 export const useAllUsers = () => {
@@ -161,5 +163,15 @@ export const useDeleteCategory = () => {
       );
       console.log(error);
     },
+  });
+};
+
+// ^ GET ADMIN STATISTICS
+export const useAdminStatstics = () => {
+  const { token } = useTypeContext();
+  return useQuery({
+    queryKey: ["Admin Statistics"],
+    queryFn: () => getAdminStatistics({ token }),
+    enabled: !!token,
   });
 };

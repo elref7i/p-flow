@@ -8,7 +8,6 @@ export default function CartSkeleton() {
         sx={{
           flex: 1,
           minWidth: 700,
-          bgcolor: "#1c1f2e",
           borderRadius: 3,
           p: 3,
           boxShadow: 3,
@@ -27,7 +26,6 @@ export default function CartSkeleton() {
                 display: "flex",
                 alignItems: "center",
                 gap: 2,
-                bgcolor: "#2b2f40",
                 borderRadius: 2,
                 p: 2,
               }}
@@ -71,7 +69,6 @@ export default function CartSkeleton() {
       <Box
         sx={{
           width: 300,
-          bgcolor: "#1c1f2e",
           borderRadius: 3,
           mt: 3,
           p: 3,

@@ -26,7 +26,6 @@ export default function WishlistSkeleton() {
             sx={{
               width: 300,
               p: 2,
-              bgcolor: "#1c1f2e",
               borderRadius: 3,
               boxShadow: 3,
               display: "flex",

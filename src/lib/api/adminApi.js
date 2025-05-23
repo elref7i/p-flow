@@ -131,3 +131,16 @@ export const deleteCategory = async ({ token, id }) => {
   };
   return axios.request(options);
 };
+
+// ^ get Admin statistics
+export const getAdminStatistics = async ({ token }) => {
+  const options = {
+    url: `${API_URL_USER}/statisticsAdmin`,
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+  const data = await axios.request(options);
+  return data.data;
+};

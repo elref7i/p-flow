@@ -30,6 +30,7 @@ const navLinks = [
     icon: <InventoryIcon />,
   },
   { name: "Orders", path: "/pharmacy/orders", icon: <AssignmentIcon /> },
+  { name: "Wishlist", path: "/pharmacy/wishlist", icon: <AssignmentIcon /> },
 ];
 
 export default function MoblieDrawer({ handleDrawerToggle, drawerOpen }) {

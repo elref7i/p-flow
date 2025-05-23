@@ -8,7 +8,6 @@ export default function OrdersSkeleton() {
           key={orderIdx}
           mt={5}
           sx={{
-            bgcolor: "#1c1f2e",
             borderRadius: 3,
             p: 3,
             boxShadow: 3,
@@ -48,7 +47,6 @@ export default function OrdersSkeleton() {
                 key={itemIdx}
                 sx={{
                   width: { xs: "100%", sm: "48%", md: "23%" },
-                  bgcolor: "#2b2f40",
                   borderRadius: 2,
                   p: 2,
                 }}
