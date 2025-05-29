@@ -143,7 +143,7 @@ const EnhancedInventoryCard = ({ inventory }) => {
                   >
                     <Phone fontSize="small" />
                   </IconButton>
-                  <Typography>+201007890938</Typography>
+                  <Typography>{inventory.phone}</Typography>
                 </Stack>
                 <Stack
                   alignItems={"center"}

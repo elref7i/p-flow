@@ -172,6 +172,7 @@ export const useAdminStatstics = () => {
   return useQuery({
     queryKey: ["Admin Statistics"],
     queryFn: () => getAdminStatistics({ token }),
-    enabled: !!token,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
   });
 };
