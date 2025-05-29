@@ -9,6 +9,8 @@ const StockOverview = ({ isLoading, dataInfo }) => {
   const { badgeBackground, gradientChart } = useThemeConstants();
 
   if (isLoading) return <CardDashboardSkeleton />;
+  console.log(dataInfo);
+
   const { lowStockDrugs, expiredDrugs, outOfStockDrugs } = dataInfo;
 
   const stockData = [

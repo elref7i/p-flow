@@ -11,6 +11,7 @@ export const getStatisticsInventory = async ({ token }) => {
   };
 
   const { data } = await axios.request(options);
+  console.log(data);
 
   return data.data;
 };

@@ -18,7 +18,7 @@ import { useThemeConstants } from "../../../lib/constants/theme.constant";
 import { DiscountBadge } from "../../Common/Loading/DiscountBadge";
 import LocalOfferIcon from "@mui/icons-material/LocalOffer";
 
-const DrugCard = ({ dataInfo: drug, checkPage }) => {
+const DrugCard = ({ dataInfo: drug, checkPage, checkdistance }) => {
   //Navigation
   const navigate = useNavigate();
 
@@ -178,7 +178,9 @@ const DrugCard = ({ dataInfo: drug, checkPage }) => {
 
       <Box sx={{ background: cardDetailsBackground }}>
         {/* Distance Indicator */}
-        {checkPage && <DistanceIndicator distance={drug.distanceInKm} />}
+        {checkPage && checkdistance && (
+          <DistanceIndicator distance={drug.distanceInKm} />
+        )}
 
         {/* Price and Actions */}
         <Box

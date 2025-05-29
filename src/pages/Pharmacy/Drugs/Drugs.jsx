@@ -13,6 +13,7 @@ import DrugCardSkeleton from "../../../components/Common/Loading/DrugCardSkeleto
 import LoadingSpinner from "../../../components/Common/Loading/LoadingSpinner";
 import { useThemeConstants } from "../../../lib/constants/theme.constant";
 import useSarchHistory from "../../../lib/hooks/useSearchHistory";
+import SearchAi from "../../../components/modal-ai/modal-ai";
 export default function Drugs() {
   //states
   const [params, setParams] = useState({});
@@ -104,7 +105,9 @@ export default function Drugs() {
           content="pharmacy, drugs, medicine, healthcare, prescription, OTC"
         />
       </Helmet>
+
       <Box sx={{ mb: 1, mt: 5, width: "100%" }}>
+        <SearchAi />
         <Box
           sx={{
             position: "relative",
