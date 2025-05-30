@@ -9,17 +9,14 @@ import {
 } from "@mui/material";
 
 import { useTheme } from "@mui/material/styles";
-import {
-  Chat as ChatIcon,
-  Notifications as NotificationsIcon,
-  Menu as MenuIcon,
-} from "@mui/icons-material";
+import { Chat as ChatIcon, Menu as MenuIcon } from "@mui/icons-material";
 import NavLinkDesktop from "./components/NavLink";
 import MoblieDrawer from "./components/Drawer";
 
 import AccountMenu from "./components/AccountMenu";
 import { useThemeConstants } from "../../../lib/constants/theme.constant";
 import Logo, { GradientLogo } from "../../Common/LogoImage";
+import NotificationsModal from "../../notifications/notifications-modal";
 
 export default function NavbarPhamracy() {
   //States
@@ -94,14 +91,9 @@ export default function NavbarPhamracy() {
                 <ChatIcon />
               </Badge>
             </IconButton>
-            <IconButton color="inherit">
-              <Badge
-                badgeContent={17}
-                color="error"
-              >
-                <NotificationsIcon />
-              </Badge>
-            </IconButton>
+
+            {/* Notifications */}
+            <NotificationsModal />
 
             {/* Avatar */}
             <AccountMenu />
