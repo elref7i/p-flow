@@ -2,13 +2,10 @@ import * as React from "react";
 import Avatar from "@mui/material/Avatar";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
-import ListItemIcon from "@mui/material/ListItemIcon";
 import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
-import PersonAdd from "@mui/icons-material/PersonAdd";
-import Settings from "@mui/icons-material/Settings";
-import Logout from "@mui/icons-material/Logout";
-import { Badge, Box, Typography } from "@mui/material";
+import { Badge, Box, Stack, Typography } from "@mui/material";
+import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import { Notifications as NotificationsIcon } from "@mui/icons-material";
 import { useThemeConstants } from "../../lib/constants/theme.constant";
 
@@ -18,21 +15,14 @@ export default function NotificationsModal() {
 
   // Themes
   const {
-    textSecondary,
     textPrimary,
+    textSecondary,
+    textTertiary,
+    textLink,
     background,
     gradientNavy,
-    sidebarBackgroundColor,
-    sidebarBorder,
-    sidebarText,
-    sidebarTextSecondary,
-    sidebarItemHover,
-    sidebarItemActive,
-    sidebarItemActiveBackground,
-    sidebarIcon,
-    sidebarIconActive,
-    sidebarHeader,
-    sidebarFooter,
+    cardBackground,
+    cardHoverBackground,
   } = useThemeConstants();
 
   // Functions
@@ -66,7 +56,7 @@ export default function NotificationsModal() {
           paper: {
             elevation: 8,
             sx: {
-              background: sidebarBackgroundColor,
+              background: background,
               py: 1,
               overflow: "visible",
               filter: "drop-shadow(0px 2px 8px rgba(0,0,0,0.32))",
@@ -90,7 +80,7 @@ export default function NotificationsModal() {
                 zIndex: 0,
               },
               "& .MuiMenuItem-root:hover": {
-                backgroundColor: sidebarItemHover,
+                backgroundColor: "transparent",
               },
             },
           },
@@ -101,41 +91,186 @@ export default function NotificationsModal() {
         <MenuItem>
           <Box>
             <Typography
-              variant="h5"
+              variant="h6"
               color={textPrimary}
-              mb={1}
+              mb={0.5}
             >
               Notifications
             </Typography>
             <Typography
-              variant="body1"
-              color={textSecondary}
+              variant="body2"
+              color={textTertiary}
             >
               You have 2 unread messages
             </Typography>
           </Box>
         </MenuItem>
         <Divider />
-        <MenuItem onClick={handleClose}>
-          <Avatar /> My account
+        <MenuItem sx={{ p: 0 }}>
+          <Box sx={{ width: "100%" }}>
+            <Typography
+              pl={"16px"}
+              pb={0.5}
+              variant="h6"
+              color={textLink}
+              mb={0.5}
+            >
+              New
+            </Typography>
+
+            {/* Messages */}
+            <Stack
+              spacing={1}
+              pb={2}
+            >
+              <Stack
+                py={2}
+                px={2}
+                direction="row"
+                gap={1}
+                justifyContent="center"
+                alignItems={"center"}
+                sx={{
+                  boxShadow: 8,
+                  background: cardBackground,
+                  borderRadius: 1,
+                  ":hover": { background: cardHoverBackground, boxShadow: 7 },
+                }}
+              >
+                {/* Avatar */}
+                <Avatar
+                  alt="Remy Sharp"
+                  src="/static/images/avatar/1.jpg"
+                  sx={{ width: 56, height: 56 }}
+                />
+
+                {/* Content Message */}
+                <Box>
+                  {/* message user */}
+                  <Typography>Ahmed khled mohmed refai</Typography>
+
+                  <Stack
+                    direction={"row"}
+                    gap={0.5}
+                    sx={{ color: textTertiary }}
+                    alignItems="center"
+                  >
+                    <AccessTimeIcon fontSize={"small"} />
+                    <Typography
+                      variant="body2"
+                      color={textSecondary}
+                      component={"span"}
+                    >
+                      2 years
+                    </Typography>
+                  </Stack>
+                </Box>
+              </Stack>
+            </Stack>
+          </Box>
         </MenuItem>
-        <MenuItem onClick={handleClose}>
-          <ListItemIcon>
-            <PersonAdd fontSize="small" />
-          </ListItemIcon>
-          Add another account
-        </MenuItem>
-        <MenuItem onClick={handleClose}>
-          <ListItemIcon>
-            <Settings fontSize="small" />
-          </ListItemIcon>
-          Settings
-        </MenuItem>
-        <MenuItem onClick={handleClose}>
-          <ListItemIcon>
-            <Logout fontSize="small" />
-          </ListItemIcon>
-          Logout
+        <MenuItem sx={{ p: 0 }}>
+          <Box sx={{ width: "100%" }}>
+            <Typography
+              pl={"16px"}
+              pb={0.5}
+              variant="h6"
+              color={textLink}
+              mb={0.5}
+            >
+              Before that
+            </Typography>
+
+            {/* Messages */}
+            <Stack spacing={1}>
+              <Stack
+                py={2}
+                px={2}
+                direction="row"
+                gap={1}
+                justifyContent="center"
+                alignItems={"center"}
+                sx={{
+                  boxShadow: 1,
+                  background: "transparent",
+                  borderRadius: 1,
+                  ":hover": { background: cardHoverBackground },
+                }}
+              >
+                {/* Avatar */}
+                <Avatar
+                  alt="Remy Sharp"
+                  src="/static/images/avatar/1.jpg"
+                  sx={{ width: 56, height: 56 }}
+                />
+
+                {/* Content Message */}
+                <Box>
+                  {/* message user */}
+                  <Typography>Ahmed khled mohmed refai</Typography>
+
+                  <Stack
+                    direction={"row"}
+                    gap={0.5}
+                    sx={{ color: textTertiary }}
+                    alignItems="center"
+                  >
+                    <AccessTimeIcon fontSize={"small"} />
+                    <Typography
+                      variant="body2"
+                      color={textSecondary}
+                      component={"span"}
+                    >
+                      2 years
+                    </Typography>
+                  </Stack>
+                </Box>
+              </Stack>
+              <Stack
+                py={2}
+                px={2}
+                direction="row"
+                gap={1}
+                justifyContent="center"
+                alignItems={"center"}
+                sx={{
+                  boxShadow: 1,
+                  background: "transparent",
+                  borderRadius: 1,
+                  ":hover": { background: cardHoverBackground },
+                }}
+              >
+                {/* Avatar */}
+                <Avatar
+                  alt="Remy Sharp"
+                  src="/static/images/avatar/1.jpg"
+                  sx={{ width: 56, height: 56 }}
+                />
+
+                {/* Content Message */}
+                <Box>
+                  {/* message user */}
+                  <Typography>Ahmed khled mohmed refai</Typography>
+
+                  <Stack
+                    direction={"row"}
+                    gap={0.5}
+                    sx={{ color: textTertiary }}
+                    alignItems="center"
+                  >
+                    <AccessTimeIcon fontSize={"small"} />
+                    <Typography
+                      variant="body2"
+                      color={textSecondary}
+                      component={"span"}
+                    >
+                      2 years
+                    </Typography>
+                  </Stack>
+                </Box>
+              </Stack>
+            </Stack>
+          </Box>
         </MenuItem>
       </Menu>
     </React.Fragment>

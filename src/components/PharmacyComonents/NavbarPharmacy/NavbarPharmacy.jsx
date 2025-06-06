@@ -92,7 +92,8 @@ export default function NavbarPhamracy() {
               </Badge>
             </IconButton>
 
-            {/* Notifications */}
+            {/* Notifications
+             */}
             <NotificationsModal />
 
             {/* Avatar */}
