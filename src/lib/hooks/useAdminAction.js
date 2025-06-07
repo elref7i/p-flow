@@ -10,7 +10,7 @@ import {
   getCategories,
   updateCategory,
   updateUserData,
-} from "../api/adminApi";
+} from "../api/admin.api";
 import toast from "react-hot-toast";
 import { useTypeContext } from "../../context/UserType.context";
 

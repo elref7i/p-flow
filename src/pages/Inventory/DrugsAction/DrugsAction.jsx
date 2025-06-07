@@ -10,8 +10,8 @@ import { useThemeConstants } from "../../../lib/constants/theme.constant";
 import SearchBar from "../../../components/SearchBar/SearchBar";
 import CancelIcon from "@mui/icons-material/Cancel";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
-import AlertModal from "../../../components/AdminComonents/MessageAlert/MessageAlert";
 import PromotionDetails from "./_components/promotion_details";
+import AlertModal from "@/components/MessageAlert";
 
 export default function DrugsAction() {
   //State

@@ -5,11 +5,11 @@
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import { Box, Card, Typography } from "@mui/material";
 
-import ModalAdd from "../AdminComonents/ModalAdd/ModalAdd";
 import { useThemeConstants } from "../../lib/constants/theme.constant";
 import { useTypeContext } from "../../context/UserType.context";
 import StatisticsOrders from "../../pages/Inventory/OrdersInventory/_components/statistics_orders";
 import { useStatisticsInventory } from "../../lib/hooks/useinventory.action";
+import ModalAdd from "../../pages/Admin/_components/ModalAdd";
 
 export default function AdminTable({
   isLoading,

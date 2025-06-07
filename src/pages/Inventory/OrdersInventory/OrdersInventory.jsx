@@ -6,8 +6,8 @@ import { useThemeConstants } from "../../../lib/constants/theme.constant";
 import { useOrders, useRejectOrder } from "../../../lib/hooks/useOrdersAction";
 import OrderDetailsModal from "./_components/order_details_modal";
 import UpdateStatusOrder from "./_components/update_status";
-import AdminTable from "../../../components/TableAdmin/AdminTable";
-import AlertModal from "../../../components/AdminComonents/MessageAlert/MessageAlert";
+import AdminTable from "@/components/TableAdmin/AdminTable";
+import AlertModal from "@/components/MessageAlert";
 
 export default function OrdersInventory() {
   //Context
