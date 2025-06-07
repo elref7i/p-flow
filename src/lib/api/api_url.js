@@ -22,3 +22,5 @@ export const API_URL_DRUG = `${API_URL}/drugs`;
 export const API_URL_CAT = `${API_URL}/categories`;
 
 export const CART_URL = `${API_URL}/cart`;
+
+export const NOTIF_URL = `${API_URL}/notifications`;

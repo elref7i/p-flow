@@ -10,8 +10,8 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import CancelIcon from "@mui/icons-material/Cancel";
 import { CircularProgress, IconButton } from "@mui/material";
 import ReportProblemIcon from "@mui/icons-material/ReportProblem";
-import { useThemeConstants } from "../../../lib/constants/theme.constant";
-import { useTypeContext } from "../../../context/UserType.context";
+import { useThemeConstants } from "../lib/constants/theme.constant";
+import { useTypeContext } from "../context/UserType.context";
 const style = {
   position: "absolute",
   top: "50%",

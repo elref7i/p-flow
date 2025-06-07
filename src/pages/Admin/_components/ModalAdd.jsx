@@ -8,10 +8,10 @@ import { useTypeContext } from "@/context/UserType.context";
 import WarningAmberIcon from "@mui/icons-material/WarningAmber";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
-import Role from "../../Role/Role";
+import Role from "../../../components/Role/Role";
 import { AdminAddUser } from "../../../lib/schemas/AdminSchema";
 import { useAdminAddUser } from "../../../lib/hooks/useAdminAction";
-import PasswordControl from "../../Common/PasswordControl";
+import PasswordControl from "../../../components/Common/PasswordControl";
 import { useThemeConstants } from "../../../lib/constants/theme.constant";
 
 const style = {

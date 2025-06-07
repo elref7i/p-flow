@@ -2,8 +2,6 @@ import { Box, IconButton } from "@mui/material";
 import { columns } from "./data";
 import { useTypeContext } from "@/context/UserType.context";
 import { useAllUsers, useDeleteUser } from "@/lib/hooks/useAdminAction";
-import AlertModal from "@/components/AdminComonents/MessageAlert/MessageAlert";
-import ModalUpdated from "@/components/AdminComonents/ModalUpdated/ModalUpdated";
 import { useActiveAdminUser } from "../../../lib/hooks/useAdminAction";
 import { Helmet } from "react-helmet";
 import { MoreVert as MoreVertIcon } from "@mui/icons-material";
@@ -12,6 +10,8 @@ import VerifiedIcon from "@mui/icons-material/Verified";
 import CancelIcon from "@mui/icons-material/Cancel";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import AdminTable from "../../../components/TableAdmin/AdminTable";
+import AlertModal from "@/components/MessageAlert";
+import ModalUpdated from "../_components/ModalUpdated";
 export default function UsersAction() {
   //Context
   const { token } = useTypeContext();

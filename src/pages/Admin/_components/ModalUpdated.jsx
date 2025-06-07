@@ -8,7 +8,7 @@ import { useEffect, useState } from "react";
 import { useFormik } from "formik";
 import { UpdateDataUser } from "@/lib/schemas/AdminSchema";
 import { useTypeContext } from "@/context/UserType.context";
-import { getSpecificUser } from "@/lib/api/adminApi";
+import { getSpecificUser } from "@/lib/api/admin.api";
 import { useUpdateUser } from "@/lib/hooks/useAdminAction";
 import EditIcon from "@mui/icons-material/Edit";
 import WarningAmberIcon from "@mui/icons-material/WarningAmber";
