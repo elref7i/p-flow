@@ -1,29 +1,21 @@
 import * as React from "react";
-import Avatar from "@mui/material/Avatar";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
 import { Badge, Box, Stack, Typography } from "@mui/material";
-import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import { Notifications as NotificationsIcon } from "@mui/icons-material";
 import { useThemeConstants } from "../../lib/constants/theme.constant";
+import Message from "./components/message";
 
 export default function NotificationsModal() {
+  // State
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
 
   // Themes
-  const {
-    textPrimary,
-    textSecondary,
-    textTertiary,
-    textLink,
-    background,
-    gradientNavy,
-    cardBackground,
-    cardHoverBackground,
-  } = useThemeConstants();
+  const { textPrimary, textTertiary, textLink, background, gradientNavy } =
+    useThemeConstants();
 
   // Functions
   const handleClick = (event) => {
@@ -34,9 +26,10 @@ export default function NotificationsModal() {
   };
 
   return (
-    <React.Fragment>
+    <>
       <IconButton
         onClick={handleClick}
+        oncl
         color="inherit"
       >
         <Badge
@@ -47,11 +40,11 @@ export default function NotificationsModal() {
         </Badge>
       </IconButton>
       <Menu
+        onClose={handleClose}
+        disableScrollLock
         anchorEl={anchorEl}
         id="account-menu"
         open={open}
-        onClose={handleClose}
-        onClick={handleClose}
         slotProps={{
           paper: {
             elevation: 8,
@@ -123,52 +116,12 @@ export default function NotificationsModal() {
               spacing={1}
               pb={2}
             >
-              <Stack
-                py={2}
-                px={2}
-                direction="row"
-                gap={1}
-                justifyContent="center"
-                alignItems={"center"}
-                sx={{
-                  boxShadow: 8,
-                  background: cardBackground,
-                  borderRadius: 1,
-                  ":hover": { background: cardHoverBackground, boxShadow: 7 },
-                }}
-              >
-                {/* Avatar */}
-                <Avatar
-                  alt="Remy Sharp"
-                  src="/static/images/avatar/1.jpg"
-                  sx={{ width: 56, height: 56 }}
-                />
-
-                {/* Content Message */}
-                <Box>
-                  {/* message user */}
-                  <Typography>Ahmed khled mohmed refai</Typography>
-
-                  <Stack
-                    direction={"row"}
-                    gap={0.5}
-                    sx={{ color: textTertiary }}
-                    alignItems="center"
-                  >
-                    <AccessTimeIcon fontSize={"small"} />
-                    <Typography
-                      variant="body2"
-                      color={textSecondary}
-                      component={"span"}
-                    >
-                      2 years
-                    </Typography>
-                  </Stack>
-                </Box>
-              </Stack>
+              <Message />
             </Stack>
           </Box>
         </MenuItem>
+
+        {/* Message un read  */}
         <MenuItem sx={{ p: 0 }}>
           <Box sx={{ width: "100%" }}>
             <Typography
@@ -183,96 +136,11 @@ export default function NotificationsModal() {
 
             {/* Messages */}
             <Stack spacing={1}>
-              <Stack
-                py={2}
-                px={2}
-                direction="row"
-                gap={1}
-                justifyContent="center"
-                alignItems={"center"}
-                sx={{
-                  boxShadow: 1,
-                  background: "transparent",
-                  borderRadius: 1,
-                  ":hover": { background: cardHoverBackground },
-                }}
-              >
-                {/* Avatar */}
-                <Avatar
-                  alt="Remy Sharp"
-                  src="/static/images/avatar/1.jpg"
-                  sx={{ width: 56, height: 56 }}
-                />
-
-                {/* Content Message */}
-                <Box>
-                  {/* message user */}
-                  <Typography>Ahmed khled mohmed refai</Typography>
-
-                  <Stack
-                    direction={"row"}
-                    gap={0.5}
-                    sx={{ color: textTertiary }}
-                    alignItems="center"
-                  >
-                    <AccessTimeIcon fontSize={"small"} />
-                    <Typography
-                      variant="body2"
-                      color={textSecondary}
-                      component={"span"}
-                    >
-                      2 years
-                    </Typography>
-                  </Stack>
-                </Box>
-              </Stack>
-              <Stack
-                py={2}
-                px={2}
-                direction="row"
-                gap={1}
-                justifyContent="center"
-                alignItems={"center"}
-                sx={{
-                  boxShadow: 1,
-                  background: "transparent",
-                  borderRadius: 1,
-                  ":hover": { background: cardHoverBackground },
-                }}
-              >
-                {/* Avatar */}
-                <Avatar
-                  alt="Remy Sharp"
-                  src="/static/images/avatar/1.jpg"
-                  sx={{ width: 56, height: 56 }}
-                />
-
-                {/* Content Message */}
-                <Box>
-                  {/* message user */}
-                  <Typography>Ahmed khled mohmed refai</Typography>
-
-                  <Stack
-                    direction={"row"}
-                    gap={0.5}
-                    sx={{ color: textTertiary }}
-                    alignItems="center"
-                  >
-                    <AccessTimeIcon fontSize={"small"} />
-                    <Typography
-                      variant="body2"
-                      color={textSecondary}
-                      component={"span"}
-                    >
-                      2 years
-                    </Typography>
-                  </Stack>
-                </Box>
-              </Stack>
+              <Message />
             </Stack>
           </Box>
         </MenuItem>
       </Menu>
-    </React.Fragment>
+    </>
   );
 }

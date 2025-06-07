@@ -72,6 +72,7 @@ export default function AccountMenu() {
 
       <Menu
         anchorEl={anchorEl}
+        disableScrollLock
         id="account-menu"
         open={open}
         onClose={handleClose}
