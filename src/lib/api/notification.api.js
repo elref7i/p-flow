@@ -20,7 +20,7 @@ export async function addNotifications({ token, values }) {
 }
 
 //Get All Notifications
-export async function getAllNotifications({ token }) {
+export async function getAllNotifications({ token, page }) {
   const options = {
     method: "GET",
     url: NOTIF_URL,
@@ -28,6 +28,7 @@ export async function getAllNotifications({ token }) {
       Authorization: `Bearer ${token}`,
       "Content-Type": "application/json",
     },
+    page,
   };
 
   const { data } = await axios.request(options);

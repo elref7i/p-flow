@@ -10,7 +10,6 @@ import { TextField } from "@mui/material";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { useDebounce } from "use-debounce";
 import DrugCardSkeleton from "../../../components/Common/Loading/DrugCardSkeleton";
-import LoadingSpinner from "../../../components/Common/Loading/LoadingSpinner";
 import { useThemeConstants } from "../../../lib/constants/theme.constant";
 import useSarchHistory from "../../../lib/hooks/useSearchHistory";
 import SearchAi from "../../../components/modal-ai/modal-ai";
@@ -83,6 +82,7 @@ export default function Drugs() {
 
   console.log(data);
 
+  // Total Items
   const totalItems =
     data?.pages.reduce((total, page) => {
       return total + (page.data?.length || 0);
@@ -253,7 +253,7 @@ export default function Drugs() {
         }}
       ></Box>
 
-      {!isLoading ? (
+      {!isLoading && isFetched ? (
         <InfiniteScroll
           dataLength={totalItems}
           next={fetchNextPage}
@@ -274,21 +274,17 @@ export default function Drugs() {
             px={3}
             py={2}
           >
-            {isFetched ? (
-              flattenedDrugs.map((drug) => (
-                <Grid2
-                  key={drug._id}
-                  size={{ xs: 12, md: 6, lg: 4 }}
-                >
-                  <DrugCard
-                    dataInfo={drug}
-                    checkPage={true}
-                  />
-                </Grid2>
-              ))
-            ) : (
-              <LoadingSpinner />
-            )}
+            {flattenedDrugs.map((drug) => (
+              <Grid2
+                key={drug._id}
+                size={{ xs: 12, md: 6, lg: 4 }}
+              >
+                <DrugCard
+                  dataInfo={drug}
+                  checkPage={true}
+                />
+              </Grid2>
+            ))}
           </Grid2>
         </InfiniteScroll>
       ) : (

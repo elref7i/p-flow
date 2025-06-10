@@ -17,8 +17,6 @@ export const getAllDrugs = async (token, params = {}) => {
   return data.data;
 };
 
-//* get all drugs for specific inventory
-
 // ^ Add Drug
 export const addDrug = async ({ token, values }) => {
   const options = {
@@ -98,6 +96,7 @@ export const getAllOwnDrugs = async (token, params = {}) => {
   return data.data;
 };
 
+//* get all drugs for specific inventory
 export const getDrugsspecificInventory = async (inventoryId, params = {}) => {
   const options = {
     url: `${API_URL_DRUG}/inventory/${inventoryId}`,
