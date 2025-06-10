@@ -37,7 +37,7 @@ export async function getAllNotifications({ token }) {
 }
 
 // Get Unread Notifications
-export async function getUnreadNotif({ token }) {
+export async function getUnreadCountNotif({ token }) {
   const options = {
     method: "GET",
     url: `${NOTIF_URL}/unread-count`,
