@@ -157,6 +157,11 @@ const colors = {
   lightBorderFocus: "#3B82F6",
   lightBorderHover: "#CBD5E1",
 
+  // Navbar colors - light mode
+  lightNavbarInventory: "#EDE9FE",
+  lightNavbarPharmacy: "#E2E8F0", // Same indigo tint for consistency
+  lightNavbarAdmin: "#EDE9FE",
+
   // Light Mode Button colors
   lightBgButton: "#3B82F6",
   lightBgButtonHover: "#2563EB",
@@ -326,6 +331,12 @@ const colors = {
   darkBorder: "#1E293B",
   darkBorderFocus: "#0066FF",
   darkBorderHover: "#334155",
+
+  // Navbar colors - dark mode
+  darkNavbarInventory: "#1E1B4B",
+  darkNavbarPharmacy:
+    "linear-gradient(135deg, #111827 0%, #0F1623 50%, #0A0E17 100%)", // Same indigo tint for consistency
+  darkNavbarAdmin: "#1E1B4B",
 
   // Dark Mode Button colors
   darkBgButton: "#0066FF",
@@ -738,6 +749,18 @@ export const getDesignTokens = (mode) => ({
         mode === "light"
           ? colors.lightGradientBlueGray
           : colors.darkGradientBlueGlow,
+
+      navbar: mode === "light" ? colors.lightNavbar : colors.darkNavbar,
+      navbarInventory:
+        mode === "light"
+          ? colors.lightNavbarInventory
+          : colors.darkNavbarInventory,
+      navbarPharmacy:
+        mode === "light"
+          ? colors.lightNavbarPharmacy
+          : colors.darkNavbarPharmacy,
+      navbarAdmin:
+        mode === "light" ? colors.lightNavbarAdmin : colors.darkNavbarAdmin,
 
       // Special dark mode backgrounds
       navy:
