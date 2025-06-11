@@ -1,28 +1,24 @@
-import {
-  TextField,
-  Box,
-  useTheme,
-  Stack,
-  Typography,
-  useMediaQuery,
-} from "@mui/material";
-import CustomButton from "@/components/Common/ButtonStyle";
+import { TextField, Box, Stack, Typography, Button } from "@mui/material";
 import { useFormik } from "formik";
 import { useTypeContext } from "@/context/UserType.context";
 import { loginSchema } from "@/lib/schemas/AuthSchema";
 import PasswordControl from "@/components/Common/PasswordControl";
-import { CustomLink } from "@/components/Common/ButtonStyle";
 import { CustomParagraph } from "@/components/Common/CustomTypography";
 import { GradientLogo } from "@/components/Common/LogoImage";
 import Logo from "../../../components/Common/LogoImage";
 import IconHomeAuth from "../../../components/Common/IconHomeAuth";
+import { useThemeConstants } from "@/lib/constants/theme.constant";
 import { Helmet } from "react-helmet";
+import { Link } from "react-router-dom";
 export default function Login() {
-  const theme = useTheme();
-
-  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
+  // Context
   const { login } = useTypeContext();
-  const backgroundAuth = theme.palette.background.auth;
+
+  //Themes
+  const { textLink, textSecondary, textPrimary, authBackground, isMobile } =
+    useThemeConstants();
+
+  // Form
   const { handleBlur, handleChange, handleSubmit, errors, values, touched } =
     useFormik({
       initialValues: {
@@ -30,7 +26,9 @@ export default function Login() {
         password: "",
       },
       validationSchema: loginSchema,
-      onSubmit: login,
+      onSubmit: () => {
+        login(values);
+      },
     });
 
   return (
@@ -45,7 +43,10 @@ export default function Login() {
           name="keywords"
           content="login, sign in, user authentication, account access, secure login"
         />
-        <meta property="og:title" content="Login to Your Account" />
+        <meta
+          property="og:title"
+          content="Login to Your Account"
+        />
         <meta
           property="og:description"
           content="Sign in to access your account and manage your profile securely."
@@ -55,7 +56,7 @@ export default function Login() {
       <Box
         component={"main"}
         sx={{
-          background: backgroundAuth,
+          background: authBackground,
           minHeight: "100vh",
           width: "100%",
           display: "flex",
@@ -80,11 +81,14 @@ export default function Login() {
             width={"55%"}
             sx={{ display: { xs: "none", md: "block" }, textAlign: "center" }}
           >
-            <Logo justifyContent={"center"} mb={3}>
+            <Logo
+              justifyContent={"center"}
+              mb={3}
+            >
               <GradientLogo />
             </Logo>
             <Typography
-              color={theme.palette.text.primary}
+              color={textPrimary}
               variant="h1"
               sx={{
                 mb: 2,
@@ -109,12 +113,15 @@ export default function Login() {
             onSubmit={handleSubmit}
           >
             {isMobile && (
-              <Logo justifyContent={"center"} mb={2}>
+              <Logo
+                justifyContent={"center"}
+                mb={2}
+              >
                 <GradientLogo />
               </Logo>
             )}
             <Typography
-              color={theme.palette.text.primary}
+              color={textPrimary}
               variant="h5"
               sx={{
                 mb: 5,
@@ -149,16 +156,27 @@ export default function Login() {
               handleChange={handleChange}
               text="Password"
             />
-            <Box component={"div"} mt={1} ml={"auto "} width="fit-content">
-              <CustomLink
-                bg={true}
-                bghover={true}
-                c={theme.palette.text.primary}
-                chover={theme.palette.text.secondary}
+            <Box
+              component={"div"}
+              mt={1}
+              ml={"auto "}
+              width="fit-content"
+            >
+              <Button
                 to="/forgetpassword"
+                component={Link}
+                variant="text"
+                sx={{
+                  p: 0,
+                  color: textSecondary,
+                  ":hover": {
+                    color: textLink,
+                    backgroundColor: "transparent",
+                  },
+                }}
               >
                 Forgot Your Password ?
-              </CustomLink>
+              </Button>
             </Box>
             <Box
               sx={{ display: "flex", alignItems: "center" }}
@@ -166,26 +184,34 @@ export default function Login() {
               mt={5}
               mb={2}
             >
-              <CustomButton sx={{ flex: 1 }} type="submit">
+              <Button
+                variant="contained"
+                sx={{ flex: 1 }}
+                type="submit"
+              >
                 Proceed to my account
-              </CustomButton>
+              </Button>
             </Box>
             <Typography
-              color={theme.palette.text.secondary}
+              color={textSecondary}
               textAlign={"center"}
               component={"p"}
             >
               Don’t have an account?{" "}
-              <CustomLink
+              <Button
+                variant="text"
+                sx={{
+                  textTransform: "none",
+                  fontWeight: 600,
+                  ":active": {
+                    color: textLink,
+                  },
+                }}
                 to={"/signup"}
-                bghover={true}
-                chover={true}
-                c={"#5188FF"}
-                display={"inline"}
-                bg={true}
+                component={Link}
               >
                 Register
-              </CustomLink>
+              </Button>
             </Typography>
           </Box>
         </Stack>

@@ -14,6 +14,7 @@ import { useThemeContext } from "../../../context/theme.context";
 import { useTypeContext } from "../../../context/UserType.context";
 import { useThemeConstants } from "../../../lib/constants/theme.constant";
 import CloseIcon from "@mui/icons-material/Close";
+import NotificationsModal from "../../notifications/notifications-modal";
 
 const drawerWidth = 240;
 
@@ -110,15 +111,6 @@ export default function Navbar() {
             {token && (
               <>
                 <IconButton
-                  aria-label="notifications"
-                  size="medium"
-                  sx={{
-                    color: textPrimary,
-                  }}
-                >
-                  <NotificationsIcon fontSize="inherit" />
-                </IconButton>
-                <IconButton
                   aria-label="messages"
                   size="medium"
                   sx={{
@@ -127,6 +119,7 @@ export default function Navbar() {
                 >
                   <MessageTwoTone fontSize="inherit" />
                 </IconButton>
+                <NotificationsModal />
               </>
             )}
           </Stack>
