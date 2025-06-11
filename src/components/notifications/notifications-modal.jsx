@@ -109,6 +109,12 @@ export default function NotificationsModal() {
               },
             },
           },
+          list: {
+            sx: {
+              pt: 0,
+              pb: 1,
+            },
+          },
         }}
         transformOrigin={{ horizontal: "right", vertical: "top" }}
         anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
