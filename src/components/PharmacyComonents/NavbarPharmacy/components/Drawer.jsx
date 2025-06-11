@@ -1,6 +1,5 @@
 /* eslint-disable react/prop-types */
 import {
-  Typography,
   IconButton,
   Drawer,
   List,
@@ -19,6 +18,8 @@ import {
   Inventory as InventoryIcon,
 } from "@mui/icons-material";
 import { Link, useLocation } from "react-router-dom";
+import Logo, { GradientLogo } from "../../../Common/LogoImage";
+import { useThemeConstants } from "../../../../lib/constants/theme.constant";
 
 const navLinks = [
   { name: "Home", path: "/pharmacy", icon: <HomeIcon /> },
@@ -37,21 +38,36 @@ export default function MoblieDrawer({ handleDrawerToggle, drawerOpen }) {
   // States
   const location = useLocation();
 
-  // Handlers
+  // Thems
+  const { menuBackground } = useThemeConstants();
 
   const drawer = (
-    <Box sx={{ width: 250 }} role="presentation">
+    <Box
+      sx={{ width: 250, background: menuBackground, height: "100vh" }}
+      role="presentation"
+    >
+      {/* Header */}
       <Box
         sx={{
+          boxShadow: 8,
           display: "flex",
           alignItems: "center",
           justifyContent: "space-between",
           p: 2,
         }}
       >
-        <Typography variant="h6" component="div">
-          Pharmacy
-        </Typography>
+        <Box
+          sx={{
+            transition: "transform 0.2s ease-in-out",
+            "&:hover": {
+              transform: "scale(1.05)",
+            },
+          }}
+        >
+          <Logo>
+            <GradientLogo />
+          </Logo>
+        </Box>
         <IconButton onClick={handleDrawerToggle}>
           <CloseIcon />
         </IconButton>

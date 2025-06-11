@@ -27,7 +27,7 @@ export default function NavLinkDesktop() {
       sx={{
         display: { xs: "none", md: "flex" },
         flex: 1,
-        gap: 5,
+        gap: 3,
         justifyContent: "center",
       }}
     >

@@ -1,3 +1,5 @@
+"use client";
+
 // استيراد الثيم
 import { useTheme } from "@mui/material/styles";
 
@@ -20,6 +22,31 @@ export const useThemeConstants = () => {
   const backgroundLowered = theme.palette.background.lowered;
   const backgroundBlue = theme.palette.background.blue;
 
+  // خلفيات إضافية
+  const backgroundBlueSoft = theme.palette.background.blueSoft;
+  const backgroundBlueLight = theme.palette.background.blueLight;
+  const backgroundBlueMedium = theme.palette.background.blueMedium;
+  const backgroundPurpleSoft = theme.palette.background.purpleSoft;
+  const backgroundPurpleLight = theme.palette.background.purpleLight;
+  const backgroundPurpleMedium = theme.palette.background.purpleMedium;
+  const backgroundGreenSoft = theme.palette.background.greenSoft;
+  const backgroundGreenLight = theme.palette.background.greenLight;
+  const backgroundGreenMedium = theme.palette.background.greenMedium;
+  const backgroundYellowSoft = theme.palette.background.yellowSoft;
+  const backgroundYellowLight = theme.palette.background.yellowLight;
+  const backgroundYellowMedium = theme.palette.background.yellowMedium;
+  const backgroundRedSoft = theme.palette.background.redSoft;
+  const backgroundRedLight = theme.palette.background.redLight;
+  const backgroundRedMedium = theme.palette.background.redMedium;
+  const backgroundGraySoft = theme.palette.background.graySoft;
+  const backgroundGrayLight = theme.palette.background.grayLight;
+  const backgroundGrayMedium = theme.palette.background.grayMedium;
+  const backgroundYellow = theme.palette.background.yellow;
+  const backgroundGreen = theme.palette.background.green;
+  const backgroundPurple = theme.palette.background.purple;
+  const backgroundRed = theme.palette.background.red;
+  const backgroundGray = theme.palette.background.gray;
+
   // خلفيات الأقسام
   const authBackground = theme.palette.background.auth;
   const inventoryBackground = theme.palette.background.inventory;
@@ -39,6 +66,22 @@ export const useThemeConstants = () => {
   const tooltipBackground = theme.palette.background.tooltip;
   const badgeBackground = theme.palette.background.badge;
 
+  // خلفيات مكونات إضافية
+  const cardBlueBackground = theme.palette.background.cardBlue;
+  const cardPurpleBackground = theme.palette.background.cardPurple;
+  const cardGreenBackground = theme.palette.background.cardGreen;
+  const cardYellowBackground = theme.palette.background.cardYellow;
+  const cardRedBackground = theme.palette.background.cardRed;
+  const cardGrayBackground = theme.palette.background.cardGray;
+  const alertInfoBackground = theme.palette.background.alertInfo;
+  const alertSuccessBackground = theme.palette.background.alertSuccess;
+  const alertWarningBackground = theme.palette.background.alertWarning;
+  const alertErrorBackground = theme.palette.background.alertError;
+  const modalBackground = theme.palette.background.modal;
+  const drawerBackground = theme.palette.background.drawer;
+  const popoverBackground = theme.palette.background.popover;
+  const menuBackground = theme.palette.background.menu;
+
   // خلفيات لوحة المعلومات
   const dashboardBackground = theme.palette.background.dashboard;
   const statsBackground = theme.palette.background.stats;
@@ -50,12 +93,32 @@ export const useThemeConstants = () => {
   const tableRowAltBackground = theme.palette.background.tableRowAlt;
   const tableRowHoverBackground = theme.palette.background.tableRowHover;
 
+  // خلفيات إحصائيات إضافية
+  const statsBlueBackground = theme.palette.background.statsBlue;
+  const statsPurpleBackground = theme.palette.background.statsPurple;
+  const statsGreenBackground = theme.palette.background.statsGreen;
+  const statsYellowBackground = theme.palette.background.statsYellow;
+  const statsRedBackground = theme.palette.background.statsRed;
+  const statsTealBackground = theme.palette.background.statsTeal;
+  const statsOrangeBackground = theme.palette.background.statsOrange;
+  const statsPinkBackground = theme.palette.background.statsPink;
+  const statsIndigoBackground = theme.palette.background.statsIndigo;
+
   // التدرجات اللونية
   const gradientBlue = theme.palette.background.gradientBlue;
   const gradientNavy = theme.palette.background.gradientNavy;
   const gradientChart = theme.palette.background.gradientChart;
   const gradientPurple = theme.palette.background.gradientPurple;
   const gradientGreen = theme.palette.background.gradientGreen;
+
+  // تدرجات لونية إضافية
+  const gradientBlueToGreen = theme.palette.background.gradientBlueToGreen;
+  const gradientPurpleToBlue = theme.palette.background.gradientPurpleToBlue;
+  const gradientYellowToOrange =
+    theme.palette.background.gradientYellowToOrange;
+  const gradientRedToPurple = theme.palette.background.gradientRedToPurple;
+  const gradientGrayToBlue = theme.palette.background.gradientGrayToBlue;
+  const gradientBlueGray = theme.palette.background.gradientBlueGray;
 
   // خلفيات خاصة بالوضع الداكن
   const navyBackground = theme.palette.background.navy;
@@ -137,11 +200,32 @@ export const useThemeConstants = () => {
   const chartPink = theme.palette.chart.pink;
   const chartGray = theme.palette.chart.gray;
 
+  // ألوان رسوم بيانية إضافية
+  const chartIndigo = theme.palette.chart.indigo;
+  const chartCyan = theme.palette.chart.cyan;
+  const chartAmber = theme.palette.chart.amber;
+  const chartEmerald = theme.palette.chart.emerald;
+  const chartViolet = theme.palette.chart.violet;
+  const chartFuchsia = theme.palette.chart.fuchsia;
+  const chartRose = theme.palette.chart.rose;
+  const chartSky = theme.palette.chart.sky;
+  const chartLime = theme.palette.chart.lime;
+
   // مؤشرات الحالة
   const statusOnline = theme.palette.status.online;
   const statusOffline = theme.palette.status.offline;
   const statusAway = theme.palette.status.away;
   const statusBusy = theme.palette.status.busy;
+
+  // مؤشرات حالة إضافية
+  const statusAvailable = theme.palette.status.available;
+  const statusUnavailable = theme.palette.status.unavailable;
+  const statusPending = theme.palette.status.pending;
+  const statusApproved = theme.palette.status.approved;
+  const statusRejected = theme.palette.status.rejected;
+  const statusInProgress = theme.palette.status.inProgress;
+  const statusCompleted = theme.palette.status.completed;
+  const statusCancelled = theme.palette.status.cancelled;
 
   // الظلال
   const shadowSm = theme.shadows[1];
@@ -152,6 +236,13 @@ export const useThemeConstants = () => {
   const shadowInner = theme.shadows[6];
   const shadowButton = theme.shadows[7];
   const shadowBlue = theme.shadows[8];
+
+  // ظلال إضافية
+  const shadowPurple = theme.shadows[10];
+  const shadowGreen = theme.shadows[11];
+  const shadowYellow = theme.shadows[12];
+  const shadowRed = theme.shadows[13];
+  const shadowFloating = theme.shadows[14];
 
   // الأشكال
   const borderRadius = theme.shape.borderRadius;
@@ -260,6 +351,31 @@ export const useThemeConstants = () => {
     backgroundLowered,
     backgroundBlue,
 
+    // خلفيات إضافية
+    backgroundBlueSoft,
+    backgroundBlueLight,
+    backgroundBlueMedium,
+    backgroundPurpleSoft,
+    backgroundPurpleLight,
+    backgroundPurpleMedium,
+    backgroundGreenSoft,
+    backgroundGreenLight,
+    backgroundGreenMedium,
+    backgroundYellowSoft,
+    backgroundYellowLight,
+    backgroundYellowMedium,
+    backgroundRedSoft,
+    backgroundRedLight,
+    backgroundRedMedium,
+    backgroundGraySoft,
+    backgroundGrayLight,
+    backgroundGrayMedium,
+    backgroundYellow,
+    backgroundGreen,
+    backgroundPurple,
+    backgroundRed,
+    backgroundGray,
+
     // خلفيات الأقسام
     authBackground,
     inventoryBackground,
@@ -279,6 +395,22 @@ export const useThemeConstants = () => {
     tooltipBackground,
     badgeBackground,
 
+    // خلفيات مكونات إضافية
+    cardBlueBackground,
+    cardPurpleBackground,
+    cardGreenBackground,
+    cardYellowBackground,
+    cardRedBackground,
+    cardGrayBackground,
+    alertInfoBackground,
+    alertSuccessBackground,
+    alertWarningBackground,
+    alertErrorBackground,
+    modalBackground,
+    drawerBackground,
+    popoverBackground,
+    menuBackground,
+
     // خلفيات لوحة المعلومات
     dashboardBackground,
     statsBackground,
@@ -290,12 +422,31 @@ export const useThemeConstants = () => {
     tableRowAltBackground,
     tableRowHoverBackground,
 
+    // خلفيات إحصائيات إضافية
+    statsBlueBackground,
+    statsPurpleBackground,
+    statsGreenBackground,
+    statsYellowBackground,
+    statsRedBackground,
+    statsTealBackground,
+    statsOrangeBackground,
+    statsPinkBackground,
+    statsIndigoBackground,
+
     // التدرجات اللونية
     gradientBlue,
     gradientNavy,
     gradientChart,
     gradientPurple,
     gradientGreen,
+
+    // تدرجات لونية إضافية
+    gradientBlueToGreen,
+    gradientPurpleToBlue,
+    gradientYellowToOrange,
+    gradientRedToPurple,
+    gradientGrayToBlue,
+    gradientBlueGray,
 
     // خلفيات خاصة بالوضع الداكن
     navyBackground,
@@ -376,11 +527,32 @@ export const useThemeConstants = () => {
     chartPink,
     chartGray,
 
+    // ألوان رسوم بيانية إضافية
+    chartIndigo,
+    chartCyan,
+    chartAmber,
+    chartEmerald,
+    chartViolet,
+    chartFuchsia,
+    chartRose,
+    chartSky,
+    chartLime,
+
     // مؤشرات الحالة
     statusOnline,
     statusOffline,
     statusAway,
     statusBusy,
+
+    // مؤشرات حالة إضافية
+    statusAvailable,
+    statusUnavailable,
+    statusPending,
+    statusApproved,
+    statusRejected,
+    statusInProgress,
+    statusCompleted,
+    statusCancelled,
 
     // الظلال
     shadowSm,
@@ -391,6 +563,13 @@ export const useThemeConstants = () => {
     shadowInner,
     shadowButton,
     shadowBlue,
+
+    // ظلال إضافية
+    shadowPurple,
+    shadowGreen,
+    shadowYellow,
+    shadowRed,
+    shadowFloating,
 
     // الأشكال
     borderRadius,
