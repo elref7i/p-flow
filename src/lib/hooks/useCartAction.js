@@ -19,10 +19,6 @@ export const useCart = () => {
   return useQuery({
     queryKey: ["cart"],
     queryFn: () => getCart(token),
-    refetchOnMount: true,
-    refetchOnWindowFocus: true,
-    staleTime: 0,
-    cacheTime: 0,
   });
 };
 
@@ -85,6 +81,9 @@ export const useClearCart = () => {
       queryClient.setQueryData(["cart"], {
         numOfCartItems: 0,
       });
+    },
+    onError: () => {
+      toast.error("Failed to clear cart");
     },
   });
 };

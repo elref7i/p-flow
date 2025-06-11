@@ -11,8 +11,6 @@ import CartSkeleton from "./_components/CartSkeleton";
 
 export default function Cart() {
   const [selectedInventory, setSelectedInventory] = useState(null);
-  const [forceEmpty, setForceEmpty] = useState(false);
-
   const theme = useTheme();
   const isDark = theme.palette.mode === "dark";
 
@@ -21,12 +19,7 @@ export default function Cart() {
 
   if (!cartInfo && isLoading) return <CartSkeleton />;
 
-  if (
-    forceEmpty ||
-    !cartInfo ||
-    !cartInfo.data ||
-    cartInfo.data.inventories.length <= 0
-  ) {
+  if (!cartInfo || !cartInfo.data || cartInfo.data.inventories.length <= 0) {
     return (
       <Paper
         elevation={3}
@@ -94,7 +87,6 @@ export default function Cart() {
                 key={inventory.inventory.id}
                 inventoryInfo={inventory}
                 onReadyToBuy={() => setSelectedInventory(inventory)}
-                onForceEmpty={() => setForceEmpty(true)}
               />
             ))}
 

@@ -26,12 +26,9 @@ import {
 import { useState } from "react";
 import { useGetAllInventoriesQuery } from "../../../lib/hooks/pharmacy.action";
 import { useTypeContext } from "../../../context/UserType.context";
+import { useQueryClient } from "@tanstack/react-query";
 
-export default function CartItem({
-  inventoryInfo,
-  onReadyToBuy,
-  onForceEmpty,
-}) {
+export default function CartItem({ inventoryInfo, onReadyToBuy }) {
   const theme = useTheme();
   const isDarkMode = theme.palette.mode === "dark";
   const navigate = useNavigate();
@@ -39,7 +36,7 @@ export default function CartItem({
   const removeInventoryMutation = useRemoveInventory();
   const removeDrugMutation = useRemoveDrug();
   const updateQuantityMutation = useUpdateCartItem();
-
+  const queryClient = useQueryClient();
   const [showWarning, setShowWarning] = useState(false);
   const { data } = useGetAllInventoriesQuery({ token });
   const minimumOrderValue = data?.inventories.find(
@@ -81,8 +78,18 @@ export default function CartItem({
               { inventoryId: inventory.id },
               {
                 onSuccess: (data) => {
-                  if (data?.data?.data?.inventories?.length === 0) {
-                    onForceEmpty();
+                  const inventories = data?.data?.data?.inventories ?? [];
+
+                  if (inventories.length === 0) {
+                    queryClient.setQueryData(["cart"], (old) => ({
+                      ...old,
+                      data: {
+                        ...old.data,
+                        inventories: [],
+                      },
+                    }));
+                  } else {
+                    queryClient.invalidateQueries(["cart"]);
                   }
                 },
               }
