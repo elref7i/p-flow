@@ -1,9 +1,12 @@
 // استيراد الثيم
-import { useTheme } from "@mui/material/styles";
+import { useTheme, useMediaQuery } from "@mui/material";
 
 // دالة للحصول على المتغيرات
 export const useThemeConstants = () => {
   const theme = useTheme();
+
+  // Media Query
+  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
 
   // الألوان الأساسية
   const primary = theme.palette.primary.main;
@@ -424,5 +427,8 @@ export const useThemeConstants = () => {
 
     // أنماط Typography
     typography,
+
+    //Media query
+    isMobile,
   };
 };

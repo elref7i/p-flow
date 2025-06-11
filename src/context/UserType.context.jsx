@@ -33,6 +33,7 @@ export default function UserTypeProvider({ children }) {
       console.error("Failed to fetch user data:", error);
     }
   };
+
   async function login(values) {
     const loading = toast.loading("Waiting...");
     try {
@@ -47,10 +48,12 @@ export default function UserTypeProvider({ children }) {
         localStorage.setItem("role", data.user.role);
         fetchUserData(data.token);
         queryClient.invalidateQueries(["ownDrugs"]);
+        return true;
       }
     } catch (error) {
       console.error(error);
       toast.error(error.response?.data?.message || "Login failed!");
+      return false;
     } finally {
       toast.dismiss(loading);
     }
