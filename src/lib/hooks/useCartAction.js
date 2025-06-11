@@ -19,7 +19,10 @@ export const useCart = () => {
   return useQuery({
     queryKey: ["cart"],
     queryFn: () => getCart(token),
-    enabled: !!token,
+    refetchOnMount: true,
+    refetchOnWindowFocus: true,
+    staleTime: 0,
+    cacheTime: 0,
   });
 };
 
@@ -95,6 +98,9 @@ export const useRemoveInventory = () => {
     onSuccess: (data) => {
       toast.success(data.data.message);
       queryClient.invalidateQueries(["cart"]);
+    },
+    onError: () => {
+      toast.error("Error removing inventory");
     },
   });
 };

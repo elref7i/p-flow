@@ -24,20 +24,28 @@ import {
   useUpdateCartItem,
 } from "../../../lib/hooks/useCartAction";
 import { useState } from "react";
-import { getloggedUserData } from "../../../lib/api/userAPI";
+import { useGetAllInventoriesQuery } from "../../../lib/hooks/pharmacy.action";
+import { useTypeContext } from "../../../context/UserType.context";
 
-export default function CartItem({ inventoryInfo, onReadyToBuy }) {
+export default function CartItem({
+  inventoryInfo,
+  onReadyToBuy,
+  onForceEmpty,
+}) {
   const theme = useTheme();
   const isDarkMode = theme.palette.mode === "dark";
   const navigate = useNavigate();
-
+  const { token } = useTypeContext();
   const removeInventoryMutation = useRemoveInventory();
   const removeDrugMutation = useRemoveDrug();
   const updateQuantityMutation = useUpdateCartItem();
 
   const [showWarning, setShowWarning] = useState(false);
-  const { data } = getloggedUserData();
-  const minimumOrderValue = data?.minimumOrderValue || 1000;
+  const { data } = useGetAllInventoriesQuery({ token });
+  const minimumOrderValue = data?.inventories.find(
+    (inv) => inv._id === inventoryInfo.inventory.id
+  )?.minimumOrderValue;
+
   if (!inventoryInfo || !inventoryInfo.inventory || !inventoryInfo.drugs) {
     return <LoadingSpinner />;
   }
@@ -69,7 +77,16 @@ export default function CartItem({ inventoryInfo, onReadyToBuy }) {
         <IconButton
           color="error"
           onClick={() =>
-            removeInventoryMutation.mutate({ inventoryId: inventory.id })
+            removeInventoryMutation.mutate(
+              { inventoryId: inventory.id },
+              {
+                onSuccess: (data) => {
+                  if (data?.data?.data?.inventories?.length === 0) {
+                    onForceEmpty();
+                  }
+                },
+              }
+            )
           }
         >
           <Delete />
