@@ -1,17 +1,20 @@
 import * as React from "react";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
-import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
 import { Box, Stack, Typography } from "@mui/material";
 import { useThemeConstants } from "../../lib/constants/theme.constant";
 import Message from "./components/message";
 import NotificationHeader from "./components/notification-header";
 import NotificationBage from "./components/notification-bage.";
-import { useGetAllNotifications } from "../../lib/hooks/notifications.actions";
+import {
+  useCountNotif,
+  useGetAllNotifications,
+} from "../../lib/hooks/notifications.actions";
 import { useTypeContext } from "../../context/UserType.context";
 import InfiniteScroll from "react-infinite-scroll-component";
 import DrugCardSkeleton from "../Common/Loading/DrugCardSkeleton";
+import NotificationAction from "./components/notification-action";
 
 export default function NotificationsModal() {
   // State
@@ -28,6 +31,7 @@ export default function NotificationsModal() {
     textSecondary,
     fetchNextPage,
     hasNextPage,
+    backgroundBlue,
   } = useThemeConstants();
 
   // Functions
@@ -41,6 +45,10 @@ export default function NotificationsModal() {
   //Queries
   const { data: payload, isLoading } = useGetAllNotifications({ token });
 
+  const { data: payloadCount, isLoading: isLoadingCount } = useCountNotif({
+    token,
+  });
+
   // Flatten the data from all pages
 
   const flattenedNotifications =
@@ -52,6 +60,8 @@ export default function NotificationsModal() {
       return total + (page.data?.length || 0);
     }, 0) || 0;
 
+  console.log(totalItems);
+
   return (
     <>
       <IconButton
@@ -59,7 +69,10 @@ export default function NotificationsModal() {
         color="inherit"
       >
         {/* Count  */}
-        <NotificationBage />
+        <NotificationBage
+          dataInfo={payloadCount}
+          isLoading={isLoadingCount}
+        />
       </IconButton>
       <Menu
         onClose={handleClose}
@@ -71,11 +84,11 @@ export default function NotificationsModal() {
           paper: {
             elevation: 8,
             sx: {
+              pt: 0,
               background: background,
-              pt: 1,
               overflow: "visible",
               filter: "drop-shadow(0px 2px 8px rgba(0,0,0,0.32))",
-              mt: 1.5,
+              mt: 1,
               "& .MuiAvatar-root": {
                 width: 32,
                 height: 32,
@@ -94,24 +107,61 @@ export default function NotificationsModal() {
                 transform: "translateY(-50%) rotate(45deg)",
                 zIndex: 0,
               },
-              "& .MuiMenuItem-root:hover": {
-                backgroundColor: "transparent",
-              },
             },
           },
         }}
         transformOrigin={{ horizontal: "right", vertical: "top" }}
         anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
       >
-        <MenuItem>
-          <NotificationHeader />
+        <MenuItem
+          sx={{
+            background: backgroundBlue,
+            py: 2,
+            boxShadow: 4,
+            borderRadius: "0px 0px  10px 10px",
+            mb: 2,
+            ":hover": {
+              boxShadow: 6,
+              background: backgroundBlue,
+            },
+          }}
+        >
+          <NotificationHeader
+            count={payloadCount && payloadCount.data.unreadCount}
+          />
         </MenuItem>
-        <Divider />
+        <MenuItem
+          disableRipple
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            gap: 2,
+            flexWrap: "wrap",
+            background: "transparent",
+            py: 2,
+            boxShadow: 8,
+            borderRadius: "0px 0px  10px 10px",
+            mb: 2,
+            ":hover": {
+              boxShadow: 6,
+              background: "transparent",
+            },
+          }}
+        >
+          <NotificationAction
+            result={totalItems}
+            count={payloadCount && payloadCount.data.unreadCount}
+          />
+        </MenuItem>
+
         <MenuItem
           disableRipple
           sx={{
             p: 0,
             mb: 2,
+            ":hover": {
+              background: "transparent",
+            },
           }}
         >
           <Box sx={{ width: "100%" }}>

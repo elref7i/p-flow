@@ -3,26 +3,9 @@ import { Avatar, Box, Stack, Typography, Chip } from "@mui/material";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import { useThemeConstants } from "../../../lib/constants/theme.constant";
 import NotificationSetting from "./notification-setting";
+import { formatTimeAgo } from "../../../lib/utils/dateUtils";
 
 // Helper function to format time difference
-const formatTimeAgo = (dateString) => {
-  const now = new Date();
-  const sentDate = new Date(dateString);
-  const diffInMs = now - sentDate;
-
-  const minutes = Math.floor(diffInMs / (1000 * 60));
-  const hours = Math.floor(diffInMs / (1000 * 60 * 60));
-  const days = Math.floor(diffInMs / (1000 * 60 * 60 * 24));
-  const months = Math.floor(days / 30);
-  const years = Math.floor(days / 365);
-
-  if (minutes < 1) return "Just now";
-  if (minutes < 60) return `${minutes}m ago`;
-  if (hours < 24) return `${hours}h ago`;
-  if (days < 30) return `${days}d ago`;
-  if (months < 12) return `${months}mo ago`;
-  return `${years}y ago`;
-};
 
 // Helper function to get notification type color
 const getNotificationTypeColor = (type) => {
@@ -33,7 +16,7 @@ const getNotificationTypeColor = (type) => {
       return "success";
     case "warning":
       return "warning";
-    case "error":
+    case "danger":
       return "error";
     default:
       return "default";
@@ -46,7 +29,7 @@ export default function Message({ dataInfo }) {
     useThemeConstants();
 
   // Extract data from dataInfo
-  const { userId, title, body, imageUrl, type, isRead, sentAt } = dataInfo;
+  const { userId, title, body, imageUrl, type, isRead, sentAt, _id } = dataInfo;
 
   const timeAgo = formatTimeAgo(sentAt);
 
@@ -59,12 +42,12 @@ export default function Message({ dataInfo }) {
       mb={1}
       alignItems="flex-start"
       sx={{
-        boxShadow: !isRead ? 2 : 1,
+        boxShadow: !isRead ? 8 : 1,
         background: !isRead ? cardBackground : "transparent",
         transition: "all 0.2s ease-in-out",
         ":hover": {
           background: cardHoverBackground,
-          boxShadow: 3,
+          boxShadow: isRead ? 7 : 2,
           transform: "translateY(-1px)",
         },
       }}
@@ -74,8 +57,8 @@ export default function Message({ dataInfo }) {
         alt={userId.name}
         src={imageUrl}
         sx={{
-          width: 48,
-          height: 48,
+          width: 60,
+          height: 60,
           border: !isRead ? "2px solid" : "1px solid",
           borderColor: !isRead ? "primary.main" : "grey.300",
         }}
@@ -94,13 +77,21 @@ export default function Message({ dataInfo }) {
           mb={0.5}
           flexWrap="wrap"
         >
+          {/* Notification Title */}
           <Typography
-            variant="subtitle2"
+            variant="body1"
             fontWeight={!isRead ? 600 : 500}
-            color={!isRead ? "text.primary" : textSecondary}
-            noWrap
+            color="text.primary"
+            mb={0.5}
+            sx={{
+              display: "-webkit-box",
+              WebkitLineClamp: 2,
+              WebkitBoxOrient: "vertical",
+              overflow: "hidden",
+              width: "fit-content",
+            }}
           >
-            {userId.name}
+            {title}
           </Typography>
           <Chip
             label={type}
@@ -110,23 +101,6 @@ export default function Message({ dataInfo }) {
             sx={{ height: 20, fontSize: "0.7rem" }}
           />
         </Stack>
-
-        {/* Notification Title */}
-        <Typography
-          variant="body1"
-          fontWeight={!isRead ? 600 : 500}
-          color="text.primary"
-          mb={0.5}
-          sx={{
-            display: "-webkit-box",
-            WebkitLineClamp: 2,
-            WebkitBoxOrient: "vertical",
-            overflow: "hidden",
-            width: "fit-content",
-          }}
-        >
-          {title}
-        </Typography>
 
         {/* Notification Body */}
         <Typography
@@ -170,26 +144,14 @@ export default function Message({ dataInfo }) {
               {timeAgo}
             </Typography>
           </Stack>
-
-          <Typography
-            variant="caption"
-            color={textTertiary}
-            sx={{
-              textTransform: "capitalize",
-              backgroundColor: "grey.100",
-              px: 1,
-              py: 0.25,
-              borderRadius: 1,
-              fontSize: "0.7rem",
-            }}
-          >
-            {userId.role}
-          </Typography>
         </Stack>
       </Box>
 
       {/* Notification Setting */}
-      <NotificationSetting chechRead={isRead} />
+      <NotificationSetting
+        notifId={_id}
+        chechRead={isRead}
+      />
     </Stack>
   );
 }

@@ -7,10 +7,19 @@ import MoreVertIcon from "@mui/icons-material/MoreVert";
 import CheckIcon from "@mui/icons-material/Check";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useThemeConstants } from "../../../lib/constants/theme.constant";
+import {
+  useDeleteNotif,
+  useMarkNotif,
+} from "../../../lib/hooks/notifications.actions";
+import { useTypeContext } from "../../../context/UserType.context";
+import { CircularProgress } from "@mui/material";
 
-export default function NotificationSetting({ chechRead }) {
+export default function NotificationSetting({ chechRead, notifId }) {
   // States
   const [anchorEl, setAnchorEl] = React.useState(null);
+
+  //Context
+  const { token } = useTypeContext();
 
   // Open state for the menu
   const open = Boolean(anchorEl);
@@ -18,12 +27,40 @@ export default function NotificationSetting({ chechRead }) {
   // Themes
   const { textPrimary } = useThemeConstants();
 
+  // Mutations
+  const { mutateAsync: markNotif, isLoading: isMarkLoading } = useMarkNotif({
+    token,
+    notifId,
+  });
+  const { mutateAsync: deleteNotif, isLoading: isDeleting } = useDeleteNotif({
+    token,
+    notifId,
+  });
+
   // Functions
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
   const handleClose = () => {
     setAnchorEl(null);
+  };
+
+  const handleMarkRead = async () => {
+    try {
+      await markNotif({ token, notifId });
+      handleClose();
+    } catch (error) {
+      console.error("Error marking notification as read:", error);
+    }
+  };
+
+  const handleDelete = async () => {
+    try {
+      await deleteNotif({ token, notifId });
+      handleClose();
+    } catch (error) {
+      console.error("Error deleting notification:", error);
+    }
   };
 
   return (
@@ -65,8 +102,15 @@ export default function NotificationSetting({ chechRead }) {
             disabled={chechRead}
             variant="text"
             fullWidth
+            onClick={handleMarkRead}
             sx={{ justifyContent: "flex-start", color: textPrimary, px: 2 }}
-            startIcon={<CheckIcon />}
+            startIcon={
+              isMarkLoading ? (
+                <CircularProgress color="secondary" />
+              ) : (
+                <CheckIcon />
+              )
+            }
           >
             Mark as read
           </Button>
@@ -78,7 +122,14 @@ export default function NotificationSetting({ chechRead }) {
             sx={{ color: textPrimary, px: 2 }}
             variant="text"
             fullWidth
-            startIcon={<DeleteIcon color="error" />}
+            onClick={handleDelete}
+            startIcon={
+              isDeleting ? (
+                <CircularProgress color="error" />
+              ) : (
+                <DeleteIcon color="error" />
+              )
+            }
           >
             Delete notification
           </Button>

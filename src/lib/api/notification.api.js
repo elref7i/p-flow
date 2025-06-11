@@ -23,7 +23,7 @@ export async function addNotifications({ token, values }) {
 export async function getAllNotifications({ token, page }) {
   const options = {
     method: "GET",
-    url: NOTIF_URL,
+    url: `${NOTIF_URL}/me`,
     headers: {
       Authorization: `Bearer ${token}`,
       "Content-Type": "application/json",
@@ -55,10 +55,10 @@ export async function getUnreadCountNotif({ token }) {
 }
 
 // Add a Notification Mark
-export async function addMark({ token, notifId }) {
+export async function addMarkNotif({ token, notifId }) {
   const options = {
     method: "PATCH",
-    url: `${NOTIF_URL}/:${notifId}/read`,
+    url: `${NOTIF_URL}/${notifId}/read`,
     headers: {
       Authorization: `Bearer ${token}`,
       "Content-Type": "application/json",
@@ -103,11 +103,11 @@ export async function deleteNotif({ token, notifId }) {
   return data;
 }
 
-// Delete Expired Notifications
-export async function deleteExpiredNotif({ token }) {
+// Delete All Notifications
+export async function deleteAllNotif({ token }) {
   const options = {
     method: "DELETE",
-    url: `${NOTIF_URL}/expired`,
+    url: `${NOTIF_URL}/deleteAll`,
     headers: {
       Authorization: `Bearer ${token}`,
       "Content-Type": "application/json",
