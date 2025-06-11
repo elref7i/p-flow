@@ -24,3 +24,18 @@ export const API_URL_CAT = `${API_URL}/categories`;
 export const CART_URL = `${API_URL}/cart`;
 
 export const NOTIF_URL = `${API_URL}/notifications`;
+
+//* herokuapp
+// export const API_URL = "https://p-flow-v5.onrender.com/api/v1";
+
+// export const API_URL_USER = `${API_URL}/users`;
+
+// export const API_URL_ORDERS = `${API_URL}/orders`;
+
+// export const API_URL_DRUG = `${API_URL}/drugs`;
+
+// export const API_URL_CAT = `${API_URL}/categories`;
+
+// export const CART_URL = `${API_URL}/cart`;
+
+// export const NOTIF_URL = `${API_URL}/notifications`;

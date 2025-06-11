@@ -1,21 +1,38 @@
 import * as React from "react";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
-import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
-import { Badge, Box, Stack, Typography } from "@mui/material";
-import { Notifications as NotificationsIcon } from "@mui/icons-material";
+import { Box, Stack, Typography } from "@mui/material";
 import { useThemeConstants } from "../../lib/constants/theme.constant";
 import Message from "./components/message";
+import NotificationHeader from "./components/notification-header";
+import NotificationBage from "./components/notification-bage.";
+import {
+  useCountNotif,
+  useGetAllNotifications,
+} from "../../lib/hooks/notifications.actions";
+import { useTypeContext } from "../../context/UserType.context";
+import InfiniteScroll from "react-infinite-scroll-component";
+import DrugCardSkeleton from "../Common/Loading/DrugCardSkeleton";
+import NotificationAction from "./components/notification-action";
 
 export default function NotificationsModal() {
   // State
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
 
+  //Context
+  const { token } = useTypeContext();
+
   // Themes
-  const { textPrimary, textTertiary, textLink, background, gradientNavy } =
-    useThemeConstants();
+  const {
+    background,
+    gradientNavy,
+    textSecondary,
+    fetchNextPage,
+    hasNextPage,
+    backgroundBlue,
+  } = useThemeConstants();
 
   // Functions
   const handleClick = (event) => {
@@ -25,19 +42,37 @@ export default function NotificationsModal() {
     setAnchorEl(null);
   };
 
+  //Queries
+  const { data: payload, isLoading } = useGetAllNotifications({ token });
+
+  const { data: payloadCount, isLoading: isLoadingCount } = useCountNotif({
+    token,
+  });
+
+  // Flatten the data from all pages
+
+  const flattenedNotifications =
+    payload?.pages.flatMap((page) => page.data || []) || [];
+
+  // Total Items
+  const totalItems =
+    payload?.pages.reduce((total, page) => {
+      return total + (page.data?.length || 0);
+    }, 0) || 0;
+
+  console.log(totalItems);
+
   return (
     <>
       <IconButton
         onClick={handleClick}
-        oncl
         color="inherit"
       >
-        <Badge
-          badgeContent={17}
-          color="error"
-        >
-          <NotificationsIcon />
-        </Badge>
+        {/* Count  */}
+        <NotificationBage
+          dataInfo={payloadCount}
+          isLoading={isLoadingCount}
+        />
       </IconButton>
       <Menu
         onClose={handleClose}
@@ -49,11 +84,11 @@ export default function NotificationsModal() {
           paper: {
             elevation: 8,
             sx: {
+              pt: 0,
               background: background,
-              py: 1,
               overflow: "visible",
               filter: "drop-shadow(0px 2px 8px rgba(0,0,0,0.32))",
-              mt: 1.5,
+              mt: 1,
               "& .MuiAvatar-root": {
                 width: 32,
                 height: 32,
@@ -72,40 +107,69 @@ export default function NotificationsModal() {
                 transform: "translateY(-50%) rotate(45deg)",
                 zIndex: 0,
               },
-              "& .MuiMenuItem-root:hover": {
-                backgroundColor: "transparent",
-              },
             },
           },
         }}
         transformOrigin={{ horizontal: "right", vertical: "top" }}
         anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
       >
-        <MenuItem>
-          <Box>
-            <Typography
-              variant="h6"
-              color={textPrimary}
-              mb={0.5}
-            >
-              Notifications
-            </Typography>
-            <Typography
-              variant="body2"
-              color={textTertiary}
-            >
-              You have 2 unread messages
-            </Typography>
-          </Box>
+        <MenuItem
+          sx={{
+            background: backgroundBlue,
+            py: 2,
+            boxShadow: 4,
+            borderRadius: "0px 0px  10px 10px",
+            mb: 2,
+            ":hover": {
+              boxShadow: 6,
+              background: backgroundBlue,
+            },
+          }}
+        >
+          <NotificationHeader
+            count={payloadCount && payloadCount.data.unreadCount}
+          />
         </MenuItem>
-        <Divider />
-        <MenuItem sx={{ p: 0 }}>
+        <MenuItem
+          disableRipple
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            gap: 2,
+            flexWrap: "wrap",
+            background: "transparent",
+            py: 2,
+            boxShadow: 8,
+            borderRadius: "0px 0px  10px 10px",
+            mb: 2,
+            ":hover": {
+              boxShadow: 6,
+              background: "transparent",
+            },
+          }}
+        >
+          <NotificationAction
+            result={totalItems}
+            count={payloadCount && payloadCount.data.unreadCount}
+          />
+        </MenuItem>
+
+        <MenuItem
+          disableRipple
+          sx={{
+            p: 0,
+            mb: 2,
+            ":hover": {
+              background: "transparent",
+            },
+          }}
+        >
           <Box sx={{ width: "100%" }}>
             <Typography
               pl={"16px"}
               pb={0.5}
-              variant="h6"
-              color={textLink}
+              variant="h5"
+              color={textSecondary}
               mb={0.5}
             >
               New
@@ -115,28 +179,32 @@ export default function NotificationsModal() {
             <Stack
               spacing={1}
               pb={2}
+              sx={{ minHeight: "200px", overflow: "auto", maxHeight: "400px" }}
             >
-              <Message />
-            </Stack>
-          </Box>
-        </MenuItem>
-
-        {/* Message un read  */}
-        <MenuItem sx={{ p: 0 }}>
-          <Box sx={{ width: "100%" }}>
-            <Typography
-              pl={"16px"}
-              pb={0.5}
-              variant="h6"
-              color={textLink}
-              mb={0.5}
-            >
-              Before that
-            </Typography>
-
-            {/* Messages */}
-            <Stack spacing={1}>
-              <Message />
+              {!isLoading ? (
+                <InfiniteScroll
+                  dataLength={totalItems}
+                  next={fetchNextPage}
+                  hasMore={hasNextPage}
+                  loader={<DrugCardSkeleton count={3} />}
+                  endMessage={
+                    <p style={{ textAlign: "center", padding: "20px" }}>
+                      <b>You have seen all notifications</b>
+                    </p>
+                  }
+                  scrollThreshold={0.8}
+                  style={{ overflow: "hidden" }}
+                >
+                  {flattenedNotifications.map((notification) => (
+                    <Message
+                      key={notification._id}
+                      dataInfo={notification}
+                    />
+                  ))}
+                </InfiniteScroll>
+              ) : (
+                <p>loading</p>
+              )}
             </Stack>
           </Box>
         </MenuItem>
