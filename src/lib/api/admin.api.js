@@ -94,6 +94,21 @@ export const getSpecificCategory = async ({ id }) => {
   return data;
 };
 
+// get drugs for spscific category
+export const getDrugsForCategory = async ({ token, id }) => {
+  const options = {
+    url: `${API_URL_CAT}/${id}/drugs`,
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+
+  const { data } = await axios.request(options);
+
+  return data;
+};
+
 // Add Category
 export const addCategory = async ({ token, formData }) => {
   const options = {
@@ -141,6 +156,6 @@ export const getAdminStatistics = async ({ token }) => {
       Authorization: `Bearer ${token}`,
     },
   };
-  const data = await axios.request(options);
+  const { data } = await axios.request(options);
   return data.data;
 };

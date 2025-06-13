@@ -8,6 +8,7 @@ import {
   fetchUsers,
   getAdminStatistics,
   getCategories,
+  getDrugsForCategory,
   updateCategory,
   updateUserData,
 } from "../api/admin.api";
@@ -163,6 +164,16 @@ export const useDeleteCategory = () => {
       );
       console.log(error);
     },
+  });
+};
+
+// GER DRUGS FOR CATEGORY
+export const useCategoryDrugs = () => {
+  return useQuery({
+    queryKey: ["CategoryDrugs"],
+    queryFn: getDrugsForCategory,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
   });
 };
 

@@ -67,6 +67,7 @@ import CategoriesAdmin from "./pages/Admin/categories_admin/categories_admin";
 import PharmacyOrders from "./pages/Pharmacy/PharmacyOrders/PharmacyOrders";
 import Inventories from "./pages/Pharmacy/Inventories/Inventories";
 import ProfileBase from "./pages/Inventory/InventoryProfile/Profile";
+import CategoryDrugs from "./pages/Pharmacy/CategoryDrugs/CategoryDrugs";
 
 function App() {
   const router = createBrowserRouter([
@@ -113,6 +114,7 @@ function App() {
         { index: true, element: <HomePharmacy /> },
         { path: "drugs", element: <Drugs /> },
         { path: "drugdetails/:id", element: <DrugDetails /> },
+        { path: "categorydrugs/:id", element: <CategoryDrugs /> },
         { path: "cart", element: <Cart /> },
         { path: "inventories", element: <Inventories /> },
         { path: "orders", element: <PharmacyOrders /> },

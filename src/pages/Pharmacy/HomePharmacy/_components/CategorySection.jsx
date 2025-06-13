@@ -5,12 +5,15 @@ import "swiper/css";
 import { motion } from "framer-motion";
 import { useCategories } from "../../../../lib/hooks/useAdminAction";
 import { useThemeConstants } from "../../../../lib/constants/theme.constant";
+import { useNavigate } from "react-router-dom";
+import { useTypeContext } from "../../../../context/UserType.context";
 
 export default function CategorySection() {
   const { textPrimary, paperBackground } = useThemeConstants();
   const { data, isLoading } = useCategories();
   const categories = data?.data || [];
-
+  const navigate = useNavigate();
+  const { role } = useTypeContext();
   return (
     <Box mb={5}>
       <Typography
@@ -59,6 +62,11 @@ export default function CategorySection() {
                 transition={{ duration: 0.6 }}
               >
                 <Card
+                  onClick={() => {
+                    if (role === "pharmacy") {
+                      return navigate(`/pharmacy/categorydrugs/${cat._id}`);
+                    }
+                  }}
                   sx={{
                     borderRadius: 1,
                     boxShadow: "0px 0px 7px rgb(103, 161, 247)",
