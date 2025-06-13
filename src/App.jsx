@@ -189,7 +189,7 @@ function App() {
               <ThemeModeProvider>
                 <Suspense fallback={<SkeletonLoader />}>
                   <RouterProvider router={router} />
-                  {/* <ReactQueryDevtools initialIsOpen={false} /> */}
+                  <ReactQueryDevtools initialIsOpen={false} />
                 </Suspense>
               </ThemeModeProvider>
             </PaginationProvider>
