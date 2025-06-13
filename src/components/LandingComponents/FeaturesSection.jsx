@@ -47,6 +47,7 @@ const features = [
     description:
       "Track medications, manage stock levels, and receive alerts for low inventory or expiring products.",
     color: "#1976d2",
+    boxShadow: 16,
     imageLight: imgMangerLight,
     imageDark: imgMangerDark,
   },
@@ -56,6 +57,7 @@ const features = [
     description:
       "View and manage all available medications with their current stock status and expiry details.",
     color: "#3f51b5",
+    boxShadow: 15,
     imageLight: imgDrugsLight,
     imageDark: imgDrugsDark,
   },
@@ -65,6 +67,7 @@ const features = [
     description:
       "Gain insights into sales trends, inventory turnover, and business performance.",
     color: "#ff9800",
+    boxShadow: 12,
     imageLight: imgDashboardLight,
     imageDark: imgDashboardDark,
   },
@@ -74,6 +77,7 @@ const features = [
     description:
       "Streamline order creation, processing, and fulfillment with an intuitive interface.",
     color: "#00bcd4",
+    boxShadow: 14,
     imageLight: imgOrderLight,
     imageDark: imgOrderDark,
   },
@@ -83,6 +87,7 @@ const features = [
     description:
       "Monitor deliveries in real-time and provide accurate ETAs to your customers.",
     color: "#4caf50",
+    boxShadow: 11,
     imageLight: imgOrderDetailsLight,
     imageDark: imgOrderDetailsDark,
   },
@@ -93,6 +98,7 @@ const features = [
     description:
       "View and manage supplier profiles with inventory insights, including stock levels, contact details, and performance tracking.",
     color: "#9c27b0",
+    boxShadow: 10,
     imageLight: imgProfileLight,
     imageDark: imgProfileDark,
   },
@@ -223,7 +229,6 @@ const FeaturesSection = () => {
     backgroundLowered,
     backgroundElevated,
   } = useThemeConstants();
-  // const textColor = theme.palette.mode === "dark" ? "#fff" : "#000";
   return (
     <Box
       id="features"
@@ -387,7 +392,7 @@ const FeaturesSection = () => {
                     width: "100%",
                     height: "auto",
                     borderRadius: 2,
-                    boxShadow: 5,
+                    boxShadow: features[activeFeature].boxShadow,
                     transform:
                       "perspective(1800px) rotateY(20deg) rotateX(15deg)",
                     transition: transitionEasingEaseIn,

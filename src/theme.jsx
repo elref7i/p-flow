@@ -199,6 +199,7 @@ const colors = {
   lightShadowYellow: "0px 4px 14px rgba(250, 204, 21, 0.3)",
   lightShadowRed: "0px 4px 14px rgba(239, 68, 68, 0.3)",
   lightShadowFloating: "0px 8px 30px rgba(15, 23, 42, 0.12)",
+  lightCustomFloating: "0px 8px 30px #3949A3",
 
   // Light Mode Grey scale
   lightGrey: {
@@ -377,6 +378,8 @@ const colors = {
   darkShadowRed: "0px 0px 15px rgba(185, 28, 28, 0.5)",
   darkShadowFloating:
     "0px 8px 30px rgba(255, 255, 255, 0.1), 0px 0px 10px rgba(0, 102, 255, 0.3)",
+  darkCustomFloating:
+    "0px 8px 30px rgba(255, 255, 255, 0.1), 0px 0px 10px #3949A3",
 
   // Dark Mode Grey scale
   darkGrey: {
@@ -929,6 +932,7 @@ export const getDesignTokens = (mode) => ({
     mode === "light" ? colors.lightShadowYellow : colors.darkShadowYellow,
     mode === "light" ? colors.lightShadowRed : colors.darkShadowRed,
     mode === "light" ? colors.lightShadowFloating : colors.darkShadowFloating,
+    mode === "light" ? colors.lightCustomFloating : colors.darkCustomFloating,
     mode === "dark" ? colors.darkShadowBlueLg : "none", // Special blue glow for dark mode
   ],
 
