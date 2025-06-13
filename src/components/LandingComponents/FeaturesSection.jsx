@@ -12,17 +12,33 @@ import {
   IconButton,
   useTheme,
 } from "@mui/material";
+
 import InventoryIcon from "@mui/icons-material/Inventory";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import LocalShippingIcon from "@mui/icons-material/LocalShipping";
+import Inventory2Icon from "@mui/icons-material/Inventory2";
 import BarChartIcon from "@mui/icons-material/BarChart";
-import PeopleIcon from "@mui/icons-material/People";
-import SecurityIcon from "@mui/icons-material/Security";
+import MedicationIcon from "@mui/icons-material/Medication";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import { motion } from "framer-motion";
-import imgInventortyLight from "../../assets/inventory-dash-ligh.png";
-import imgInventortyDark from "../../assets/inventory-dash-dark.png";
 import { useThemeConstants } from "../../lib/constants/theme.constant";
+import imgMangerLight from "../../assets/drug-action-light.png";
+import imgMangerDark from "../../assets/drug-action-dark.png";
+
+import imgDashboardLight from "../../assets/mange-inventory-light.png";
+import imgDashboardDark from "../../assets/mange-inventory-dark.png";
+
+import imgOrderDetailsLight from "../../assets/order-details-light.png";
+import imgOrderDetailsDark from "../../assets/order-details-dark.png";
+
+import imgOrderLight from "../../assets/order-inv-light.png";
+import imgOrderDark from "../../assets/order-inv-dark.png";
+
+import imgProfileLight from "../../assets/profile-inventory-light.png";
+import imgProfileDark from "../../assets/profile-inventory-dark.png";
+
+import imgDrugsLight from "../../assets/all-drug-light.png";
+import imgDrugsDark from "../../assets/all-drug-dark.png";
 
 const features = [
   {
@@ -31,23 +47,17 @@ const features = [
     description:
       "Track medications, manage stock levels, and receive alerts for low inventory or expiring products.",
     color: "#1976d2",
-    image: "/placeholder.svg?height=600&width=800&text=Inventory+Management",
+    imageLight: imgMangerLight,
+    imageDark: imgMangerDark,
   },
   {
-    icon: ShoppingCartIcon,
-    title: "Order Processing",
+    icon: MedicationIcon,
+    title: "Inventory Overview",
     description:
-      "Streamline order creation, processing, and fulfillment with an intuitive interface.",
-    color: "#00bcd4",
-    image: "/placeholder.svg?height=600&width=800&text=Order+Processing",
-  },
-  {
-    icon: LocalShippingIcon,
-    title: "Delivery Tracking",
-    description:
-      "Monitor deliveries in real-time and provide accurate ETAs to your customers.",
-    color: "#4caf50",
-    image: "/placeholder.svg?height=600&width=800&text=Delivery+Tracking",
+      "View and manage all available medications with their current stock status and expiry details.",
+    color: "#3f51b5",
+    imageLight: imgDrugsLight,
+    imageDark: imgDrugsDark,
   },
   {
     icon: BarChartIcon,
@@ -55,28 +65,42 @@ const features = [
     description:
       "Gain insights into sales trends, inventory turnover, and business performance.",
     color: "#ff9800",
-    image: "/placeholder.svg?height=600&width=800&text=Analytics+Dashboard",
+    imageLight: imgDashboardLight,
+    imageDark: imgDashboardDark,
   },
   {
-    icon: PeopleIcon,
-    title: "Supplier Management",
+    icon: ShoppingCartIcon,
+    title: "Order Processing",
     description:
-      "Maintain supplier information, track performance, and manage relationships effectively.",
+      "Streamline order creation, processing, and fulfillment with an intuitive interface.",
+    color: "#00bcd4",
+    imageLight: imgOrderLight,
+    imageDark: imgOrderDark,
+  },
+  {
+    icon: LocalShippingIcon,
+    title: "Delivery Tracking",
+    description:
+      "Monitor deliveries in real-time and provide accurate ETAs to your customers.",
+    color: "#4caf50",
+    imageLight: imgOrderDetailsLight,
+    imageDark: imgOrderDetailsDark,
+  },
+
+  {
+    icon: Inventory2Icon,
+    title: "Inventory & Supplier Profile",
+    description:
+      "View and manage supplier profiles with inventory insights, including stock levels, contact details, and performance tracking.",
     color: "#9c27b0",
-    image: "/placeholder.svg?height=600&width=800&text=Supplier+Management",
-  },
-  {
-    icon: SecurityIcon,
-    title: "Compliance & Security",
-    description:
-      "Ensure regulatory compliance and protect sensitive patient and business data.",
-    color: "#f44336",
-    image: "/placeholder.svg?height=600&width=800&text=Compliance+Security",
+    imageLight: imgProfileLight,
+    imageDark: imgProfileDark,
   },
 ];
 
 //* translate new Component
 const FeatureCard = ({ feature, index, isActive, onClick }) => {
+  const { cardBackground, cardActiveBackground } = useThemeConstants();
   return (
     <motion.div
       initial={{ opacity: 0, y: 50 }}
@@ -91,6 +115,7 @@ const FeatureCard = ({ feature, index, isActive, onClick }) => {
           flexDirection: "column",
           transition: "all 0.3s ease",
           cursor: "pointer",
+          background: isActive ? cardActiveBackground : cardBackground,
           position: "relative",
           overflow: "visible",
           transform: isActive ? "scale(1.05)" : "scale(1)",
@@ -191,18 +216,12 @@ const FeaturesSection = () => {
   const [activeFeature, setActiveFeature] = useState(0);
   const theme = useTheme();
   const {
-    transitionEasingEaseInOut,
     transitionEasingEaseOut,
     transitionEasingEaseIn,
-    transitionEasingSharp,
     textPrimary,
     textSecondary,
-    backgroundBlueSoft,
-    backgroundBlueLight,
-    backgroundBlueMedium,
     backgroundLowered,
     backgroundElevated,
-    background,
   } = useThemeConstants();
   // const textColor = theme.palette.mode === "dark" ? "#fff" : "#000";
   return (
@@ -358,9 +377,9 @@ const FeaturesSection = () => {
                 <Box
                   component="img"
                   src={
-                    theme.palette.mode === "dark"
-                      ? imgInventortyDark
-                      : imgInventortyLight
+                    theme.palette.mode === "light"
+                      ? features[activeFeature].imageLight
+                      : features[activeFeature].imageDark
                   }
                   alt={features[activeFeature].title}
                   style={{ color: textPrimary }}
