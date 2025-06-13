@@ -8,7 +8,6 @@ import {
   Toolbar,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
-import NotificationsIcon from "@mui/icons-material/Notifications";
 import { MessageTwoTone } from "@mui/icons-material";
 import { useThemeContext } from "../../../context/theme.context";
 import { useTypeContext } from "../../../context/UserType.context";

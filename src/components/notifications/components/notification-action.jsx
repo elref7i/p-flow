@@ -18,7 +18,6 @@ export default function NotificationAction({ count, result }) {
   //functions
   const handleMarkAll = () => {
     markNotif({ token });
-    console.log("Marking all notifications as read");
   };
   const handleDeleteAll = () => {
     deletNotif({ token });
