@@ -29,6 +29,7 @@ export default function NotificationsModal() {
     background,
     gradientNavy,
     textSecondary,
+    textPrimary,
     fetchNextPage,
     hasNextPage,
     backgroundBlue,
@@ -66,7 +67,7 @@ export default function NotificationsModal() {
     <>
       <IconButton
         onClick={handleClick}
-        color="inherit"
+        sx={{ color: textPrimary }}
       >
         {/* Count  */}
         <NotificationBage

@@ -255,19 +255,17 @@ export const useThemeConstants = () => {
   const borderRadiusFull = theme.shape.borderRadiusFull;
 
   // الانتقالات
-  const transitionEasingEaseInOut = theme.transitions.easing.easeInOut;
-  const transitionEasingEaseOut = theme.transitions.easing.easeOut;
-  const transitionEasingEaseIn = theme.transitions.easing.easeIn;
-  const transitionEasingSharp = theme.transitions.easing.sharp;
-  const transitionDurationShortest = theme.transitions.duration.shortest;
-  const transitionDurationShorter = theme.transitions.duration.shorter;
-  const transitionDurationShort = theme.transitions.duration.short;
-  const transitionDurationStandard = theme.transitions.duration.standard;
-  const transitionDurationComplex = theme.transitions.duration.complex;
-  const transitionDurationEnteringScreen =
-    theme.transitions.duration.enteringScreen;
-  const transitionDurationLeavingScreen =
-    theme.transitions.duration.leavingScreen;
+  const transitionStandard = theme.transitions.standard; // "all 300ms cubic-bezier(0.4, 0, 0.2, 1)"
+  const transitionEasingEaseInOut = theme.transitions.easeInOut;
+  const transitionEasingEaseOut = theme.transitions.easeOut;
+  const transitionEasingEaseIn = theme.transitions.easeIn;
+  const transitionEasingSharp = theme.transitions.sharp;
+
+  // الانتقالات المخصصة
+  const transitionSmooth = theme.transitions.smooth; // "all 0.5s ease"
+  const transitionBounce = theme.transitions.bounce;
+  const transitionSlowFade = theme.transitions.slowFade;
+  const transitionQuickSlide = theme.transitions.quickSlide;
 
   // مؤشرات z-index
   const zIndexMobileStepper = theme.zIndex.mobileStepper;
@@ -586,13 +584,11 @@ export const useThemeConstants = () => {
     transitionEasingEaseOut,
     transitionEasingEaseIn,
     transitionEasingSharp,
-    transitionDurationShortest,
-    transitionDurationShorter,
-    transitionDurationShort,
-    transitionDurationStandard,
-    transitionDurationComplex,
-    transitionDurationEnteringScreen,
-    transitionDurationLeavingScreen,
+    transitionBounce,
+    transitionSmooth,
+    transitionStandard,
+    transitionQuickSlide,
+    transitionSlowFade,
 
     // مؤشرات z-index
     zIndexMobileStepper,

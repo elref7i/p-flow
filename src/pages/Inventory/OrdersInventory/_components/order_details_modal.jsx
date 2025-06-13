@@ -32,6 +32,7 @@ export default function OrderDetailsModal({ order }) {
   const theme = useTheme();
   const {
     textError,
+    textPrimary,
     headerBackground,
     background,
     buttonBackground,
@@ -106,7 +107,7 @@ export default function OrderDetailsModal({ order }) {
             <Typography
               variant="h1"
               component="div"
-              sx={{ fontWeight: "bold" }}
+              sx={{ fontWeight: "bold", color: textPrimary }}
             >
               Order Details
             </Typography>

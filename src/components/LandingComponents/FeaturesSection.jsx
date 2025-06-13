@@ -1,5 +1,4 @@
 /* eslint-disable react/prop-types */
-"use client";
 
 import { useState } from "react";
 import {
@@ -13,14 +12,33 @@ import {
   IconButton,
   useTheme,
 } from "@mui/material";
+
 import InventoryIcon from "@mui/icons-material/Inventory";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import LocalShippingIcon from "@mui/icons-material/LocalShipping";
+import Inventory2Icon from "@mui/icons-material/Inventory2";
 import BarChartIcon from "@mui/icons-material/BarChart";
-import PeopleIcon from "@mui/icons-material/People";
-import SecurityIcon from "@mui/icons-material/Security";
+import MedicationIcon from "@mui/icons-material/Medication";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import { motion } from "framer-motion";
+import { useThemeConstants } from "../../lib/constants/theme.constant";
+import imgMangerLight from "../../assets/drug-action-light.png";
+import imgMangerDark from "../../assets/drug-action-dark.png";
+
+import imgDashboardLight from "../../assets/mange-inventory-light.png";
+import imgDashboardDark from "../../assets/mange-inventory-dark.png";
+
+import imgOrderDetailsLight from "../../assets/order-details-light.png";
+import imgOrderDetailsDark from "../../assets/order-details-dark.png";
+
+import imgOrderLight from "../../assets/order-inv-light.png";
+import imgOrderDark from "../../assets/order-inv-dark.png";
+
+import imgProfileLight from "../../assets/profile-inventory-light.png";
+import imgProfileDark from "../../assets/profile-inventory-dark.png";
+
+import imgDrugsLight from "../../assets/all-drug-light.png";
+import imgDrugsDark from "../../assets/all-drug-dark.png";
 
 const features = [
   {
@@ -29,23 +47,17 @@ const features = [
     description:
       "Track medications, manage stock levels, and receive alerts for low inventory or expiring products.",
     color: "#1976d2",
-    image: "/placeholder.svg?height=600&width=800&text=Inventory+Management",
+    imageLight: imgMangerLight,
+    imageDark: imgMangerDark,
   },
   {
-    icon: ShoppingCartIcon,
-    title: "Order Processing",
+    icon: MedicationIcon,
+    title: "Inventory Overview",
     description:
-      "Streamline order creation, processing, and fulfillment with an intuitive interface.",
-    color: "#00bcd4",
-    image: "/placeholder.svg?height=600&width=800&text=Order+Processing",
-  },
-  {
-    icon: LocalShippingIcon,
-    title: "Delivery Tracking",
-    description:
-      "Monitor deliveries in real-time and provide accurate ETAs to your customers.",
-    color: "#4caf50",
-    image: "/placeholder.svg?height=600&width=800&text=Delivery+Tracking",
+      "View and manage all available medications with their current stock status and expiry details.",
+    color: "#3f51b5",
+    imageLight: imgDrugsLight,
+    imageDark: imgDrugsDark,
   },
   {
     icon: BarChartIcon,
@@ -53,27 +65,42 @@ const features = [
     description:
       "Gain insights into sales trends, inventory turnover, and business performance.",
     color: "#ff9800",
-    image: "/placeholder.svg?height=600&width=800&text=Analytics+Dashboard",
+    imageLight: imgDashboardLight,
+    imageDark: imgDashboardDark,
   },
   {
-    icon: PeopleIcon,
-    title: "Supplier Management",
+    icon: ShoppingCartIcon,
+    title: "Order Processing",
     description:
-      "Maintain supplier information, track performance, and manage relationships effectively.",
+      "Streamline order creation, processing, and fulfillment with an intuitive interface.",
+    color: "#00bcd4",
+    imageLight: imgOrderLight,
+    imageDark: imgOrderDark,
+  },
+  {
+    icon: LocalShippingIcon,
+    title: "Delivery Tracking",
+    description:
+      "Monitor deliveries in real-time and provide accurate ETAs to your customers.",
+    color: "#4caf50",
+    imageLight: imgOrderDetailsLight,
+    imageDark: imgOrderDetailsDark,
+  },
+
+  {
+    icon: Inventory2Icon,
+    title: "Inventory & Supplier Profile",
+    description:
+      "View and manage supplier profiles with inventory insights, including stock levels, contact details, and performance tracking.",
     color: "#9c27b0",
-    image: "/placeholder.svg?height=600&width=800&text=Supplier+Management",
-  },
-  {
-    icon: SecurityIcon,
-    title: "Compliance & Security",
-    description:
-      "Ensure regulatory compliance and protect sensitive patient and business data.",
-    color: "#f44336",
-    image: "/placeholder.svg?height=600&width=800&text=Compliance+Security",
+    imageLight: imgProfileLight,
+    imageDark: imgProfileDark,
   },
 ];
 
+//* translate new Component
 const FeatureCard = ({ feature, index, isActive, onClick }) => {
+  const { cardBackground, cardActiveBackground } = useThemeConstants();
   return (
     <motion.div
       initial={{ opacity: 0, y: 50 }}
@@ -88,6 +115,7 @@ const FeatureCard = ({ feature, index, isActive, onClick }) => {
           flexDirection: "column",
           transition: "all 0.3s ease",
           cursor: "pointer",
+          background: isActive ? cardActiveBackground : cardBackground,
           position: "relative",
           overflow: "visible",
           transform: isActive ? "scale(1.05)" : "scale(1)",
@@ -150,12 +178,20 @@ const FeatureCard = ({ feature, index, isActive, onClick }) => {
             >
               <feature.icon fontSize="large" />
             </Box>
-            <Typography variant="h5" component="h3" fontWeight={600}>
+            <Typography
+              variant="h5"
+              component="h3"
+              fontWeight={600}
+            >
               {feature.title}
             </Typography>
           </Box>
 
-          <Typography variant="body1" color="text.secondary" paragraph>
+          <Typography
+            variant="body1"
+            color="text.secondary"
+            paragraph
+          >
             {feature.description}
           </Typography>
 
@@ -179,15 +215,24 @@ const FeatureCard = ({ feature, index, isActive, onClick }) => {
 const FeaturesSection = () => {
   const [activeFeature, setActiveFeature] = useState(0);
   const theme = useTheme();
-  const textColor = theme.palette.mode === "dark" ? "#fff" : "#000";
+  const {
+    transitionEasingEaseOut,
+    transitionEasingEaseIn,
+    textPrimary,
+    textSecondary,
+    backgroundLowered,
+    backgroundElevated,
+  } = useThemeConstants();
+  // const textColor = theme.palette.mode === "dark" ? "#fff" : "#000";
   return (
     <Box
       id="features"
       sx={{
         py: { xs: 10, md: 16 },
-        backgroundColor: theme.palette.background.default,
+        backgroundColor: backgroundLowered,
         position: "relative",
         overflow: "hidden",
+        boxShadow: 8,
       }}
     >
       {/* Background elements */}
@@ -195,30 +240,31 @@ const FeaturesSection = () => {
         sx={{
           position: "absolute",
           top: "10%",
-          left: "5%",
-          width: "300px",
-          height: "300px",
+          left: "10%",
+          width: "100px",
+          height: "100px",
           borderRadius: "50%",
-          background:
-            "radial-gradient(circle, rgba(25, 118, 210, 0.05) 0%, rgba(25, 118, 210, 0) 70%)",
+          background: backgroundElevated,
           zIndex: 0,
         }}
       />
       <Box
         sx={{
           position: "absolute",
-          bottom: "10%",
+          top: "10.5%",
           right: "5%",
-          width: "400px",
-          height: "400px",
+          width: "150px",
+          height: "150px",
           borderRadius: "50%",
-          background:
-            "radial-gradient(circle, rgba(0, 188, 212, 0.05) 0%, rgba(0, 188, 212, 0) 70%)",
+          background: backgroundElevated,
           zIndex: 0,
         }}
       />
 
-      <Container maxWidth="lg" sx={{ position: "relative", zIndex: 1 }}>
+      <Container
+        maxWidth="lg"
+        sx={{ position: "relative", zIndex: 1 }}
+      >
         <Box sx={{ textAlign: "center", mb: 8 }}>
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -278,9 +324,19 @@ const FeaturesSection = () => {
           </motion.div>
         </Box>
 
-        <Grid container spacing={4} sx={{ mb: 8 }}>
+        <Grid
+          container
+          spacing={4}
+          sx={{ mb: 8 }}
+        >
           {features.map((feature, index) => (
-            <Grid item xs={12} sm={6} md={4} key={index}>
+            <Grid
+              item
+              xs={12}
+              sm={6}
+              md={4}
+              key={index}
+            >
               <FeatureCard
                 feature={feature}
                 index={index}
@@ -295,11 +351,23 @@ const FeaturesSection = () => {
           <Grid
             container
             p={2}
-            sx={{ backgroundColor: theme.palette.background.paper }}
+            sx={{
+              backgroundColor: backgroundLowered,
+              boxShadow: 8,
+              transition: transitionEasingEaseOut,
+
+              ":hover": {
+                boxShadow: 4,
+              },
+            }}
             spacing={6}
             alignItems="center"
           >
-            <Grid item xs={12} md={6}>
+            <Grid
+              item
+              xs={12}
+              md={6}
+            >
               <motion.div
                 initial={{ opacity: 0, x: -50 }}
                 whileInView={{ opacity: 1, x: 0 }}
@@ -308,23 +376,36 @@ const FeaturesSection = () => {
               >
                 <Box
                   component="img"
-                  src={features[activeFeature].image}
+                  src={
+                    theme.palette.mode === "light"
+                      ? features[activeFeature].imageLight
+                      : features[activeFeature].imageDark
+                  }
                   alt={features[activeFeature].title}
-                  style={{ color: textColor }}
+                  style={{ color: textPrimary }}
                   sx={{
                     width: "100%",
                     height: "auto",
-                    borderRadius: 4,
-                    boxShadow: "0 30px 60px rgba(0, 0, 0, 0.1)",
+                    borderRadius: 2,
+                    boxShadow: 5,
                     transform:
-                      "perspective(1500px) rotateY(5deg) rotateX(5deg)",
-                    transition: "all 0.5s ease",
+                      "perspective(1800px) rotateY(20deg) rotateX(15deg)",
+                    transition: transitionEasingEaseIn,
+                    ":hover": {
+                      boxShadow: 8,
+                      transform:
+                        "perspective(1500px) rotateY(4deg) rotateX(5deg)",
+                    },
                   }}
                 />
               </motion.div>
             </Grid>
 
-            <Grid item xs={12} md={6}>
+            <Grid
+              item
+              xs={12}
+              md={6}
+            >
               <motion.div
                 key={activeFeature}
                 initial={{ opacity: 0, y: 20 }}
@@ -342,7 +423,10 @@ const FeaturesSection = () => {
                     mb: 2,
                   }}
                 >
-                  <Typography variant="subtitle2" fontWeight={600}>
+                  <Typography
+                    variant="subtitle2"
+                    fontWeight={600}
+                  >
                     {features[activeFeature].title}
                   </Typography>
                 </Box>
@@ -352,15 +436,14 @@ const FeaturesSection = () => {
                   component="h3"
                   gutterBottom
                   fontWeight={700}
-                  style={{ color: textColor }}
+                  style={{ color: textPrimary }}
                 >
                   Streamline Your {features[activeFeature].title}
                 </Typography>
 
                 <Typography
-                  variant="body1"
-                  color="text.secondary"
-                  paragraph
+                  variant="body2"
+                  color={textSecondary}
                   sx={{ mb: 4 }}
                 >
                   Our {features[activeFeature].title.toLowerCase()} system is
@@ -396,7 +479,10 @@ const FeaturesSection = () => {
                       >
                         {item}
                       </Box>
-                      <Typography variant="body1" style={{ color: textColor }}>
+                      <Typography
+                        variant="body1"
+                        style={{ color: textPrimary }}
+                      >
                         Key benefit {item} of{" "}
                         {features[activeFeature].title.toLowerCase()}
                       </Typography>
