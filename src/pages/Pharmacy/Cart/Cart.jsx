@@ -10,7 +10,9 @@ import CartItem from "../../../components/PharmacyComonents/CartItem/CartItem";
 import CartSkeleton from "./_components/CartSkeleton";
 
 export default function Cart() {
-  const [selectedInventory, setSelectedInventory] = useState(null);
+  // const [selectedInventory, setSelectedInventory] = useState(null);
+  const [selectedInventoryId, setSelectedInventoryId] = useState(null);
+
   const theme = useTheme();
   const isDark = theme.palette.mode === "dark";
 
@@ -86,7 +88,13 @@ export default function Cart() {
               <CartItem
                 key={inventory.inventory.id}
                 inventoryInfo={inventory}
-                onReadyToBuy={() => setSelectedInventory(inventory)}
+                // onReadyToBuy={() => setSelectedInventory(inventory)}
+                // selectedInventory={selectedInventory}
+                // setSelectedInventory={setSelectedInventory}
+                onReadyToBuy={() =>
+                  setSelectedInventoryId(inventory.inventory.id)
+                }
+                selectedInventoryId={selectedInventoryId}
               />
             ))}
 
@@ -107,7 +115,12 @@ export default function Cart() {
         {/* invoice */}
         <Grid item xs={12} md={3}>
           <Box>
-            <Invoice selectedInventory={selectedInventory} />
+            {/* <Invoice selectedInventory={selectedInventory} /> */}
+            <Invoice
+              selectedInventory={cartInfo.data.inventories.find(
+                (inv) => inv.inventory.id === selectedInventoryId
+              )}
+            />
           </Box>
         </Grid>
       </Grid>

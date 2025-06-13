@@ -28,7 +28,12 @@ import { useGetAllInventoriesQuery } from "../../../lib/hooks/pharmacy.action";
 import { useTypeContext } from "../../../context/UserType.context";
 import { useQueryClient } from "@tanstack/react-query";
 
-export default function CartItem({ inventoryInfo, onReadyToBuy }) {
+export default function CartItem({
+  inventoryInfo,
+  onReadyToBuy,
+  selectedInventory,
+  setSelectedInventory,
+}) {
   const theme = useTheme();
   const isDarkMode = theme.palette.mode === "dark";
   const navigate = useNavigate();
@@ -79,6 +84,10 @@ export default function CartItem({ inventoryInfo, onReadyToBuy }) {
               {
                 onSuccess: (data) => {
                   const inventories = data?.data?.data?.inventories ?? [];
+                  // * update
+                  if (inventory.id === selectedInventory?.inventory?.id) {
+                    setSelectedInventory(null);
+                  }
 
                   if (inventories.length === 0) {
                     queryClient.setQueryData(["cart"], (old) => ({
