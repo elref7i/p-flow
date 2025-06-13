@@ -19,6 +19,7 @@ const PUBLIC_PAGES = new Set([
   "/updatedpassword",
   "/verifysendcoding",
   "/landing",
+  "/pharmacy/home",
 ]);
 const AUTH_PAGES = new Set([
   "/login",
@@ -80,7 +81,7 @@ export default function Layout() {
             ? "0px"
             : isControlPage
             ? { xs: "60px", lg: "150px" }
-            : "15px",
+            : "0px",
 
           pt: isPublicPage ? "0px" : isControlPage ? "80px" : "15px",
           pb: isPublicPage ? "0px" : "20px",

@@ -1009,7 +1009,7 @@ export const getDesignTokens = (mode) => ({
     sharp: "all 300ms cubic-bezier(0.4, 0, 0.6, 1)",
 
     // انتقالات مخصصة (Custom)
-    smooth: "all 0.5s ease",
+    smooth: "all 1s ease",
     bounce: "all 0.5s cubic-bezier(0.68, -0.6, 0.32, 1.6)",
     slowFade: "opacity 0.8s ease-in-out",
     quickSlide: "transform 0.2s ease-out",

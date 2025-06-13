@@ -111,7 +111,7 @@ export default function Drugs() {
         <Box
           sx={{
             position: "relative",
-            width: "90%",
+            width: "100%",
             mx: "auto",
             display: "flex",
             gap: 2,
@@ -245,13 +245,6 @@ export default function Drugs() {
           setParams={setParams}
         />
       </Box>
-      <Box
-        sx={{
-          display: { xs: "flex", md: "flex", lg: "none" },
-          justifyContent: "center",
-          mb: 2,
-        }}
-      ></Box>
 
       {!isLoading && isFetched ? (
         <InfiniteScroll
@@ -266,12 +259,11 @@ export default function Drugs() {
             </p>
           }
           scrollThreshold={0.8}
-          style={{ overflow: "hidden" }}
+          style={{ overflow: "visible" }}
         >
           <Grid2
             container
             spacing={4}
-            px={3}
             py={2}
           >
             {flattenedDrugs.map((drug) => (
@@ -282,6 +274,7 @@ export default function Drugs() {
                 <DrugCard
                   dataInfo={drug}
                   checkPage={true}
+                  checkdistance={true}
                 />
               </Grid2>
             ))}

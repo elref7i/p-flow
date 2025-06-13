@@ -27,7 +27,7 @@ export default function NotificationsModal() {
   // Themes
   const {
     background,
-    gradientNavy,
+    backgroundBlueSoft,
     textSecondary,
     textPrimary,
     fetchNextPage,
@@ -104,7 +104,7 @@ export default function NotificationsModal() {
                 right: 14,
                 width: 10,
                 height: 10,
-                background: gradientNavy,
+                background: backgroundBlueSoft,
                 transform: "translateY(-50%) rotate(45deg)",
                 zIndex: 0,
               },

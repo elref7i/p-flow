@@ -5,7 +5,6 @@ import Box from "@mui/material/Box";
 import Avatar from "@mui/material/Avatar";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
-import ListItemIcon from "@mui/material/ListItemIcon";
 import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
 import Tooltip from "@mui/material/Tooltip";
@@ -17,7 +16,7 @@ import { useTypeContext } from "../../../../context/UserType.context";
 import { useNavigate } from "react-router-dom";
 import LoadingSpinner from "../../../Common/Loading/LoadingSpinner";
 import { useThemeConstants } from "../../../../lib/constants/theme.constant";
-import { useTheme } from "@mui/material";
+import { Stack, useTheme } from "@mui/material";
 
 export default function AccountMenu() {
   //States
@@ -30,7 +29,8 @@ export default function AccountMenu() {
   const { logout, userData } = useTypeContext();
 
   //Theme
-  const { typography, error, buttonHover } = useThemeConstants();
+  const { typography, error, buttonHover, background, backgroundBlueSoft } =
+    useThemeConstants();
   const theme = useTheme();
 
   //Vars
@@ -72,17 +72,17 @@ export default function AccountMenu() {
 
       <Menu
         anchorEl={anchorEl}
-        disableScrollLock
         id="account-menu"
         open={open}
         onClose={handleClose}
         onClick={handleClose}
         slotProps={{
           paper: {
-            elevation: 3,
+            elevation: 8,
             sx: {
               px: 2,
               py: 2,
+              background: background,
               overflow: "visible",
               filter: "drop-shadow(0px 2px 8px rgba(0,0,0,0.32))",
               mt: 1.5,
@@ -92,15 +92,25 @@ export default function AccountMenu() {
                 ml: -0.5,
                 mr: 1,
               },
+              "& .MuiMenuItem-root": {
+                "&:hover": {
+                  backgroundColor: "transparent",
+                  "& .MuiSvgIcon-root": {
+                    color: "inherit",
+                    transform: "none",
+                    transition: "none",
+                  },
+                },
+              },
               "&::before": {
                 content: '""',
                 display: "block",
                 position: "absolute",
                 top: 0,
-                right: 14,
+                right: 20,
                 width: 10,
                 height: 10,
-                bgcolor: "background.paper",
+                background: backgroundBlueSoft,
                 transform: "translateY(-50%) rotate(45deg)",
                 zIndex: 0,
               },
@@ -142,20 +152,20 @@ export default function AccountMenu() {
           sx={{
             py: 1,
             borderRadius: "5px",
-            fontSize: typography.h5.fontSize,
-            fontWeight: typography.h5.fontWeight,
-            lineHeight: typography.h5.lineHeight,
+            fontSize: typography.body2.fontSize,
             "&:hover": {
               backgroundColor: buttonHover,
               "& .MuiSvgIcon-root": {
                 color: "white",
-                transform: "scale(1.2)",
-                transition: "all 0.3s ease",
               },
             },
           }}
         >
-          <ListItemIcon>
+          <Stack
+            direction={"row"}
+            alignItems={"center"}
+            gap={1}
+          >
             <Email
               sx={{
                 "&:hover": {
@@ -164,8 +174,8 @@ export default function AccountMenu() {
               }}
               fontSize="medium"
             />
-          </ListItemIcon>
-          {userData.email}
+            <Typography variant="h6">{userData.email}</Typography>
+          </Stack>
         </MenuItem>
 
         <Divider />
@@ -173,16 +183,11 @@ export default function AccountMenu() {
         <MenuItem
           sx={{
             py: 1,
-            borderRadius: "5px",
-            fontSize: typography.h5.fontSize,
-            fontWeight: typography.h5.fontWeight,
-            lineHeight: typography.h5.lineHeight,
+
             "&:hover": {
               backgroundColor: buttonHover,
               "& .MuiSvgIcon-root": {
                 color: "white",
-                transform: "scale(1.2)",
-                transition: "all 0.3s ease",
               },
             },
           }}
@@ -190,10 +195,14 @@ export default function AccountMenu() {
             navigate("/setting");
           }}
         >
-          <ListItemIcon>
-            <Settings fontSize="medium" />
-          </ListItemIcon>
-          Settings
+          <Stack
+            direction={"row"}
+            alignItems={"center"}
+            gap={1}
+          >
+            <Settings fontSize="small" />
+            <Typography variant="h6">Settings</Typography>
+          </Stack>
         </MenuItem>
 
         <MenuItem
@@ -209,13 +218,17 @@ export default function AccountMenu() {
             lineHeight: typography.h5.lineHeight,
           }}
         >
-          <ListItemIcon>
+          <Stack
+            direction={"row"}
+            alignItems={"center"}
+            gap={0}
+          >
             <Logout
               color="error"
               fontSize="medium"
             />
-          </ListItemIcon>
-          Logout
+            <Typography variant="h6">Logout</Typography>
+          </Stack>
         </MenuItem>
       </Menu>
     </>

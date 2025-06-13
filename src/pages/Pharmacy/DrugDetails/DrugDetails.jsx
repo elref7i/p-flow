@@ -12,6 +12,8 @@ import {
   styled,
   Grid,
   Chip,
+  alpha,
+  Avatar,
 } from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
@@ -28,7 +30,8 @@ import { useTypeContext } from "../../../context/UserType.context";
 import DrugDetailsSkeleton from "../../../components/Common/Loading/DrugDetailsSkeleton";
 import { formatDate } from "../../../lib/utils/dateUtils";
 import { useAddToCart } from "../../../lib/hooks/useCartAction";
-
+import { useThemeConstants } from "../../../lib/constants/theme.constant";
+import CategoryIcon from "@mui/icons-material/Category";
 const InfoCard = styled(Paper)(({ theme }) => ({
   padding: theme.spacing(2),
   height: "100%",
@@ -53,7 +56,7 @@ export default function DrugDetails() {
   //Queries
   const { isFetching, data } = useSpecificDrug({ token, drugId: id });
 
-  console.log(data);
+  const { backgroundGraySoft, textScondary } = useThemeConstants();
 
   // Calculate days until expiration
   const daysUntilExpiration = () => {
@@ -78,7 +81,10 @@ export default function DrugDetails() {
     <Box sx={{ p: { xs: 2, md: 3 }, maxWidth: 1200, mx: "auto" }}>
       {/* Drug Details */}
       <Box sx={{ display: "flex", alignItems: "center", mb: 1 }}>
-        <IconButton onClick={() => navigate(-1)} sx={{ mr: 1 }}>
+        <IconButton
+          onClick={() => navigate(-1)}
+          sx={{ mr: 1 }}
+        >
           <ArrowBackIcon />
         </IconButton>
         <Typography
@@ -90,9 +96,15 @@ export default function DrugDetails() {
           Drug Details
         </Typography>
       </Box>
-      <Grid container spacing={3}>
+      <Grid
+        container
+        spacing={3}
+      >
         {/* Main Details Card */}
-        <Grid item xs={12}>
+        <Grid
+          item
+          xs={12}
+        >
           <Card
             elevation={3}
             sx={{
@@ -131,19 +143,101 @@ export default function DrugDetails() {
                   {data.name}
                 </Typography>
 
-                <Box sx={{ display: "flex", alignItems: "center", mb: 1 }}>
-                  <BusinessIcon
+                {/* Category box */}
+                <Box
+                  sx={{
+                    display: "flex",
+                    alignItems: "center",
+                    mb: 1,
+                    cursor: "pointer",
+                  }}
+                  tital="Category"
+                >
+                  <CategoryIcon
                     sx={{
-                      color: "text.secondary",
+                      color: textScondary,
                       mr: 1,
                       fontSize: "1.2rem",
                     }}
                   />
-                  <Typography variant="body1" color="text.secondary">
+
+                  <Box
+                    sx={{
+                      display: "inline-flex",
+                      alignItems: "center",
+                      px: 1.5,
+                      py: 0.5,
+                      borderRadius: 20,
+                      background: backgroundGraySoft,
+                      cursor: "pointer",
+                      border: `1px solid ${alpha(
+                        theme.palette.info.main,
+                        0.2
+                      )}`,
+                      maxWidth: "fit-content",
+                      boxShadow: 7,
+                    }}
+                  >
+                    <Box
+                      sx={{
+                        width: 20,
+                        height: 20,
+                        borderRadius: "50%",
+                        background: "transparent",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        mr: 1,
+                        boxShadow: 6,
+                      }}
+                    >
+                      <Avatar
+                        src={
+                          data.category.imageCover ||
+                          "/placeholder.svg?height=16&width=16"
+                        }
+                        alt={data.category.name}
+                        sx={{
+                          width: 16,
+                          height: 16,
+                          border: "none",
+                        }}
+                      />
+                    </Box>
+                    <Typography
+                      variant="caption"
+                      sx={{
+                        fontWeight: 700,
+                        color: theme.palette.info.dark,
+                        fontSize: "0.7rem",
+                        textTransform: "uppercase",
+                        letterSpacing: "0.5px",
+                        lineHeight: 1,
+                      }}
+                    >
+                      {data.category.name}
+                    </Typography>
+                  </Box>
+                </Box>
+
+                {/* Manufacturer */}
+                <Box sx={{ display: "flex", alignItems: "center", mb: 1 }}>
+                  <BusinessIcon
+                    sx={{
+                      color: textScondary,
+                      mr: 1,
+                      fontSize: "1.2rem",
+                    }}
+                  />
+                  <Typography
+                    variant="h6"
+                    color={textScondary}
+                  >
                     {data.manufacturer}
                   </Typography>
                 </Box>
 
+                {/* Description */}
                 <Box sx={{ display: "flex", alignItems: "center" }}>
                   <InfoOutlinedIcon
                     sx={{
@@ -170,9 +264,18 @@ export default function DrugDetails() {
               <Divider sx={{ my: 3 }} />
 
               {/* Info Cards Grid */}
-              <Grid container spacing={3} sx={{ mb: 3 }}>
+              <Grid
+                container
+                spacing={3}
+                sx={{ mb: 3 }}
+              >
                 {/* Stock */}
-                <Grid item xs={12} sm={6} md={3}>
+                <Grid
+                  item
+                  xs={12}
+                  sm={6}
+                  md={3}
+                >
                   <InfoCard elevation={2}>
                     <MedicationIcon
                       sx={{
@@ -181,7 +284,11 @@ export default function DrugDetails() {
                         mb: 1,
                       }}
                     />
-                    <Typography variant="h6" fontWeight="medium" align="center">
+                    <Typography
+                      variant="h6"
+                      fontWeight="medium"
+                      align="center"
+                    >
                       Stock
                     </Typography>
                     <Typography
@@ -191,19 +298,31 @@ export default function DrugDetails() {
                     >
                       {data.stock}
                     </Typography>
-                    <Typography variant="body2" color="text.secondary">
+                    <Typography
+                      variant="body2"
+                      color="text.secondary"
+                    >
                       {data.sold} sold
                     </Typography>
                   </InfoCard>
                 </Grid>
 
                 {/* Production */}
-                <Grid item xs={12} sm={6} md={3}>
+                <Grid
+                  item
+                  xs={12}
+                  sm={6}
+                  md={3}
+                >
                   <InfoCard elevation={2}>
                     <CalendarMonthIcon
                       sx={{ fontSize: 40, color: "success.main", mb: 1 }}
                     />
-                    <Typography variant="h6" fontWeight="medium" align="center">
+                    <Typography
+                      variant="h6"
+                      fontWeight="medium"
+                      align="center"
+                    >
                       Production
                     </Typography>
                     <Typography
@@ -217,12 +336,21 @@ export default function DrugDetails() {
                 </Grid>
 
                 {/* Expiration */}
-                <Grid item xs={12} sm={6} md={3}>
+                <Grid
+                  item
+                  xs={12}
+                  sm={6}
+                  md={3}
+                >
                   <InfoCard elevation={2}>
                     <CalendarMonthIcon
                       sx={{ fontSize: 40, color: getExpirationColor(), mb: 1 }}
                     />
-                    <Typography variant="h6" fontWeight="medium" align="center">
+                    <Typography
+                      variant="h6"
+                      fontWeight="medium"
+                      align="center"
+                    >
                       Expiration
                     </Typography>
                     <Typography
@@ -245,7 +373,12 @@ export default function DrugDetails() {
                   </InfoCard>
                 </Grid>
 
-                <Grid item xs={12} sm={6} md={3}>
+                <Grid
+                  item
+                  xs={12}
+                  sm={6}
+                  md={3}
+                >
                   <InfoCard elevation={2}>
                     <InventoryIcon
                       sx={{
@@ -254,7 +387,11 @@ export default function DrugDetails() {
                         mb: 1,
                       }}
                     />
-                    <Typography variant="h6" fontWeight="medium" align="center">
+                    <Typography
+                      variant="h6"
+                      fontWeight="medium"
+                      align="center"
+                    >
                       Inventory
                     </Typography>
                     <Typography
@@ -282,7 +419,10 @@ export default function DrugDetails() {
                       : "rgba(0, 0, 0, 0.03)",
                 }}
               >
-                <Typography variant="caption" color="text.secondary">
+                <Typography
+                  variant="caption"
+                  color="text.secondary"
+                >
                   Consumer Price
                 </Typography>
                 <Typography
