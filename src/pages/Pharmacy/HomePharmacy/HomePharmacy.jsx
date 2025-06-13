@@ -1,4 +1,4 @@
-import { Container } from "@mui/material";
+import { Box } from "@mui/material";
 import { Helmet } from "react-helmet";
 import HeroSection from "./_components/HeroSection";
 import InventorySection from "./_components/InventorySection";
@@ -19,11 +19,11 @@ export default function HomePharmacy() {
         />
       </Helmet>
 
-      <Container>
+      <Box component={"main"}>
         <HeroSection />
         <InventorySection />
         <CategorySection />
-      </Container>
+      </Box>
     </>
   );
 }

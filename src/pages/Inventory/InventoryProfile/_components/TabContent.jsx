@@ -51,7 +51,6 @@ const TabContent = ({
             <Grid2
               container
               spacing={4}
-              px={3}
               py={2}
             >
               {isFetched ? (
@@ -65,7 +64,6 @@ const TabContent = ({
                     <DrugCard
                       dataInfo={drug}
                       checkPage={false}
-                      offer={true}
                     />
                   </Grid2>
                 ))
@@ -98,7 +96,6 @@ const TabContent = ({
               <Grid2
                 container
                 spacing={4}
-                px={3}
                 py={2}
               >
                 {isFetched ? (
@@ -112,7 +109,6 @@ const TabContent = ({
                       <DrugCard
                         dataInfo={drug}
                         checkPage={false}
-                        offer={true}
                       />
                     </Grid2>
                   ))

@@ -1,3 +1,5 @@
+"use client";
+
 /* eslint-disable react/prop-types */
 import {
   Box,
@@ -6,6 +8,9 @@ import {
   useTheme,
   alpha,
   Avatar,
+  CircularProgress,
+  Stack,
+  Paper,
 } from "@mui/material";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { motion } from "framer-motion";
@@ -26,54 +31,57 @@ const DrugCard = ({ dataInfo: drug, checkPage, checkdistance }) => {
   const { role } = useTypeContext();
 
   //Mutation
-  const addToCartMutation = useAddToCart();
-
-  // console.log(drug);
+  const { mutate, isLoading } = useAddToCart();
 
   //Theme
   const theme = useTheme();
   const {
     cardBackground,
     cardDetailsBackground,
-    textPrimary,
+    transitionSmooth,
     textSecondary,
-    shadow2,
-    typography,
+    textLink,
   } = useThemeConstants();
 
   return (
-    <Box
+    <Paper
       component={motion.div}
-      whileHover={{ y: -3, boxShadow: shadow2 }}
-      transition={{ type: "spring", stiffness: 300 }}
       sx={{
-        p: 2,
-        borderRadius: 2,
-        background: cardBackground,
-        boxShadow: shadow2,
-        border: `1px solid ${alpha(theme.palette.divider, 0.1)}`,
+        boxShadow: 8,
+        borderRadius: 3,
+        overflow: "hidden",
         position: "relative",
-        // overflow: "hidden",
-        color: textPrimary,
-        fontSize: typography.h1.fontSize,
-        fontWeight: typography.h1.fontWeight,
-        lineHeight: typography.h1.lineHeight,
+        background: cardBackground,
+        height: "100%",
+        display: "flex",
+        flexDirection: "column",
+        ":hover": {
+          boxShadow: 7,
+        },
       }}
     >
-      {/* Category Badge */}
+      {/* Discount Badge */}
       {drug.discount > 0 && (
-        <DiscountBadge
-          label={`${drug.discount.toFixed(0)}%`}
-          color="error"
-          size="small"
-          icon={<LocalOfferIcon />}
-        />
+        <Box sx={{ position: "absolute", top: 12, right: 12, zIndex: 2 }}>
+          <DiscountBadge
+            label={`${drug.discount.toFixed(0)}%`}
+            color="error"
+            size="small"
+            icon={<LocalOfferIcon />}
+          />
+        </Box>
       )}
 
-      {/* Drug Name and Active Ingredient */}
-      <Box sx={{ mb: 2, mt: 0.5 }}>
+      {/* Header Section */}
+      <Box
+        sx={{
+          p: 2.5,
+          background: alpha(theme.palette.primary.main, 0.05),
+          borderBottom: `1px solid ${alpha(theme.palette.divider, 0.1)}`,
+        }}
+      >
         <Typography
-          variant="h6"
+          variant="h5"
           onClick={() => {
             if (role === "pharmacy") {
               return navigate(`/pharmacy/drugdetails/${drug._id}`);
@@ -83,159 +91,177 @@ const DrugCard = ({ dataInfo: drug, checkPage, checkdistance }) => {
           sx={{
             cursor: role === "pharmacy" ? "pointer" : "auto",
             lineHeight: 1.2,
-            maxWidth: "250px",
             overflow: "hidden",
             textOverflow: "ellipsis",
             whiteSpace: "nowrap",
+            color: textLink,
+            mb: 1,
+            transition: transitionSmooth,
+            "&:hover": {
+              color: textLink,
+            },
           }}
         >
           {drug.name}
         </Typography>
+
+        {/* Inventory Information */}
+        {checkPage && (
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              mt: 1,
+            }}
+          >
+            <Avatar
+              src={
+                drug.inventory?.image || "/placeholder.svg?height=32&width=32"
+              }
+              alt={drug.inventory?.name || "Pharmacy"}
+              sx={{
+                width: 35,
+                height: 35,
+                mr: 1,
+                border: `2px solid ${alpha(theme.palette.primary.main, 0.3)}`,
+              }}
+            />
+            <Typography
+              variant="h6"
+              onClick={() =>
+                navigate(`/pharmacy/inventoryprofile/${drug.inventory._id}`)
+              }
+              sx={{
+                cursor: "pointer",
+                fontWeight: "bold",
+                color: alpha(theme.palette.text.primary, 0.8),
+                maxWidth: "200px",
+                overflow: "hidden",
+                textOverflow: "ellipsis",
+                whiteSpace: "nowrap",
+                "&:hover": {
+                  color: theme.palette.primary.main,
+                },
+              }}
+            >
+              {drug.inventory?.name || "Unknown Pharmacy"}
+            </Typography>
+          </Box>
+        )}
       </Box>
 
-      {/* Inventory Information */}
-      {checkPage && (
-        <Box
-          sx={{
-            display: "flex",
-            alignItems: "center",
-            mb: 2,
-            pb: 1.5,
-          }}
-        >
-          <Avatar
-            src={drug.inventory?.image || "/placeholder.svg?height=32&width=32"}
-            alt={drug.inventory?.name || "Pharmacy"}
-            sx={{
-              width: 24,
-              height: 24,
-              mr: 1,
-              border: `1px solid ${alpha(theme.palette.primary.main, 0.2)}`,
-            }}
-          />
-          <Typography
-            variant="caption"
-            onClick={() =>
-              navigate(`/pharmacy/inventoryprofile/${drug.inventory._id}`)
-            }
-            sx={{
-              cursor: "pointer",
-              fontWeight: "bold",
-              fontSize: "20px",
-              color: textSecondary,
-              maxWidth: "200px",
-              overflow: "hidden",
-              textOverflow: "ellipsis",
-              whiteSpace: "nowrap",
-            }}
-          >
-            {drug.inventory?.name || "Unknown Pharmacy"}
-          </Typography>
-        </Box>
-      )}
-
-      {/* Dosage and Units */}
-      {/* <Box sx={{ display: "flex", gap: 2, mb: 2 }}> */}
-      {/* <Box sx={{ display: "flex", alignItems: "center" }}>
-          <Box
-            component="span"
-            sx={{
-              color: "text.secondary",
-              mr: 1,
-              display: "inline-flex",
-              alignItems: "center",
-            }}
-          >
-            <DuoRounded />
-          </Box>
-          <Typography
-            variant="body2"
-            color="text.secondary"
-          >
-            {drug.dosage}
-          </Typography>
-        </Box> */}
-      {/* <Box sx={{ display: "flex", alignItems: "center" }}>
-          <Box
-            component="span"
-            sx={{
-              color: "text.secondary",
-              mr: 1,
-              display: "inline-flex",
-              alignItems: "center",
-            }}
-          >
-            <DuoRounded />
-          </Box>
-          <Typography
-            variant="body2"
-            color="text.secondary"
-          >
-            {drug.units} units
-          </Typography>
-        </Box> */}
-      {/* </Box> */}
-
-      <Box sx={{ background: cardDetailsBackground }}>
-        {/* Distance Indicator */}
-        {checkPage && checkdistance && (
-          <DistanceIndicator distance={drug.distanceInKm} />
-        )}
-
-        {/* Price and Actions */}
-        <Box
-          sx={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
-          }}
-        >
-          <Box>
-            <Typography
-              variant="subtitle1"
-              fontWeight="bold"
+      {/* Price Section */}
+      <Box
+        sx={{
+          p: 2.5,
+          flexGrow: 1,
+          display: "flex",
+          flexDirection: "column",
+          background: cardDetailsBackground,
+          justifyContent: "space-between",
+        }}
+      >
+        <Box>
+          <Stack spacing={1.5}>
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+              }}
             >
-              ${formatNumber(drug.discountedPrice)}
-            </Typography>
-            {drug.discount > 0 && (
               <Typography
-                variant="caption"
+                variant="h6"
                 color="text.secondary"
+              >
+                Consumer Price:
+              </Typography>
+              <Typography
+                variant="h6"
                 sx={{
-                  textDecoration: "line-through",
-                  display: "block",
-                  mt: -0.5,
+                  fontWeight: 700,
+                  color: theme.palette.success.main,
+                }}
+              >
+                ${formatNumber(drug.discountedPrice)}
+              </Typography>
+            </Box>
+
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+              }}
+            >
+              <Typography
+                variant="h6"
+                color="text.secondary"
+              >
+                Pharmacy Price:
+              </Typography>
+              <Typography
+                variant="h6"
+                sx={{
+                  fontWeight: 600,
+                  textDecoration: drug.discount > 0 ? "line-through" : "none",
+                  opacity: drug.discount > 0 ? 0.6 : 1,
+                  color: textSecondary,
                 }}
               >
                 ${formatNumber(drug.price)}
               </Typography>
-            )}
-          </Box>
-          {role === "pharmacy" && (
-            <Box sx={{ display: "flex" }}>
-              <Button
-                onClick={() => {
-                  addToCartMutation.mutate({
-                    drugId: drug._id,
-                    quantity: 1,
-                  });
-                }}
-                variant="contained"
-                color="primary"
-                startIcon={<ShoppingCartIcon />}
-                sx={{
-                  borderRadius: 1,
-                  textTransform: "none",
-                  boxShadow: "none",
-                }}
-              >
-                Add to Cart
-              </Button>
             </Box>
-          )}
+          </Stack>
         </Box>
+
+        {/* Distance Indicator */}
+        {checkPage && checkdistance && (
+          <Box sx={{ mt: 1.5 }}>
+            <DistanceIndicator distance={drug.distanceInKm} />
+          </Box>
+        )}
+        {/* Add to Cart Button */}
+        {role === "pharmacy" && (
+          <Box sx={{ mt: 3 }}>
+            <Button
+              disabled={isLoading}
+              onClick={() => {
+                mutate({
+                  drugId: drug._id,
+                  quantity: 1,
+                });
+              }}
+              variant="contained"
+              color="primary"
+              fullWidth
+              startIcon={
+                isLoading ? (
+                  <CircularProgress
+                    size={16}
+                    color="inherit"
+                  />
+                ) : (
+                  <ShoppingCartIcon />
+                )
+              }
+              sx={{
+                borderRadius: 2,
+                textTransform: "none",
+                py: 1,
+                fontWeight: 600,
+                boxShadow: theme.shadows[2],
+                "&:hover": {
+                  boxShadow: theme.shadows[4],
+                },
+              }}
+            >
+              Add to Cart
+            </Button>
+          </Box>
+        )}
       </Box>
-    </Box>
+    </Paper>
   );
 };
 

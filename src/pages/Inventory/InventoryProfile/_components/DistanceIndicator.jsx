@@ -32,7 +32,7 @@ const DistanceIndicator = ({ distance }) => {
     <Box sx={{ mb: 2 }}>
       <Box sx={{ display: "flex", justifyContent: "space-between", mb: 0.5 }}>
         <Typography
-          variant="caption"
+          variant="body1"
           color="text.secondary"
         >
           Distance
