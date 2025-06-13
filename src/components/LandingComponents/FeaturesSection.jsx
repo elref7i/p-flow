@@ -1,5 +1,4 @@
 /* eslint-disable react/prop-types */
-"use client";
 
 import { useState } from "react";
 import {
@@ -21,6 +20,9 @@ import PeopleIcon from "@mui/icons-material/People";
 import SecurityIcon from "@mui/icons-material/Security";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import { motion } from "framer-motion";
+import imgInventortyLight from "../../assets/inventory-dash-ligh.png";
+import imgInventortyDark from "../../assets/inventory-dash-dark.png";
+import { useThemeConstants } from "../../lib/constants/theme.constant";
 
 const features = [
   {
@@ -73,6 +75,7 @@ const features = [
   },
 ];
 
+//* translate new Component
 const FeatureCard = ({ feature, index, isActive, onClick }) => {
   return (
     <motion.div
@@ -150,12 +153,20 @@ const FeatureCard = ({ feature, index, isActive, onClick }) => {
             >
               <feature.icon fontSize="large" />
             </Box>
-            <Typography variant="h5" component="h3" fontWeight={600}>
+            <Typography
+              variant="h5"
+              component="h3"
+              fontWeight={600}
+            >
               {feature.title}
             </Typography>
           </Box>
 
-          <Typography variant="body1" color="text.secondary" paragraph>
+          <Typography
+            variant="body1"
+            color="text.secondary"
+            paragraph
+          >
             {feature.description}
           </Typography>
 
@@ -179,15 +190,30 @@ const FeatureCard = ({ feature, index, isActive, onClick }) => {
 const FeaturesSection = () => {
   const [activeFeature, setActiveFeature] = useState(0);
   const theme = useTheme();
-  const textColor = theme.palette.mode === "dark" ? "#fff" : "#000";
+  const {
+    transitionEasingEaseInOut,
+    transitionEasingEaseOut,
+    transitionEasingEaseIn,
+    transitionEasingSharp,
+    textPrimary,
+    textSecondary,
+    backgroundBlueSoft,
+    backgroundBlueLight,
+    backgroundBlueMedium,
+    backgroundLowered,
+    backgroundElevated,
+    background,
+  } = useThemeConstants();
+  // const textColor = theme.palette.mode === "dark" ? "#fff" : "#000";
   return (
     <Box
       id="features"
       sx={{
         py: { xs: 10, md: 16 },
-        backgroundColor: theme.palette.background.default,
+        backgroundColor: backgroundLowered,
         position: "relative",
         overflow: "hidden",
+        boxShadow: 8,
       }}
     >
       {/* Background elements */}
@@ -195,30 +221,31 @@ const FeaturesSection = () => {
         sx={{
           position: "absolute",
           top: "10%",
-          left: "5%",
-          width: "300px",
-          height: "300px",
+          left: "10%",
+          width: "100px",
+          height: "100px",
           borderRadius: "50%",
-          background:
-            "radial-gradient(circle, rgba(25, 118, 210, 0.05) 0%, rgba(25, 118, 210, 0) 70%)",
+          background: backgroundElevated,
           zIndex: 0,
         }}
       />
       <Box
         sx={{
           position: "absolute",
-          bottom: "10%",
+          top: "10.5%",
           right: "5%",
-          width: "400px",
-          height: "400px",
+          width: "150px",
+          height: "150px",
           borderRadius: "50%",
-          background:
-            "radial-gradient(circle, rgba(0, 188, 212, 0.05) 0%, rgba(0, 188, 212, 0) 70%)",
+          background: backgroundElevated,
           zIndex: 0,
         }}
       />
 
-      <Container maxWidth="lg" sx={{ position: "relative", zIndex: 1 }}>
+      <Container
+        maxWidth="lg"
+        sx={{ position: "relative", zIndex: 1 }}
+      >
         <Box sx={{ textAlign: "center", mb: 8 }}>
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -278,9 +305,19 @@ const FeaturesSection = () => {
           </motion.div>
         </Box>
 
-        <Grid container spacing={4} sx={{ mb: 8 }}>
+        <Grid
+          container
+          spacing={4}
+          sx={{ mb: 8 }}
+        >
           {features.map((feature, index) => (
-            <Grid item xs={12} sm={6} md={4} key={index}>
+            <Grid
+              item
+              xs={12}
+              sm={6}
+              md={4}
+              key={index}
+            >
               <FeatureCard
                 feature={feature}
                 index={index}
@@ -295,11 +332,23 @@ const FeaturesSection = () => {
           <Grid
             container
             p={2}
-            sx={{ backgroundColor: theme.palette.background.paper }}
+            sx={{
+              backgroundColor: backgroundLowered,
+              boxShadow: 8,
+              transition: transitionEasingEaseOut,
+
+              ":hover": {
+                boxShadow: 4,
+              },
+            }}
             spacing={6}
             alignItems="center"
           >
-            <Grid item xs={12} md={6}>
+            <Grid
+              item
+              xs={12}
+              md={6}
+            >
               <motion.div
                 initial={{ opacity: 0, x: -50 }}
                 whileInView={{ opacity: 1, x: 0 }}
@@ -308,23 +357,36 @@ const FeaturesSection = () => {
               >
                 <Box
                   component="img"
-                  src={features[activeFeature].image}
+                  src={
+                    theme.palette.mode === "dark"
+                      ? imgInventortyDark
+                      : imgInventortyLight
+                  }
                   alt={features[activeFeature].title}
-                  style={{ color: textColor }}
+                  style={{ color: textPrimary }}
                   sx={{
                     width: "100%",
                     height: "auto",
-                    borderRadius: 4,
-                    boxShadow: "0 30px 60px rgba(0, 0, 0, 0.1)",
+                    borderRadius: 2,
+                    boxShadow: 5,
                     transform:
-                      "perspective(1500px) rotateY(5deg) rotateX(5deg)",
-                    transition: "all 0.5s ease",
+                      "perspective(1800px) rotateY(20deg) rotateX(15deg)",
+                    transition: transitionEasingEaseIn,
+                    ":hover": {
+                      boxShadow: 8,
+                      transform:
+                        "perspective(1500px) rotateY(4deg) rotateX(5deg)",
+                    },
                   }}
                 />
               </motion.div>
             </Grid>
 
-            <Grid item xs={12} md={6}>
+            <Grid
+              item
+              xs={12}
+              md={6}
+            >
               <motion.div
                 key={activeFeature}
                 initial={{ opacity: 0, y: 20 }}
@@ -342,7 +404,10 @@ const FeaturesSection = () => {
                     mb: 2,
                   }}
                 >
-                  <Typography variant="subtitle2" fontWeight={600}>
+                  <Typography
+                    variant="subtitle2"
+                    fontWeight={600}
+                  >
                     {features[activeFeature].title}
                   </Typography>
                 </Box>
@@ -352,15 +417,14 @@ const FeaturesSection = () => {
                   component="h3"
                   gutterBottom
                   fontWeight={700}
-                  style={{ color: textColor }}
+                  style={{ color: textPrimary }}
                 >
                   Streamline Your {features[activeFeature].title}
                 </Typography>
 
                 <Typography
-                  variant="body1"
-                  color="text.secondary"
-                  paragraph
+                  variant="body2"
+                  color={textSecondary}
                   sx={{ mb: 4 }}
                 >
                   Our {features[activeFeature].title.toLowerCase()} system is
@@ -396,7 +460,10 @@ const FeaturesSection = () => {
                       >
                         {item}
                       </Box>
-                      <Typography variant="body1" style={{ color: textColor }}>
+                      <Typography
+                        variant="body1"
+                        style={{ color: textPrimary }}
+                      >
                         Key benefit {item} of{" "}
                         {features[activeFeature].title.toLowerCase()}
                       </Typography>

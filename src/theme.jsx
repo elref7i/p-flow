@@ -1001,21 +1001,18 @@ export const getDesignTokens = (mode) => ({
   },
 
   transitions: {
-    easing: {
-      easeInOut: "cubic-bezier(0.4, 0, 0.2, 1)",
-      easeOut: "cubic-bezier(0.0, 0, 0.2, 1)",
-      easeIn: "cubic-bezier(0.4, 0, 1, 1)",
-      sharp: "cubic-bezier(0.4, 0, 0.6, 1)",
-    },
-    duration: {
-      shortest: 150,
-      shorter: 200,
-      short: 250,
-      standard: 300,
-      complex: 375,
-      enteringScreen: 225,
-      leavingScreen: 195,
-    },
+    // الانتقالات الأساسية (easing + duration)
+    standard: "all 300ms cubic-bezier(0.4, 0, 0.2, 1)", // مثل transition: "all 0.3s ease-in-out"
+    easeInOut: "all 300ms cubic-bezier(0.4, 0, 0.2, 1)",
+    easeOut: "all 300ms cubic-bezier(0.0, 0, 0.2, 1)",
+    easeIn: "all 300ms cubic-bezier(0.4, 0, 1, 1)",
+    sharp: "all 300ms cubic-bezier(0.4, 0, 0.6, 1)",
+
+    // انتقالات مخصصة (Custom)
+    smooth: "all 0.5s ease",
+    bounce: "all 0.5s cubic-bezier(0.68, -0.6, 0.32, 1.6)",
+    slowFade: "opacity 0.8s ease-in-out",
+    quickSlide: "transform 0.2s ease-out",
   },
 
   zIndex: {
