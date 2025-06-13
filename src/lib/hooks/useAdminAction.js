@@ -168,10 +168,11 @@ export const useDeleteCategory = () => {
 };
 
 // GER DRUGS FOR CATEGORY
-export const useCategoryDrugs = () => {
+export const useCategoryDrugs = ({ id }) => {
+  const { token } = useTypeContext();
   return useQuery({
-    queryKey: ["CategoryDrugs"],
-    queryFn: getDrugsForCategory,
+    queryKey: ["CategoryDrugs", id],
+    queryFn: () => getDrugsForCategory({ token, id }),
     refetchOnMount: false,
     refetchOnWindowFocus: false,
   });
