@@ -129,32 +129,19 @@ export default function NotificationsModal() {
             },
           }}
         >
-          <NotificationHeader
-            count={payloadCount && payloadCount.data.unreadCount}
-          />
-        </MenuItem>
-        <MenuItem
-          disableRipple
-          sx={{
-            display: "flex",
-            justifyContent: "center",
-            gap: 2,
-            flexWrap: "wrap",
-            background: "transparent",
-            py: 2,
-            boxShadow: 8,
-            borderRadius: "0px 0px  10px 10px",
-            mb: 2,
-            ":hover": {
-              boxShadow: 6,
-              background: "transparent",
-            },
-          }}
-        >
-          <NotificationAction
-            result={totalItems}
-            count={payloadCount && payloadCount.data.unreadCount}
-          />
+          <Stack
+            width={"100%"}
+            direction={"row"}
+            justifyContent={"space-between"}
+          >
+            <NotificationHeader
+              count={payloadCount && payloadCount.data.unreadCount}
+            />
+            <NotificationAction
+              result={totalItems}
+              count={payloadCount && payloadCount.data.unreadCount}
+            />
+          </Stack>
         </MenuItem>
 
         <MenuItem

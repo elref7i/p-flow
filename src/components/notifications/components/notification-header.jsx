@@ -3,7 +3,7 @@ import { Box, Typography } from "@mui/material";
 
 export default function NotificationHeader({ count }) {
   return (
-    <Box>
+    <Box flex={1}>
       <Typography
         variant="h3"
         color={"white"}
