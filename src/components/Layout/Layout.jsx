@@ -19,7 +19,7 @@ const PUBLIC_PAGES = new Set([
   "/updatedpassword",
   "/verifysendcoding",
   "/landing",
-  "/pharmacy/home",
+  "/pharmacy",
 ]);
 const AUTH_PAGES = new Set([
   "/login",
