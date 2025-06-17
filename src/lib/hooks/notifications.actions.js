@@ -9,7 +9,7 @@ import {
   addMarkNotif,
   deleteAllNotif,
   deleteNotif,
-  getAllNotifications,
+  getAllMeNotifications,
   getUnreadCountNotif,
 } from "../api/notification.api";
 import toast from "react-hot-toast";
@@ -25,12 +25,12 @@ export const useCountNotif = ({ token }) => {
   });
 };
 
-// Get all notifications
-export const useGetAllNotifications = ({ token }) => {
+// Get all me notifications
+export const useGetAllMeNotifications = ({ token }) => {
   return useInfiniteQuery({
     queryKey: ["all-notifications", token],
     queryFn: ({ pageParam = 1 }) =>
-      getAllNotifications({ token, page: pageParam }),
+      getAllMeNotifications({ token, page: pageParam }),
     getNextPageParam: (lastPage) => lastPage.pagination?.next || undefined,
     keepPreviousData: true,
     refetchOnWindowFocus: false,

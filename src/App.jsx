@@ -1,4 +1,4 @@
-import { lazy, Suspense } from "react";
+import { lazy, Suspense, useEffect } from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
@@ -68,8 +68,20 @@ import PharmacyOrders from "./pages/Pharmacy/PharmacyOrders/PharmacyOrders";
 import Inventories from "./pages/Pharmacy/Inventories/Inventories";
 import ProfileBase from "./pages/Inventory/InventoryProfile/Profile";
 import CategoryDrugs from "./pages/Pharmacy/CategoryDrugs/CategoryDrugs";
+import {
+  messaging,
+  requestFCMToken,
+} from "./components/notifications/firebase/firebase-config";
+import { onMessage } from "firebase/messaging";
 
 function App() {
+  useEffect(() => {
+    requestFCMToken();
+    onMessage(messaging, (payload) => {
+      console.log(payload);
+    });
+  }, []);
+
   const router = createBrowserRouter([
     {
       path: "/",

@@ -19,8 +19,8 @@ export async function addNotifications({ token, values }) {
   return data;
 }
 
-//Get All Notifications
-export async function getAllNotifications({ token, page }) {
+// Get all me notifications
+export async function getAllMeNotifications({ token, page }) {
   const options = {
     method: "GET",
     url: `${NOTIF_URL}/me`,

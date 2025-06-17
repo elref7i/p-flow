@@ -9,7 +9,7 @@ import NotificationHeader from "./components/notification-header";
 import NotificationBage from "./components/notification-bage.";
 import {
   useCountNotif,
-  useGetAllNotifications,
+  useGetAllMeNotifications,
 } from "../../lib/hooks/notifications.actions";
 import { useTypeContext } from "../../context/UserType.context";
 import InfiniteScroll from "react-infinite-scroll-component";
@@ -44,14 +44,13 @@ export default function NotificationsModal() {
   };
 
   //Queries
-  const { data: payload, isLoading } = useGetAllNotifications({ token });
+  const { data: payload, isLoading } = useGetAllMeNotifications({ token });
 
   const { data: payloadCount, isLoading: isLoadingCount } = useCountNotif({
     token,
   });
 
   // Flatten the data from all pages
-
   const flattenedNotifications =
     payload?.pages.flatMap((page) => page.data || []) || [];
 
@@ -60,8 +59,6 @@ export default function NotificationsModal() {
     payload?.pages.reduce((total, page) => {
       return total + (page.data?.length || 0);
     }, 0) || 0;
-
-  console.log(totalItems);
 
   return (
     <>
@@ -133,32 +130,19 @@ export default function NotificationsModal() {
             },
           }}
         >
-          <NotificationHeader
-            count={payloadCount && payloadCount.data.unreadCount}
-          />
-        </MenuItem>
-        <MenuItem
-          disableRipple
-          sx={{
-            display: "flex",
-            justifyContent: "center",
-            gap: 2,
-            flexWrap: "wrap",
-            background: "transparent",
-            py: 2,
-            boxShadow: 8,
-            borderRadius: "0px 0px  10px 10px",
-            mb: 2,
-            ":hover": {
-              boxShadow: 6,
-              background: "transparent",
-            },
-          }}
-        >
-          <NotificationAction
-            result={totalItems}
-            count={payloadCount && payloadCount.data.unreadCount}
-          />
+          <Stack
+            width={"100%"}
+            direction={"row"}
+            justifyContent={"space-between"}
+          >
+            <NotificationHeader
+              count={payloadCount && payloadCount.data.unreadCount}
+            />
+            <NotificationAction
+              result={totalItems}
+              count={payloadCount && payloadCount.data.unreadCount}
+            />
+          </Stack>
         </MenuItem>
 
         <MenuItem

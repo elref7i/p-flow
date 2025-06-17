@@ -3,9 +3,6 @@ import { Badge, CircularProgress } from "@mui/material";
 import { Notifications as NotificationsIcon } from "@mui/icons-material";
 
 export default function NotificationBage({ dataInfo, isLoading }) {
-  //Queries
-  console.log(dataInfo, isLoading);
-
   return (
     <Badge
       badgeContent={
