@@ -12,7 +12,7 @@ export default function CategoryDrugSkeleton() {
         padding: 2,
       }}
     >
-      {/* Skeleton for Category Info Header */}
+      {/* Header Skeleton */}
       <Box
         sx={{
           display: "flex",
@@ -30,60 +30,63 @@ export default function CategoryDrugSkeleton() {
           flexWrap: "wrap",
         }}
       >
-        {/* Category Image */}
         <Skeleton
           variant="rectangular"
-          width={120}
-          height={120}
-          sx={{ borderRadius: 3 }}
+          width={100}
+          height={100}
+          sx={{ borderRadius: 2 }}
         />
-
-        {/* Category Info */}
         <Box sx={{ flexGrow: 1 }}>
-          <Skeleton variant="text" width="50%" height={38} />
-          <Skeleton variant="text" width="70%" height={24} />
+          <Skeleton variant="text" width="40%" height={34} />
+          <Skeleton variant="text" width="60%" height={20} sx={{ mt: 1 }} />
+        </Box>
+        <Box sx={{ display: "flex", gap: 2 }}>
+          <Skeleton
+            variant="rectangular"
+            width={80}
+            height={32}
+            sx={{ borderRadius: 2 }}
+          />
+          <Skeleton
+            variant="rectangular"
+            width={80}
+            height={32}
+            sx={{ borderRadius: 2 }}
+          />
         </Box>
       </Box>
 
-      {/* Grid of Skeleton Cards */}
+      {/* Drug Cards Skeleton */}
       <Grid container spacing={4} sx={{ px: 3, pb: 4 }}>
-        {Array.from(new Array(12)).map((_, index) => (
+        {Array.from({ length: 15 }).map((_, index) => (
           <Grid item xs={12} sm={6} md={4} key={index}>
             <Card
               sx={{
                 borderRadius: 3,
                 boxShadow: 3,
-                overflow: "hidden",
-                position: "relative",
                 height: "100%",
+                backgroundColor: (theme) =>
+                  theme.palette.mode === "light" ? "#ffffff" : "#1c1c1c",
               }}
             >
               <CardContent>
                 <Stack spacing={1}>
-                  <Skeleton variant="text" width="80%" height={28} />
-                  <Skeleton variant="text" width="40%" height={20} />
-                  <Skeleton variant="text" width="30%" height={18} />
+                  <Skeleton variant="text" width="85%" height={24} />
+                  <Skeleton variant="text" width="50%" height={20} />
+                  <Skeleton variant="text" width="40%" height={18} />
 
-                  <Stack direction="row" spacing={1} alignItems="center" mt={1}>
-                    <Skeleton variant="text" width="30%" height={24} />
-                    <Skeleton variant="text" width="20%" height={20} />
-                  </Stack>
+                  <Box>
+                    <Skeleton variant="text" width="40%" height={18} />
+                    <Skeleton variant="text" width="30%" height={18} />
+                  </Box>
 
-                  <Skeleton variant="rounded" width="100%" height={36} />
+                  <Skeleton
+                    variant="rounded"
+                    width="100%"
+                    height={36}
+                    sx={{ mt: 2, borderRadius: 2 }}
+                  />
                 </Stack>
-
-                {/* Discount Badge */}
-                <Box
-                  sx={{
-                    position: "absolute",
-                    top: 12,
-                    right: 12,
-                    width: 40,
-                    height: 24,
-                    borderRadius: 1,
-                    backgroundColor: "rgba(0,0,0,0.1)",
-                  }}
-                />
               </CardContent>
             </Card>
           </Grid>
