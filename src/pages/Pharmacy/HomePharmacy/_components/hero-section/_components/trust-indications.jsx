@@ -63,7 +63,7 @@ export default function TrustIndications() {
                 style={{ transformStyle: "preserve-3d" }}
               >
                 <Paper
-                  elevation={8}
+                  elevation={9}
                   sx={{
                     p: 4,
                     textAlign: "center",
@@ -71,7 +71,7 @@ export default function TrustIndications() {
                     backdropFilter: "blur(25px)",
                     border: "2px solid rgba(255,255,255,0.25)",
                     borderRadius: 4,
-                    color: "white",
+                    color: textPrimary,
                     transition: "all 0.4s ease",
                     "&:hover": {
                       background: "rgba(255,255,255,0.18)",
