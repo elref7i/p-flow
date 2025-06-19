@@ -1,19 +1,18 @@
-import { Box, TextField } from "@mui/material";
-import { useThemeConstants } from "../../lib/constants/theme.constant";
+import { Box, InputAdornment, TextField } from "@mui/material";
 import Filter from "../Filter/Filter";
 import { useState } from "react";
 import FilterListIcon from "@mui/icons-material/FilterList";
 import { useQueryParams } from "../../context/params.context";
+import { Search } from "@mui/icons-material";
+import { motion } from "framer-motion";
 
 export default function SearchBar() {
   //States
   const [openFilter, setOpenFilter] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
 
   //Context
   const { setSearchParams } = useQueryParams();
-
-  //Themes
-  const { shadow2, background } = useThemeConstants();
 
   //Fuctions
   const handleOpenFilter = () => setOpenFilter(true);
@@ -22,12 +21,71 @@ export default function SearchBar() {
 
   const handleSearch = (searchValue) => {
     setSearchParams({ keyword: searchValue });
+    setSearchQuery(true);
   };
 
   return (
     <>
       <Box sx={{ position: "relative", flex: 1 }}>
         <TextField
+          fullWidth
+          type="search"
+          variant="outlined"
+          placeholder="Search by name, active ingredient, or condition..."
+          onChange={(e) => {
+            handleSearch(e.target.value);
+          }}
+          InputProps={{
+            startAdornment: (
+              <InputAdornment position="start">
+                <motion.div
+                  animate={{
+                    rotate: searchQuery ? [0, 360] : 0,
+                    scale: searchQuery ? [1, 1.2, 1] : 1,
+                  }}
+                  transition={{ duration: 0.6 }}
+                >
+                  <Search
+                    sx={{
+                      color: "primary.main",
+                      fontSize: 28,
+                    }}
+                  />
+                </motion.div>
+              </InputAdornment>
+            ),
+            endAdornment: (
+              <Box
+                sx={{
+                  cursor: "pointer",
+                  display: "flex",
+                  alignItems: "center",
+                }}
+                onClick={handleOpenFilter}
+              >
+                <FilterListIcon color="action" />
+              </Box>
+            ),
+          }}
+          sx={{
+            "& .MuiOutlinedInput-root": {
+              borderRadius: 4,
+              fontSize: "1.2rem",
+              py: 0.5,
+              background: "transparent",
+              transition: "all 0.3s ease",
+              "&:hover": {
+                boxShadow: 8,
+                transform: "translateY(-2px)",
+              },
+              "&.Mui-focused": {
+                boxShadow: "0 15px 35px 8",
+                transform: "translateY(-3px)",
+              },
+            },
+          }}
+        />
+        {/* <TextField
           fullWidth
           placeholder="Search drugs..."
           variant="filled"
@@ -59,7 +117,7 @@ export default function SearchBar() {
               </Box>
             ),
           }}
-        />
+        /> */}
       </Box>
       <Filter
         openFilter={openFilter}

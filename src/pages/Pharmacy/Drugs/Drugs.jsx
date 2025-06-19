@@ -142,6 +142,7 @@ export default function Drugs() {
               ),
             }}
           />
+
           <Box
             sx={{
               display: "flex",
@@ -165,7 +166,6 @@ export default function Drugs() {
               Search
             </Button>
           </Box>
-
           {/* Search History */}
           {openHistory && (
             <Box

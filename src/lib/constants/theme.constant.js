@@ -9,6 +9,7 @@ export const useThemeConstants = () => {
 
   // Media Query
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
+  const mode = theme.palette.mode;
 
   // الألوان الأساسية
   const primary = theme.palette.primary.main;
@@ -605,5 +606,8 @@ export const useThemeConstants = () => {
 
     //Media query
     isMobile,
+
+    // Mode
+    mode,
   };
 };
