@@ -1,14 +1,11 @@
 import { Box } from "@mui/material";
 import { Helmet } from "react-helmet";
-import HeroSection from "./_components/HeroSection";
 import InventorySection from "./_components/InventorySection";
 import CategorySection from "./_components/CategorySection";
-import ServicesSection from "./_components/services-section";
 import FrequentMedicinesSection from "./_components/frequent-medicines-section";
 import PromotionsSection from "./_components/promotions-section";
-import SearchSection from "./_components/search-section";
 import FooterSection from "./_components/footer-section";
-import HeroVariation1 from "./_components/HeroSection";
+import HeroVariation1 from "./_components/hero-section/hero-section";
 
 export default function HomePharmacy() {
   return (
@@ -27,9 +24,7 @@ export default function HomePharmacy() {
 
       <Box component={"main"}>
         <HeroVariation1 />
-        {/* <HeroSection /> */}
-        <SearchSection />
-        <ServicesSection />
+        {/* <ServicesSection /> */}
         <CategorySection />
         <PromotionsSection />
         <FrequentMedicinesSection />

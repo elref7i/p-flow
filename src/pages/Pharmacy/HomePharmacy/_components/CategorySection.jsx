@@ -20,7 +20,7 @@ import { useNavigate } from "react-router-dom";
 import { useTypeContext } from "../../../../context/UserType.context";
 
 export default function CategorySection() {
-  const { textPrimary, paperBackground } = useThemeConstants();
+  const { textPrimary, cardBackground } = useThemeConstants();
   const { data, isLoading } = useCategories();
   const categories = data?.data || [];
   const navigate = useNavigate();
@@ -80,7 +80,7 @@ export default function CategorySection() {
           {[...Array(4)].map((_, idx) => (
             <Card
               key={idx}
-              sx={{ width: 320, borderRadius: 4 }}
+              sx={{ width: 320, borderRadius: 4, background: cardBackground }}
             >
               <Skeleton
                 variant="rectangular"
@@ -138,18 +138,18 @@ export default function CategorySection() {
                   }}
                   sx={{
                     borderRadius: 4,
-                    boxShadow: "0 12px 40px rgba(0,0,0,0.08)",
-                    bgcolor: paperBackground,
+                    boxShadow: 2,
+                    bgcolor: cardBackground,
                     cursor: role === "pharmacy" ? "pointer" : "default",
                     overflow: "hidden",
                     position: "relative",
                     transition: "all 0.4s cubic-bezier(0.4, 0, 0.2, 1)",
                     border: "1px solid rgba(255,255,255,0.1)",
                     "&:hover": {
-                      boxShadow: "0 20px 60px rgba(33, 150, 243, 0.2)",
-                      transform: "translateY(-8px) scale(1.02)",
+                      boxShadow: 9,
+                      transform: "translateY(-1px) scale(1.02)",
                       "& .category-image": {
-                        transform: "scale(1.15)",
+                        transform: "scale(1.1)",
                       },
                       "& .category-overlay": {
                         opacity: 1,

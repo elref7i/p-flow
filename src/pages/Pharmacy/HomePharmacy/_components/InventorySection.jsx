@@ -22,13 +22,13 @@ export default function InventorySection() {
   const { token } = useTypeContext();
   const { data, isLoading } = useGetAllInventoriesQuery({ token });
   const inventories = data?.inventories || [];
-  const { textPrimary, paperBackground } = useThemeConstants();
+  const { textPrimary, cardBackground } = useThemeConstants();
 
   return (
     <Box
       sx={{
         py: 8,
-        background: "linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%)",
+        background: "transparent",
         position: "relative",
       }}
     >
@@ -117,7 +117,7 @@ export default function InventorySection() {
             loop
             slidesPerView={6}
             autoplay={{
-              delay: 3000,
+              delay: 4000,
               disableOnInteraction: false,
             }}
             breakpoints={{
@@ -144,7 +144,7 @@ export default function InventorySection() {
                       textAlign: "center",
                       color: textPrimary,
                       borderRadius: 4,
-                      bgcolor: paperBackground,
+                      background: cardBackground,
                       transition: "all 0.4s cubic-bezier(0.4, 0, 0.2, 1)",
                       cursor: "pointer",
                       position: "relative",
@@ -156,7 +156,7 @@ export default function InventorySection() {
                       justifyContent: "center",
                       "&:hover": {
                         boxShadow: "0 16px 40px rgba(0,0,0,0.15)",
-                        transform: "translateY(-8px)",
+                        transform: "translateY(-2px)",
                         "& .inventory-avatar": {
                           transform: "scale(1.1)",
                           boxShadow: "0 8px 25px rgba(33, 150, 243, 0.3)",
