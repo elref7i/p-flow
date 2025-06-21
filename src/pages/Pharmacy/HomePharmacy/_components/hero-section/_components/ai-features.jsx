@@ -1,16 +1,10 @@
 import { DocumentScanner, Psychology } from "@mui/icons-material";
-import {
-  Box,
-  Button,
-  Card,
-  CardContent,
-  Grid,
-  Typography,
-} from "@mui/material";
+import { Box, Card, CardContent, Grid, Typography } from "@mui/material";
 import { motion } from "framer-motion";
 import { itemVariants } from "../constants/variants";
 import SearchAi from "../../../../../../components/modal-ai/modal-ai";
 import { useThemeConstants } from "../../../../../../lib/constants/theme.constant";
+import PrescriptionModalUsage from "../../../../../../components/prescription-modal/prescription-modal-usage";
 
 export default function AiFeatures() {
   //Themes
@@ -244,7 +238,6 @@ export default function AiFeatures() {
                     variant="body1"
                     sx={{
                       opacity: 0.95,
-                      mb: 4,
                       lineHeight: 1.7,
                       fontSize: "1.1rem",
                     }}
@@ -256,23 +249,7 @@ export default function AiFeatures() {
                     whileHover={{ scale: 1.08 }}
                     whileTap={{ scale: 0.95 }}
                   >
-                    <Button
-                      variant="contained"
-                      size="large"
-                      sx={{
-                        bgcolor: "rgba(255,255,255,0.25)",
-                        color: "white",
-                        fontWeight: 600,
-                        py: 1.5,
-                        px: 4,
-                        "&:hover": {
-                          bgcolor: "rgba(255,255,255,0.35)",
-                          boxShadow: "0 8px 20px rgba(255,255,255,0.2)",
-                        },
-                      }}
-                    >
-                      Scan Prescription
-                    </Button>
+                    <PrescriptionModalUsage />
                   </motion.div>
                 </CardContent>
               </Card>
