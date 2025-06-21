@@ -19,7 +19,7 @@ import {
 } from "../../../lib/constants/infinte-data";
 export default function Drugs() {
   //states
-  const [params, setParams] = useState({});
+  const [params, setParams] = useState({ limit: 45 });
   const [openFilter, setOpenFilter] = useState(false);
   const [openHistory, setOpenHistory] = useState(false);
   const [searchValue, setSearchValue] = useState("");

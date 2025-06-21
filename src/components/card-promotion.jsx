@@ -5,26 +5,25 @@ import {
   Card,
   CardContent,
   CircularProgress,
+  Stack,
   Typography,
 } from "@mui/material";
-import { calculateSavings } from "../pages/Pharmacy/HomePharmacy/utils/formate-data";
 import { ShoppingCart } from "@mui/icons-material";
 import { useThemeConstants } from "../lib/constants/theme.constant";
 import { useAddToCart } from "../lib/hooks/useCartAction";
 import BadgeStock from "./Common/badge-stock";
 import { getStockStatus } from "../lib/utils/status-stock";
 import BadgePromtion from "./Common/badge-promtion";
-import { formatPrice } from "../lib/utils/price-formate";
+import { formatNumber } from "../lib/utils/formateNumber";
 
-export default function CardPromotion({ medicine }) {
+export default function CardPromotion({ drug }) {
   //Mutation
   const { mutate, isLoading: loadingAddCard } = useAddToCart();
 
   //Themes
-  const { textPrimary, textScondary } = useThemeConstants();
+  const { textPrimary, textSecondary, cardBackground } = useThemeConstants();
 
-  const stockStatus = getStockStatus(medicine?.stock);
-  const savings = calculateSavings(medicine?.price, medicine?.discountedPrice);
+  const stockStatus = getStockStatus(drug?.stock);
 
   return (
     <Card
@@ -34,13 +33,11 @@ export default function CardPromotion({ medicine }) {
         overflow: "hidden",
         position: "relative",
         cursor: "pointer",
+        boxShadow: 8,
+        background: cardBackground,
         transition: "all 0.4s cubic-bezier(0.4, 0, 0.2, 1)",
         "&:hover": {
-          boxShadow: "0 20px 60px rgba(0,0,0,0.15)",
-          transform: "translateY(-10px) scale(1.02)",
-          "& .medicine-image": {
-            transform: "scale(1.1)",
-          },
+          boxShadow: 7,
           "& .promotion-overlay": {
             opacity: 0.9,
           },
@@ -72,7 +69,7 @@ export default function CardPromotion({ medicine }) {
         />
 
         {/* Promotion Badge */}
-        <BadgePromtion medicine={medicine} />
+        <BadgePromtion promotion={drug.promotion} />
 
         {/* Stock Status */}
         <BadgeStock stockStatus={stockStatus} />
@@ -80,7 +77,7 @@ export default function CardPromotion({ medicine }) {
 
       <CardContent sx={{ p: 3 }}>
         <Typography
-          variant="h6"
+          variant="h5"
           fontWeight={700}
           gutterBottom
           sx={{
@@ -92,50 +89,71 @@ export default function CardPromotion({ medicine }) {
             whiteSpace: "nowrap",
           }}
         >
-          {medicine.name}
+          {drug.name}
         </Typography>
 
-        {/* Pricing */}
-        <Box mb={2}>
-          <Box
-            display="flex"
-            alignItems="center"
-            gap={1}
-            mb={1}
+        {/* Price Section */}
+        <Box>
+          <Stack
+            spacing={1.5}
+            py={4}
           >
-            <Typography
-              variant="h6"
+            <Box
               sx={{
-                color: textPrimary,
-                fontWeight: 700,
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
               }}
             >
-              {formatPrice(medicine.discountedPrice)}
-            </Typography>
-            <Typography
-              variant="body2"
+              <Typography
+                variant="h6"
+                color={textSecondary}
+              >
+                Consumer Price:
+              </Typography>
+              <Typography
+                variant="h6"
+                sx={{
+                  fontWeight: 700,
+                  color: textSecondary,
+                }}
+              >
+                ${formatNumber(drug.discountedPrice)}
+              </Typography>
+            </Box>
+
+            <Box
               sx={{
-                color: textScondary,
-                textDecoration: "line-through",
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
               }}
             >
-              {formatPrice(medicine.price)}
-            </Typography>
-          </Box>
-          <Typography
-            variant="body2"
-            sx={{
-              color: textPrimary,
-              fontWeight: 600,
-            }}
-          >
-            Save {formatPrice(savings)}
-          </Typography>
+              <Typography
+                variant="h6"
+                color={textSecondary}
+              >
+                Pharmacy Price:
+              </Typography>
+              <Typography
+                variant="h6"
+                sx={{
+                  fontWeight: 600,
+                  textDecoration: drug.discount > 0 ? "line-through" : "none",
+                  opacity: drug.discount > 0 ? 0.6 : 1,
+                  color: textSecondary,
+                }}
+              >
+                ${formatNumber(drug.price)}
+              </Typography>
+            </Box>
+          </Stack>
         </Box>
         <Button
+          disabled={loadingAddCard || drug.stock <= 0}
           onClick={() => {
             mutate({
-              drugId: medicine._id,
+              drugId: drug._id,
               quantity: 1,
             });
           }}
@@ -144,7 +162,6 @@ export default function CardPromotion({ medicine }) {
           startIcon={
             loadingAddCard ? <CircularProgress size={18} /> : <ShoppingCart />
           }
-          disabled={medicine.stock === 0}
           sx={{
             borderRadius: 3,
             py: 1.2,
@@ -161,7 +178,7 @@ export default function CardPromotion({ medicine }) {
             },
           }}
         >
-          {medicine.stock === 0 ? "Out of Stock" : "Add to Cart"}
+          {drug.stock === 0 ? "Out of Stock" : "Add to Cart"}
         </Button>
       </CardContent>
     </Card>

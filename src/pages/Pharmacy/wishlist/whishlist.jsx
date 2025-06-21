@@ -21,7 +21,7 @@ export default function Whishlist() {
   const { data: payload, isLoading } = useWishlist({ token });
 
   //Thems
-  const { typography, cardBackground, textPrimary } = useThemeConstants();
+  const { typography, textPrimary } = useThemeConstants();
 
   const clearWishlistMutation = useClearWishlist();
 
@@ -39,15 +39,25 @@ export default function Whishlist() {
           name="keywords"
           content="inventory, favorites, pharmacy, warehouse, medicine"
         />
-        <meta name="author" content="Your Project Name or Team" />
+        <meta
+          name="author"
+          content="Your Project Name or Team"
+        />
 
-        <meta property="og:title" content="My Favorite Inventories" />
+        <meta
+          property="og:title"
+          content="My Favorite Inventories"
+        />
         <meta
           property="og:description"
           content="Check your saved favorite inventories in one place."
         />
-        <meta property="og:type" content="website" />
+        <meta
+          property="og:type"
+          content="website"
+        />
       </Helmet>
+
       <Stack
         component={"header"}
         sx={{ py: 3 }}
@@ -65,7 +75,10 @@ export default function Whishlist() {
         >
           My Favorite Inventories
         </Typography>
-        <Stack direction={"row"} gap={2}>
+        <Stack
+          direction={"row"}
+          gap={2}
+        >
           <Button
             color="error"
             variant="outlined"
@@ -87,11 +100,9 @@ export default function Whishlist() {
       <Grid2
         container
         spacing={2}
-        p={3}
+        p={0}
         sx={{
           pt: "20px",
-          background: cardBackground,
-          boxShadow: 1,
           borderRadius: 5,
         }}
       >

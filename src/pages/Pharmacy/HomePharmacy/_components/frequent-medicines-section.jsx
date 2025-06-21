@@ -16,7 +16,7 @@ export default function FrequentMedicinesSection() {
   const { token } = useTypeContext();
 
   //Queries
-  const { data, isLoading } = useInfiniteDrugs(token, {});
+  const { data, isLoading } = useInfiniteDrugs(token, { limit: 10 });
 
   // Themes
   const { textPrimary } = useThemeConstants();

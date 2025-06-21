@@ -19,6 +19,7 @@ export default function WishlistCard({ inventory }) {
     success,
     typography,
     cardBackground,
+    transitionEasingEaseOut,
   } = useThemeConstants();
 
   //Data
@@ -36,11 +37,15 @@ export default function WishlistCard({ inventory }) {
     <Card
       sx={{
         borderRadius: "10px",
-        boxShadow: 5,
+        boxShadow: 8,
         overflow: "initial",
         position: "relative",
         width: "100%",
+        transition: transitionEasingEaseOut,
         backgroundColor: cardBackground,
+        ":hover": {
+          boxShadow: 7,
+        },
       }}
     >
       <MoreAction

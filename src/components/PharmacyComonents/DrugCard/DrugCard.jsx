@@ -1,11 +1,8 @@
-"use client";
-
 /* eslint-disable react/prop-types */
 import {
   Box,
   Typography,
   Button,
-  useTheme,
   alpha,
   Avatar,
   CircularProgress,
@@ -20,6 +17,8 @@ import { useNavigate } from "react-router-dom";
 import { formatNumber } from "../../../lib/utils/formateNumber";
 import { useTypeContext } from "../../../context/UserType.context";
 import { useThemeConstants } from "../../../lib/constants/theme.constant";
+import BadgePromtion from "../../Common/badge-promtion";
+import { buttonText } from "../../../lib/utils/status-stock";
 
 const DrugCard = ({ dataInfo: drug, checkPage, checkdistance }) => {
   //Navigation
@@ -32,13 +31,15 @@ const DrugCard = ({ dataInfo: drug, checkPage, checkdistance }) => {
   const { mutate, isLoading } = useAddToCart();
 
   //Theme
-  const theme = useTheme();
   const {
     cardBackground,
     cardDetailsBackground,
+    cardActiveBackground,
     transitionSmooth,
     textSecondary,
     textLink,
+    textPrimary,
+    border,
   } = useThemeConstants();
 
   // Function to get promotion text
@@ -54,6 +55,7 @@ const DrugCard = ({ dataInfo: drug, checkPage, checkdistance }) => {
         overflow: "hidden",
         position: "relative",
         background: cardBackground,
+        transition: transitionSmooth,
         height: "100%",
         display: "flex",
         flexDirection: "column",
@@ -66,14 +68,14 @@ const DrugCard = ({ dataInfo: drug, checkPage, checkdistance }) => {
       {/* <BadgeStock stockStatus={stockStatus} /> */}
 
       {/* Promotion/Offer Badge */}
-      {/* <BadgePromtion medicine={drug.promotion} /> */}
 
+      {drug.promotion.isActive && <BadgePromtion promotion={drug.promotion} />}
       {/* Header Section */}
       <Box
         sx={{
           p: 2.5,
-          background: alpha(theme.palette.primary.main, 0.05),
-          borderBottom: `1px solid ${alpha(theme.palette.divider, 0.1)}`,
+          background: alpha(cardActiveBackground, 0.4),
+          borderBottom: `1px solid ${border}`,
         }}
       >
         <Typography
@@ -119,7 +121,7 @@ const DrugCard = ({ dataInfo: drug, checkPage, checkdistance }) => {
                 width: 35,
                 height: 35,
                 mr: 1,
-                border: `2px solid ${alpha(theme.palette.primary.main, 0.3)}`,
+                border: `2px solid ${border}`,
               }}
             />
             <Typography
@@ -130,13 +132,13 @@ const DrugCard = ({ dataInfo: drug, checkPage, checkdistance }) => {
               sx={{
                 cursor: "pointer",
                 fontWeight: "bold",
-                color: alpha(theme.palette.text.primary, 0.8),
+                color: alpha(textSecondary, 0.8),
                 maxWidth: "200px",
                 overflow: "hidden",
                 textOverflow: "ellipsis",
                 whiteSpace: "nowrap",
                 "&:hover": {
-                  color: theme.palette.primary.main,
+                  color: textPrimary,
                 },
               }}
             >
@@ -146,7 +148,7 @@ const DrugCard = ({ dataInfo: drug, checkPage, checkdistance }) => {
         )}
       </Box>
 
-      {/* Price Section */}
+      {/* Card Content */}
       <Box
         sx={{
           p: 2.5,
@@ -157,6 +159,7 @@ const DrugCard = ({ dataInfo: drug, checkPage, checkdistance }) => {
           justifyContent: "space-between",
         }}
       >
+        {/* Price Section */}
         <Box>
           <Stack spacing={1.5}>
             <Box
@@ -168,7 +171,7 @@ const DrugCard = ({ dataInfo: drug, checkPage, checkdistance }) => {
             >
               <Typography
                 variant="h6"
-                color="text.secondary"
+                color={textSecondary}
               >
                 Consumer Price:
               </Typography>
@@ -176,7 +179,7 @@ const DrugCard = ({ dataInfo: drug, checkPage, checkdistance }) => {
                 variant="h6"
                 sx={{
                   fontWeight: 700,
-                  color: theme.palette.success.main,
+                  color: textSecondary,
                 }}
               >
                 ${formatNumber(drug.discountedPrice)}
@@ -192,7 +195,7 @@ const DrugCard = ({ dataInfo: drug, checkPage, checkdistance }) => {
             >
               <Typography
                 variant="h6"
-                color="text.secondary"
+                color={textSecondary}
               >
                 Pharmacy Price:
               </Typography>
@@ -221,7 +224,7 @@ const DrugCard = ({ dataInfo: drug, checkPage, checkdistance }) => {
         {role === "pharmacy" && (
           <Box sx={{ mt: 3 }}>
             <Button
-              disabled={isLoading}
+              disabled={isLoading || drug.stock <= 0}
               onClick={() => {
                 mutate({
                   drugId: drug._id,
@@ -246,13 +249,13 @@ const DrugCard = ({ dataInfo: drug, checkPage, checkdistance }) => {
                 textTransform: "none",
                 py: 1,
                 fontWeight: 600,
-                boxShadow: theme.shadows[2],
+                boxShadow: 2,
                 "&:hover": {
-                  boxShadow: theme.shadows[4],
+                  boxShadow: 3,
                 },
               }}
             >
-              Add to Cart
+              {buttonText(drug.stock)}
             </Button>
           </Box>
         )}

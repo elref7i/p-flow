@@ -360,7 +360,6 @@ const FeaturesSection = () => {
               backgroundColor: backgroundLowered,
               boxShadow: 8,
               transition: transitionEasingEaseOut,
-
               ":hover": {
                 boxShadow: 4,
               },
