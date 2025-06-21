@@ -1,6 +1,22 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { addPromotion, updatePromotion } from "../api/promotion_api";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import {
+  addPromotion,
+  getPromotions,
+  updatePromotion,
+} from "../api/promotion_api";
 import toast from "react-hot-toast";
+
+//Get all Promotions
+export const usePromotions = ({ token }) => {
+  return useQuery({
+    queryKey: ["all-promotion"],
+    queryFn: () => getPromotions({ token }),
+    keepPreviousData: true,
+    refetchOnWindowFocus: false,
+    staleTime: 5 * 60 * 1000,
+    cacheTime: 5 * 60 * 1000,
+  });
+};
 
 // ADD Promotion
 export const useAddPromotion = () => {

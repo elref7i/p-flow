@@ -13,6 +13,10 @@ import DrugCardSkeleton from "../../../components/Common/Loading/DrugCardSkeleto
 import { useThemeConstants } from "../../../lib/constants/theme.constant";
 import useSarchHistory from "../../../lib/hooks/useSearchHistory";
 import SearchAi from "../../../components/modal-ai/modal-ai";
+import {
+  flattenedDrugs,
+  totalItems,
+} from "../../../lib/constants/infinte-data";
 export default function Drugs() {
   //states
   const [params, setParams] = useState({});
@@ -83,14 +87,10 @@ export default function Drugs() {
   console.log(data);
 
   // Total Items
-  const totalItems =
-    data?.pages.reduce((total, page) => {
-      return total + (page.data?.length || 0);
-    }, 0) || 0;
+  const total = totalItems({ data });
 
   // Flatten the data from all pages
-  const flattenedDrugs = data?.pages.flatMap((page) => page.data || []) || [];
-  console.log(flattenedDrugs);
+  const flattenData = flattenedDrugs({ data });
 
   return (
     <>
@@ -248,7 +248,7 @@ export default function Drugs() {
 
       {!isLoading && isFetched ? (
         <InfiniteScroll
-          dataLength={totalItems}
+          dataLength={total}
           next={fetchNextPage}
           hasMore={hasNextPage}
           loader={<DrugCardSkeleton count={3} />}
@@ -266,7 +266,7 @@ export default function Drugs() {
             spacing={4}
             py={2}
           >
-            {flattenedDrugs.map((drug) => (
+            {flattenData.map((drug) => (
               <Grid2
                 key={drug._id}
                 size={{ xs: 12, md: 6, lg: 4 }}

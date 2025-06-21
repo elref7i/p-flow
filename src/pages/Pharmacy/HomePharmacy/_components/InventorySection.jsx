@@ -1,14 +1,6 @@
 "use client";
 
-import {
-  Box,
-  Typography,
-  Avatar,
-  Skeleton,
-  Container,
-  Paper,
-  Chip,
-} from "@mui/material";
+import { Box, Typography, Avatar, Container, Paper, Chip } from "@mui/material";
 import { Autoplay } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
@@ -17,12 +9,23 @@ import { useGetAllInventoriesQuery } from "../../../../lib/hooks/pharmacy.action
 import { useTypeContext } from "../../../../context/UserType.context";
 import { useThemeConstants } from "../../../../lib/constants/theme.constant";
 import { Verified, Store } from "@mui/icons-material";
+import InventorySkeleton from "./common/inventory-skeleton";
+import { useNavigate } from "react-router-dom";
 
 export default function InventorySection() {
+  // Context
   const { token } = useTypeContext();
+
+  //Navigation
+  const navigate = useNavigate();
+  // Queries
   const { data, isLoading } = useGetAllInventoriesQuery({ token });
-  const inventories = data?.inventories || [];
+
+  // Themes
   const { textPrimary, cardBackground } = useThemeConstants();
+
+  // Variables
+  const inventories = data?.inventories || [];
 
   return (
     <Box
@@ -71,45 +74,7 @@ export default function InventorySection() {
         </motion.div>
 
         {isLoading ? (
-          <Box
-            sx={{
-              display: "flex",
-              gap: 3,
-              justifyContent: "center",
-              flexWrap: "wrap",
-            }}
-          >
-            {[...Array(8)].map((_, idx) => (
-              <Paper
-                key={idx}
-                sx={{
-                  p: 3,
-                  borderRadius: 4,
-                  textAlign: "center",
-                  minWidth: 160,
-                }}
-              >
-                <Skeleton
-                  variant="circular"
-                  width={90}
-                  height={90}
-                  sx={{ mx: "auto", mb: 2 }}
-                />
-                <Skeleton
-                  variant="text"
-                  width={120}
-                  height={24}
-                  sx={{ mx: "auto", mb: 1 }}
-                />
-                <Skeleton
-                  variant="text"
-                  width={80}
-                  height={20}
-                  sx={{ mx: "auto" }}
-                />
-              </Paper>
-            ))}
-          </Box>
+          <InventorySkeleton />
         ) : (
           <Swiper
             modules={[Autoplay]}
@@ -155,14 +120,11 @@ export default function InventorySection() {
                       flexDirection: "column",
                       justifyContent: "center",
                       "&:hover": {
-                        boxShadow: "0 16px 40px rgba(0,0,0,0.15)",
+                        boxShadow: 7,
                         transform: "translateY(-2px)",
                         "& .inventory-avatar": {
                           transform: "scale(1.1)",
-                          boxShadow: "0 8px 25px rgba(33, 150, 243, 0.3)",
-                        },
-                        "& .verified-badge": {
-                          transform: "scale(1.1)",
+                          boxShadow: 9,
                         },
                       },
                       "&::before": {
@@ -174,6 +136,9 @@ export default function InventorySection() {
                         height: 3,
                         background: "linear-gradient(90deg, #2196F3, #21CBF3)",
                       },
+                    }}
+                    onClick={() => {
+                      navigate(`/pharmacy/inventoryprofile/${inv._id}`);
                     }}
                   >
                     {/* Verified Badge */}

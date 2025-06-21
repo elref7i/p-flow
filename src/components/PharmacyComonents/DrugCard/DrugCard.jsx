@@ -20,8 +20,6 @@ import { useNavigate } from "react-router-dom";
 import { formatNumber } from "../../../lib/utils/formateNumber";
 import { useTypeContext } from "../../../context/UserType.context";
 import { useThemeConstants } from "../../../lib/constants/theme.constant";
-import { DiscountBadge } from "../../Common/Loading/DiscountBadge";
-import LocalOfferIcon from "@mui/icons-material/LocalOffer";
 
 const DrugCard = ({ dataInfo: drug, checkPage, checkdistance }) => {
   //Navigation
@@ -43,6 +41,10 @@ const DrugCard = ({ dataInfo: drug, checkPage, checkdistance }) => {
     textLink,
   } = useThemeConstants();
 
+  // Function to get promotion text
+
+  // Check if item has active promotion
+
   return (
     <Paper
       component={motion.div}
@@ -60,17 +62,11 @@ const DrugCard = ({ dataInfo: drug, checkPage, checkdistance }) => {
         },
       }}
     >
-      {/* Discount Badge */}
-      {drug.discount > 0 && (
-        <Box sx={{ position: "absolute", top: 12, right: 12, zIndex: 2 }}>
-          <DiscountBadge
-            label={`${drug.discount.toFixed(0)}%`}
-            color="error"
-            size="small"
-            icon={<LocalOfferIcon />}
-          />
-        </Box>
-      )}
+      {/* Stock Status Badge - Using your exact BadgeStock component */}
+      {/* <BadgeStock stockStatus={stockStatus} /> */}
+
+      {/* Promotion/Offer Badge */}
+      {/* <BadgePromtion medicine={drug.promotion} /> */}
 
       {/* Header Section */}
       <Box

@@ -20,6 +20,7 @@ const navLinks = [
   },
   { name: "Orders", path: "/pharmacy/orders", icon: <AssignmentIcon /> },
   { name: "Wishlist", path: "/pharmacy/wishlist", icon: <AssignmentIcon /> },
+  { name: "Offers", path: "/pharmacy/promotions", icon: <AssignmentIcon /> },
 ];
 export default function NavLinkDesktop() {
   return (

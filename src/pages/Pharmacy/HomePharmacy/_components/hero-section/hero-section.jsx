@@ -26,6 +26,7 @@ import {
 } from "./constants/variants";
 import TrustIndications from "./_components/trust-indications";
 import DynamicResearch from "./_components/dynamic-research";
+import AiFeatures from "./_components/ai-features";
 
 export default function HeroVariation1() {
   const { backgroundElevated, mode, textPrimary } = useThemeConstants();
@@ -381,7 +382,7 @@ export default function HeroVariation1() {
               <DynamicResearch />
 
               {/* SECTION 3: Spectacular AI Features */}
-
+              <AiFeatures />
               {/* SECTION 4: Animated Trust Indicators */}
               <TrustIndications />
             </motion.div>

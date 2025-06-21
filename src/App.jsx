@@ -73,6 +73,7 @@ import {
   requestFCMToken,
 } from "./components/notifications/firebase/firebase-config";
 import { onMessage } from "firebase/messaging";
+import Promotions from "./pages/Pharmacy/promotions/promotions";
 
 function App() {
   useEffect(() => {
@@ -132,6 +133,7 @@ function App() {
         { path: "orders", element: <PharmacyOrders /> },
         { path: "inventoryprofile/:id", element: <InventoryProfile /> },
         { path: "wishlist", element: <Whishlist /> },
+        { path: "promotions", element: <Promotions /> },
       ],
     },
     {

@@ -1,10 +1,21 @@
 import { DocumentScanner, Psychology } from "@mui/icons-material";
-import { Box, Card, CardContent, Grid, Typography } from "@mui/material";
-import { Button } from "react-scroll";
+import {
+  Box,
+  Button,
+  Card,
+  CardContent,
+  Grid,
+  Typography,
+} from "@mui/material";
 import { motion } from "framer-motion";
 import { itemVariants } from "../constants/variants";
+import SearchAi from "../../../../../../components/modal-ai/modal-ai";
+import { useThemeConstants } from "../../../../../../lib/constants/theme.constant";
 
 export default function AiFeatures() {
+  //Themes
+  const { textPrimary } = useThemeConstants();
+  //Functions
   const handleAISearch = () => {
     console.log("Opening AI Active Ingredient Search Modal");
   };
@@ -12,6 +23,7 @@ export default function AiFeatures() {
   const handlePrescriptionScan = () => {
     console.log("Opening Prescription OCR Modal");
   };
+
   return (
     <motion.div variants={itemVariants}>
       <Box mb={{ xs: 6, md: 8 }}>
@@ -23,7 +35,7 @@ export default function AiFeatures() {
           <Typography
             variant="h3"
             sx={{
-              color: "white",
+              color: textPrimary,
               textAlign: "center",
               mb: 6,
               fontWeight: 800,
@@ -139,23 +151,7 @@ export default function AiFeatures() {
                     whileHover={{ scale: 1.08 }}
                     whileTap={{ scale: 0.95 }}
                   >
-                    <Button
-                      variant="contained"
-                      size="large"
-                      sx={{
-                        bgcolor: "rgba(255,255,255,0.25)",
-                        color: "white",
-                        fontWeight: 600,
-                        py: 1.5,
-                        px: 4,
-                        "&:hover": {
-                          bgcolor: "rgba(255,255,255,0.35)",
-                          boxShadow: "0 8px 20px rgba(255,255,255,0.2)",
-                        },
-                      }}
-                    >
-                      Try AI Search
-                    </Button>
+                    <SearchAi check={true} />
                   </motion.div>
                 </CardContent>
               </Card>

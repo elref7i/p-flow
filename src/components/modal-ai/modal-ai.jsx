@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { useState } from "react";
 import {
   Modal,
@@ -35,7 +36,7 @@ const modalStyle = {
   overflow: "hidden",
 };
 
-const SearchAi = () => {
+const SearchAi = ({ check }) => {
   //States
   const [open, setOpen] = useState(false);
   //Context
@@ -77,24 +78,45 @@ const SearchAi = () => {
     <>
       {/* AI Icon Trigger */}
 
-      <IconButton
-        onClick={handleOpen}
-        sx={{
-          background: navyBackground,
-          color: "white",
-          position: "fixed",
-          bottom: 20,
-          right: 20,
-          zIndex: 99,
-          width: 56,
-          height: 56,
-          "&:hover": {
-            background: deepBlueBackground,
-          },
-        }}
-      >
-        <Psychology sx={{ fontSize: 28 }} />
-      </IconButton>
+      {check ? (
+        <Button
+          onClick={handleOpen}
+          variant="contained"
+          size="large"
+          sx={{
+            bgcolor: "rgba(255,255,255,0.25)",
+            color: "white",
+            fontWeight: 600,
+            py: 1.5,
+            px: 4,
+            "&:hover": {
+              bgcolor: "rgba(255,255,255,0.35)",
+              boxShadow: "0 8px 20px rgba(255,255,255,0.2)",
+            },
+          }}
+        >
+          Try AI Search
+        </Button>
+      ) : (
+        <IconButton
+          onClick={handleOpen}
+          sx={{
+            background: navyBackground,
+            color: "white",
+            position: "fixed",
+            bottom: 20,
+            right: 20,
+            zIndex: 99,
+            width: 56,
+            height: 56,
+            "&:hover": {
+              background: deepBlueBackground,
+            },
+          }}
+        >
+          <Psychology sx={{ fontSize: 28 }} />
+        </IconButton>
+      )}
 
       {/* Modal */}
       <Modal

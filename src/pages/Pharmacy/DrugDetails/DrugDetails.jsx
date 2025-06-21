@@ -17,13 +17,10 @@ import {
 } from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
-import MedicationIcon from "@mui/icons-material/Medication";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import InventoryIcon from "@mui/icons-material/Inventory";
-import LocalOfferIcon from "@mui/icons-material/LocalOffer";
 import BusinessIcon from "@mui/icons-material/Business";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
-import { DiscountBadge } from "../../../components/Common/Loading/DiscountBadge";
 import { formatNumber } from "../../../lib/utils/formateNumber";
 import { useSpecificDrug } from "../../../lib/hooks/useDrugAction";
 import { useTypeContext } from "../../../context/UserType.context";
@@ -32,6 +29,8 @@ import { formatDate } from "../../../lib/utils/dateUtils";
 import { useAddToCart } from "../../../lib/hooks/useCartAction";
 import { useThemeConstants } from "../../../lib/constants/theme.constant";
 import CategoryIcon from "@mui/icons-material/Category";
+import BadgeStock from "../../../components/Common/badge-stock";
+import { getStockStatus } from "../../../lib/utils/status-stock";
 const InfoCard = styled(Paper)(({ theme }) => ({
   padding: theme.spacing(2),
   height: "100%",
@@ -57,6 +56,10 @@ export default function DrugDetails() {
   const { isFetching, data } = useSpecificDrug({ token, drugId: id });
 
   const { backgroundGraySoft, textScondary } = useThemeConstants();
+
+  // Get stock status
+  const stockStatus = getStockStatus(data?.stock || 0);
+  console.log(data);
 
   // Calculate days until expiration
   const daysUntilExpiration = () => {
@@ -119,15 +122,8 @@ export default function DrugDetails() {
               boxShadow: "0 8px 32px rgba(0, 0, 0, 0.1)",
             }}
           >
-            {data.discount > 0 && (
-              <DiscountBadge
-                label={`${data.discount.toFixed(0)}% OFF`}
-                color="error"
-                size="medium"
-                icon={<LocalOfferIcon />}
-              />
-            )}
-
+            {/* <BadgePromtion medicine={data.promotions} /> */}
+            <BadgeStock stockStatus={stockStatus} />
             <CardContent sx={{ p: { xs: 2, md: 4 } }}>
               <Box sx={{ flex: 1, minWidth: "280px" }}>
                 <Typography
@@ -268,45 +264,8 @@ export default function DrugDetails() {
                 container
                 spacing={3}
                 sx={{ mb: 3 }}
+                justifyContent={"center"}
               >
-                {/* Stock */}
-                <Grid
-                  item
-                  xs={12}
-                  sm={6}
-                  md={3}
-                >
-                  <InfoCard elevation={2}>
-                    <MedicationIcon
-                      sx={{
-                        fontSize: 40,
-                        color: theme.palette.primary.main,
-                        mb: 1,
-                      }}
-                    />
-                    <Typography
-                      variant="h6"
-                      fontWeight="medium"
-                      align="center"
-                    >
-                      Stock
-                    </Typography>
-                    <Typography
-                      variant="h4"
-                      color="text.primary"
-                      fontWeight="bold"
-                    >
-                      {data.stock}
-                    </Typography>
-                    <Typography
-                      variant="body2"
-                      color="text.secondary"
-                    >
-                      {data.sold} sold
-                    </Typography>
-                  </InfoCard>
-                </Grid>
-
                 {/* Production */}
                 <Grid
                   item
