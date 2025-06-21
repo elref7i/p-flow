@@ -22,75 +22,7 @@ import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-
-const steps = [
-  {
-    title: "Inventory Management",
-    description: "Easily track all medications and supplies in your pharmacy.",
-    content: [
-      {
-        title: "Add Products",
-        description:
-          "Add new medications to your inventory with detailed information including NDC, lot numbers, and expiration dates.",
-      },
-      {
-        title: "Track Stock Levels",
-        description:
-          "Monitor stock levels in real-time and receive alerts when inventory is running low.",
-      },
-      {
-        title: "Manage Expiration Dates",
-        description:
-          "Track expiration dates and receive notifications for products nearing expiration.",
-      },
-    ],
-    image: "/placeholder.svg?height=720&width=1280&text=Inventory+Management",
-  },
-  {
-    title: "Order Processing",
-    description: "Streamline the order creation and fulfillment process.",
-    content: [
-      {
-        title: "Create Orders",
-        description:
-          "Quickly create new orders with an intuitive interface that suggests products based on customer history.",
-      },
-      {
-        title: "Process Payments",
-        description:
-          "Accept various payment methods and process transactions securely.",
-      },
-      {
-        title: "Fulfill Orders",
-        description:
-          "Track order status from creation to delivery with a comprehensive fulfillment workflow.",
-      },
-    ],
-    image: "/placeholder.svg?height=720&width=1280&text=Order+Processing",
-  },
-  {
-    title: "Analytics & Reporting",
-    description: "Gain insights into your pharmacy's performance.",
-    content: [
-      {
-        title: "Sales Reports",
-        description:
-          "Generate detailed sales reports to track revenue, popular products, and customer trends.",
-      },
-      {
-        title: "Inventory Analysis",
-        description:
-          "Analyze inventory turnover and identify slow-moving products to optimize stock levels.",
-      },
-      {
-        title: "Performance Metrics",
-        description:
-          "Monitor key performance indicators to measure and improve your pharmacy's efficiency.",
-      },
-    ],
-    image: "/placeholder.svg?height=720&width=1280&text=Analytics+Reporting",
-  },
-];
+import { howItWorksSteps } from "./constants/howItWorksSteps";
 
 const HowItWorksSection = () => {
   const theme = useTheme();
@@ -146,7 +78,10 @@ const HowItWorksSection = () => {
         }}
       />
 
-      <Container maxWidth="lg" sx={{ position: "relative", zIndex: 1 }}>
+      <Container
+        maxWidth="lg"
+        sx={{ position: "relative", zIndex: 1 }}
+      >
         <Box sx={{ textAlign: "center", mb: 8 }}>
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -206,12 +141,25 @@ const HowItWorksSection = () => {
           </motion.div>
         </Box>
 
-        <Grid container spacing={6}>
-          <Grid item xs={12} md={5}>
+        <Grid
+          container
+          spacing={6}
+        >
+          <Grid
+            item
+            xs={12}
+            md={5}
+          >
             <Box sx={{ maxWidth: 400, mx: "auto" }}>
-              <Stepper activeStep={activeStep} orientation="vertical">
-                {steps.map((step, index) => (
-                  <Step key={step.title} completed={activeStep > index}>
+              <Stepper
+                activeStep={activeStep}
+                orientation="vertical"
+              >
+                {howItWorksSteps.map((step, index) => (
+                  <Step
+                    key={step.title}
+                    completed={activeStep > index}
+                  >
                     <StepLabel
                       onClick={() => handleStepClick(index)}
                       sx={{
@@ -260,7 +208,9 @@ const HowItWorksSection = () => {
                             sx={{ mt: 1, mr: 1 }}
                             endIcon={<KeyboardArrowRightIcon />}
                           >
-                            {index === steps.length - 1 ? "Finish" : "Continue"}
+                            {index === howItWorksSteps.length - 1
+                              ? "Finish"
+                              : "Continue"}
                           </Button>
                           <Button
                             disabled={index === 0}
@@ -277,16 +227,22 @@ const HowItWorksSection = () => {
                 ))}
               </Stepper>
 
-              {activeStep === steps.length && (
+              {activeStep === howItWorksSteps.length && (
                 <Paper
                   square
                   elevation={0}
                   sx={{ p: 3, borderRadius: 2, mt: 2 }}
                 >
-                  <Typography variant="h6" gutterBottom>
+                  <Typography
+                    variant="h6"
+                    gutterBottom
+                  >
                     All steps completed!
                   </Typography>
-                  <Typography variant="body1" paragraph>
+                  <Typography
+                    variant="body1"
+                    paragraph
+                  >
                     You&apos;re now ready to revolutionize your pharmacy
                     operations with P-FLOW.
                   </Typography>
@@ -309,7 +265,11 @@ const HowItWorksSection = () => {
             </Box>
           </Grid>
 
-          <Grid item xs={12} md={7}>
+          <Grid
+            item
+            xs={12}
+            md={7}
+          >
             <motion.div
               key={activeStep}
               initial={{ opacity: 0, x: 50 }}
@@ -317,7 +277,7 @@ const HowItWorksSection = () => {
               exit={{ opacity: 0, x: -50 }}
               transition={{ duration: 0.5 }}
             >
-              {activeStep < steps.length && (
+              {activeStep < howItWorksSteps.length && (
                 <Box>
                   <Box
                     sx={{
@@ -346,8 +306,8 @@ const HowItWorksSection = () => {
                     >
                       <Box
                         component="img"
-                        src={steps[activeStep].image}
-                        alt={steps[activeStep].title}
+                        src={howItWorksSteps[activeStep].image}
+                        alt={howItWorksSteps[activeStep].title}
                         sx={{
                           width: "100%",
                           height: "auto",
@@ -357,63 +317,76 @@ const HowItWorksSection = () => {
                     </Paper>
                   </Box>
 
-                  <Grid container spacing={2}>
-                    {steps[activeStep].content.map((item, itemIndex) => (
-                      <Grid item xs={12} md={4} key={itemIndex}>
-                        <motion.div
-                          initial={{ opacity: 0, y: 20 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          transition={{ duration: 0.3, delay: itemIndex * 0.1 }}
+                  <Grid
+                    container
+                    spacing={2}
+                  >
+                    {howItWorksSteps[activeStep].content.map(
+                      (item, itemIndex) => (
+                        <Grid
+                          item
+                          xs={12}
+                          md={4}
+                          key={itemIndex}
                         >
-                          <Card
-                            sx={{
-                              height: "100%",
-                              transition: "transform 0.3s, box-shadow 0.3s",
-                              "&:hover": {
-                                transform: "translateY(-5px)",
-                                boxShadow: "0 12px 30px rgba(0, 0, 0, 0.1)",
-                              },
+                          <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{
+                              duration: 0.3,
+                              delay: itemIndex * 0.1,
                             }}
                           >
-                            <CardContent>
-                              <Box
-                                sx={{
-                                  display: "flex",
-                                  alignItems: "center",
-                                  mb: 2,
-                                }}
-                              >
-                                <Avatar
+                            <Card
+                              sx={{
+                                height: "100%",
+                                transition: "transform 0.3s, box-shadow 0.3s",
+                                "&:hover": {
+                                  transform: "translateY(-5px)",
+                                  boxShadow: "0 12px 30px rgba(0, 0, 0, 0.1)",
+                                },
+                              }}
+                            >
+                              <CardContent>
+                                <Box
                                   sx={{
-                                    bgcolor: "primary.main",
-                                    mr: 2,
-                                    width: 40,
-                                    height: 40,
-                                    fontWeight: "bold",
+                                    display: "flex",
+                                    alignItems: "center",
+                                    mb: 2,
                                   }}
                                 >
-                                  {itemIndex + 1}
-                                </Avatar>
+                                  <Avatar
+                                    sx={{
+                                      bgcolor: "primary.main",
+                                      mr: 2,
+                                      width: 40,
+                                      height: 40,
+                                      fontWeight: "bold",
+                                    }}
+                                  >
+                                    {itemIndex + 1}
+                                  </Avatar>
+                                  <Typography
+                                    variant="h6"
+                                    component="h3"
+                                    fontWeight={600}
+                                  >
+                                    {item.title}
+                                  </Typography>
+                                </Box>
+                                <Divider sx={{ mb: 2 }} />
                                 <Typography
-                                  variant="h6"
-                                  component="h3"
-                                  fontWeight={600}
+                                  variant="body1"
+                                  color="text.secondary"
                                 >
-                                  {item.title}
+                                  {item.description}
                                 </Typography>
-                              </Box>
-                              <Divider sx={{ mb: 2 }} />
-                              <Typography
-                                variant="body1"
-                                color="text.secondary"
-                              >
-                                {item.description}
-                              </Typography>
-                            </CardContent>
-                          </Card>
-                        </motion.div>
-                      </Grid>
-                    ))}
+                              </CardContent>
+                            </Card>
+                          </motion.div>
+                        </Grid>
+                      )
+                    )}
                   </Grid>
                 </Box>
               )}

@@ -12,7 +12,6 @@ import {
   InputAdornment,
   Snackbar,
   Alert,
-  useTheme,
 } from "@mui/material";
 import EmailIcon from "@mui/icons-material/Email";
 import PhoneIcon from "@mui/icons-material/Phone";
@@ -21,21 +20,25 @@ import PersonIcon from "@mui/icons-material/Person";
 import MessageIcon from "@mui/icons-material/Message";
 import SendIcon from "@mui/icons-material/Send";
 import { motion } from "framer-motion";
+import { useThemeConstants } from "../../lib/constants/theme.constant";
 
 const ContactSection = () => {
+  const { cardBackground, textPrimary, backgroundElevated } =
+    useThemeConstants();
+
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     phone: "",
     message: "",
   });
+
   const [errors, setErrors] = useState({});
   const [snackbar, setSnackbar] = useState({
     open: false,
     message: "",
     severity: "success",
   });
-  const theme = useTheme();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -96,7 +99,7 @@ const ContactSection = () => {
       id="contact"
       sx={{
         py: { xs: 10, md: 16 },
-        bgcolor: theme.palette.background.paper,
+        bgcolor: backgroundElevated,
         position: "relative",
         overflow: "hidden",
       }}
@@ -129,7 +132,10 @@ const ContactSection = () => {
         }}
       />
 
-      <Container maxWidth="lg" sx={{ position: "relative", zIndex: 1 }}>
+      <Container
+        maxWidth="lg"
+        sx={{ position: "relative", zIndex: 1 }}
+      >
         <Box sx={{ textAlign: "center", mb: 8 }}>
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -189,8 +195,15 @@ const ContactSection = () => {
           </motion.div>
         </Box>
 
-        <Grid container spacing={6}>
-          <Grid item xs={12} md={6}>
+        <Grid
+          container
+          spacing={6}
+        >
+          <Grid
+            item
+            xs={12}
+            md={6}
+          >
             <motion.div
               initial={{ opacity: 0, x: -50 }}
               whileInView={{ opacity: 1, x: 0 }}
@@ -198,13 +211,13 @@ const ContactSection = () => {
               viewport={{ once: true }}
             >
               <Paper
-                elevation={6}
+                elevation={8}
                 sx={{
+                  color: textPrimary,
                   p: 4,
                   borderRadius: 4,
                   height: "100%",
-                  background:
-                    "linear-gradient(135deg, #ffffff 0%, #f8fbff 100%)",
+                  background: cardBackground,
                 }}
               >
                 <Typography
@@ -212,7 +225,6 @@ const ContactSection = () => {
                   component="h3"
                   gutterBottom
                   fontWeight={700}
-                  sx={{ color: "black" }}
                 >
                   Send Us a Message
                 </Typography>
@@ -226,9 +238,18 @@ const ContactSection = () => {
                   as possible.
                 </Typography>
 
-                <Box component="form" onSubmit={handleSubmit}>
-                  <Grid container spacing={3}>
-                    <Grid item xs={12}>
+                <Box
+                  component="form"
+                  onSubmit={handleSubmit}
+                >
+                  <Grid
+                    container
+                    spacing={3}
+                  >
+                    <Grid
+                      item
+                      xs={12}
+                    >
                       <TextField
                         fullWidth
                         label="Your Name"
@@ -256,7 +277,11 @@ const ContactSection = () => {
                         }}
                       />
                     </Grid>
-                    <Grid item xs={12} sm={6}>
+                    <Grid
+                      item
+                      xs={12}
+                      sm={6}
+                    >
                       <TextField
                         fullWidth
                         label="Your Email"
@@ -285,7 +310,11 @@ const ContactSection = () => {
                         }}
                       />
                     </Grid>
-                    <Grid item xs={12} sm={6}>
+                    <Grid
+                      item
+                      xs={12}
+                      sm={6}
+                    >
                       <TextField
                         fullWidth
                         label="Phone Number"
@@ -310,7 +339,10 @@ const ContactSection = () => {
                         }}
                       />
                     </Grid>
-                    <Grid item xs={12}>
+                    <Grid
+                      item
+                      xs={12}
+                    >
                       <TextField
                         fullWidth
                         label="Your Message"
@@ -343,7 +375,10 @@ const ContactSection = () => {
                         }}
                       />
                     </Grid>
-                    <Grid item xs={12}>
+                    <Grid
+                      item
+                      xs={12}
+                    >
                       <Button
                         type="submit"
                         variant="contained"
@@ -367,7 +402,11 @@ const ContactSection = () => {
             </motion.div>
           </Grid>
 
-          <Grid item xs={12} md={6}>
+          <Grid
+            item
+            xs={12}
+            md={6}
+          >
             <Grid
               container
               spacing={3}
@@ -423,7 +462,10 @@ const ContactSection = () => {
                         >
                           Our friendly team is here to help.
                         </Typography>
-                        <Typography variant="h6" fontWeight={500}>
+                        <Typography
+                          variant="h6"
+                          fontWeight={500}
+                        >
                           <Box
                             component="a"
                             href="mailto:info@p-flow.com"
@@ -504,7 +546,10 @@ const ContactSection = () => {
                         >
                           Mon-Fri from 8am to 5pm.
                         </Typography>
-                        <Typography variant="h6" fontWeight={500}>
+                        <Typography
+                          variant="h6"
+                          fontWeight={500}
+                        >
                           <Box
                             component="a"
                             href="tel:+1234567890"
@@ -585,7 +630,10 @@ const ContactSection = () => {
                         >
                           Come say hello at our office.
                         </Typography>
-                        <Typography variant="body1" fontWeight={500}>
+                        <Typography
+                          variant="body1"
+                          fontWeight={500}
+                        >
                           123 Pharmacy Street
                           <br />
                           Suite 100

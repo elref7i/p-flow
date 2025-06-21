@@ -1,15 +1,19 @@
 import axios from "axios";
 import { API_URL_DRUG } from "./api_url";
 
-export const getPromotions = async ({ token }) => {
+export const getPromotions = async (token, params = {}) => {
   const options = {
     url: `${API_URL_DRUG}/promotion`,
     method: "GET",
     headers: {
       Authorization: `Bearer ${token}`,
     },
+    params,
   };
-  return axios.request(options);
+  const { data } = await axios.request(options);
+  console.log(data);
+
+  return data;
 };
 
 //Add User

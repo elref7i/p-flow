@@ -1,5 +1,4 @@
-import { Box, Button, Grid2, Typography } from "@mui/material";
-import DrugCard from "../../../components/PharmacyComonents/DrugCard/DrugCard";
+import { Box, Button, Typography } from "@mui/material";
 import { useTypeContext } from "../../../context/UserType.context";
 import { useEffect, useState } from "react";
 import { useInfiniteDrugs } from "../../../lib/hooks/useDrugAction";
@@ -7,7 +6,6 @@ import { Helmet } from "react-helmet";
 import FilterListIcon from "@mui/icons-material/FilterList";
 import Filter from "../../../components/Filter/Filter";
 import { TextField } from "@mui/material";
-import InfiniteScroll from "react-infinite-scroll-component";
 import { useDebounce } from "use-debounce";
 import DrugCardSkeleton from "../../../components/Common/Loading/DrugCardSkeleton";
 import { useThemeConstants } from "../../../lib/constants/theme.constant";
@@ -17,6 +15,7 @@ import {
   flattenedDrugs,
   totalItems,
 } from "../../../lib/constants/infinte-data";
+import InfiniteScrollComponent from "../../../components/infinite-scroll";
 export default function Drugs() {
   //states
   const [params, setParams] = useState({ limit: 45 });
@@ -247,39 +246,14 @@ export default function Drugs() {
       </Box>
 
       {!isLoading && isFetched ? (
-        <InfiniteScroll
-          dataLength={total}
-          next={fetchNextPage}
-          hasMore={hasNextPage}
-          loader={<DrugCardSkeleton count={3} />}
-          endMessage={
-            <p style={{ textAlign: "center", padding: "20px" }}>
-              <b>You have seen all drugs</b>
-              <Button variant="contained">Search By AI</Button>
-            </p>
-          }
-          scrollThreshold={0.8}
-          style={{ overflow: "visible" }}
-        >
-          <Grid2
-            container
-            spacing={4}
-            py={2}
-          >
-            {flattenData.map((drug) => (
-              <Grid2
-                key={drug._id}
-                size={{ xs: 12, md: 6, lg: 4 }}
-              >
-                <DrugCard
-                  dataInfo={drug}
-                  checkPage={true}
-                  checkdistance={true}
-                />
-              </Grid2>
-            ))}
-          </Grid2>
-        </InfiniteScroll>
+        <InfiniteScrollComponent
+          page={"drugs"}
+          layoutGrid={4}
+          fetchNextPage={fetchNextPage}
+          flattenData={flattenData}
+          total={total}
+          hasNextPage={hasNextPage}
+        />
       ) : (
         <DrugCardSkeleton count={6} />
       )}
