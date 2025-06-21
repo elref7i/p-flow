@@ -6,8 +6,6 @@ import {
   Container,
   Chip,
   Paper,
-  Breadcrumbs,
-  Link,
   Button,
 } from "@mui/material";
 import { Helmet } from "react-helmet";
@@ -17,8 +15,6 @@ import { useCategoryDrugs } from "../../../lib/hooks/useAdminAction";
 import CategoryDrugCard from "./_components/CategoryDrugCard";
 import Inventory2OutlinedIcon from "@mui/icons-material/Inventory2Outlined";
 import CategoryDrugSkeleton from "./_components/CategoryDrugSkeleton";
-import HomeIcon from "@mui/icons-material/Home";
-import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import MedicalServicesIcon from "@mui/icons-material/MedicalServices";
 import TrendingUpIcon from "@mui/icons-material/TrendingUp";
 import VerifiedIcon from "@mui/icons-material/Verified";
@@ -71,18 +67,6 @@ export default function CategoryDrugs() {
     },
   };
 
-  const statsVariants = {
-    hidden: { opacity: 0, scale: 0.8 },
-    visible: {
-      opacity: 1,
-      scale: 1,
-      transition: {
-        duration: 0.6,
-        ease: "easeOut",
-      },
-    },
-  };
-
   return (
     <>
       <Helmet>
@@ -131,68 +115,6 @@ export default function CategoryDrugs() {
               maxWidth="xl"
               sx={{ position: "relative", zIndex: 1, py: 4 }}
             >
-              {/* Breadcrumbs */}
-              <motion.div
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.5 }}
-              >
-                <Breadcrumbs
-                  separator={<NavigateNextIcon fontSize="small" />}
-                  sx={{
-                    mb: 4,
-                    "& .MuiBreadcrumbs-separator": {
-                      color:
-                        theme.palette.mode === "dark"
-                          ? "rgba(255,255,255,0.5)"
-                          : "rgba(0,0,0,0.5)",
-                    },
-                  }}
-                >
-                  <Link
-                    underline="hover"
-                    sx={{
-                      display: "flex",
-                      alignItems: "center",
-                      color:
-                        theme.palette.mode === "dark"
-                          ? "rgba(255,255,255,0.7)"
-                          : "rgba(0,0,0,0.7)",
-                      "&:hover": {
-                        color: "#4285f4",
-                      },
-                    }}
-                    href="/pharmacy"
-                  >
-                    <HomeIcon sx={{ mr: 0.5 }} fontSize="inherit" />
-                    Home
-                  </Link>
-                  <Link
-                    underline="hover"
-                    sx={{
-                      color:
-                        theme.palette.mode === "dark"
-                          ? "rgba(255,255,255,0.7)"
-                          : "rgba(0,0,0,0.7)",
-                      "&:hover": {
-                        color: "#4285f4",
-                      },
-                    }}
-                    href="/pharmacy"
-                  >
-                    Categories
-                  </Link>
-                  <Typography
-                    sx={{
-                      color: "#4285f4",
-                      fontWeight: 600,
-                    }}
-                  >
-                    {categoryName}
-                  </Typography>
-                </Breadcrumbs>
-              </motion.div>
-
               {/* Enhanced Header Section */}
               <motion.div
                 variants={headerVariants}
@@ -266,26 +188,6 @@ export default function CategoryDrugs() {
                               border: "3px solid rgba(255,255,255,0.2)",
                             }}
                           />
-                          <Box
-                            sx={{
-                              position: "absolute",
-                              top: -10,
-                              right: -10,
-                              width: 40,
-                              height: 40,
-                              borderRadius: "50%",
-                              background:
-                                "linear-gradient(135deg, #4285f4, #34a853)",
-                              display: "flex",
-                              alignItems: "center",
-                              justifyContent: "center",
-                              boxShadow: "0 4px 12px rgba(66, 133, 244, 0.4)",
-                            }}
-                          >
-                            <VerifiedIcon
-                              sx={{ color: "white", fontSize: 20 }}
-                            />
-                          </Box>
                         </Box>
                       </motion.div>
                     </Grid>
@@ -373,76 +275,6 @@ export default function CategoryDrugs() {
                         </Box>
                       </motion.div>
                     </Grid>
-
-                    {/* Stats */}
-                    <Grid item xs={12} md={3}>
-                      <motion.div
-                        variants={statsVariants}
-                        initial="hidden"
-                        animate="visible"
-                        transition={{ delay: 0.5 }}
-                      >
-                        <Box
-                          sx={{
-                            display: "flex",
-                            flexDirection: "column",
-                            gap: 2,
-                          }}
-                        >
-                          <Paper
-                            sx={{
-                              p: 2,
-                              textAlign: "center",
-                              background:
-                                theme.palette.mode === "dark"
-                                  ? "rgba(66, 133, 244, 0.1)"
-                                  : "rgba(66, 133, 244, 0.05)",
-                              border: "1px solid rgba(66, 133, 244, 0.2)",
-                              borderRadius: 2,
-                            }}
-                          >
-                            <Typography
-                              variant="h4"
-                              sx={{ color: "#4285f4", fontWeight: 800 }}
-                            >
-                              {categoryDrugs.length}
-                            </Typography>
-                            <Typography
-                              variant="caption"
-                              sx={{ color: "text.secondary", fontWeight: 600 }}
-                            >
-                              Available Products
-                            </Typography>
-                          </Paper>
-
-                          <Paper
-                            sx={{
-                              p: 2,
-                              textAlign: "center",
-                              background:
-                                theme.palette.mode === "dark"
-                                  ? "rgba(52, 168, 83, 0.1)"
-                                  : "rgba(52, 168, 83, 0.05)",
-                              border: "1px solid rgba(52, 168, 83, 0.2)",
-                              borderRadius: 2,
-                            }}
-                          >
-                            <Typography
-                              variant="h4"
-                              sx={{ color: "#34a853", fontWeight: 800 }}
-                            >
-                              24/7
-                            </Typography>
-                            <Typography
-                              variant="caption"
-                              sx={{ color: "text.secondary", fontWeight: 600 }}
-                            >
-                              Available Service
-                            </Typography>
-                          </Paper>
-                        </Box>
-                      </motion.div>
-                    </Grid>
                   </Grid>
                 </Paper>
               </motion.div>
@@ -453,20 +285,6 @@ export default function CategoryDrugs() {
                 initial="hidden"
                 animate="visible"
               >
-                <Typography
-                  variant="h5"
-                  sx={{
-                    fontWeight: 700,
-                    mb: 4,
-                    color:
-                      theme.palette.mode === "dark"
-                        ? "rgba(255,255,255,0.9)"
-                        : "rgba(0,0,0,0.8)",
-                  }}
-                >
-                  Available Products ({categoryDrugs.length})
-                </Typography>
-
                 <Grid container spacing={3}>
                   <AnimatePresence mode="wait">
                     {categoryDrugs.map((item, index) => (

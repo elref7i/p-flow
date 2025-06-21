@@ -16,7 +16,12 @@ import {
   ShoppingCart as ShoppingCartIcon,
   Assignment as AssignmentIcon,
   Inventory as InventoryIcon,
+  Category as CategoryIcon,
+  LocalOffer as LocalOfferIcon,
+  // Favorite as FavoriteIcon,
+  FavoriteBorder as FavoriteBorderIcon,
 } from "@mui/icons-material";
+
 import { Link, useLocation } from "react-router-dom";
 import Logo, { GradientLogo } from "../../../Common/LogoImage";
 import { useThemeConstants } from "../../../../lib/constants/theme.constant";
@@ -31,7 +36,17 @@ const navLinks = [
     icon: <InventoryIcon />,
   },
   { name: "Orders", path: "/pharmacy/orders", icon: <AssignmentIcon /> },
-  { name: "Wishlist", path: "/pharmacy/wishlist", icon: <AssignmentIcon /> },
+  {
+    name: "Wishlist",
+    path: "/pharmacy/wishlist",
+    icon: <FavoriteBorderIcon />,
+  },
+  { name: "Offers", path: "/pharmacy/promotions", icon: <LocalOfferIcon /> },
+  {
+    name: "categories",
+    path: "/pharmacy/categories",
+    icon: <CategoryIcon />,
+  },
 ];
 
 export default function MoblieDrawer({ handleDrawerToggle, drawerOpen }) {

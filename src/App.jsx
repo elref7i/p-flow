@@ -74,6 +74,7 @@ import {
 } from "./components/notifications/firebase/firebase-config";
 import { onMessage } from "firebase/messaging";
 import Promotions from "./pages/Pharmacy/promotions/promotions";
+import Categories from "./pages/Pharmacy/Categories/Categories";
 
 function App() {
   useEffect(() => {
@@ -134,6 +135,7 @@ function App() {
         { path: "inventoryprofile/:id", element: <InventoryProfile /> },
         { path: "wishlist", element: <Whishlist /> },
         { path: "promotions", element: <Promotions /> },
+        { path: "categories", element: <Categories /> },
       ],
     },
     {

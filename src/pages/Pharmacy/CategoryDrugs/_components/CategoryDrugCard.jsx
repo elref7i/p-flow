@@ -3,7 +3,6 @@ import {
   Box,
   Typography,
   Button,
-  useTheme,
   alpha,
   Avatar,
   CircularProgress,
@@ -14,12 +13,12 @@ import { useNavigate } from "react-router-dom";
 import { useTypeContext } from "../../../../context/UserType.context";
 import { useAddToCart } from "../../../../lib/hooks/useCartAction";
 import { motion } from "framer-motion";
-import LocalOfferIcon from "@mui/icons-material/LocalOffer";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { formatNumber } from "../../../../lib/utils/formateNumber";
-import { DiscountBadge } from "../../../../components/Common/Loading/DiscountBadge";
 import { useThemeConstants } from "../../../../lib/constants/theme.constant";
 import DistanceIndicator from "../../../Inventory/InventoryProfile/_components/DistanceIndicator";
+import { buttonText } from "../../../../lib/utils/status-stock";
+// import BadgePromtion from "../../../../components/Common/badge-promtion";
 
 export default function CategoryDrugCard({
   dataInfo: item,
@@ -36,13 +35,16 @@ export default function CategoryDrugCard({
   const { mutate, isLoading } = useAddToCart();
 
   //Theme
-  const theme = useTheme();
+
   const {
     cardBackground,
     cardDetailsBackground,
+    cardActiveBackground,
     transitionSmooth,
     textSecondary,
     textLink,
+    textPrimary,
+    border,
   } = useThemeConstants();
   return (
     <Paper
@@ -53,6 +55,7 @@ export default function CategoryDrugCard({
         overflow: "hidden",
         position: "relative",
         background: cardBackground,
+        transition: transitionSmooth,
         height: "100%",
         display: "flex",
         flexDirection: "column",
@@ -61,24 +64,18 @@ export default function CategoryDrugCard({
         },
       }}
     >
-      {/* Discount Badge */}
-      {item.discount > 0 && (
-        <Box sx={{ position: "absolute", top: 12, right: 12, zIndex: 2 }}>
-          <DiscountBadge
-            label={`${item.discount.toFixed(0)}%`}
-            color="error"
-            size="small"
-            icon={<LocalOfferIcon />}
-          />
-        </Box>
-      )}
+      {/* Stock Status Badge - Using your exact BadgeStock component */}
+      {/* <BadgeStock stockStatus={stockStatus} /> */}
 
+      {/* Promotion/Offer Badge */}
+
+      {/* {item.promotion.isActive && <BadgePromtion promotion={item.promotion} />} */}
       {/* Header Section */}
       <Box
         sx={{
           p: 2.5,
-          background: alpha(theme.palette.primary.main, 0.05),
-          borderBottom: `1px solid ${alpha(theme.palette.divider, 0.1)}`,
+          background: alpha(cardActiveBackground, 0.4),
+          borderBottom: `1px solid ${border}`,
         }}
       >
         <Typography
@@ -124,7 +121,7 @@ export default function CategoryDrugCard({
                 width: 35,
                 height: 35,
                 mr: 1,
-                border: `2px solid ${alpha(theme.palette.primary.main, 0.3)}`,
+                border: `2px solid ${border}`,
               }}
             />
             <Typography
@@ -135,13 +132,13 @@ export default function CategoryDrugCard({
               sx={{
                 cursor: "pointer",
                 fontWeight: "bold",
-                color: alpha(theme.palette.text.primary, 0.8),
+                color: alpha(textSecondary, 0.8),
                 maxWidth: "200px",
                 overflow: "hidden",
                 textOverflow: "ellipsis",
                 whiteSpace: "nowrap",
                 "&:hover": {
-                  color: theme.palette.primary.main,
+                  color: textPrimary,
                 },
               }}
             >
@@ -151,7 +148,7 @@ export default function CategoryDrugCard({
         )}
       </Box>
 
-      {/* Price Section */}
+      {/* Card Content */}
       <Box
         sx={{
           p: 2.5,
@@ -162,6 +159,7 @@ export default function CategoryDrugCard({
           justifyContent: "space-between",
         }}
       >
+        {/* Price Section */}
         <Box>
           <Stack spacing={1.5}>
             <Box
@@ -171,17 +169,17 @@ export default function CategoryDrugCard({
                 alignItems: "center",
               }}
             >
-              <Typography variant="h6" color="text.secondary">
+              <Typography variant="h6" color={textSecondary}>
                 Consumer Price:
               </Typography>
               <Typography
                 variant="h6"
                 sx={{
                   fontWeight: 700,
-                  color: theme.palette.success.main,
+                  color: textSecondary,
                 }}
               >
-                {formatNumber(item.discountedPrice)} EGP
+                ${formatNumber(item.discountedPrice)}
               </Typography>
             </Box>
 
@@ -192,7 +190,7 @@ export default function CategoryDrugCard({
                 alignItems: "center",
               }}
             >
-              <Typography variant="h6" color="text.secondary">
+              <Typography variant="h6" color={textSecondary}>
                 Pharmacy Price:
               </Typography>
               <Typography
@@ -204,7 +202,7 @@ export default function CategoryDrugCard({
                   color: textSecondary,
                 }}
               >
-                {formatNumber(item.price)} EGP
+                ${formatNumber(item.price)}
               </Typography>
             </Box>
           </Stack>
@@ -220,7 +218,7 @@ export default function CategoryDrugCard({
         {role === "pharmacy" && (
           <Box sx={{ mt: 3 }}>
             <Button
-              disabled={isLoading}
+              disabled={isLoading || item.stock <= 0}
               onClick={() => {
                 mutate({
                   drugId: item._id,
@@ -242,13 +240,13 @@ export default function CategoryDrugCard({
                 textTransform: "none",
                 py: 1,
                 fontWeight: 600,
-                boxShadow: theme.shadows[2],
+                boxShadow: 2,
                 "&:hover": {
-                  boxShadow: theme.shadows[4],
+                  boxShadow: 3,
                 },
               }}
             >
-              Add to Cart
+              {buttonText(item.stock)}
             </Button>
           </Box>
         )}

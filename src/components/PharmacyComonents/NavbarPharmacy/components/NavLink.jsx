@@ -5,6 +5,10 @@ import {
   ShoppingCart as ShoppingCartIcon,
   Assignment as AssignmentIcon,
   Inventory as InventoryIcon,
+  Category as CategoryIcon,
+  LocalOffer as LocalOfferIcon,
+  // Favorite as FavoriteIcon,
+  FavoriteBorder as FavoriteBorderIcon,
 } from "@mui/icons-material";
 import { Link } from "react-router-dom";
 import { NavLink } from "../utils/style-nav";
@@ -19,8 +23,17 @@ const navLinks = [
     icon: <InventoryIcon />,
   },
   { name: "Orders", path: "/pharmacy/orders", icon: <AssignmentIcon /> },
-  { name: "Wishlist", path: "/pharmacy/wishlist", icon: <AssignmentIcon /> },
-  { name: "Offers", path: "/pharmacy/promotions", icon: <AssignmentIcon /> },
+  {
+    name: "Wishlist",
+    path: "/pharmacy/wishlist",
+    icon: <FavoriteBorderIcon />,
+  },
+  { name: "Offers", path: "/pharmacy/promotions", icon: <LocalOfferIcon /> },
+  {
+    name: "categories",
+    path: "/pharmacy/categories",
+    icon: <CategoryIcon />,
+  },
 ];
 export default function NavLinkDesktop() {
   return (
