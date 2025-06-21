@@ -111,14 +111,14 @@ export default function PromotionsSection() {
           container
           spacing={4}
         >
-          {promotionalMedicines.data.data.map((medicine, index) => (
-            <SwiperSlide key={medicine._id}>
+          {promotionalMedicines.data.data.map((drug, index) => (
+            <SwiperSlide key={drug._id}>
               <Grid
                 item
                 xs={12}
                 sm={6}
                 md={3}
-                key={medicine._id}
+                key={drug._id}
               >
                 <motion.div
                   initial={{ opacity: 0, y: 50 }}
@@ -127,7 +127,7 @@ export default function PromotionsSection() {
                   viewport={{ once: true }}
                   whileHover={{ y: -10 }}
                 >
-                  <CardPromotion medicine={medicine} />
+                  <CardPromotion drug={drug} />
                 </motion.div>
               </Grid>
             </SwiperSlide>

@@ -3,11 +3,11 @@ import { Chip } from "@mui/material";
 import { getPromotionText } from "../../lib/utils/promotion-formate";
 import { useThemeConstants } from "../../lib/constants/theme.constant";
 
-export default function BadgePromtion({ medicine }) {
+export default function BadgePromtion({ promotion }) {
   const { badgeBackground, textLink } = useThemeConstants();
   return (
     <Chip
-      label={getPromotionText(medicine.promotion)}
+      label={getPromotionText(promotion)}
       sx={{
         position: "absolute",
         top: 10,
