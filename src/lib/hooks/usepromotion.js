@@ -1,4 +1,9 @@
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import {
+  useInfiniteQuery,
+  useMutation,
+  useQueryClient,
+} from "@tanstack/react-query";
+
 import {
   addPromotion,
   getPromotions,
@@ -6,15 +11,15 @@ import {
 } from "../api/promotion_api";
 import toast from "react-hot-toast";
 
-//Get all Promotions
-export const usePromotions = ({ token }) => {
-  return useQuery({
-    queryKey: ["all-promotion"],
-    queryFn: () => getPromotions({ token }),
-    keepPreviousData: true,
+export const useInfinitePromotions = (token, params = {}) => {
+  return useInfiniteQuery({
+    queryKey: ["infinite-drugs", params],
+    queryFn: ({ pageParam = 1 }) =>
+      getPromotions(token, { ...params, page: pageParam }),
+    getNextPageParam: (lastPage) => lastPage.pagination?.next || undefined,
+    keepPreviousData: false,
     refetchOnWindowFocus: false,
     staleTime: 5 * 60 * 1000,
-    cacheTime: 5 * 60 * 1000,
   });
 };
 

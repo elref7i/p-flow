@@ -13,8 +13,10 @@ export const getAllDrugs = async (token, params = {}) => {
   };
   console.log(options.url + options.params);
 
-  const data = await axios.request(options);
-  return data.data;
+  const { data } = await axios.request(options);
+  console.log(data);
+
+  return data;
 };
 
 // ^ Add Drug

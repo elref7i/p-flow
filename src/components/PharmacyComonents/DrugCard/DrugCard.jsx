@@ -20,7 +20,12 @@ import { useThemeConstants } from "../../../lib/constants/theme.constant";
 import BadgePromtion from "../../Common/badge-promtion";
 import { buttonText } from "../../../lib/utils/status-stock";
 
-const DrugCard = ({ dataInfo: drug, checkPage, checkdistance }) => {
+const DrugCard = ({
+  dataInfo: drug,
+  checkPage,
+  checkdistance,
+  checkActive,
+}) => {
   //Navigation
   const navigate = useNavigate();
 
@@ -69,7 +74,9 @@ const DrugCard = ({ dataInfo: drug, checkPage, checkdistance }) => {
 
       {/* Promotion/Offer Badge */}
 
-      {drug.promotion.isActive && <BadgePromtion promotion={drug.promotion} />}
+      {checkActive && drug.promotion.isActive && (
+        <BadgePromtion promotion={drug.promotion} />
+      )}
       {/* Header Section */}
       <Box
         sx={{

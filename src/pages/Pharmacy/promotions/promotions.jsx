@@ -1,42 +1,48 @@
 import { useTypeContext } from "../../../context/UserType.context";
-import { usePromotions } from "../../../lib/hooks/usepromotion";
-import { motion } from "framer-motion";
-import CardPromotion from "../../../components/card-promotion";
-import { Grid } from "@mui/material";
+import { useInfinitePromotions } from "../../../lib/hooks/usepromotion";
 import CardPromotionSkeleton from "../../../components/Common/Loading/promotion-skeleton";
+import {
+  flattenedDrugs,
+  totalItems,
+} from "../../../lib/constants/infinte-data";
+import InfiniteScrollComponent from "../../../components/infinite-scroll";
 
 export default function Promotions() {
   const { token } = useTypeContext();
-  const { data: promotionalMedicines, isLoading } = usePromotions({ token });
+  const {
+    data: promotionalMedicines,
+    isLoading,
+    fetchNextPage,
+    hasNextPage,
+    isFetched,
+  } = useInfinitePromotions(token, {});
+
+  console.log(promotionalMedicines);
 
   if (isLoading) return <CardPromotionSkeleton />;
 
+  // Total Items
+  const total = totalItems({ data: promotionalMedicines });
+
+  // Flatten the data from all pages
+  const flattenData = flattenedDrugs({ data: promotionalMedicines });
+
+  console.log(flattenData);
+
   return (
-    <Grid
-      pt={4}
-      container
-      spacing={2}
-    >
-      {promotionalMedicines.data.data.map((drug, index) => (
-        <Grid
-          item
-          xs={12}
-          sm={6}
-          md={4}
-          lg={3}
-          key={drug._id}
-        >
-          <motion.div
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: index * 0.1 }}
-            viewport={{ once: true }}
-            whileHover={{ y: -10 }}
-          >
-            <CardPromotion drug={drug} />
-          </motion.div>
-        </Grid>
-      ))}
-    </Grid>
+    <>
+      {!isLoading && isFetched ? (
+        <InfiniteScrollComponent
+          page={"offers"}
+          fetchNextPage={fetchNextPage}
+          flattenData={flattenData}
+          total={total}
+          hasNextPage={hasNextPage}
+          layoutGrid={3}
+        />
+      ) : (
+        <CardPromotionSkeleton />
+      )}
+    </>
   );
 }

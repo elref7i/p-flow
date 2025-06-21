@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { LocalOffer } from "@mui/icons-material";
 import { useThemeConstants } from "../../../../lib/constants/theme.constant";
 
-import { usePromotions } from "../../../../lib/hooks/usepromotion";
+import { useInfinitePromotions } from "../../../../lib/hooks/usepromotion";
 import { useTypeContext } from "../../../../context/UserType.context";
 import { Autoplay, Navigation } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -12,6 +12,7 @@ import "swiper/css/autoplay";
 import "swiper/css/navigation";
 import CardPromotion from "../../../../components/card-promotion";
 import { useNavigate } from "react-router-dom";
+import { flattenedDrugs } from "../../../../lib/constants/infinte-data";
 
 export default function PromotionsSection() {
   // Context
@@ -24,7 +25,11 @@ export default function PromotionsSection() {
   const navigate = useNavigate();
 
   //Queries
-  const { data: promotionalMedicines, isLoading } = usePromotions({ token });
+  const { data: promotionalMedicines, isLoading } = useInfinitePromotions({
+    token,
+  });
+
+  const flattenData = flattenedDrugs({ data: promotionalMedicines });
 
   // Conditions
   if (isLoading) {
@@ -111,7 +116,7 @@ export default function PromotionsSection() {
           container
           spacing={4}
         >
-          {promotionalMedicines.data.data.map((drug, index) => (
+          {flattenData.map((drug, index) => (
             <SwiperSlide key={drug._id}>
               <Grid
                 item
