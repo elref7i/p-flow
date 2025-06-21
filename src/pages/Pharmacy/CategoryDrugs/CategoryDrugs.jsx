@@ -70,7 +70,7 @@ export default function CategoryDrugs() {
   return (
     <>
       <Helmet>
-        <title> Category drugs </title>
+        <title> Drug Categories </title>
         <meta
           name="description"
           content="Browse all available medicines in this category. Find prices, details, and availability from connected inventories on MedConnect."
@@ -379,7 +379,7 @@ export default function CategoryDrugs() {
               variant="outlined"
               sx={{ mt: 3, textTransform: "none", borderRadius: 3 }}
               onClick={() => {
-                navigate("/pharmacy");
+                navigate("/pharmacy/categories");
                 window.scrollTo({ top: 0, behavior: "smooth" });
               }}
             >
