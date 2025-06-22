@@ -1,61 +1,126 @@
-import { Card, CardContent, Skeleton, Box, Grid, Stack } from "@mui/material";
+import {
+  Box,
+  Grid,
+  Skeleton,
+  Stack,
+  IconButton,
+  InputAdornment,
+  TextField,
+} from "@mui/material";
+import SearchIcon from "@mui/icons-material/Search";
+import TuneIcon from "@mui/icons-material/Tune";
 
-const InventoryCardSkeleton = () => {
+export default function InventoriesSkeleton() {
   return (
-    <Grid item xs={12} sm={6} md={4} lg={3}>
-      <Card sx={{ borderRadius: 3, boxShadow: 3, mt: 5 }}>
-        <Box display="flex" justifyContent="center" pt={2}>
-          <Skeleton variant="circular" width={64} height={64} />
+    <Box px={{ xs: 2, sm: 4 }} py={3}>
+      {/* Search + Filter Section */}
+      <Box
+        display="flex"
+        alignItems="center"
+        gap={2}
+        mb={4}
+        flexWrap="wrap"
+        justifyContent="space-between"
+      >
+        {/* Search Input */}
+        <Box flex={1} minWidth="250px">
+          <TextField
+            fullWidth
+            disabled
+            placeholder="Search by name, active ingredient, or condition..."
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <SearchIcon color="disabled" />
+                </InputAdornment>
+              ),
+            }}
+          />
         </Box>
-        <CardContent>
-          <Stack spacing={1.2}>
-            {/* Name */}
-            <Skeleton
-              variant="text"
-              height={30}
-              width="50%"
-              sx={{ mx: "auto" }}
-            />
 
-            {/* Location */}
-            <Box display="flex" alignItems="center" gap={1}>
-              <Skeleton variant="circular" width={24} height={24} />
-              <Skeleton variant="text" width="70%" height={20} />
-            </Box>
+        {/* Filter Button */}
+        <IconButton disabled>
+          <TuneIcon />
+        </IconButton>
+      </Box>
 
-            {/* Phone */}
-            <Box display="flex" alignItems="center" gap={1}>
-              <Skeleton variant="circular" width={24} height={24} />
-              <Skeleton variant="text" width="60%" height={20} />
-            </Box>
-
-            {/* Distance */}
-            <Box display="flex" alignItems="center" gap={1}>
-              <Skeleton variant="circular" width={24} height={24} />
-              <Skeleton variant="text" width="30%" height={20} />
-            </Box>
-
-            {/* Progress bar placeholder */}
-            <Skeleton variant="rectangular" width="100%" height={10} />
-
-            {/* Minimum Order */}
+      {/* Inventory Cards Skeleton */}
+      <Grid container spacing={3}>
+        {Array.from({ length: 8 }).map((_, idx) => (
+          <Grid item xs={12} sm={6} md={4} lg={3} key={idx}>
             <Box
-              display="flex"
-              justifyContent="space-between"
-              alignItems="center"
-              mt={1}
+              sx={{
+                borderRadius: 4,
+                boxShadow: 3,
+                p: 2,
+                minHeight: 330,
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "space-between",
+                backgroundColor: "#fff",
+              }}
             >
-              <Skeleton variant="text" width="40%" height={20} />
-              <Skeleton variant="text" width={60} height={20} />
+              {/* Top - Avatar */}
+              <Box display="flex" justifyContent="center" mt={1} mb={2}>
+                <Skeleton variant="circular" width={70} height={70} />
+              </Box>
+
+              {/* Info Section */}
+              <Stack spacing={1.5}>
+                {/* Name */}
+                <Skeleton
+                  variant="text"
+                  height={26}
+                  width="60%"
+                  sx={{ mx: "auto" }}
+                />
+
+                {/* Location */}
+                <Box display="flex" alignItems="center" gap={1}>
+                  <Skeleton variant="circular" width={22} height={22} />
+                  <Skeleton variant="text" width="70%" height={20} />
+                </Box>
+
+                {/* Phone */}
+                <Box display="flex" alignItems="center" gap={1}>
+                  <Skeleton variant="circular" width={22} height={22} />
+                  <Skeleton variant="text" width="60%" height={20} />
+                </Box>
+
+                {/* Distance */}
+                <Box display="flex" alignItems="center" gap={1}>
+                  <Skeleton variant="circular" width={22} height={22} />
+                  <Skeleton variant="text" width="40%" height={20} />
+                </Box>
+
+                {/* Progress bar */}
+                <Skeleton
+                  variant="rectangular"
+                  width="100%"
+                  height={8}
+                  sx={{ borderRadius: 5 }}
+                />
+
+                {/* Minimum Order */}
+                <Box
+                  display="flex"
+                  justifyContent="space-between"
+                  alignItems="center"
+                  mt={1}
+                >
+                  <Skeleton variant="text" width="50%" height={20} />
+                  <Skeleton variant="text" width={50} height={20} />
+                </Box>
+              </Stack>
+
+              {/* View Profile Button */}
+              <Box mt={2}>
+                <Skeleton variant="rounded" width="100%" height={38} />
+              </Box>
             </Box>
-
-            {/* View Profile Button */}
-            <Skeleton variant="rounded" width="100%" height={36} />
-          </Stack>
-        </CardContent>
-      </Card>
-    </Grid>
+          </Grid>
+        ))}
+      </Grid>
+    </Box>
   );
-};
-
-export default InventoryCardSkeleton;
+}
