@@ -9,6 +9,7 @@ import ScrollToTop from "../../../components/LandingComponents/ScrollToTop";
 import NavbarLanding from "../../../components/LandingComponents/NavbarLanding";
 import { Box } from "@mui/material";
 import { Helmet } from "react-helmet";
+import ServicesSection from "../../../components/LandingComponents/services-section";
 
 const LandingPage = () => {
   return (
@@ -39,6 +40,7 @@ const LandingPage = () => {
         <FeaturesSection />
         <HowItWorksSection />
         <StatisticsSection />
+        <ServicesSection />
         <TestimonialsSection />
         <ContactSection />
       </Box>
