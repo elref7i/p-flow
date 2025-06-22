@@ -7,7 +7,6 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 // Auth
 const Login = lazy(() => import("@/pages/auth/Login/Login"));
 const Signup = lazy(() => import("@/pages/auth/Signup/Signup"));
-const Home = lazy(() => import("@/pages/Home/Home"));
 const UpdatedPassword = lazy(() =>
   import("@/pages/auth/UpdatedPassword/UpdatedPassword")
 );
@@ -84,15 +83,15 @@ function App() {
   }, []);
 
   const router = createBrowserRouter([
-    {
-      path: "/",
-      element: (
-        <ProtectedRoute allowedRolls={["admin", "pharmacy", "inventory"]}>
-          <Layout />
-        </ProtectedRoute>
-      ),
-      children: [{ path: "/home", element: <Home /> }],
-    },
+    // {
+    //   path: "/",
+    //   element: (
+    //     <ProtectedRoute allowedRolls={["admin", "pharmacy", "inventory"]}>
+    //       <Layout />
+    //     </ProtectedRoute>
+    //   ),
+    //   children: [{ path: "/home", element: <Home /> }],
+    // },
     {
       path: "/",
       element: (
