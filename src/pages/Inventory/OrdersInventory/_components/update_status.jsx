@@ -28,11 +28,9 @@ const style = {
   transform: "translate(-50%, -50%)",
   width: 450,
   maxHeight: "85vh",
-  bgcolor: "background.paper",
-  boxShadow: " 0px 1px 4px 0px rgba(245, 158, 11, 0.75)",
   borderRadius: "16px",
-  p: 0, // Remove padding here to apply it differently
-  overflow: "hidden", // Hide overflow initially
+  p: 0,
+  overflow: "hidden",
 };
 
 export default function UpdateStatusOrder({ status, id }) {
@@ -46,8 +44,14 @@ export default function UpdateStatusOrder({ status, id }) {
   const { mutate, isLoading, isSuccess, isError } = useUpdateOrderStatus();
 
   //Themes
-  const { shadow2, typography, pharmacyBackground, textPrimary } =
-    useThemeConstants();
+  const {
+    typography,
+    textPrimary,
+    backgroundRedSoft,
+    cardBackground,
+    cardDetailsBackground,
+    borderHover,
+  } = useThemeConstants();
 
   // Form
 
@@ -94,20 +98,20 @@ export default function UpdateStatusOrder({ status, id }) {
 
       <Modal
         open={open}
-        sx={{ bgcolor: "#000000aa" }}
+        sx={{ background: "#000000aa" }}
         onClose={handleClose}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <Box sx={style}>
+        <Box sx={{ ...style, background: cardBackground, boxShadow: 12 }}>
           <Box
             sx={{
               p: 2,
               display: "flex",
               alignItems: "center",
               justifyContent: "space-between",
-              bgcolor: pharmacyBackground,
-              boxShadow: shadow2, // Green header for Add modal
+              background: cardDetailsBackground,
+              boxShadow: 8, // Green header for Add modal
               color: textPrimary,
             }}
           >
@@ -204,17 +208,36 @@ export default function UpdateStatusOrder({ status, id }) {
               sx={{
                 gridColumn: "span 2",
                 display: "flex",
+                gap: 2,
                 justifyContent: "center",
                 mt: 3,
               }}
             >
+              {/* Close */}
+              <Button
+                onClick={handleClose}
+                variant="outlined"
+                color="error"
+                sx={{
+                  borderRadius: "8px",
+                  boxShadow: 2,
+                  px: 5,
+                  "&:hover": {
+                    color: "white",
+                    borderColor: borderHover,
+                    background: backgroundRedSoft,
+                  },
+                }}
+              >
+                Close
+              </Button>
               <Button
                 type="submit"
                 variant="contained"
-                // color={isError ? "error" : "warning"}
+                color={isError ? "error" : "warning"}
                 sx={{
                   fontSize: { xs: "14px", md: "16px" },
-                  px: 5,
+                  px: 2,
                   py: 1.5,
                   fontWeight: "bold",
                   borderRadius: "10px",

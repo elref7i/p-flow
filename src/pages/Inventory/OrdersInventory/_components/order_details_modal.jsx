@@ -40,6 +40,7 @@ export default function OrderDetailsModal({ order }) {
     footerBackground,
     borderFocus,
     borderHover,
+    backgroundRedSoft,
   } = useThemeConstants();
 
   //Variables
@@ -191,11 +192,12 @@ export default function OrderDetailsModal({ order }) {
             color="error"
             sx={{
               borderRadius: "8px",
-              borderColor: borderFocus,
               boxShadow: 2,
+              px: 5,
               "&:hover": {
+                color: "white",
                 borderColor: borderHover,
-                background: buttonBackground,
+                background: backgroundRedSoft,
               },
             }}
           >

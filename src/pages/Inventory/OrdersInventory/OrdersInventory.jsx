@@ -50,10 +50,14 @@ export default function OrdersInventory() {
           status={params.row.status}
           id={params.row._id}
         />
-        <AlertModal
-          isDeleting={rejectOrder}
-          handleAction={() => mutate({ token, orderId: params.row._id })}
-        />
+        {params.row.status === "pending" ? (
+          <AlertModal
+            isDeleting={rejectOrder}
+            handleAction={() => mutate({ token, orderId: params.row._id })}
+          />
+        ) : (
+          ""
+        )}
       </Box>
     ),
   };
