@@ -6,7 +6,16 @@ export const DrugSchema = Yup.object().shape({
   description: Yup.string().required("Description is required"),
   originType: Yup.string().required("OriginType is required"),
   productionDate: Yup.date().required("ProductionDate is required"),
-  expirationDate: Yup.date().required("ExpirationDate is required"),
+  expirationDate: Yup.date()
+    .required("ExpirationDate is required")
+    .test(
+      "is-greater",
+      "Expiration date must be after production date",
+      function (value) {
+        const { productionDate } = this.parent;
+        return value > productionDate;
+      }
+    ),
   price: Yup.number().positive().min(0).required("Price is required"),
   discount: Yup.number().min(0).required("Discount is required"),
   stock: Yup.number().integer().min(0).required("Stock is Required"),

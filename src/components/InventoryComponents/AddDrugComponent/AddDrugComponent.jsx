@@ -45,17 +45,12 @@ export default function AddDrugComponent() {
     border,
     textPrimary,
     textLink,
-    cardHoverBackground,
     cardBackground,
     transitionDurationComplex,
     buttonText,
     backgroundRedSoft,
     borderHover,
   } = useThemeConstants();
-
-  //Function
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
 
   //Formik
   const {
@@ -88,6 +83,12 @@ export default function AddDrugComponent() {
     },
   });
 
+  //Function
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => {
+    setOpen(false);
+  };
+
   return (
     <div>
       <Button
@@ -113,12 +114,11 @@ export default function AddDrugComponent() {
         <Box
           sx={{
             ...style,
-            boxShadow: 9,
+            boxShadow: 8,
             background: cardBackground,
             transition: transitionDurationComplex,
             ":hover": {
-              boxShadow: 8,
-              background: cardHoverBackground,
+              boxShadow: 7,
             },
           }}
           component="form"

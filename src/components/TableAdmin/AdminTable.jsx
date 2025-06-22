@@ -85,15 +85,6 @@ export default function AdminTable({
 
       {/* Stats cards */}
       {role === "inventory" ? (
-        // <Box
-        //   sx={{
-        //     display: "flex",
-        //     gap: 2,
-        //     mb: 3,
-        //     flexWrap: "wrap",
-        //     justifyContent: "center",
-        //   }}
-        // >
         <StatisticsOrders
           loadingStatus={loadingStatic}
           dataStatus={statisticsInventory && statisticsInventory}
@@ -108,7 +99,7 @@ export default function AdminTable({
                 p: 2,
                 flex: "1 1 200px",
                 display: "flex",
-                flexDirection: "column",
+                flexDirection: "flex",
                 alignItems: "flex-start",
                 borderRadius: 3,
                 boxShadow: 7,
