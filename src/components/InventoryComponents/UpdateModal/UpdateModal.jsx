@@ -43,8 +43,14 @@ export default function UpdateModal({ drugId }) {
     reset();
   };
 
-  const { shadow2, typography, pharmacyBackground, textPrimary } =
-    useThemeConstants();
+  const {
+    typography,
+    textPrimary,
+    cardBackground,
+    cardDetailsBackground,
+    backgroundRedSoft,
+    borderHover,
+  } = useThemeConstants();
   const [specificDrug, setspecificDrug] = useState(null);
 
   //* Function GET SPECIFIC Drug
@@ -132,15 +138,15 @@ export default function UpdateModal({ drugId }) {
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <Box sx={style}>
+        <Box sx={{ ...style, background: cardBackground, boxShadow: 12 }}>
           <Box
             sx={{
               p: 2,
               display: "flex",
               alignItems: "center",
               justifyContent: "space-between",
-              bgcolor: pharmacyBackground,
-              boxShadow: shadow2,
+              background: cardDetailsBackground,
+              boxShadow: 8,
               color: textPrimary,
             }}
           >
@@ -282,17 +288,36 @@ export default function UpdateModal({ drugId }) {
               sx={{
                 gridColumn: "span 2",
                 display: "flex",
+                flexWrap: "wrap",
                 justifyContent: "center",
                 mt: 3,
+                gap: 2,
               }}
             >
+              <Button
+                onClick={handleClose}
+                variant="outlined"
+                color="error"
+                sx={{
+                  borderRadius: "8px",
+                  boxShadow: 2,
+                  px: 5,
+                  "&:hover": {
+                    color: "white",
+                    borderColor: borderHover,
+                    background: backgroundRedSoft,
+                  },
+                }}
+              >
+                Close
+              </Button>
               <Button
                 type="submit"
                 variant="contained"
                 color={isError ? "error" : "warning"}
                 sx={{
                   fontSize: { xs: "14px", md: "16px" },
-                  px: 5,
+                  px: 2,
                   py: 1.5,
                   fontWeight: "bold",
                   borderRadius: "10px",
@@ -303,11 +328,20 @@ export default function UpdateModal({ drugId }) {
                 }}
                 startIcon={
                   isLoading ? (
-                    <CircularProgress color="inherit" size={20} />
+                    <CircularProgress
+                      color="inherit"
+                      size={20}
+                    />
                   ) : isError ? (
-                    <WarningAmberIcon color="warning" size={20} />
+                    <WarningAmberIcon
+                      color="warning"
+                      size={20}
+                    />
                   ) : isSuccess ? (
-                    <CheckCircleIcon color="success" size={20} />
+                    <CheckCircleIcon
+                      color="success"
+                      size={20}
+                    />
                   ) : (
                     <EditIcon size={20} />
                   )

@@ -21,7 +21,6 @@ const style = {
   left: "50%",
   transform: "translate(-50%, -50%)",
   width: { xs: "85%", sm: "60%", md: "50%" },
-  boxShadow: 24,
   borderRadius: "20px",
 };
 
@@ -52,8 +51,9 @@ export default function AddDrugFromExcel() {
     textLink,
     cardBackground,
     transitionDurationComplex,
-    cardHoverBackground,
     textPrimary,
+    borderHover,
+    backgroundRedSoft,
   } = useThemeConstants();
 
   //Mutations
@@ -115,13 +115,12 @@ export default function AddDrugFromExcel() {
         <Box
           sx={{
             ...style,
-            boxShadow: 9,
+            boxShadow: 8,
             background: cardBackground,
             transition: transitionDurationComplex,
             color: textPrimary,
             ":hover": {
-              boxShadow: 8,
-              background: cardHoverBackground,
+              boxShadow: 6,
             },
           }}
         >
@@ -201,27 +200,6 @@ export default function AddDrugFromExcel() {
               setFieldValue={formik.setFieldValue}
               errors={formik.errors}
             />
-            {/* <Autocomplete
-              fullWidth
-              options={data && data.data}
-              getOptionLabel={(option) => option.name}
-              loading={loadingCategories}
-              onChange={(event, value) => {
-                formik.setFieldValue("category", value._id);
-              }}
-              renderInput={(params) => (
-                <TextField
-                  {...params}
-                  label="Category"
-                  name="category"
-                  margin="normal"
-                  error={
-                    formik.touched.category && Boolean(formik.errors.category)
-                  }
-                  helperText={formik.touched.category && formik.errors.category}
-                />
-              )}
-            /> */}
 
             <Box sx={{ mt: 3, mb: 3 }}>
               <Button
@@ -272,8 +250,19 @@ export default function AddDrugFromExcel() {
               <Button
                 onClick={handleClose}
                 variant="outlined"
+                color="error"
+                sx={{
+                  borderRadius: "8px",
+                  boxShadow: 2,
+                  px: 5,
+                  "&:hover": {
+                    color: "white",
+                    borderColor: borderHover,
+                    background: backgroundRedSoft,
+                  },
+                }}
               >
-                Cancel
+                Close
               </Button>
               <Button
                 type="submit"

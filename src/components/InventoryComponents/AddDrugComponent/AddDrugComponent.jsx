@@ -1,4 +1,3 @@
-/* eslint-disable no-undef */
 import * as React from "react";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
@@ -50,6 +49,8 @@ export default function AddDrugComponent() {
     cardBackground,
     transitionDurationComplex,
     buttonText,
+    backgroundRedSoft,
+    borderHover,
   } = useThemeConstants();
 
   //Function
@@ -340,16 +341,35 @@ export default function AddDrugComponent() {
 
             <Box
               sx={{
+                pt: 2,
                 display: "flex",
-                justifyContent: "center",
+                justifyContent: "end",
+                gap: 2,
               }}
             >
+              <Button
+                onClick={handleClose}
+                variant="outlined"
+                color="error"
+                sx={{
+                  borderRadius: "8px",
+                  boxShadow: 2,
+                  px: 5,
+                  "&:hover": {
+                    color: "white",
+                    borderColor: borderHover,
+                    background: backgroundRedSoft,
+                  },
+                }}
+              >
+                Close
+              </Button>
               <Button
                 variant="contained"
                 type="submit"
                 disabled={!dirty}
                 sx={{
-                  px: 9,
+                  px: 5,
                   py: 1,
                   color: buttonText,
                   fontSize: typography.button.fontSize,
