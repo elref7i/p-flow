@@ -44,36 +44,52 @@ const HomePharmacy = lazy(() =>
 );
 
 // Inventory
-import InventoryProfile from "@/pages/Inventory/InventoryProfile/InventoryProfile";
-import AllDrugs from "@/pages/Inventory/AllDrugs/AllDrugs";
-import DrugsAction from "@/pages/Inventory/DrugsAction/DrugsAction";
+const InventoryProfile = lazy(() =>
+  import("@/pages/Inventory/InventoryProfile/InventoryProfile")
+);
+const AllDrugs = lazy(() => import("@/pages/Inventory/AllDrugs/AllDrugs"));
+const DrugsAction = lazy(() =>
+  import("@/pages/Inventory/DrugsAction/DrugsAction")
+);
 const OrdersInventory = lazy(() =>
   import("@/pages/Inventory/OrdersInventory/OrdersInventory")
 );
+const Promotions = lazy(() => import("@/pages/Pharmacy/promotions/promotions"));
+const Categories = lazy(() => import("@/pages/Pharmacy/Categories/Categories"));
+const Whishlist = lazy(() => import("@/pages/Pharmacy/wishlist/whishlist"));
+const Setting = lazy(() => import("@/pages/Setting/Setting"));
+const CategoriesAdmin = lazy(() =>
+  import("@/pages/Admin/categories_admin/categories_admin")
+);
+const ProfileBase = lazy(() =>
+  import("@/pages/Inventory/InventoryProfile/Profile")
+);
+const CategoryDrugs = lazy(() =>
+  import("@/pages/Pharmacy/CategoryDrugs/CategoryDrugs")
+);
+const Inventories = lazy(() =>
+  import("@/pages/Pharmacy/Inventories/Inventories")
+);
+const PharmacyOrders = lazy(() =>
+  import("@/pages/Pharmacy/PharmacyOrders/PharmacyOrders")
+);
+const Cart = lazy(() => import("@/pages/Pharmacy/Cart/Cart"));
 
 // Shared Pages
 import SkeletonLoader from "@/components/SkeletonLoader/SkeletonLoader";
-const Setting = lazy(() => import("@/pages/Setting/Setting"));
 
 //Provider
 import ThemeModeProvider from "@/context/theme.context";
 import ForgetPasswordProvider from "@/context/Forget.context";
 import UserTypeProvider from "@/context/UserType.context";
-import Cart from "./pages/Pharmacy/Cart/Cart";
 import PaginationProvider from "./context/params.context";
-import Whishlist from "./pages/Pharmacy/wishlist/whishlist";
-import CategoriesAdmin from "./pages/Admin/categories_admin/categories_admin";
-import PharmacyOrders from "./pages/Pharmacy/PharmacyOrders/PharmacyOrders";
-import Inventories from "./pages/Pharmacy/Inventories/Inventories";
-import ProfileBase from "./pages/Inventory/InventoryProfile/Profile";
-import CategoryDrugs from "./pages/Pharmacy/CategoryDrugs/CategoryDrugs";
+
+// Notifications
 import {
   messaging,
   requestFCMToken,
 } from "./components/notifications/firebase/firebase-config";
 import { onMessage } from "firebase/messaging";
-import Promotions from "./pages/Pharmacy/promotions/promotions";
-import Categories from "./pages/Pharmacy/Categories/Categories";
 
 function App() {
   useEffect(() => {
