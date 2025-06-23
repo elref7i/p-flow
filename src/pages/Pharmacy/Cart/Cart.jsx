@@ -8,11 +8,11 @@ import Invoice from "../../../components/PharmacyComonents/Invoice/Invoice";
 import CartItem from "../../../components/PharmacyComonents/CartItem/CartItem";
 
 import CartSkeleton from "./_components/CartSkeleton";
+import { useNavigate } from "react-router-dom";
 
 export default function Cart() {
-  // const [selectedInventory, setSelectedInventory] = useState(null);
   const [selectedInventoryId, setSelectedInventoryId] = useState(null);
-
+  const navigate = useNavigate();
   const theme = useTheme();
   const isDark = theme.palette.mode === "dark";
 
@@ -44,14 +44,14 @@ export default function Cart() {
         </Typography>
 
         <Typography variant="body1" color="text.secondary">
-          Looks like you haven’t added anything yet.
+          Looks like you haven&apos;t added anything yet.
         </Typography>
 
         <Button
           variant="contained"
           color="primary"
           sx={{ mt: 2, px: 4, py: 1 }}
-          onClick={() => (window.location.href = "/pharmacy/drugs")}
+          onClick={() => navigate("/pharmacy/drugs")}
         >
           Back to Drugs
         </Button>
@@ -80,50 +80,65 @@ export default function Cart() {
         />
       </Helmet>
 
-      <Grid container spacing={5}>
-        {/* cart items */}
-        <Grid item xs={12} md={9}>
-          <Box display="flex" flexDirection="column">
-            {cartInfo.data.inventories.map((inventory) => (
-              <CartItem
-                key={inventory.inventory.id}
-                inventoryInfo={inventory}
-                // onReadyToBuy={() => setSelectedInventory(inventory)}
-                // selectedInventory={selectedInventory}
-                // setSelectedInventory={setSelectedInventory}
-                onReadyToBuy={() =>
-                  setSelectedInventoryId(inventory.inventory.id)
-                }
-                selectedInventoryId={selectedInventoryId}
-              />
-            ))}
-
-            <Box textAlign="center">
-              <Button
-                sx={{ mt: 3 }}
-                variant="outlined"
-                color="error"
-                startIcon={<Delete />}
-                onClick={() => clearCartMutation.mutate()}
-              >
-                Clear Cart
-              </Button>
+      <Box sx={{ display: "flex", flexDirection: "column", minHeight: "100%" }}>
+        <Grid container spacing={5} sx={{ flexGrow: 1 }}>
+          {/* cart items */}
+          <Grid item xs={12} md={9}>
+            <Box display="flex" flexDirection="column">
+              {cartInfo.data.inventories.map((inventory) => (
+                <CartItem
+                  key={inventory.inventory.id}
+                  inventoryInfo={inventory}
+                  onReadyToBuy={() =>
+                    setSelectedInventoryId(inventory.inventory.id)
+                  }
+                  selectedInventoryId={selectedInventoryId}
+                />
+              ))}
             </Box>
-          </Box>
+          </Grid>
+
+          {/* invoice */}
+          <Grid item xs={12} md={3}>
+            <Box>
+              <Invoice
+                selectedInventory={cartInfo.data.inventories.find(
+                  (inv) => inv.inventory.id === selectedInventoryId
+                )}
+              />
+            </Box>
+          </Grid>
         </Grid>
 
-        {/* invoice */}
-        <Grid item xs={12} md={3}>
-          <Box>
-            {/* <Invoice selectedInventory={selectedInventory} /> */}
-            <Invoice
-              selectedInventory={cartInfo.data.inventories.find(
-                (inv) => inv.inventory.id === selectedInventoryId
-              )}
-            />
-          </Box>
-        </Grid>
-      </Grid>
+        {/* Clear Cart Button - Always at bottom */}
+        <Box
+          sx={{
+            textAlign: "center",
+            mt: { xs: 3, sm: 4 },
+            pb: { xs: 2, sm: 3 },
+            borderTop: {
+              xs: `1px solid ${isDark ? "#333" : "#e0e0e0"}`,
+              sm: "none",
+            },
+            pt: { xs: 2, sm: 0 },
+          }}
+        >
+          <Button
+            variant="outlined"
+            color="error"
+            startIcon={<Delete />}
+            onClick={() => clearCartMutation.mutate()}
+            sx={{
+              px: { xs: 3, sm: 4 },
+              py: { xs: 1, sm: 1.5 },
+              fontSize: { xs: "0.9rem", sm: "1rem" },
+              fontWeight: "bold",
+            }}
+          >
+            Clear Cart
+          </Button>
+        </Box>
+      </Box>
     </>
   );
 }

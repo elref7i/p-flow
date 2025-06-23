@@ -27,39 +27,52 @@ export default function Invoice({ selectedInventory }) {
   return (
     <Box
       sx={{
-        width: { xs: "100%", md: "380px" },
-        height: 600,
-        mt: 4,
+        width: { xs: "100%", sm: "100%", md: "380px" },
+        height: { xs: "auto", sm: 600, md: 600 },
+        minHeight: { xs: 400, sm: 600 },
+        maxHeight: { xs: "70vh", sm: 600 },
+        mt: { xs: 2, sm: 4 },
         backgroundColor: isDarkMode ? "#0e1a2b" : "#F5F5F5",
         boxShadow: "0px 2px 7px rgb(103, 161, 247)",
         color: textColor,
         borderRadius: 2,
-        p: 2.5,
+        p: { xs: 1.5, sm: 2.5 },
         display: "flex",
         flexDirection: "column",
-        gap: 2,
+        gap: { xs: 1.5, sm: 2 },
         position: "relative",
       }}
     >
       <Box sx={{ display: "flex", alignItems: "center" }}>
         <Box
-          sx={{ display: "flex", alignItems: "center", flexGrow: 1, gap: 1 }}
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            flexGrow: 1,
+            gap: { xs: 0.5, sm: 1 },
+          }}
         >
           <Box
             sx={{
               bgcolor: "#007bff",
               borderRadius: 1,
-              p: 0.5,
+              p: { xs: 0.3, sm: 0.5 },
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
             }}
           >
-            <ShoppingCartIcon sx={{ color: "white", fontSize: 28 }} />
+            <ShoppingCartIcon
+              sx={{ color: "white", fontSize: { xs: 24, sm: 28 } }}
+            />
           </Box>
           <Typography
             variant="h2"
-            sx={{ fontWeight: "bold", color: "text.primary" }}
+            sx={{
+              fontWeight: "bold",
+              color: "text.primary",
+              fontSize: { xs: "1.5rem", sm: "2rem", md: "2.125rem" },
+            }}
           >
             Your Cart
           </Typography>
@@ -71,7 +84,7 @@ export default function Invoice({ selectedInventory }) {
           flexGrow: 1,
           overflowY: "auto",
           minHeight: 0,
-          pr: 2,
+          pr: { xs: 1, sm: 2 },
           display: "flex",
           flexDirection: "column",
         }}
@@ -85,16 +98,21 @@ export default function Invoice({ selectedInventory }) {
                   display: "flex",
                   alignItems: "center",
                   borderRadius: 1,
-                  p: 1,
-                  mb: 2,
-                  // transition: "all 0.3s ease-in-out",
+                  p: { xs: 0.8, sm: 1 },
+                  mb: { xs: 1.5, sm: 2 },
                   backgroundColor: isDarkMode ? "#1e293b" : "#e4e4e4",
+                  flexDirection: { xs: "row", sm: "row" },
+                  gap: { xs: 0.5, sm: 0 },
                 }}
               >
                 <Avatar
                   src="https://www.netmeds.com/images/product-v1/600x600/397251/nasomist_saline_nasal_spray_20ml_149351_0_2.jpg"
                   variant="rounded"
-                  sx={{ width: 56, height: 56, mr: 1 }}
+                  sx={{
+                    width: { xs: 48, sm: 56 },
+                    height: { xs: 48, sm: 56 },
+                    mr: { xs: 0.8, sm: 1 },
+                  }}
                 />
 
                 <Box
@@ -103,11 +121,12 @@ export default function Invoice({ selectedInventory }) {
                     flexDirection: "column",
                     flexGrow: 1,
                     overflow: "hidden",
+                    minWidth: 0,
                   }}
                 >
                   <Tooltip title={drug.name} arrow>
                     <Typography
-                      fontSize={14}
+                      fontSize={{ xs: 13, sm: 14 }}
                       fontWeight="bold"
                       style={{ color: textColor }}
                       sx={{
@@ -117,21 +136,26 @@ export default function Invoice({ selectedInventory }) {
                         WebkitLineClamp: 2,
                         WebkitBoxOrient: "vertical",
                         cursor: "pointer",
+                        lineHeight: { xs: 1.3, sm: 1.4 },
                       }}
                     >
                       {drug.name}
                     </Typography>
                   </Tooltip>
-                  <Typography fontSize={12} color="text.secondary">
+                  <Typography
+                    fontSize={{ xs: 11, sm: 12 }}
+                    color="text.secondary"
+                    sx={{ mt: { xs: 0.2, sm: 0.5 } }}
+                  >
                     Price: {formatNumber(price)} EGP
                   </Typography>
                 </Box>
 
                 <Typography
-                  fontSize={14}
+                  fontSize={{ xs: 13, sm: 14 }}
                   fontWeight="bold"
                   style={{ color: textColor }}
-                  sx={{ mr: 1 }}
+                  sx={{ mr: { xs: 0.5, sm: 1 } }}
                 >
                   x{quantity}
                 </Typography>
@@ -146,10 +170,14 @@ export default function Invoice({ selectedInventory }) {
                 alignItems: "center",
                 height: "100%",
                 textAlign: "center",
-                p: 2,
+                p: { xs: 1.5, sm: 2 },
               }}
             >
-              <Typography variant="h6" color="text.secondary">
+              <Typography
+                variant="h6"
+                color="text.secondary"
+                sx={{ fontSize: { xs: "1rem", sm: "1.25rem" } }}
+              >
                 No items selected yet
               </Typography>
             </Box>
@@ -167,7 +195,12 @@ export default function Invoice({ selectedInventory }) {
         variant="contained"
         color="primary"
         fullWidth
-        sx={{ fontWeight: "bold", fontSize: "20px" }}
+        sx={{
+          fontWeight: "bold",
+          fontSize: { xs: "16px", sm: "18px", md: "20px" },
+          py: { xs: 1, sm: 1.5 },
+          mt: { xs: 1, sm: 0 },
+        }}
         disabled={drugs.length === 0}
       >
         Order Now

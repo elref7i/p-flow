@@ -2,78 +2,87 @@ import { Box, Skeleton, Stack } from "@mui/material";
 
 export default function OrdersSkeleton() {
   return (
-    <Stack spacing={4}>
-      {Array.from({ length: 2 }).map((_, orderIdx) => (
+    <Stack spacing={4} mt={3}>
+      {Array.from({ length: 3 }).map((_, orderIdx) => (
         <Box
           key={orderIdx}
-          mt={5}
           sx={{
-            borderRadius: 3,
-            p: 3,
+            borderRadius: 4,
             boxShadow: 3,
-            color: "white",
-            mt: 5,
+            p: 0,
+            overflow: "hidden",
           }}
         >
-          {/* Order Header */}
+          {/* Header (gradient bar + status) */}
           <Box
             sx={{
               display: "flex",
               justifyContent: "space-between",
               alignItems: "center",
-              mb: 2,
+              px: 3,
+              py: 2,
+              background: "linear-gradient(to right, #4e54c8, #8f94fb)",
             }}
           >
-            <Skeleton variant="text" width={200} height={30} />
+            <Skeleton variant="text" width={220} height={28} />
             <Skeleton
               variant="rounded"
-              width={80}
-              height={30}
-              sx={{ borderRadius: "15px" }}
+              width={90}
+              height={28}
+              sx={{ borderRadius: "20px" }}
             />
           </Box>
 
-          {/* Order Items */}
+          {/* Order Items Grid */}
           <Box
             sx={{
               display: "flex",
               flexWrap: "wrap",
               gap: 2,
-              mb: 2,
+              p: 3,
+              backgroundColor: "#f9f9f9",
             }}
           >
-            {Array.from({ length: 4 }).map((_, itemIdx) => (
+            {Array.from({ length: 6 }).map((_, itemIdx) => (
               <Box
                 key={itemIdx}
                 sx={{
-                  width: { xs: "100%", sm: "48%", md: "23%" },
-                  borderRadius: 2,
+                  flex: "1 1 180px",
+                  minWidth: 160,
+                  borderRadius: 3,
                   p: 2,
+                  backgroundColor: "#ffffff",
+                  boxShadow: 1,
                 }}
               >
-                <Skeleton variant="text" width="80%" height={20} />
-                <Skeleton variant="text" width="60%" height={20} />
-                <Skeleton variant="text" width="40%" height={20} />
+                <Box mb={1}>
+                  <Skeleton variant="circular" width={30} height={30} />
+                </Box>
+                <Skeleton variant="text" width="80%" height={18} />
+                <Skeleton variant="text" width="60%" height={16} />
+                <Skeleton variant="text" width="30%" height={16} />
               </Box>
             ))}
           </Box>
 
-          {/* Total & Buttons */}
+          {/* Footer - total + buttons */}
           <Box
             sx={{
               display: "flex",
               justifyContent: "space-between",
               alignItems: "center",
-              mt: 2,
               flexWrap: "wrap",
               gap: 2,
+              px: 3,
+              py: 2,
+              borderTop: "1px solid #e0e0e0",
+              backgroundColor: "#fdfdfd",
             }}
           >
-            <Skeleton variant="text" width={150} height={25} />
-
-            <Box sx={{ display: "flex", gap: 2 }}>
-              <Skeleton variant="rounded" width={80} height={35} />
-              <Skeleton variant="rounded" width={120} height={35} />
+            <Skeleton variant="text" width={180} height={26} />
+            <Box display="flex" gap={2}>
+              <Skeleton variant="rounded" width={90} height={36} />
+              <Skeleton variant="rounded" width={120} height={36} />
             </Box>
           </Box>
         </Box>
