@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { Box, Typography, Container, Stack } from "@mui/material";
+import { Box, Container } from "@mui/material";
 import {
   motion,
   useScroll,
@@ -9,27 +9,18 @@ import {
   AnimatePresence,
 } from "framer-motion";
 import { useRef, useState, useEffect } from "react";
-import {
-  LocalPharmacy,
-  Psychology,
-  AutoAwesome,
-  Science,
-} from "@mui/icons-material";
+import { LocalPharmacy, Psychology, Science } from "@mui/icons-material";
 import { useThemeConstants } from "../../../../../lib/constants/theme.constant";
 import PulseRing from "./_components/plues-ring";
 import DNAHelix from "./_components/dna";
 import EnhancedFloatingParticle from "./_components/enhanced-floating";
-import {
-  containerVariants,
-  floatingVariants,
-  itemVariants,
-} from "./constants/variants";
+import { containerVariants } from "./constants/variants";
 import TrustIndications from "./_components/trust-indications";
 import DynamicResearch from "./_components/dynamic-research";
 import AiFeatures from "./_components/ai-features";
 
 export default function HeroVariation1() {
-  const { backgroundElevated, mode, textPrimary } = useThemeConstants();
+  const { backgroundElevated } = useThemeConstants();
   const ref = useRef(null);
   const [isLoaded, setIsLoaded] = useState(false);
   const [currentParticleColor, setCurrentParticleColor] = useState(0);
@@ -250,134 +241,6 @@ export default function HeroVariation1() {
               animate="visible"
               style={{ opacity }}
             >
-              {/* SECTION 1: Spectacular Header */}
-              {/* <motion.div variants={itemVariants}> */}
-              {/* <Box
-                  textAlign="center"
-                  mb={{ xs: 6, md: 8 }}
-                >
-                  <Stack
-                    direction="row"
-                    alignItems="center"
-                    justifyContent="center"
-                    spacing={3}
-                    mb={4}
-                  >
-                    <motion.div
-                      variants={floatingVariants}
-                      animate="animate"
-                      whileHover={{
-                        scale: 1.2,
-                        rotate: 20,
-                        filter: "drop-shadow(0 0 30px rgba(33, 150, 243, 0.8))",
-                      }}
-                      transition={{ duration: 0.3 }}
-                    >
-                      <LocalPharmacy
-                        sx={{
-                          fontSize: { xs: 60, md: 80 },
-                          color: "#2196F3",
-                          filter:
-                            "drop-shadow(0 0 25px rgba(33, 150, 243, 0.6))",
-                        }}
-                      />
-                    </motion.div>
-
-                    <motion.div
-                      animate={{
-                        rotate: [0, 360],
-                        scale: [1, 1.3, 1],
-                        filter: [
-                          "drop-shadow(0 0 15px rgba(255, 215, 0, 0.7))",
-                          "drop-shadow(0 0 25px rgba(255, 215, 0, 1))",
-                          "drop-shadow(0 0 15px rgba(255, 215, 0, 0.7))",
-                        ],
-                      }}
-                      transition={{
-                        rotate: {
-                          duration: 10,
-                          repeat: Number.POSITIVE_INFINITY,
-                          ease: "linear",
-                        },
-                        scale: {
-                          duration: 3,
-                          repeat: Number.POSITIVE_INFINITY,
-                          ease: "easeInOut",
-                        },
-                        filter: {
-                          duration: 2,
-                          repeat: Number.POSITIVE_INFINITY,
-                          ease: "easeInOut",
-                        },
-                      }}
-                      whileHover={{ scale: 1.5, rotate: 180 }}
-                    >
-                      <AutoAwesome
-                        sx={{
-                          fontSize: { xs: 30, md: 40 },
-                          color: "#FFD700",
-                        }}
-                      />
-                    </motion.div>
-                  </Stack>
-
-                  <motion.div
-                    initial={{ opacity: 0, scale: 0.5, rotateX: -90 }}
-                    animate={{ opacity: 1, scale: 1, rotateX: 0 }}
-                    transition={{ delay: 0.5, duration: 1.2, ease: "easeOut" }}
-                  >
-                    <Typography
-                      variant="h1"
-                      sx={{
-                        fontSize: {
-                          xs: "2.8rem",
-                          sm: "4rem",
-                          md: "5rem",
-                          lg: "6rem",
-                        },
-                        fontWeight: 900,
-                        lineHeight: 1.1,
-                        mb: 3,
-                        background:
-                          mode === "dark"
-                            ? "linear-gradient(45deg, #2196F3, #21CBF3, #fff, #fff)"
-                            : "linear-gradient(45deg, #2196F3, #21CBF3, #fff, #fff)",
-                        backgroundSize: "300% 300%",
-                        backgroundClip: "text",
-                        WebkitBackgroundClip: "text",
-                        WebkitTextFillColor: "transparent",
-                        animation: "gradientShift 4s ease-in-out infinite",
-                        textShadow: "0 0 40px rgba(33, 150, 243, 0.3)",
-                      }}
-                    >
-                      Pharmacy
-                    </Typography>
-                  </motion.div>
-
-                  <motion.div
-                    initial={{ opacity: 0, y: 30 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.8, duration: 1 }}
-                  >
-                    <Typography
-                      variant="h5"
-                      sx={{
-                        color: textPrimary,
-                        fontSize: { xs: "1.2rem", sm: "1.4rem", md: "1.6rem" },
-                        fontWeight: 300,
-                        maxWidth: 700,
-                        mx: "auto",
-                        lineHeight: 1.6,
-                        textShadow: "0 2px 10px rgba(0,0,0,0.3)",
-                      }}
-                    >
-                      Revolutionary medicine search with AI ingredient analysis
-                      and prescription reading
-                    </Typography>
-                  </motion.div>
-                </Box> */}
-              {/* </motion.div> */}
-
               {/* SECTION 2: Dynamic Search */}
               <DynamicResearch />
 

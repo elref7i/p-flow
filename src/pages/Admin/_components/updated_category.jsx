@@ -20,11 +20,11 @@ import {
 import CategoryIcon from "@mui/icons-material/Category";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import { CategorySchema } from "../../../lib/schemas/AdminSchema";
-import { useUpdateCategory } from "../../../lib/hooks/useAdminAction";
 import WarningAmberIcon from "@mui/icons-material/WarningAmber";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import ModeEditIcon from "@mui/icons-material/ModeEdit";
 import BorderColorIcon from "@mui/icons-material/BorderColor";
+import { useUpdateCategory } from "../../../lib/hooks/use-admin";
 
 const VisuallyHiddenInput = styled("input")({
   clip: "rect(0 0 0 0)",

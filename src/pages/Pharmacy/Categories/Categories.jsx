@@ -8,11 +8,11 @@ import {
   Grid,
 } from "@mui/material";
 import { motion } from "framer-motion";
-import { useThemeConstants } from "../../../lib/constants/theme.constant";
-import { useCategories } from "../../../lib/hooks/useAdminAction";
+import { useThemeConstants } from "@/lib/constants/theme.constant";
 import { useNavigate } from "react-router-dom";
-import { useTypeContext } from "../../../context/UserType.context";
+import { useTypeContext } from "@/context/UserType.context";
 import { Helmet } from "react-helmet";
+import { useCategories } from "@/lib/hooks/use-admin";
 
 export default function Categories() {
   const { textPrimary, cardBackground } = useThemeConstants();
@@ -33,14 +33,20 @@ export default function Categories() {
           name="keywords"
           content="medicine categories, pharmaceutical drugs, pharmacy, healthcare, P-FLOW"
         />
-        <meta property="og:title" content="Drug Categories | P-FLOW Platform" />
+        <meta
+          property="og:title"
+          content="Drug Categories | P-FLOW Platform"
+        />
         <meta
           property="og:description"
           content="Discover different drug categories offered on the P-FLOW platform. Easy browsing for pharmacies and users."
         />
       </Helmet>
 
-      <Container maxWidth="xl" sx={{ py: 2 }}>
+      <Container
+        maxWidth="xl"
+        sx={{ py: 2 }}
+      >
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -76,9 +82,19 @@ export default function Categories() {
         </motion.div>
 
         {isLoading ? (
-          <Grid container spacing={4}>
+          <Grid
+            container
+            spacing={4}
+          >
             {[...Array(8)].map((_, idx) => (
-              <Grid item xs={12} sm={6} md={4} lg={3} key={idx}>
+              <Grid
+                item
+                xs={12}
+                sm={6}
+                md={4}
+                lg={3}
+                key={idx}
+              >
                 <Card
                   sx={{
                     borderRadius: 4,
@@ -120,9 +136,19 @@ export default function Categories() {
             ))}
           </Grid>
         ) : (
-          <Grid container spacing={4}>
+          <Grid
+            container
+            spacing={4}
+          >
             {categories.map((cat, index) => (
-              <Grid item xs={12} sm={6} md={4} lg={3} key={cat._id}>
+              <Grid
+                item
+                xs={12}
+                sm={6}
+                md={4}
+                lg={3}
+                key={cat._id}
+              >
                 <motion.div
                   initial={{ opacity: 0, y: 50 }}
                   whileInView={{ opacity: 1, y: 0 }}

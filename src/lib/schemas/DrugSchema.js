@@ -1,11 +1,16 @@
 import * as Yup from "yup";
 
+const today = new Date();
+today.setHours(0, 0, 0, 0); // نخلي الوقت 00:00:00
+
 export const DrugSchema = Yup.object().shape({
   name: Yup.string().required("Name is required"),
   manufacturer: Yup.string().required("Manufacturer is required"),
   description: Yup.string().required("Description is required"),
   originType: Yup.string().required("OriginType is required"),
-  productionDate: Yup.date().required("ProductionDate is required"),
+  productionDate: Yup.date()
+    .required("ProductionDate is required")
+    .min(today, "Production date must be today or in the future"),
   expirationDate: Yup.date()
     .required("ExpirationDate is required")
     .test(
@@ -13,11 +18,11 @@ export const DrugSchema = Yup.object().shape({
       "Expiration date must be after production date",
       function (value) {
         const { productionDate } = this.parent;
-        return value > productionDate;
+        return value && productionDate && value > productionDate;
       }
     ),
   price: Yup.number().positive().min(0).required("Price is required"),
-  discount: Yup.number().min(0).required("Discount is required"),
+  discount: Yup.number().min(0).max(100).required("Discount is required"),
   stock: Yup.number().integer().min(0).required("Stock is Required"),
   sold: Yup.number().integer().min(0).required("Required"),
   isVisible: Yup.boolean().required("Required"),

@@ -10,9 +10,9 @@ import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import Role from "../../../components/Role/Role";
 import { AdminAddUser } from "../../../lib/schemas/AdminSchema";
-import { useAdminAddUser } from "../../../lib/hooks/useAdminAction";
 import PasswordControl from "../../../components/Common/PasswordControl";
 import { useThemeConstants } from "../../../lib/constants/theme.constant";
+import { useAdminAddUser } from "../../../lib/hooks/use-admin";
 
 const style = {
   position: "fixed",

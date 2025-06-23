@@ -10,7 +10,7 @@ import {
 } from "@mui/material";
 import { ShoppingCart } from "@mui/icons-material";
 import { useThemeConstants } from "../lib/constants/theme.constant";
-import { useAddToCart } from "../lib/hooks/useCartAction";
+import { useAddToCart } from "../lib/hooks/use-cart";
 import BadgeStock from "./Common/badge-stock";
 import { getStockStatus } from "../lib/utils/status-stock";
 import BadgePromtion from "./Common/badge-promtion";

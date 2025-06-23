@@ -11,7 +11,7 @@ import {
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { useTypeContext } from "../../../../context/UserType.context";
-import { useAddToCart } from "../../../../lib/hooks/useCartAction";
+import { useAddToCart } from "../../../../lib/hooks/use-cart";
 import { motion } from "framer-motion";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { formatNumber } from "../../../../lib/utils/formateNumber";
@@ -169,7 +169,10 @@ export default function CategoryDrugCard({
                 alignItems: "center",
               }}
             >
-              <Typography variant="h6" color={textSecondary}>
+              <Typography
+                variant="h6"
+                color={textSecondary}
+              >
                 Consumer Price:
               </Typography>
               <Typography
@@ -190,7 +193,10 @@ export default function CategoryDrugCard({
                 alignItems: "center",
               }}
             >
-              <Typography variant="h6" color={textSecondary}>
+              <Typography
+                variant="h6"
+                color={textSecondary}
+              >
                 Pharmacy Price:
               </Typography>
               <Typography
@@ -230,7 +236,10 @@ export default function CategoryDrugCard({
               fullWidth
               startIcon={
                 isLoading ? (
-                  <CircularProgress size={16} color="inherit" />
+                  <CircularProgress
+                    size={16}
+                    color="inherit"
+                  />
                 ) : (
                   <ShoppingCartIcon />
                 )

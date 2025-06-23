@@ -14,7 +14,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
 import { motion } from "framer-motion";
-import { useCategories } from "../../../../lib/hooks/useAdminAction";
+import { useCategories } from "../../../../lib/hooks/use-admin";
 import { useThemeConstants } from "../../../../lib/constants/theme.constant";
 import { useNavigate } from "react-router-dom";
 import { useTypeContext } from "../../../../context/UserType.context";

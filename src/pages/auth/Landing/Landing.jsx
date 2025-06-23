@@ -1,7 +1,6 @@
 import HeroSection from "../../../components/LandingComponents/HeroSection";
 import FeaturesSection from "../../../components/LandingComponents/FeaturesSection";
 import HowItWorksSection from "../../../components/LandingComponents/HowItWorksSection";
-import TestimonialsSection from "../../../components/LandingComponents/TestimonialsSection";
 import ContactSection from "../../../components/LandingComponents/ContactSection";
 import Footer from "../../../components/LandingComponents/Footer";
 import StatisticsSection from "../../../components/LandingComponents/StatisticsSection";
@@ -41,7 +40,6 @@ const LandingPage = () => {
         <HowItWorksSection />
         <StatisticsSection />
         <ServicesSection />
-        {/* <TestimonialsSection /> */}
         <ContactSection />
       </Box>
       <Footer />

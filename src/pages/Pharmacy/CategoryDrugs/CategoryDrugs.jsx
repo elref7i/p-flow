@@ -11,13 +11,13 @@ import {
 import { Helmet } from "react-helmet";
 import { motion, AnimatePresence } from "framer-motion";
 import { useNavigate, useParams } from "react-router-dom";
-import { useCategoryDrugs } from "../../../lib/hooks/useAdminAction";
 import CategoryDrugCard from "./_components/CategoryDrugCard";
 import Inventory2OutlinedIcon from "@mui/icons-material/Inventory2Outlined";
 import CategoryDrugSkeleton from "./_components/CategoryDrugSkeleton";
 import MedicalServicesIcon from "@mui/icons-material/MedicalServices";
 import TrendingUpIcon from "@mui/icons-material/TrendingUp";
 import VerifiedIcon from "@mui/icons-material/Verified";
+import { useCategoryDrugs } from "@/lib/hooks/use-admin";
 
 export default function CategoryDrugs() {
   const { id } = useParams();
@@ -157,9 +157,17 @@ export default function CategoryDrugs() {
                     },
                   }}
                 >
-                  <Grid container spacing={4} alignItems="center">
+                  <Grid
+                    container
+                    spacing={4}
+                    alignItems="center"
+                  >
                     {/* Category Image */}
-                    <Grid item xs={12} md={3}>
+                    <Grid
+                      item
+                      xs={12}
+                      md={3}
+                    >
                       <motion.div
                         whileHover={{ scale: 1.05, rotate: 2 }}
                         transition={{
@@ -193,7 +201,11 @@ export default function CategoryDrugs() {
                     </Grid>
 
                     {/* Category Info */}
-                    <Grid item xs={12} md={6}>
+                    <Grid
+                      item
+                      xs={12}
+                      md={6}
+                    >
                       <motion.div
                         initial={{ opacity: 0, x: -30 }}
                         animate={{ opacity: 1, x: 0 }}
@@ -285,10 +297,19 @@ export default function CategoryDrugs() {
                 initial="hidden"
                 animate="visible"
               >
-                <Grid container spacing={3}>
+                <Grid
+                  container
+                  spacing={3}
+                >
                   <AnimatePresence mode="wait">
                     {categoryDrugs.map((item, index) => (
-                      <Grid item key={item._id} xs={12} sm={6} lg={4}>
+                      <Grid
+                        item
+                        key={item._id}
+                        xs={12}
+                        sm={6}
+                        lg={4}
+                      >
                         <motion.div
                           variants={itemVariants}
                           initial="hidden"
@@ -297,7 +318,10 @@ export default function CategoryDrugs() {
                           transition={{ delay: index * 0.05 }}
                           style={{ height: "100%" }}
                         >
-                          <CategoryDrugCard dataInfo={item} checkPage={true} />
+                          <CategoryDrugCard
+                            dataInfo={item}
+                            checkPage={true}
+                          />
                         </motion.div>
                       </Grid>
                     ))}

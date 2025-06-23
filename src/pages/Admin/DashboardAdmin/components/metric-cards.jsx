@@ -2,8 +2,7 @@ import { Box, Typography, Paper, Grid2, IconButton } from "@mui/material";
 import { KeyboardArrowRight as ArrowRightIcon } from "@mui/icons-material";
 import { styled } from "@mui/material/styles";
 import { useThemeConstants } from "../../../../lib/constants/theme.constant";
-import { useAdminStatstics } from "../../../../lib/hooks/useAdminAction";
-import LoadingSpinner from "../../../../components/Common/Loading/LoadingSpinner";
+import { useAdminStatstics } from "../../../../lib/hooks/use-admin";
 
 const MetricCard = styled(Paper)(({ theme }) => ({
   padding: theme.spacing(2),
@@ -29,7 +28,7 @@ const PercentageChange = styled(Typography)(() => ({
 
 export default function MetricCards() {
   const { statsSecondaryBackground } = useThemeConstants();
-  const { data, isLoading } = useAdminStatstics();
+  const { data } = useAdminStatstics();
   console.log("Raw data:", data);
   const statistics = data?.data ?? {};
   console.log("Total users:", statistics.totalUsers);
@@ -66,9 +65,17 @@ export default function MetricCards() {
   ];
 
   return (
-    <Grid2 container spacing={1} sx={{ mb: 3, p: 1 }}>
+    <Grid2
+      container
+      spacing={1}
+      sx={{ mb: 3, p: 1 }}
+    >
       {metrics.map((metric, index) => (
-        <Grid2 item size={{ xs: 12, md: 6, lg: 3 }} key={index}>
+        <Grid2
+          item
+          size={{ xs: 12, md: 6, lg: 3 }}
+          key={index}
+        >
           <MetricCard
             sx={{
               bgcolor: statsSecondaryBackground,
@@ -85,7 +92,10 @@ export default function MetricCards() {
                 alignItems: "center",
               }}
             >
-              <Typography variant="body2" color="text.secondary">
+              <Typography
+                variant="body2"
+                color="text.secondary"
+              >
                 <Box
                   component="span"
                   sx={{

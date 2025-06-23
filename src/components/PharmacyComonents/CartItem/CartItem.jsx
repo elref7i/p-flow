@@ -11,22 +11,23 @@ import {
 } from "@mui/material";
 import { Delete } from "@mui/icons-material";
 import LoadingSpinner from "../../Common/Loading/LoadingSpinner";
-import { formatNumber } from "../../../lib/utils/formateNumber";
+import { formatNumber } from "@/lib/utils/formateNumber";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
 import LocalAtmIcon from "@mui/icons-material/LocalAtm";
 import CloseIcon from "@mui/icons-material/Close";
 import { useTheme } from "@mui/material/styles";
 import { useNavigate } from "react-router-dom";
+
+import { useState } from "react";
+import { useTypeContext } from "@/context/UserType.context";
+import { useQueryClient } from "@tanstack/react-query";
 import {
   useRemoveDrug,
   useRemoveInventory,
   useUpdateCartItem,
-} from "../../../lib/hooks/useCartAction";
-import { useState } from "react";
-import { useGetAllInventoriesQuery } from "../../../lib/hooks/pharmacy.action";
-import { useTypeContext } from "../../../context/UserType.context";
-import { useQueryClient } from "@tanstack/react-query";
+} from "@/lib/hooks/use-cart";
+import { useGetAllInventoriesQuery } from "../../../lib/hooks/use-pharmacy";
 
 export default function CartItem({
   inventoryInfo,
@@ -34,16 +35,27 @@ export default function CartItem({
   selectedInventory,
   setSelectedInventory,
 }) {
+  //States
+  const [showWarning, setShowWarning] = useState(false);
+
+  //Navigation
+  const navigate = useNavigate();
+
+  //Context
+  const { token } = useTypeContext();
+
+  // Themes
   const theme = useTheme();
   const isDarkMode = theme.palette.mode === "dark";
-  const navigate = useNavigate();
-  const { token } = useTypeContext();
+
+  // Mutation
   const removeInventoryMutation = useRemoveInventory();
   const removeDrugMutation = useRemoveDrug();
   const updateQuantityMutation = useUpdateCartItem();
   const queryClient = useQueryClient();
-  const [showWarning, setShowWarning] = useState(false);
   const { data } = useGetAllInventoriesQuery({ token });
+
+  // Variables
   const minimumOrderValue = data?.inventories.find(
     (inv) => inv._id === inventoryInfo.inventory.id
   )?.minimumOrderValue;
@@ -188,7 +200,10 @@ export default function CartItem({
                     minWidth: 0,
                   }}
                 >
-                  <Tooltip title={drug.name} arrow>
+                  <Tooltip
+                    title={drug.name}
+                    arrow
+                  >
                     <Typography
                       variant="body1"
                       onClick={() =>
@@ -388,7 +403,10 @@ export default function CartItem({
         onClose={() => setShowWarning(false)}
         anchorOrigin={{ vertical: "top", horizontal: "center" }}
       >
-        <Alert severity="warning" onClose={() => setShowWarning(false)}>
+        <Alert
+          severity="warning"
+          onClose={() => setShowWarning(false)}
+        >
           Your Total Order must be at least {minimumOrderValue} L.E to proceed.
         </Alert>
       </Snackbar>

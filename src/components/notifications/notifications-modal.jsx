@@ -7,14 +7,15 @@ import { useThemeConstants } from "../../lib/constants/theme.constant";
 import Message from "./components/message";
 import NotificationHeader from "./components/notification-header";
 import NotificationBage from "./components/notification-bage.";
-import {
-  useCountNotif,
-  useGetAllMeNotifications,
-} from "../../lib/hooks/notifications.actions";
+
 import { useTypeContext } from "../../context/UserType.context";
 import InfiniteScroll from "react-infinite-scroll-component";
 import DrugCardSkeleton from "../Common/Loading/DrugCardSkeleton";
 import NotificationAction from "./components/notification-action";
+import {
+  useCountNotif,
+  useGetAllMeNotifications,
+} from "../../lib/hooks/use-notifications";
 
 export default function NotificationsModal() {
   // State

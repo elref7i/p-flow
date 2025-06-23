@@ -87,7 +87,7 @@ export default function Sidebar() {
         items={MiddleSection}
         open={isOpen}
       />
-      {FooterSection.length !== 0 && (
+      {FooterSection && FooterSection.length !== 0 && (
         <SidebarSection
           items={FooterSection}
           open={isOpen}
