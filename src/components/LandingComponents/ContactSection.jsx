@@ -98,7 +98,7 @@ const ContactSection = () => {
     <Box
       id="contact"
       sx={{
-        py: { xs: 10, md: 16 },
+        py: { xs: 10, md: 10 },
         bgcolor: backgroundElevated,
         position: "relative",
         overflow: "hidden",

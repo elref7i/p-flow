@@ -41,7 +41,7 @@ const LandingPage = () => {
         <HowItWorksSection />
         <StatisticsSection />
         <ServicesSection />
-        <TestimonialsSection />
+        {/* <TestimonialsSection /> */}
         <ContactSection />
       </Box>
       <Footer />
