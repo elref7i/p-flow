@@ -1,5 +1,4 @@
 /* eslint-disable react/prop-types */
-"use client";
 import { useState, useRef } from "react";
 import {
   Modal,

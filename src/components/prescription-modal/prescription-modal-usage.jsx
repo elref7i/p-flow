@@ -1,8 +1,5 @@
-"use client";
-
 import { useState } from "react";
 import { Button, Box } from "@mui/material";
-import { Receipt } from "@mui/icons-material";
 import PrescriptionModal from "./components/prescription-modal";
 
 const PrescriptionModalUsage = () => {

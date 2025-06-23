@@ -11,7 +11,6 @@ export const getAllDrugs = async (token, params = {}) => {
     },
     params,
   };
-  console.log(options.url + options.params);
 
   const { data } = await axios.request(options);
   console.log(data);
