@@ -294,7 +294,7 @@ export default function CartItem({
         >
           <LocalAtmIcon sx={{ mr: 1, fontSize: { xs: 18, sm: 20 } }} />
           <Typography variant={{ xs: "subtitle1", sm: "h6" }} fontWeight="600">
-            Total Order : {formatNumber(totalInventoryPrice)} EGP
+            Total Price : {formatNumber(totalInventoryPrice)} EGP
           </Typography>
         </Box>
 
