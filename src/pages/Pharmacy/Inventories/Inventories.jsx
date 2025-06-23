@@ -20,15 +20,7 @@ export default function Inventories() {
   });
 
   //Loading State
-  if (isLoading) {
-    return (
-      <Grid container spacing={2}>
-        {[...Array(6)].map((_, i) => (
-          <InventoryCardSkeleton key={i} />
-        ))}
-      </Grid>
-    );
-  }
+  if (isLoading) return <InventoryCardSkeleton />;
 
   console.log(payload);
 

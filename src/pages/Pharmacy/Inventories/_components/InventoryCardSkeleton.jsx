@@ -57,7 +57,6 @@ export default function InventoriesSkeleton() {
                 display: "flex",
                 flexDirection: "column",
                 justifyContent: "space-between",
-                backgroundColor: "#fff",
               }}
             >
               {/* Top - Avatar */}

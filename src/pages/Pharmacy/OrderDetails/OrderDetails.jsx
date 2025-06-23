@@ -1,11 +1,9 @@
 /* eslint-disable react/prop-types */
 import {
   Box,
-  Button,
   Dialog,
   DialogTitle,
   DialogContent,
-  DialogActions,
   Typography,
   Grid,
   IconButton,
@@ -26,17 +24,8 @@ import StatusHistory from "../../Inventory/OrdersInventory/_components/status_hi
 export default function OrderDetails({ order: rawOrder, open, onClose }) {
   const order = rawOrder?.data || rawOrder;
   const theme = useTheme();
-  const {
-    textError,
-    textPrimary,
-    headerBackground,
-    background,
-    buttonBackground,
-    buttonHover,
-    footerBackground,
-    borderFocus,
-    borderHover,
-  } = useThemeConstants();
+  const { textError, textPrimary, headerBackground, background } =
+    useThemeConstants();
 
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
@@ -111,45 +100,6 @@ export default function OrderDetails({ order: rawOrder, open, onClose }) {
           </Grid>
         </Box>
       </DialogContent>
-
-      <DialogActions
-        sx={{
-          px: 3,
-          py: 2,
-          bgcolor: footerBackground,
-          borderTop: `1px solid ${borderFocus}`,
-        }}
-      >
-        <Button
-          onClick={onClose}
-          variant="outlined"
-          color="error"
-          sx={{
-            borderRadius: "8px",
-            borderColor: borderFocus,
-            boxShadow: 2,
-            "&:hover": {
-              borderColor: borderHover,
-              background: buttonBackground,
-            },
-          }}
-        >
-          Close
-        </Button>
-        <Button
-          variant="contained"
-          sx={{
-            background: buttonBackground,
-            "&:hover": {
-              background: buttonHover,
-            },
-            borderRadius: "8px",
-            boxShadow: 4,
-          }}
-        >
-          Print Order
-        </Button>
-      </DialogActions>
     </Dialog>
   );
 }

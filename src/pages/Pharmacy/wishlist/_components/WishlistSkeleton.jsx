@@ -20,7 +20,7 @@ export default function WishlistSkeleton() {
 
       {/* Cards */}
       <Box display="flex" flexWrap="wrap" gap={4}>
-        {Array.from({ length: 3 }).map((_, idx) => (
+        {Array.from({ length: 6 }).map((_, idx) => (
           <Box
             key={idx}
             sx={{

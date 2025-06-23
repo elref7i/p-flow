@@ -345,7 +345,7 @@ export default function PharmacyOrders() {
                         ? "linear-gradient(90deg, #059669 0%, #10b981 100%)"
                         : "linear-gradient(90deg, #10b981 0%, #34d399 100%)",
                       color: "white",
-                      px: { xs: 2.5, sm: 3 },
+                      px: { xs: 2, sm: 2.5 },
                       py: { xs: 1.25, sm: 1.5 },
                       borderRadius: 2,
                       boxShadow: "0 4px 12px rgba(16, 185, 129, 0.3)",
@@ -359,7 +359,7 @@ export default function PharmacyOrders() {
                       variant={{ xs: "subtitle1", sm: "h6" }}
                       fontWeight="600"
                     >
-                      {formatNumber(order.pricing.total)} EGP
+                      Total Order : {formatNumber(order.pricing.total)} EGP
                     </Typography>
                   </Box>
 
