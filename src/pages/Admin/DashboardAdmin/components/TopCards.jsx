@@ -36,7 +36,6 @@ export default function TopCards() {
                 p: 3,
                 borderRadius: 3,
                 height: 100,
-                background: "linear-gradient(to right, #f9fafb, #ffffff)",
                 display: "flex",
                 flexDirection: "column",
                 justifyContent: "space-between",

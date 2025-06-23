@@ -2,7 +2,17 @@ import { Box, Typography, Skeleton, Stack, Card } from "@mui/material";
 
 const CashflowChartSkeleton = () => {
   return (
-    <Card sx={{ p: 2, borderRadius: 3 }}>
+    <Card
+      sx={{
+        mt: 3,
+        p: 2,
+        borderRadius: 3,
+        minHeight: 360,
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "space-between",
+      }}
+    >
       {/* Title and Filter */}
       <Stack direction="row" justifyContent="space-between" alignItems="center">
         <Typography variant="h6" fontWeight="bold">
@@ -19,10 +29,9 @@ const CashflowChartSkeleton = () => {
           display: "flex",
           justifyContent: "space-between",
           alignItems: "end",
-          height: 220,
+          height: 180,
         }}
       >
-        {/* Simulated Bars (Income + Expense for each month) */}
         {[...Array(6)].map((_, i) => (
           <Box
             key={i}
@@ -31,15 +40,13 @@ const CashflowChartSkeleton = () => {
             alignItems="center"
             gap={0.5}
           >
+            {/* Income Bar */}
+            <Skeleton variant="rounded" width={14} height={80} />
+            {/* Expense Bar */}
             <Skeleton
               variant="rounded"
               width={14}
-              height={Math.random() * 60 + 60}
-            />
-            <Skeleton
-              variant="rounded"
-              width={14}
-              height={Math.random() * 40 + 40}
+              height={50}
               sx={{ bgcolor: "grey.400" }}
             />
           </Box>

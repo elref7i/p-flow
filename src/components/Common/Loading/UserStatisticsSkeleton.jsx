@@ -5,12 +5,12 @@ export default function UserStatisticsSkeleton() {
     <Paper
       elevation={0}
       sx={{
+        mt: 3,
         p: 3,
         borderRadius: 3,
         width: "100%",
         maxWidth: 400,
         minHeight: 380,
-        background: "linear-gradient(to right, #f9fafb, #ffffff)",
         display: "flex",
         flexDirection: "column",
         justifyContent: "space-between",
