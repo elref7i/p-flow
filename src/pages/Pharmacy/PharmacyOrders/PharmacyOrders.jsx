@@ -16,7 +16,6 @@ import {
 } from "@mui/material";
 import { useOrders, useCancelOrder } from "@/lib/hooks/useOrdersAction";
 import LocalAtmIcon from "@mui/icons-material/LocalAtm";
-import MedicationIcon from "@mui/icons-material/Medication";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import CancelIcon from "@mui/icons-material/Cancel";
 import VisibilityIcon from "@mui/icons-material/Visibility";
@@ -262,18 +261,6 @@ export default function PharmacyOrders() {
                             alignItems="center"
                             textAlign="center"
                           >
-                            <Avatar
-                              sx={{
-                                bgcolor: isDark ? "#1e40af" : "#3b82f6",
-                                width: { xs: 36, sm: 40 },
-                                height: { xs: 36, sm: 40 },
-                              }}
-                            >
-                              <MedicationIcon
-                                sx={{ fontSize: { xs: 18, sm: 20 } }}
-                              />
-                            </Avatar>
-
                             <Tooltip title={item.drug.name} arrow>
                               <Typography
                                 variant={{ xs: "body2", sm: "subtitle2" }}
@@ -288,8 +275,15 @@ export default function PharmacyOrders() {
                                 {item.drug.name}
                               </Typography>
                             </Tooltip>
-
-                            <Box>
+                            <Box
+                              sx={{
+                                display: "flex",
+                                justifyContent: "space-between",
+                                alignItems: "center",
+                                width: "100%",
+                                mt: 1,
+                              }}
+                            >
                               <Typography
                                 variant="body2"
                                 sx={{
@@ -298,8 +292,9 @@ export default function PharmacyOrders() {
                                   fontSize: { xs: "0.8rem", sm: "0.9rem" },
                                 }}
                               >
-                                {formatNumber(item.drug.price)} EGP
+                                Price: {formatNumber(item.drug.price)} EGP
                               </Typography>
+
                               <Typography
                                 variant="caption"
                                 sx={{

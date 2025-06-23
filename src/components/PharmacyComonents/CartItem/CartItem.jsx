@@ -4,12 +4,12 @@ import {
   Typography,
   IconButton,
   Button,
-  Avatar,
   Tooltip,
   Snackbar,
   Alert,
+  Divider,
+  Dialog,
 } from "@mui/material";
-import { Delete } from "@mui/icons-material";
 import LoadingSpinner from "../../Common/Loading/LoadingSpinner";
 import { formatNumber } from "../../../lib/utils/formateNumber";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
@@ -35,6 +35,7 @@ export default function CartItem({
   setSelectedInventory,
 }) {
   const theme = useTheme();
+  const isDark = theme.palette.mode === "dark";
   const isDarkMode = theme.palette.mode === "dark";
   const navigate = useNavigate();
   const { token } = useTypeContext();
@@ -42,7 +43,10 @@ export default function CartItem({
   const removeDrugMutation = useRemoveDrug();
   const updateQuantityMutation = useUpdateCartItem();
   const queryClient = useQueryClient();
+
   const [showWarning, setShowWarning] = useState(false);
+  const [openConfirmDialog, setOpenConfirmDialog] = useState(false);
+
   const { data } = useGetAllInventoriesQuery({ token });
   const minimumOrderValue = data?.inventories.find(
     (inv) => inv._id === inventoryInfo.inventory.id
@@ -54,17 +58,45 @@ export default function CartItem({
 
   const { totalInventoryPrice, drugs, inventory } = inventoryInfo;
 
+  const handleRemoveInventory = () => {
+    setOpenConfirmDialog(false);
+    removeInventoryMutation.mutate(
+      { inventoryId: inventory.id },
+      {
+        onSuccess: (data) => {
+          const inventories = data?.data?.data?.inventories ?? [];
+
+          if (inventory.id === selectedInventory?.inventory?.id) {
+            setSelectedInventory(null);
+          }
+
+          if (inventories.length === 0) {
+            queryClient.setQueryData(["cart"], (old) => ({
+              ...old,
+              data: {
+                ...old.data,
+                inventories: [],
+              },
+            }));
+          } else {
+            queryClient.invalidateQueries(["cart"]);
+          }
+        },
+      }
+    );
+  };
+
   return (
     <Box
       sx={{
-        p: { xs: 1.5, sm: 2 },
-        borderRadius: 2,
-        backgroundColor: isDarkMode ? "#0e1a2b" : "#F5F5F5",
+        p: { xs: 2, sm: 3 },
+        borderRadius: 3,
+        backgroundColor: isDarkMode ? "#0e1a2b" : "#f9f9f9",
         width: "100%",
         color: isDarkMode ? "#ffffff" : "#000000",
-        boxShadow: "0px 2px 7px rgb(103, 161, 247)",
-        mb: { xs: 2, sm: 1.5 },
-        mt: { xs: 2, sm: 4 },
+        boxShadow: "0px 3px 10px rgba(103, 161, 247, 0.3)",
+        mb: { xs: 2, sm: 2.5 },
+        mt: { xs: 2, sm: 3.5 },
       }}
     >
       {/* Inventory Header */}
@@ -72,14 +104,15 @@ export default function CartItem({
         sx={{
           display: "flex",
           alignItems: "center",
-          mb: 0.5,
-          flexWrap: { xs: "wrap", sm: "nowrap" },
-          gap: { xs: 1, sm: 0 },
+          mb: 1,
+          flexWrap: "wrap",
         }}
       >
         <Typography
           variant="h6"
+          onClick={() => navigate(`/pharmacy/inventoryprofile/${inventory.id}`)}
           sx={{
+            cursor: "pointer",
             flexGrow: 1,
             fontWeight: "bold",
             fontSize: { xs: "1.1rem", sm: "1.25rem" },
@@ -91,36 +124,13 @@ export default function CartItem({
         <IconButton
           color="error"
           size="small"
-          onClick={() =>
-            removeInventoryMutation.mutate(
-              { inventoryId: inventory.id },
-              {
-                onSuccess: (data) => {
-                  const inventories = data?.data?.data?.inventories ?? [];
-                  // * update
-                  if (inventory.id === selectedInventory?.inventory?.id) {
-                    setSelectedInventory(null);
-                  }
-
-                  if (inventories.length === 0) {
-                    queryClient.setQueryData(["cart"], (old) => ({
-                      ...old,
-                      data: {
-                        ...old.data,
-                        inventories: [],
-                      },
-                    }));
-                  } else {
-                    queryClient.invalidateQueries(["cart"]);
-                  }
-                },
-              }
-            )
-          }
+          onClick={() => setOpenConfirmDialog(true)}
         >
-          <Delete />
+          <CloseIcon />
         </IconButton>
       </Box>
+
+      <Divider sx={{ my: 2 }} />
 
       {/* Drugs */}
       <Box
@@ -128,15 +138,14 @@ export default function CartItem({
           display: "grid",
           gridTemplateColumns: {
             xs: "1fr",
-            sm: "repeat(1, 1fr)",
-            md: "repeat(2, 1fr)",
-            lg: "repeat(2, 1fr)",
+            sm: "1fr",
+            md: "1fr 1fr",
           },
-          gap: { xs: 1.5, sm: 2 },
-          maxHeight: { xs: 300, sm: 250, md: 170 },
+          gap: 2,
+          maxHeight: { xs: 320, sm: 260, md: 200 },
           overflowY: "auto",
-          pr: { xs: 1, sm: 3 },
-          mb: 2,
+          pr: { xs: 1, sm: 2 },
+          mb: 2.5,
         }}
       >
         {drugs.map(({ drug, quantity, price }) => {
@@ -147,94 +156,57 @@ export default function CartItem({
               key={drugId}
               sx={{
                 display: "flex",
-                alignItems: "center",
+                alignItems: "flex-start",
                 borderRadius: 2,
                 px: { xs: 1.5, sm: 2 },
                 py: { xs: 1, sm: 1.5 },
-                width: "100%",
                 minWidth: { xs: "auto", sm: 300 },
                 backgroundColor: isDarkMode ? "#1e293b" : "#dddddd",
-                flexDirection: { xs: "column", sm: "row" },
-                gap: { xs: 1, sm: 0 },
+                flexDirection: "column",
+                gap: 1,
               }}
             >
-              {/* Image and Text Container */}
-              <Box
-                sx={{
-                  display: "flex",
-                  alignItems: "center",
-                  flexGrow: 1,
-                  width: { xs: "100%", sm: "auto" },
-                  mb: { xs: 1, sm: 0 },
-                }}
-              >
-                {/* Image */}
-                <Avatar
-                  src="https://www.netmeds.com/images/product-v1/600x600/397251/nasomist_saline_nasal_spray_20ml_149351_0_2.jpg"
-                  variant="rounded"
+              <Tooltip title={drug.name} arrow>
+                <Typography
+                  variant="body1"
+                  onClick={() => navigate(`/pharmacy/drugdetails/${drugId}`)}
                   sx={{
-                    width: { xs: 40, sm: 50 },
-                    height: { xs: 40, sm: 50 },
-                    mr: { xs: 1.5, sm: 2 },
-                  }}
-                />
-
-                {/* Texts */}
-                <Box
-                  sx={{
-                    flexGrow: 1,
-                    mr: { xs: 1, sm: 2 },
-                    maxWidth: { xs: "none", sm: 140 },
-                    minWidth: 0,
+                    fontWeight: 600,
+                    cursor: "pointer",
+                    fontSize: { xs: "0.9rem", sm: "1rem" },
+                    wordBreak: "break-word",
+                    overflow: "hidden",
+                    textOverflow: "ellipsis",
+                    whiteSpace: "nowrap",
+                    display: "block",
+                    maxWidth: "100%",
                   }}
                 >
-                  <Tooltip title={drug.name} arrow>
-                    <Typography
-                      variant="body1"
-                      onClick={() =>
-                        navigate(`/pharmacy/drugdetails/${drugId}`)
-                      }
-                      sx={{
-                        fontWeight: 600,
-                        cursor: "pointer",
-                        fontSize: { xs: "0.9rem", sm: "1rem" },
-                        wordBreak: "break-word",
-                        overflow: "hidden",
-                        textOverflow: "ellipsis",
-                        whiteSpace: { xs: "normal", sm: "nowrap" },
-                        display: { xs: "block", sm: "-webkit-box" },
-                        WebkitLineClamp: { xs: 2, sm: 1 },
-                        WebkitBoxOrient: { xs: "vertical", sm: "horizontal" },
-                      }}
-                    >
-                      {drug.name}
-                    </Typography>
-                  </Tooltip>
-                  <Typography
-                    variant="body2"
-                    sx={{
-                      fontSize: { xs: 11, sm: 12 },
-                      fontWeight: "bold",
-                      mt: { xs: 0.5, sm: 1 },
-                      color: isDarkMode ? "#ccc" : "#555",
-                    }}
-                  >
-                    Price: {formatNumber(price)} EGP
-                  </Typography>
-                </Box>
-              </Box>
+                  {drug.name}
+                </Typography>
+              </Tooltip>
 
-              {/* Controls Container */}
               <Box
                 sx={{
                   display: "flex",
                   alignItems: "center",
-                  justifyContent: { xs: "space-between", sm: "flex-end" },
-                  width: { xs: "100%", sm: "auto" },
-                  gap: { xs: 1, sm: 0 },
+                  justifyContent: "space-between",
+                  width: "100%",
+                  flexWrap: "wrap",
+                  gap: 1,
                 }}
               >
-                {/* Quantity */}
+                <Typography
+                  variant="body2"
+                  sx={{
+                    fontSize: { xs: 11, sm: 12 },
+                    fontWeight: "bold",
+                    color: isDarkMode ? "#ccc" : "#555",
+                  }}
+                >
+                  Price: {formatNumber(price)} EGP
+                </Typography>
+
                 <Box sx={{ display: "flex", alignItems: "center" }}>
                   <IconButton
                     size="small"
@@ -252,6 +224,7 @@ export default function CartItem({
                       }}
                     />
                   </IconButton>
+
                   <Typography
                     mx={1}
                     sx={{
@@ -262,6 +235,7 @@ export default function CartItem({
                   >
                     {quantity}
                   </Typography>
+
                   <IconButton
                     size="small"
                     onClick={() =>
@@ -278,26 +252,24 @@ export default function CartItem({
                       }}
                     />
                   </IconButton>
-                </Box>
 
-                {/* Delete Icon */}
-                <IconButton
-                  size="small"
-                  color="error"
-                  sx={{ ml: { xs: 0, sm: 1 } }}
-                  onClick={() => removeDrugMutation.mutate({ drugId })}
-                >
-                  <CloseIcon
-                    sx={{ fontSize: { xs: "1.2rem", sm: "1.5rem" } }}
-                  />
-                </IconButton>
+                  <IconButton
+                    size="small"
+                    color="error"
+                    onClick={() => removeDrugMutation.mutate({ drugId })}
+                  >
+                    <CloseIcon
+                      sx={{ fontSize: { xs: "1.2rem", sm: "1.5rem" } }}
+                    />
+                  </IconButton>
+                </Box>
               </Box>
             </Box>
           );
         })}
       </Box>
 
-      {/* Bottom Buttons */}
+      {/* Bottom Actions */}
       <Box
         sx={{
           display: "flex",
@@ -308,27 +280,27 @@ export default function CartItem({
           gap: { xs: 2, sm: 0 },
         }}
       >
-        <Typography
+        <Box
           sx={{
-            fontWeight: "bold",
-            display: "inline-flex",
+            display: "flex",
             alignItems: "center",
-            color:
-              totalInventoryPrice < `${minimumOrderValue}`
-                ? "#ff5f5f"
-                : "green",
-            fontSize: { xs: "0.9rem", sm: "1rem" },
-            wordBreak: "break-word",
+            justifyContent: { xs: "center", sm: "flex-start" },
+            background: isDark
+              ? "linear-gradient(90deg, #059669 0%, #10b981 100%)"
+              : "linear-gradient(90deg, #10b981 0%, #34d399 100%)",
+            color: "white",
+            px: { xs: 2, sm: 2.5 },
+            py: { xs: 1.25, sm: 1.5 },
+            borderRadius: 2,
+            boxShadow: "0 4px 12px rgba(16, 185, 129, 0.3)",
+            width: { xs: "100%", sm: "auto" },
           }}
         >
-          <LocalAtmIcon
-            sx={{
-              fontSize: { xs: "18px", sm: "20px" },
-              mr: 0.5,
-            }}
-          />
-          Total Order : {formatNumber(totalInventoryPrice)} EGP
-        </Typography>
+          <LocalAtmIcon sx={{ mr: 1, fontSize: { xs: 18, sm: 20 } }} />
+          <Typography variant={{ xs: "subtitle1", sm: "h6" }} fontWeight="600">
+            Total Order : {formatNumber(totalInventoryPrice)} EGP
+          </Typography>
+        </Box>
 
         <Box
           sx={{
@@ -381,7 +353,7 @@ export default function CartItem({
         </Box>
       </Box>
 
-      {/* Snackbar warning */}
+      {/* Snackbar */}
       <Snackbar
         open={showWarning}
         autoHideDuration={3000}
@@ -392,6 +364,37 @@ export default function CartItem({
           Your Total Order must be at least {minimumOrderValue} L.E to proceed.
         </Alert>
       </Snackbar>
+
+      {/* Confirm Delete Dialog */}
+      <Dialog
+        open={openConfirmDialog}
+        onClose={() => setOpenConfirmDialog(false)}
+      >
+        <Box sx={{ p: 3, minWidth: 300 }}>
+          <Typography variant="h6" mb={2}>
+            Confirm Deletion
+          </Typography>
+          <Typography variant="body2" mb={3}>
+            Are you sure you want to remove this inventory from your cart?
+          </Typography>
+
+          <Box sx={{ display: "flex", justifyContent: "flex-end", gap: 1 }}>
+            <Button
+              variant="outlined"
+              onClick={() => setOpenConfirmDialog(false)}
+            >
+              Cancel
+            </Button>
+            <Button
+              variant="contained"
+              color="error"
+              onClick={handleRemoveInventory}
+            >
+              Delete
+            </Button>
+          </Box>
+        </Box>
+      </Dialog>
     </Box>
   );
 }
