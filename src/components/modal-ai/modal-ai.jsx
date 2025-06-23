@@ -29,11 +29,11 @@ import {
   TrendingUp,
 } from "@mui/icons-material";
 import { SearchAiSchema } from "../../lib/schemas/serch-ai-schema";
-import { useSearchAI } from "../../lib/hooks/pharmacy.action";
 import { useTypeContext } from "../../context/UserType.context";
 import DrugCardSkeleton from "../Common/Loading/DrugCardSkeleton";
 import { useThemeConstants } from "../../lib/constants/theme.constant";
 import DrugCard from "../PharmacyComonents/DrugCard/DrugCard";
+import { useSearchAI } from "../../lib/hooks/use-ai";
 
 const modalStyle = {
   position: "fixed",

@@ -251,8 +251,8 @@ export default function HeroVariation1() {
               style={{ opacity }}
             >
               {/* SECTION 1: Spectacular Header */}
-              <motion.div variants={itemVariants}>
-                <Box
+              {/* <motion.div variants={itemVariants}> */}
+              {/* <Box
                   textAlign="center"
                   mb={{ xs: 6, md: 8 }}
                 >
@@ -375,8 +375,8 @@ export default function HeroVariation1() {
                       and prescription reading
                     </Typography>
                   </motion.div>
-                </Box>
-              </motion.div>
+                </Box> */}
+              {/* </motion.div> */}
 
               {/* SECTION 2: Dynamic Search */}
               <DynamicResearch />

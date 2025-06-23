@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { Button, Box } from "@mui/material";
 import PrescriptionModal from "./components/prescription-modal";
+import { API_URL_DRUG } from "../../lib/api/api_url";
+import axios from "axios";
 
 const PrescriptionModalUsage = () => {
   const [open, setOpen] = useState(false);
@@ -16,77 +18,22 @@ const PrescriptionModalUsage = () => {
     try {
       // Create FormData for file upload
       const formData = new FormData();
-      formData.append("prescription", file);
+      formData.append("image", file);
 
       // Mock API call - replace with your actual endpoint
-      // const response = await fetch('/api/prescription/analyze', {
-      //   method: 'POST',
-      //   body: formData,
-      // })
-      // const result = await response.json()
+      const options = {
+        url: `${API_URL_DRUG}/prescription/analyze`,
+        method: "POST",
+        data: formData,
+      };
+      const { data } = await axios.request(options);
+
+      console.log(data);
 
       // Mock response after 2 seconds
       await new Promise((resolve) => setTimeout(resolve, 2000));
 
-      // Mock successful response
-      const mockResponse = {
-        status: "success",
-        message: "Prescription analyzed successfully",
-        data: {
-          imageUrl: URL.createObjectURL(file),
-          prescription: {
-            patient: {
-              name: "Tet",
-              age: 30,
-              gender: "Male",
-            },
-            doctor: {
-              name: "Dr. K. Chanakya Chandra Kumar",
-              license: "68237",
-            },
-            prescriptionDate: "2022-10-17",
-            medications: [
-              {
-                name: "Diab Hamlo",
-                dosage: "1mg",
-                frequency: "Once a day",
-                duration: "20 days",
-                available: false,
-                matchedDrugs: [],
-              },
-              {
-                name: "Tab. Thyrox",
-                dosage: "1mg",
-                frequency: "Once a day",
-                duration: "30 days",
-                available: true,
-                matchedDrugs: [
-                  {
-                    inventory: {
-                      _id: "682cb72c4aca7dbf3dc3464c",
-                      name: "Aya Elhenawy",
-                      profileImage: "/placeholder.svg?height=40&width=40",
-                    },
-                    _id: "6856e5a42be44a1c8d688e29",
-                    name: "tab. thyrox",
-                    manufacturer: "Manufacturer",
-                    description: "Description",
-                    price: 100,
-                    discount: 10,
-                    discountedPrice: 90,
-                    stock: 100,
-                  },
-                ],
-              },
-            ],
-            medicationsCount: 2,
-            additionalNotes:
-              "k/c/o - Hypertension & Hypothyroid\nc/o - Fever since 3 days",
-          },
-        },
-      };
-
-      setPrescriptionData(mockResponse.data);
+      setPrescriptionData(data.data);
     } catch (error) {
       setUploadError("Failed to analyze prescription. Please try again.");
       console.error("Upload error:", error);
@@ -97,8 +44,6 @@ const PrescriptionModalUsage = () => {
 
   const handleClose = () => {
     setOpen(false);
-    // Optionally reset data when closing
-    // setPrescriptionData(null)
   };
 
   return (

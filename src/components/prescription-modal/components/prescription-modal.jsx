@@ -38,6 +38,7 @@ import {
   Send,
 } from "@mui/icons-material";
 import { useThemeConstants } from "../../../lib/constants/theme.constant";
+import { formatDate } from "../../../lib/utils/formDate";
 
 const modalStyle = {
   position: "fixed",
@@ -77,51 +78,7 @@ const PrescriptionModal = ({
     textPrimary,
   } = useThemeConstants();
 
-  // Mock data for when no data is provided
-  const mockData = {
-    imageUrl:
-      "https://res.cloudinary.com/dqicm2ir2/raw/upload/v1750532994/prescriptions/image-1750532994117-photo_2025-06-19_18-16-23.jpg",
-    prescription: {
-      patient: { name: "John Doe", age: 35, gender: "Male" },
-      doctor: { name: "Dr. Smith Johnson", license: "12345" },
-      prescriptionDate: "2025-01-15",
-      medications: [
-        {
-          name: "Paracetamol",
-          dosage: "500mg",
-          frequency: "Twice a day",
-          duration: "7 days",
-          available: true,
-          matchedDrugs: [
-            {
-              _id: "1",
-              name: "Paracetamol 500mg",
-              price: 25,
-              discountedPrice: 20,
-              stock: 100,
-              inventory: {
-                name: "City Pharmacy",
-                profileImage: "/placeholder.svg?height=40&width=40",
-              },
-            },
-          ],
-        },
-        {
-          name: "Ibuprofen",
-          dosage: "400mg",
-          frequency: "Three times a day",
-          duration: "5 days",
-          available: false,
-          matchedDrugs: [],
-        },
-      ],
-      medicationsCount: 2,
-      additionalNotes:
-        "Take medications after meals. Avoid alcohol during treatment.",
-    },
-  };
-
-  const data = prescriptionData || mockData;
+  const data = prescriptionData;
   const prescription = data?.prescription;
   const hasData = Boolean(prescriptionData);
 
@@ -171,14 +128,6 @@ const PrescriptionModal = ({
     if (fileInputRef.current) {
       fileInputRef.current.value = "";
     }
-  };
-
-  const formatDate = (dateString) => {
-    return new Date(dateString).toLocaleDateString("en-US", {
-      year: "numeric",
-      month: "long",
-      day: "numeric",
-    });
   };
 
   const formatPrice = (price) => {
