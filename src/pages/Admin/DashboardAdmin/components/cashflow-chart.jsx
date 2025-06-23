@@ -6,9 +6,7 @@ import {
   FormControl,
   Select,
   MenuItem,
-  IconButton,
 } from "@mui/material";
-import { MoreVert as MoreVertIcon } from "@mui/icons-material";
 import {
   BarChart,
   Bar,
@@ -20,6 +18,8 @@ import {
   ResponsiveContainer,
 } from "recharts";
 import { useThemeConstants } from "../../../../lib/constants/theme.constant";
+import { useAdminStatstics } from "../../../../lib/hooks/useAdminAction";
+import CashflowChartSkeleton from "../../../../components/Common/Loading/CashflowChartSkeleton";
 
 // Mock data
 const cashflowData = [
@@ -36,6 +36,9 @@ const cashflowData = [
 export default function CashflowChart() {
   const { gradientChart, chartBlue, chartGray } = useThemeConstants();
   const [timeframe, setTimeframe] = useState("Last 6 Months");
+  const { data: statistics, isLoading } = useAdminStatstics();
+
+  if (isLoading) return <CashflowChartSkeleton />;
 
   return (
     <Paper
@@ -58,11 +61,7 @@ export default function CashflowChart() {
       >
         <Typography variant="h3">Cashflow</Typography>
         <Box sx={{ display: "flex", alignItems: "center" }}>
-          <FormControl
-            size="small"
-            variant="outlined"
-            sx={{ minWidth: 150 }}
-          >
+          <FormControl size="small" variant="outlined" sx={{ minWidth: 150 }}>
             <Select
               value={timeframe}
               onChange={(e) => setTimeframe(e.target.value)}
@@ -75,15 +74,9 @@ export default function CashflowChart() {
               <MenuItem value="Last Year">Last Year</MenuItem>
             </Select>
           </FormControl>
-          <IconButton size="small">
-            <MoreVertIcon fontSize="small" />
-          </IconButton>
         </Box>
       </Box>
-      <ResponsiveContainer
-        width="100%"
-        height={300}
-      >
+      <ResponsiveContainer width="100%" height={300}>
         <BarChart
           data={cashflowData}
           margin={{
@@ -93,10 +86,7 @@ export default function CashflowChart() {
             bottom: 5,
           }}
         >
-          <CartesianGrid
-            strokeDasharray="3 3"
-            vertical={false}
-          />
+          <CartesianGrid strokeDasharray="3 3" vertical={false} />
           <XAxis dataKey="name" />
           <YAxis
             tickFormatter={(value) => `${value / 1000}k`}
@@ -109,16 +99,8 @@ export default function CashflowChart() {
           />
           <Legend />
 
-          <Bar
-            dataKey="income"
-            fill={chartBlue}
-            name="Income"
-          />
-          <Bar
-            dataKey="expense"
-            fill={chartGray}
-            name="Expense"
-          />
+          <Bar dataKey="income" fill={chartBlue} name="Income" />
+          <Bar dataKey="expense" fill={chartGray} name="Expense" />
         </BarChart>
       </ResponsiveContainer>
     </Paper>
