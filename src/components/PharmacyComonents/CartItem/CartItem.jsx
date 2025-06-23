@@ -35,7 +35,6 @@ export default function CartItem({
   setSelectedInventory,
 }) {
   const theme = useTheme();
-  const isDark = theme.palette.mode === "dark";
   const isDarkMode = theme.palette.mode === "dark";
   const navigate = useNavigate();
   const { token } = useTypeContext();
@@ -285,14 +284,11 @@ export default function CartItem({
             display: "flex",
             alignItems: "center",
             justifyContent: { xs: "center", sm: "flex-start" },
-            background: isDark
-              ? "linear-gradient(90deg, #059669 0%, #10b981 100%)"
-              : "linear-gradient(90deg, #10b981 0%, #34d399 100%)",
+            bgcolor: "#007bff",
             color: "white",
             px: { xs: 2, sm: 2.5 },
             py: { xs: 1.25, sm: 1.5 },
             borderRadius: 2,
-            boxShadow: "0 4px 12px rgba(16, 185, 129, 0.3)",
             width: { xs: "100%", sm: "auto" },
           }}
         >
