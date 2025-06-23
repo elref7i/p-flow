@@ -23,7 +23,7 @@ export default function FrequentMedicinesSection() {
 
   // Flatten the data from all pages
   const flattenData = flattenedDrugs({ data });
-
+  5;
   if (isLoading) return <p>Loading...</p>;
 
   return (
