@@ -84,15 +84,6 @@ function App() {
   }, []);
 
   const router = createBrowserRouter([
-    // {
-    //   path: "/",
-    //   element: (
-    //     <ProtectedRoute allowedRolls={["admin", "pharmacy", "inventory"]}>
-    //       <Layout />
-    //     </ProtectedRoute>
-    //   ),
-    //   children: [{ path: "/home", element: <Home /> }],
-    // },
     {
       path: "/",
       element: (
