@@ -141,10 +141,7 @@ export default function CardPromotion({ drug }) {
 
         {/* Price Section */}
         <Box>
-          <Stack
-            spacing={1.5}
-            py={4}
-          >
+          <Stack spacing={1.5} py={4}>
             <Box
               sx={{
                 display: "flex",
@@ -152,10 +149,7 @@ export default function CardPromotion({ drug }) {
                 alignItems: "center",
               }}
             >
-              <Typography
-                variant="h6"
-                color={textSecondary}
-              >
+              <Typography variant="h6" color={textSecondary}>
                 Consumer Price:
               </Typography>
               <Typography
@@ -165,7 +159,7 @@ export default function CardPromotion({ drug }) {
                   color: textSecondary,
                 }}
               >
-                ${formatNumber(drug.discountedPrice)}
+                {formatNumber(drug.discountedPrice)} L.E
               </Typography>
             </Box>
 
@@ -176,10 +170,7 @@ export default function CardPromotion({ drug }) {
                 alignItems: "center",
               }}
             >
-              <Typography
-                variant="h6"
-                color={textSecondary}
-              >
+              <Typography variant="h6" color={textSecondary}>
                 Pharmacy Price:
               </Typography>
               <Typography
@@ -191,7 +182,7 @@ export default function CardPromotion({ drug }) {
                   color: textSecondary,
                 }}
               >
-                ${formatNumber(drug.price)}
+                {formatNumber(drug.price)} L.E
               </Typography>
             </Box>
           </Stack>

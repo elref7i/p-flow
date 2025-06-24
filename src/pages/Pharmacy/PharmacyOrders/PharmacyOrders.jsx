@@ -89,140 +89,78 @@ export default function PharmacyOrders() {
     <>
       <Helmet>
         <title>Orders</title>
-        <meta
-          name="description"
-          content="View and manage your pharmacy orders including medications, pricing, and status."
-        />
-        <meta property="og:type" content="website" />
-        <meta property="og:title" content="Pharmacy Orders" />
-        <meta
-          property="og:description"
-          content="Manage and track all your pharmacy orders in one place."
-        />
       </Helmet>
       {data.data.length === 0 ? (
         <Typography
-          textAlign={"center"}
-          width={"100%"}
+          textAlign="center"
+          width="100%"
           fontSize={20}
           fontWeight={700}
           color={textPrimary}
+          mt={5}
         >
-          No orders found
+          No orders yet
         </Typography>
       ) : (
-        <Box
-          sx={{
-            px: { xs: 1, sm: 2, md: 3, lg: 4 },
-            py: { xs: 2, sm: 3 },
-            minHeight: "100vh",
-          }}
-        >
+        <Box sx={{ px: { xs: 1, sm: 2, md: 3, lg: 4 }, py: { xs: 2, sm: 3 } }}>
           {data.data.map((order) => {
             const statusInfo = getStatusColor(order.status);
-
             return (
               <Card
                 key={order._id}
                 sx={{
-                  background: isDark
-                    ? "linear-gradient(145deg, #1e293b 0%, #334155 100%)"
-                    : "linear-gradient(145deg, #ffffff 0%, #f8fafc 100%)",
+                  backgroundColor: isDark ? "#0e1a2b" : "#f9f9f9",
                   mb: { xs: 3, sm: 4 },
                   borderRadius: { xs: 2, sm: 3 },
-                  overflow: "hidden",
-                  boxShadow: isDark
-                    ? "0 20px 25px -5px rgba(0, 0, 0, 0.3), 0 10px 10px -5px rgba(0, 0, 0, 0.1)"
-                    : "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)",
-                  border: isDark ? "1px solid #334155" : "1px solid #e2e8f0",
-                  transition: "all 0.3s ease",
+                  boxShadow: "0px 3px 10px rgba(103, 161, 247, 0.3)",
+                  transition: "0.3s",
                   "&:hover": {
-                    transform: {
-                      xs: "translateY(-2px)",
-                      sm: "translateY(-4px)",
-                    },
-                    boxShadow: isDark
-                      ? "0 25px 50px -12px rgba(0, 0, 0, 0.4)"
-                      : "0 25px 50px -12px rgba(0, 0, 0, 0.15)",
+                    transform: "translateY(-2px)",
                   },
                 }}
               >
-                {/* Order Header */}
-                <Box
-                  sx={{
-                    background: isDark
-                      ? "linear-gradient(90deg, #1e40af 0%, #7c3aed 100%)"
-                      : "linear-gradient(90deg, #3b82f6 0%, #8b5cf6 100%)",
-                    p: { xs: 2, sm: 2.5, md: 2 },
-                    color: "white",
-                  }}
-                >
+                <Box sx={{ p: { xs: 2, sm: 2.5, md: 2 } }}>
                   <Stack
                     direction={{ xs: "column", sm: "row" }}
                     alignItems={{ xs: "flex-start", sm: "center" }}
                     justifyContent="space-between"
                     spacing={{ xs: 2, sm: 0 }}
                   >
-                    <Stack
-                      direction="row"
-                      alignItems="center"
-                      spacing={{ xs: 1.5, sm: 2 }}
-                    >
-                      <Avatar
-                        sx={{
-                          bgcolor: "rgba(255,255,255,0.2)",
-                          width: { xs: 40, sm: 48 },
-                          height: { xs: 40, sm: 48 },
-                        }}
-                      >
-                        <ShoppingCartIcon
-                          sx={{ fontSize: { xs: 20, sm: 24 } }}
-                        />
+                    <Stack direction="row" spacing={2} alignItems="center">
+                      <Avatar sx={{ width: 48, height: 48 }}>
+                        <ShoppingCartIcon />
                       </Avatar>
                       <Box>
-                        <Typography
-                          variant={{ xs: "subtitle1", sm: "h6" }}
-                          sx={{ fontWeight: 600 }}
-                        >
+                        <Typography variant="h6" fontWeight={600}>
                           Order #{order.orderNumber}
                         </Typography>
-                        <Typography
-                          variant="body2"
-                          sx={{
-                            opacity: 0.9,
-                            fontSize: { xs: "0.75rem", sm: "0.875rem" },
-                          }}
-                        >
+                        <Typography variant="body2" opacity={0.8}>
                           {order.drugs.length} item
                           {order.drugs.length > 1 ? "s" : ""}
                         </Typography>
                       </Box>
                     </Stack>
-
                     <Chip
                       label={`${statusInfo.icon} ${order.status.toUpperCase()}`}
                       sx={{
                         backgroundColor: statusInfo.bg,
                         color: statusInfo.color,
                         fontWeight: "bold",
-                        fontSize: { xs: "0.7rem", sm: "0.75rem" },
-                        height: { xs: 28, sm: 32 },
-                        alignSelf: { xs: "flex-end", sm: "auto" },
-                        "& .MuiChip-label": {
-                          px: { xs: 1.5, sm: 2 },
-                        },
                       }}
                     />
                   </Stack>
                 </Box>
 
-                <CardContent sx={{ p: { xs: 2, sm: 2.5, md: 3 } }}>
-                  {/* Drugs Grid */}
-                  <Grid
-                    container
-                    spacing={{ xs: 1.5, sm: 2 }}
-                    sx={{ mb: { xs: 2, sm: 3 } }}
-                  >
+                <CardContent sx={{ pt: 0.5, px: { xs: 1.5, sm: 2 }, pb: 0 }}>
+                  <Divider
+                    sx={{
+                      borderColor: isDark ? "#475569" : "#cbd5e1",
+                      borderWidth: 1.5,
+                      mb: { xs: 1.5, sm: 2 },
+                    }}
+                  />
+
+                  <Grid container spacing={2}>
                     {order.drugs.map((item) => (
                       <Grid
                         item
@@ -233,79 +171,35 @@ export default function PharmacyOrders() {
                         key={item.drug._id}
                       >
                         <Paper
-                          elevation={0}
                           sx={{
-                            p: { xs: 1.5, sm: 2 },
-                            height: "100%",
-                            background: isDark
-                              ? "linear-gradient(145deg, #334155 0%, #475569 100%)"
-                              : "linear-gradient(145deg, #f1f5f9 0%, #e2e8f0 100%)",
-                            borderRadius: { xs: 1.5, sm: 2 },
-                            border: isDark
-                              ? "1px solid #475569"
-                              : "1px solid #cbd5e1",
-                            transition: "all 0.2s ease",
-                            "&:hover": {
-                              transform: {
-                                xs: "translateY(-1px)",
-                                sm: "translateY(-2px)",
-                              },
-                              boxShadow: isDark
-                                ? "0 8px 25px rgba(0,0,0,0.3)"
-                                : "0 8px 25px rgba(0,0,0,0.1)",
-                            },
+                            p: 2,
+                            backgroundColor: isDark ? "#1e293b" : "#dddddd",
+                            borderRadius: 2,
                           }}
                         >
-                          <Stack
-                            spacing={{ xs: 1, sm: 1.5 }}
-                            alignItems="center"
-                            textAlign="center"
-                          >
-                            <Tooltip title={item.drug.name} arrow>
-                              <Typography
-                                variant={{ xs: "body2", sm: "subtitle2" }}
-                                fontWeight="600"
-                                noWrap
-                                sx={{
-                                  maxWidth: "100%",
-                                  color: isDark ? "#f1f5f9" : "#1e293b",
-                                  fontSize: { xs: "0.8rem", sm: "0.875rem" },
-                                }}
-                              >
-                                {item.drug.name}
-                              </Typography>
-                            </Tooltip>
-                            <Box
-                              sx={{
-                                display: "flex",
-                                justifyContent: "space-between",
-                                alignItems: "center",
-                                width: "100%",
-                                mt: 1,
-                              }}
+                          <Tooltip title={item.drug.name}>
+                            <Typography
+                              variant="subtitle2"
+                              fontWeight={600}
+                              noWrap
                             >
-                              <Typography
-                                variant="body2"
-                                sx={{
-                                  color: isDark ? "#10b981" : "#059669",
-                                  fontWeight: 600,
-                                  fontSize: { xs: "0.8rem", sm: "0.9rem" },
-                                }}
-                              >
-                                Price: {formatNumber(item.drug.price)} EGP
-                              </Typography>
-
-                              <Typography
-                                variant="caption"
-                                sx={{
-                                  color: "text.secondary",
-                                  fontSize: { xs: "0.7rem", sm: "0.75rem" },
-                                }}
-                              >
-                                Qty: {item.paidQuantity}
-                              </Typography>
-                            </Box>
-                          </Stack>
+                              {item.drug.name}
+                            </Typography>
+                          </Tooltip>
+                          <Box
+                            sx={{
+                              display: "flex",
+                              justifyContent: "space-between",
+                              mt: 1,
+                            }}
+                          >
+                            <Typography variant="body2">
+                              Price : {formatNumber(item.drug.price)} L.E
+                            </Typography>
+                            <Typography variant="body2" color="text.secondary">
+                              Qty: {item.paidQuantity}
+                            </Typography>
+                          </Box>
                         </Paper>
                       </Grid>
                     ))}
@@ -314,21 +208,18 @@ export default function PharmacyOrders() {
                   <Divider
                     sx={{
                       borderColor: isDark ? "#475569" : "#cbd5e1",
-                      borderWidth: 1,
+                      borderWidth: 1.5,
+                      mt: 2,
                     }}
                   />
                 </CardContent>
-
-                {/* Order Footer */}
                 <CardActions
                   sx={{
-                    pt: 0,
-                    pb: { xs: 2, sm: 2.5, md: 2 },
-                    px: { xs: 2, sm: 2.5, md: 3 },
                     flexDirection: { xs: "column", sm: "row" },
                     justifyContent: "space-between",
                     alignItems: { xs: "stretch", sm: "center" },
-                    gap: { xs: 2, sm: 0 },
+                    p: { xs: 1.5, sm: 2.5 },
+                    gap: { xs: 2, sm: 1 },
                   }}
                 >
                   <Box
@@ -337,90 +228,82 @@ export default function PharmacyOrders() {
                       alignItems: "center",
                       justifyContent: { xs: "center", sm: "flex-start" },
                       background: isDark
-                        ? "linear-gradient(90deg, #059669 0%, #10b981 100%)"
-                        : "linear-gradient(90deg, #10b981 0%, #34d399 100%)",
+                        ? "linear-gradient(90deg, #2563EB 0%, #1D4ED8 100%)"
+                        : "linear-gradient(90deg, #3B82F6 0%, #60A5FA 100%)",
                       color: "white",
                       px: { xs: 2, sm: 2.5 },
-                      py: { xs: 1.25, sm: 1.5 },
+                      py: { xs: 1, sm: 1.25 },
                       borderRadius: 2,
-                      boxShadow: "0 4px 12px rgba(16, 185, 129, 0.3)",
+                      minWidth: { xs: "100%", sm: "auto" },
                       width: { xs: "100%", sm: "auto" },
                     }}
                   >
                     <LocalAtmIcon
-                      sx={{ mr: 1, fontSize: { xs: 18, sm: 20 } }}
+                      sx={{ mr: 1, fontSize: { xs: "1.2rem", sm: "1.5rem" } }}
                     />
                     <Typography
-                      variant={{ xs: "subtitle1", sm: "h6" }}
-                      fontWeight="600"
+                      fontWeight={600}
+                      sx={{
+                        fontSize: { xs: "0.9rem", sm: "1rem" },
+                        textAlign: { xs: "center", sm: "left" },
+                        wordBreak: "break-word",
+                      }}
                     >
-                      Total Order : {formatNumber(order.pricing.total)} EGP
+                      Total Order : {formatNumber(order.pricing.total)} L.E
                     </Typography>
                   </Box>
 
                   <Stack
                     direction={{ xs: "column", sm: "row" }}
                     spacing={{ xs: 1.5, sm: 2 }}
-                    sx={{ width: { xs: "100%", sm: "auto" } }}
+                    sx={{
+                      width: { xs: "100%", sm: "auto" },
+                      alignItems: { xs: "stretch", sm: "center" },
+                    }}
                   >
                     <Button
+                      sx={{
+                        mt: { xs: 0, sm: 1 },
+                        fontSize: { xs: "0.85rem", sm: "0.875rem" },
+                        py: { xs: 1, sm: 0.75 },
+                        minWidth: { xs: "100%", sm: "auto" },
+                      }}
                       variant="outlined"
                       color="error"
-                      size="medium"
                       startIcon={
-                        <CancelIcon sx={{ fontSize: { xs: 18, sm: 20 } }} />
+                        <CancelIcon
+                          sx={{ fontSize: { xs: "1.1rem", sm: "1.25rem" } }}
+                        />
                       }
                       onClick={() => {
                         setSelectedOrder(order);
                         setConfirmCancelModalOpen(true);
                       }}
-                      disabled={
-                        order.status === "cancelled" ||
-                        order.status === "delivered" ||
-                        order.status === "shipped" ||
-                        order.status === "rejected" ||
-                        order.status === "confirmed"
-                      }
-                      sx={{
-                        borderRadius: 2,
-                        px: { xs: 2, sm: 3 },
-                        py: 1,
-                        fontWeight: 600,
-                        textTransform: "none",
-                        fontSize: { xs: "0.8rem", sm: "0.875rem" },
-                        minHeight: { xs: 40, sm: 44 },
-                        "&:hover": {
-                          transform: "translateY(-1px)",
-                          boxShadow: "0 4px 12px rgba(239, 68, 68, 0.3)",
-                        },
-                      }}
+                      disabled={[
+                        "cancelled",
+                        "delivered",
+                        "shipped",
+                        "rejected",
+                        "confirmed",
+                      ].includes(order.status)}
                     >
                       Cancel
                     </Button>
-
                     <Button
                       variant="contained"
-                      size="medium"
                       startIcon={
-                        <VisibilityIcon sx={{ fontSize: { xs: 18, sm: 20 } }} />
+                        <VisibilityIcon
+                          sx={{ fontSize: { xs: "1.1rem", sm: "1.25rem" } }}
+                        />
                       }
                       onClick={() => handleOpenModal(order)}
                       sx={{
-                        background: "linear-gradient(45deg, #3b82f6, #8b5cf6)",
-                        borderRadius: 2,
-                        px: { xs: 2, sm: 3 },
-                        py: 1,
-                        fontWeight: 600,
-                        textTransform: "none",
-                        fontSize: { xs: "0.8rem", sm: "0.875rem" },
-                        minHeight: { xs: 40, sm: 44 },
-                        boxShadow: "0 4px 12px rgba(59, 130, 246, 0.3)",
-                        "&:hover": {
-                          background:
-                            "linear-gradient(45deg, #2563eb, #7c3aed)",
-                          transform: "translateY(-1px)",
-                          boxShadow: "0 6px 16px rgba(59, 130, 246, 0.4)",
-                        },
+                        background: isDark
+                          ? "linear-gradient(90deg, #2563EB 0%, #1D4ED8 100%)"
+                          : "linear-gradient(90deg, #3B82F6 0%, #60A5FA 100%)",
+                        fontSize: { xs: "0.85rem", sm: "0.875rem" },
+                        py: { xs: 1, sm: 0.75 },
+                        minWidth: { xs: "100%", sm: "auto" },
                       }}
                     >
                       Order Details

@@ -176,10 +176,7 @@ const DrugCard = ({
                 alignItems: "center",
               }}
             >
-              <Typography
-                variant="h6"
-                color={textSecondary}
-              >
+              <Typography variant="h6" color={textSecondary}>
                 Consumer Price:
               </Typography>
               <Typography
@@ -189,7 +186,7 @@ const DrugCard = ({
                   color: textSecondary,
                 }}
               >
-                ${formatNumber(drug.discountedPrice)}
+                {formatNumber(drug.discountedPrice)} L.E
               </Typography>
             </Box>
 
@@ -200,10 +197,7 @@ const DrugCard = ({
                 alignItems: "center",
               }}
             >
-              <Typography
-                variant="h6"
-                color={textSecondary}
-              >
+              <Typography variant="h6" color={textSecondary}>
                 Pharmacy Price:
               </Typography>
               <Typography
@@ -215,7 +209,7 @@ const DrugCard = ({
                   color: textSecondary,
                 }}
               >
-                ${formatNumber(drug.price)}
+                {formatNumber(drug.price)} L.E
               </Typography>
             </Box>
           </Stack>
@@ -243,10 +237,7 @@ const DrugCard = ({
               fullWidth
               startIcon={
                 isLoading ? (
-                  <CircularProgress
-                    size={16}
-                    color="inherit"
-                  />
+                  <CircularProgress size={16} color="inherit" />
                 ) : (
                   <ShoppingCartIcon />
                 )

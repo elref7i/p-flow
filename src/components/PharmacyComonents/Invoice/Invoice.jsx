@@ -1,11 +1,4 @@
-import {
-  Box,
-  Typography,
-  Avatar,
-  Button,
-  Tooltip,
-  useTheme,
-} from "@mui/material";
+import { Box, Typography, Button, Tooltip, useTheme } from "@mui/material";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { useCreateOrder } from "@/lib/hooks/useOrdersAction";
 import { formatNumber } from "@/lib/utils/formateNumber";
@@ -21,7 +14,6 @@ export default function Invoice({ selectedInventory }) {
   const createOrderMutation = useCreateOrder();
 
   const drugs = selectedInventory?.drugs || [];
-
   const inventoryId = selectedInventory?.inventory?.id;
 
   return (
@@ -105,16 +97,6 @@ export default function Invoice({ selectedInventory }) {
                   gap: { xs: 0.5, sm: 0 },
                 }}
               >
-                <Avatar
-                  src="https://www.netmeds.com/images/product-v1/600x600/397251/nasomist_saline_nasal_spray_20ml_149351_0_2.jpg"
-                  variant="rounded"
-                  sx={{
-                    width: { xs: 48, sm: 56 },
-                    height: { xs: 48, sm: 56 },
-                    mr: { xs: 0.8, sm: 1 },
-                  }}
-                />
-
                 <Box
                   sx={{
                     display: "flex",
@@ -124,10 +106,7 @@ export default function Invoice({ selectedInventory }) {
                     minWidth: 0,
                   }}
                 >
-                  <Tooltip
-                    title={drug.name}
-                    arrow
-                  >
+                  <Tooltip title={drug.name} arrow>
                     <Typography
                       fontSize={{ xs: 13, sm: 14 }}
                       fontWeight="bold"
@@ -145,23 +124,30 @@ export default function Invoice({ selectedInventory }) {
                       {drug.name}
                     </Typography>
                   </Tooltip>
-                  <Typography
-                    fontSize={{ xs: 11, sm: 12 }}
-                    color="text.secondary"
-                    sx={{ mt: { xs: 0.2, sm: 0.5 } }}
-                  >
-                    Price: {formatNumber(price)} EGP
-                  </Typography>
-                </Box>
 
-                <Typography
-                  fontSize={{ xs: 13, sm: 14 }}
-                  fontWeight="bold"
-                  style={{ color: textColor }}
-                  sx={{ mr: { xs: 0.5, sm: 1 } }}
-                >
-                  x{quantity}
-                </Typography>
+                  <Box
+                    sx={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      alignItems: "center",
+                      mt: { xs: 0.5, sm: 0.7 },
+                    }}
+                  >
+                    <Typography
+                      fontSize={{ xs: 11, sm: 12 }}
+                      color="text.secondary"
+                    >
+                      Price: {formatNumber(price)} L.E
+                    </Typography>
+                    <Typography
+                      fontSize={{ xs: 12, sm: 13 }}
+                      fontWeight="bold"
+                      style={{ color: textColor }}
+                    >
+                      x{quantity}
+                    </Typography>
+                  </Box>
+                </Box>
               </Box>
             ))
           ) : (

@@ -177,10 +177,7 @@ export default function CartItem({
                 gap: 1,
               }}
             >
-              <Tooltip
-                title={drug.name}
-                arrow
-              >
+              <Tooltip title={drug.name} arrow>
                 <Typography
                   variant="body1"
                   onClick={() => navigate(`/pharmacy/drugdetails/${drugId}`)}
@@ -218,7 +215,7 @@ export default function CartItem({
                     color: isDarkMode ? "#ccc" : "#555",
                   }}
                 >
-                  Price: {formatNumber(price)} EGP
+                  Price: {formatNumber(price)} L.E
                 </Typography>
 
                 <Box sx={{ display: "flex", alignItems: "center" }}>
@@ -308,11 +305,8 @@ export default function CartItem({
           }}
         >
           <LocalAtmIcon sx={{ mr: 1, fontSize: { xs: 18, sm: 20 } }} />
-          <Typography
-            variant={{ xs: "subtitle1", sm: "h6" }}
-            fontWeight="600"
-          >
-            Total Price : {formatNumber(totalInventoryPrice)} EGP
+          <Typography variant={{ xs: "subtitle1", sm: "h6" }} fontWeight="600">
+            Total Price : {formatNumber(totalInventoryPrice)} L.E
           </Typography>
         </Box>
 
@@ -374,10 +368,7 @@ export default function CartItem({
         onClose={() => setShowWarning(false)}
         anchorOrigin={{ vertical: "top", horizontal: "center" }}
       >
-        <Alert
-          severity="warning"
-          onClose={() => setShowWarning(false)}
-        >
+        <Alert severity="warning" onClose={() => setShowWarning(false)}>
           Your Total Order must be at least {minimumOrderValue} L.E to proceed.
         </Alert>
       </Snackbar>
@@ -388,16 +379,10 @@ export default function CartItem({
         onClose={() => setOpenConfirmDialog(false)}
       >
         <Box sx={{ p: 3, minWidth: 300 }}>
-          <Typography
-            variant="h6"
-            mb={2}
-          >
+          <Typography variant="h6" mb={2}>
             Confirm Deletion
           </Typography>
-          <Typography
-            variant="body2"
-            mb={3}
-          >
+          <Typography variant="body2" mb={3}>
             Are you sure you want to remove this inventory from your cart?
           </Typography>
 

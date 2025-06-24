@@ -5,8 +5,8 @@ import toast from "react-hot-toast";
 // use Search AI
 export const useSearchAI = () => {
   return useMutation(searchAI, {
-    onSuccess: () => {
-      toast.success("added Promotion successfully!");
+    onSuccess: (data) => {
+      toast.success(data.message || "success");
     },
     onError: (error) => {
       toast.error(
@@ -21,8 +21,8 @@ export const useSearchAI = () => {
 // use Prescription AI
 export const usePrescriptionAI = () => {
   return useMutation(addPrescriptionAI, {
-    onSuccess: () => {
-      toast.success("added Promotion successfully!");
+    onSuccess: (data) => {
+      toast.success(data.message || "Prescription analyzed successfully");
     },
     onError: (error) => {
       toast.error(
