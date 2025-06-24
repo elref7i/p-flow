@@ -1,12 +1,8 @@
 import { Box, Typography, Paper, Grid2, Grid, Skeleton } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import { useThemeConstants } from "../../../../lib/constants/theme.constant";
-<<<<<<< HEAD:src/pages/Admin/DashboardAdmin/components/metric-cards.jsx
 import { useAdminStatstics } from "../../../../lib/hooks/use-admin";
-=======
-import { useAdminStatstics } from "../../../../lib/hooks/useAdminAction";
 import { formatNumber } from "../../../../lib/utils/formateNumber";
->>>>>>> 03e7174653c5639f4517c710da539b064c3fd0bc:src/pages/Admin/DashboardAdmin/components/TopCards.jsx
 
 const MetricCard = styled(Paper)(({ theme }) => ({
   padding: theme.spacing(2),
@@ -26,20 +22,23 @@ const MetricValue = styled(Typography)(({ theme }) => ({
 
 export default function TopCards() {
   const { statsSecondaryBackground } = useThemeConstants();
-<<<<<<< HEAD:src/pages/Admin/DashboardAdmin/components/metric-cards.jsx
-  const { data } = useAdminStatstics();
-  console.log("Raw data:", data);
-  const statistics = data?.data ?? {};
-  console.log("Total users:", statistics.totalUsers);
-=======
   const { data: statistics, isLoading } = useAdminStatstics();
   const totalPrices = statistics?.totalPrices;
 
   if (isLoading)
     return (
-      <Grid container spacing={3}>
+      <Grid
+        container
+        spacing={3}
+      >
         {Array.from({ length: 4 }).map((_, index) => (
-          <Grid item xs={12} sm={6} md={3} key={index}>
+          <Grid
+            item
+            xs={12}
+            sm={6}
+            md={3}
+            key={index}
+          >
             <Paper
               elevation={0}
               sx={{
@@ -51,14 +50,19 @@ export default function TopCards() {
                 justifyContent: "space-between",
               }}
             >
-              <Skeleton width="60%" height={20} />
-              <Skeleton width="50%" height={30} />
+              <Skeleton
+                width="60%"
+                height={20}
+              />
+              <Skeleton
+                width="50%"
+                height={30}
+              />
             </Paper>
           </Grid>
         ))}
       </Grid>
     );
->>>>>>> 03e7174653c5639f4517c710da539b064c3fd0bc:src/pages/Admin/DashboardAdmin/components/TopCards.jsx
 
   const metrics = [
     {

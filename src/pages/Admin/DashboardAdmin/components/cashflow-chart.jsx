@@ -18,8 +18,8 @@ import {
   ResponsiveContainer,
 } from "recharts";
 import { useThemeConstants } from "../../../../lib/constants/theme.constant";
-import { useAdminStatstics } from "../../../../lib/hooks/useAdminAction";
 import CashflowChartSkeleton from "../../../../components/Common/Loading/CashflowChartSkeleton";
+import { useAdminStatstics } from "../../../../lib/hooks/use-admin";
 
 // Mock data
 const cashflowData = [
@@ -61,7 +61,11 @@ export default function CashflowChart() {
       >
         <Typography variant="h3">Cashflow</Typography>
         <Box sx={{ display: "flex", alignItems: "center" }}>
-          <FormControl size="small" variant="outlined" sx={{ minWidth: 150 }}>
+          <FormControl
+            size="small"
+            variant="outlined"
+            sx={{ minWidth: 150 }}
+          >
             <Select
               value={timeframe}
               onChange={(e) => setTimeframe(e.target.value)}
@@ -76,7 +80,10 @@ export default function CashflowChart() {
           </FormControl>
         </Box>
       </Box>
-      <ResponsiveContainer width="100%" height={300}>
+      <ResponsiveContainer
+        width="100%"
+        height={300}
+      >
         <BarChart
           data={cashflowData}
           margin={{
@@ -86,7 +93,10 @@ export default function CashflowChart() {
             bottom: 5,
           }}
         >
-          <CartesianGrid strokeDasharray="3 3" vertical={false} />
+          <CartesianGrid
+            strokeDasharray="3 3"
+            vertical={false}
+          />
           <XAxis dataKey="name" />
           <YAxis
             tickFormatter={(value) => `${value / 1000}k`}
@@ -99,8 +109,16 @@ export default function CashflowChart() {
           />
           <Legend />
 
-          <Bar dataKey="income" fill={chartBlue} name="Income" />
-          <Bar dataKey="expense" fill={chartGray} name="Expense" />
+          <Bar
+            dataKey="income"
+            fill={chartBlue}
+            name="Income"
+          />
+          <Bar
+            dataKey="expense"
+            fill={chartGray}
+            name="Expense"
+          />
         </BarChart>
       </ResponsiveContainer>
     </Paper>

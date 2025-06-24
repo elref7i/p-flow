@@ -11,9 +11,9 @@ import {
   Chip,
 } from "@mui/material";
 import { useThemeConstants } from "../../../../lib/constants/theme.constant";
-import { useAdminStatstics } from "../../../../lib/hooks/useAdminAction";
 import { formatNumber } from "../../../../lib/utils/formateNumber";
 import Top_inventories_skeleton from "../../../../components/Common/Loading/Top_inventories_skeleton";
+import { useAdminStatstics } from "../../../../lib/hooks/use-admin";
 
 export default function TopInventories() {
   const { tableBackground } = useThemeConstants();
@@ -44,7 +44,10 @@ export default function TopInventories() {
           </Box>
 
           <TableContainer>
-            <Table sx={{ minWidth: 650 }} aria-label="transaction table">
+            <Table
+              sx={{ minWidth: 650 }}
+              aria-label="transaction table"
+            >
               <TableHead>
                 <TableRow>
                   <TableCell> Name</TableCell>

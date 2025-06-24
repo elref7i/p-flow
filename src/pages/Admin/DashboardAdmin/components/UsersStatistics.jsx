@@ -1,8 +1,8 @@
 import { Box, Typography, Paper } from "@mui/material";
 import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer } from "recharts";
 import { useThemeConstants } from "../../../../lib/constants/theme.constant";
-import { useAdminStatstics } from "../../../../lib/hooks/useAdminAction";
 import UserStatisticsSkeleton from "../../../../components/Common/Loading/UserStatisticsSkeleton";
+import { useAdminStatstics } from "../../../../lib/hooks/use-admin";
 
 export default function UsersStatistics() {
   const { backgroundLowered } = useThemeConstants();
@@ -59,7 +59,10 @@ export default function UsersStatistics() {
 
       <Box sx={{ display: "flex", flexDirection: "column", height: "100%" }}>
         <Box sx={{ height: 180, display: "flex", justifyContent: "center" }}>
-          <ResponsiveContainer width="100%" height="100%">
+          <ResponsiveContainer
+            width="100%"
+            height="100%"
+          >
             <PieChart>
               <Pie
                 data={incomeBreakdownData}
@@ -71,7 +74,10 @@ export default function UsersStatistics() {
                 dataKey="value"
               >
                 {incomeBreakdownData.map((entry, index) => (
-                  <Cell key={`cell-${index}`} fill={entry.color} />
+                  <Cell
+                    key={`cell-${index}`}
+                    fill={entry.color}
+                  />
                 ))}
               </Pie>
               <Tooltip formatter={(value) => [`${value}%`, undefined]} />
