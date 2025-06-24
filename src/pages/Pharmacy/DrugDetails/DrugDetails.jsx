@@ -21,16 +21,17 @@ import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import InventoryIcon from "@mui/icons-material/Inventory";
 import BusinessIcon from "@mui/icons-material/Business";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
-import { formatNumber } from "../../../lib/utils/formateNumber";
-import { useSpecificDrug } from "../../../lib/hooks/useDrugAction";
-import { useTypeContext } from "../../../context/UserType.context";
-import DrugDetailsSkeleton from "../../../components/Common/Loading/DrugDetailsSkeleton";
-import { formatDate } from "../../../lib/utils/dateUtils";
-import { useAddToCart } from "../../../lib/hooks/useCartAction";
-import { useThemeConstants } from "../../../lib/constants/theme.constant";
+import { formatNumber } from "@/lib/utils/formateNumber";
+import { useSpecificDrug } from "@/lib/hooks/useDrugAction";
+import { useTypeContext } from "@/context/UserType.context";
+import DrugDetailsSkeleton from "@/components/Common/Loading/DrugDetailsSkeleton";
+import { formatDate } from "@/lib/utils/dateUtils";
+import { useThemeConstants } from "@/lib/constants/theme.constant";
 import CategoryIcon from "@mui/icons-material/Category";
-import BadgeStock from "../../../components/Common/badge-stock";
-import { getStockStatus } from "../../../lib/utils/status-stock";
+import BadgeStock from "@/components/Common/badge-stock";
+import { getStockStatus } from "@/lib/utils/status-stock";
+import { useAddToCart } from "@/lib/hooks/use-cart";
+
 const InfoCard = styled(Paper)(({ theme }) => ({
   padding: theme.spacing(2),
   height: "100%",

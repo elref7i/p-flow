@@ -18,10 +18,10 @@ import {
 import CategoryIcon from "@mui/icons-material/Category";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import { CategorySchema } from "../../../lib/schemas/AdminSchema";
-import { useAddCategory } from "../../../lib/hooks/useAdminAction";
 import WarningAmberIcon from "@mui/icons-material/WarningAmber";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import ControlPointDuplicateIcon from "@mui/icons-material/ControlPointDuplicate";
+import { useAddCategory } from "../../../lib/hooks/use-admin";
 
 const VisuallyHiddenInput = styled("input")({
   clip: "rect(0 0 0 0)",

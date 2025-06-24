@@ -2,12 +2,18 @@ import { Box, Button, Grid, Paper, Typography, Dialog } from "@mui/material";
 import { Delete } from "@mui/icons-material";
 import { Helmet } from "react-helmet";
 import { useTheme } from "@mui/material/styles";
-import { useCart, useClearCart } from "../../../lib/hooks/useCartAction";
 import { useState } from "react";
+<<<<<<< HEAD
+import Invoice from "@/components/PharmacyComonents/Invoice/Invoice";
+import CartItem from "@/components/PharmacyComonents/CartItem/CartItem";
+
+=======
 import Invoice from "../../../components/PharmacyComonents/Invoice/Invoice";
 import CartItem from "../../../components/PharmacyComonents/CartItem/CartItem";
+>>>>>>> 03e7174653c5639f4517c710da539b064c3fd0bc
 import CartSkeleton from "./_components/CartSkeleton";
 import { useNavigate } from "react-router-dom";
+import { useCart, useClearCart } from "@/lib/hooks/use-cart";
 
 export default function Cart() {
   const [selectedInventoryId, setSelectedInventoryId] = useState(null);
@@ -39,11 +45,18 @@ export default function Cart() {
             : "0 4px 20px rgba(0, 0, 0, 0.05)",
         }}
       >
-        <Typography variant="h4" color="text.primary" fontWeight="bold">
+        <Typography
+          variant="h4"
+          color="text.primary"
+          fontWeight="bold"
+        >
           🛒 Your Cart is Empty
         </Typography>
 
-        <Typography variant="body1" color="text.secondary">
+        <Typography
+          variant="body1"
+          color="text.secondary"
+        >
           Looks like you haven&apos;t added anything yet.
         </Typography>
 
@@ -71,9 +84,18 @@ export default function Cart() {
           name="keywords"
           content="pharmacy cart, medicine cart, pharmacy checkout, drug order, cart page, pharmacy shopping"
         />
-        <meta name="author" content="Your Pharmacy Website" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <meta property="og:title" content="Your Pharmacy Cart" />
+        <meta
+          name="author"
+          content="Your Pharmacy Website"
+        />
+        <meta
+          name="viewport"
+          content="width=device-width, initial-scale=1.0"
+        />
+        <meta
+          property="og:title"
+          content="Your Pharmacy Cart"
+        />
         <meta
           property="og:description"
           content="You've selected your pharmacy items. View and manage your cart before purchasing."
@@ -81,10 +103,21 @@ export default function Cart() {
       </Helmet>
 
       <Box sx={{ display: "flex", flexDirection: "column", minHeight: "100%" }}>
-        <Grid container spacing={5} sx={{ flexGrow: 1 }}>
+        <Grid
+          container
+          spacing={5}
+          sx={{ flexGrow: 1 }}
+        >
           {/* cart items */}
-          <Grid item xs={12} md={9}>
-            <Box display="flex" flexDirection="column">
+          <Grid
+            item
+            xs={12}
+            md={9}
+          >
+            <Box
+              display="flex"
+              flexDirection="column"
+            >
               {cartInfo.data.inventories.map((inventory) => (
                 <CartItem
                   key={inventory.inventory.id}
@@ -99,7 +132,11 @@ export default function Cart() {
           </Grid>
 
           {/* invoice */}
-          <Grid item xs={12} md={3}>
+          <Grid
+            item
+            xs={12}
+            md={3}
+          >
             <Box>
               <Invoice
                 selectedInventory={cartInfo.data.inventories.find(

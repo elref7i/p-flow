@@ -1,4 +1,3 @@
-// import Navbar from '@/components/Navbar/Navbar';
 import { Outlet, useLocation } from "react-router-dom";
 import { Box, Container, useTheme } from "@mui/material";
 import Sidebar from "../Layout/Sidebar/Sidebar";

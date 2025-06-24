@@ -1,18 +1,19 @@
 import { Box, Container, Typography, Button, Grid } from "@mui/material";
 import { motion } from "framer-motion";
 import { LocalOffer } from "@mui/icons-material";
-import { useThemeConstants } from "../../../../lib/constants/theme.constant";
+import { useThemeConstants } from "@/lib/constants/theme.constant";
 
-import { useInfinitePromotions } from "../../../../lib/hooks/usepromotion";
-import { useTypeContext } from "../../../../context/UserType.context";
+import { useInfinitePromotions } from "@/lib/hooks/usepromotion";
+import { useTypeContext } from "@/context/UserType.context";
 import { Autoplay, Navigation } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/autoplay";
 import "swiper/css/navigation";
-import CardPromotion from "../../../../components/card-promotion";
+import CardPromotion from "@/components/card-promotion";
 import { useNavigate } from "react-router-dom";
-import { flattenedDrugs } from "../../../../lib/constants/infinte-data";
+import { flattenedDrugs } from "@/lib/constants/infinte-data";
+import CardPromotionSkeleton from "@/components/Common/Loading/promotion-skeleton";
 
 export default function PromotionsSection() {
   // Context
@@ -25,28 +26,17 @@ export default function PromotionsSection() {
   const navigate = useNavigate();
 
   //Queries
-  const { data: promotionalMedicines, isLoading } = useInfinitePromotions({
+  const { data: promotionalMedicines, isLoading } = useInfinitePromotions(
     token,
-  });
+    { page: 1 }
+  );
 
   const flattenData = flattenedDrugs({ data: promotionalMedicines });
 
   // Conditions
-  if (isLoading) {
-    return (
-      <Container
-        maxWidth="xl"
-        sx={{ py: 8 }}
-      >
-        <Box
-          display="flex"
-          justifyContent="center"
-        >
-          <Typography>Loading promotions...</Typography>
-        </Box>
-      </Container>
-    );
-  }
+  // if (isLoading) {
+  //   return <CardPromotionSkeleton count={4} />;
+  // }
 
   return (
     <Container
@@ -112,32 +102,36 @@ export default function PromotionsSection() {
           1200: { slidesPerView: 4, spaceBetween: 30 },
         }}
       >
-        <Grid
-          container
-          spacing={4}
-        >
-          {flattenData.map((drug, index) => (
-            <SwiperSlide key={drug._id}>
-              <Grid
-                item
-                xs={12}
-                sm={6}
-                md={3}
-                key={drug._id}
-              >
-                <motion.div
-                  initial={{ opacity: 0, y: 50 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: index * 0.1 }}
-                  viewport={{ once: true }}
-                  whileHover={{ y: -10 }}
+        {!isLoading ? (
+          <Grid
+            container
+            spacing={4}
+          >
+            {flattenData.map((drug, index) => (
+              <SwiperSlide key={drug._id}>
+                <Grid
+                  item
+                  xs={12}
+                  sm={6}
+                  md={3}
+                  key={drug._id}
                 >
-                  <CardPromotion drug={drug} />
-                </motion.div>
-              </Grid>
-            </SwiperSlide>
-          ))}
-        </Grid>
+                  <motion.div
+                    initial={{ opacity: 0, y: 50 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6, delay: index * 0.1 }}
+                    viewport={{ once: true }}
+                    whileHover={{ y: -10 }}
+                  >
+                    <CardPromotion drug={drug} />
+                  </motion.div>
+                </Grid>
+              </SwiperSlide>
+            ))}
+          </Grid>
+        ) : (
+          <CardPromotionSkeleton count={4} />
+        )}
       </Swiper>
 
       {/* View All Promotions Button */}

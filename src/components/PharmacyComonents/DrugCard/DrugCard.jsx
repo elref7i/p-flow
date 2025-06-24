@@ -12,7 +12,7 @@ import {
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { motion } from "framer-motion";
 import DistanceIndicator from "../../../pages/Inventory/InventoryProfile/_components/DistanceIndicator";
-import { useAddToCart } from "../../../lib/hooks/useCartAction";
+import { useAddToCart } from "../../../lib/hooks/use-cart";
 import { useNavigate } from "react-router-dom";
 import { formatNumber } from "../../../lib/utils/formateNumber";
 import { useTypeContext } from "../../../context/UserType.context";

@@ -2,14 +2,14 @@ import { Box, Grid2, Stack, Typography } from "@mui/material";
 import { useThemeConstants } from "../../../lib/constants/theme.constant";
 import AddCategory from "../_components/add_category";
 import CardCategory from "../_components/card_category";
-import { useCategories } from "../../../lib/hooks/useAdminAction";
+import { useCategories } from "@/lib/hooks/use-admin";
 
 export default function CategoriesAdmin() {
   //Themes
   const { textPrimary } = useThemeConstants();
 
   //Mutations
-  const { data: payload, isLoading, isFetched } = useCategories();
+  const { data: payload, isLoading } = useCategories();
   console.log(payload);
 
   return (

@@ -1,12 +1,12 @@
 import { Avatar, Box } from "@mui/material";
 import { columns } from "./Allusers";
-import { useAllUsers } from "../../../lib/hooks/useAdminAction";
 import { Helmet } from "react-helmet";
 import NewReleasesIcon from "@mui/icons-material/NewReleases";
 import VerifiedIcon from "@mui/icons-material/Verified";
 import CancelIcon from "@mui/icons-material/Cancel";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import AdminTable from "../../../components/TableAdmin/AdminTable";
+import { useAllUsers } from "../../../lib/hooks/use-admin";
 export default function Users() {
   //States
 

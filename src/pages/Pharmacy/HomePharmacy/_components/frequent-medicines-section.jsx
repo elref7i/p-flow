@@ -10,21 +10,23 @@ import { useInfiniteDrugs } from "../../../../lib/hooks/useDrugAction";
 import { useTypeContext } from "../../../../context/UserType.context";
 import { flattenedDrugs } from "../../../../lib/constants/infinte-data";
 import DrugCard from "../../../../components/PharmacyComonents/DrugCard/DrugCard";
+import DrugCardSkeleton from "../../../../components/Common/Loading/DrugCardSkeleton";
 
 export default function FrequentMedicinesSection() {
   // Context
   const { token } = useTypeContext();
 
   //Queries
-  const { data, isLoading } = useInfiniteDrugs(token, { limit: 10 });
+  const { data, isLoading } = useInfiniteDrugs(token, {
+    limit: 10,
+    sort: "sold",
+  });
 
   // Themes
   const { textPrimary } = useThemeConstants();
 
   // Flatten the data from all pages
   const flattenData = flattenedDrugs({ data });
-  5;
-  if (isLoading) return <p>Loading...</p>;
 
   return (
     <Box sx={{ py: 8, bgcolor: "background.default" }}>
@@ -89,28 +91,32 @@ export default function FrequentMedicinesSection() {
             1200: { slidesPerView: 4, spaceBetween: 25 },
           }}
         >
-          {flattenData.map((drug, index) => (
-            <SwiperSlide key={drug.id}>
-              <motion.div
-                initial={{ opacity: 0, y: 50 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                viewport={{ once: true }}
-                whileHover={{ y: -8 }}
-              >
-                <Grid2
-                  key={drug._id}
-                  size={{ xs: 12, md: 6, lg: 4 }}
+          {!isLoading ? (
+            flattenData.map((drug, index) => (
+              <SwiperSlide key={drug.id}>
+                <motion.div
+                  initial={{ opacity: 0, y: 50 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: index * 0.1 }}
+                  viewport={{ once: true }}
+                  whileHover={{ y: -8 }}
                 >
-                  <DrugCard
-                    dataInfo={drug}
-                    checkPage={true}
-                    checkdistance={true}
-                  />
-                </Grid2>
-              </motion.div>
-            </SwiperSlide>
-          ))}
+                  <Grid2
+                    key={drug._id}
+                    size={{ xs: 12, md: 6, lg: 4 }}
+                  >
+                    <DrugCard
+                      dataInfo={drug}
+                      checkPage={true}
+                      checkdistance={true}
+                    />
+                  </Grid2>
+                </motion.div>
+              </SwiperSlide>
+            ))
+          ) : (
+            <DrugCardSkeleton count={4} />
+          )}
         </Swiper>
       </Container>
     </Box>

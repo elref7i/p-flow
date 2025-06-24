@@ -7,12 +7,13 @@ import MoreVertIcon from "@mui/icons-material/MoreVert";
 import CheckIcon from "@mui/icons-material/Check";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useThemeConstants } from "../../../lib/constants/theme.constant";
+
+import { useTypeContext } from "../../../context/UserType.context";
+import { CircularProgress } from "@mui/material";
 import {
   useDeleteNotif,
   useMarkNotif,
-} from "../../../lib/hooks/notifications.actions";
-import { useTypeContext } from "../../../context/UserType.context";
-import { CircularProgress } from "@mui/material";
+} from "../../../lib/hooks/use-notifications";
 
 export default function NotificationSetting({ chechRead, notifId }) {
   // States

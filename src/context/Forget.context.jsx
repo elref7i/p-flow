@@ -1,4 +1,5 @@
-import { createContext, useContext, useState } from 'react';
+/* eslint-disable react-refresh/only-export-components */
+import { createContext, useContext, useState } from "react";
 
 const ForgetPasswordContext = createContext();
 
@@ -15,7 +16,6 @@ export default function ForgetPasswordProvider({ children }) {
   );
 }
 
-// eslint-disable-next-line react-refresh/only-export-components
 export function useForgetPassword() {
   return useContext(ForgetPasswordContext);
 }

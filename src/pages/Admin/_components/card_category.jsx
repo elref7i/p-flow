@@ -10,9 +10,9 @@ import {
 } from "@mui/material";
 import UpdatedCategorey from "./updated_category";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { useDeleteCategory } from "../../../lib/hooks/useAdminAction";
 import { useTypeContext } from "../../../context/UserType.context";
 import { useThemeConstants } from "../../../lib/constants/theme.constant";
+import { useDeleteCategory } from "../../../lib/hooks/use-admin";
 
 export default function CardCategory({ category }) {
   // Context

@@ -13,7 +13,7 @@ import toast from "react-hot-toast";
 
 export const useInfinitePromotions = (token, params = {}) => {
   return useInfiniteQuery({
-    queryKey: ["infinite-drugs", params],
+    queryKey: ["infinite-Promotions", params],
     queryFn: ({ pageParam = 1 }) =>
       getPromotions(token, { ...params, page: pageParam }),
     getNextPageParam: (lastPage) => lastPage.pagination?.next || undefined,

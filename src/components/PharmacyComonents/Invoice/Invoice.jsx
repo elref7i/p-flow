@@ -7,9 +7,9 @@ import {
   useTheme,
 } from "@mui/material";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
-import { useCreateOrder } from "../../../lib/hooks/useOrdersAction";
-import { useCart } from "../../../lib/hooks/useCartAction";
-import { formatNumber } from "../../../lib/utils/formateNumber";
+import { useCreateOrder } from "@/lib/hooks/useOrdersAction";
+import { formatNumber } from "@/lib/utils/formateNumber";
+import { useCart } from "@/lib/hooks/use-cart";
 
 /* eslint-disable react/prop-types */
 export default function Invoice({ selectedInventory }) {
@@ -124,7 +124,10 @@ export default function Invoice({ selectedInventory }) {
                     minWidth: 0,
                   }}
                 >
-                  <Tooltip title={drug.name} arrow>
+                  <Tooltip
+                    title={drug.name}
+                    arrow
+                  >
                     <Typography
                       fontSize={{ xs: 13, sm: 14 }}
                       fontWeight="bold"

@@ -1,7 +1,5 @@
 import GroupIcon from "@mui/icons-material/Group";
 import PersonIcon from "@mui/icons-material/Person";
-import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
-import HelpOutlineIcon from "@mui/icons-material/HelpOutline";
 import GroupAddIcon from "@mui/icons-material/GroupAdd";
 import HomeIcon from "@mui/icons-material/Home";
 import SettingsIcon from "@mui/icons-material/Settings";
@@ -15,27 +13,18 @@ export const admin = {
   HeaderSection: [
     { text: "Dashboard", icon: <HomeIcon />, path: "/admin" },
     { text: "Users", icon: <GroupIcon />, path: "/admin/users" },
-
+  ],
+  MiddleSection: [
     {
       text: "Users Actions",
       icon: <GroupAddIcon />,
       path: "/admin/usersaction",
     },
-  ],
-  MiddleSection: [
     {
       text: "Categories",
       icon: <CategoryIcon />,
       path: "/admin/categories_admin",
     },
-    { text: "Profile Form", icon: <PersonIcon />, path: "/profile" },
-    { text: "Calendar", icon: <CalendarTodayIcon />, path: "/calendar" },
-    { text: "FAQ Page", icon: <HelpOutlineIcon />, path: "/faq" },
-  ],
-  FooterSection: [
-    // { text: 'Pie Chart', icon: <PieChartIcon />, path: '/pie' },
-    // { text: 'Line Chart', icon: <TimelineIcon />, path: '/line' },
-    // { text: 'Geography Chart', icon: <MapIcon />, path: '/geography' },
   ],
 };
 

@@ -1,8 +1,12 @@
 import { Box, Typography, Paper, Grid2, Grid, Skeleton } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import { useThemeConstants } from "../../../../lib/constants/theme.constant";
+<<<<<<< HEAD:src/pages/Admin/DashboardAdmin/components/metric-cards.jsx
+import { useAdminStatstics } from "../../../../lib/hooks/use-admin";
+=======
 import { useAdminStatstics } from "../../../../lib/hooks/useAdminAction";
 import { formatNumber } from "../../../../lib/utils/formateNumber";
+>>>>>>> 03e7174653c5639f4517c710da539b064c3fd0bc:src/pages/Admin/DashboardAdmin/components/TopCards.jsx
 
 const MetricCard = styled(Paper)(({ theme }) => ({
   padding: theme.spacing(2),
@@ -22,6 +26,12 @@ const MetricValue = styled(Typography)(({ theme }) => ({
 
 export default function TopCards() {
   const { statsSecondaryBackground } = useThemeConstants();
+<<<<<<< HEAD:src/pages/Admin/DashboardAdmin/components/metric-cards.jsx
+  const { data } = useAdminStatstics();
+  console.log("Raw data:", data);
+  const statistics = data?.data ?? {};
+  console.log("Total users:", statistics.totalUsers);
+=======
   const { data: statistics, isLoading } = useAdminStatstics();
   const totalPrices = statistics?.totalPrices;
 
@@ -48,6 +58,7 @@ export default function TopCards() {
         ))}
       </Grid>
     );
+>>>>>>> 03e7174653c5639f4517c710da539b064c3fd0bc:src/pages/Admin/DashboardAdmin/components/TopCards.jsx
 
   const metrics = [
     {
@@ -77,9 +88,17 @@ export default function TopCards() {
   ];
 
   return (
-    <Grid2 container spacing={1} sx={{ mb: 3, p: 1 }}>
+    <Grid2
+      container
+      spacing={1}
+      sx={{ mb: 3, p: 1 }}
+    >
       {metrics.map((metric, index) => (
-        <Grid2 item size={{ xs: 12, md: 6, lg: 3 }} key={index}>
+        <Grid2
+          item
+          size={{ xs: 12, md: 6, lg: 3 }}
+          key={index}
+        >
           <MetricCard
             sx={{
               bgcolor: statsSecondaryBackground,
@@ -96,7 +115,10 @@ export default function TopCards() {
                 alignItems: "center",
               }}
             >
-              <Typography variant="body2" color="text.secondary">
+              <Typography
+                variant="body2"
+                color="text.secondary"
+              >
                 <Box
                   component="span"
                   sx={{

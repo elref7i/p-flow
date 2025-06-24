@@ -5,7 +5,7 @@ import { Autoplay } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import { motion } from "framer-motion";
-import { useGetAllInventoriesQuery } from "../../../../lib/hooks/pharmacy.action";
+import { useGetAllInventoriesQuery } from "../../../../lib/hooks/use-pharmacy";
 import { useTypeContext } from "../../../../context/UserType.context";
 import { useThemeConstants } from "../../../../lib/constants/theme.constant";
 import { Verified, Store } from "@mui/icons-material";

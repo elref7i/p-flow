@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { useCategories } from "../../lib/hooks/useAdminAction";
+import { useCategories } from "../../lib/hooks/use-admin";
 import { Autocomplete, TextField } from "@mui/material";
 
 export default function CategorySelect({ touched, setFieldValue, errors }) {
