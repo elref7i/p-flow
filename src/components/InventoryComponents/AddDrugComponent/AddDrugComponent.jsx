@@ -356,7 +356,6 @@ export default function AddDrugComponent() {
                   boxShadow: 2,
                   px: 5,
                   "&:hover": {
-                    color: "white",
                     borderColor: borderHover,
                     background: backgroundRedSoft,
                   },

@@ -256,7 +256,6 @@ export default function AddDrugFromExcel() {
                   boxShadow: 2,
                   px: 5,
                   "&:hover": {
-                    color: "white",
                     borderColor: borderHover,
                     background: backgroundRedSoft,
                   },

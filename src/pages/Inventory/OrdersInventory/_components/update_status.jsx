@@ -223,7 +223,6 @@ export default function UpdateStatusOrder({ status, id }) {
                   boxShadow: 2,
                   px: 5,
                   "&:hover": {
-                    color: "white",
                     borderColor: borderHover,
                     background: backgroundRedSoft,
                   },

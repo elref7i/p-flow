@@ -16,6 +16,7 @@ import {
   useCountNotif,
   useGetAllMeNotifications,
 } from "../../lib/hooks/use-notifications";
+import NotificationSkeleton from "../Common/Loading/notification-skeleton";
 
 export default function NotificationsModal() {
   // State
@@ -145,61 +146,71 @@ export default function NotificationsModal() {
             />
           </Stack>
         </MenuItem>
+        {flattenedNotifications.length <= 0 && (
+          <Typography
+            p={2}
+            variant="body2"
+            textAlign={"cente"}
+            fontWeight={"bold"}
+          >
+            You don’t have any notifications at the moment.
+          </Typography>
+        )}
+        {flattenedNotifications.length > 0 && (
+          <MenuItem
+            disableRipple
+            sx={{
+              p: 0,
+              mb: 2,
+              ":hover": {
+                background: "transparent",
+              },
+            }}
+          >
+            <Box sx={{ width: "100%" }}>
+              <Typography
+                pl={"16px"}
+                pb={0.5}
+                variant="h5"
+                color={textSecondary}
+                mb={0.5}
+              >
+                New
+              </Typography>
 
-        <MenuItem
-          disableRipple
-          sx={{
-            p: 0,
-            mb: 2,
-            ":hover": {
-              background: "transparent",
-            },
-          }}
-        >
-          <Box sx={{ width: "100%" }}>
-            <Typography
-              pl={"16px"}
-              pb={0.5}
-              variant="h5"
-              color={textSecondary}
-              mb={0.5}
-            >
-              New
-            </Typography>
-
-            {/* Messages */}
-            <Stack
-              spacing={1}
-              pb={2}
-              sx={{ minHeight: "200px", overflow: "auto", maxHeight: "400px" }}
-            >
-              {!isLoading ? (
-                <InfiniteScroll
-                  dataLength={totalItems}
-                  next={fetchNextPage}
-                  hasMore={hasNextPage}
-                  loader={<DrugCardSkeleton count={3} />}
-                  endMessage={
-                    <p style={{ textAlign: "center", padding: "20px" }}>
-                      <b>You have seen all notifications</b>
-                    </p>
-                  }
-                  scrollThreshold={0.8}
-                  style={{ overflow: "hidden" }}
-                >
-                  {flattenedNotifications.map((notification) => (
-                    <Message
-                      key={notification._id}
-                      dataInfo={notification}
-                    />
-                  ))}
-                </InfiniteScroll>
-              ) : (
-                <p>loading</p>
-              )}
-            </Stack>
-          </Box>
-        </MenuItem>
+              {/* Messages */}
+              <Stack
+                spacing={1}
+                pb={2}
+                sx={{
+                  minHeight: "200px",
+                  overflow: "auto",
+                  maxHeight: "400px",
+                }}
+              >
+                {!isLoading ? (
+                  <InfiniteScroll
+                    dataLength={totalItems}
+                    next={fetchNextPage}
+                    hasMore={hasNextPage}
+                    loader={<DrugCardSkeleton count={3} />}
+                    scrollThreshold={0.8}
+                    style={{ overflow: "hidden" }}
+                  >
+                    {flattenedNotifications.map((notification) => (
+                      <Message
+                        key={notification._id}
+                        dataInfo={notification}
+                      />
+                    ))}
+                  </InfiniteScroll>
+                ) : (
+                  <NotificationSkeleton />
+                )}
+              </Stack>
+            </Box>
+          </MenuItem>
+        )}
       </Menu>
     </>
   );
