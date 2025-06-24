@@ -33,7 +33,6 @@ export default function WishlistSkeleton() {
       </Box>
 
       {/* Cards */}
-<<<<<<< HEAD
       <Box
         display="flex"
         sx={{ py: 3 }}
@@ -42,10 +41,6 @@ export default function WishlistSkeleton() {
         justifyContent={"space-between"}
       >
         {Array.from({ length: 3 }).map((_, idx) => (
-=======
-      <Box display="flex" flexWrap="wrap" gap={4}>
-        {Array.from({ length: 6 }).map((_, idx) => (
->>>>>>> 03e7174653c5639f4517c710da539b064c3fd0bc
           <Box
             key={idx}
             sx={{

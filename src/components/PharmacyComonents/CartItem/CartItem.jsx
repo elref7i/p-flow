@@ -53,13 +53,9 @@ export default function CartItem({
   const removeDrugMutation = useRemoveDrug();
   const updateQuantityMutation = useUpdateCartItem();
   const queryClient = useQueryClient();
-<<<<<<< HEAD
-=======
 
-  const [showWarning, setShowWarning] = useState(false);
   const [openConfirmDialog, setOpenConfirmDialog] = useState(false);
 
->>>>>>> 03e7174653c5639f4517c710da539b064c3fd0bc
   const { data } = useGetAllInventoriesQuery({ token });
 
   // Variables
@@ -181,7 +177,10 @@ export default function CartItem({
                 gap: 1,
               }}
             >
-              <Tooltip title={drug.name} arrow>
+              <Tooltip
+                title={drug.name}
+                arrow
+              >
                 <Typography
                   variant="body1"
                   onClick={() => navigate(`/pharmacy/drugdetails/${drugId}`)}
@@ -197,50 +196,9 @@ export default function CartItem({
                     maxWidth: "100%",
                   }}
                 >
-<<<<<<< HEAD
-                  <Tooltip
-                    title={drug.name}
-                    arrow
-                  >
-                    <Typography
-                      variant="body1"
-                      onClick={() =>
-                        navigate(`/pharmacy/drugdetails/${drugId}`)
-                      }
-                      sx={{
-                        fontWeight: 600,
-                        cursor: "pointer",
-                        fontSize: { xs: "0.9rem", sm: "1rem" },
-                        wordBreak: "break-word",
-                        overflow: "hidden",
-                        textOverflow: "ellipsis",
-                        whiteSpace: { xs: "normal", sm: "nowrap" },
-                        display: { xs: "block", sm: "-webkit-box" },
-                        WebkitLineClamp: { xs: 2, sm: 1 },
-                        WebkitBoxOrient: { xs: "vertical", sm: "horizontal" },
-                      }}
-                    >
-                      {drug.name}
-                    </Typography>
-                  </Tooltip>
-                  <Typography
-                    variant="body2"
-                    sx={{
-                      fontSize: { xs: 11, sm: 12 },
-                      fontWeight: "bold",
-                      mt: { xs: 0.5, sm: 1 },
-                      color: isDarkMode ? "#ccc" : "#555",
-                    }}
-                  >
-                    Price: {formatNumber(price)} EGP
-                  </Typography>
-                </Box>
-              </Box>
-=======
                   {drug.name}
                 </Typography>
               </Tooltip>
->>>>>>> 03e7174653c5639f4517c710da539b064c3fd0bc
 
               <Box
                 sx={{
@@ -350,7 +308,10 @@ export default function CartItem({
           }}
         >
           <LocalAtmIcon sx={{ mr: 1, fontSize: { xs: 18, sm: 20 } }} />
-          <Typography variant={{ xs: "subtitle1", sm: "h6" }} fontWeight="600">
+          <Typography
+            variant={{ xs: "subtitle1", sm: "h6" }}
+            fontWeight="600"
+          >
             Total Price : {formatNumber(totalInventoryPrice)} EGP
           </Typography>
         </Box>
@@ -427,10 +388,16 @@ export default function CartItem({
         onClose={() => setOpenConfirmDialog(false)}
       >
         <Box sx={{ p: 3, minWidth: 300 }}>
-          <Typography variant="h6" mb={2}>
+          <Typography
+            variant="h6"
+            mb={2}
+          >
             Confirm Deletion
           </Typography>
-          <Typography variant="body2" mb={3}>
+          <Typography
+            variant="body2"
+            mb={3}
+          >
             Are you sure you want to remove this inventory from your cart?
           </Typography>
 

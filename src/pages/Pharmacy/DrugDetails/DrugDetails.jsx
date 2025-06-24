@@ -142,6 +142,9 @@ export default function DrugDetails() {
 
                 {/* Category box */}
                 <Box
+                  onClick={() =>
+                    navigate(`/pharmacy/categorydrugs/${data.category._id}`)
+                  }
                   sx={{
                     display: "flex",
                     alignItems: "center",

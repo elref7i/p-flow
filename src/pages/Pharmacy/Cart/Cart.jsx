@@ -3,14 +3,8 @@ import { Delete } from "@mui/icons-material";
 import { Helmet } from "react-helmet";
 import { useTheme } from "@mui/material/styles";
 import { useState } from "react";
-<<<<<<< HEAD
 import Invoice from "@/components/PharmacyComonents/Invoice/Invoice";
 import CartItem from "@/components/PharmacyComonents/CartItem/CartItem";
-
-=======
-import Invoice from "../../../components/PharmacyComonents/Invoice/Invoice";
-import CartItem from "../../../components/PharmacyComonents/CartItem/CartItem";
->>>>>>> 03e7174653c5639f4517c710da539b064c3fd0bc
 import CartSkeleton from "./_components/CartSkeleton";
 import { useNavigate } from "react-router-dom";
 import { useCart, useClearCart } from "@/lib/hooks/use-cart";
@@ -182,10 +176,16 @@ export default function Cart() {
           onClose={() => setOpenClearDialog(false)}
         >
           <Box sx={{ p: 3, minWidth: 300 }}>
-            <Typography variant="h6" mb={2}>
+            <Typography
+              variant="h6"
+              mb={2}
+            >
               Confirm Clear Cart
             </Typography>
-            <Typography variant="body2" mb={3}>
+            <Typography
+              variant="body2"
+              mb={3}
+            >
               Are you sure you want to remove all items from your cart?
             </Typography>
 

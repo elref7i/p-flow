@@ -20,7 +20,6 @@ export default function Inventories() {
   });
 
   //Loading State
-<<<<<<< HEAD
   if (isLoading) {
     return (
       <Grid
@@ -33,9 +32,7 @@ export default function Inventories() {
       </Grid>
     );
   }
-=======
   if (isLoading) return <InventoryCardSkeleton />;
->>>>>>> 03e7174653c5639f4517c710da539b064c3fd0bc
 
   console.log(payload);
 
