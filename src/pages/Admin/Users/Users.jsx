@@ -117,6 +117,7 @@ export default function Users() {
       data={filteredData}
       columnsWithActions={columnsWithActions}
       check={true}
+      chec
     />
   );
 }
