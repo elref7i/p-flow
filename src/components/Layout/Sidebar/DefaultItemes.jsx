@@ -2,11 +2,11 @@ import GroupIcon from "@mui/icons-material/Group";
 import PersonIcon from "@mui/icons-material/Person";
 import GroupAddIcon from "@mui/icons-material/GroupAdd";
 import HomeIcon from "@mui/icons-material/Home";
-import ArticleIcon from "@mui/icons-material/Article";
-import BarChartIcon from "@mui/icons-material/BarChart";
 import SettingsIcon from "@mui/icons-material/Settings";
 import AddTaskIcon from "@mui/icons-material/AddTask";
 import CategoryIcon from "@mui/icons-material/Category";
+import MedicationIcon from "@mui/icons-material/Medication";
+import EditIcon from "@mui/icons-material/Edit";
 
 const Shared = { text: "Setting", icon: <SettingsIcon />, path: "/setting" };
 export const admin = {
@@ -31,12 +31,16 @@ export const admin = {
 export const inventory = {
   HeaderSection: [
     { text: "Dashboard", icon: <HomeIcon />, path: "/inventory" },
-    { text: "All Drugs", icon: <BarChartIcon />, path: "/inventory/AllDrugs" },
+    {
+      text: "All Drugs",
+      icon: <MedicationIcon />,
+      path: "/inventory/AllDrugs",
+    },
   ],
   MiddleSection: [
     {
       text: "Drugs Action",
-      icon: <ArticleIcon />,
+      icon: <EditIcon />,
       path: "/inventory/DrugsAction",
     },
     { text: "Orders", icon: <AddTaskIcon />, path: "/inventory/orders" },

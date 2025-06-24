@@ -1,17 +1,23 @@
-import { Box, Button, Grid, Paper, Typography } from "@mui/material";
+import { Box, Button, Grid, Paper, Typography, Dialog } from "@mui/material";
 import { Delete } from "@mui/icons-material";
 import { Helmet } from "react-helmet";
 import { useTheme } from "@mui/material/styles";
 import { useState } from "react";
+<<<<<<< HEAD
 import Invoice from "@/components/PharmacyComonents/Invoice/Invoice";
 import CartItem from "@/components/PharmacyComonents/CartItem/CartItem";
 
+=======
+import Invoice from "../../../components/PharmacyComonents/Invoice/Invoice";
+import CartItem from "../../../components/PharmacyComonents/CartItem/CartItem";
+>>>>>>> 03e7174653c5639f4517c710da539b064c3fd0bc
 import CartSkeleton from "./_components/CartSkeleton";
 import { useNavigate } from "react-router-dom";
 import { useCart, useClearCart } from "@/lib/hooks/use-cart";
 
 export default function Cart() {
   const [selectedInventoryId, setSelectedInventoryId] = useState(null);
+  const [openClearDialog, setOpenClearDialog] = useState(false);
   const navigate = useNavigate();
   const theme = useTheme();
   const isDark = theme.palette.mode === "dark";
@@ -141,7 +147,7 @@ export default function Cart() {
           </Grid>
         </Grid>
 
-        {/* Clear Cart Button - Always at bottom */}
+        {/* Clear Cart Button */}
         <Box
           sx={{
             textAlign: "center",
@@ -158,7 +164,7 @@ export default function Cart() {
             variant="outlined"
             color="error"
             startIcon={<Delete />}
-            onClick={() => clearCartMutation.mutate()}
+            onClick={() => setOpenClearDialog(true)}
             sx={{
               px: { xs: 3, sm: 4 },
               py: { xs: 1, sm: 1.5 },
@@ -169,6 +175,40 @@ export default function Cart() {
             Clear Cart
           </Button>
         </Box>
+
+        {/* Confirm Clear Dialog */}
+        <Dialog
+          open={openClearDialog}
+          onClose={() => setOpenClearDialog(false)}
+        >
+          <Box sx={{ p: 3, minWidth: 300 }}>
+            <Typography variant="h6" mb={2}>
+              Confirm Clear Cart
+            </Typography>
+            <Typography variant="body2" mb={3}>
+              Are you sure you want to remove all items from your cart?
+            </Typography>
+
+            <Box sx={{ display: "flex", justifyContent: "flex-end", gap: 1 }}>
+              <Button
+                variant="outlined"
+                onClick={() => setOpenClearDialog(false)}
+              >
+                Cancel
+              </Button>
+              <Button
+                variant="contained"
+                color="error"
+                onClick={() => {
+                  setOpenClearDialog(false);
+                  clearCartMutation.mutate();
+                }}
+              >
+                Delete
+              </Button>
+            </Box>
+          </Box>
+        </Dialog>
       </Box>
     </>
   );

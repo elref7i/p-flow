@@ -29,7 +29,6 @@ export default function CartSkeleton() {
                     gap: 2,
                     p: 2,
                     borderRadius: 2,
-                    backgroundColor: "#f9f9f9",
                   }}
                 >
                   <Skeleton variant="rounded" width={55} height={55} />

@@ -16,7 +16,6 @@ import {
 } from "@mui/material";
 import { useOrders, useCancelOrder } from "@/lib/hooks/useOrdersAction";
 import LocalAtmIcon from "@mui/icons-material/LocalAtm";
-import MedicationIcon from "@mui/icons-material/Medication";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import CancelIcon from "@mui/icons-material/Cancel";
 import VisibilityIcon from "@mui/icons-material/Visibility";
@@ -262,18 +261,6 @@ export default function PharmacyOrders() {
                             alignItems="center"
                             textAlign="center"
                           >
-                            <Avatar
-                              sx={{
-                                bgcolor: isDark ? "#1e40af" : "#3b82f6",
-                                width: { xs: 36, sm: 40 },
-                                height: { xs: 36, sm: 40 },
-                              }}
-                            >
-                              <MedicationIcon
-                                sx={{ fontSize: { xs: 18, sm: 20 } }}
-                              />
-                            </Avatar>
-
                             <Tooltip title={item.drug.name} arrow>
                               <Typography
                                 variant={{ xs: "body2", sm: "subtitle2" }}
@@ -288,8 +275,15 @@ export default function PharmacyOrders() {
                                 {item.drug.name}
                               </Typography>
                             </Tooltip>
-
-                            <Box>
+                            <Box
+                              sx={{
+                                display: "flex",
+                                justifyContent: "space-between",
+                                alignItems: "center",
+                                width: "100%",
+                                mt: 1,
+                              }}
+                            >
                               <Typography
                                 variant="body2"
                                 sx={{
@@ -298,8 +292,9 @@ export default function PharmacyOrders() {
                                   fontSize: { xs: "0.8rem", sm: "0.9rem" },
                                 }}
                               >
-                                {formatNumber(item.drug.price)} EGP
+                                Price: {formatNumber(item.drug.price)} EGP
                               </Typography>
+
                               <Typography
                                 variant="caption"
                                 sx={{
@@ -345,7 +340,7 @@ export default function PharmacyOrders() {
                         ? "linear-gradient(90deg, #059669 0%, #10b981 100%)"
                         : "linear-gradient(90deg, #10b981 0%, #34d399 100%)",
                       color: "white",
-                      px: { xs: 2.5, sm: 3 },
+                      px: { xs: 2, sm: 2.5 },
                       py: { xs: 1.25, sm: 1.5 },
                       borderRadius: 2,
                       boxShadow: "0 4px 12px rgba(16, 185, 129, 0.3)",
@@ -359,7 +354,7 @@ export default function PharmacyOrders() {
                       variant={{ xs: "subtitle1", sm: "h6" }}
                       fontWeight="600"
                     >
-                      {formatNumber(order.pricing.total)} EGP
+                      Total Order : {formatNumber(order.pricing.total)} EGP
                     </Typography>
                   </Box>
 

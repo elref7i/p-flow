@@ -1,8 +1,12 @@
-import { Box, Typography, Paper, Grid2, IconButton } from "@mui/material";
-import { KeyboardArrowRight as ArrowRightIcon } from "@mui/icons-material";
+import { Box, Typography, Paper, Grid2, Grid, Skeleton } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import { useThemeConstants } from "../../../../lib/constants/theme.constant";
+<<<<<<< HEAD:src/pages/Admin/DashboardAdmin/components/metric-cards.jsx
 import { useAdminStatstics } from "../../../../lib/hooks/use-admin";
+=======
+import { useAdminStatstics } from "../../../../lib/hooks/useAdminAction";
+import { formatNumber } from "../../../../lib/utils/formateNumber";
+>>>>>>> 03e7174653c5639f4517c710da539b064c3fd0bc:src/pages/Admin/DashboardAdmin/components/TopCards.jsx
 
 const MetricCard = styled(Paper)(({ theme }) => ({
   padding: theme.spacing(2),
@@ -20,45 +24,64 @@ const MetricValue = styled(Typography)(({ theme }) => ({
   marginBottom: theme.spacing(0.5),
 }));
 
-const PercentageChange = styled(Typography)(() => ({
-  fontSize: "0.8rem",
-  display: "flex",
-  alignItems: "center",
-}));
-
-export default function MetricCards() {
+export default function TopCards() {
   const { statsSecondaryBackground } = useThemeConstants();
+<<<<<<< HEAD:src/pages/Admin/DashboardAdmin/components/metric-cards.jsx
   const { data } = useAdminStatstics();
   console.log("Raw data:", data);
   const statistics = data?.data ?? {};
   console.log("Total users:", statistics.totalUsers);
+=======
+  const { data: statistics, isLoading } = useAdminStatstics();
+  const totalPrices = statistics?.totalPrices;
+
+  if (isLoading)
+    return (
+      <Grid container spacing={3}>
+        {Array.from({ length: 4 }).map((_, index) => (
+          <Grid item xs={12} sm={6} md={3} key={index}>
+            <Paper
+              elevation={0}
+              sx={{
+                p: 3,
+                borderRadius: 3,
+                height: 100,
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "space-between",
+              }}
+            >
+              <Skeleton width="60%" height={20} />
+              <Skeleton width="50%" height={30} />
+            </Paper>
+          </Grid>
+        ))}
+      </Grid>
+    );
+>>>>>>> 03e7174653c5639f4517c710da539b064c3fd0bc:src/pages/Admin/DashboardAdmin/components/TopCards.jsx
 
   const metrics = [
     {
-      title: "Balance",
-      value: "$321,010.18",
-      change: "↑ 26% vs last month",
-      variant: "positive",
-      color: "primary.main",
-    },
-    {
-      title: "Income",
-      value: "$78,301.15",
-      change: "↑ 12% vs last month",
+      title: "Total Inventories",
+      value: statistics?.totalInventories,
       variant: "positive",
       color: "info.main",
     },
     {
-      title: "Expense",
-      value: "$25,502.23",
-      change: "↓ 8% vs last month",
+      title: "Total Pharmacies",
+      value: statistics?.totalPharmacies,
       variant: "negative",
       color: "error.main",
     },
     {
-      title: "Inventory Value",
-      value: "$779.72",
-      change: "↑ 8% vs last month",
+      title: "Total Orders",
+      value: statistics?.totalOrders,
+      variant: "positive",
+      color: "primary.main",
+    },
+    {
+      title: "Total Prices",
+      value: formatNumber(totalPrices),
       variant: "positive",
       color: "success.main",
     },
@@ -104,37 +127,11 @@ export default function MetricCards() {
                     gap: 0.5,
                   }}
                 >
-                  <Box
-                    sx={{
-                      width: 20,
-                      height: 20,
-                      bgcolor: metric.color,
-                      borderRadius: "4px",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      color: "white",
-                      fontSize: "0.75rem",
-                    }}
-                  >
-                    $
-                  </Box>
                   {metric.title}
                 </Box>
               </Typography>
-              <IconButton size="small">
-                <ArrowRightIcon fontSize="small" />
-              </IconButton>
             </Box>
             <MetricValue>{metric.value}</MetricValue>
-            <PercentageChange
-              sx={{
-                color:
-                  metric.variant === "positive" ? "success.main" : "error.main",
-              }}
-            >
-              {metric.change}
-            </PercentageChange>
           </MetricCard>
         </Grid2>
       ))}

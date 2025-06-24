@@ -33,7 +33,7 @@ export default function Invoice({ selectedInventory }) {
         maxHeight: { xs: "70vh", sm: 600 },
         mt: { xs: 2, sm: 4 },
         backgroundColor: isDarkMode ? "#0e1a2b" : "#F5F5F5",
-        boxShadow: "0px 2px 7px rgb(103, 161, 247)",
+        boxShadow: "0px 3px 10px rgba(103, 161, 247, 0.3)",
         color: textColor,
         borderRadius: 2,
         p: { xs: 1.5, sm: 2.5 },

@@ -2,11 +2,11 @@ import { Helmet } from "react-helmet";
 import { Box, Grid } from "@mui/material";
 
 import { styled } from "@mui/material/styles";
-import MetricCards from "./components/metric-cards";
 import CashflowChart from "./components/cashflow-chart";
-import IncomeBreakdown from "./components/income-breakdown";
-import TransactionHistory from "./components/transaction-history";
 import { useThemeConstants } from "../../../lib/constants/theme.constant";
+import TopInventories from "./components/TopInventories";
+import UsersStatistics from "./components/UsersStatistics";
+import TopCards from "./components/TopCards";
 
 const MainContent = styled(Box)(() => ({
   flexGrow: 1,
@@ -44,35 +44,23 @@ export default function DashboardAdmin() {
         {/* Main Content */}
         <MainContent>
           {/* Metrics Cards */}
-          <MetricCards />
+          <TopCards />
 
           {/* Charts Section */}
-          <Grid
-            container
-            spacing={3}
-            sx={{ mb: 3 }}
-          >
+          <Grid container spacing={3} sx={{ mb: 3 }}>
             {/* Cashflow Chart */}
-            <Grid
-              item
-              xs={12}
-              md={8}
-            >
+            <Grid item xs={12} md={8}>
               <CashflowChart />
             </Grid>
 
             {/* Income Breakdown */}
-            <Grid
-              item
-              xs={12}
-              md={4}
-            >
-              <IncomeBreakdown />
+            <Grid item xs={12} md={4}>
+              <UsersStatistics />
             </Grid>
           </Grid>
 
           {/* Transaction History */}
-          <TransactionHistory />
+          <TopInventories />
         </MainContent>
       </Box>
     </>

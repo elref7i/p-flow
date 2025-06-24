@@ -21,7 +21,6 @@ export default function OrdersSkeleton() {
               alignItems: "center",
               px: 3,
               py: 2,
-              background: "linear-gradient(to right, #4e54c8, #8f94fb)",
             }}
           >
             <Skeleton variant="text" width={220} height={28} />
@@ -40,7 +39,6 @@ export default function OrdersSkeleton() {
               flexWrap: "wrap",
               gap: 2,
               p: 3,
-              backgroundColor: "#f9f9f9",
             }}
           >
             {Array.from({ length: 6 }).map((_, itemIdx) => (
@@ -51,7 +49,6 @@ export default function OrdersSkeleton() {
                   minWidth: 160,
                   borderRadius: 3,
                   p: 2,
-                  backgroundColor: "#ffffff",
                   boxShadow: 1,
                 }}
               >
@@ -76,7 +73,6 @@ export default function OrdersSkeleton() {
               px: 3,
               py: 2,
               borderTop: "1px solid #e0e0e0",
-              backgroundColor: "#fdfdfd",
             }}
           >
             <Skeleton variant="text" width={180} height={26} />
