@@ -14,8 +14,6 @@ import {
   Grid2,
   Card,
   CardContent,
-  Avatar,
-  Divider,
   LinearProgress,
   Alert,
 } from "@mui/material";
@@ -23,37 +21,21 @@ import { motion, AnimatePresence } from "framer-motion";
 import {
   Close,
   Receipt,
-  Person,
-  LocalHospital,
   Medication,
   CheckCircle,
   Warning,
-  Notes,
   AutoAwesome,
-  ShoppingCart,
   CloudUpload,
   Image,
   Delete,
   Visibility,
   Send,
 } from "@mui/icons-material";
-import { useThemeConstants } from "../../../lib/constants/theme.constant";
-import { formatDate } from "../../../lib/utils/formDate";
-
-const modalStyle = {
-  position: "fixed",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: { xs: "95%", sm: "90%", md: "85%", lg: "80%" },
-  maxWidth: "1200px",
-  maxHeight: "95vh",
-  borderRadius: 4,
-  boxShadow: "0 25px 50px rgba(0,0,0,0.25)",
-  p: 0,
-  overflow: "hidden",
-  border: "1px solid rgba(255,255,255,0.1)",
-};
+import { useThemeConstants } from "@/lib/constants/theme.constant";
+import AdditionNotes from "./addition-notes";
+import PatienDoctorInfo from "./patien-doctor-info";
+import AvailableOptions from "./available-options";
+import { modalStyle } from "@/styles/modal-style";
 
 const PrescriptionModal = ({
   open,
@@ -128,10 +110,6 @@ const PrescriptionModal = ({
     if (fileInputRef.current) {
       fileInputRef.current.value = "";
     }
-  };
-
-  const formatPrice = (price) => {
-    return `$${price.toFixed(2)}`;
   };
 
   return (
@@ -570,189 +548,7 @@ const PrescriptionModal = ({
                     transition={{ duration: 0.5 }}
                   >
                     {/* Patient & Doctor Information */}
-                    <Grid2
-                      container
-                      spacing={3}
-                      mb={4}
-                    >
-                      {/* Patient Info */}
-                      <Grid2 size={{ xs: 12, md: 6 }}>
-                        <motion.div
-                          initial={{ opacity: 0, x: -20 }}
-                          animate={{ opacity: 1, x: 0 }}
-                          transition={{ duration: 0.5 }}
-                        >
-                          <Paper
-                            sx={{
-                              p: 3,
-                              borderRadius: 3,
-                              background: `linear-gradient(135deg, ${cardBackground} 0%, rgba(33, 150, 243, 0.05) 100%)`,
-                              border: "1px solid rgba(33, 150, 243, 0.1)",
-                            }}
-                          >
-                            <Stack
-                              direction="row"
-                              alignItems="center"
-                              spacing={2}
-                              mb={2}
-                            >
-                              <Person
-                                sx={{ color: "primary.main", fontSize: 28 }}
-                              />
-                              <Typography
-                                variant="h6"
-                                fontWeight={700}
-                                color={textPrimary}
-                              >
-                                Patient Information
-                              </Typography>
-                            </Stack>
-                            <Stack spacing={1.5}>
-                              <Box
-                                display="flex"
-                                justifyContent="space-between"
-                              >
-                                <Typography
-                                  variant="body2"
-                                  color="text.secondary"
-                                >
-                                  Name:
-                                </Typography>
-                                <Typography
-                                  variant="body1"
-                                  fontWeight={600}
-                                >
-                                  {prescription.patient.name}
-                                </Typography>
-                              </Box>
-                              <Box
-                                display="flex"
-                                justifyContent="space-between"
-                              >
-                                <Typography
-                                  variant="body2"
-                                  color="text.secondary"
-                                >
-                                  Age:
-                                </Typography>
-                                <Typography
-                                  variant="body1"
-                                  fontWeight={600}
-                                >
-                                  {prescription.patient.age} years
-                                </Typography>
-                              </Box>
-                              <Box
-                                display="flex"
-                                justifyContent="space-between"
-                              >
-                                <Typography
-                                  variant="body2"
-                                  color="text.secondary"
-                                >
-                                  Gender:
-                                </Typography>
-                                <Typography
-                                  variant="body1"
-                                  fontWeight={600}
-                                >
-                                  {prescription.patient.gender}
-                                </Typography>
-                              </Box>
-                            </Stack>
-                          </Paper>
-                        </motion.div>
-                      </Grid2>
-
-                      {/* Doctor Info */}
-                      <Grid2 size={{ xs: 12, md: 6 }}>
-                        <motion.div
-                          initial={{ opacity: 0, x: 20 }}
-                          animate={{ opacity: 1, x: 0 }}
-                          transition={{ duration: 0.5, delay: 0.1 }}
-                        >
-                          <Paper
-                            sx={{
-                              p: 3,
-                              borderRadius: 3,
-                              background: `linear-gradient(135deg, ${cardBackground} 0%, rgba(76, 175, 80, 0.05) 100%)`,
-                              border: "1px solid rgba(76, 175, 80, 0.1)",
-                            }}
-                          >
-                            <Stack
-                              direction="row"
-                              alignItems="center"
-                              spacing={2}
-                              mb={2}
-                            >
-                              <LocalHospital
-                                sx={{ color: "success.main", fontSize: 28 }}
-                              />
-                              <Typography
-                                variant="h6"
-                                fontWeight={700}
-                                color={textPrimary}
-                              >
-                                Doctor Information
-                              </Typography>
-                            </Stack>
-                            <Stack spacing={1.5}>
-                              <Box
-                                display="flex"
-                                justifyContent="space-between"
-                              >
-                                <Typography
-                                  variant="body2"
-                                  color="text.secondary"
-                                >
-                                  Doctor:
-                                </Typography>
-                                <Typography
-                                  variant="body1"
-                                  fontWeight={600}
-                                >
-                                  {prescription.doctor.name}
-                                </Typography>
-                              </Box>
-                              <Box
-                                display="flex"
-                                justifyContent="space-between"
-                              >
-                                <Typography
-                                  variant="body2"
-                                  color="text.secondary"
-                                >
-                                  License:
-                                </Typography>
-                                <Typography
-                                  variant="body1"
-                                  fontWeight={600}
-                                >
-                                  #{prescription.doctor.license}
-                                </Typography>
-                              </Box>
-                              <Box
-                                display="flex"
-                                justifyContent="space-between"
-                              >
-                                <Typography
-                                  variant="body2"
-                                  color="text.secondary"
-                                >
-                                  Date:
-                                </Typography>
-                                <Typography
-                                  variant="body1"
-                                  fontWeight={600}
-                                >
-                                  {formatDate(prescription.prescriptionDate)}
-                                </Typography>
-                              </Box>
-                            </Stack>
-                          </Paper>
-                        </motion.div>
-                      </Grid2>
-                    </Grid2>
+                    <PatienDoctorInfo prescription={prescription} />
 
                     {/* Medications Section */}
                     <motion.div
@@ -938,106 +734,9 @@ const PrescriptionModal = ({
                                     {/* Matched Drugs */}
                                     {medication.available &&
                                       medication.matchedDrugs.length > 0 && (
-                                        <Box>
-                                          <Divider sx={{ my: 2 }} />
-                                          <Typography
-                                            variant="subtitle2"
-                                            fontWeight={600}
-                                            color="success.main"
-                                            gutterBottom
-                                          >
-                                            Available Options:
-                                          </Typography>
-                                          {medication.matchedDrugs.map(
-                                            (drug, drugIndex) => (
-                                              <Paper
-                                                key={drugIndex}
-                                                sx={{
-                                                  p: 2,
-                                                  mt: 1,
-                                                  borderRadius: 2,
-                                                  background:
-                                                    "rgba(76, 175, 80, 0.1)",
-                                                  border:
-                                                    "1px solid rgba(76, 175, 80, 0.2)",
-                                                }}
-                                              >
-                                                <Stack
-                                                  direction="row"
-                                                  alignItems="center"
-                                                  spacing={2}
-                                                  mb={1}
-                                                >
-                                                  <Avatar
-                                                    src={
-                                                      drug.inventory
-                                                        ?.profileImage
-                                                    }
-                                                    sx={{
-                                                      width: 32,
-                                                      height: 32,
-                                                    }}
-                                                  />
-                                                  <Box flex={1}>
-                                                    <Typography
-                                                      variant="body2"
-                                                      fontWeight={600}
-                                                    >
-                                                      {drug.name}
-                                                    </Typography>
-                                                    <Typography
-                                                      variant="caption"
-                                                      color="text.secondary"
-                                                    >
-                                                      {drug.inventory?.name} •
-                                                      Stock: {drug.stock}
-                                                    </Typography>
-                                                  </Box>
-                                                  <Box textAlign="right">
-                                                    <Typography
-                                                      variant="body2"
-                                                      fontWeight={700}
-                                                      color="success.main"
-                                                    >
-                                                      {formatPrice(
-                                                        drug.discountedPrice ||
-                                                          drug.price
-                                                      )}
-                                                    </Typography>
-                                                    {drug.discountedPrice &&
-                                                      drug.discountedPrice <
-                                                        drug.price && (
-                                                        <Typography
-                                                          variant="caption"
-                                                          sx={{
-                                                            textDecoration:
-                                                              "line-through",
-                                                          }}
-                                                        >
-                                                          {formatPrice(
-                                                            drug.price
-                                                          )}
-                                                        </Typography>
-                                                      )}
-                                                  </Box>
-                                                </Stack>
-                                                <Button
-                                                  variant="contained"
-                                                  size="small"
-                                                  startIcon={<ShoppingCart />}
-                                                  fullWidth
-                                                  sx={{
-                                                    borderRadius: 2,
-                                                    textTransform: "none",
-                                                    fontWeight: 600,
-                                                  }}
-                                                >
-                                                  Add to Cart
-                                                </Button>
-                                              </Paper>
-                                            )
-                                          )}
-                                        </Box>
+                                        <AvailableOptions
+                                          medication={medication}
+                                        />
                                       )}
                                   </CardContent>
                                 </Card>
@@ -1049,7 +748,8 @@ const PrescriptionModal = ({
                     </motion.div>
 
                     {/* Additional Notes */}
-                    {prescription.additionalNotes && (
+                    <AdditionNotes prescription={prescription} />
+                    {/* {prescription.additionalNotes && (
                       <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
@@ -1094,7 +794,7 @@ const PrescriptionModal = ({
                           </Stack>
                         </Paper>
                       </motion.div>
-                    )}
+                    )} */}
                   </motion.div>
                 )}
               </AnimatePresence>

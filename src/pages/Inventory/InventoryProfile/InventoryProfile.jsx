@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { Button, Container } from "@mui/material";
 
@@ -10,11 +10,11 @@ import { motion, AnimatePresence } from "framer-motion";
 import ProfileTabs from "./_components/ProfileTabs";
 import ProfileHeader from "./_components/ProfileHeader";
 import TabContent from "./_components/TabContent";
-import HeaderProfileSkeleton from "../../../components/Common/Loading/profile_headers_keleton";
+import HeaderProfileSkeleton from "@/components/Common/Loading/profile_headers_keleton";
 import {
   useDrugsSpecificInventory,
   useInfiniteDrugsSpecificInventory,
-} from "../../../lib/hooks/useDrugAction";
+} from "@/lib/hooks/useDrugAction";
 
 const InventoryProfile = () => {
   const [params, setParams] = useState({});
@@ -60,6 +60,10 @@ const InventoryProfile = () => {
       transition: { type: "spring", stiffness: 100 },
     },
   };
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
     <>

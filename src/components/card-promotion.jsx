@@ -1,5 +1,7 @@
 /* eslint-disable react/prop-types */
 import {
+  alpha,
+  Avatar,
   Box,
   Button,
   Card,
@@ -15,13 +17,18 @@ import BadgeStock from "./Common/badge-stock";
 import { getStockStatus } from "../lib/utils/status-stock";
 import BadgePromtion from "./Common/badge-promtion";
 import { formatNumber } from "../lib/utils/formateNumber";
+import { useNavigate } from "react-router-dom";
 
 export default function CardPromotion({ drug }) {
   //Mutation
   const { mutate, isLoading: loadingAddCard } = useAddToCart();
 
+  // Navigation
+  const navigate = useNavigate();
+
   //Themes
-  const { textPrimary, textSecondary, cardBackground } = useThemeConstants();
+  const { textPrimary, textSecondary, cardBackground, borderFocus } =
+    useThemeConstants();
 
   const stockStatus = getStockStatus(drug?.stock);
 
@@ -77,6 +84,7 @@ export default function CardPromotion({ drug }) {
 
       <CardContent sx={{ p: 3 }}>
         <Typography
+          onClick={() => navigate(`/pharmacy/drugdetails/${drug._id}`)}
           variant="h5"
           fontWeight={700}
           gutterBottom
@@ -91,6 +99,45 @@ export default function CardPromotion({ drug }) {
         >
           {drug.name}
         </Typography>
+
+        <Box
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            mt: 1,
+          }}
+        >
+          <Avatar
+            src={drug.inventory?.image || "/placeholder.svg?height=32&width=32"}
+            alt={drug.inventory?.name || "Pharmacy"}
+            sx={{
+              width: 35,
+              height: 35,
+              mr: 1,
+              border: `2px solid ${borderFocus}`,
+            }}
+          />
+          <Typography
+            variant="h6"
+            onClick={() =>
+              navigate(`/pharmacy/inventoryprofile/${drug.inventory._id}`)
+            }
+            sx={{
+              cursor: "pointer",
+              fontWeight: "bold",
+              color: alpha(textSecondary, 0.8),
+              maxWidth: "200px",
+              overflow: "hidden",
+              textOverflow: "ellipsis",
+              whiteSpace: "nowrap",
+              "&:hover": {
+                color: textPrimary,
+              },
+            }}
+          >
+            {drug.inventory?.name || "Unknown Pharmacy"}
+          </Typography>
+        </Box>
 
         {/* Price Section */}
         <Box>

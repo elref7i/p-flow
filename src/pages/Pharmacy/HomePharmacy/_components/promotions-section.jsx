@@ -26,16 +26,17 @@ export default function PromotionsSection() {
   const navigate = useNavigate();
 
   //Queries
-  const { data: promotionalMedicines, isLoading } = useInfinitePromotions({
+  const { data: promotionalMedicines, isLoading } = useInfinitePromotions(
     token,
-  });
+    { page: 1 }
+  );
 
   const flattenData = flattenedDrugs({ data: promotionalMedicines });
 
   // Conditions
-  if (isLoading) {
-    return <CardPromotionSkeleton count={4} />;
-  }
+  // if (isLoading) {
+  //   return <CardPromotionSkeleton count={4} />;
+  // }
 
   return (
     <Container
@@ -101,32 +102,36 @@ export default function PromotionsSection() {
           1200: { slidesPerView: 4, spaceBetween: 30 },
         }}
       >
-        <Grid
-          container
-          spacing={4}
-        >
-          {flattenData.map((drug, index) => (
-            <SwiperSlide key={drug._id}>
-              <Grid
-                item
-                xs={12}
-                sm={6}
-                md={3}
-                key={drug._id}
-              >
-                <motion.div
-                  initial={{ opacity: 0, y: 50 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: index * 0.1 }}
-                  viewport={{ once: true }}
-                  whileHover={{ y: -10 }}
+        {!isLoading ? (
+          <Grid
+            container
+            spacing={4}
+          >
+            {flattenData.map((drug, index) => (
+              <SwiperSlide key={drug._id}>
+                <Grid
+                  item
+                  xs={12}
+                  sm={6}
+                  md={3}
+                  key={drug._id}
                 >
-                  <CardPromotion drug={drug} />
-                </motion.div>
-              </Grid>
-            </SwiperSlide>
-          ))}
-        </Grid>
+                  <motion.div
+                    initial={{ opacity: 0, y: 50 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6, delay: index * 0.1 }}
+                    viewport={{ once: true }}
+                    whileHover={{ y: -10 }}
+                  >
+                    <CardPromotion drug={drug} />
+                  </motion.div>
+                </Grid>
+              </SwiperSlide>
+            ))}
+          </Grid>
+        ) : (
+          <CardPromotionSkeleton count={4} />
+        )}
       </Swiper>
 
       {/* View All Promotions Button */}

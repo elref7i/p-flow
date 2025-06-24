@@ -4,12 +4,14 @@ import { Phone, Room } from "@mui/icons-material";
 import { useThemeConstants } from "../../lib/constants/theme.constant";
 import MoreAction from "./menu_modal";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function WishlistCard({ inventory }) {
   //States
   const [anchorEl, setAnchorEl] = useState(false);
 
-  //Mutations
+  // Navigation
+  const navigate = useNavigate();
 
   //Themes
   const {
@@ -22,7 +24,7 @@ export default function WishlistCard({ inventory }) {
     transitionEasingEaseOut,
   } = useThemeConstants();
 
-  //Data
+  // Data
   const {
     name,
     phone,
@@ -82,10 +84,14 @@ export default function WishlistCard({ inventory }) {
               spacing={1}
             >
               <Typography
+                onClick={() =>
+                  navigate(`/pharmacy/inventoryprofile/${inventory._id}`)
+                }
                 variant="subtitle1"
                 sx={{
                   textTransform: "capitalize",
                   color: textPrimary,
+                  cursor: "pointer",
                   fontWeight: typography.h6.fontWeight,
                   fontSize: typography.h6.fontSize,
                   lineHeight: typography.h6.lineHeight,
