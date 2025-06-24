@@ -25,14 +25,14 @@ import OrderDetails from "../OrderDetails/OrderDetails";
 import { Helmet } from "react-helmet";
 import ConfirmCancelModal from "./components/ConfirmCancelModal";
 import OrdersSkeleton from "./components/OrdersSkeleton";
-import { useThemeConstants } from "../../../lib/constants/theme.constant";
+import EmptyPage from "../../../components/Common/empty-page";
+import ErrorPage from "../../../components/Common/error-page";
 
 export default function PharmacyOrders() {
-  const { data, isLoading } = useOrders();
+  const { data, isLoading, isError, error } = useOrders();
   const cancelOrder = useCancelOrder();
   const theme = useTheme();
   const isDark = theme.palette.mode === "dark";
-  const { textPrimary } = useThemeConstants();
   const [selectedOrder, setSelectedOrder] = useState(null);
   const [modalOpen, setModalOpen] = useState(false);
   const [isCanceling, setIsCanceling] = useState(false);
@@ -84,23 +84,25 @@ export default function PharmacyOrders() {
       statusColors[status] || { bg: "#E9ECEF", color: "#495057", icon: "❓" }
     );
   };
-
+  if (isError)
+    return (
+      <ErrorPage
+        errorMessage={error.message}
+        errorCode={error.status}
+        errorType={error.status}
+      />
+    );
   return (
     <>
       <Helmet>
         <title>Orders</title>
       </Helmet>
       {data.data.length === 0 ? (
-        <Typography
-          textAlign="center"
-          width="100%"
-          fontSize={20}
-          fontWeight={700}
-          color={textPrimary}
-          mt={5}
-        >
-          No orders yet
-        </Typography>
+        <EmptyPage
+          title={" No Orders Yet"}
+          subtitle={" You haven't placed any orders."}
+          customMessage={" Start shopping now and place your first order!"}
+        />
       ) : (
         <Box sx={{ px: { xs: 1, sm: 2, md: 3, lg: 4 }, py: { xs: 2, sm: 3 } }}>
           {data.data.map((order) => {

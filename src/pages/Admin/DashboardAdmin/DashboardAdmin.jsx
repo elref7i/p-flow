@@ -8,11 +8,15 @@ import TopInventories from "./components/TopInventories";
 import UsersStatistics from "./components/UsersStatistics";
 import TopCards from "./components/TopCards";
 
-const MainContent = styled(Box)(() => ({
+const MainContent = styled(Box)(({ theme }) => ({
   flexGrow: 1,
   maxWidth: "lg",
   mx: "auto",
   minHeight: "100vh",
+  width: "100%",
+  [theme.breakpoints.down("sm")]: {
+    minHeight: "auto",
+  },
 }));
 
 export default function DashboardAdmin() {
@@ -35,32 +39,41 @@ export default function DashboardAdmin() {
         sx={{
           display: "flex",
           bgcolor: dashboardBackground,
-          p: 1.5,
-          borderRadius: 2,
-          boxShadow: 8,
+          p: { xs: 1, sm: 1.5, md: 2 },
+          borderRadius: { xs: 1, sm: 2 },
+          boxShadow: { xs: 4, sm: 8 },
+          minHeight: { xs: "auto", sm: "100vh" },
         }}
         container="lg"
       >
         {/* Main Content */}
         <MainContent>
           {/* Metrics Cards */}
-          <TopCards />
+          <Box sx={{ mb: { xs: 2, sm: 3 } }}>
+            <TopCards />
+          </Box>
 
           {/* Charts Section */}
-          <Grid container spacing={3} sx={{ mb: 3 }}>
+          <Grid
+            container
+            spacing={{ xs: 2, sm: 3 }}
+            sx={{ mb: { xs: 2, sm: 3 } }}
+          >
             {/* Cashflow Chart */}
-            <Grid item xs={12} md={8}>
+            <Grid item xs={12} lg={8}>
               <CashflowChart />
             </Grid>
 
             {/* Income Breakdown */}
-            <Grid item xs={12} md={4}>
+            <Grid item xs={12} lg={4}>
               <UsersStatistics />
             </Grid>
           </Grid>
 
           {/* Transaction History */}
-          <TopInventories />
+          <Box>
+            <TopInventories />
+          </Box>
         </MainContent>
       </Box>
     </>
