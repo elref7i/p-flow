@@ -6,6 +6,7 @@ import { Helmet } from "react-helmet";
 import InventoryCardSkeleton from "./_components/InventoryCardSkeleton";
 import EnhancedInventoryCard from "../../../components/InventoryComponents/CardInventory/CardInventory";
 import { useGetAllInventoriesQuery } from "../../../lib/hooks/use-pharmacy";
+import EmptyPage from "../../../components/Common/empty-page";
 
 export default function Inventories() {
   //Context
@@ -78,6 +79,13 @@ export default function Inventories() {
           ))}
         </Grid>
       </Box>
+      {payload.inventories.length <= 0 && (
+        <EmptyPage
+          title={"Inventory is Empty"}
+          subtitle={"There are no products in your inventory"}
+          customMessage={"Add new items to keep your inventory up to date"}
+        />
+      )}
     </>
   );
 }

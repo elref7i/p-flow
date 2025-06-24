@@ -13,14 +13,24 @@ import { useNavigate } from "react-router-dom";
 import { useTypeContext } from "@/context/UserType.context";
 import { Helmet } from "react-helmet";
 import { useCategories } from "@/lib/hooks/use-admin";
+import EmptyPage from "../../../components/Common/empty-page";
+import ErrorPage from "../../../components/Common/error-page";
 
 export default function Categories() {
   const { textPrimary, cardBackground } = useThemeConstants();
-  const { data, isLoading } = useCategories();
+  const { data, isLoading, isError, error } = useCategories();
   const categories = data?.data || [];
   const navigate = useNavigate();
   const { role } = useTypeContext();
 
+  if (isError)
+    return (
+      <ErrorPage
+        errorMessage={error.message}
+        errorCode={error.status}
+        errorType={error.status}
+      />
+    );
   return (
     <>
       <Helmet>
@@ -298,6 +308,13 @@ export default function Categories() {
               </Grid>
             ))}
           </Grid>
+        )}
+        {categories.length <= 0 && (
+          <EmptyPage
+            title={" No Categories Available"}
+            subtitle={" We couldn't find any product categories"}
+            customMessage={" Try refreshing the page or come back later"}
+          />
         )}
       </Container>
     </>

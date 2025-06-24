@@ -16,6 +16,8 @@ import {
   totalItems,
 } from "../../../lib/constants/infinte-data";
 import InfiniteScrollComponent from "../../../components/infinite-scroll";
+import ErrorPage from "../../../components/Common/error-page";
+import EmptyPage from "../../../components/Common/empty-page";
 export default function Drugs() {
   //states
   const [params, setParams] = useState({ limit: 45 });
@@ -29,8 +31,15 @@ export default function Drugs() {
   // Debounce
   const [debouncedParams] = useDebounce(params, 500);
 
-  const { data, fetchNextPage, hasNextPage, isLoading, isFetched } =
-    useInfiniteDrugs(token, debouncedParams);
+  const {
+    data,
+    fetchNextPage,
+    hasNextPage,
+    isLoading,
+    isFetched,
+    isError,
+    error,
+  } = useInfiniteDrugs(token, debouncedParams);
 
   //Themes
   const { typography } = useThemeConstants();
@@ -90,6 +99,15 @@ export default function Drugs() {
 
   // Flatten the data from all pages
   const flattenData = flattenedDrugs({ data });
+
+  if (isError)
+    return (
+      <ErrorPage
+        errorMessage={error.message}
+        errorCode={error.status}
+        errorType={error.status}
+      />
+    );
 
   return (
     <>
@@ -256,6 +274,13 @@ export default function Drugs() {
         />
       ) : (
         <DrugCardSkeleton count={6} />
+      )}
+      {flattenData.length <= 0 && (
+        <EmptyPage
+          title={"No Drugs Found"}
+          subtitle={" We couldn’t find any matching drugs"}
+          customMessage={"Try searching with a different name or category"}
+        />
       )}
     </>
   );

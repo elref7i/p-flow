@@ -6,6 +6,8 @@ import {
   totalItems,
 } from "../../../lib/constants/infinte-data";
 import InfiniteScrollComponent from "../../../components/infinite-scroll";
+import ErrorPage from "../../../components/Common/error-page";
+import EmptyPage from "../../../components/Common/empty-page";
 
 export default function Promotions() {
   const { token } = useTypeContext();
@@ -15,6 +17,8 @@ export default function Promotions() {
     fetchNextPage,
     hasNextPage,
     isFetched,
+    isError,
+    error,
   } = useInfinitePromotions(token, {});
 
   console.log(promotionalMedicines);
@@ -27,7 +31,14 @@ export default function Promotions() {
   // Flatten the data from all pages
   const flattenData = flattenedDrugs({ data: promotionalMedicines });
 
-  console.log(flattenData);
+  if (isError)
+    return (
+      <ErrorPage
+        errorMessage={error.message}
+        errorCode={error.status}
+        errorType={error.status}
+      />
+    );
 
   return (
     <>
@@ -42,6 +53,13 @@ export default function Promotions() {
         />
       ) : (
         <CardPromotionSkeleton />
+      )}
+      {flattenData.length <= 0 && (
+        <EmptyPage
+          title={"No Offers Right Now"}
+          subtitle={"There are currently no active promotions"}
+          customMessage={" Stay tuned for upcoming deals and discounts"}
+        />
       )}
     </>
   );

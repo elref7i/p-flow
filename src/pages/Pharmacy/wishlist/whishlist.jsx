@@ -9,6 +9,8 @@ import { useThemeConstants } from "../../../lib/constants/theme.constant";
 import { useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet";
 import WishlistSkeleton from "./_components/WishlistSkeleton";
+import ErrorPage from "../../../components/Common/error-page";
+import EmptyPage from "../../../components/Common/empty-page";
 
 export default function Whishlist() {
   //Context
@@ -18,12 +20,24 @@ export default function Whishlist() {
   const navigate = useNavigate();
 
   // Queries
-  const { data: payload, isLoading } = useWishlist({ token });
+  const { data: payload, isLoading, error, isError } = useWishlist({ token });
 
   //Thems
+  console.log(isError);
+  console.log(error);
+
   const { typography, textPrimary } = useThemeConstants();
 
   const clearWishlistMutation = useClearWishlist();
+
+  if (isError)
+    return (
+      <ErrorPage
+        errorMessage={error.message}
+        errorCode={error.status}
+        errorType={error.status}
+      />
+    );
 
   if (isLoading) return <WishlistSkeleton />;
 
@@ -121,15 +135,11 @@ export default function Whishlist() {
           </Grid2>
         ))}
         {payload.data.length <= 0 && (
-          <Typography
-            textAlign={"center"}
-            width={"100%"}
-            fontSize={20}
-            fontWeight={700}
-            color={textPrimary}
-          >
-            Empty
-          </Typography>
+          <EmptyPage
+            title={"Your wishlist is empty"}
+            subtitle={"You haven’t added any items yet"}
+            customMessage={" Browse products and save your favorites for later"}
+          />
         )}
       </Grid2>
     </>

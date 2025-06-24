@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import DrugCardSkeleton from "./Common/Loading/DrugCardSkeleton";
-import { Button, Grid2 } from "@mui/material";
+import { Grid2 } from "@mui/material";
 import DrugCard from "./PharmacyComonents/DrugCard/DrugCard";
 import InfiniteScroll from "react-infinite-scroll-component";
 import CardPromotion from "./card-promotion";
@@ -25,12 +25,6 @@ export default function InfiniteScrollComponent({
         ) : (
           <CardPromotionSkeleton />
         )
-      }
-      endMessage={
-        <p style={{ textAlign: "center", padding: "20px" }}>
-          <b>You have seen all drugs</b>
-          <Button variant="contained">Search By AI</Button>
-        </p>
       }
       scrollThreshold={0.8}
       style={{ overflow: "visible" }}
