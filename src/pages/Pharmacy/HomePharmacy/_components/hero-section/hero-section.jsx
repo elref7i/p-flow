@@ -1,16 +1,14 @@
-/* eslint-disable react/prop-types */
 import { Box, Container } from "@mui/material";
 import {
   motion,
   useScroll,
   useTransform,
   useMotionValue,
-  useSpring,
   AnimatePresence,
 } from "framer-motion";
 import { useRef, useState, useEffect } from "react";
 import { LocalPharmacy, Psychology, Science } from "@mui/icons-material";
-import { useThemeConstants } from "../../../../../lib/constants/theme.constant";
+import { useThemeConstants } from "@/lib/constants/theme.constant";
 import PulseRing from "./_components/plues-ring";
 import DNAHelix from "./_components/dna";
 import EnhancedFloatingParticle from "./_components/enhanced-floating";
@@ -20,22 +18,26 @@ import DynamicResearch from "./_components/dynamic-research";
 import AiFeatures from "./_components/ai-features";
 
 export default function HeroVariation1() {
-  const { backgroundElevated } = useThemeConstants();
-  const ref = useRef(null);
+  // States
   const [isLoaded, setIsLoaded] = useState(false);
   const [currentParticleColor, setCurrentParticleColor] = useState(0);
+
+  //Themes
+  const { backgroundElevated } = useThemeConstants();
+
+  // Hooks
+  const ref = useRef(null);
 
   // Smooth mouse tracking
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
-  const smoothMouseX = useSpring(mouseX, { stiffness: 100, damping: 20 });
-  const smoothMouseY = useSpring(mouseY, { stiffness: 100, damping: 20 });
 
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["start start", "end start"],
   });
 
+  // Variables
   const y = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
   const opacity = useTransform(scrollYProgress, [0, 1], [1, 0]);
   const scale = useTransform(scrollYProgress, [0, 1], [1, 0.8]);
@@ -173,32 +175,6 @@ export default function HeroVariation1() {
             duration: 25,
             repeat: Number.POSITIVE_INFINITY,
             ease: "linear",
-          }}
-        />
-
-        {/* Interactive Mouse Light */}
-        <motion.div
-          style={{
-            position: "absolute",
-            width: 400,
-            height: 400,
-            borderRadius: "50%",
-            background:
-              "radial-gradient(circle, rgba(33, 150, 243, 0.15) 0%, transparent 70%)",
-            pointerEvents: "none",
-            x: smoothMouseX,
-            y: smoothMouseY,
-            left: -200,
-            top: -200,
-          }}
-          animate={{
-            scale: [1, 1.2, 1],
-            opacity: [0.3, 0.6, 0.3],
-          }}
-          transition={{
-            duration: 4,
-            repeat: Number.POSITIVE_INFINITY,
-            ease: "easeInOut",
           }}
         />
 

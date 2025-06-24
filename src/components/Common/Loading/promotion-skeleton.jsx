@@ -1,5 +1,4 @@
 /* eslint-disable react/prop-types */
-"use client";
 
 import {
   Box,
@@ -13,7 +12,7 @@ import {
 import { motion } from "framer-motion";
 import { useThemeConstants } from "../../../lib/constants/theme.constant";
 
-export default function CardPromotionSkeleton() {
+export default function CardPromotionSkeleton({ count = 4 }) {
   const { cardBackground } = useThemeConstants();
 
   return (
@@ -25,7 +24,7 @@ export default function CardPromotionSkeleton() {
         container
         spacing={4}
       >
-        {[...Array(8)].map((_, index) => (
+        {[...Array(count)].map((_, index) => (
           <Grid
             item
             xs={12}

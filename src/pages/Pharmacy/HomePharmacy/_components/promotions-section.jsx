@@ -1,18 +1,19 @@
 import { Box, Container, Typography, Button, Grid } from "@mui/material";
 import { motion } from "framer-motion";
 import { LocalOffer } from "@mui/icons-material";
-import { useThemeConstants } from "../../../../lib/constants/theme.constant";
+import { useThemeConstants } from "@/lib/constants/theme.constant";
 
-import { useInfinitePromotions } from "../../../../lib/hooks/usepromotion";
-import { useTypeContext } from "../../../../context/UserType.context";
+import { useInfinitePromotions } from "@/lib/hooks/usepromotion";
+import { useTypeContext } from "@/context/UserType.context";
 import { Autoplay, Navigation } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/autoplay";
 import "swiper/css/navigation";
-import CardPromotion from "../../../../components/card-promotion";
+import CardPromotion from "@/components/card-promotion";
 import { useNavigate } from "react-router-dom";
-import { flattenedDrugs } from "../../../../lib/constants/infinte-data";
+import { flattenedDrugs } from "@/lib/constants/infinte-data";
+import CardPromotionSkeleton from "@/components/Common/Loading/promotion-skeleton";
 
 export default function PromotionsSection() {
   // Context
@@ -33,19 +34,7 @@ export default function PromotionsSection() {
 
   // Conditions
   if (isLoading) {
-    return (
-      <Container
-        maxWidth="xl"
-        sx={{ py: 8 }}
-      >
-        <Box
-          display="flex"
-          justifyContent="center"
-        >
-          <Typography>Loading promotions...</Typography>
-        </Box>
-      </Container>
-    );
+    return <CardPromotionSkeleton count={4} />;
   }
 
   return (
