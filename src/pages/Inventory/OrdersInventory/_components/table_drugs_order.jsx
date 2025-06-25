@@ -48,23 +48,14 @@ export default function TableDrugsOrder({ drugs, pricing }) {
           gap: 1,
         }}
       >
-        <MedicalServices
-          fontSize="small"
-          color="primary"
-        />
-        <Typography
-          variant="subtitle1"
-          sx={{ fontWeight: "bold" }}
-        >
+        <MedicalServices fontSize="small" color="primary" />
+        <Typography variant="subtitle1" sx={{ fontWeight: "bold" }}>
           Ordered Drugs
         </Typography>
       </Box>
       <CardContent sx={{ p: 0 }}>
         <TableContainer sx={{ maxHeight: 300, overflowY: "auto" }}>
-          <Table
-            size="small"
-            stickyHeader
-          >
+          <Table size="small" stickyHeader>
             <TableHead>
               <TableRow>
                 <TableCell sx={{ fontWeight: "bold", bgcolor: cardBackground }}>
@@ -106,11 +97,7 @@ export default function TableDrugsOrder({ drugs, pricing }) {
                   }}
                 >
                   <TableCell>
-                    <Tooltip
-                      title={drugItem.drug.name}
-                      arrow
-                      placement="top"
-                    >
+                    <Tooltip title={drugItem.drug.name} arrow placement="top">
                       <Typography
                         variant="body2"
                         sx={{
@@ -125,7 +112,7 @@ export default function TableDrugsOrder({ drugs, pricing }) {
                     </Tooltip>
                   </TableCell>
                   <TableCell align="center">
-                    ${drugItem.drug.price.toFixed(2)}
+                    {drugItem.drug.price.toFixed(2)} L.E
                   </TableCell>
                   <TableCell align="center">
                     <Chip
@@ -155,11 +142,9 @@ export default function TableDrugsOrder({ drugs, pricing }) {
                       }}
                     />
                   </TableCell>
-                  <TableCell
-                    align="right"
-                    sx={{ fontWeight: "medium" }}
-                  >
-                    ${(drugItem.drug.price * drugItem.paidQuantity).toFixed(2)}
+                  <TableCell align="right" sx={{ fontWeight: "medium" }}>
+                    {(drugItem.drug.price * drugItem.paidQuantity).toFixed(2)}{" "}
+                    L.E
                   </TableCell>
                 </TableRow>
               ))}
@@ -175,7 +160,7 @@ export default function TableDrugsOrder({ drugs, pricing }) {
                   align="right"
                   sx={{ fontWeight: "bold", color: textLink, fontSize: "15px" }}
                 >
-                  ${pricing.subtotal.toFixed(2)}
+                  {pricing.subtotal.toFixed(2)} L.E
                 </TableCell>
               </TableRow>
             </TableBody>

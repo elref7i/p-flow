@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { AttachMoney, Receipt } from "@mui/icons-material";
+import { Receipt } from "@mui/icons-material";
 import {
   Avatar,
   Box,
@@ -16,6 +16,7 @@ import {
   getStatusIcon,
 } from "../utils/status_functions";
 import { useThemeConstants } from "../../../../lib/constants/theme.constant";
+import LocalAtmIcon from "@mui/icons-material/LocalAtm";
 
 export default function OrderSummary({ order }) {
   const {
@@ -26,18 +27,9 @@ export default function OrderSummary({ order }) {
     textPrimary,
   } = useThemeConstants();
   return (
-    <Grid
-      container
-      spacing={3}
-      sx={{ mb: 4 }}
-    >
+    <Grid container spacing={3} sx={{ mb: 4 }}>
       {/* Order ID Card */}
-      <Grid
-        item
-        xs={12}
-        sm={6}
-        md={3}
-      >
+      <Grid item xs={12} sm={6} md={3}>
         <Card
           elevation={0}
           sx={{
@@ -51,11 +43,7 @@ export default function OrderSummary({ order }) {
           }}
         >
           <CardContent>
-            <Stack
-              direction="row"
-              spacing={2}
-              alignItems="center"
-            >
+            <Stack direction="row" spacing={2} alignItems="center">
               <Avatar
                 sx={{
                   bgcolor: badgeBackground,
@@ -67,10 +55,7 @@ export default function OrderSummary({ order }) {
                 <Receipt />
               </Avatar>
               <Box>
-                <Typography
-                  variant="body2"
-                  color="text.secondary"
-                >
+                <Typography variant="body2" color="text.secondary">
                   Order Number
                 </Typography>
                 <Typography
@@ -87,12 +72,7 @@ export default function OrderSummary({ order }) {
       </Grid>
 
       {/* Status Card */}
-      <Grid
-        item
-        xs={12}
-        sm={6}
-        md={3}
-      >
+      <Grid item xs={12} sm={6} md={3}>
         <Card
           elevation={0}
           sx={{
@@ -106,11 +86,7 @@ export default function OrderSummary({ order }) {
           }}
         >
           <CardContent>
-            <Stack
-              direction="row"
-              spacing={2}
-              alignItems="center"
-            >
+            <Stack direction="row" spacing={2} alignItems="center">
               <Avatar
                 sx={{
                   bgcolor: `${getStatusColor(order.status)}20`,
@@ -122,10 +98,7 @@ export default function OrderSummary({ order }) {
                 {getStatusIcon(order.status)}
               </Avatar>
               <Box>
-                <Typography
-                  variant="body2"
-                  color="text.secondary"
-                >
+                <Typography variant="body2" color="text.secondary">
                   Order Status
                 </Typography>
                 <Chip
@@ -145,12 +118,7 @@ export default function OrderSummary({ order }) {
       </Grid>
 
       {/* Payment Status Card */}
-      <Grid
-        item
-        xs={12}
-        sm={6}
-        md={3}
-      >
+      <Grid item xs={12} sm={6} md={3}>
         <Card
           elevation={0}
           sx={{
@@ -164,11 +132,7 @@ export default function OrderSummary({ order }) {
           }}
         >
           <CardContent>
-            <Stack
-              direction="row"
-              spacing={2}
-              alignItems="center"
-            >
+            <Stack direction="row" spacing={2} alignItems="center">
               <Avatar
                 sx={{
                   bgcolor: `${getPaymentStatusColor(order.paymentStatus)}20`,
@@ -177,13 +141,10 @@ export default function OrderSummary({ order }) {
                   height: 48,
                 }}
               >
-                <AttachMoney />
+                <LocalAtmIcon />
               </Avatar>
               <Box>
-                <Typography
-                  variant="body2"
-                  color="text.secondary"
-                >
+                <Typography variant="body2" color="text.secondary">
                   Payment Status
                 </Typography>
                 <Chip
@@ -203,12 +164,7 @@ export default function OrderSummary({ order }) {
       </Grid>
 
       {/* Total Card */}
-      <Grid
-        item
-        xs={12}
-        sm={6}
-        md={3}
-      >
+      <Grid item xs={12} sm={6} md={3}>
         <Card
           elevation={0}
           sx={{
@@ -222,11 +178,7 @@ export default function OrderSummary({ order }) {
           }}
         >
           <CardContent>
-            <Stack
-              direction="row"
-              spacing={2}
-              alignItems="center"
-            >
+            <Stack direction="row" spacing={2} alignItems="center">
               <Avatar
                 sx={{
                   bgcolor: "#5E5ADB",
@@ -235,13 +187,10 @@ export default function OrderSummary({ order }) {
                   height: 48,
                 }}
               >
-                <AttachMoney />
+                <LocalAtmIcon />
               </Avatar>
               <Box>
-                <Typography
-                  variant="body2"
-                  color="text.secondary"
-                >
+                <Typography variant="body2" color="text.secondary">
                   Total Amount
                 </Typography>
                 <Typography
@@ -252,7 +201,7 @@ export default function OrderSummary({ order }) {
                     fontSize: "1.1rem",
                   }}
                 >
-                  ${order.pricing.total.toFixed(2)}
+                  {order.pricing.total.toFixed(2)} L.E
                 </Typography>
               </Box>
             </Stack>

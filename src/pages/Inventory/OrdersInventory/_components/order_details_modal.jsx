@@ -9,12 +9,11 @@ import {
   DialogActions,
   Typography,
   Grid,
-  IconButton,
   Stack,
   useTheme,
   useMediaQuery,
 } from "@mui/material";
-import { Visibility, Close, Receipt } from "@mui/icons-material";
+import { Visibility, Receipt } from "@mui/icons-material";
 import StepStatus from "./step_status";
 import OrderSummary from "./order_summary";
 import TableDrugsOrder from "./table_drugs_order";
@@ -31,7 +30,6 @@ export default function OrderDetailsModal({ order }) {
   //Themes
   const theme = useTheme();
   const {
-    textError,
     textPrimary,
     headerBackground,
     background,
@@ -113,13 +111,13 @@ export default function OrderDetailsModal({ order }) {
               Order Details
             </Typography>
           </Box>
-          <IconButton
+          {/* <IconButton
             onClick={handleClose}
             size="medium"
             sx={{ color: textError }}
           >
             <Close />
-          </IconButton>
+          </IconButton> */}
         </DialogTitle>
 
         <DialogContent sx={{ p: 0 }}>
@@ -131,16 +129,9 @@ export default function OrderDetailsModal({ order }) {
             <OrderSummary order={order} />
 
             {/* Order Details Section */}
-            <Grid
-              container
-              spacing={3}
-            >
+            <Grid container spacing={3}>
               {/* Left Column - Order Info */}
-              <Grid
-                item
-                xs={12}
-                md={4}
-              >
+              <Grid item xs={12} md={4}>
                 <Stack spacing={3}>
                   {/* Order Information */}
                   <OrderInformation order={order} />
@@ -154,11 +145,7 @@ export default function OrderDetailsModal({ order }) {
               </Grid>
 
               {/* Right Column - Products & History */}
-              <Grid
-                item
-                xs={12}
-                md={8}
-              >
+              <Grid item xs={12} md={8}>
                 <Stack spacing={3}>
                   {/* Products Card */}
                   <TableDrugsOrder
