@@ -49,7 +49,17 @@ export const useRemoveDrug = () => {
     mutationFn: ({ drugId }) => removeDrug({ token, drugId }),
     onSuccess: (data) => {
       toast.success(data.data.message);
-      queryClient.invalidateQueries(["cart"]);
+
+      const inventories = data?.data?.data?.inventories ?? [];
+
+      if (inventories.length === 0) {
+        queryClient.setQueryData(["cart"], (old) => ({
+          ...old,
+          data: { ...old.data, inventories: [] },
+        }));
+      } else {
+        queryClient.invalidateQueries(["cart"]);
+      }
     },
     onError: () => {
       toast.error("Error removing drug");
