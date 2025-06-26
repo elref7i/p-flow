@@ -97,10 +97,7 @@ const InventoryProfile = () => {
         )}
 
         {/* Pharmacy Tabs */}
-        <ProfileTabs
-          activeTab={activeTab}
-          handleTabChange={handleTabChange}
-        />
+        <ProfileTabs activeTab={activeTab} handleTabChange={handleTabChange} />
 
         {/* Tab Content */}
         <AnimatePresence mode="wait">
@@ -136,7 +133,7 @@ const InventoryProfile = () => {
           }}
           onClick={() => navigate(-1)}
         >
-          Back to Inventory Listdsds
+          Back to Inventory Lists
         </Button>
       </Container>
     </>

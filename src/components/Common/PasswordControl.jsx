@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { Visibility, VisibilityOff } from '@mui/icons-material';
+import { Visibility, VisibilityOff } from "@mui/icons-material";
 import {
   FormControl,
   IconButton,
@@ -7,8 +7,8 @@ import {
   InputLabel,
   OutlinedInput,
   FormHelperText,
-} from '@mui/material';
-import { useState } from 'react';
+} from "@mui/material";
+import { useState } from "react";
 
 export default function PasswordControl({
   error,
@@ -36,12 +36,12 @@ export default function PasswordControl({
       fullWidth
       sx={{
         mb: 1,
-        '&:focus-within label': {
-          color: 'text.secondary',
+        "&:focus-within label": {
+          color: "text.secondary",
         },
-        '&:focus-within .MuiOutlinedInput-root': {
-          '& fieldset': {
-            borderColor: 'text.secondary',
+        "&:focus-within .MuiOutlinedInput-root": {
+          "& fieldset": {
+            borderColor: "text.secondary",
           },
         },
       }}
@@ -49,14 +49,14 @@ export default function PasswordControl({
       error={error && touched}
     >
       <InputLabel
-        color={error && touched ? 'error' : 'primary'}
+        color={error && touched ? "error" : "primary"}
         htmlFor="outlined-adornment-password"
       >
         {text}
       </InputLabel>
       <OutlinedInput
         id="outlined-adornment-password"
-        type={showPassword ? 'text' : 'password'}
+        type={showPassword ? "text" : "password"}
         name={name}
         value={value}
         onChange={handleChange}
@@ -66,7 +66,7 @@ export default function PasswordControl({
           <InputAdornment position="end">
             <IconButton
               aria-label={
-                showPassword ? 'hide the password' : 'display the password'
+                showPassword ? "hide the password" : "display the password"
               }
               onClick={handleClickShowPassword}
               onMouseDown={handleMouseDownPassword}

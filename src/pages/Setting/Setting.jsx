@@ -13,6 +13,7 @@ import EmailUser from "./EmailUser";
 import { useTypeContext } from "../../context/UserType.context";
 import DeactivateAcount from "./DeactivateAcount";
 import { useThemeConstants } from "../../lib/constants/theme.constant";
+import MinimumOrderValue from "./MinimumOrderValue";
 
 export default function Setting() {
   //States
@@ -100,6 +101,16 @@ export default function Setting() {
             }}
           />
           <Tab
+            label="Minimum Order Value"
+            sx={{
+              color: theme.palette.text.primary,
+              "&.Mui-selected": {
+                color: textLink,
+              },
+              textTransform: "capitalize",
+            }}
+          />
+          <Tab
             label="Email"
             sx={{
               color: theme.palette.text.primary,
@@ -141,8 +152,9 @@ export default function Setting() {
       >
         {tabIndex === 0 && <Profile userData={userData} />}
         {tabIndex === 1 && <ChangePassword />}
-        {tabIndex === 2 && <EmailUser userData={userData} />}
-        {tabIndex === 3 && <DeactivateAcount />}
+        {tabIndex === 2 && <MinimumOrderValue />}
+        {tabIndex === 3 && <EmailUser userData={userData} />}
+        {tabIndex === 4 && <DeactivateAcount />}
       </Paper>
     </Stack>
   );

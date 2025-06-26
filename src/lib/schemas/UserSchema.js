@@ -32,6 +32,13 @@ export const updatesLoggedUserPass = Yup.object({
     ),
 });
 
+export const updateMinimumOrderSchema = Yup.object({
+  minimumOrderValue: Yup.number()
+    .typeError("Minimum order value must be a number.")
+    .required("Minimum order value is required.")
+    .min(100, "Minimum value must be at least 100."),
+});
+
 // مخطط التحقق باستخدام Yup
 
 export const UploadImageSchema = Yup.object().shape({
