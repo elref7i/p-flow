@@ -152,7 +152,7 @@ export default function Setting() {
       >
         {tabIndex === 0 && <Profile userData={userData} />}
         {tabIndex === 1 && <ChangePassword />}
-        {tabIndex === 2 && <MinimumOrderValue />}
+        {tabIndex === 2 && <MinimumOrderValue userData={userData} />}
         {tabIndex === 3 && <EmailUser userData={userData} />}
         {tabIndex === 4 && <DeactivateAcount />}
       </Paper>
