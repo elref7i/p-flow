@@ -39,18 +39,11 @@ export default function Cart() {
             : "0 4px 20px rgba(0, 0, 0, 0.05)",
         }}
       >
-        <Typography
-          variant="h4"
-          color="text.primary"
-          fontWeight="bold"
-        >
+        <Typography variant="h4" color="text.primary" fontWeight="bold">
           🛒 Your Cart is Empty
         </Typography>
 
-        <Typography
-          variant="body1"
-          color="text.secondary"
-        >
+        <Typography variant="body1" color="text.secondary">
           Looks like you haven&apos;t added anything yet.
         </Typography>
 
@@ -69,7 +62,7 @@ export default function Cart() {
   return (
     <>
       <Helmet>
-        <title>Pharmacy Cart</title>
+        <title>Cart</title>
         <meta
           name="description"
           content="Review and manage the drugs you've added to your pharmacy cart. Adjust quantities, remove items, and proceed to checkout."
@@ -78,18 +71,9 @@ export default function Cart() {
           name="keywords"
           content="pharmacy cart, medicine cart, pharmacy checkout, drug order, cart page, pharmacy shopping"
         />
-        <meta
-          name="author"
-          content="Your Pharmacy Website"
-        />
-        <meta
-          name="viewport"
-          content="width=device-width, initial-scale=1.0"
-        />
-        <meta
-          property="og:title"
-          content="Your Pharmacy Cart"
-        />
+        <meta name="author" content="Your Pharmacy Website" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta property="og:title" content="Your Pharmacy Cart" />
         <meta
           property="og:description"
           content="You've selected your pharmacy items. View and manage your cart before purchasing."
@@ -97,21 +81,10 @@ export default function Cart() {
       </Helmet>
 
       <Box sx={{ display: "flex", flexDirection: "column", minHeight: "100%" }}>
-        <Grid
-          container
-          spacing={5}
-          sx={{ flexGrow: 1 }}
-        >
+        <Grid container spacing={5} sx={{ flexGrow: 1 }}>
           {/* cart items */}
-          <Grid
-            item
-            xs={12}
-            md={9}
-          >
-            <Box
-              display="flex"
-              flexDirection="column"
-            >
+          <Grid item xs={12} md={9}>
+            <Box display="flex" flexDirection="column">
               {cartInfo.data.inventories.map((inventory) => (
                 <CartItem
                   key={inventory.inventory.id}
@@ -126,11 +99,7 @@ export default function Cart() {
           </Grid>
 
           {/* invoice */}
-          <Grid
-            item
-            xs={12}
-            md={3}
-          >
+          <Grid item xs={12} md={3}>
             <Box>
               <Invoice
                 selectedInventory={cartInfo.data.inventories.find(
@@ -176,16 +145,10 @@ export default function Cart() {
           onClose={() => setOpenClearDialog(false)}
         >
           <Box sx={{ p: 3, minWidth: 300 }}>
-            <Typography
-              variant="h6"
-              mb={2}
-            >
+            <Typography variant="h6" mb={2}>
               Confirm Clear Cart
             </Typography>
-            <Typography
-              variant="body2"
-              mb={3}
-            >
+            <Typography variant="body2" mb={3}>
               Are you sure you want to remove all items from your cart?
             </Typography>
 

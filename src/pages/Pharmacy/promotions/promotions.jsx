@@ -8,6 +8,7 @@ import {
 import InfiniteScrollComponent from "../../../components/infinite-scroll";
 import ErrorPage from "../../../components/Common/error-page";
 import EmptyPage from "../../../components/Common/empty-page";
+import { Helmet } from "react-helmet";
 
 export default function Promotions() {
   const { token } = useTypeContext();
@@ -42,6 +43,24 @@ export default function Promotions() {
 
   return (
     <>
+      <Helmet>
+        <title>Promotions</title>
+        <meta
+          name="description"
+          content="Manage active drug promotions and discounts in your pharmacy. Attract more customers with special offers using P-Flow."
+        />
+        <meta
+          name="keywords"
+          content="pharmacy promotions, drug discounts, special offers, pharmacy deals, P-Flow system"
+        />
+
+        <meta property="og:title" content="Promotions | P-Flow  System" />
+        <meta
+          property="og:description"
+          content="Create and manage drug promotions to increase customer engagement and boost sales with P-Flow."
+        />
+      </Helmet>
+
       {!isLoading && isFetched ? (
         <InfiniteScrollComponent
           page={"offers"}

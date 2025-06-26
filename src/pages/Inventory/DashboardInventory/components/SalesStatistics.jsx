@@ -1,4 +1,4 @@
-import { Box, Card, CardContent, Typography, useTheme } from "@mui/material";
+import { Box, Card, CardContent, Typography } from "@mui/material";
 import {
   LineChart,
   Line,
@@ -68,14 +68,11 @@ const SalesStatistics = () => {
           variant="h5"
           sx={{ fontWeight: "bold", color: textWarning, mb: 2 }}
         >
-          ${data[6].value.toLocaleString()}
+          {data[6].value.toLocaleString()} L.E
         </Typography>
 
         <Box sx={{ height: 300, mt: 4 }}>
-          <ResponsiveContainer
-            width="100%"
-            height="100%"
-          >
+          <ResponsiveContainer width="100%" height="100%">
             <LineChart
               data={data}
               margin={{
@@ -104,7 +101,10 @@ const SalesStatistics = () => {
                   borderRadius: 8,
                   boxShadow: "0 4px 20px rgba(0,0,0,0.1)",
                 }}
-                formatter={(value) => [`$${value.toLocaleString()}`, "Sales"]}
+                formatter={(value) => [
+                  `${value.toLocaleString()} L.E`,
+                  "Sales",
+                ]}
                 labelFormatter={(label) => `Month: ${label}`}
               />
               <Line

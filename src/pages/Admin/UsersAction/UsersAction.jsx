@@ -64,15 +64,9 @@ export default function UsersAction() {
     renderCell: (params) => (
       <Box sx={{ pt: 1 }}>
         {params.row.isVerified ? (
-          <VerifiedIcon
-            color="success"
-            fontSize="medium"
-          />
+          <VerifiedIcon color="success" fontSize="medium" />
         ) : (
-          <NewReleasesIcon
-            color="warning"
-            fontSize="medium"
-          />
+          <NewReleasesIcon color="warning" fontSize="medium" />
         )}
       </Box>
     ),
@@ -89,15 +83,9 @@ export default function UsersAction() {
     renderCell: (params) => (
       <Box sx={{ pt: 1 }}>
         {params.row.active === true ? (
-          <CheckCircleIcon
-            color="success"
-            fontSize="medium"
-          />
+          <CheckCircleIcon color="success" fontSize="medium" />
         ) : (
-          <CancelIcon
-            color="error"
-            fontSize="medium"
-          />
+          <CancelIcon color="error" fontSize="medium" />
         )}
       </Box>
     ),
@@ -108,7 +96,7 @@ export default function UsersAction() {
   return (
     <>
       <Helmet>
-        <title>Users Action</title>
+        <title>Users Actions</title>
         <meta
           name="description"
           content="A page that displays the actions that users can perform on their data in Our website."
@@ -117,10 +105,7 @@ export default function UsersAction() {
           name="keywords"
           content="users, actions, manage data, user control, account settings, website features"
         />
-        <meta
-          property="og:title"
-          content="User Action - Manage Your Data"
-        />
+        <meta property="og:title" content="User Action - Manage Your Data" />
         <meta
           property="og:description"
           content="Explore the available actions users can take to manage their data efficiently."

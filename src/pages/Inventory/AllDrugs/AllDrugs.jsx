@@ -29,7 +29,7 @@ export default function AllDrugs() {
   return (
     <>
       <Helmet>
-        <title>Inventory Drugs</title>
+        <title>All Drugs</title>
         <meta
           name="description"
           content="Manage and track your pharmacy's drug inventory efficiently with real-time updates."
@@ -38,10 +38,7 @@ export default function AllDrugs() {
           name="keywords"
           content="inventory, drugs, pharmacy, stock management, medicine, warehouse"
         />
-        <meta
-          property="og:title"
-          content="Inventory Drugs Management"
-        />
+        <meta property="og:title" content="Inventory Drugs Management" />
         <meta
           property="og:description"
           content="Easily track and manage pharmaceutical stock with our inventory system."

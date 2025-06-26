@@ -112,7 +112,7 @@ export default function Drugs() {
   return (
     <>
       <Helmet>
-        <title>Pharmacy Drugs </title>
+        <title> Drugs </title>
         <meta
           name="description"
           content="Browse a wide range of pharmacy drugs, including prescriptions and over-the-counter medicines."

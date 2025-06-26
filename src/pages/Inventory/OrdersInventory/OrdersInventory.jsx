@@ -46,10 +46,7 @@ export default function OrdersInventory() {
     sortable: false,
     renderCell: (params) => (
       <Box>
-        <UpdateStatusOrder
-          status={params.row.status}
-          id={params.row._id}
-        />
+        <UpdateStatusOrder status={params.row.status} id={params.row._id} />
         {params.row.status === "pending" ? (
           <AlertModal
             isDeleting={rejectOrder}
@@ -67,22 +64,19 @@ export default function OrdersInventory() {
   return (
     <>
       <Helmet>
-        <title>Users Action</title>
+        <title>Orders</title>
         <meta
           name="description"
-          content="A page that displays the actions that users can perform on their data in Our website."
+          content="View and manage all your pharmacy orders in one place. Track statuses, payment details, and more with the P-Flow system."
         />
         <meta
           name="keywords"
-          content="users, actions, manage data, user control, account settings, website features"
+          content="pharmacy orders, order management, P-Flow, order tracking, pharmacy system"
         />
-        <meta
-          property="og:title"
-          content="User Action - Manage Your Data"
-        />
+        <meta property="og:title" content="Orders | P-Flow Pharmacy System" />
         <meta
           property="og:description"
-          content="Explore the available actions users can take to manage their data efficiently."
+          content="Easily manage pharmacy orders, monitor status, and handle payments using the powerful P-Flow platform."
         />
       </Helmet>
       <Box

@@ -13,7 +13,7 @@ export default function HomePharmacy() {
   return (
     <>
       <Helmet>
-        <title>Pharmacy Home</title>
+        <title>Home Pharmacy</title>
         <meta
           name="description"
           content="Welcome to our online pharmacy. Find and order medicines with ease."

@@ -60,15 +60,9 @@ export default function DrugsAction() {
     renderCell: (params) => (
       <Box sx={{ pt: 1 }}>
         {params.row.isVisible ? (
-          <CheckCircleIcon
-            color="success"
-            fontSize="medium"
-          />
+          <CheckCircleIcon color="success" fontSize="medium" />
         ) : (
-          <CancelIcon
-            color="error"
-            fontSize="medium"
-          />
+          <CancelIcon color="error" fontSize="medium" />
         )}
       </Box>
     ),
@@ -83,15 +77,9 @@ export default function DrugsAction() {
     renderCell: (params) => (
       <Box sx={{ pt: 1 }}>
         {params.row.promotion.isActive ? (
-          <CheckCircleIcon
-            color="success"
-            fontSize="medium"
-          />
+          <CheckCircleIcon color="success" fontSize="medium" />
         ) : (
-          <CancelIcon
-            color="error"
-            fontSize="medium"
-          />
+          <CancelIcon color="error" fontSize="medium" />
         )}
       </Box>
     ),
@@ -118,7 +106,7 @@ export default function DrugsAction() {
   return (
     <>
       <Helmet>
-        <title>Drugs Action</title>
+        <title>Drugs Actions</title>
         <meta
           name="description"
           content="Manage your drug inventory with actions like updating and deleting drugs."
@@ -127,18 +115,12 @@ export default function DrugsAction() {
           name="keywords"
           content="drugs, inventory management, pharmacy, medicine, update drugs, delete drugs"
         />
-        <meta
-          property="og:title"
-          content="Manage Drugs - Pharmacy Inventory"
-        />
+        <meta property="og:title" content="Manage Drugs - Pharmacy Inventory" />
         <meta
           property="og:description"
           content="Easily update or delete drugs from your inventory with a user-friendly interface."
         />
-        <meta
-          property="og:type"
-          content="website"
-        />
+        <meta property="og:type" content="website" />
       </Helmet>
 
       <Box
