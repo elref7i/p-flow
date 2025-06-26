@@ -20,7 +20,7 @@ export default function Setting() {
   const [tabIndex, setTabIndex] = useState(0);
 
   //Context
-  const { userData } = useTypeContext();
+  const { userData, role } = useTypeContext();
 
   //Themes
   const theme = useTheme();
@@ -100,16 +100,7 @@ export default function Setting() {
               textTransform: "capitalize",
             }}
           />
-          <Tab
-            label="Minimum Order Value"
-            sx={{
-              color: theme.palette.text.primary,
-              "&.Mui-selected": {
-                color: textLink,
-              },
-              textTransform: "capitalize",
-            }}
-          />
+
           <Tab
             label="Email"
             sx={{
@@ -130,6 +121,18 @@ export default function Setting() {
               textTransform: "capitalize",
             }}
           />
+          {role === "inventory" && (
+            <Tab
+              label="Minimum Order Value"
+              sx={{
+                color: theme.palette.text.primary,
+                "&.Mui-selected": {
+                  color: textLink,
+                },
+                textTransform: "capitalize",
+              }}
+            />
+          )}
         </Tabs>
       </Paper>
 
@@ -152,9 +155,9 @@ export default function Setting() {
       >
         {tabIndex === 0 && <Profile userData={userData} />}
         {tabIndex === 1 && <ChangePassword />}
-        {tabIndex === 2 && <MinimumOrderValue userData={userData} />}
-        {tabIndex === 3 && <EmailUser userData={userData} />}
-        {tabIndex === 4 && <DeactivateAcount />}
+        {tabIndex === 2 && <EmailUser userData={userData} />}
+        {tabIndex === 3 && <DeactivateAcount />}
+        {tabIndex === 4 && <MinimumOrderValue userData={userData} />}
       </Paper>
     </Stack>
   );

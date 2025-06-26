@@ -55,7 +55,7 @@ export default function MinimumOrderValue({ userData }) {
         Update Minimum Order Value
       </CustomHead>
       <CustomParagraph mb={3}>
-        Please enter a new value for your minimum order amount.
+        Enter a new value for your minimum order value.
       </CustomParagraph>
       <Divider sx={{ mb: 3 }} />
 
