@@ -29,8 +29,6 @@ const ProfileBase = () => {
 
   const { data: payload, isLoading: LoadingHeader } = useOwnDrugs(token, {});
 
-  console.log(LoadingHeader);
-
   const {
     data: InfiniteData,
     fetchNextPage,
@@ -88,13 +86,11 @@ const ProfileBase = () => {
         ) : (
           <HeaderProfileSkeleton />
         )}
-
         {/* Pharmacy Tabs */}
         <ProfileTabs
           activeTab={activeTab}
           handleTabChange={handleTabChange}
         />
-
         {/* Tab Content */}
         <AnimatePresence mode="wait">
           <motion.div
@@ -116,7 +112,6 @@ const ProfileBase = () => {
             />
           </motion.div>
         </AnimatePresence>
-
         {/* Back Button */}
         <Button
           variant="text"

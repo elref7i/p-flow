@@ -26,6 +26,7 @@ const InventoryProfile = () => {
 
   const { data: dataHeader, isLoading: LoadingHeader } =
     useDrugsSpecificInventory(id, params);
+
   console.log(dataHeader);
 
   const {
@@ -97,7 +98,10 @@ const InventoryProfile = () => {
         )}
 
         {/* Pharmacy Tabs */}
-        <ProfileTabs activeTab={activeTab} handleTabChange={handleTabChange} />
+        <ProfileTabs
+          activeTab={activeTab}
+          handleTabChange={handleTabChange}
+        />
 
         {/* Tab Content */}
         <AnimatePresence mode="wait">

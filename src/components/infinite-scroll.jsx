@@ -29,13 +29,29 @@ export default function InfiniteScrollComponent({
       scrollThreshold={0.8}
       style={{ overflow: "visible" }}
     >
-      <Grid2 container spacing={4} py={2}>
+      <Grid2
+        container
+        spacing={4}
+        py={2}
+      >
         {flattenData.map((drug) => (
-          <Grid2 key={drug._id} size={{ xs: 12, md: 6, lg: layoutGrid }}>
+          <Grid2
+            key={drug._id}
+            size={{ xs: 12, md: 6, lg: layoutGrid }}
+          >
             {page === "drugs" ? (
-              <DrugCard dataInfo={drug} checkPage={true} checkdistance={true} />
-            ) : (
+              <DrugCard
+                dataInfo={drug}
+                checkPage={true}
+                checkdistance={true}
+              />
+            ) : page === "offers" ? (
               <CardPromotion drug={drug} />
+            ) : (
+              <DrugCard
+                dataInfo={drug}
+                checkPage={false}
+              />
             )}
           </Grid2>
         ))}

@@ -37,8 +37,7 @@ export default function PharmacyOrders() {
   const { data, isLoading, isError, error } = useOrders();
   const cancelOrder = useCancelOrder();
 
-  const { cardBackground, cardDetailsBackground, backgroundBlue } =
-    useThemeConstants();
+  const { cardDetailsBackground, backgroundBlue } = useThemeConstants();
 
   if (isLoading) return <OrdersSkeleton />;
 
@@ -200,7 +199,7 @@ export default function PharmacyOrders() {
                         <Paper
                           sx={{
                             p: 2,
-                            background: cardBackground,
+                            background: "cardBackground",
                             boxShadow: 8,
                             borderRadius: 2,
                             ":hover": {

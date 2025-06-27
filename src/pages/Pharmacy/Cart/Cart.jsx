@@ -61,17 +61,24 @@ export default function Cart() {
         />
       </Helmet>
 
-      <Box sx={{ display: "flex", flexDirection: "column", minHeight: "100%" }}>
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          minHeight: "100%",
+          pt: 3,
+        }}
+      >
         <Grid
           container
-          spacing={5}
+          spacing={3}
           sx={{ flexGrow: 1 }}
         >
           {/* cart items */}
           <Grid
             item
             xs={12}
-            md={9}
+            lg={7}
           >
             <Box
               display="flex"
@@ -94,7 +101,7 @@ export default function Cart() {
           <Grid
             item
             xs={12}
-            md={3}
+            lg={5}
           >
             <Box>
               <Invoice

@@ -1,14 +1,18 @@
-import { Box, Typography, Button, Tooltip, useTheme } from "@mui/material";
+import { Box, Typography, Button, Tooltip } from "@mui/material";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { useCreateOrder } from "@/lib/hooks/useOrdersAction";
 import { formatNumber } from "@/lib/utils/formateNumber";
 import { useCart } from "@/lib/hooks/use-cart";
+import { useThemeConstants } from "../../../lib/constants/theme.constant";
 
 /* eslint-disable react/prop-types */
 export default function Invoice({ selectedInventory }) {
-  const theme = useTheme();
-  const isDarkMode = theme.palette.mode === "dark";
-  const textColor = isDarkMode ? "#fff" : "#000";
+  const {
+    textPrimary,
+    backgroundElevated,
+    backgroundBlue,
+    cardActiveBackground,
+  } = useThemeConstants();
 
   const { data: cartInfo } = useCart();
   const createOrderMutation = useCreateOrder();
@@ -19,14 +23,14 @@ export default function Invoice({ selectedInventory }) {
   return (
     <Box
       sx={{
-        width: { xs: "100%", sm: "100%", md: "380px" },
+        width: { xs: "100%", sm: "100%", md: "480px" },
         height: { xs: "auto", sm: 600, md: 600 },
         minHeight: { xs: 400, sm: 600 },
         maxHeight: { xs: "70vh", sm: 600 },
-        mt: { xs: 2, sm: 4 },
-        backgroundColor: isDarkMode ? "#0e1a2b" : "#F5F5F5",
-        boxShadow: "0px 3px 10px rgba(103, 161, 247, 0.3)",
-        color: textColor,
+        backgroundColor: backgroundElevated,
+        boxShadow: 8,
+        color: textPrimary,
+        mx: "auto",
         borderRadius: 2,
         p: { xs: 1.5, sm: 2.5 },
         display: "flex",
@@ -46,7 +50,7 @@ export default function Invoice({ selectedInventory }) {
         >
           <Box
             sx={{
-              bgcolor: "#007bff",
+              bgcolor: backgroundBlue,
               borderRadius: 1,
               p: { xs: 0.3, sm: 0.5 },
               display: "flex",
@@ -76,7 +80,6 @@ export default function Invoice({ selectedInventory }) {
           flexGrow: 1,
           overflowY: "auto",
           minHeight: 0,
-          pr: { xs: 1, sm: 2 },
           display: "flex",
           flexDirection: "column",
         }}
@@ -90,11 +93,15 @@ export default function Invoice({ selectedInventory }) {
                   display: "flex",
                   alignItems: "center",
                   borderRadius: 1,
-                  p: { xs: 0.8, sm: 1 },
+                  p: { xs: 0.8, sm: 2 },
                   mb: { xs: 1.5, sm: 2 },
-                  backgroundColor: isDarkMode ? "#1e293b" : "#e4e4e4",
+                  backgroundColor: cardActiveBackground,
+                  boxShadow: 8,
                   flexDirection: { xs: "row", sm: "row" },
                   gap: { xs: 0.5, sm: 0 },
+                  ":hover": {
+                    boxShadow: 7,
+                  },
                 }}
               >
                 <Box
@@ -106,11 +113,14 @@ export default function Invoice({ selectedInventory }) {
                     minWidth: 0,
                   }}
                 >
-                  <Tooltip title={drug.name} arrow>
+                  <Tooltip
+                    title={drug.name}
+                    arrow
+                  >
                     <Typography
                       fontSize={{ xs: 13, sm: 14 }}
                       fontWeight="bold"
-                      style={{ color: textColor }}
+                      style={{ color: textPrimary }}
                       sx={{
                         overflow: "hidden",
                         textOverflow: "ellipsis",
@@ -142,7 +152,6 @@ export default function Invoice({ selectedInventory }) {
                     <Typography
                       fontSize={{ xs: 12, sm: 13 }}
                       fontWeight="bold"
-                      style={{ color: textColor }}
                     >
                       x{quantity}
                     </Typography>

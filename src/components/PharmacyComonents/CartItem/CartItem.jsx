@@ -7,8 +7,8 @@ import {
   Tooltip,
   Snackbar,
   Alert,
-  Divider,
   Dialog,
+  Stack,
 } from "@mui/material";
 import LoadingSpinner from "../../Common/Loading/LoadingSpinner";
 import { formatNumber } from "@/lib/utils/formateNumber";
@@ -17,7 +17,6 @@ import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
 import LocalAtmIcon from "@mui/icons-material/LocalAtm";
 import CloseIcon from "@mui/icons-material/Close";
 import LocalOfferIcon from "@mui/icons-material/LocalOffer";
-import { useTheme } from "@mui/material/styles";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useTypeContext } from "@/context/UserType.context";
@@ -28,6 +27,7 @@ import {
   useUpdateCartItem,
 } from "@/lib/hooks/use-cart";
 import { useGetAllInventoriesQuery } from "../../../lib/hooks/use-pharmacy";
+import { useThemeConstants } from "../../../lib/constants/theme.constant";
 
 export default function CartItem({
   inventoryInfo,
@@ -36,16 +36,23 @@ export default function CartItem({
   setSelectedInventory,
 }) {
   const [showWarning, setShowWarning] = useState(false);
+  const [openConfirmDialog, setOpenConfirmDialog] = useState(false);
   const navigate = useNavigate();
   const { token } = useTypeContext();
-  const theme = useTheme();
-  const isDarkMode = theme.palette.mode === "dark";
   const removeInventoryMutation = useRemoveInventory();
   const removeDrugMutation = useRemoveDrug();
   const updateQuantityMutation = useUpdateCartItem();
   const queryClient = useQueryClient();
-  const [openConfirmDialog, setOpenConfirmDialog] = useState(false);
   const { data } = useGetAllInventoriesQuery({ token });
+
+  const {
+    textPrimary,
+    cardDetailsBackground,
+    cardActiveBackground,
+    textSecondary,
+    backgroundBlue,
+    buttonText,
+  } = useThemeConstants();
 
   const minimumOrderValue = data?.inventories.find(
     (inv) => inv._id === inventoryInfo.inventory.id
@@ -85,15 +92,27 @@ export default function CartItem({
       sx={{
         p: { xs: 1.5, sm: 2, md: 3 },
         borderRadius: 3,
-        backgroundColor: isDarkMode ? "#0e1a2b" : "#f9f9f9",
+        backgroundColor: cardDetailsBackground,
         width: "100%",
-        color: isDarkMode ? "#ffffff" : "#000000",
-        boxShadow: "0px 3px 10px rgba(103, 161, 247, 0.3)",
+        color: textPrimary,
+        boxShadow: 7,
         mb: { xs: 1.5, sm: 2, md: 2.5 },
-        mt: { xs: 1.5, sm: 2, md: 3.5 },
       }}
     >
-      <Box sx={{ display: "flex", alignItems: "center", mb: 1 }}>
+      <Box
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          mb: 1,
+          p: 2,
+          backgroundColor: cardDetailsBackground,
+          boxShadow: 8,
+          borderRadius: 2,
+          ":hover": {
+            boxShadow: 7,
+          },
+        }}
+      >
         <Typography
           variant="h6"
           onClick={() => navigate(`/pharmacy/inventoryprofile/${inventory.id}`)}
@@ -116,17 +135,16 @@ export default function CartItem({
         </IconButton>
       </Box>
 
-      <Divider sx={{ my: { xs: 1.5, sm: 2 } }} />
-
       <Box
         sx={{
           display: "grid",
-          gridTemplateColumns: { xs: "1fr", sm: "1fr 1fr" },
+          gridTemplateColumns: { xs: "1fr", sm: "1fr", md: "1fr 1fr" },
           gridTemplateRows: { xs: "auto", sm: "repeat(2, 1fr)" },
           gap: { xs: 1.5, sm: 2 },
           maxHeight: { xs: 300, sm: 170 },
           overflowY: "auto",
           overflowX: "hidden",
+          my: 3,
           pr: 1,
           mb: { xs: 2, sm: 2.5 },
         }}
@@ -143,13 +161,15 @@ export default function CartItem({
                 flexDirection: "column",
                 borderRadius: 2,
                 px: { xs: 1.5, sm: 2 },
-                py: { xs: 1, sm: 1 },
-                backgroundColor: isDarkMode ? "#1e293b" : "#e0e0e0",
-                boxShadow: "0 2px 5px rgba(0,0,0,0.1)",
+                py: 2,
+                background: cardActiveBackground,
+                boxShadow: 8,
+                ":hover": {
+                  boxShadow: 7,
+                },
                 overflow: "visible",
                 mt: hasPromotion ? { xs: 1, sm: 1.5 } : 0,
                 mr: hasPromotion ? { xs: 1, sm: 1.5 } : 0,
-                minHeight: { xs: 80, sm: 70 },
               }}
             >
               {hasPromotion && (
@@ -169,82 +189,84 @@ export default function CartItem({
                     display: "flex",
                     alignItems: "center",
                     gap: { xs: 0.2, sm: 0.3 },
-                    boxShadow: "0 2px 8px rgba(0,0,0,0.3)",
+                    boxShadow: 8,
                     zIndex: 10,
                     minWidth: "fit-content",
                     whiteSpace: "nowrap",
                   }}
                 >
                   <LocalOfferIcon
-                    sx={{ fontSize: { xs: 10, sm: 12 }, color: "#fff" }}
+                    sx={{ fontSize: { xs: 10, sm: 12 }, color: textPrimary }}
                   />
                   {drug.promotion.buyQuantity} + {drug.promotion.freeQuantity}
                 </Box>
               )}
-              <Tooltip title={drug.name} arrow>
-                <Typography
-                  variant="body1"
-                  onClick={() => navigate(`/pharmacy/drugdetails/${drugId}`)}
-                  sx={{
-                    fontWeight: 600,
-                    cursor: "pointer",
-                    fontSize: { xs: "0.8rem", sm: "0.9rem" },
-                    lineHeight: { xs: 1.3, sm: 1.4 },
-                    wordBreak: "break-word",
-                    whiteSpace: "normal",
-                    display: "-webkit-box",
-                    WebkitLineClamp: { xs: 2, sm: 2 },
-                    WebkitBoxOrient: "vertical",
-                    overflow: "hidden",
-                    mb: 0.5,
-                  }}
-                >
-                  {drug.name}
-                </Typography>
-              </Tooltip>
-              <Box
-                sx={{
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "center",
-                  mt: "auto",
-                  flexWrap: { xs: "wrap", sm: "nowrap" },
-                  gap: { xs: 1, sm: 0 },
-                }}
+              <Stack
+                direction={"row"}
+                justifyContent={"space-between"}
+                alignItems={"center"}
               >
-                <Typography
-                  sx={{
-                    fontSize: { xs: "0.7rem", sm: "0.75rem", md: "0.8rem" },
-                    fontWeight: "bold",
-                    color: isDarkMode ? "#ccc" : "#555",
-                    order: { xs: 2, sm: 1 },
-                    width: { xs: "100%", sm: "auto" },
-                  }}
+                <Box
+                  title={drug.name}
+                  arrow
                 >
-                  Price: {formatNumber(price)} L.E
-                </Typography>
+                  <Typography
+                    variant="body1"
+                    onClick={() => navigate(`/pharmacy/drugdetails/${drugId}`)}
+                    sx={{
+                      fontWeight: 600,
+                      cursor: "pointer",
+                      fontSize: { xs: "0.8rem", sm: "0.9rem" },
+                      wordBreak: "break-word",
+                      whiteSpace: "normal",
+                      minWidth: "20px",
+                      maxWidth: { sm: "250px", md: "150px" },
+                      textWrap: "nowrap",
+                      display: "-webkit-box",
+                      WebkitLineClamp: { xs: 2, sm: 2 },
+                      WebkitBoxOrient: "vertical",
+                      lineHeight: 1.2,
+                      overflow: "hidden",
+                      textOverflow: "ellipsis",
+                      mb: 0.5,
+                    }}
+                  >
+                    {drug.name}
+                  </Typography>
+                  <Typography
+                    sx={{
+                      fontSize: { xs: "0.7rem", sm: "0.75rem", md: "0.8rem" },
+                      fontWeight: "bold",
+                      color: textSecondary,
+                      order: { xs: 2, sm: 1 },
+                      width: { xs: "100%", sm: "auto" },
+                    }}
+                  >
+                    Price: {formatNumber(price)} L.E
+                  </Typography>
+                </Box>
+
                 <Box
                   sx={{
                     display: "flex",
                     alignItems: "center",
                     gap: { xs: 0.2, sm: 0.3 },
-                    flexShrink: 0,
                     order: { xs: 1, sm: 2 },
                     justifyContent: { xs: "center", sm: "flex-end" },
-                    width: { xs: "100%", sm: "auto" },
                   }}
                 >
+                  {" "}
                   <IconButton
                     size="small"
                     onClick={() =>
                       updateQuantityMutation.mutate({
                         drugId,
-                        quantity: quantity + 1,
+                        quantity: quantity - 1,
                       })
                     }
                     sx={{ p: { xs: 0.3, sm: 0.5 } }}
                   >
-                    <AddCircleOutlineIcon
+                    <RemoveCircleOutlineIcon
                       sx={{ fontSize: { xs: 16, sm: 18 } }}
                     />
                   </IconButton>
@@ -261,12 +283,12 @@ export default function CartItem({
                     onClick={() =>
                       updateQuantityMutation.mutate({
                         drugId,
-                        quantity: quantity - 1,
+                        quantity: quantity + 1,
                       })
                     }
                     sx={{ p: { xs: 0.3, sm: 0.5 } }}
                   >
-                    <RemoveCircleOutlineIcon
+                    <AddCircleOutlineIcon
                       sx={{ fontSize: { xs: 16, sm: 18 } }}
                     />
                   </IconButton>
@@ -279,7 +301,7 @@ export default function CartItem({
                     <CloseIcon sx={{ fontSize: { xs: 16, sm: 18 } }} />
                   </IconButton>
                 </Box>
-              </Box>
+              </Stack>
             </Box>
           );
         })}
@@ -299,8 +321,8 @@ export default function CartItem({
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
-            bgcolor: "#007bff",
-            color: "#fff",
+            bgcolor: backgroundBlue,
+            color: buttonText,
             px: { xs: 1.5, sm: 2 },
             py: { xs: 1, sm: 1 },
             borderRadius: 2,
@@ -363,7 +385,10 @@ export default function CartItem({
         onClose={() => setShowWarning(false)}
         anchorOrigin={{ vertical: "top", horizontal: "center" }}
       >
-        <Alert severity="warning" onClose={() => setShowWarning(false)}>
+        <Alert
+          severity="warning"
+          onClose={() => setShowWarning(false)}
+        >
           Your Total Order must be at least {minimumOrderValue} L.E to proceed.
         </Alert>
       </Snackbar>

@@ -1,17 +1,12 @@
 /* eslint-disable react/prop-types */
-import { Box, Typography, Grid2 } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import InventoryIcon from "@mui/icons-material/Inventory";
-import { motion } from "framer-motion";
-import DrugCard from "../../../../components/PharmacyComonents/DrugCard/DrugCard";
 import DrugCardSkeleton from "../../../../components/Common/Loading/DrugCardSkeleton";
-import InfiniteScroll from "react-infinite-scroll-component";
-import { Button } from "react-scroll";
-import LoadingSpinner from "../../../../components/Common/Loading/LoadingSpinner";
+import InfiniteScrollComponent from "../../../../components/infinite-scroll";
 
 const TabContent = ({
   activeTab,
   dataInfo,
-  isFetched,
   fetchNextPage,
   hasNextPage,
   LoadingOwnDrugs,
@@ -34,44 +29,14 @@ const TabContent = ({
     <>
       {activeTab === 0 &&
         (!LoadingOwnDrugs ? (
-          <InfiniteScroll
-            dataLength={totalItems}
-            next={fetchNextPage}
-            hasMore={hasNextPage}
-            loader={<DrugCardSkeleton count={3} />}
-            endMessage={
-              <p style={{ textAlign: "center", padding: "20px" }}>
-                <b>You have seen all drugs</b>
-                <Button variant="contained">Search By AI</Button>
-              </p>
-            }
-            scrollThreshold={0.8}
-            style={{ overflow: "hidden" }}
-          >
-            <Grid2
-              container
-              spacing={4}
-              py={2}
-            >
-              {isFetched ? (
-                flattenedDrugs.map((drug) => (
-                  <Grid2
-                    component={motion.div}
-                    animate="visible"
-                    key={drug._id}
-                    size={{ xs: 12, md: 6, lg: 4 }}
-                  >
-                    <DrugCard
-                      dataInfo={drug}
-                      checkPage={false}
-                    />
-                  </Grid2>
-                ))
-              ) : (
-                <LoadingSpinner />
-              )}
-            </Grid2>
-          </InfiniteScroll>
+          <InfiniteScrollComponent
+            page={"inventoryProfile"}
+            layoutGrid={4}
+            fetchNextPage={fetchNextPage}
+            flattenData={flattenedDrugs}
+            total={totalItems}
+            hasNextPage={hasNextPage}
+          />
         ) : (
           <DrugCardSkeleton count={6} />
         ))}
@@ -79,44 +44,14 @@ const TabContent = ({
       {activeTab === 1 && (
         <Box sx={{ textAlign: "center", py: 2 }}>
           {!LoadingOwnDrugs ? (
-            <InfiniteScroll
-              dataLength={totalItems}
-              next={fetchNextPage}
-              hasMore={hasNextPage}
-              loader={<DrugCardSkeleton count={3} />}
-              endMessage={
-                <p style={{ textAlign: "center", padding: "20px" }}>
-                  <b>You have seen all drugs</b>
-                  <Button variant="contained">Search By AI</Button>
-                </p>
-              }
-              scrollThreshold={0.8}
-              style={{ overflow: "hidden" }}
-            >
-              <Grid2
-                container
-                spacing={4}
-                py={2}
-              >
-                {isFetched ? (
-                  flattenedDrugs.map((drug) => (
-                    <Grid2
-                      component={motion.div}
-                      animate="visible"
-                      key={drug._id}
-                      size={{ xs: 12, md: 6, lg: 4 }}
-                    >
-                      <DrugCard
-                        dataInfo={drug}
-                        checkPage={false}
-                      />
-                    </Grid2>
-                  ))
-                ) : (
-                  <LoadingSpinner />
-                )}
-              </Grid2>
-            </InfiniteScroll>
+            <InfiniteScrollComponent
+              page={"inventoryProfile"}
+              layoutGrid={4}
+              fetchNextPage={fetchNextPage}
+              flattenData={flattenedDrugs}
+              total={totalItems}
+              hasNextPage={hasNextPage}
+            />
           ) : (
             <DrugCardSkeleton count={6} />
           )}

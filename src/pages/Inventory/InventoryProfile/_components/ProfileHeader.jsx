@@ -2,18 +2,17 @@
 import {
   Box,
   Typography,
-  Button,
   Avatar,
   useTheme,
   alpha,
   Chip,
   Divider,
+  Stack,
 } from "@mui/material";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import LocalPhoneIcon from "@mui/icons-material/LocalPhone";
 import EmailIcon from "@mui/icons-material/Email";
 import VerifiedIcon from "@mui/icons-material/Verified";
-import MessageIcon from "@mui/icons-material/Message";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import { motion } from "framer-motion";
 import { useTypeContext } from "../../../../context/UserType.context";
@@ -29,6 +28,8 @@ const ProfileHeader = ({
   //Context
   const { role } = useTypeContext();
 
+  console.log("inventory", inventory);
+
   //Theme
   const theme = useTheme();
   const {
@@ -37,14 +38,11 @@ const ProfileHeader = ({
     paperBackground,
     badgeBackground,
     gradientNavy,
-    buttonBackground,
-    buttonHoverBackground,
     transitionDurationShort,
     border,
     borderFocus,
     textPrimary,
     typography,
-    buttonText,
     textSecondary,
     textSuccess,
   } = useThemeConstants();
@@ -151,63 +149,19 @@ const ProfileHeader = ({
             >
               {inventory.name}
             </Typography>
-            <Chip
-              size="medium"
-              label="Verified"
-              color="primary"
-              variant="outlined"
-              sx={{
-                height: 22,
-                fontSize: typography.body1.fontSize,
-                lineHeight: typography.body1.lineHeight,
-                ml: 1,
-              }}
-            />
           </Box>
-
-          {/* !Tsting */}
-          {/* <Typography
-            variant="body1"
-            color="text.secondary"
+          <Chip
+            size="medium"
+            label="Verified"
+            color="primary"
+            variant="outlined"
             sx={{
-              mb: 2,
-              maxWidth: "600px",
-              lineHeight: 1.6,
+              height: 22,
+              fontSize: typography.body1.fontSize,
+              lineHeight: typography.body1.lineHeight,
+              ml: 1,
             }}
-          >
-            inventory.description
-          </Typography> */}
-
-          {role === "pharmacy" && (
-            <Box
-              sx={{
-                display: "flex",
-                mb: 2,
-              }}
-            >
-              <Button
-                variant="contained"
-                size="medium"
-                startIcon={<MessageIcon />}
-                sx={{
-                  color: buttonText,
-                  borderRadius: 2,
-                  fontSize: typography.button.fontSize,
-                  textTransform: "none",
-                  px: 3,
-                  py: 1,
-                  fontWeight: "bold",
-                  background: buttonBackground,
-                  boxShadow: 1,
-                  "&:hover": {
-                    background: buttonHoverBackground,
-                  },
-                }}
-              >
-                Message
-              </Button>
-            </Box>
-          )}
+          />
         </Box>
       </Box>
 
@@ -275,53 +229,106 @@ const ProfileHeader = ({
           sx={{ mx: 2, background: borderFocus }}
         />
 
-        <Box
-          sx={{ textAlign: "center" }}
-          component={motion.div}
-          variants={itemVariants}
+        <Stack
+          direction={"row"}
+          gap={2}
+          justifyContent={"center"}
         >
-          <Typography
-            variant="h6"
-            sx={{
-              color: textPrimary,
-              width: 40,
-              height: 40,
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              background: cardActiveBackground,
-              mx: "auto",
-              boxShadow: 6,
-              mb: 1,
-              borderRadius: "50%",
-              fontWeight: typography.h3.fontWeight,
-              fontSize: typography.h3.fontSize,
-              lineHeight: typography.h3.lineHeight,
-            }}
+          {role === "inventory" || (
+            <Box
+              sx={{ textAlign: "center" }}
+              component={motion.div}
+              variants={itemVariants}
+            >
+              <Typography
+                variant="h6"
+                sx={{
+                  color: textPrimary,
+                  width: 45,
+                  height: 45,
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  background: cardActiveBackground,
+                  mx: "auto",
+                  boxShadow: 6,
+                  mb: 1,
+                  borderRadius: "50%",
+                  fontWeight: typography.h3.fontWeight,
+                  fontSize: typography.h6.fontSize,
+                  lineHeight: typography.h3.lineHeight,
+                }}
+              >
+                {inventory.minimumOrderValue}
+              </Typography>
+              <Typography
+                variant="h6"
+                color="text.secondary"
+                sx={{
+                  color: textSecondary,
+                  textTransform: "capitalize",
+                  fontWeight: typography.body2.fontWeight,
+                  fontSize: typography.body2.fontSize,
+                }}
+              >
+                Order Value
+              </Typography>
+            </Box>
+          )}
+
+          <Box
+            sx={{ textAlign: "center" }}
+            component={motion.div}
+            variants={itemVariants}
           >
-            {totalProducts.totalDocuments}
-          </Typography>
-          <Typography
-            variant="h6"
-            color="text.secondary"
-            sx={{
-              color: textSecondary,
-              textTransform: "capitalize",
-              fontWeight: typography.body2.fontWeight,
-              fontSize: typography.body2.fontSize,
-              lineHeight: typography.body2.lineHeight,
-            }}
-          >
-            Available Products
-          </Typography>
-        </Box>
+            <Typography
+              variant="h6"
+              sx={{
+                color: textPrimary,
+                width: 45,
+                height: 45,
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                background: cardActiveBackground,
+                mx: "auto",
+                boxShadow: 6,
+                mb: 1,
+                borderRadius: "50%",
+                fontWeight: typography.h6.fontWeight,
+                fontSize: typography.h6.fontSize,
+                lineHeight: typography.h3.lineHeight,
+              }}
+            >
+              {totalProducts.totalDocuments}
+            </Typography>
+            <Typography
+              variant="h6"
+              color="text.secondary"
+              sx={{
+                color: textSecondary,
+                textTransform: "capitalize",
+                fontWeight: typography.body2.fontWeight,
+                fontSize: typography.body2.fontSize,
+                lineHeight: typography.body2.lineHeight,
+              }}
+            >
+              Available Products
+            </Typography>
+          </Box>
+        </Stack>
       </Box>
 
       {/* Contact Info Cards */}
       <Box
         sx={{
           display: "grid",
-          gridTemplateColumns: { xs: "1fr", sm: "1fr 1fr 1fr" },
+          gridTemplateColumns: {
+            xs: "1fr",
+            sm: "1fr",
+            md: "1fr 1fr",
+            lg: "1fr 1fr 1fr",
+          },
           gap: 2,
           mb: 2,
         }}
@@ -363,7 +370,6 @@ const ProfileHeader = ({
               fontWeight="bold"
               color="text.primary"
             >
-              {/* {inventory.governorate} */}
               Location
             </Typography>
             <Typography
@@ -374,7 +380,6 @@ const ProfileHeader = ({
             </Typography>
           </Box>
         </Box>
-
         <Box
           component={motion.div}
           variants={itemVariants}
