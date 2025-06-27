@@ -37,7 +37,13 @@ export default function PharmacyOrders() {
   const { data, isLoading, isError, error } = useOrders();
   const cancelOrder = useCancelOrder();
 
-  const { cardDetailsBackground, backgroundBlue } = useThemeConstants();
+  const {
+    cardDetailsBackground,
+    backgroundBlue,
+    cardBackground,
+    textLink,
+    badgeBackground,
+  } = useThemeConstants();
 
   if (isLoading) return <OrdersSkeleton />;
 
@@ -147,7 +153,15 @@ export default function PharmacyOrders() {
                       spacing={2}
                       alignItems="center"
                     >
-                      <Avatar sx={{ width: 48, height: 48 }}>
+                      <Avatar
+                        sx={{
+                          width: 48,
+                          height: 48,
+                          color: textLink,
+                          background: badgeBackground,
+                          boxShadow: 8,
+                        }}
+                      >
                         <ShoppingCartIcon />
                       </Avatar>
                       <Box>
@@ -199,7 +213,7 @@ export default function PharmacyOrders() {
                         <Paper
                           sx={{
                             p: 2,
-                            background: "cardBackground",
+                            background: cardBackground,
                             boxShadow: 8,
                             borderRadius: 2,
                             ":hover": {
