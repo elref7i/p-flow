@@ -43,23 +43,11 @@ export default function StatisticsOrdersSkeleton() {
                 mr: 1,
               }}
             >
-              <Skeleton
-                variant="circular"
-                width={9}
-                height={9}
-              />
+              <Skeleton variant="circular" width={9} height={9} />
             </Box>
-            <Skeleton
-              variant="text"
-              width="80%"
-              height={20}
-            />
+            <Skeleton variant="text" width="80%" height={20} />
           </Box>
-          <Skeleton
-            variant="text"
-            width="60%"
-            height={40}
-          />
+          <Skeleton variant="text" width="60%" height={40} />
         </Card>
       ))}
     </>

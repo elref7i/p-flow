@@ -1,4 +1,5 @@
 import imageTest from "../../../../src/assets/all-drug-light.png";
+import OrderManagment from "../../../../src/assets/order-inv-light.png";
 export const howItWorksSteps = [
   {
     title: "AI Drug Finder",
@@ -86,6 +87,6 @@ export const howItWorksSteps = [
           "Stock updates automatically after each order is placed or fulfilled.",
       },
     ],
-    image: imageTest,
+    image: OrderManagment,
   },
 ];

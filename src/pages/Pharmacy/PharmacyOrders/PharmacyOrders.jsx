@@ -199,7 +199,7 @@ export default function PharmacyOrders() {
                               Price : {formatNumber(item.drug.price)} L.E
                             </Typography>
                             <Typography variant="body2" color="text.secondary">
-                              Qty: {item.paidQuantity}
+                              Qty: {item.paidQuantity + item.freeItems}
                             </Typography>
                           </Box>
                         </Paper>
