@@ -1,4 +1,9 @@
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import {
+  useInfiniteQuery,
+  useMutation,
+  useQuery,
+  useQueryClient,
+} from "@tanstack/react-query";
 import {
   ActiveAdminUser,
   addAdminUser,
@@ -168,13 +173,17 @@ export const useDeleteCategory = () => {
 };
 
 // GER DRUGS FOR CATEGORY
-export const useCategoryDrugs = ({ id }) => {
-  const { token } = useTypeContext();
-  return useQuery({
-    queryKey: ["CategoryDrugs", id],
-    queryFn: () => getDrugsForCategory({ token, id }),
-    refetchOnMount: false,
+
+export const useInfiniteCategoryDrugs = (token, id, params = {}) => {
+  return useInfiniteQuery({
+    queryKey: ["infinite-Promotions", params, id],
+    queryFn: ({ pageParam = 1 }) =>
+      getDrugsForCategory(token, id, { ...params, page: pageParam }),
+    getNextPageParam: (lastPage) =>
+      lastPage.paginationResult?.next || undefined,
+    keepPreviousData: false,
     refetchOnWindowFocus: false,
+    staleTime: 5 * 60 * 1000,
   });
 };
 

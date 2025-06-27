@@ -9,31 +9,52 @@ import {
   Button,
 } from "@mui/material";
 import { Helmet } from "react-helmet";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { useNavigate, useParams } from "react-router-dom";
 import Inventory2OutlinedIcon from "@mui/icons-material/Inventory2Outlined";
 import MedicalServicesIcon from "@mui/icons-material/MedicalServices";
 import TrendingUpIcon from "@mui/icons-material/TrendingUp";
 import VerifiedIcon from "@mui/icons-material/Verified";
-import { useCategoryDrugs } from "@/lib/hooks/use-admin";
-import DrugCard from "../../../components/PharmacyComonents/DrugCard/DrugCard";
-import CategoryDrugSkeleton from "../../../components/Common/Loading/categories-specific-skeleton";
-import ErrorPage from "../../../components/Common/error-page";
-import { useThemeConstants } from "../../../lib/constants/theme.constant";
+import CategoryDrugSkeleton from "@/components/Common/Loading/categories-specific-skeleton";
+import ErrorPage from "@/components/Common/error-page";
+import { useThemeConstants } from "@/lib/constants/theme.constant";
+import { useTypeContext } from "@/context/UserType.context";
+import InfiniteScrollComponent from "@/components/infinite-scroll";
+import { flattenedDrugs, totalItems } from "@/lib/constants/infinte-data";
+import CardPromotionSkeleton from "@/components/Common/Loading/promotion-skeleton";
+import { useInfiniteCategoryDrugs } from "@/lib/hooks/use-admin";
 
 export default function CategoryDrugs() {
   const { id } = useParams();
-  const { data, isLoading, isError, error } = useCategoryDrugs({ id });
-  const categoryDrugs = data?.data || [];
-  const categoryName = categoryDrugs[0]?.category?.name;
-  const categoryImage = categoryDrugs[0]?.category?.imageCover;
+  const { token } = useTypeContext();
 
-  const { backgroundElevated, cardBackground, borderHover } =
+  const {
+    data: CategoresDrugsData,
+    isLoading: LoadingInfinite,
+    fetchNextPage,
+    hasNextPage,
+    isFetched,
+    isError,
+    error,
+  } = useInfiniteCategoryDrugs(token, id, {});
+
+  console.log(CategoresDrugsData);
+
+  // Total Items
+  const total = totalItems({ data: CategoresDrugsData });
+
+  // Flatten the data from all pages
+  const flattenData = flattenedDrugs({ data: CategoresDrugsData });
+
+  const categoryName = flattenData[0]?.category?.name;
+  const categoryImage = flattenData[0]?.category?.imageCover;
+
+  const { backgroundElevated, cardBackground, borderHover, textPrimary } =
     useThemeConstants();
   const theme = useTheme();
   const navigate = useNavigate();
 
-  if (isLoading) return <CategoryDrugSkeleton />;
+  if (LoadingInfinite) return <CategoryDrugSkeleton />;
 
   if (isError)
     return (
@@ -52,19 +73,6 @@ export default function CategoryDrugs() {
       transition: {
         duration: 0.6,
         staggerChildren: 0.1,
-      },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 30, scale: 0.95 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      scale: 1,
-      transition: {
-        duration: 0.5,
-        ease: [0.25, 0.46, 0.45, 0.94],
       },
     },
   };
@@ -91,7 +99,7 @@ export default function CategoryDrugs() {
         />
       </Helmet>
 
-      {categoryDrugs.length > 0 ? (
+      {flattenData.length > 0 ? (
         <>
           <Helmet>
             <title> {categoryName} drugs </title>
@@ -121,7 +129,6 @@ export default function CategoryDrugs() {
                 pointerEvents: "none",
               }}
             />
-
             <Container
               maxWidth="xl"
               sx={{
@@ -247,10 +254,7 @@ export default function CategoryDrugs() {
                         <Typography
                           variant="h6"
                           sx={{
-                            color:
-                              theme.palette.mode === "dark"
-                                ? "rgba(255,255,255,0.7)"
-                                : "rgba(0,0,0,0.6)",
+                            color: textPrimary,
                             fontWeight: 400,
                             mb: 3,
                             lineHeight: 1.6,
@@ -266,7 +270,7 @@ export default function CategoryDrugs() {
                         >
                           <Chip
                             icon={<MedicalServicesIcon />}
-                            label={`${categoryDrugs.length} Products`}
+                            label={`${flattenData.length} Products`}
                             sx={{
                               background:
                                 "linear-gradient(135deg, #4285f4, #1976d2)",
@@ -310,36 +314,18 @@ export default function CategoryDrugs() {
                 initial="hidden"
                 animate="visible"
               >
-                <Grid
-                  container
-                  spacing={3}
-                >
-                  <AnimatePresence mode="wait">
-                    {categoryDrugs.map((item, index) => (
-                      <Grid
-                        item
-                        key={item._id}
-                        xs={12}
-                        sm={6}
-                        lg={4}
-                      >
-                        <motion.div
-                          variants={itemVariants}
-                          initial="hidden"
-                          animate="visible"
-                          exit="hidden"
-                          transition={{ delay: index * 0.05 }}
-                          style={{ height: "100%" }}
-                        >
-                          <DrugCard
-                            dataInfo={item}
-                            checkPage={true}
-                          />
-                        </motion.div>
-                      </Grid>
-                    ))}
-                  </AnimatePresence>
-                </Grid>
+                {!LoadingInfinite && isFetched ? (
+                  <InfiniteScrollComponent
+                    page={"drugs"}
+                    fetchNextPage={fetchNextPage}
+                    flattenData={flattenData}
+                    total={total}
+                    hasNextPage={hasNextPage}
+                    layoutGrid={4}
+                  />
+                ) : (
+                  <CardPromotionSkeleton />
+                )}
               </motion.div>
             </Container>
           </Box>
