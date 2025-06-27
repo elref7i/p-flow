@@ -21,3 +21,23 @@ export default function BadgePromtion({ promotion }) {
     />
   );
 }
+
+export function BadgePromtionTwo({ promotion }) {
+  return (
+    <Chip
+      label={getPromotionText(promotion)}
+      sx={{
+        position: "absolute",
+        top: -2,
+        right: -19,
+        bgcolor: "red",
+        color: "white",
+        fontWeight: 500,
+        fontSize: ".7rem",
+        rotate: "30deg",
+        boxShadow: 12,
+        zIndex: 88,
+      }}
+    />
+  );
+}

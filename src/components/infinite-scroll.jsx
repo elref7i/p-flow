@@ -44,6 +44,7 @@ export default function InfiniteScrollComponent({
                 dataInfo={drug}
                 checkPage={true}
                 checkdistance={true}
+                checkActive={true}
               />
             ) : page === "offers" ? (
               <CardPromotion drug={drug} />

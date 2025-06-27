@@ -264,14 +264,16 @@ export default function Drugs() {
       </Box>
 
       {!isLoading && isFetched ? (
-        <InfiniteScrollComponent
-          page={"drugs"}
-          layoutGrid={4}
-          fetchNextPage={fetchNextPage}
-          flattenData={flattenData}
-          total={total}
-          hasNextPage={hasNextPage}
-        />
+        <Box pt={3}>
+          <InfiniteScrollComponent
+            page={"drugs"}
+            layoutGrid={4}
+            fetchNextPage={fetchNextPage}
+            flattenData={flattenData}
+            total={total}
+            hasNextPage={hasNextPage}
+          />
+        </Box>
       ) : (
         <DrugCardSkeleton count={6} />
       )}
