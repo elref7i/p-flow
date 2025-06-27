@@ -25,8 +25,8 @@ export default function HomePharmacy() {
       </Helmet>
 
       <Box component={"main"}>
-        <HeroVariation1 />
         <HomeDrugsProvider>
+          <HeroVariation1 />
           <HomeDrugs />
         </HomeDrugsProvider>
         <CategorySection />
