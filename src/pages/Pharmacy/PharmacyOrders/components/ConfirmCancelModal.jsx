@@ -7,6 +7,8 @@ import {
   Button,
   Typography,
 } from "@mui/material";
+import { CardDelete } from "../../../../components/prescription-modal/styles/delete-model";
+import { useThemeConstants } from "../../../../lib/constants/theme.constant";
 
 export default function ConfirmCancelModal({
   open,
@@ -14,6 +16,8 @@ export default function ConfirmCancelModal({
   onConfirm,
   loading = false,
 }) {
+  const { adminBackground } = useThemeConstants();
+
   return (
     <Dialog
       open={open}
@@ -22,9 +26,8 @@ export default function ConfirmCancelModal({
       fullWidth
       PaperProps={{
         sx: {
-          borderRadius: 2,
-          p: 2,
-          textAlign: "center",
+          ...CardDelete,
+          background: adminBackground,
         },
       }}
     >
@@ -33,7 +36,10 @@ export default function ConfirmCancelModal({
       </DialogTitle>
 
       <DialogContent>
-        <Typography variant="body1" sx={{ color: "text.secondary" }}>
+        <Typography
+          variant="body1"
+          sx={{ color: "text.secondary" }}
+        >
           This action cannot be undone and your order will be permanently
           cancelled.
         </Typography>
@@ -48,20 +54,6 @@ export default function ConfirmCancelModal({
         }}
       >
         <Button
-          onClick={onClose}
-          variant="outlined"
-          disabled={loading}
-          sx={{
-            textTransform: "none",
-            fontWeight: "bold",
-            minWidth: 120,
-            borderRadius: 2,
-          }}
-        >
-          No, Keep
-        </Button>
-
-        <Button
           onClick={onConfirm}
           variant="contained"
           color="error"
@@ -74,6 +66,20 @@ export default function ConfirmCancelModal({
           }}
         >
           {loading ? "Cancelling..." : "Yes, Cancel"}
+        </Button>
+
+        <Button
+          onClick={onClose}
+          variant="outlined"
+          disabled={loading}
+          sx={{
+            textTransform: "none",
+            fontWeight: "bold",
+            minWidth: 120,
+            borderRadius: 2,
+          }}
+        >
+          No, Keep
         </Button>
       </DialogActions>
     </Dialog>

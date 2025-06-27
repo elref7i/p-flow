@@ -5,9 +5,7 @@ import {
   Grid,
   Button,
   Stack,
-  useTheme,
   Tooltip,
-  Divider,
   Chip,
   Avatar,
   CardContent,
@@ -27,17 +25,20 @@ import ConfirmCancelModal from "./components/ConfirmCancelModal";
 import OrdersSkeleton from "./components/OrdersSkeleton";
 import EmptyPage from "../../../components/Common/empty-page";
 import ErrorPage from "../../../components/Common/error-page";
+import { useThemeConstants } from "../../../lib/constants/theme.constant";
 
 export default function PharmacyOrders() {
-  const { data, isLoading, isError, error } = useOrders();
-  const cancelOrder = useCancelOrder();
-  const theme = useTheme();
-  const isDark = theme.palette.mode === "dark";
   const [selectedOrder, setSelectedOrder] = useState(null);
   const [modalOpen, setModalOpen] = useState(false);
   const [isCanceling, setIsCanceling] = useState(false);
   const [cancelingOrderId, setCancelingOrderId] = useState(null);
   const [confirmCancelModalOpen, setConfirmCancelModalOpen] = useState(false);
+
+  const { data, isLoading, isError, error } = useOrders();
+  const cancelOrder = useCancelOrder();
+
+  const { cardBackground, cardDetailsBackground, backgroundBlue } =
+    useThemeConstants();
 
   if (isLoading) return <OrdersSkeleton />;
 
@@ -104,39 +105,63 @@ export default function PharmacyOrders() {
           customMessage={" Start shopping now and place your first order!"}
         />
       ) : (
-        <Box sx={{ px: { xs: 1, sm: 2, md: 3, lg: 4 }, py: { xs: 2, sm: 3 } }}>
+        <Box
+          sx={{
+            px: { xs: 1, sm: 2, md: 3, lg: 4 },
+            py: { xs: 2, sm: 3 },
+          }}
+        >
           {data.data.map((order) => {
             const statusInfo = getStatusColor(order.status);
             return (
               <Card
                 key={order._id}
                 sx={{
-                  backgroundColor: isDark ? "#0e1a2b" : "#f9f9f9",
+                  backgroundColor: cardDetailsBackground,
                   mb: { xs: 3, sm: 4 },
                   borderRadius: { xs: 2, sm: 3 },
-                  boxShadow: "0px 3px 10px rgba(103, 161, 247, 0.3)",
+                  boxShadow: 8,
                   transition: "0.3s",
                   "&:hover": {
                     transform: "translateY(-2px)",
                   },
                 }}
               >
-                <Box sx={{ p: { xs: 2, sm: 2.5, md: 2 } }}>
+                <Box
+                  sx={{
+                    p: { xs: 2, sm: 2.5, md: 2 },
+                    background: cardDetailsBackground,
+                    boxShadow: 8,
+                    ":hover": {
+                      boxShadow: 7,
+                    },
+                  }}
+                >
                   <Stack
                     direction={{ xs: "column", sm: "row" }}
                     alignItems={{ xs: "flex-start", sm: "center" }}
                     justifyContent="space-between"
                     spacing={{ xs: 2, sm: 0 }}
                   >
-                    <Stack direction="row" spacing={2} alignItems="center">
+                    <Stack
+                      direction="row"
+                      spacing={2}
+                      alignItems="center"
+                    >
                       <Avatar sx={{ width: 48, height: 48 }}>
                         <ShoppingCartIcon />
                       </Avatar>
                       <Box>
-                        <Typography variant="h6" fontWeight={600}>
+                        <Typography
+                          variant="h6"
+                          fontWeight={600}
+                        >
                           Order #{order.orderNumber}
                         </Typography>
-                        <Typography variant="body2" opacity={0.8}>
+                        <Typography
+                          variant="body2"
+                          opacity={0.8}
+                        >
                           {order.drugs.length} item
                           {order.drugs.length > 1 ? "s" : ""}
                         </Typography>
@@ -153,16 +178,16 @@ export default function PharmacyOrders() {
                   </Stack>
                 </Box>
 
-                <CardContent sx={{ pt: 0.5, px: { xs: 1.5, sm: 2 }, pb: 0 }}>
-                  <Divider
-                    sx={{
-                      borderColor: isDark ? "#475569" : "#cbd5e1",
-                      borderWidth: 1.5,
-                      mb: { xs: 1.5, sm: 2 },
-                    }}
-                  />
-
-                  <Grid container spacing={2}>
+                <CardContent
+                  sx={{ pt: 0.5, px: { xs: 1.5, sm: 2 }, pb: 0, my: 3 }}
+                >
+                  <Grid
+                    container
+                    spacing={2}
+                    maxHeight={"200px"}
+                    px={2}
+                    overflow={"auto"}
+                  >
                     {order.drugs.map((item) => (
                       <Grid
                         item
@@ -175,8 +200,12 @@ export default function PharmacyOrders() {
                         <Paper
                           sx={{
                             p: 2,
-                            backgroundColor: isDark ? "#1e293b" : "#dddddd",
+                            background: cardBackground,
+                            boxShadow: 8,
                             borderRadius: 2,
+                            ":hover": {
+                              boxShadow: 7,
+                            },
                           }}
                         >
                           <Tooltip title={item.drug.name}>
@@ -198,7 +227,10 @@ export default function PharmacyOrders() {
                             <Typography variant="body2">
                               Price : {formatNumber(item.drug.price)} L.E
                             </Typography>
-                            <Typography variant="body2" color="text.secondary">
+                            <Typography
+                              variant="body1"
+                              color="text.secondary"
+                            >
                               Qty: {item.paidQuantity + item.freeItems}
                             </Typography>
                           </Box>
@@ -206,17 +238,11 @@ export default function PharmacyOrders() {
                       </Grid>
                     ))}
                   </Grid>
-
-                  <Divider
-                    sx={{
-                      borderColor: isDark ? "#475569" : "#cbd5e1",
-                      borderWidth: 1.5,
-                      mt: 2,
-                    }}
-                  />
                 </CardContent>
                 <CardActions
                   sx={{
+                    background: cardDetailsBackground,
+                    boxShadow: 8,
                     flexDirection: { xs: "column", sm: "row" },
                     justifyContent: "space-between",
                     alignItems: { xs: "stretch", sm: "center" },
@@ -229,9 +255,7 @@ export default function PharmacyOrders() {
                       display: "flex",
                       alignItems: "center",
                       justifyContent: { xs: "center", sm: "flex-start" },
-                      background: isDark
-                        ? "linear-gradient(90deg, #2563EB 0%, #1D4ED8 100%)"
-                        : "linear-gradient(90deg, #3B82F6 0%, #60A5FA 100%)",
+                      background: backgroundBlue,
                       color: "white",
                       px: { xs: 2, sm: 2.5 },
                       py: { xs: 1, sm: 1.25 },
@@ -300,9 +324,7 @@ export default function PharmacyOrders() {
                       }
                       onClick={() => handleOpenModal(order)}
                       sx={{
-                        background: isDark
-                          ? "linear-gradient(90deg, #2563EB 0%, #1D4ED8 100%)"
-                          : "linear-gradient(90deg, #3B82F6 0%, #60A5FA 100%)",
+                        background: backgroundBlue,
                         fontSize: { xs: "0.85rem", sm: "0.875rem" },
                         py: { xs: 1, sm: 0.75 },
                         minWidth: { xs: "100%", sm: "auto" },

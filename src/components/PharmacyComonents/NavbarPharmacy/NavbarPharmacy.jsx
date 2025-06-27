@@ -1,19 +1,14 @@
 /* eslint-disable react/prop-types */
-"use client";
-
 import { useState, useEffect } from "react";
 import {
   AppBar,
   Toolbar,
   IconButton,
-  Badge,
   Box,
-  useMediaQuery,
   Slide,
   useScrollTrigger,
 } from "@mui/material";
-import { useTheme } from "@mui/material/styles";
-import { Chat as ChatIcon, Menu as MenuIcon } from "@mui/icons-material";
+import { Menu as MenuIcon } from "@mui/icons-material";
 import NavLinkDesktop from "./components/NavLink";
 import MoblieDrawer from "./components/Drawer";
 import AccountMenu from "./components/AccountMenu";
@@ -45,17 +40,13 @@ export default function NavbarPhamracy() {
   const [scrolled, setScrolled] = useState(false);
 
   //Theme
-  const theme = useTheme();
   const {
     navbarPharmacyBackground,
     textPrimary,
-
     transitionDurationStandard,
+    isMobile,
+    isSmallMobile,
   } = useThemeConstants();
-
-  //Media query
-  const isMobile = useMediaQuery(theme.breakpoints.down("lg"));
-  const isSmallMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
   //Handlers
   const handleDrawerToggle = () => {
@@ -170,36 +161,6 @@ export default function NavbarPhamracy() {
                 ml: "auto",
               }}
             >
-              <IconButton
-                color="inherit"
-                sx={{
-                  p: 1.5,
-                  borderRadius: "12px",
-                  transition: "all 0.2s ease-in-out",
-                  "&:hover": {
-                    backgroundColor: "rgba(255, 255, 255, 0.1)",
-                    transform: "scale(1.05)",
-                  },
-                }}
-              >
-                <Badge
-                  badgeContent={4}
-                  color="error"
-                  sx={{
-                    "& .MuiBadge-badge": {
-                      fontSize: "0.7rem",
-                      height: 20,
-                      minWidth: 20,
-                      borderRadius: "10px",
-                      fontWeight: 600,
-                      boxShadow: "0 2px 8px rgba(0, 0, 0, 0.15)",
-                    },
-                  }}
-                >
-                  <ChatIcon />
-                </Badge>
-              </IconButton>
-
               {/* Notifications */}
               <Box
                 sx={{

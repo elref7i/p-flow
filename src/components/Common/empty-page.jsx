@@ -18,7 +18,14 @@ import { useThemeConstants } from "../../lib/constants/theme.constant";
 import { useNavigate } from "react-router-dom";
 import Logo, { GradientLogo } from "./LogoImage";
 
-const EmptyPage = ({ type = "general", title, subtitle, customMessage }) => {
+const EmptyPage = ({
+  type = "general",
+  title,
+  subtitle,
+  customMessage,
+  nameButton = "Home",
+  linkPage = "/pharmacy",
+}) => {
   const { cardBackground, textPrimary, textSecondary } = useThemeConstants();
 
   //Navigation
@@ -278,7 +285,7 @@ const EmptyPage = ({ type = "general", title, subtitle, customMessage }) => {
                     variant="outlined"
                     size="large"
                     startIcon={<Home />}
-                    onClick={() => navigate("/pharmacy")}
+                    onClick={() => navigate(linkPage)}
                     sx={{
                       borderColor: config.color,
                       color: config.color,
@@ -295,7 +302,7 @@ const EmptyPage = ({ type = "general", title, subtitle, customMessage }) => {
                       transition: "all 0.3s ease",
                     }}
                   >
-                    Home
+                    {nameButton}
                   </Button>
 
                   {/* Help Button */}

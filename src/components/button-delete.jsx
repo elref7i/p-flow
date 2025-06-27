@@ -6,18 +6,21 @@ import Modal from "@mui/material/Modal";
 import Fade from "@mui/material/Fade";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
-import DeleteIcon from "@mui/icons-material/Delete";
 import CancelIcon from "@mui/icons-material/Cancel";
-import { CircularProgress, IconButton } from "@mui/material";
+import { CircularProgress } from "@mui/material";
 import ReportProblemIcon from "@mui/icons-material/ReportProblem";
 import { useThemeConstants } from "../lib/constants/theme.constant";
-import { useTypeContext } from "../context/UserType.context";
+import { Delete } from "@mui/icons-material";
 import { CardDelete } from "./prescription-modal/styles/delete-model";
 
-export default function AlertModal({ handleAction, isDeleting }) {
+export default function ButtonDelete({
+  handleAction,
+  isDeleting,
+  nameButton = "Delete All",
+  nameItems = "",
+}) {
   //States
   const [open, setOpen] = React.useState(false);
-  const { role } = useTypeContext();
   const { typography, adminBackground } = useThemeConstants();
 
   //Functions
@@ -26,12 +29,13 @@ export default function AlertModal({ handleAction, isDeleting }) {
 
   return (
     <>
-      <IconButton
-        onClick={handleOpen}
+      <Button
         color="error"
+        variant="outlined"
+        onClick={handleOpen}
       >
-        <DeleteIcon fontSize="medium" />
-      </IconButton>
+        {nameButton}
+      </Button>
       <Modal
         sx={{ bgcolor: "#000000aa" }}
         aria-labelledby="transition-modal-title"
@@ -52,48 +56,35 @@ export default function AlertModal({ handleAction, isDeleting }) {
               color="error"
               sx={{ fontSize: "60px" }}
             />
-            {role === "admin" ? (
-              <Typography
-                id="transition-modal-description"
-                color="error"
-                sx={{
-                  mb: 3,
-                  fontSize: typography.body1.fontSize,
-                  lineHeight: typography.body1.lineHeight,
-                }}
-              >
-                Are you sure you want to delete this user?
-              </Typography>
-            ) : (
-              <Typography
-                id="transition-modal-description"
-                color="error"
-                sx={{
-                  mb: 3,
-                  fontSize: typography.body1.fontSize,
-                  lineHeight: typography.body1.lineHeight,
-                }}
-              >
-                Are you sure you want to delete this drug?
-              </Typography>
-            )}
+            <Typography
+              id="transition-modal-description"
+              color="error"
+              sx={{
+                mb: 3,
+                fontSize: typography.body1.fontSize,
+                lineHeight: typography.body1.lineHeight,
+              }}
+            >
+              Are you sure you want to delete this {nameItems} ?
+            </Typography>
+
             <Box sx={{ display: "flex", justifyContent: "center", gap: 2 }}>
               <Button
-                onClick={handleAction}
-                variant="contained"
                 color="error"
+                variant="outlined"
+                onClick={handleAction}
                 startIcon={
                   isDeleting ? (
                     <CircularProgress
-                      color="inherit"
-                      size={16}
+                      color="error"
+                      size="16px"
                     />
                   ) : (
-                    <DeleteIcon />
+                    <Delete />
                   )
                 }
               >
-                Delete
+                {nameButton}
               </Button>
               <Button
                 onClick={handleClose}

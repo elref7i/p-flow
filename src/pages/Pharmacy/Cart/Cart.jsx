@@ -1,61 +1,33 @@
-import { Box, Button, Grid, Paper, Typography, Dialog } from "@mui/material";
-import { Delete } from "@mui/icons-material";
+import { Box, Grid } from "@mui/material";
 import { Helmet } from "react-helmet";
 import { useTheme } from "@mui/material/styles";
 import { useState } from "react";
 import Invoice from "@/components/PharmacyComonents/Invoice/Invoice";
 import CartItem from "@/components/PharmacyComonents/CartItem/CartItem";
 import CartSkeleton from "./_components/CartSkeleton";
-import { useNavigate } from "react-router-dom";
 import { useCart, useClearCart } from "@/lib/hooks/use-cart";
+import ButtonDelete from "../../../components/button-delete";
+import EmptyPage from "../../../components/Common/empty-page";
 
 export default function Cart() {
   const [selectedInventoryId, setSelectedInventoryId] = useState(null);
-  const [openClearDialog, setOpenClearDialog] = useState(false);
-  const navigate = useNavigate();
   const theme = useTheme();
   const isDark = theme.palette.mode === "dark";
 
   const { data: cartInfo, isLoading } = useCart();
-  const clearCartMutation = useClearCart();
+  const { mutate: ClearCart, isLoading: LoadingDelete } = useClearCart();
 
   if (!cartInfo && isLoading) return <CartSkeleton />;
 
   if (!cartInfo || !cartInfo.data || cartInfo.data.inventories.length <= 0) {
     return (
-      <Paper
-        elevation={3}
-        sx={{
-          p: 6,
-          textAlign: "center",
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          gap: 3,
-          bgcolor: isDark ? theme.palette.background.paper : "#f9f9f9",
-          borderRadius: 4,
-          boxShadow: isDark
-            ? "0 4px 20px rgba(255, 255, 255, 0.05)"
-            : "0 4px 20px rgba(0, 0, 0, 0.05)",
-        }}
-      >
-        <Typography variant="h4" color="text.primary" fontWeight="bold">
-          🛒 Your Cart is Empty
-        </Typography>
-
-        <Typography variant="body1" color="text.secondary">
-          Looks like you haven&apos;t added anything yet.
-        </Typography>
-
-        <Button
-          variant="contained"
-          color="primary"
-          sx={{ mt: 2, px: 4, py: 1 }}
-          onClick={() => navigate("/pharmacy/drugs")}
-        >
-          Back to Drugs
-        </Button>
-      </Paper>
+      <EmptyPage
+        nameButton={"View All Drugs"}
+        title={"Your wishlist is empty"}
+        subtitle={"You haven’t added any items yet"}
+        customMessage={" Browse products and save your favorites for later"}
+        linkPage="/pharmacy/drugs"
+      />
     );
   }
 
@@ -71,9 +43,18 @@ export default function Cart() {
           name="keywords"
           content="pharmacy cart, medicine cart, pharmacy checkout, drug order, cart page, pharmacy shopping"
         />
-        <meta name="author" content="Your Pharmacy Website" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <meta property="og:title" content="Your Pharmacy Cart" />
+        <meta
+          name="author"
+          content="Your Pharmacy Website"
+        />
+        <meta
+          name="viewport"
+          content="width=device-width, initial-scale=1.0"
+        />
+        <meta
+          property="og:title"
+          content="Your Pharmacy Cart"
+        />
         <meta
           property="og:description"
           content="You've selected your pharmacy items. View and manage your cart before purchasing."
@@ -81,10 +62,21 @@ export default function Cart() {
       </Helmet>
 
       <Box sx={{ display: "flex", flexDirection: "column", minHeight: "100%" }}>
-        <Grid container spacing={5} sx={{ flexGrow: 1 }}>
+        <Grid
+          container
+          spacing={5}
+          sx={{ flexGrow: 1 }}
+        >
           {/* cart items */}
-          <Grid item xs={12} md={9}>
-            <Box display="flex" flexDirection="column">
+          <Grid
+            item
+            xs={12}
+            md={9}
+          >
+            <Box
+              display="flex"
+              flexDirection="column"
+            >
               {cartInfo.data.inventories.map((inventory) => (
                 <CartItem
                   key={inventory.inventory.id}
@@ -99,7 +91,11 @@ export default function Cart() {
           </Grid>
 
           {/* invoice */}
-          <Grid item xs={12} md={3}>
+          <Grid
+            item
+            xs={12}
+            md={3}
+          >
             <Box>
               <Invoice
                 selectedInventory={cartInfo.data.inventories.find(
@@ -123,55 +119,13 @@ export default function Cart() {
             pt: { xs: 2, sm: 0 },
           }}
         >
-          <Button
-            variant="outlined"
-            color="error"
-            startIcon={<Delete />}
-            onClick={() => setOpenClearDialog(true)}
-            sx={{
-              px: { xs: 3, sm: 4 },
-              py: { xs: 1, sm: 1.5 },
-              fontSize: { xs: "0.9rem", sm: "1rem" },
-              fontWeight: "bold",
-            }}
-          >
-            Clear Cart
-          </Button>
+          <ButtonDelete
+            nameButton="Clear Cart"
+            nameItems="Cart"
+            handleAction={ClearCart}
+            isDeleting={LoadingDelete}
+          />
         </Box>
-
-        {/* Confirm Clear Dialog */}
-        <Dialog
-          open={openClearDialog}
-          onClose={() => setOpenClearDialog(false)}
-        >
-          <Box sx={{ p: 3, minWidth: 300 }}>
-            <Typography variant="h6" mb={2}>
-              Confirm Clear Cart
-            </Typography>
-            <Typography variant="body2" mb={3}>
-              Are you sure you want to remove all items from your cart?
-            </Typography>
-
-            <Box sx={{ display: "flex", justifyContent: "flex-end", gap: 1 }}>
-              <Button
-                variant="outlined"
-                onClick={() => setOpenClearDialog(false)}
-              >
-                Cancel
-              </Button>
-              <Button
-                variant="contained"
-                color="error"
-                onClick={() => {
-                  setOpenClearDialog(false);
-                  clearCartMutation.mutate();
-                }}
-              >
-                Delete
-              </Button>
-            </Box>
-          </Box>
-        </Dialog>
       </Box>
     </>
   );

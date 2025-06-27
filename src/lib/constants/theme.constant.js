@@ -8,7 +8,8 @@ export const useThemeConstants = () => {
   const theme = useTheme();
 
   // Media Query
-  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
+  const isMobile = useMediaQuery("(max-width:1314px)");
+  const isSmallMobile = useMediaQuery(theme.breakpoints.down("sm"));
   const mode = theme.palette.mode;
 
   // الألوان الأساسية
@@ -606,7 +607,7 @@ export const useThemeConstants = () => {
 
     //Media query
     isMobile,
-
+    isSmallMobile,
     // Mode
     mode,
   };
