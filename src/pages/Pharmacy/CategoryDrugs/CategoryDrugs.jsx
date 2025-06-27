@@ -11,24 +11,38 @@ import {
 import { Helmet } from "react-helmet";
 import { motion, AnimatePresence } from "framer-motion";
 import { useNavigate, useParams } from "react-router-dom";
-import CategoryDrugCard from "./_components/CategoryDrugCard";
 import Inventory2OutlinedIcon from "@mui/icons-material/Inventory2Outlined";
-import CategoryDrugSkeleton from "./_components/CategoryDrugSkeleton";
 import MedicalServicesIcon from "@mui/icons-material/MedicalServices";
 import TrendingUpIcon from "@mui/icons-material/TrendingUp";
 import VerifiedIcon from "@mui/icons-material/Verified";
 import { useCategoryDrugs } from "@/lib/hooks/use-admin";
+import DrugCard from "../../../components/PharmacyComonents/DrugCard/DrugCard";
+import CategoryDrugSkeleton from "../../../components/Common/Loading/categories-specific-skeleton";
+import ErrorPage from "../../../components/Common/error-page";
+import { useThemeConstants } from "../../../lib/constants/theme.constant";
 
 export default function CategoryDrugs() {
   const { id } = useParams();
-  const { data, isLoading } = useCategoryDrugs({ id });
+  const { data, isLoading, isError, error } = useCategoryDrugs({ id });
   const categoryDrugs = data?.data || [];
   const categoryName = categoryDrugs[0]?.category?.name;
   const categoryImage = categoryDrugs[0]?.category?.imageCover;
+
+  const { backgroundElevated, cardBackground, borderHover } =
+    useThemeConstants();
   const theme = useTheme();
   const navigate = useNavigate();
 
   if (isLoading) return <CategoryDrugSkeleton />;
+
+  if (isError)
+    return (
+      <ErrorPage
+        errorMessage={error.message}
+        errorCode={error.status}
+        errorType={error.status}
+      />
+    );
 
   // Animation variants
   const containerVariants = {
@@ -85,12 +99,12 @@ export default function CategoryDrugs() {
 
           <Box
             sx={{
-              background:
-                theme.palette.mode === "light"
-                  ? "linear-gradient(180deg,rgb(230, 234, 237) 0%,rgb(222, 225, 228) 100%)"
-                  : "linear-gradient(135deg, #232526 0%, #414345 100%)",
+              background: backgroundElevated,
+              borderRadius: 5,
+              boxShadow: 8,
               minHeight: "100vh",
               position: "relative",
+              mt: 3,
             }}
           >
             {/* Background Pattern */}
@@ -101,10 +115,7 @@ export default function CategoryDrugs() {
                 left: 0,
                 right: 0,
                 bottom: 0,
-                backgroundImage:
-                  theme.palette.mode === "light"
-                    ? `radial-gradient(circle at 1px 1px, rgba(59,130,246,0.15) 1px, transparent 0)`
-                    : `radial-gradient(circle at 1px 1px, rgba(59,130,246,0.1) 1px, transparent 0)`,
+                borderRadius: 4,
                 backgroundSize: "20px 20px",
                 opacity: 0.5,
                 pointerEvents: "none",
@@ -113,7 +124,13 @@ export default function CategoryDrugs() {
 
             <Container
               maxWidth="xl"
-              sx={{ position: "relative", zIndex: 1, py: 4 }}
+              sx={{
+                position: "relative",
+                zIndex: 1,
+                py: 4,
+                background: backgroundElevated,
+                borderRadius: 5,
+              }}
             >
               {/* Enhanced Header Section */}
               <motion.div
@@ -124,21 +141,17 @@ export default function CategoryDrugs() {
                 <Paper
                   elevation={0}
                   sx={{
-                    background:
-                      theme.palette.mode === "dark"
-                        ? "linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%)"
-                        : "linear-gradient(135deg, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0.6) 100%)",
+                    background: cardBackground,
                     backdropFilter: "blur(20px)",
                     WebkitBackdropFilter: "blur(20px)",
-                    border:
-                      theme.palette.mode === "dark"
-                        ? "1px solid rgba(255,255,255,0.1)"
-                        : "1px solid rgba(0,0,0,0.05)",
+                    border: `1px solid ${borderHover}`,
+
                     borderRadius: 4,
                     p: { xs: 3, md: 5 },
                     mb: 5,
                     position: "relative",
                     overflow: "hidden",
+                    boxShadow: 8,
                     "&::before": {
                       content: '""',
                       position: "absolute",
@@ -318,7 +331,7 @@ export default function CategoryDrugs() {
                           transition={{ delay: index * 0.05 }}
                           style={{ height: "100%" }}
                         >
-                          <CategoryDrugCard
+                          <DrugCard
                             dataInfo={item}
                             checkPage={true}
                           />
@@ -347,14 +360,8 @@ export default function CategoryDrugs() {
               flexDirection: "column",
               alignItems: "center",
               justifyContent: "center",
-              backgroundColor:
-                theme.palette.mode === "light"
-                  ? "#f4f6f8"
-                  : "rgba(255,255,255,0.03)",
-              boxShadow:
-                theme.palette.mode === "light"
-                  ? "0 6px 20px rgba(0,0,0,0.1)"
-                  : "0 6px 20px rgba(255,255,255,0.05)",
+              background: backgroundElevated,
+              boxShadow: 8,
               textAlign: "center",
               color: theme.palette.text.primary,
               border: theme.palette.mode === "dark" ? "1px solid #333" : "none",

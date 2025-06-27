@@ -12,9 +12,13 @@ import TuneIcon from "@mui/icons-material/Tune";
 
 export default function InventoriesSkeleton() {
   return (
-    <Box px={{ xs: 2, sm: 4 }} py={3}>
+    <Box
+      py={3}
+      fullWidth
+    >
       {/* Search + Filter Section */}
       <Box
+        fullWidth
         display="flex"
         alignItems="center"
         gap={2}
@@ -23,7 +27,7 @@ export default function InventoriesSkeleton() {
         justifyContent="space-between"
       >
         {/* Search Input */}
-        <Box flex={1} minWidth="250px">
+        <Box flex={1}>
           <TextField
             fullWidth
             disabled
@@ -45,9 +49,19 @@ export default function InventoriesSkeleton() {
       </Box>
 
       {/* Inventory Cards Skeleton */}
-      <Grid container spacing={3}>
+      <Grid
+        container
+        spacing={2}
+      >
         {Array.from({ length: 8 }).map((_, idx) => (
-          <Grid item xs={12} sm={6} md={4} lg={3} key={idx}>
+          <Grid
+            item
+            xs={12}
+            sm={6}
+            md={4}
+            lg={3}
+            key={idx}
+          >
             <Box
               sx={{
                 borderRadius: 4,
@@ -60,8 +74,17 @@ export default function InventoriesSkeleton() {
               }}
             >
               {/* Top - Avatar */}
-              <Box display="flex" justifyContent="center" mt={1} mb={2}>
-                <Skeleton variant="circular" width={70} height={70} />
+              <Box
+                display="flex"
+                justifyContent="center"
+                mt={1}
+                mb={2}
+              >
+                <Skeleton
+                  variant="circular"
+                  width={70}
+                  height={70}
+                />
               </Box>
 
               {/* Info Section */}
@@ -75,21 +98,57 @@ export default function InventoriesSkeleton() {
                 />
 
                 {/* Location */}
-                <Box display="flex" alignItems="center" gap={1}>
-                  <Skeleton variant="circular" width={22} height={22} />
-                  <Skeleton variant="text" width="70%" height={20} />
+                <Box
+                  display="flex"
+                  alignItems="center"
+                  gap={1}
+                >
+                  <Skeleton
+                    variant="circular"
+                    width={22}
+                    height={22}
+                  />
+                  <Skeleton
+                    variant="text"
+                    width="70%"
+                    height={20}
+                  />
                 </Box>
 
                 {/* Phone */}
-                <Box display="flex" alignItems="center" gap={1}>
-                  <Skeleton variant="circular" width={22} height={22} />
-                  <Skeleton variant="text" width="60%" height={20} />
+                <Box
+                  display="flex"
+                  alignItems="center"
+                  gap={1}
+                >
+                  <Skeleton
+                    variant="circular"
+                    width={22}
+                    height={22}
+                  />
+                  <Skeleton
+                    variant="text"
+                    width="60%"
+                    height={20}
+                  />
                 </Box>
 
                 {/* Distance */}
-                <Box display="flex" alignItems="center" gap={1}>
-                  <Skeleton variant="circular" width={22} height={22} />
-                  <Skeleton variant="text" width="40%" height={20} />
+                <Box
+                  display="flex"
+                  alignItems="center"
+                  gap={1}
+                >
+                  <Skeleton
+                    variant="circular"
+                    width={22}
+                    height={22}
+                  />
+                  <Skeleton
+                    variant="text"
+                    width="40%"
+                    height={20}
+                  />
                 </Box>
 
                 {/* Progress bar */}
@@ -107,14 +166,26 @@ export default function InventoriesSkeleton() {
                   alignItems="center"
                   mt={1}
                 >
-                  <Skeleton variant="text" width="50%" height={20} />
-                  <Skeleton variant="text" width={50} height={20} />
+                  <Skeleton
+                    variant="text"
+                    width="50%"
+                    height={20}
+                  />
+                  <Skeleton
+                    variant="text"
+                    width={50}
+                    height={20}
+                  />
                 </Box>
               </Stack>
 
               {/* View Profile Button */}
               <Box mt={2}>
-                <Skeleton variant="rounded" width="100%" height={38} />
+                <Skeleton
+                  variant="rounded"
+                  width="100%"
+                  height={38}
+                />
               </Box>
             </Box>
           </Grid>

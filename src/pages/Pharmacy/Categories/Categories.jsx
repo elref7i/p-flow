@@ -2,7 +2,6 @@ import {
   Box,
   Card,
   CardContent,
-  Skeleton,
   Typography,
   Container,
   Grid,
@@ -15,6 +14,7 @@ import { Helmet } from "react-helmet";
 import { useCategories } from "@/lib/hooks/use-admin";
 import EmptyPage from "../../../components/Common/empty-page";
 import ErrorPage from "../../../components/Common/error-page";
+import CategoriesSkeleton from "../../../components/Common/Loading/categories-skeleton";
 
 export default function Categories() {
   const { textPrimary, cardBackground } = useThemeConstants();
@@ -92,59 +92,7 @@ export default function Categories() {
         </motion.div>
 
         {isLoading ? (
-          <Grid
-            container
-            spacing={4}
-          >
-            {[...Array(8)].map((_, idx) => (
-              <Grid
-                item
-                xs={12}
-                sm={6}
-                md={4}
-                lg={3}
-                key={idx}
-              >
-                <Card
-                  sx={{
-                    borderRadius: 4,
-                    boxShadow: 2,
-                    background: cardBackground,
-                    overflow: "hidden",
-                  }}
-                >
-                  <Skeleton
-                    variant="rectangular"
-                    animation="wave"
-                    height={220}
-                    sx={{ width: "100%" }}
-                  />
-                  <CardContent sx={{ p: 3, textAlign: "center" }}>
-                    <Skeleton
-                      variant="text"
-                      animation="wave"
-                      width="60%"
-                      height={28}
-                      sx={{ mx: "auto", mb: 1 }}
-                    />
-                    <Skeleton
-                      variant="text"
-                      animation="wave"
-                      width="40%"
-                      height={20}
-                      sx={{ mx: "auto", mb: 2 }}
-                    />
-                    <Skeleton
-                      variant="rectangular"
-                      width={40}
-                      height={4}
-                      sx={{ mx: "auto", borderRadius: 2 }}
-                    />
-                  </CardContent>
-                </Card>
-              </Grid>
-            ))}
-          </Grid>
+          <CategoriesSkeleton />
         ) : (
           <Grid
             container

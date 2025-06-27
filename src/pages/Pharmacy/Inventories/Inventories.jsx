@@ -3,10 +3,10 @@ import SearchBar from "../../../components/SearchBar/SearchBar";
 import { useTypeContext } from "../../../context/UserType.context";
 import { useQueryParams } from "../../../context/params.context";
 import { Helmet } from "react-helmet";
-import InventoryCardSkeleton from "./_components/InventoryCardSkeleton";
 import EnhancedInventoryCard from "../../../components/InventoryComponents/CardInventory/CardInventory";
 import { useGetAllInventoriesQuery } from "../../../lib/hooks/use-pharmacy";
 import EmptyPage from "../../../components/Common/empty-page";
+import InventoriesSkeleton from "../../../components/Common/Loading/inventories-skeleton";
 
 export default function Inventories() {
   //Context
@@ -21,21 +21,7 @@ export default function Inventories() {
   });
 
   //Loading State
-  if (isLoading) {
-    return (
-      <Grid
-        container
-        spacing={2}
-      >
-        {[...Array(6)].map((_, i) => (
-          <InventoryCardSkeleton key={i} />
-        ))}
-      </Grid>
-    );
-  }
-  if (isLoading) return <InventoryCardSkeleton />;
-
-  console.log(payload);
+  if (isLoading) return <InventoriesSkeleton />;
 
   return (
     <>

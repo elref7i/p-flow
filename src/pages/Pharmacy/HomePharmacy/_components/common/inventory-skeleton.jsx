@@ -6,6 +6,7 @@ export default function InventorySkeleton() {
       sx={{
         display: "flex",
         gap: 3,
+        flex: 1,
         justifyContent: "center",
         flexWrap: "wrap",
       }}

@@ -1,13 +1,12 @@
 import { Box, Grid, Skeleton, Card, CardContent, Stack } from "@mui/material";
+import { useThemeConstants } from "../../../lib/constants/theme.constant";
 
 export default function CategoryDrugSkeleton() {
+  const { backgroundElevated, cardBackground } = useThemeConstants();
   return (
     <Box
       sx={{
-        background: (theme) =>
-          theme.palette.mode === "light"
-            ? "linear-gradient(to bottom, #f5f7fa, #e8ecf1)"
-            : "linear-gradient(to bottom, #1e1e1e, #121212)",
+        background: backgroundElevated,
         minHeight: "100vh",
         padding: 2,
       }}
@@ -19,10 +18,7 @@ export default function CategoryDrugSkeleton() {
           alignItems: "center",
           justifyContent: "space-between",
           gap: 2,
-          background: (theme) =>
-            theme.palette.mode === "light"
-              ? "linear-gradient(to right, #e3f2fd, #ffffff)"
-              : "linear-gradient(to right, #2b2b2b, #1e1e1e)",
+          background: cardBackground,
           padding: 3,
           borderRadius: 2,
           boxShadow: "0 4px 20px rgba(0, 0, 0, 0.1)",
@@ -37,8 +33,17 @@ export default function CategoryDrugSkeleton() {
           sx={{ borderRadius: 2 }}
         />
         <Box sx={{ flexGrow: 1 }}>
-          <Skeleton variant="text" width="40%" height={34} />
-          <Skeleton variant="text" width="60%" height={20} sx={{ mt: 1 }} />
+          <Skeleton
+            variant="text"
+            width="40%"
+            height={34}
+          />
+          <Skeleton
+            variant="text"
+            width="60%"
+            height={20}
+            sx={{ mt: 1 }}
+          />
         </Box>
         <Box sx={{ display: "flex", gap: 2 }}>
           <Skeleton
@@ -57,27 +62,56 @@ export default function CategoryDrugSkeleton() {
       </Box>
 
       {/* Drug Cards Skeleton */}
-      <Grid container spacing={4} sx={{ px: 3, pb: 4 }}>
+      <Grid
+        container
+        spacing={4}
+        sx={{ px: 3, pb: 4 }}
+      >
         {Array.from({ length: 15 }).map((_, index) => (
-          <Grid item xs={12} sm={6} md={4} key={index}>
+          <Grid
+            item
+            xs={12}
+            sm={6}
+            md={4}
+            key={index}
+          >
             <Card
               sx={{
                 borderRadius: 3,
                 boxShadow: 3,
                 height: "100%",
-                backgroundColor: (theme) =>
-                  theme.palette.mode === "light" ? "#ffffff" : "#1c1c1c",
+                backgroundColor: cardBackground,
               }}
             >
               <CardContent>
                 <Stack spacing={1}>
-                  <Skeleton variant="text" width="85%" height={24} />
-                  <Skeleton variant="text" width="50%" height={20} />
-                  <Skeleton variant="text" width="40%" height={18} />
+                  <Skeleton
+                    variant="text"
+                    width="85%"
+                    height={24}
+                  />
+                  <Skeleton
+                    variant="text"
+                    width="50%"
+                    height={20}
+                  />
+                  <Skeleton
+                    variant="text"
+                    width="40%"
+                    height={18}
+                  />
 
                   <Box>
-                    <Skeleton variant="text" width="40%" height={18} />
-                    <Skeleton variant="text" width="30%" height={18} />
+                    <Skeleton
+                      variant="text"
+                      width="40%"
+                      height={18}
+                    />
+                    <Skeleton
+                      variant="text"
+                      width="30%"
+                      height={18}
+                    />
                   </Box>
 
                   <Skeleton
