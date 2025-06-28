@@ -7,6 +7,7 @@ import {
 import {
   addPromotion,
   getPromotions,
+  getSpecificPromotion,
   updatePromotion,
 } from "../api/promotion_api";
 import toast from "react-hot-toast";
@@ -60,5 +61,20 @@ export const useUpdatePromotion = () => {
       );
       console.error(error);
     },
+  });
+};
+
+export const useInfinitePromotionSpecificInventory = (
+  inventoryId,
+  params = {}
+) => {
+  return useInfiniteQuery({
+    queryKey: ["PromotionSpecificInventory", "infinite", inventoryId, params],
+    queryFn: ({ pageParam = 1 }) =>
+      getSpecificPromotion(inventoryId, { ...params, page: pageParam }),
+    getNextPageParam: (lastPage) => lastPage.pagination?.next || undefined,
+    keepPreviousData: false,
+    refetchOnWindowFocus: false,
+    staleTime: 5 * 60 * 1000,
   });
 };

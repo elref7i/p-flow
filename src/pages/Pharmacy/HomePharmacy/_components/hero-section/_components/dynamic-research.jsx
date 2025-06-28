@@ -1,12 +1,20 @@
+<<<<<<< HEAD
 "use client";
+=======
+/* eslint-disable react/prop-types */
+>>>>>>> 7ce9e15e5125b6dd775eabe81145921b4a0619d4
 
 import { Box, Paper, Stack, Typography } from "@mui/material";
 import { motion } from "framer-motion";
 import { itemVariants } from "../constants/variants";
 import { useThemeConstants } from "../../../../../../lib/constants/theme.constant";
-import SearchBar from "../../../../../../components/SearchBar/SearchBar";
+import SearchBarHome from "../../../../../../components/SearchBar/search-bar-home";
 
-export default function DynamicResearch() {
+export default function DynamicResearch({
+  onSearchStart,
+  onSearchComplete,
+  onSearchReset,
+}) {
   //Context
   const { textPrimary, border } = useThemeConstants();
 
@@ -60,7 +68,11 @@ export default function DynamicResearch() {
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: 1.2, duration: 0.8 }}
               >
-                <SearchBar />
+                <SearchBarHome
+                  onSearchStart={onSearchStart}
+                  onSearchComplete={onSearchComplete}
+                  onSearchReset={onSearchReset}
+                />
               </motion.div>
 
               {/* Enhanced Quick Suggestions */}

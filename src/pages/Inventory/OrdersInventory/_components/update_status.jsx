@@ -193,8 +193,10 @@ export default function UpdateStatusOrder({ status, id }) {
                 style={{
                   padding: "16px",
                   fontSize: "16px",
-                  borderColor: errors.note && touched.note ? "red" : "#ccc",
+                  background:
+                    errors.note && touched.note ? "red" : cardBackground,
                   borderRadius: "4px",
+                  color: textPrimary,
                   borderWidth: "1px",
                   resize: "vertical",
                 }}
@@ -233,7 +235,8 @@ export default function UpdateStatusOrder({ status, id }) {
               <Button
                 type="submit"
                 variant="contained"
-                color={isError ? "error" : "warning"}
+                disabled={values.status === status}
+                color="warning"
                 sx={{
                   fontSize: { xs: "14px", md: "16px" },
                   px: 2,
@@ -248,22 +251,16 @@ export default function UpdateStatusOrder({ status, id }) {
                 startIcon={
                   isLoading ? (
                     <CircularProgress
-                      color="inherit"
                       size={20}
+                      sx={{
+                        fontSize: typography.button.fontSize,
+                        fontWeight: typography.button.fontWeight,
+                        transform: typography.button.transform,
+                        lineHeight: typography.button.lineHeight,
+                        color: "white",
+                      }}
                     />
-                  ) : isError ? (
-                    <WarningAmberIcon
-                      color="warning"
-                      size={20}
-                    />
-                  ) : isSuccess ? (
-                    <CheckCircleIcon
-                      color="success"
-                      size={20}
-                    />
-                  ) : (
-                    <EditIcon size={20} />
-                  )
+                  ) : null
                 }
               >
                 Update Status

@@ -35,6 +35,7 @@ export const useCreateOrder = () => {
     onSuccess: () => {
       toast.success("Order created successfully");
       queryClient.invalidateQueries(["orders"]);
+      queryClient.invalidateQueries(["cart"]);
     },
     onError: (error) => {
       toast.error("Error creating order");
@@ -79,6 +80,7 @@ export const useRejectOrder = () => {
     onSuccess: () => {
       toast.success("Order rejected successfully");
       queryClient.invalidateQueries(["orders"]);
+      queryClient.invalidateQueries(["statisticsInventory"]);
     },
     onError: (error) => {
       toast.error("Error rejecting order");

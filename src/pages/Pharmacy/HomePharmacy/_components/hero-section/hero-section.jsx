@@ -25,12 +25,24 @@ import { useTypeContext } from "../../../../../context/UserType.context";
 import { useQueryParams } from "../../../../../context/params.context";
 import InfiniteScrollComponent from "../../../../../components/infinite-scroll";
 import DrugCardSkeleton from "../../../../../components/Common/Loading/DrugCardSkeleton";
+<<<<<<< HEAD
+=======
+import SearchLoadingAnimation from "../../../../../components/Common/Loading/search-loading";
+>>>>>>> 7ce9e15e5125b6dd775eabe81145921b4a0619d4
 
 export default function HeroVariation1() {
   // States
   const [isLoaded, setIsLoaded] = useState(false);
   const [currentParticleColor, setCurrentParticleColor] = useState(0);
+<<<<<<< HEAD
   const { token } = useTypeContext();
+=======
+  const [isSearching, setIsSearching] = useState(false);
+  const { token } = useTypeContext();
+  // Add this new state after the existing states
+  const [hasSearched, setHasSearched] = useState(false);
+
+>>>>>>> 7ce9e15e5125b6dd775eabe81145921b4a0619d4
   //Queries
   const { debouncedParams } = useQueryParams();
 
@@ -70,9 +82,26 @@ export default function HeroVariation1() {
   // Flatten the data from all pages
   const flattenData = flattenedDrugs({ data });
 
+<<<<<<< HEAD
+=======
+  // Search handlers
+  const handleSearchStart = () => {
+    setIsSearching(true);
+    setHasSearched(true); // Mark that user has started searching
+  };
+
+  const handleSearchComplete = () => {
+    setIsSearching(false);
+  };
+
+  const handleSearchReset = () => {
+    setIsSearching(false);
+    setHasSearched(false); // Reset to initial state
+  };
+
+>>>>>>> 7ce9e15e5125b6dd775eabe81145921b4a0619d4
   useEffect(() => {
     setIsLoaded(true);
-
     const colorInterval = setInterval(() => {
       setCurrentParticleColor((prev) => (prev + 1) % particleColors.length);
     }, 3000);
@@ -238,6 +267,7 @@ export default function HeroVariation1() {
               style={{ opacity }}
             >
               {/* SECTION 2: Dynamic Search */}
+<<<<<<< HEAD
               <DynamicResearch />
               {!isLoading && isFetched ? (
                 <Box
@@ -268,16 +298,78 @@ export default function HeroVariation1() {
                   <p>No drugs found matching your search.</p>
                 </Box>
               )}
+=======
+              <DynamicResearch
+                onSearchStart={handleSearchStart}
+                onSearchComplete={handleSearchComplete}
+                onSearchReset={handleSearchReset}
+              />
+
+              {/* Conditional rendering based on search state */}
+              <AnimatePresence mode="wait">
+                {!hasSearched ? (
+                  ""
+                ) : isSearching ? (
+                  <motion.div
+                    key="searching"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -20 }}
+                    transition={{ duration: 0.5 }}
+                  >
+                    <SearchLoadingAnimation />
+                  </motion.div>
+                ) : (
+                  <motion.div
+                    key="results"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -20 }}
+                    transition={{ duration: 0.5 }}
+                  >
+                    {!isLoading && isFetched ? (
+                      <Box
+                        mx={"auto"}
+                        maxWidth={"lg"}
+                        pt={3}
+                      >
+                        <InfiniteScrollComponent
+                          page={"drugs"}
+                          layoutGrid={4}
+                          fetchNextPage={fetchNextPage}
+                          flattenData={flattenData}
+                          total={total}
+                          hasNextPage={hasNextPage}
+                        />
+                      </Box>
+                    ) : (
+                      <Box pt={3}>
+                        <DrugCardSkeleton count={6} />
+                      </Box>
+                    )}
+
+                    {flattenData.length <= 0 && isFetched && (
+                      <Box
+                        pt={3}
+                        textAlign="center"
+                      >
+                        <p>No drugs found matching your search.</p>
+                      </Box>
+                    )}
+                  </motion.div>
+                )}
+              </AnimatePresence>
+
+>>>>>>> 7ce9e15e5125b6dd775eabe81145921b4a0619d4
               {/* SECTION 3: Spectacular AI Features */}
               <AiFeatures />
+
               {/* SECTION 4: Animated Trust Indicators */}
               <TrustIndications />
             </motion.div>
           )}
         </AnimatePresence>
       </Container>
-
-      {/* Enhanced CSS Animations */}
     </Box>
   );
 }

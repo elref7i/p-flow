@@ -42,7 +42,14 @@ export default function Drugs() {
   } = useInfiniteDrugs(token, debouncedParams);
 
   //Themes
-  const { typography } = useThemeConstants();
+  const {
+    typography,
+    backgroundElevated,
+    textPrimary,
+    backgroundGraySoft,
+    backgroundGrayLight,
+    backgroundGrayMedium,
+  } = useThemeConstants();
 
   //Hooks
   const {
@@ -187,18 +194,19 @@ export default function Drugs() {
           {openHistory && (
             <Box
               sx={{
-                background: "#fff",
-                boxShadow: 1,
+                background: backgroundGraySoft,
+                color: textPrimary,
+                boxShadow: 8,
                 borderRadius: 1,
                 mt: 1,
-                p: 1,
+                p: 2,
                 maxHeight: 200,
                 overflowY: "auto",
                 position: "absolute",
                 top: 50,
                 zIndex: 10,
                 display: openHistory ? "block" : "none",
-                width: "80%",
+                width: "85%",
               }}
             >
               {searchHistory.length > 0 ? (
@@ -228,7 +236,7 @@ export default function Drugs() {
                         justifyContent: "space-between",
                         alignItems: "center",
                         p: 1,
-                        "&:hover": { backgroundColor: "#f9f9f9" },
+                        "&:hover": { backgroundColor: backgroundGrayMedium },
                       }}
                     >
                       <Box

@@ -15,9 +15,9 @@ import {
   useDrugsSpecificInventory,
   useInfiniteDrugsSpecificInventory,
 } from "@/lib/hooks/useDrugAction";
+import { useInfinitePromotionSpecificInventory } from "../../../lib/hooks/usepromotion";
 
 const InventoryProfile = () => {
-  const [params, setParams] = useState({});
   const { id } = useParams();
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState(0);
@@ -25,7 +25,7 @@ const InventoryProfile = () => {
   //Queries
 
   const { data: dataHeader, isLoading: LoadingHeader } =
-    useDrugsSpecificInventory(id, params);
+    useDrugsSpecificInventory(id, {});
 
   console.log(dataHeader);
 
@@ -34,8 +34,16 @@ const InventoryProfile = () => {
     fetchNextPage,
     isLoading: LoadingOwnDrugs,
     hasNextPage,
-    isFetched,
-  } = useInfiniteDrugsSpecificInventory(id, params);
+  } = useInfiniteDrugsSpecificInventory(id, { limit: 15 });
+
+  const {
+    data: PromotionData,
+    fetchNextPage: FetchNextPromotion,
+    isLoading: LoadingPromotion,
+    hasNextPage: hasNextPagePromotion,
+  } = useInfinitePromotionSpecificInventory(id, { limit: 15 });
+
+  console.log("PromotionData", PromotionData);
 
   const handleTabChange = (event, newValue) => {
     setActiveTab(newValue);
@@ -113,13 +121,16 @@ const InventoryProfile = () => {
             transition={{ duration: 0.2 }}
           >
             <TabContent
+              promotionData={PromotionData}
+              fetchNextPromotion={FetchNextPromotion}
+              loadingPromotion={LoadingPromotion}
+              hasNextPagePromotion={hasNextPagePromotion}
               activeTab={activeTab}
               containerVariants={containerVariants}
               itemVariants={itemVariants}
               dataInfo={InfiniteData}
               LoadingOwnDrugs={LoadingOwnDrugs}
               hasNextPage={hasNextPage}
-              isFetched={isFetched}
               fetchNextPage={fetchNextPage}
             />
           </motion.div>
