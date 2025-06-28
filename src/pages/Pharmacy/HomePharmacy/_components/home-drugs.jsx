@@ -7,7 +7,6 @@ import {
 import InfiniteScrollComponent from "../../../../components/infinite-scroll";
 import { Box } from "@mui/material";
 import DrugCardSkeleton from "../../../../components/Common/Loading/DrugCardSkeleton";
-import EmptyPage from "../../../../components/Common/empty-page";
 import { useTypeContext } from "../../../../context/UserType.context";
 import { useEffect, useRef } from "react";
 
@@ -30,7 +29,7 @@ export default function HomeDrugs() {
 
   useEffect(() => {
     if (showDrugaAtHome && sectionRef.current) {
-      sectionRef.current.element.scrollIntoView({ behavior: "smooth" });
+      sectionRef.current.scrollIntoView({ behavior: "smooth" });
     }
   }, [showDrugaAtHome]);
 
@@ -56,13 +55,7 @@ export default function HomeDrugs() {
       ) : (
         <DrugCardSkeleton count={6} />
       )}
-      {flattenData.length <= 0 && (
-        <EmptyPage
-          title={"No Drugs Found"}
-          subtitle={" We couldn’t find any matching drugs"}
-          customMessage={"Try searching with a different name or category"}
-        />
-      )}
+      {flattenData.length <= 0 && ""}
     </>
   );
 }
