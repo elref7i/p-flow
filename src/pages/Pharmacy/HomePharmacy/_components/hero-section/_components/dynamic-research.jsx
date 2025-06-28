@@ -3,37 +3,11 @@ import { motion } from "framer-motion";
 import { itemVariants } from "../constants/variants";
 import { useThemeConstants } from "../../../../../../lib/constants/theme.constant";
 import SearchBar from "../../../../../../components/SearchBar/SearchBar";
-import { useQueryParams } from "../../../../../../context/params.context";
-import { useInfiniteDrugs } from "../../../../../../lib/hooks/useDrugAction";
-import { useTypeContext } from "../../../../../../context/UserType.context";
-import InfiniteScrollComponent from "../../../../../../components/infinite-scroll";
-import {
-  flattenedDrugs,
-  totalItems,
-} from "../../../../../../lib/constants/infinte-data";
-import DrugCardSkeleton from "../../../../../../components/Common/Loading/DrugCardSkeleton";
-import EmptyPage from "../../../../../../components/Common/empty-page";
 
 export default function DynamicResearch() {
   //Context
-
-  const { token } = useTypeContext();
   const { textPrimary, border } = useThemeConstants();
-  const { debouncedParams } = useQueryParams();
 
-  const {
-    data,
-    fetchNextPage,
-    hasNextPage,
-    isLoading,
-    isFetched,
-    isError,
-    error,
-  } = useInfiniteDrugs(token, debouncedParams);
-  const total = totalItems({ data });
-
-  // Flatten the data from all pages
-  const flattenData = flattenedDrugs({ data });
   return (
     <motion.div variants={itemVariants}>
       <Box mb={{ xs: 6, md: 8 }}>
@@ -117,7 +91,7 @@ export default function DynamicResearch() {
             </Paper>
           </motion.div>
         </Box>
-        {!isLoading && isFetched ? (
+        {/* {!isLoading && isFetched ? (
           <Box pt={3}>
             <InfiniteScrollComponent
               page={"drugs"}
@@ -137,7 +111,7 @@ export default function DynamicResearch() {
             subtitle={" We couldn’t find any matching drugs"}
             customMessage={"Try searching with a different name or category"}
           />
-        )}
+        )} */}
       </Box>
     </motion.div>
   );

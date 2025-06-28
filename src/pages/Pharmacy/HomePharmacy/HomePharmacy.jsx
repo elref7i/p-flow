@@ -7,7 +7,6 @@ import PromotionsSection from "./_components/promotions-section";
 import FooterSection from "./_components/footer-section";
 import HeroVariation1 from "./_components/hero-section/hero-section";
 import HomeDrugs from "./_components/home-drugs";
-import HomeDrugsProvider from "../../../context/show-home-drugs";
 
 export default function HomePharmacy() {
   return (
@@ -25,10 +24,8 @@ export default function HomePharmacy() {
       </Helmet>
 
       <Box component={"main"}>
-        <HomeDrugsProvider>
-          <HeroVariation1 />
-          <HomeDrugs />
-        </HomeDrugsProvider>
+        <HeroVariation1 />
+        <HomeDrugs />
         <CategorySection />
         <PromotionsSection />
 

@@ -7,7 +7,7 @@ const PaginationContext = createContext();
 
 export default function PaginationProvider({ children }) {
   const [searchParams, setSearchParams] = useState({});
-
+  const [showDrugaAtHome, setShowDrugsAtHome] = useState(true);
   // Debounce
   const [debouncedParams] = useDebounce(searchParams, 500);
 
@@ -17,6 +17,8 @@ export default function PaginationProvider({ children }) {
         searchParams,
         setSearchParams,
         debouncedParams,
+        showDrugaAtHome,
+        setShowDrugsAtHome,
       }}
     >
       {children}
