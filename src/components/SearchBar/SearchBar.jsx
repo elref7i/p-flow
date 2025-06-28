@@ -12,7 +12,7 @@ export default function SearchBar() {
   const [searchQuery, setSearchQuery] = useState("");
 
   //Context
-  const { setSearchParams } = useQueryParams();
+  const { setSearchParams, setShowDrugsAtHome } = useQueryParams();
 
   //Fuctions
   const handleOpenFilter = () => setOpenFilter(true);
@@ -22,6 +22,13 @@ export default function SearchBar() {
   const handleSearch = (searchValue) => {
     setSearchParams({ keyword: searchValue });
     setSearchQuery(true);
+    setShowDrugsAtHome(true);
+  };
+
+  const handleBlur = (e) => {
+    if (e.target.value.trim() === "") {
+      setShowDrugsAtHome(false);
+    }
   };
 
   return (
@@ -32,6 +39,7 @@ export default function SearchBar() {
           type="search"
           variant="outlined"
           placeholder="Search by name, active ingredient, or condition..."
+          onBlur={handleBlur}
           onChange={(e) => {
             handleSearch(e.target.value);
           }}

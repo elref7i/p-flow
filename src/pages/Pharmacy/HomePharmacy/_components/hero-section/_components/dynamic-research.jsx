@@ -5,12 +5,8 @@ import { useThemeConstants } from "../../../../../../lib/constants/theme.constan
 import SearchBar from "../../../../../../components/SearchBar/SearchBar";
 
 export default function DynamicResearch() {
-  //Themes
-  const {
-    textPrimary,
-
-    border,
-  } = useThemeConstants();
+  //Context
+  const { textPrimary, border } = useThemeConstants();
 
   return (
     <motion.div variants={itemVariants}>
@@ -95,6 +91,27 @@ export default function DynamicResearch() {
             </Paper>
           </motion.div>
         </Box>
+        {/* {!isLoading && isFetched ? (
+          <Box pt={3}>
+            <InfiniteScrollComponent
+              page={"drugs"}
+              layoutGrid={4}
+              fetchNextPage={fetchNextPage}
+              flattenData={flattenData}
+              total={total}
+              hasNextPage={hasNextPage}
+            />
+          </Box>
+        ) : (
+          <DrugCardSkeleton count={6} />
+        )}
+        {flattenData.length <= 0 && (
+          <EmptyPage
+            title={"No Drugs Found"}
+            subtitle={" We couldn’t find any matching drugs"}
+            customMessage={"Try searching with a different name or category"}
+          />
+        )} */}
       </Box>
     </motion.div>
   );

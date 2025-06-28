@@ -95,13 +95,14 @@ export const getSpecificCategory = async ({ id }) => {
 };
 
 // get drugs for spscific category
-export const getDrugsForCategory = async ({ token, id }) => {
+export const getDrugsForCategory = async (token, id, params = {}) => {
   const options = {
     url: `${API_URL_CAT}/${id}/drugs`,
     method: "GET",
     headers: {
       Authorization: `Bearer ${token}`,
     },
+    params,
   };
 
   const { data } = await axios.request(options);
