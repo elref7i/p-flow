@@ -1,5 +1,8 @@
-import imageTest from "../../../../src/assets/all-drug-light.png";
-import OrderManagment from "../../../../src/assets/order-inv-light.png";
+import AID from "../../../../src/assets/F-AI-D.png";
+import AIL from "../../../../src/assets/F-AI-L.png";
+import PRD from "../../../../src/assets/PR-D.png";
+import PRL from "../../../../src/assets/PRL.png";
+
 export const howItWorksSteps = [
   {
     title: "AI Drug Finder",
@@ -21,7 +24,8 @@ export const howItWorksSteps = [
           "Ask naturally and let the AI understand what you're looking for.",
       },
     ],
-    image: imageTest,
+    imageDark: AID,
+    imageLight: AIL,
   },
   {
     title: "Smart Prescription Reader",
@@ -43,7 +47,8 @@ export const howItWorksSteps = [
           "Directly add all recognized items to your shopping cart or order.",
       },
     ],
-    image: imageTest,
+    imageDark: PRD,
+    imageLight: PRL,
   },
   {
     title: "All Medicines in One Place",
@@ -65,7 +70,8 @@ export const howItWorksSteps = [
           "Track stock levels and receive low-inventory notifications.",
       },
     ],
-    image: imageTest,
+    imageDark: AID,
+    imageLight: AIL,
   },
   {
     title: "Efficient Order Management",
@@ -87,6 +93,7 @@ export const howItWorksSteps = [
           "Stock updates automatically after each order is placed or fulfilled.",
       },
     ],
-    image: OrderManagment,
+    imageDark: AID,
+    imageLight: AIL,
   },
 ];

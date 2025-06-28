@@ -307,7 +307,11 @@ const HowItWorksSection = () => {
                     >
                       <Box
                         component="img"
-                        src={howItWorksSteps[activeStep].image}
+                        src={
+                          theme.palette.mode === "light"
+                            ? howItWorksSteps[activeStep].imageLight
+                            : howItWorksSteps[activeStep].imageDark
+                        }
                         alt={howItWorksSteps[activeStep].title}
                         sx={{
                           width: "100%",
