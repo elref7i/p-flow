@@ -7,7 +7,7 @@ const PaginationContext = createContext();
 
 export default function PaginationProvider({ children }) {
   const [searchParams, setSearchParams] = useState({});
-  const [showDrugaAtHome, setShowDrugsAtHome] = useState(true);
+  const [showDrugaAtHome, setShowDrugsAtHome] = useState(false);
   // Debounce
   const [debouncedParams] = useDebounce(searchParams, 500);
 

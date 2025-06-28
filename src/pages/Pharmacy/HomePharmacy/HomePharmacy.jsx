@@ -6,7 +6,6 @@ import FrequentMedicinesSection from "./_components/frequent-medicines-section";
 import PromotionsSection from "./_components/promotions-section";
 import FooterSection from "./_components/footer-section";
 import HeroVariation1 from "./_components/hero-section/hero-section";
-import HomeDrugs from "./_components/home-drugs";
 
 export default function HomePharmacy() {
   return (
@@ -25,7 +24,6 @@ export default function HomePharmacy() {
 
       <Box component={"main"}>
         <HeroVariation1 />
-        <HomeDrugs />
         <CategorySection />
         <PromotionsSection />
 

@@ -93,39 +93,6 @@ export default function SearchBar() {
             },
           }}
         />
-        {/* <TextField
-          fullWidth
-          placeholder="Search drugs..."
-          variant="filled"
-          type="search"
-          sx={{
-            borderRadius: "10px",
-            boxShadow: shadow2,
-            overflow: "hidden",
-            background: background,
-            "& input::placeholder": {
-              fontSize: "18px",
-              fontWeight: "bold",
-            },
-          }}
-          onChange={(e) => {
-            handleSearch(e.target.value);
-          }}
-          InputProps={{
-            endAdornment: (
-              <Box
-                sx={{
-                  cursor: "pointer",
-                  display: "flex",
-                  alignItems: "center",
-                }}
-                onClick={handleOpenFilter}
-              >
-                <FilterListIcon color="action" />
-              </Box>
-            ),
-          }}
-        /> */}
       </Box>
       <Filter
         openFilter={openFilter}

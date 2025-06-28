@@ -16,11 +16,23 @@ import { containerVariants } from "./constants/variants";
 import TrustIndications from "./_components/trust-indications";
 import DynamicResearch from "./_components/dynamic-research";
 import AiFeatures from "./_components/ai-features";
+import { useInfiniteDrugs } from "../../../../../lib/hooks/useDrugAction";
+import {
+  flattenedDrugs,
+  totalItems,
+} from "../../../../../lib/constants/infinte-data";
+import { useTypeContext } from "../../../../../context/UserType.context";
+import { useQueryParams } from "../../../../../context/params.context";
+import InfiniteScrollComponent from "../../../../../components/infinite-scroll";
+import DrugCardSkeleton from "../../../../../components/Common/Loading/DrugCardSkeleton";
 
 export default function HeroVariation1() {
   // States
   const [isLoaded, setIsLoaded] = useState(false);
   const [currentParticleColor, setCurrentParticleColor] = useState(0);
+  const { token } = useTypeContext();
+  //Queries
+  const { debouncedParams } = useQueryParams();
 
   //Themes
   const { backgroundElevated } = useThemeConstants();
@@ -49,6 +61,14 @@ export default function HeroVariation1() {
     "rgba(255, 215, 0, 0.6)",
     "rgba(76, 175, 80, 0.6)",
   ];
+
+  const { data, fetchNextPage, hasNextPage, isLoading, isFetched } =
+    useInfiniteDrugs(token, debouncedParams);
+
+  const total = totalItems({ data });
+
+  // Flatten the data from all pages
+  const flattenData = flattenedDrugs({ data });
 
   useEffect(() => {
     setIsLoaded(true);
@@ -219,7 +239,35 @@ export default function HeroVariation1() {
             >
               {/* SECTION 2: Dynamic Search */}
               <DynamicResearch />
-
+              {!isLoading && isFetched ? (
+                <Box
+                  mx={"auto"}
+                  maxWidth={"lg"}
+                  pt={3}
+                  id="search-results-section" // Added ID for better targeting
+                >
+                  <InfiniteScrollComponent
+                    page={"drugs"}
+                    layoutGrid={4}
+                    fetchNextPage={fetchNextPage}
+                    flattenData={flattenData}
+                    total={total}
+                    hasNextPage={hasNextPage}
+                  />
+                </Box>
+              ) : (
+                <Box pt={3}>
+                  <DrugCardSkeleton count={6} />
+                </Box>
+              )}
+              {flattenData.length <= 0 && isFetched && (
+                <Box
+                  pt={3}
+                  textAlign="center"
+                >
+                  <p>No drugs found matching your search.</p>
+                </Box>
+              )}
               {/* SECTION 3: Spectacular AI Features */}
               <AiFeatures />
               {/* SECTION 4: Animated Trust Indicators */}

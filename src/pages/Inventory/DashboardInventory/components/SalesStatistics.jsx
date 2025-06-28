@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { Box, Card, CardContent, Typography } from "@mui/material";
 import {
   LineChart,
@@ -11,7 +12,7 @@ import {
 import { BarChart as ChartIcon } from "@mui/icons-material";
 import { useThemeConstants } from "../../../../lib/constants/theme.constant";
 
-const SalesStatistics = () => {
+const SalesStatistics = ({ dataInfo }) => {
   const {
     textWarning,
     textSecondary,
@@ -68,11 +69,14 @@ const SalesStatistics = () => {
           variant="h5"
           sx={{ fontWeight: "bold", color: textWarning, mb: 2 }}
         >
-          {data[6].value.toLocaleString()} L.E
+          {dataInfo?.totalSales.toFixed()} L.E
         </Typography>
 
         <Box sx={{ height: 300, mt: 4 }}>
-          <ResponsiveContainer width="100%" height="100%">
+          <ResponsiveContainer
+            width="100%"
+            height="100%"
+          >
             <LineChart
               data={data}
               margin={{
