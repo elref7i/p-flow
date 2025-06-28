@@ -39,7 +39,7 @@ export const useCreateOrder = () => {
     },
     onError: (error) => {
       toast.error("Error creating order");
-      console.log(error);
+      console.error(error);
     },
   });
 };
@@ -57,7 +57,7 @@ export const useCancelOrder = () => {
     },
     onError: (error) => {
       toast.error("Error cancelling order");
-      console.log(error);
+      console.error(error);
     },
   });
 };
@@ -84,7 +84,7 @@ export const useRejectOrder = () => {
     },
     onError: (error) => {
       toast.error("Error rejecting order");
-      console.log(error);
+      console.error(error);
     },
   });
 };
@@ -100,7 +100,7 @@ export const useUpdateOrderStatus = () => {
     },
     onError: (error) => {
       toast.error("Error Status order");
-      console.log(error);
+      console.error(error);
     },
   });
 };

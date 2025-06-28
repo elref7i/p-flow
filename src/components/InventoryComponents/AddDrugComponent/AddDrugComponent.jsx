@@ -78,7 +78,6 @@ export default function AddDrugComponent() {
     },
     validationSchema: DrugSchema,
     onSubmit: (values) => {
-      console.log("Submitting values:", values);
       mutate({ token, values });
     },
   });

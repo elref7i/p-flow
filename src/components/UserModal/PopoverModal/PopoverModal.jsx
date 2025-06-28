@@ -55,7 +55,6 @@ const ImageUploader = () => {
           if (data.message === "success") {
             fetchUserData(token);
           }
-          console.log("Upload response:", data);
           toast.success("Image uploaded successfully!");
         } catch (error) {
           console.error(

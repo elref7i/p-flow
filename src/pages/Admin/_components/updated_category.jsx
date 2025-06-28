@@ -121,8 +121,6 @@ export default function UpdatedCategory({ id, description, imageCover, name }) {
     },
     validationSchema: CategorySchema,
     onSubmit: (values) => {
-      console.log(values);
-
       const formData = new FormData();
       formData.append("name", values.name);
       formData.append("description", values.description);
@@ -141,8 +139,6 @@ export default function UpdatedCategory({ id, description, imageCover, name }) {
     },
   });
 
-  console.log(values);
-  //
   return (
     <Box>
       <IconButton

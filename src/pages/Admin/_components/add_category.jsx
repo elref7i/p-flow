@@ -95,8 +95,6 @@ export default function AddCategory() {
     },
     validationSchema: CategorySchema,
     onSubmit: (values) => {
-      console.log(values);
-
       const formData = new FormData();
       formData.append("name", values.name);
       formData.append("description", values.description);

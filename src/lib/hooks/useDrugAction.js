@@ -56,7 +56,7 @@ export const useAddDrug = () => {
     },
     onError: (error) => {
       toast.error(error.response.data.message || "error");
-      console.log(error);
+      console.error(error);
     },
   });
 };
@@ -73,7 +73,7 @@ export const useAddDrugExcel = () => {
     },
     onError: (error) => {
       toast.error(error.response.data.message || "error");
-      console.log(error);
+      console.error(error);
     },
   });
 };
@@ -90,7 +90,7 @@ export const useDeleteDrug = () => {
     },
     onError: (error) => {
       toast.error(error.response.data.message || "error");
-      console.log(error);
+      console.error(error);
     },
   });
 };
@@ -107,7 +107,7 @@ export const useUpdateDrug = () => {
     },
     onError: (error) => {
       toast.error(error.response.data.message || "error");
-      console.log(error);
+      console.error(error);
     },
   });
 };

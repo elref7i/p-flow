@@ -42,14 +42,8 @@ export default function Drugs() {
   } = useInfiniteDrugs(token, debouncedParams);
 
   //Themes
-  const {
-    typography,
-    backgroundElevated,
-    textPrimary,
-    backgroundGraySoft,
-    backgroundGrayLight,
-    backgroundGrayMedium,
-  } = useThemeConstants();
+  const { typography, textPrimary, backgroundGraySoft, backgroundGrayMedium } =
+    useThemeConstants();
 
   //Hooks
   const {

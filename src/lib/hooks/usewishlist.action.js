@@ -27,7 +27,7 @@ export const useAddnventoryWishlist = () => {
     },
     onError: (error) => {
       toast.error(error.response.data.message || "error");
-      console.log(error);
+      console.error(error);
     },
   });
 };
@@ -41,7 +41,7 @@ export const useDeleteInventoryWishlist = () => {
     },
     onError: (error) => {
       toast.error(error.response.data.message || "error");
-      console.log(error);
+      console.error(error);
     },
   });
 };
@@ -57,7 +57,7 @@ export const useClearWishlist = () => {
     },
     onError: (error) => {
       toast.error(error.response.data.message || "error");
-      console.log(error);
+      console.error(error);
     },
   });
 };

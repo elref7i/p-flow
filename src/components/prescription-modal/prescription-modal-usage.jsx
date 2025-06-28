@@ -28,8 +28,6 @@ const PrescriptionModalUsage = () => {
       };
       const { data } = await axios.request(options);
 
-      console.log(data);
-
       // Mock response after 2 seconds
       await new Promise((resolve) => setTimeout(resolve, 2000));
 

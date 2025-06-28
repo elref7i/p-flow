@@ -31,7 +31,6 @@ export default function MoreAction({ anchorEl, setAnchorEl, id }) {
   const handleViewProfile = () => navigate(`/pharmacy/inventoryprofile/${id}`);
 
   const menuRef = useRef(null);
-  console.log("menuRef", menuRef.current);
 
   // 🔁 Close menu when clicking outside
   useEffect(() => {

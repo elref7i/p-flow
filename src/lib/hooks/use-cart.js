@@ -30,13 +30,12 @@ export const useAddToCart = () => {
     mutationFn: ({ drugId, quantity }) =>
       addDrugToCart({ token, drugId, quantity }),
     onSuccess: (data) => {
-      console.log(data);
       toast.success(data.data.message);
       queryClient.invalidateQueries(["cart"]);
     },
     onError: (error) => {
       toast.error("Failed to add drug to cart!");
-      console.log(error);
+      console.error(error);
     },
   });
 };

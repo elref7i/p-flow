@@ -21,6 +21,7 @@ import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { howItWorksSteps } from "./constants/howItWorksSteps";
+import { useThemeConstants } from "../../lib/constants/theme.constant";
 
 const HowItWorksSection = () => {
   const theme = useTheme();
@@ -37,6 +38,8 @@ const HowItWorksSection = () => {
   const handleStepClick = (step) => {
     setActiveStep(step);
   };
+
+  const { cardBackground } = useThemeConstants();
 
   return (
     <Box
@@ -76,7 +79,10 @@ const HowItWorksSection = () => {
         }}
       />
 
-      <Container maxWidth="lg" sx={{ position: "relative", zIndex: 1 }}>
+      <Container
+        maxWidth="lg"
+        sx={{ position: "relative", zIndex: 1 }}
+      >
         <Box sx={{ textAlign: "center", mb: 8 }}>
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -136,12 +142,25 @@ const HowItWorksSection = () => {
           </motion.div>
         </Box>
 
-        <Grid container spacing={6}>
-          <Grid item xs={12} md={5}>
+        <Grid
+          container
+          spacing={6}
+        >
+          <Grid
+            item
+            xs={12}
+            md={5}
+          >
             <Box sx={{ maxWidth: 400, mx: "auto" }}>
-              <Stepper activeStep={activeStep} orientation="vertical">
+              <Stepper
+                activeStep={activeStep}
+                orientation="vertical"
+              >
                 {howItWorksSteps.map((step, index) => (
-                  <Step key={step.title} completed={activeStep > index}>
+                  <Step
+                    key={step.title}
+                    completed={activeStep > index}
+                  >
                     <StepLabel
                       onClick={() => handleStepClick(index)}
                       sx={{
@@ -212,13 +231,19 @@ const HowItWorksSection = () => {
               {activeStep === howItWorksSteps.length && (
                 <Paper
                   square
-                  elevation={0}
+                  elevation={8}
                   sx={{ p: 3, borderRadius: 2, mt: 2 }}
                 >
-                  <Typography variant="h6" gutterBottom>
+                  <Typography
+                    variant="h6"
+                    gutterBottom
+                  >
                     All steps completed!
                   </Typography>
-                  <Typography variant="body1" paragraph>
+                  <Typography
+                    variant="body1"
+                    paragraph
+                  >
                     You&apos;re now ready to revolutionize your pharmacy
                     operations with P-FLOW.
                   </Typography>
@@ -241,7 +266,11 @@ const HowItWorksSection = () => {
             </Box>
           </Grid>
 
-          <Grid item xs={12} md={7}>
+          <Grid
+            item
+            xs={12}
+            md={7}
+          >
             <motion.div
               key={activeStep}
               initial={{ opacity: 0, x: 50 }}
@@ -269,7 +298,7 @@ const HowItWorksSection = () => {
                     }}
                   >
                     <Paper
-                      elevation={6}
+                      elevation={8}
                       sx={{
                         overflow: "hidden",
                         borderRadius: 4,
@@ -289,10 +318,18 @@ const HowItWorksSection = () => {
                     </Paper>
                   </Box>
 
-                  <Grid container spacing={2}>
+                  <Grid
+                    container
+                    spacing={2}
+                  >
                     {howItWorksSteps[activeStep].content.map(
                       (item, itemIndex) => (
-                        <Grid item xs={12} md={4} key={itemIndex}>
+                        <Grid
+                          item
+                          xs={12}
+                          md={4}
+                          key={itemIndex}
+                        >
                           <motion.div
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
@@ -303,11 +340,13 @@ const HowItWorksSection = () => {
                           >
                             <Card
                               sx={{
+                                boxShadow: 8,
+                                background: cardBackground,
                                 height: "100%",
                                 transition: "transform 0.3s, box-shadow 0.3s",
                                 "&:hover": {
                                   transform: "translateY(-5px)",
-                                  boxShadow: "0 12px 30px rgba(0, 0, 0, 0.1)",
+                                  boxShadow: 7,
                                 },
                               }}
                             >

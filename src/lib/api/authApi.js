@@ -15,8 +15,6 @@ export const signup = async (values) => {
       if (data.message === "success") {
         toast.success(data.message);
       }
-      console.log("Response:", data);
-      console.log("Response:", data);
     }
   } catch (error) {
     toast.error(error.response.data.message);

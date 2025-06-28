@@ -67,7 +67,6 @@ const ContactSection = () => {
     e.preventDefault();
     if (validateForm()) {
       // Handle form submission
-      console.log("Form submitted:", formData);
       // Show success message
       setSnackbar({
         open: true,

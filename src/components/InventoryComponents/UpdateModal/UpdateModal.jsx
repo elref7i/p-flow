@@ -59,7 +59,7 @@ export default function UpdateModal({ drugId }) {
       const drugs = await getSpecificDrug({ token, drugId });
       setspecificDrug(drugs);
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 

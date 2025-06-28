@@ -18,8 +18,6 @@ import {
 import { useFormik } from "formik";
 import { useUpdateOrderStatus } from "../../../../lib/hooks/useOrdersAction";
 import { useTypeContext } from "../../../../context/UserType.context";
-import CheckCircleIcon from "@mui/icons-material/CheckCircle";
-import WarningAmberIcon from "@mui/icons-material/WarningAmber";
 
 const style = {
   position: "fixed",
@@ -41,7 +39,7 @@ export default function UpdateStatusOrder({ status, id }) {
   const { token } = useTypeContext();
 
   //Mutations
-  const { mutate, isLoading, isSuccess, isError } = useUpdateOrderStatus();
+  const { mutate, isLoading } = useUpdateOrderStatus();
 
   //Themes
   const {

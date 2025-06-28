@@ -11,7 +11,6 @@ export default function CategoriesAdmin() {
 
   //Mutations
   const { data: payload, isLoading } = useCategories();
-  console.log(payload);
 
   return (
     <>
@@ -26,7 +25,10 @@ export default function CategoriesAdmin() {
           content="pharmacy categories, drug classification, medication types, P-Flow, pharmacy management"
         />
 
-        <meta property="og:title" content="Categories | P-Flow System" />
+        <meta
+          property="og:title"
+          content="Categories | P-Flow System"
+        />
         <meta
           property="og:description"
           content="Manage all your pharmacy's drug categories easily with P-Flow's intuitive interface."
@@ -39,7 +41,10 @@ export default function CategoriesAdmin() {
           flexWrap={"wrap"}
           gap={2}
         >
-          <Typography variant="h1" sx={{ color: textPrimary }}>
+          <Typography
+            variant="h1"
+            sx={{ color: textPrimary }}
+          >
             Categories
           </Typography>
 

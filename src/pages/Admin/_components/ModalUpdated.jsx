@@ -54,7 +54,7 @@ export default function ModalUpdated({ userId }) {
       const userData = await getSpecificUser({ token, userId });
       setDataSpecificUser(userData);
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 

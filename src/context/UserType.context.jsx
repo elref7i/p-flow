@@ -25,7 +25,6 @@ export default function UserTypeProvider({ children }) {
   const fetchUserData = async (token) => {
     try {
       const data = await getloggedUserData({ token });
-      console.log(data);
 
       setUserData(data);
       localStorage.setItem("userData", JSON.stringify(data));

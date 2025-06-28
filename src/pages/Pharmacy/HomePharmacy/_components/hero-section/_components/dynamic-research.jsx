@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-"use client";
-=======
 /* eslint-disable react/prop-types */
->>>>>>> 7ce9e15e5125b6dd775eabe81145921b4a0619d4
 
 import { Box, Paper, Stack, Typography } from "@mui/material";
 import { motion } from "framer-motion";

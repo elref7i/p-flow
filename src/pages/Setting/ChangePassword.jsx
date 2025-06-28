@@ -1,14 +1,14 @@
-import { Box, CircularProgress, Divider, Stack, useTheme } from '@mui/material';
-import { useFormik } from 'formik';
-import { updatesLoggedUserPass } from '@/lib/schemas/UserSchema';
-import PasswordControl from '@/components/Common/PasswordControl';
-import CustomButton from '@/components/Common/ButtonStyle';
-import { useUpdatePassUSer } from '@/lib/hooks/useUserAction';
-import WarningAmberIcon from '@mui/icons-material/WarningAmber';
-import CheckCircleIcon from '@mui/icons-material/CheckCircle';
-import { useTypeContext } from '@/context/UserType.context';
-import { CustomHead } from '@/components/Common/CustomTypography';
-import { CustomParagraph } from '../../components/Common/CustomTypography';
+import { Box, CircularProgress, Divider, Stack, useTheme } from "@mui/material";
+import { useFormik } from "formik";
+import { updatesLoggedUserPass } from "@/lib/schemas/UserSchema";
+import PasswordControl from "@/components/Common/PasswordControl";
+import CustomButton from "@/components/Common/ButtonStyle";
+import { useUpdatePassUSer } from "@/lib/hooks/useUserAction";
+import WarningAmberIcon from "@mui/icons-material/WarningAmber";
+import CheckCircleIcon from "@mui/icons-material/CheckCircle";
+import { useTypeContext } from "@/context/UserType.context";
+import { CustomHead } from "@/components/Common/CustomTypography";
+import { CustomParagraph } from "../../components/Common/CustomTypography";
 
 export default function ChangePassword() {
   const { token } = useTypeContext();
@@ -24,19 +24,25 @@ export default function ChangePassword() {
     values,
   } = useFormik({
     initialValues: {
-      oldPassword: '',
-      newPassword: '',
+      oldPassword: "",
+      newPassword: "",
     },
     validationSchema: updatesLoggedUserPass,
     onSubmit: (values) => {
       mutate({ token, values });
-      console.log(values);
     },
   });
 
   return (
-    <Box maxWidth={'lg'} margin="auto">
-      <CustomHead color={theme.palette.text.primary} variant="h5" mb={1}>
+    <Box
+      maxWidth={"lg"}
+      margin="auto"
+    >
+      <CustomHead
+        color={theme.palette.text.primary}
+        variant="h5"
+        mb={1}
+      >
         Update Your Password
       </CustomHead>
       <CustomParagraph mb={3}>
@@ -45,7 +51,12 @@ export default function ChangePassword() {
       </CustomParagraph>
       <Divider />
 
-      <Stack spacing={2} mt={5} component="form" onSubmit={handleSubmit}>
+      <Stack
+        spacing={2}
+        mt={5}
+        component="form"
+        onSubmit={handleSubmit}
+      >
         <PasswordControl
           name="oldPassword"
           value={values.oldPassword}
@@ -70,17 +81,26 @@ export default function ChangePassword() {
             type="submit"
             disabled={!dirty}
             variant="contained"
-            sx={{ mt: 3, ml: 'auto', display: 'flex' }}
-            mx={'auto 0'}
+            sx={{ mt: 3, ml: "auto", display: "flex" }}
+            mx={"auto 0"}
             startIcon={
               isLoading ? (
-                <CircularProgress color="inherit" size={16} />
+                <CircularProgress
+                  color="inherit"
+                  size={16}
+                />
               ) : isError ? (
-                <WarningAmberIcon color="warning" size={16} />
+                <WarningAmberIcon
+                  color="warning"
+                  size={16}
+                />
               ) : isSuccess ? (
-                <CheckCircleIcon color="success" size={16} />
+                <CheckCircleIcon
+                  color="success"
+                  size={16}
+                />
               ) : (
-                ''
+                ""
               )
             }
           >

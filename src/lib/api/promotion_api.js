@@ -11,7 +11,6 @@ export const getPromotions = async (token, params = {}) => {
     params,
   };
   const { data } = await axios.request(options);
-  console.log(data);
 
   return data;
 };

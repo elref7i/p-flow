@@ -14,7 +14,6 @@ export async function addNotifications({ token, values }) {
   };
 
   const { data } = await axios.request(options);
-  console.log(data);
 
   return data;
 }
@@ -32,7 +31,6 @@ export async function getAllMeNotifications({ token, page }) {
   };
 
   const { data } = await axios.request(options);
-  console.log(data);
 
   return data;
 }
@@ -49,8 +47,6 @@ export async function getUnreadCountNotif({ token }) {
   };
 
   const { data } = await axios.request(options);
-  console.log(data);
-
   return data;
 }
 
@@ -66,8 +62,6 @@ export async function addMarkNotif({ token, notifId }) {
   };
 
   const { data } = await axios.request(options);
-  console.log(data);
-
   return data;
 }
 
@@ -82,8 +76,6 @@ export async function addAllMark({ token }) {
     },
   };
   const { data } = await axios.request(options);
-  console.log(data);
-
   return data;
 }
 
@@ -98,8 +90,6 @@ export async function deleteNotif({ token, notifId }) {
     },
   };
   const { data } = await axios.request(options);
-  console.log(data);
-
   return data;
 }
 
@@ -114,7 +104,5 @@ export async function deleteAllNotif({ token }) {
     },
   };
   const { data } = await axios.request(options);
-  console.log(data);
-
   return data;
 }

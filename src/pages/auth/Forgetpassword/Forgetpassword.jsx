@@ -35,7 +35,6 @@ export default function ForgetPassword() {
         data: values,
       };
       const { data } = await axios.request(options);
-      // console.log(data.message);
       if (data.message === "Reset code sent successfully") {
         toast.success(data.message);
         setForgetCompleted(true);
@@ -45,7 +44,7 @@ export default function ForgetPassword() {
       }
     } catch (error) {
       toast.error(error.response.data.message);
-      console.log(error);
+      console.error(error);
     } finally {
       toast.dismiss(loading);
     }
@@ -128,7 +127,10 @@ export default function ForgetPassword() {
             }}
           >
             <Container maxWidth={"sm"}>
-              <Box component={"header"} paddingBottom={4}>
+              <Box
+                component={"header"}
+                paddingBottom={4}
+              >
                 <CustomHead
                   variant="h1"
                   align="left"

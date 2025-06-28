@@ -5,7 +5,6 @@ import { API_URL_CAT, API_URL_USER } from "./api_url";
 
 export const fetchUsers = async () => {
   const { data } = await axios.get(API_URL_USER);
-  console.log(data.data);
 
   return data.data;
 };

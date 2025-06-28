@@ -49,7 +49,7 @@ export const useMarkAllNotif = () => {
     },
     onError: (error) => {
       toast.error(error.response.data.message || "error");
-      console.log(error);
+      console.error(error);
     },
   });
 };
@@ -65,7 +65,7 @@ export const useMarkNotif = () => {
     },
     onError: (error) => {
       toast.error(error.response.data.message || "error");
-      console.log(error);
+      console.error(error);
     },
   });
 };
@@ -81,7 +81,7 @@ export const useDeleteNotif = () => {
     },
     onError: (error) => {
       toast.error(error.response.data.message || "error");
-      console.log(error);
+      console.error(error);
     },
   });
 };
@@ -97,7 +97,7 @@ export const useDeleteAllNotif = () => {
     },
     onError: (error) => {
       toast.error(error.response.data.message || "error");
-      console.log(error);
+      console.error(error);
     },
   });
 };

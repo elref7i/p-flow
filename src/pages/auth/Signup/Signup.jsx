@@ -42,7 +42,6 @@ const SignupForm = () => {
       if (data.message === "success") {
         toast.success(data.message);
       }
-      console.log("Response:", data);
     } catch (error) {
       toast.error(error.response.data.message);
       console.error("Error:", error);

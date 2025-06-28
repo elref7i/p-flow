@@ -83,7 +83,7 @@ export const useDeleteUser = () => {
         error.response?.data?.message ||
           "Failed to delete user. Please try again later."
       );
-      console.log(error);
+      console.error(error);
     },
   });
 };
@@ -101,7 +101,7 @@ export const useUpdateUser = () => {
         error.response?.data?.message ||
           "Failed to update user. Please try again later."
       );
-      console.log(error);
+      console.error(error);
     },
   });
 };
@@ -148,7 +148,7 @@ export const useUpdateCategory = () => {
         error.response?.data?.message ||
           "Failed to update category. Please try again later."
       );
-      console.log(error);
+      console.error(error);
     },
   });
 };
@@ -167,7 +167,7 @@ export const useDeleteCategory = () => {
         error.response?.data?.message ||
           "Failed to delete Category. Please try again later."
       );
-      console.log(error);
+      console.error(error);
     },
   });
 };

@@ -30,8 +30,6 @@ export default function Whishlist() {
   const { data: payload, isLoading, error, isError } = useWishlist({ token });
 
   //Thems
-  console.log(isError);
-  console.log(error);
 
   const { typography, textPrimary } = useThemeConstants();
 

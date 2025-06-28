@@ -14,8 +14,6 @@ export default function Users() {
 
   const filteredData = data ? data.filter((row) => row.role !== "admin") : [];
 
-  console.log(filteredData);
-
   //Profile Image in Table
   const PrfileImage = {
     field: "profileImage",

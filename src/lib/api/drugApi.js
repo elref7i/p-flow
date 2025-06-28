@@ -13,7 +13,6 @@ export const getAllDrugs = async (token, params = {}) => {
   };
 
   const { data } = await axios.request(options);
-  console.log(data);
 
   return data;
 };
@@ -92,7 +91,6 @@ export const getAllOwnDrugs = async (token, params = {}) => {
     params,
   };
   const data = await axios.request(options);
-  console.log(data);
 
   return data.data;
 };
@@ -105,7 +103,6 @@ export const getDrugsspecificInventory = async (inventoryId, params = {}) => {
     params,
   };
   const data = await axios.request(options);
-  console.log(data);
 
   return data.data;
 };

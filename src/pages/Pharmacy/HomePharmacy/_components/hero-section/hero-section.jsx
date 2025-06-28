@@ -25,24 +25,17 @@ import { useTypeContext } from "../../../../../context/UserType.context";
 import { useQueryParams } from "../../../../../context/params.context";
 import InfiniteScrollComponent from "../../../../../components/infinite-scroll";
 import DrugCardSkeleton from "../../../../../components/Common/Loading/DrugCardSkeleton";
-<<<<<<< HEAD
-=======
 import SearchLoadingAnimation from "../../../../../components/Common/Loading/search-loading";
->>>>>>> 7ce9e15e5125b6dd775eabe81145921b4a0619d4
 
 export default function HeroVariation1() {
   // States
   const [isLoaded, setIsLoaded] = useState(false);
   const [currentParticleColor, setCurrentParticleColor] = useState(0);
-<<<<<<< HEAD
-  const { token } = useTypeContext();
-=======
   const [isSearching, setIsSearching] = useState(false);
   const { token } = useTypeContext();
   // Add this new state after the existing states
   const [hasSearched, setHasSearched] = useState(false);
 
->>>>>>> 7ce9e15e5125b6dd775eabe81145921b4a0619d4
   //Queries
   const { debouncedParams } = useQueryParams();
 
@@ -82,8 +75,6 @@ export default function HeroVariation1() {
   // Flatten the data from all pages
   const flattenData = flattenedDrugs({ data });
 
-<<<<<<< HEAD
-=======
   // Search handlers
   const handleSearchStart = () => {
     setIsSearching(true);
@@ -99,7 +90,6 @@ export default function HeroVariation1() {
     setHasSearched(false); // Reset to initial state
   };
 
->>>>>>> 7ce9e15e5125b6dd775eabe81145921b4a0619d4
   useEffect(() => {
     setIsLoaded(true);
     const colorInterval = setInterval(() => {
@@ -267,38 +257,6 @@ export default function HeroVariation1() {
               style={{ opacity }}
             >
               {/* SECTION 2: Dynamic Search */}
-<<<<<<< HEAD
-              <DynamicResearch />
-              {!isLoading && isFetched ? (
-                <Box
-                  mx={"auto"}
-                  maxWidth={"lg"}
-                  pt={3}
-                  id="search-results-section" // Added ID for better targeting
-                >
-                  <InfiniteScrollComponent
-                    page={"drugs"}
-                    layoutGrid={4}
-                    fetchNextPage={fetchNextPage}
-                    flattenData={flattenData}
-                    total={total}
-                    hasNextPage={hasNextPage}
-                  />
-                </Box>
-              ) : (
-                <Box pt={3}>
-                  <DrugCardSkeleton count={6} />
-                </Box>
-              )}
-              {flattenData.length <= 0 && isFetched && (
-                <Box
-                  pt={3}
-                  textAlign="center"
-                >
-                  <p>No drugs found matching your search.</p>
-                </Box>
-              )}
-=======
               <DynamicResearch
                 onSearchStart={handleSearchStart}
                 onSearchComplete={handleSearchComplete}
@@ -360,7 +318,6 @@ export default function HeroVariation1() {
                 )}
               </AnimatePresence>
 
->>>>>>> 7ce9e15e5125b6dd775eabe81145921b4a0619d4
               {/* SECTION 3: Spectacular AI Features */}
               <AiFeatures />
 

@@ -48,14 +48,13 @@ function VerifySendCoding() {
         data: values,
       };
       const { data } = await axios.request(options);
-      console.log(data);
       if (data.message === "success") {
         toast.success(data.message);
         navigator("/updatedpassword");
       }
     } catch (error) {
       toast.error(error.response.data.message);
-      console.log(error);
+      console.error(error);
     } finally {
       toast.dismiss(loading);
     }
@@ -82,7 +81,10 @@ function VerifySendCoding() {
           name="keywords"
           content="verify code, authentication, security code, account verification, OTP"
         />
-        <meta property="og:title" content="Verify Your Code" />
+        <meta
+          property="og:title"
+          content="Verify Your Code"
+        />
         <meta
           property="og:description"
           content="Enter the verification code to secure your account and complete the authentication process."
@@ -120,7 +122,10 @@ function VerifySendCoding() {
               alignItems: "center",
             }}
           >
-            <Logo justifyContent="center" mb={3}>
+            <Logo
+              justifyContent="center"
+              mb={3}
+            >
               <GradientLogo />
             </Logo>
 
