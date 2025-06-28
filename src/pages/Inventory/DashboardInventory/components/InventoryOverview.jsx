@@ -40,7 +40,7 @@ const InventoryOverview = ({ isLoading, dataInfo }) => {
     },
     {
       title: "Total Sales",
-      value: totalSales,
+      value: totalSales.toFixed(2),
       icon: <AttachMoneyIcon />,
       iconBg: badgeBackground,
       iconColor: textWarning,
