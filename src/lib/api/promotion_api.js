@@ -41,3 +41,14 @@ export const updatePromotion = async ({ token, values, drugId }) => {
   };
   return axios.request(options);
 };
+
+// get specific Promotion
+export const getSpecificPromotion = async (inventoryId, params = {}) => {
+  const options = {
+    url: `${API_URL_DRUG}/promotion/${inventoryId}`,
+    method: "GET",
+    params,
+  };
+  const { data } = await axios.request(options);
+  return data;
+};

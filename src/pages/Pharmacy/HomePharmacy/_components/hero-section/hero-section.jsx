@@ -16,11 +16,28 @@ import { containerVariants } from "./constants/variants";
 import TrustIndications from "./_components/trust-indications";
 import DynamicResearch from "./_components/dynamic-research";
 import AiFeatures from "./_components/ai-features";
+import { useInfiniteDrugs } from "../../../../../lib/hooks/useDrugAction";
+import {
+  flattenedDrugs,
+  totalItems,
+} from "../../../../../lib/constants/infinte-data";
+import { useTypeContext } from "../../../../../context/UserType.context";
+import { useQueryParams } from "../../../../../context/params.context";
+import InfiniteScrollComponent from "../../../../../components/infinite-scroll";
+import DrugCardSkeleton from "../../../../../components/Common/Loading/DrugCardSkeleton";
+import SearchLoadingAnimation from "../../../../../components/Common/Loading/search-loading";
 
 export default function HeroVariation1() {
   // States
   const [isLoaded, setIsLoaded] = useState(false);
   const [currentParticleColor, setCurrentParticleColor] = useState(0);
+  const [isSearching, setIsSearching] = useState(false);
+  const { token } = useTypeContext();
+  // Add this new state after the existing states
+  const [hasSearched, setHasSearched] = useState(false);
+
+  //Queries
+  const { debouncedParams } = useQueryParams();
 
   //Themes
   const { backgroundElevated } = useThemeConstants();
@@ -50,9 +67,31 @@ export default function HeroVariation1() {
     "rgba(76, 175, 80, 0.6)",
   ];
 
+  const { data, fetchNextPage, hasNextPage, isLoading, isFetched } =
+    useInfiniteDrugs(token, debouncedParams);
+
+  const total = totalItems({ data });
+
+  // Flatten the data from all pages
+  const flattenData = flattenedDrugs({ data });
+
+  // Search handlers
+  const handleSearchStart = () => {
+    setIsSearching(true);
+    setHasSearched(true); // Mark that user has started searching
+  };
+
+  const handleSearchComplete = () => {
+    setIsSearching(false);
+  };
+
+  const handleSearchReset = () => {
+    setIsSearching(false);
+    setHasSearched(false); // Reset to initial state
+  };
+
   useEffect(() => {
     setIsLoaded(true);
-
     const colorInterval = setInterval(() => {
       setCurrentParticleColor((prev) => (prev + 1) % particleColors.length);
     }, 3000);
@@ -218,18 +257,76 @@ export default function HeroVariation1() {
               style={{ opacity }}
             >
               {/* SECTION 2: Dynamic Search */}
-              <DynamicResearch />
+              <DynamicResearch
+                onSearchStart={handleSearchStart}
+                onSearchComplete={handleSearchComplete}
+                onSearchReset={handleSearchReset}
+              />
+
+              {/* Conditional rendering based on search state */}
+              <AnimatePresence mode="wait">
+                {!hasSearched ? (
+                  ""
+                ) : isSearching ? (
+                  <motion.div
+                    key="searching"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -20 }}
+                    transition={{ duration: 0.5 }}
+                  >
+                    <SearchLoadingAnimation />
+                  </motion.div>
+                ) : (
+                  <motion.div
+                    key="results"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -20 }}
+                    transition={{ duration: 0.5 }}
+                  >
+                    {!isLoading && isFetched ? (
+                      <Box
+                        mx={"auto"}
+                        maxWidth={"lg"}
+                        pt={3}
+                      >
+                        <InfiniteScrollComponent
+                          page={"drugs"}
+                          layoutGrid={4}
+                          fetchNextPage={fetchNextPage}
+                          flattenData={flattenData}
+                          total={total}
+                          hasNextPage={hasNextPage}
+                        />
+                      </Box>
+                    ) : (
+                      <Box pt={3}>
+                        <DrugCardSkeleton count={6} />
+                      </Box>
+                    )}
+
+                    {flattenData.length <= 0 && isFetched && (
+                      <Box
+                        pt={3}
+                        textAlign="center"
+                      >
+                        <p>No drugs found matching your search.</p>
+                      </Box>
+                    )}
+                  </motion.div>
+                )}
+              </AnimatePresence>
 
               {/* SECTION 3: Spectacular AI Features */}
               <AiFeatures />
+
               {/* SECTION 4: Animated Trust Indicators */}
               <TrustIndications />
             </motion.div>
           )}
         </AnimatePresence>
       </Container>
-
-      {/* Enhanced CSS Animations */}
     </Box>
   );
 }

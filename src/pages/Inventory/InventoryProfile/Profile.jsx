@@ -19,7 +19,6 @@ import HeaderProfileSkeleton from "../../../components/Common/Loading/profile_he
 
 const ProfileBase = () => {
   const navigate = useNavigate();
-  const [params, setParams] = useState({});
   const [activeTab, setActiveTab] = useState(0);
   const { token } = useTypeContext();
 
@@ -35,7 +34,8 @@ const ProfileBase = () => {
     isLoading: LoadingOwnDrugs,
     hasNextPage,
     isFetched,
-  } = useInfiniteOwnDrugs(token, params);
+  } = useInfiniteOwnDrugs(token, { limit: 15 });
+  console.log(InfiniteData);
 
   // Animation variants
   const containerVariants = {

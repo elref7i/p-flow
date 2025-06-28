@@ -3,6 +3,10 @@ import { Box, Typography } from "@mui/material";
 import InventoryIcon from "@mui/icons-material/Inventory";
 import DrugCardSkeleton from "../../../../components/Common/Loading/DrugCardSkeleton";
 import InfiniteScrollComponent from "../../../../components/infinite-scroll";
+import {
+  flattenedDrugs,
+  totalItems,
+} from "../../../../lib/constants/infinte-data";
 
 const TabContent = ({
   activeTab,
@@ -10,20 +14,26 @@ const TabContent = ({
   fetchNextPage,
   hasNextPage,
   LoadingOwnDrugs,
+  promotionData,
+  fetchNextPromotion,
+  loadingPromotion,
+  hasNextPagePromotion,
 }) => {
-  console.log("dataInfo", dataInfo);
-
   // Flatten the data from all pages
-  const flattenedDrugs =
+  const flattenedDataDrugs =
     dataInfo?.pages?.flatMap((page) => page.data.drugs || []) || [];
 
-  const totalItems =
+  const flattenedPromotion = flattenedDrugs({ data: promotionData });
+
+  const totalItemsDrugs =
     dataInfo?.pages?.reduce((total, page) => {
       return total + (page.data.drugs?.length || 0);
     }, 0) || 0;
 
-  console.log("flattenedDrugs", flattenedDrugs);
-  console.log("totalItems", totalItems);
+  const totalItemsPromotion = totalItems({ data: promotionData });
+
+  console.log("flattenedDrugsR", flattenedPromotion);
+  // console.log("totalItems", totalItems);
 
   return (
     <>
@@ -33,8 +43,8 @@ const TabContent = ({
             page={"inventoryProfile"}
             layoutGrid={4}
             fetchNextPage={fetchNextPage}
-            flattenData={flattenedDrugs}
-            total={totalItems}
+            flattenData={flattenedDataDrugs}
+            total={totalItemsDrugs}
             hasNextPage={hasNextPage}
           />
         ) : (
@@ -43,14 +53,14 @@ const TabContent = ({
 
       {activeTab === 1 && (
         <Box sx={{ textAlign: "center", py: 2 }}>
-          {!LoadingOwnDrugs ? (
+          {!loadingPromotion ? (
             <InfiniteScrollComponent
-              page={"inventoryProfile"}
+              page={"offers"}
               layoutGrid={4}
-              fetchNextPage={fetchNextPage}
-              flattenData={flattenedDrugs}
-              total={totalItems}
-              hasNextPage={hasNextPage}
+              fetchNextPage={fetchNextPromotion}
+              flattenData={flattenedPromotion}
+              total={totalItemsPromotion}
+              hasNextPage={hasNextPagePromotion}
             />
           ) : (
             <DrugCardSkeleton count={6} />
