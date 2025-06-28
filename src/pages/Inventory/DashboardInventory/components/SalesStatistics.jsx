@@ -72,7 +72,10 @@ const SalesStatistics = () => {
         </Typography>
 
         <Box sx={{ height: 300, mt: 4 }}>
-          <ResponsiveContainer width="100%" height="100%">
+          <ResponsiveContainer
+            width="100%"
+            height="100%"
+          >
             <LineChart
               data={data}
               margin={{
