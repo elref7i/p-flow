@@ -2,11 +2,16 @@
 
 import MedicationIcon from "@mui/icons-material/Medication";
 import LocalOfferIcon from "@mui/icons-material/LocalOffer";
-import InventoryIcon from "@mui/icons-material/Inventory";
 import { alpha, Tabs, Tab, useTheme } from "@mui/material";
+import { useThemeConstants } from "../../../../lib/constants/theme.constant";
+import { useTypeContext } from "../../../../context/UserType.context";
 
 export default function ProfileTabs({ activeTab, handleTabChange }) {
+  const { role } = useTypeContext();
   const theme = useTheme();
+  const { background, backgroundBlueSoft, textLink, textError, border } =
+    useThemeConstants();
+
   return (
     <Tabs
       onChange={handleTabChange}
@@ -14,7 +19,8 @@ export default function ProfileTabs({ activeTab, handleTabChange }) {
       indicatorColor="secondary"
       textColor="secondary"
       sx={{
-        bgcolor: "transparent",
+        bgcolor: background,
+        boxShadow: 8,
         mb: 2,
         "& .MuiTabs-indicator": {
           height: 1,
@@ -23,7 +29,7 @@ export default function ProfileTabs({ activeTab, handleTabChange }) {
           minWidth: 0,
           py: 1.5,
         },
-        borderBottom: `1px solid ${alpha(theme.palette.divider, 0.5)}`,
+        borderBottom: `1px solid ${alpha(border, 0.5)}`,
       }}
     >
       <Tab
@@ -31,41 +37,23 @@ export default function ProfileTabs({ activeTab, handleTabChange }) {
         aria-label="medications"
         sx={{
           borderRadius: "5px",
-          bgcolor:
-            activeTab === 0 ? theme.palette.background.paper : "transparent",
-          color:
-            activeTab === 0
-              ? theme.palette.primary.main
-              : theme.palette.secondary.main,
+          boxShadow: activeTab === 0 ? 7 : 8,
+          bgcolor: activeTab === 0 ? backgroundBlueSoft : "transparent",
+          color: activeTab === 0 ? theme.palette.primary.main : textLink,
         }}
       />
-      <Tab
-        icon={<LocalOfferIcon />}
-        aria-label="offers"
-        sx={{
-          borderRadius: "5px",
-          bgcolor:
-            activeTab === 1 ? theme.palette.background.paper : "transparent",
-          color:
-            activeTab === 1
-              ? theme.palette.primary.main
-              : theme.palette.secondary.main,
-        }}
-      />
-      <Tab
-        icon={<InventoryIcon />}
-        aria-label="inventory"
-        sx={{
-          borderRadius: "5px",
-          bgcolor:
-            activeTab === 2 ? theme.palette.background.paper : "transparent",
-          color:
-            activeTab === 2
-              ? theme.palette.primary.main
-              : theme.palette.secondary.main,
-        }}
-        // K
-      />
+      {role === "pharmacy" && (
+        <Tab
+          icon={<LocalOfferIcon />}
+          aria-label="offers"
+          sx={{
+            borderRadius: "5px",
+            boxShadow: activeTab === 1 ? 7 : 8,
+            bgcolor: activeTab === 1 ? backgroundBlueSoft : "transparent",
+            color: activeTab === 1 ? theme.palette.primary.main : textError,
+          }}
+        />
+      )}
     </Tabs>
   );
 }

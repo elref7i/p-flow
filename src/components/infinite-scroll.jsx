@@ -22,8 +22,10 @@ export default function InfiniteScrollComponent({
       loader={
         page === "drugs" ? (
           <DrugCardSkeleton count={3} />
-        ) : (
+        ) : page === "offers" ? (
           <CardPromotionSkeleton />
+        ) : (
+          <DrugCardSkeleton count={3} />
         )
       }
       scrollThreshold={0.8}

@@ -1,10 +1,16 @@
+/* eslint-disable react/prop-types */
+
 import { Box, Paper, Stack, Typography } from "@mui/material";
 import { motion } from "framer-motion";
 import { itemVariants } from "../constants/variants";
 import { useThemeConstants } from "../../../../../../lib/constants/theme.constant";
-import SearchBar from "../../../../../../components/SearchBar/SearchBar";
+import SearchBarHome from "../../../../../../components/SearchBar/search-bar-home";
 
-export default function DynamicResearch() {
+export default function DynamicResearch({
+  onSearchStart,
+  onSearchComplete,
+  onSearchReset,
+}) {
   //Context
   const { textPrimary, border } = useThemeConstants();
 
@@ -58,7 +64,11 @@ export default function DynamicResearch() {
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: 1.2, duration: 0.8 }}
               >
-                <SearchBar />
+                <SearchBarHome
+                  onSearchStart={onSearchStart}
+                  onSearchComplete={onSearchComplete}
+                  onSearchReset={onSearchReset}
+                />
               </motion.div>
 
               {/* Enhanced Quick Suggestions */}
@@ -78,8 +88,7 @@ export default function DynamicResearch() {
                   >
                     Popular searches:
                   </Typography>
-
-                  {/* Local Storge */}
+                  {/* Popular searches are now handled in SearchBar component */}
                   <Stack
                     direction="row"
                     spacing={2}
@@ -91,27 +100,6 @@ export default function DynamicResearch() {
             </Paper>
           </motion.div>
         </Box>
-        {/* {!isLoading && isFetched ? (
-          <Box pt={3}>
-            <InfiniteScrollComponent
-              page={"drugs"}
-              layoutGrid={4}
-              fetchNextPage={fetchNextPage}
-              flattenData={flattenData}
-              total={total}
-              hasNextPage={hasNextPage}
-            />
-          </Box>
-        ) : (
-          <DrugCardSkeleton count={6} />
-        )}
-        {flattenData.length <= 0 && (
-          <EmptyPage
-            title={"No Drugs Found"}
-            subtitle={" We couldn’t find any matching drugs"}
-            customMessage={"Try searching with a different name or category"}
-          />
-        )} */}
       </Box>
     </motion.div>
   );
