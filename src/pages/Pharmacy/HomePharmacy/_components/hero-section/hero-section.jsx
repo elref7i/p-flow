@@ -24,7 +24,6 @@ import {
 import { useTypeContext } from "../../../../../context/UserType.context";
 import { useQueryParams } from "../../../../../context/params.context";
 import InfiniteScrollComponent from "../../../../../components/infinite-scroll";
-import DrugCardSkeleton from "../../../../../components/Common/Loading/DrugCardSkeleton";
 import SearchLoadingAnimation from "../../../../../components/Common/Loading/search-loading";
 
 export default function HeroVariation1() {
@@ -301,9 +300,7 @@ export default function HeroVariation1() {
                         />
                       </Box>
                     ) : (
-                      <Box pt={3}>
-                        <DrugCardSkeleton count={6} />
-                      </Box>
+                      ""
                     )}
 
                     {flattenData.length <= 0 && isFetched && (
