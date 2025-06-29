@@ -8,7 +8,6 @@ import {
   Toolbar,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
-import { MessageTwoTone } from "@mui/icons-material";
 import { useThemeContext } from "../../../context/theme.context";
 import { useTypeContext } from "../../../context/UserType.context";
 import { useThemeConstants } from "../../../lib/constants/theme.constant";
@@ -39,11 +38,11 @@ const AppBar = styled(MuiAppBar, {
 export default function Navbar() {
   //Context
   const { token } = useTypeContext();
-  const { open, toggleDrawer, isLargeScreen, isMediumScreen } =
+  const { open, toggleDrawer, isLargeScreen, isMediumScreen, borderHover } =
     useThemeContext();
 
   // Theme
-  const { textPrimary, cardBackground, shadow3 } = useThemeConstants();
+  const { shadow3 } = useThemeConstants();
 
   // Force open state on large screens for AppBar styling
   const isOpen = isLargeScreen ? true : open;
@@ -74,7 +73,7 @@ export default function Navbar() {
               onClick={toggleDrawer}
               edge="start"
               sx={{
-                bgcolor: cardBackground,
+                border: `1px solid ${borderHover}`,
                 boxShadow: shadow3,
                 position: "absolute",
                 borderRadius: open && "0px 40px 40px 0px",
@@ -107,20 +106,7 @@ export default function Navbar() {
             }}
           >
             {/* Notifications & Messages (only if authenticated) */}
-            {token && (
-              <>
-                <IconButton
-                  aria-label="messages"
-                  size="medium"
-                  sx={{
-                    color: textPrimary,
-                  }}
-                >
-                  <MessageTwoTone fontSize="inherit" />
-                </IconButton>
-                <NotificationsModal />
-              </>
-            )}
+            {token && <NotificationsModal />}
           </Stack>
         </Toolbar>
       </Container>

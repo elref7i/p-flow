@@ -300,7 +300,7 @@ export default function HeroVariation1() {
                         />
                       </Box>
                     ) : (
-                      ""
+                      <SearchLoadingAnimation />
                     )}
 
                     {flattenData.length <= 0 && isFetched && (

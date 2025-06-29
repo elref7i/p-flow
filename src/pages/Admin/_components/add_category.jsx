@@ -43,8 +43,6 @@ const style = {
   width: "90%", // تغيير العرض ليكون نسبة من الشاشة
   maxWidth: "600px", // وضع حد أقصى للعرض
   maxHeight: "90vh",
-  bgcolor: "background.paper",
-  boxShadow: "0px 2px 7px 0px rgba(59, 130, 246, 0.75)",
   borderRadius: "16px",
   p: 0,
   overflow: "hidden",
@@ -62,10 +60,11 @@ export default function AddCategory() {
     buttonBackground,
     buttonHover,
     buttonText,
-    shadow2,
     typography,
-    pharmacyBackground,
+    cardDetailsBackground,
     textPrimary,
+    cardBackground,
+    borderHover,
   } = useThemeConstants();
 
   //Mutations
@@ -136,11 +135,11 @@ export default function AddCategory() {
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <Box sx={style}>
+        <Box sx={{ ...style, background: cardBackground, boxShadow: 8 }}>
           <Box
             sx={{
-              bgcolor: pharmacyBackground,
-              boxShadow: shadow2, // Green header for Add modal
+              bgcolor: cardDetailsBackground,
+              boxShadow: 8, // Green header for Add modal
               color: textPrimary,
               p: 2,
               display: "flex",
@@ -209,12 +208,13 @@ export default function AddCategory() {
                 onChange={handleChange}
                 onBlur={handleBlur}
                 style={{
+                  color: textPrimary,
                   padding: "16px",
                   fontSize: "16px",
-                  borderColor:
-                    errors.description && touched.description ? "red" : "#ccc",
+                  borderColor: cardDetailsBackground,
                   borderRadius: "4px",
-                  borderWidth: "1px",
+                  border: `1px solid ${borderHover}`,
+                  background: cardBackground,
                   width: "100%",
                   resize: "vertical",
                 }}
