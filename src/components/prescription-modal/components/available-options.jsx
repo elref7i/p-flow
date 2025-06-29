@@ -3,15 +3,24 @@ import {
   Avatar,
   Box,
   Button,
+  CircularProgress,
   Divider,
   Paper,
   Stack,
   Typography,
 } from "@mui/material";
 import { formatPrice } from "../../../lib/utils/price-formate";
-import { ShoppingCart } from "@mui/icons-material";
+import { useAddToCart } from "../../../lib/hooks/use-cart";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import { buttonText } from "../../../lib/utils/status-stock";
+import { useNavigate } from "react-router-dom";
 
 export default function AvailableOptions({ medication }) {
+  //Mutation
+  const { mutate, isLoading } = useAddToCart();
+
+  const navigate = useNavigate();
+
   return (
     <Box>
       <Divider sx={{ my: 2 }} />
@@ -49,16 +58,24 @@ export default function AvailableOptions({ medication }) {
             />
             <Box flex={1}>
               <Typography
+                onClick={() => {
+                  return navigate(`/pharmacy/drugdetails/${drug._id}`);
+                }}
+                sx={{ cursor: "pointer" }}
                 variant="body2"
                 fontWeight={600}
               >
                 {drug.name}
               </Typography>
               <Typography
+                onClick={() =>
+                  navigate(`/pharmacy/inventoryprofile/${drug.inventory._id}`)
+                }
+                sx={{ cursor: "pointer" }}
                 variant="caption"
                 color="text.secondary"
               >
-                {drug.inventory?.name} • Stock: {drug.stock}
+                {drug.inventory?.name}
               </Typography>
             </Box>
             <Box textAlign="right">
@@ -82,17 +99,38 @@ export default function AvailableOptions({ medication }) {
             </Box>
           </Stack>
           <Button
+            disabled={isLoading || drug.stock <= 0}
+            onClick={() => {
+              mutate({
+                drugId: drug._id,
+                quantity: 1,
+              });
+            }}
             variant="contained"
-            size="small"
-            startIcon={<ShoppingCart />}
+            color="primary"
             fullWidth
+            startIcon={
+              isLoading ? (
+                <CircularProgress
+                  size={16}
+                  color="inherit"
+                />
+              ) : (
+                <ShoppingCartIcon />
+              )
+            }
             sx={{
               borderRadius: 2,
               textTransform: "none",
+              py: 1,
               fontWeight: 600,
+              boxShadow: 2,
+              "&:hover": {
+                boxShadow: 3,
+              },
             }}
           >
-            Add to Cart
+            {buttonText(drug.stock)}
           </Button>
         </Paper>
       ))}

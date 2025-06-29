@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 
-import { Box, Paper, Stack, Typography } from "@mui/material";
+import { Box, Paper, Typography } from "@mui/material";
 import { motion } from "framer-motion";
 import { itemVariants } from "../constants/variants";
 import { useThemeConstants } from "../../../../../../lib/constants/theme.constant";
@@ -50,6 +50,7 @@ export default function DynamicResearch({
                   sx={{
                     color: textPrimary,
                     mb: 4,
+                    mt: 5,
                     fontWeight: 700,
                     textAlign: "center",
                     fontSize: { xs: "1.3rem", md: "1.5rem" },
@@ -69,33 +70,6 @@ export default function DynamicResearch({
                   onSearchComplete={onSearchComplete}
                   onSearchReset={onSearchReset}
                 />
-              </motion.div>
-
-              {/* Enhanced Quick Suggestions */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 1.4, duration: 0.8 }}
-              >
-                <Box mt={4}>
-                  <Typography
-                    variant="body1"
-                    sx={{
-                      color: "text.secondary",
-                      mb: 3,
-                      fontWeight: 500,
-                    }}
-                  >
-                    Popular searches:
-                  </Typography>
-                  {/* Popular searches are now handled in SearchBar component */}
-                  <Stack
-                    direction="row"
-                    spacing={2}
-                    flexWrap="wrap"
-                    useFlexGap
-                  ></Stack>
-                </Box>
               </motion.div>
             </Paper>
           </motion.div>

@@ -76,7 +76,7 @@ export default function SearchBarHome({
 
   return (
     <>
-      <Box sx={{ position: "relative", flex: 1 }}>
+      <Box sx={{ position: "relative", flex: 1, mb: 5 }}>
         <TextField
           fullWidth
           type="search"
