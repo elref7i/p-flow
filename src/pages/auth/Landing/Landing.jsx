@@ -38,8 +38,8 @@ const LandingPage = () => {
         <HeroSection />
         <FeaturesSection />
         <HowItWorksSection />
-        <StatisticsSection />
         <ServicesSection />
+        <StatisticsSection />
         <ContactSection />
       </Box>
       <Footer />
