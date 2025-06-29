@@ -2,6 +2,10 @@ import AID from "../../../../src/assets/F-AI-D.png";
 import AIL from "../../../../src/assets/F-AI-L.png";
 import PRD from "../../../../src/assets/PR-D.png";
 import PRL from "../../../../src/assets/PRL.png";
+import DRUGD from "../../../../src/assets/DRUG-D.png";
+import DRUGL from "../../../../src/assets/DRUG-L.png";
+import OID from "../../../../src/assets/OID.png";
+import OIL from "../../../../src/assets/OIL.png";
 
 export const howItWorksSteps = [
   {
@@ -70,8 +74,8 @@ export const howItWorksSteps = [
           "Track stock levels and receive low-inventory notifications.",
       },
     ],
-    imageDark: AID,
-    imageLight: AIL,
+    imageDark: DRUGD,
+    imageLight: DRUGL,
   },
   {
     title: "Efficient Order Management",
@@ -93,7 +97,7 @@ export const howItWorksSteps = [
           "Stock updates automatically after each order is placed or fulfilled.",
       },
     ],
-    imageDark: AID,
-    imageLight: AIL,
+    imageDark: OID,
+    imageLight: OIL,
   },
 ];

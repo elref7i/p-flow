@@ -51,10 +51,10 @@ export default function Filter({ openFilter, handleCloseFilter, setParams }) {
     textPrimary,
     shadow1,
     shadow2,
-    shadow3,
     typography,
     cardBackground,
     border,
+    backgroundElevated,
   } = useThemeConstants();
 
   // Functions
@@ -98,9 +98,10 @@ export default function Filter({ openFilter, handleCloseFilter, setParams }) {
     >
       <SlideTransition in={openFilter}>
         <Paper
-          elevation={1}
+          elevation={8}
           sx={{
             position: "fixed",
+            background: backgroundElevated,
             top: 0,
             right: 0,
             width: { xs: "85%", sm: "400px" },
@@ -166,7 +167,7 @@ export default function Filter({ openFilter, handleCloseFilter, setParams }) {
               elevation={0}
               sx={{
                 background: cardBackground,
-                boxShadow: shadow3,
+                boxShadow: 8,
                 mb: 1,
                 "&:before": { display: "none" },
                 border: "1px solid rgba(0, 0, 0, 0.08)",
@@ -238,7 +239,7 @@ export default function Filter({ openFilter, handleCloseFilter, setParams }) {
                 "&:before": { display: "none" },
                 border: border,
                 background: cardBackground,
-                boxShadow: shadow3,
+                boxShadow: 8,
                 borderRadius: "8px",
                 overflow: "hidden",
               }}
@@ -295,7 +296,7 @@ export default function Filter({ openFilter, handleCloseFilter, setParams }) {
                 background: cardBackground,
                 borderRadius: 2,
                 border: border,
-                boxShadow: shadow3,
+                boxShadow: 8,
               }}
             >
               <Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>

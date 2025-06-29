@@ -138,8 +138,8 @@ export default function AiFeatures() {
                       fontSize: "1.1rem",
                     }}
                   >
-                    Smart AI analyzes and suggests medicines by active
-                    ingredients with drug interactions
+                    Search drugs by name and get instant results with smart
+                    filtering.
                   </Typography>
                   <motion.div
                     whileHover={{ scale: 1.08 }}

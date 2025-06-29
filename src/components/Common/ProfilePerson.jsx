@@ -155,7 +155,7 @@ export default function ProfilePerson({ open }) {
                   letterSpacing: "0.025em",
                 }}
               >
-                {userData.name}
+                {userData?.name?.split(" ")[0]}
               </Typography>
               <Typography
                 textTransform={"capitalize"}

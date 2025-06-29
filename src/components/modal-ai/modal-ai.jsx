@@ -329,7 +329,7 @@ const SearchAi = ({ check }) => {
                     fullWidth
                     id="medicine"
                     name="medicine"
-                    placeholder="Enter drug name, active ingredient, or condition..."
+                    placeholder="Search drugs by name and get instant results with smart filtering...."
                     variant="outlined"
                     value={formik.values.medicine}
                     onChange={formik.handleChange}
@@ -345,7 +345,6 @@ const SearchAi = ({ check }) => {
                       "& .MuiOutlinedInput-root": {
                         borderRadius: 3,
                         fontSize: "1.1rem",
-                        background: "rgba(255,255,255,0.8)",
                         backdropFilter: "blur(10px)",
                         transition: "all 0.3s ease",
                         "&:hover": {
@@ -406,44 +405,6 @@ const SearchAi = ({ check }) => {
                       ),
                     }}
                   />
-
-                  {/* Search Tips */}
-                  <Box>
-                    <Typography
-                      variant="body2"
-                      color="text.secondary"
-                      sx={{ mb: 1, fontWeight: 500 }}
-                    >
-                      💡 Search Tips:
-                    </Typography>
-                    <Stack
-                      direction="row"
-                      spacing={1}
-                      flexWrap="wrap"
-                      useFlexGap
-                    >
-                      {[
-                        "Paracetamol",
-                        "Ibuprofen",
-                        "Vitamin D",
-                        "Antibiotics",
-                      ].map((tip) => (
-                        <Chip
-                          key={tip}
-                          label={tip}
-                          size="small"
-                          onClick={() => formik.setFieldValue("medicine", tip)}
-                          sx={{
-                            cursor: "pointer",
-                            "&:hover": {
-                              bgcolor: "primary.main",
-                              color: "white",
-                            },
-                          }}
-                        />
-                      ))}
-                    </Stack>
-                  </Box>
                 </Stack>
               </Paper>
 
