@@ -307,6 +307,7 @@ export default function HeroVariation1() {
                       <Box
                         pt={3}
                         textAlign="center"
+                        color={"error"}
                       >
                         <p>No drugs found matching your search.</p>
                       </Box>

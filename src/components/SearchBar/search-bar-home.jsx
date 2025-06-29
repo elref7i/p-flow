@@ -7,6 +7,7 @@ import FilterListIcon from "@mui/icons-material/FilterList";
 import { useQueryParams } from "../../context/params.context";
 import { Search } from "@mui/icons-material";
 import { motion } from "framer-motion";
+import { useThemeConstants } from "../../lib/constants/theme.constant";
 
 export default function SearchBarHome({
   onSearchStart,
@@ -19,7 +20,7 @@ export default function SearchBarHome({
 
   //Context
   const { setSearchParams, setShowDrugsAtHome } = useQueryParams();
-
+  const { textPrimary } = useThemeConstants();
   //Functions
   const handleOpenFilter = () => setOpenFilter(true);
   const handleCloseFilter = () => setOpenFilter(false);
@@ -78,6 +79,7 @@ export default function SearchBarHome({
     <>
       <Box sx={{ position: "relative", flex: 1, mb: 5 }}>
         <TextField
+          autoComplete="false"
           fullWidth
           type="search"
           variant="outlined"
@@ -131,9 +133,16 @@ export default function SearchBarHome({
                 transform: "translateY(-2px)",
               },
               "&.Mui-focused": {
-                boxShadow: "0 15px 35px 8",
+                // boxShadow: "0 15px 35px 8",
                 transform: "translateY(-3px)",
               },
+            },
+            "& input:-webkit-autofill": {
+              WebkitBoxShadow:
+                "radial-gradient(circle, rgba(33, 150, 243, 0.15) 0%, transparent 70%)",
+              WebkitTextFillColor: textPrimary, // اللون اللي انت عايزه (مثلاً أسود)
+              caretColor: "#000",
+              transition: "background-color 9999s ease-in-out 0s",
             },
           }}
         />
