@@ -14,18 +14,15 @@ export default function EditPromotion({ id, setShowOptions, dataInfo }) {
   const { handleSubmit, handleBlur, handleChange, values, errors, touched } =
     useFormik({
       initialValues: {
-        name: dataInfo?.name || "",
-        freeQuantity: dataInfo?.promotion?.freeQuantity || 0,
+        name: dataInfo?.name,
+        promotion: {
+          freeItems: dataInfo?.promotion?.freeQuantity,
+        },
       },
+
       validationSchema: UpdatePromotionSchema,
       onSubmit: async (values) => {
-        const body = {
-          name: values.name,
-          promotion: {
-            freeItems: Number(values.freeQuantity),
-          },
-        };
-        await mutateAsync({ token, values: body, drugId: id });
+        await mutateAsync({ token, values, drugId: id });
         setShowOptions("default");
       },
     });

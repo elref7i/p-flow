@@ -32,7 +32,7 @@ export const addPromotion = async ({ token, values }) => {
 export const updatePromotion = async ({ token, values, drugId }) => {
   const options = {
     url: `${API_URL_DRUG}/promotion/${drugId}`,
-    method: "PUT  ",
+    method: "PUT",
     data: values,
     headers: {
       Authorization: `Bearer ${token}`,
