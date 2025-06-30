@@ -174,29 +174,10 @@ const DrugCard = ({
                   alignItems: "center",
                 }}
               >
-                <Typography variant="h6" color={textSecondary}>
-                  Consumer Price:
-                </Typography>
                 <Typography
                   variant="h6"
-                  sx={{
-                    fontWeight: 700,
-                    color: textSecondary,
-                    textDecoration: drug.discount > 0 ? "line-through" : "none",
-                  }}
+                  color={textSecondary}
                 >
-                  {formatNumber(drug.price)} L.E
-                </Typography>
-              </Box>
-
-              <Box
-                sx={{
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "center",
-                }}
-              >
-                <Typography variant="h6" color={textSecondary}>
                   Pharmacy Price:
                 </Typography>
                 <Typography
@@ -208,6 +189,31 @@ const DrugCard = ({
                   }}
                 >
                   {formatNumber(drug.discountedPrice)} L.E
+                </Typography>
+              </Box>
+              
+              <Box
+                sx={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                }}
+              >
+                <Typography
+                  variant="h6"
+                  color={textSecondary}
+                >
+                  Consumer Price:
+                </Typography>
+                <Typography
+                  variant="h6"
+                  sx={{
+                    fontWeight: 700,
+                    color: textSecondary,
+                    textDecoration: drug.discount > 0 ? "line-through" : "none",
+                  }}
+                >
+                  {formatNumber(drug.price)} L.E
                 </Typography>
               </Box>
             </Stack>
@@ -235,7 +241,10 @@ const DrugCard = ({
                 fullWidth
                 startIcon={
                   isLoading ? (
-                    <CircularProgress size={16} color="inherit" />
+                    <CircularProgress
+                      size={16}
+                      color="inherit"
+                    />
                   ) : (
                     <ShoppingCartIcon />
                   )
