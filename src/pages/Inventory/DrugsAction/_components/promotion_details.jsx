@@ -163,6 +163,7 @@ export default function PromotionDetails({ dataInfo }) {
               <EditPromotion
                 promotion={promotion}
                 id={dataInfo._id}
+                dataInfo={dataInfo}
                 setShowOptions={setShowOptions}
               />
             ) : showOptions === "add" ? (

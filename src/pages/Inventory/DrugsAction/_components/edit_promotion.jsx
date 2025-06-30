@@ -1,56 +1,38 @@
 /* eslint-disable react/prop-types */
-import {
-  Button,
-  CircularProgress,
-  FormControl,
-  FormHelperText,
-  InputLabel,
-  NativeSelect,
-  Paper,
-  TextField,
-} from "@mui/material";
+import { Button, CircularProgress, Paper, TextField } from "@mui/material";
 import { useFormik } from "formik";
 import { useThemeConstants } from "@/lib/constants/theme.constant";
 import { UpdatePromotionSchema } from "@/lib/schemas/DrugSchema";
 import { useTypeContext } from "@/context/UserType.context";
 import { useUpdatePromotion } from "@/lib/hooks/usepromotion";
 
-export default function EditPromotion({ promotion, id, setShowOptions }) {
-  //Context
+export default function EditPromotion({ id, setShowOptions, dataInfo }) {
   const { token } = useTypeContext();
-
-  //Mutations
   const { mutateAsync, isLoading } = useUpdatePromotion();
-
-  //Themes
   const { cardBackground, buttonText } = useThemeConstants();
 
-  // Formik
-  const {
-    handleSubmit,
-    handleBlur,
-    handleChange,
-    values,
-    errors,
-    touched,
-    setFieldValue,
-  } = useFormik({
-    initialValues: {
-      isActive: promotion.isActive,
-      buyQuantity: promotion.buyQuantity,
-      freeQuantity: promotion.freeQuantity,
-    },
-
-    validationSchema: UpdatePromotionSchema,
-    onSubmit: async (values) => {
-      await mutateAsync({ token, values, drugId: id });
-      setShowOptions("default");
-    },
-  });
+  const { handleSubmit, handleBlur, handleChange, values, errors, touched } =
+    useFormik({
+      initialValues: {
+        name: dataInfo?.name || "",
+        freeQuantity: dataInfo?.promotion?.freeQuantity || 0,
+      },
+      validationSchema: UpdatePromotionSchema,
+      onSubmit: async (values) => {
+        const body = {
+          name: values.name,
+          promotion: {
+            freeItems: Number(values.freeQuantity),
+          },
+        };
+        await mutateAsync({ token, values: body, drugId: id });
+        setShowOptions("default");
+      },
+    });
 
   return (
     <Paper
-      component={"form"}
+      component="form"
       elevation={2}
       onSubmit={handleSubmit}
       sx={{
@@ -64,19 +46,20 @@ export default function EditPromotion({ promotion, id, setShowOptions }) {
     >
       <TextField
         fullWidth
-        label="Buy Quantity"
+        label="Drug Name"
         margin="normal"
-        type="number"
-        name="buyQuantity"
-        value={values.buyQuantity}
+        type="text"
+        name="name"
+        value={values.name}
         onChange={handleChange}
         onBlur={handleBlur}
-        error={errors.buyQuantity && touched.buyQuantity}
-        helperText={touched.buyQuantity && errors.buyQuantity}
+        error={errors.name && touched.name}
+        helperText={touched.name && errors.name}
         InputProps={{
           sx: { borderRadius: "10px" },
         }}
       />
+
       <TextField
         fullWidth
         sx={{ mb: 3 }}
@@ -94,38 +77,7 @@ export default function EditPromotion({ promotion, id, setShowOptions }) {
         }}
       />
 
-      <FormControl
-        fullWidth
-        sx={{ mb: 3 }}
-        error={errors.isActive && touched.isActive}
-      >
-        <InputLabel
-          variant="standard"
-          htmlFor="uncontrolled-native"
-        >
-          Age
-        </InputLabel>
-        <NativeSelect
-          defaultValue={promotion.isActive}
-          name="isActive"
-          inputProps={{
-            name: "age",
-            id: "uncontrolled-native",
-          }}
-          onChange={(e) => {
-            setFieldValue("isActive", e.target.value);
-          }}
-        >
-          <option value={"true"}>Active</option>
-          <option value={"false"}>NotActive</option>
-        </NativeSelect>
-        {errors.status && touched.status && (
-          <FormHelperText>Error</FormHelperText>
-        )}
-      </FormControl>
-
       <Button
-        // onClick={handleEdit}
         variant="contained"
         color="warning"
         type="submit"
@@ -147,7 +99,6 @@ export default function EditPromotion({ promotion, id, setShowOptions }) {
         }
       >
         Edit
-        {/* {!showEdit ? "Edit Promotion" : "Show Details"} */}
       </Button>
     </Paper>
   );

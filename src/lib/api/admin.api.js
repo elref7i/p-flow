@@ -26,7 +26,7 @@ export const addAdminUser = async ({ token, values }) => {
 export const ActiveAdminUser = async ({ token, userId }) => {
   const options = {
     url: `${API_URL_USER}/activate/${userId}`,
-    method: "POST",
+    method: "PATCH",
     data: {
       active: true,
     },

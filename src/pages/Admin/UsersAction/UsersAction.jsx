@@ -2,7 +2,6 @@ import { Box, IconButton } from "@mui/material";
 import { columns } from "./data";
 import { useTypeContext } from "@/context/UserType.context";
 import { Helmet } from "react-helmet";
-import { MoreVert as MoreVertIcon } from "@mui/icons-material";
 import NewReleasesIcon from "@mui/icons-material/NewReleases";
 import VerifiedIcon from "@mui/icons-material/Verified";
 import CancelIcon from "@mui/icons-material/Cancel";
@@ -15,6 +14,7 @@ import {
   useAllUsers,
   useDeleteUser,
 } from "@/lib/hooks/use-admin";
+import HowToRegIcon from "@mui/icons-material/HowToReg";
 export default function UsersAction() {
   //Context
   const { token } = useTypeContext();
@@ -43,11 +43,11 @@ export default function UsersAction() {
         />
         <IconButton
           onClick={() => {
-            handleActive({ userId: params.row._id, token });
+            handleActive({ token, userId: params.row._id });
           }}
           size="small"
         >
-          <MoreVertIcon fontSize="medium" />
+          <HowToRegIcon fontSize="medium" />
         </IconButton>
       </Box>
     ),
@@ -64,9 +64,15 @@ export default function UsersAction() {
     renderCell: (params) => (
       <Box sx={{ pt: 1 }}>
         {params.row.isVerified ? (
-          <VerifiedIcon color="success" fontSize="medium" />
+          <VerifiedIcon
+            color="success"
+            fontSize="medium"
+          />
         ) : (
-          <NewReleasesIcon color="warning" fontSize="medium" />
+          <NewReleasesIcon
+            color="warning"
+            fontSize="medium"
+          />
         )}
       </Box>
     ),
@@ -83,9 +89,15 @@ export default function UsersAction() {
     renderCell: (params) => (
       <Box sx={{ pt: 1 }}>
         {params.row.active === true ? (
-          <CheckCircleIcon color="success" fontSize="medium" />
+          <CheckCircleIcon
+            color="success"
+            fontSize="medium"
+          />
         ) : (
-          <CancelIcon color="error" fontSize="medium" />
+          <CancelIcon
+            color="error"
+            fontSize="medium"
+          />
         )}
       </Box>
     ),
@@ -105,7 +117,10 @@ export default function UsersAction() {
           name="keywords"
           content="users, actions, manage data, user control, account settings, website features"
         />
-        <meta property="og:title" content="User Action - Manage Your Data" />
+        <meta
+          property="og:title"
+          content="User Action - Manage Your Data"
+        />
         <meta
           property="og:description"
           content="Explore the available actions users can take to manage their data efficiently."
