@@ -174,10 +174,7 @@ const DrugCard = ({
                   alignItems: "center",
                 }}
               >
-                <Typography
-                  variant="h6"
-                  color={textSecondary}
-                >
+                <Typography variant="h6" color={textSecondary}>
                   Consumer Price:
                 </Typography>
                 <Typography
@@ -185,9 +182,10 @@ const DrugCard = ({
                   sx={{
                     fontWeight: 700,
                     color: textSecondary,
+                    textDecoration: drug.discount > 0 ? "line-through" : "none",
                   }}
                 >
-                  {formatNumber(drug.discountedPrice)} L.E
+                  {formatNumber(drug.price)} L.E
                 </Typography>
               </Box>
 
@@ -198,22 +196,18 @@ const DrugCard = ({
                   alignItems: "center",
                 }}
               >
-                <Typography
-                  variant="h6"
-                  color={textSecondary}
-                >
+                <Typography variant="h6" color={textSecondary}>
                   Pharmacy Price:
                 </Typography>
                 <Typography
                   variant="h6"
                   sx={{
                     fontWeight: 600,
-                    textDecoration: drug.discount > 0 ? "line-through" : "none",
                     opacity: drug.discount > 0 ? 0.6 : 1,
                     color: textSecondary,
                   }}
                 >
-                  {formatNumber(drug.price)} L.E
+                  {formatNumber(drug.discountedPrice)} L.E
                 </Typography>
               </Box>
             </Stack>
@@ -241,10 +235,7 @@ const DrugCard = ({
                 fullWidth
                 startIcon={
                   isLoading ? (
-                    <CircularProgress
-                      size={16}
-                      color="inherit"
-                    />
+                    <CircularProgress size={16} color="inherit" />
                   ) : (
                     <ShoppingCartIcon />
                   )
